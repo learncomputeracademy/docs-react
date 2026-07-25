@@ -162,21 +162,25 @@ function extractBlocks($, $root) {
       return
     }
 
-    // Tables
+    // Tables — cells keep their inner HTML, not just .text(). Several design/
+    // lessons use tables as download/resource lists (thumbnail + <a> per
+    // cell); .text() silently discarded the links and images entirely.
+    // Consistent with richtext/callout blocks: trusted first-party HTML.
     if (tag === 'table') {
       flushRichtext()
+      const cellHtml = (i, td) => ($(td).html() || '').trim()
       const header = []
-      $(el).find('thead th, thead td').each((_, th) => header.push($(th).text().trim()))
+      $(el).find('thead th, thead td').each((i, th) => header.push(cellHtml(i, th)))
       const rows = []
       $(el).find('tbody tr').each((_, tr) => {
         const row = []
-        $(tr).find('td, th').each((_, td) => row.push($(td).text().trim()))
+        $(tr).find('td, th').each((i, td) => row.push(cellHtml(i, td)))
         if (row.length) rows.push(row)
       })
       // If no explicit thead, try first tr as header
       if (!header.length) {
         const firstRow = $(el).find('tr').first()
-        firstRow.find('th, td').each((_, td) => header.push($(td).text().trim()))
+        firstRow.find('th, td').each((i, td) => header.push(cellHtml(i, td)))
         // Remove the first row from rows
         rows.shift()
       }

@@ -7,17 +7,46 @@ it made every clone, build and deploy slower. That stops here.
 
 ## Where each kind of file goes
 
+**Rule: anything ≥10 MB goes to R2. Everything else goes to Cloudinary.** Cloudinary's free
+tier caps *every* upload type — images and raw files alike — at 10 MB; there is no way
+around that on this plan, so the split is load-bearing, not a preference. See D-14 and
+`lib/storage.ts` (the router that implements this).
+
 | Kind | Home | Why |
 |---|---|---|
-| Lesson images, screenshots, diagrams | **Cloudinary** `image/upload` | auto WebP/AVIF, auto resize, free CDN |
+| Lesson images, screenshots, diagrams (<10MB) | **Cloudinary** `image/upload` | auto WebP/AVIF, auto resize, free CDN |
 | GIFs (there are 8, up to 3.3 MB each) | **Cloudinary**, converted to **MP4/WebM** | a 3.3 MB GIF becomes ~200 KB of video |
-| PDFs — worksheets, cheat sheets, syllabi | **Cloudinary** `raw/upload` | same account, same CDN, one place to look |
-| ZIPs — exercise files, starter projects | **Cloudinary** `raw/upload` | same |
+| PDFs, ZIPs <10MB — worksheets, cheat sheets, syllabi | **Cloudinary** `raw/upload` | same account, same CDN, one place to look |
+| **Any file ≥10MB, any type** | **Cloudflare R2** (`lca-docs-files` bucket) | Cloudinary free tier hard-rejects it; R2 free tier is 10 GB storage, **$0 egress forever** — right fit for repeatedly-downloaded course handouts |
 | Audio (`claps.mp3`, 436 KB) | **Cloudinary** `video/upload` | Cloudinary treats audio as video |
 | Logo, favicons, OG image | **`public/`** in this repo | needed at build time; a few KB |
-| Anything over ~50 MB | ask first | Cloudinary free tier is 25 GB storage / 25 GB bandwidth per month |
 
 **`public/` stays under 5 MB.** If it grows past that, something is in the wrong place.
+
+⚠️ **Oversized images should not silently land on R2.** R2 has none of Cloudinary's
+automatic transformation (no f_auto/q_auto, no responsive resizing) — an unoptimized image
+routed there would ship as-is and hurt the Lighthouse budget. `lib/storage.ts`'s router
+doesn't enforce this distinction yet; the admin panel (Stage 7) should warn on an oversized
+*image* upload rather than silently offloading it. Doesn't apply to PDFs/ZIPs — those have
+no transformation benefit on Cloudinary anyway, so routing by size alone is correct for them.
+
+## Cloudflare R2
+
+Standalone S3-compatible object storage, decoupled entirely from hosting — the app talks to
+it via API credentials, same pattern as Supabase/Cloudinary. **Does not use a custom
+domain** (that would require proxying `learncomputer.in`'s DNS through Cloudflare); the
+public `pub-xxxx.r2.dev` URL is used instead, keeping this dependency fully isolated from
+the live domain.
+
+- **Account:** `learncomputerseo@gmail.com` (Cloudflare account ID `14885c4d3fe179895f53e0b57f243eb2`)
+- **Bucket:** `lca-docs-files`
+- **Public URL:** `https://pub-ae7f8faef01f4179b3ee65008d9277eb.r2.dev`
+- **Credentials:** `.env.local` only — `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY` are
+  server-only (S3-compatible API keys, not the Cloudflare account's own OAuth/API token —
+  wrangler login can't generate these; they come from R2 → Manage R2 API Tokens in the
+  dashboard). The token was created scoped to **all buckets** on the account, not just this
+  one — acceptable for now since it's the only bucket that exists, but tighten scope if a
+  second bucket is ever added.
 
 ---
 
@@ -83,18 +112,31 @@ Order matters. Do not upload first.
 > **~90 MB of the referenced 188 MB is PDFs**, linked via `<a href>` not `<img src>` —
 > course handouts, largest `designer-guide-4.pdf` at **26.5 MB**.
 
-1. **Prune — 28.1 MB, not 100 MB.** Delete the 199 orphans. The largest are unused GIFs
-   (`tabs-howto` 3.3 MB, `shrink-nav` 2.2 MB, `sign-in-form` 2.0 MB) left from an old
+1. ✅ **PDFs — done (2026-07-25).** All 18 PDFs migrated via `scripts/migrate-pdfs.mjs`.
+   None were orphaned. 16 → Cloudinary raw (<10MB each), 2 → R2
+   (`designer-guide-2.pdf` 21.4 MB, `designer-guide-4.pdf` 26.5 MB — both **not**
+   compressed, uploaded at full size per the standing "compression is the user's call"
+   rule). All 26 `<a href>` occurrences across 6 lessons rewritten to the new URLs and
+   verified live (HTTP 200, correct byte sizes). See session 5 in `PROGRESS.md`.
+   **Bug found and fixed during this pass**: the Stage 3 table-block extractor was
+   discarding any `<a>`/`<img>` inside table cells, keeping only `.text()` — this silently
+   dropped the download buttons in `design/intro`'s resource table. Fixed in
+   `extract-docs.mjs` (cells now keep HTML, like richtext/callout blocks already did);
+   all 131 docs re-extracted and re-written.
+2. **Prune — 28.1 MB, not 100 MB.** Delete the 199 orphaned images. The largest are unused
+   GIFs (`tabs-howto` 3.3 MB, `shrink-nav` 2.2 MB, `sign-in-form` 2.0 MB) left from an old
    homepage. Everything else is genuinely referenced and migrates.
-2. **Convert images only.** ~98 MB of real images → WebP q80, max 1600px via `sharp` →
-   expect **25–35 MB**. GIFs → MP4.
-   **Do not convert the PDFs** — upload as `raw` at full size. Compressing a 26.5 MB
-   handout is a content decision for the user, not an automated step. Flag it, don't do it.
-3. **Upload** with `scripts/upload-assets.mjs` — idempotent, keyed on public ID, so a
-   re-run overwrites rather than duplicates.
-4. **Emit `scripts/image-map.json`** — `{ "assets/img/css/box-model.png": "<delivery URL>" }`.
-   The Stage 3 extraction script consumes this to rewrite `<img src>` in every lesson.
-5. **Verify:** zero unmapped images in `extract-report.json`, zero 404s in a link crawl.
+3. **Convert images.** ~98 MB of real images → WebP q80, max 1600px via `sharp` → expect
+   **25–35 MB**. GIFs → MP4. Route through `lib/storage.ts`'s picker — in practice every
+   converted image will land well under 10 MB, so this stays on Cloudinary; R2 only matters
+   here if a future admin upload comes in oversized and unconverted.
+4. **Upload** with `scripts/upload-assets.mjs` (not yet written) — idempotent, keyed on
+   public ID, so a re-run overwrites rather than duplicates.
+5. **Emit `scripts/image-map.json`** — `{ "assets/img/css/box-model.png": "<delivery URL>" }`.
+   Then rewrite: every `image` block's `_src` (already carried through Stage 3 for this
+   purpose) resolves to a real `publicId`, and every `<img src>` inside richtext/table-cell
+   HTML gets swapped too — same two-surface problem the PDF pass just solved for `<a href>`.
+6. **Verify:** zero unmapped images in a fresh report, zero 404s in a link crawl.
 
 **Exit criteria:** `image-map.json` covers every referenced image · `public/` under 5 MB ·
 no broken images after the extraction re-run.

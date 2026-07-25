@@ -16,14 +16,20 @@ for picking up work weeks later.
 
 ### ⚡ Next action
 
-Stage 4 — assets. Nothing is blocking. Order per `docs/ASSETS.md`:
+Stage 4 continues — **PDFs are done, images are next.** Order per `docs/ASSETS.md`:
 1. Prune the 28.1 MB of orphaned images (list already known from RESEARCH.md).
-2. Convert the ~98 MB of referenced images to WebP q80 max 1600px, upload to Cloudinary.
-3. Upload the ~90 MB of PDFs as `raw` — no compression, that's a content call for the user.
-4. Emit `scripts/image-map.json` (old path → Cloudinary publicId).
-5. **Follow-up pass on `docs`**: walk every `image` block's `_src` field, resolve it against `image-map.json`, write `publicId`, delete `_src`. This is why image blocks still carry `_src` — it's the join key for this step, not permanent schema.
+2. Convert the ~98 MB of referenced images to WebP q80 max 1600px, route through
+   `lib/storage.ts` (Cloudinary in practice — converted images won't near 10 MB).
+3. Emit `scripts/image-map.json` (old path → delivery URL).
+4. **Follow-up pass on `docs`**: two surfaces need rewriting, same lesson learned from the
+   PDF pass — `image` blocks' `_src` field (the join key kept for exactly this step), *and*
+   any `<img src>` sitting inside richtext/table-cell HTML (table cells can contain raw
+   `<img>` tags now that the extractor preserves cell HTML — confirmed in `design/intro`'s
+   book-thumbnail column).
 
-Also open, not blocking: `docs.sort_order` is currently file-scan order, not the old site's intended teaching sequence — needs a manual reorder pass once the admin panel exists (Stage 7).
+Also open, not blocking: `docs.sort_order` is currently file-scan order, not the old site's
+intended teaching sequence — needs a manual reorder pass once the admin panel exists
+(Stage 7).
 
 ### Stage board
 
@@ -32,8 +38,8 @@ Also open, not blocking: `docs.sort_order` is currently file-scan order, not the
 | 0 | Baseline & URL inventory | 🟨 partial | `urls-before.txt` done. Search Console export + `git tag pre-migration` outstanding |
 | 1 | Scaffold Next.js 16 + Tailwind + shadcn | ✅ **DONE** | Next 16.2.11, Tailwind v4, shadcn (manual), unplugin-icons, Supabase clients |
 | 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
-| 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. See session 4 below |
-| 4 | Assets → Cloudinary | ⬜ **next** | credentials received; see [ASSETS.md](ASSETS.md) |
+| 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
+| 4 | Assets → Cloudinary + R2 | 🟨 **PDFs done** | All 18 PDFs migrated (session 5). Images still open. See [ASSETS.md](ASSETS.md) |
 | 5 | Public site build | ⬜ | |
 | 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
@@ -57,6 +63,80 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
 - ⚠️ **Supabase pause clock resets only when schema is applied.** Do it today.
+
+---
+
+## 2026-07-25 — Session 5: Cloudflare R2 + full PDF migration
+
+**Done**
+
+- Resolved D-14: Cloudflare R2 for any file ≥10 MB (Cloudinary's free-tier cap, confirmed to
+  apply to images and raw files both). Full reasoning in `docs/DECISIONS.md` D-14.
+- Set up R2 via wrangler (already logged in, account `learncomputerseo@gmail.com`): created
+  bucket `lca-docs-files`, enabled its public `pub-xxxx.r2.dev` URL. R2 activation itself
+  (one-time, dashboard-gated, ties to ToS acceptance) and the S3-compatible API token
+  (wrangler's OAuth session can't generate these) had to come from the user.
+- Wrote `lib/storage.ts` — router (`pickBackend`, ≥10MB → r2) plus upload helpers for both
+  backends. `npx tsc --noEmit` clean.
+- Wrote `scripts/migrate-pdfs.mjs` — walks every PDF in the Jekyll source (18 found, 0
+  orphaned), uploads via the correct backend, rewrites every matching `<a href>` in Supabase.
+- **Found and fixed a real Stage 3 bug while doing this**: the table-block extractor in
+  `extract-docs.mjs` only kept `$(td).text()` per cell, silently discarding any `<a>`/`<img>`
+  inside — 9 `design/` lessons use tables as resource/download lists (thumbnail + link per
+  row), so this was quietly deleting download buttons and thumbnails from the DB, not just
+  losing the specific PDF links this session set out to fix. Changed cells to keep HTML
+  (`$(td).html()`), consistent with how `richtext`/`callout` already work. Re-ran
+  `extract-docs.mjs --write` — all 131 docs re-written with the fix, classification counts
+  unchanged (64/52/15/0, as expected — same content, richer capture).
+- Ran `migrate-pdfs.mjs` for real: 18/18 PDFs uploaded (16 → Cloudinary raw, 2 → R2 —
+  `designer-guide-2.pdf` 21.4 MB, `designer-guide-4.pdf` 26.5 MB, both uploaded uncompressed
+  per the standing rule that compression is a content call, not automatic). 6 lessons
+  touched, all 26 `<a href>` occurrences rewritten and confirmed zero remaining
+  old-path references.
+- Verified two representative uploads live via `curl -I`: R2 file returns 200 with
+  `Content-Length: 27783581` (matches 26.5 MB), Cloudinary raw file returns 200 with the
+  right size too. Not just "the API call didn't error" — actually fetched.
+
+**Findings worth remembering**
+
+1. **Cloudinary's 10 MB free-tier cap applies to images too, not just raw/PDF files.** Was
+   initially assumed images had more headroom; checked and they don't. This is why the
+   size-based router has to cover both, not just PDFs.
+2. **A regex `.test()` immediately followed by `.replace()` on the same content, called once
+   per distinct old-path across an 18-entry loop, undercounts when multiple links live in one
+   block.** Not a data-correctness bug (verified separately: 0 unrewritten links remained)
+   — just a misleading log line ("11 links rewritten" when the real count was 26, since the
+   counter incremented per *block/cell touched*, not per link). Caught by cross-checking
+   the reported number against an independent grep-based count before trusting it.
+3. **R2 needs one dashboard step no CLI can do**: account-level R2 activation is gated
+   behind Cloudflare's own ToS acceptance flow. `wrangler r2 bucket create` fails with a
+   clear "please enable R2 through the Cloudflare Dashboard" error until that happens —
+   good, unambiguous failure mode, not a silent one.
+4. **R2's S3-compatible API credentials are a different credential type than wrangler's
+   OAuth login.** Even fully authenticated, wrangler cannot generate an Access Key
+   ID/Secret pair — those come from R2 → Manage R2 API Tokens in the dashboard,
+   specifically because they're consumed by S3-compatible clients (`@aws-sdk/client-s3`),
+   not Cloudflare's own API.
+5. **Kept R2 fully decoupled from the live domain's DNS.** Used the default `r2.dev` public
+   URL instead of a custom domain — a custom domain would require proxying
+   `learncomputer.in` through Cloudflare, which the user explicitly didn't want given the
+   site has nothing to do with Cloudflare otherwise.
+
+**Failed / abandoned**
+
+- Nothing failed outright. The table-extraction bug was caught *during* this session's work
+  (not a regression introduced by it) — worth being honest that Stage 3's "done" from
+  session 4 was incomplete in a way that wasn't visible until PDF links needed rewriting and
+  turned out not to exist in the DB at all.
+
+**Next session — start here**
+
+1. Stage 4, image half: prune 28.1 MB of orphans → convert ~98 MB to WebP q80/1600px →
+   upload via `lib/storage.ts` → emit `image-map.json`.
+2. Rewrite pass, two surfaces (same shape as the PDF fix): `image` blocks' `_src` field, and
+   raw `<img src>` sitting inside richtext/table-cell HTML.
+3. Do not start Stage 5 (public site) until this lands — same reasoning as before, now
+   doubly confirmed by how much the table-cell HTML fix mattered.
 
 ---
 
