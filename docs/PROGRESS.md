@@ -11,14 +11,19 @@ for picking up work weeks later.
 
 ## Current state — 2026-07-25
 
-**Phase:** Stage 1 ✅ scaffold complete · Stage 2 ⬜ schema written, awaiting user to run it · Stage 3 dry-run ✅ passed.
+**Phase:** Stage 1 ✅ · Stage 2 ✅ (schema live) · **Stage 3 ✅ DONE — 131 docs in Supabase.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
 ### ⚡ Next action
 
-1. **User: run `supabase/schema.sql`** in the Supabase SQL editor (project `ipurerfngdvoxbypfdzt`). Paste the entire file and execute.
-2. **User: create admin user** in Supabase Auth tab, then run the `update auth.users` command at the bottom of schema.sql to set `role: admin` in `app_metadata`.
-3. After schema is in: run `node scripts/extract-docs.mjs --verbose` again, then write the DB-insert version of the script (Stage 3 proper).
+Stage 4 — assets. Nothing is blocking. Order per `docs/ASSETS.md`:
+1. Prune the 28.1 MB of orphaned images (list already known from RESEARCH.md).
+2. Convert the ~98 MB of referenced images to WebP q80 max 1600px, upload to Cloudinary.
+3. Upload the ~90 MB of PDFs as `raw` — no compression, that's a content call for the user.
+4. Emit `scripts/image-map.json` (old path → Cloudinary publicId).
+5. **Follow-up pass on `docs`**: walk every `image` block's `_src` field, resolve it against `image-map.json`, write `publicId`, delete `_src`. This is why image blocks still carry `_src` — it's the join key for this step, not permanent schema.
+
+Also open, not blocking: `docs.sort_order` is currently file-scan order, not the old site's intended teaching sequence — needs a manual reorder pass once the admin panel exists (Stage 7).
 
 ### Stage board
 
@@ -26,12 +31,12 @@ for picking up work weeks later.
 |---|---|---|---|
 | 0 | Baseline & URL inventory | 🟨 partial | `urls-before.txt` done. Search Console export + `git tag pre-migration` outstanding |
 | 1 | Scaffold Next.js 16 + Tailwind + shadcn | ✅ **DONE** | Next 16.2.11, Tailwind v4, shadcn (manual), unplugin-icons, Supabase clients |
-| 2 | Supabase schema + RLS + auth | 🟨 **SQL written** | `supabase/schema.sql` ready — **user must run it in dashboard** |
-| 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | 🟨 dry-run ✅ | `scripts/extract-docs.mjs` passes — 64 clean / 52 mech / 15 demo / 0 fail. DB-insert pass next. |
-| 4 | Assets → Cloudinary | ⬜ | credentials received; see [ASSETS.md](ASSETS.md) |
+| 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
+| 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. See session 4 below |
+| 4 | Assets → Cloudinary | ⬜ **next** | credentials received; see [ASSETS.md](ASSETS.md) |
 | 5 | Public site build | ⬜ | |
 | 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
-| 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md) |
+| 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
 | 9 | **SEO foundation** | ⬜ | ~~highest-risk~~ → low risk / high upside. D-12 confirmed |
 | 10 | Cutover to Vercel | ⬜ | **+ set up Search Console & Bing, submit sitemap** |
@@ -41,7 +46,9 @@ for picking up work weeks later.
 
 Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 
-- **Extraction is safe.** 0 of 132 files lack `.doc-content`. 64 clean · 52 mechanical · **15 demo** · 0 fail. Verified 2026-07-25 by running `scripts/extract-docs.mjs`.
+- **Extraction is done, not just safe.** 131 rows live in Supabase. 64 clean · 52 mechanical · **15 demo** · 0 fail — dry-run and DB-write matched exactly. Verified 2026-07-25.
+- **URL completeness confirmed**: all 140 baseline URLs accounted for — 131 doc rows + 1 duplicate merged into a redirect + 8 standalone pages (home, about, contact, syllabus, resourses, box-model, box-shadow-generator, 404) that were never part of `_docs/` and get hand-built pages in Stage 5.
+- **Residue check: clean.** Grepped every block for `{%`, `{{`, `col-md-`, `class="loader"`. One hit — turned out to be React JSX `style={{...}}` in a legitimate code sample (`react/introduction`), not leftover Liquid/Bootstrap. No real residue found.
 - Content: **1.1 MB raw**, 132 files, avg 8.3 KB, 4,687 top-level blocks. In Postgres ≈ **5 MB of 500 MB — about 1%.**
 - Assets: 216 MB in `assets/img` → **188 MB referenced, 28 MB orphaned.** ~90 MB of the referenced is **PDFs**.
 - Links: 131 distinct internal, **89 already broken on the live site today**.
@@ -50,6 +57,36 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
 - ⚠️ **Supabase pause clock resets only when schema is applied.** Do it today.
+
+---
+
+## 2026-07-25 — Session 4: schema applied, Stage 3 written for real
+
+**Done**
+
+- **Fixed `supabase/schema.sql`**: `create function auth.is_admin()` failed with `permission denied for schema auth` — Supabase's SQL editor role has no `CREATE` privilege on the `auth` schema itself (GoTrue-managed, locked down even from the SQL editor's role). Moved the helper to `public.is_admin()`, updated all 6 RLS policies to match. Plain `UPDATE`/`SELECT` on `auth.users` is unaffected — only `CREATE` inside that schema is blocked.
+- User ran the corrected schema. Verified via a throwaway script (deleted after use): 7 categories seeded, 0 docs rows, RLS confirmed working (anon key reads 0 leads without erroring — proof the policy exists and is enforced, not just that the table is empty), `db_size()` returns 10.5 MB.
+- User created the admin user (`learncomputerseo@gmail.com`) in the Supabase Auth dashboard and ran the `app_metadata` update. **Password was shared in chat — explicitly declined to store it anywhere (file or memory).** The app never needs it; only the `role: admin` JWT claim matters, and that's already set.
+- Extended `scripts/extract-docs.mjs` with a `--write` flag: looks up category IDs, builds full doc rows (blocks, toc, sort_order per-category counter, meta_title from raw frontmatter), upserts in batches of 25 keyed on `path` (idempotent — safe to re-run).
+- Ran it. **131 docs written to Supabase**, split exactly as expected across all 7 categories.
+- Verified against `urls-before.txt`: all 140 baseline URLs resolve to something (131 rows + 1 redirect + 8 standalone pages not in scope for this table). Non-negotiable §3.2 upheld for the extraction's part.
+- Ran the residue grep from `MIGRATION-PLAN.md` Stage 3 verification (`{%`, `{{`, `col-md-`, `class="loader"`) against every block in the DB. One hit, traced to `react/introduction`'s code sample — it's `style={{ padding: ... }}`, real JSX, not Liquid. No actual leftovers.
+
+**Findings worth remembering**
+
+1. **`auth` schema CREATE is locked in Supabase's SQL editor, but table writes aren't.** If a future migration needs another `auth.*` function, expect the same error — put it in `public` and reference `auth.jwt()`/`auth.uid()` from there instead. Direct `UPDATE`/`SELECT` against `auth.users` works fine.
+2. **Never store a user's login password**, even when they offer it and even in a git-ignored file. It's not needed by any code path here — only the JWT `app_metadata.role` claim is. Recommended a password manager instead.
+3. **`sort_order` is currently just file-scan order** — not the deliberate lesson sequence from the old sidebar (which lived in Liquid includes, not frontmatter, so it wasn't extractable). This needs a manual pass in the admin panel later. Flagged in the stage board rather than silently shipped wrong.
+
+**Failed / abandoned**
+
+- Nothing failed outright this session — the `auth.is_admin()` permission error was caught and fixed before any bad state landed in the DB.
+
+**Next session — start here**
+
+1. Stage 4 — assets. Prune orphans (28.1 MB, list already known) → convert referenced images to WebP → upload to Cloudinary → PDFs as `raw`, uncompressed → emit `scripts/image-map.json`.
+2. Write and run the follow-up pass that resolves every `image` block's `_src` against `image-map.json`, writes `publicId`, and drops `_src`.
+3. Do **not** start Stage 5 (public site) until every image block has a real `publicId` — otherwise the first site build ships broken images.
 
 ---
 

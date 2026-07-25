@@ -6,8 +6,11 @@
 -- ============================================================
 
 -- ── Helper ───────────────────────────────────────────────────
+-- Lives in public, not auth — Supabase's SQL editor role has no CREATE
+-- privilege on the auth schema itself (that schema is GoTrue-managed).
+-- Reading auth.jwt() from a public-schema function is unaffected.
 
-create or replace function auth.is_admin()
+create or replace function public.is_admin()
 returns boolean
 language sql stable security definer as $$
   select coalesce(
@@ -125,12 +128,12 @@ create policy "public reads settings"               on site_settings for select 
 create policy "anyone can submit a lead"            on leads        for insert with check (true);
 
 -- Admin: full control on every table
-create policy "admin manages docs"          on docs          for all using (auth.is_admin()) with check (auth.is_admin());
-create policy "admin manages categories"    on categories    for all using (auth.is_admin()) with check (auth.is_admin());
-create policy "admin manages testimonials"  on testimonials  for all using (auth.is_admin()) with check (auth.is_admin());
-create policy "admin manages resources"     on resources     for all using (auth.is_admin()) with check (auth.is_admin());
-create policy "admin manages leads"         on leads         for all using (auth.is_admin()) with check (auth.is_admin());
-create policy "admin manages settings"      on site_settings for all using (auth.is_admin()) with check (auth.is_admin());
+create policy "admin manages docs"          on docs          for all using (public.is_admin()) with check (public.is_admin());
+create policy "admin manages categories"    on categories    for all using (public.is_admin()) with check (public.is_admin());
+create policy "admin manages testimonials"  on testimonials  for all using (public.is_admin()) with check (public.is_admin());
+create policy "admin manages resources"     on resources     for all using (public.is_admin()) with check (public.is_admin());
+create policy "admin manages leads"         on leads         for all using (public.is_admin()) with check (public.is_admin());
+create policy "admin manages settings"      on site_settings for all using (public.is_admin()) with check (public.is_admin());
 
 -- ── Seed: categories ─────────────────────────────────────────
 -- 7 categories after the design/photoshop split (D-12a)

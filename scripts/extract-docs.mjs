@@ -1,10 +1,12 @@
 #!/usr/bin/env node
 // scripts/extract-docs.mjs
 // Extracts content from the Jekyll _docs/ source into typed JSON blocks.
-// DRY-RUN: writes to scripts/reports/ only, no DB writes.
+// By default this is a DRY-RUN: writes to scripts/reports/ only, no DB writes.
+// Pass --write to upsert into Supabase (idempotent, keyed on docs.path).
 //
 // Usage:  node scripts/extract-docs.mjs
 //         node scripts/extract-docs.mjs --verbose
+//         node scripts/extract-docs.mjs --write
 //
 // Outputs:
 //   scripts/reports/extract-report.json   — per-file classification + block summary
@@ -19,14 +21,30 @@ import { fileURLToPath } from 'node:url'
 import matter from 'gray-matter'
 import * as cheerio from 'cheerio'
 import { nanoid } from 'nanoid'
+import { createClient } from '@supabase/supabase-js'
 
 // ── Config ────────────────────────────────────────────────────────────────────
 
 const VERBOSE = process.argv.includes('--verbose')
+const WRITE   = process.argv.includes('--write')
 const __dir   = path.dirname(fileURLToPath(import.meta.url))
 const ROOT    = path.resolve(__dir, '..')
 const DOCS_DIR = 'C:/Users/Raptor/Downloads/docs-master/docs-master/_docs'
 const REPORTS  = path.join(ROOT, 'scripts/reports')
+
+// ── .env.local loader (no dotenv dependency — plain Node script) ──────────────
+
+async function loadEnv() {
+  const raw = await fs.readFile(path.join(ROOT, '.env.local'), 'utf8')
+  return Object.fromEntries(
+    raw.split('\n')
+      .filter(l => l.includes('=') && !l.trim().startsWith('#'))
+      .map(l => {
+        const i = l.indexOf('=')
+        return [l.slice(0, i).trim(), l.slice(i + 1).trim()]
+      })
+  )
+}
 
 // ── Demo files (confirmed in RESEARCH.md — contain <form>/<style>/interactive) ─
 
@@ -273,8 +291,9 @@ async function main() {
 
     // Parse frontmatter
     const { data: fm, content } = matter(raw)
-    const oldPath = (fm.permalink || `${category}/${basename}/`).replace(/^\/|\/$/g, '')
-    const title   = (fm.title || basename).split('|')[0].trim()
+    const oldPath   = (fm.permalink || `${category}/${basename}/`).replace(/^\/|\/$/g, '')
+    const title     = (fm.title || basename).split('|')[0].trim()
+    const metaTitle = fm.title || null
 
     // Derive new URL
     const { category: newCat, slug: newSlug, redirect } = deriveNewPath(category, basename)
@@ -319,6 +338,14 @@ async function main() {
     const blockCounts = {}
     for (const b of blocks) blockCounts[b.type] = (blockCounts[b.type] || 0) + 1
 
+    // TOC from heading blocks
+    const toc = blocks
+      .filter(b => b.type === 'heading')
+      .map(b => ({ id: b.anchor, text: b.text, level: b.level }))
+
+    const catCounters = (report.__catCounters ??= {})
+    const sortOrder = (catCounters[newCat] = (catCounters[newCat] ?? 0) + 1)
+
     const record = {
       file:       rel,
       class:      fileClass,
@@ -327,8 +354,12 @@ async function main() {
       category:   newCat,
       slug:       newSlug,
       title,
+      metaTitle,
+      sortOrder,
       blockCount: blocks.length,
       blockTypes: blockCounts,
+      blocks,
+      toc,
       warnings,
     }
 
@@ -349,6 +380,7 @@ async function main() {
   report.urlMap = Object.fromEntries(
     Object.entries(report.urlMap).sort(([a], [b]) => a.localeCompare(b))
   )
+  delete report.__catCounters
 
   // Write outputs
   const reportPath  = path.join(REPORTS, 'extract-report.json')
@@ -356,6 +388,60 @@ async function main() {
 
   await fs.writeFile(reportPath, JSON.stringify(report, null, 2))
   await fs.writeFile(urlMapPath, JSON.stringify(report.urlMap, null, 2))
+
+  // ── --write: upsert into Supabase ─────────────────────────────────────────
+  if (WRITE) {
+    if (report.summary.fail > 0) {
+      console.error('\nRefusing to write: fail list is non-empty. Fix extraction first.')
+      process.exit(1)
+    }
+
+    const env = await loadEnv()
+    const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY)
+
+    const { data: categories, error: catErr } = await supabase.from('categories').select('id, slug')
+    if (catErr) { console.error('Failed to load categories:', catErr.message); process.exit(1) }
+    const catIdBySlug = Object.fromEntries(categories.map(c => [c.slug, c.id]))
+
+    const docRows = report.records
+      .filter(r => r.class !== 'redirect')
+      .map(r => {
+        const categoryId = catIdBySlug[r.category]
+        if (!categoryId) throw new Error(`Unknown category slug: ${r.category} (file: ${r.file})`)
+        return {
+          category_id:      categoryId,
+          slug:             r.slug,
+          path:             r.newPath,
+          old_path:         r.oldPath,
+          title:            r.title,
+          meta_title:       r.metaTitle,
+          meta_description: null,
+          blocks:           r.blocks,
+          toc:              r.toc,
+          status:           'published',
+          sort_order:       r.sortOrder,
+          published_at:     new Date().toISOString(),
+        }
+      })
+
+    console.log(`\nWriting ${docRows.length} docs to Supabase...`)
+
+    // Batch upserts — Supabase/PostgREST has a payload size ceiling; 25 at a time is safe
+    const BATCH = 25
+    let written = 0
+    for (let i = 0; i < docRows.length; i += BATCH) {
+      const batch = docRows.slice(i, i + BATCH)
+      const { error } = await supabase.from('docs').upsert(batch, { onConflict: 'path' })
+      if (error) {
+        console.error(`\nUpsert failed on batch starting at index ${i}:`, error.message)
+        process.exit(1)
+      }
+      written += batch.length
+      console.log(`  ${written}/${docRows.length}`)
+    }
+
+    console.log(`\n✅ Wrote ${written} docs.`)
+  }
 
   // Print summary
   const s = report.summary
