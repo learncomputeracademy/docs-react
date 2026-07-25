@@ -126,20 +126,25 @@ Order matters. Do not upload first.
 2. **Prune — 28.1 MB, not 100 MB.** Delete the 199 orphaned images. The largest are unused
    GIFs (`tabs-howto` 3.3 MB, `shrink-nav` 2.2 MB, `sign-in-form` 2.0 MB) left from an old
    homepage. Everything else is genuinely referenced and migrates.
-3. **Convert images.** ~98 MB of real images → WebP q80, max 1600px via `sharp` → expect
-   **25–35 MB**. GIFs → MP4. Route through `lib/storage.ts`'s picker — in practice every
-   converted image will land well under 10 MB, so this stays on Cloudinary; R2 only matters
-   here if a future admin upload comes in oversized and unconverted.
-4. **Upload** with `scripts/upload-assets.mjs` (not yet written) — idempotent, keyed on
-   public ID, so a re-run overwrites rather than duplicates.
-5. **Emit `scripts/image-map.json`** — `{ "assets/img/css/box-model.png": "<delivery URL>" }`.
-   Then rewrite: every `image` block's `_src` (already carried through Stage 3 for this
-   purpose) resolves to a real `publicId`, and every `<img src>` inside richtext/table-cell
-   HTML gets swapped too — same two-surface problem the PDF pass just solved for `<a href>`.
-6. **Verify:** zero unmapped images in a fresh report, zero 404s in a link crawl.
+3. ✅ **Images and GIFs — done (2026-07-25).** `scripts/audit-images.mjs` found 191
+   referenced files (98.6 MB: 139 jpg, 42 png, 10 gif), 198 orphaned (27.5 MB, skipped —
+   never uploaded, source stays untouched). `scripts/migrate-images.mjs` converted every
+   raster to WebP q80/max 1600px via `sharp` and uploaded to Cloudinary. All 10 GIFs
+   converted to MP4 via `ffmpeg` (D-15) — the 7 large color-theory ones (51 MB combined,
+   largest `black-color.gif` at 16.2 MB) came down to **6.7 MB combined, an 87% reduction**.
+   `scripts/image-map.json` has all 191 entries.
+   **Rewrite pass covered three surfaces, not one**: `image` blocks' `_src` field, `<img
+   src>` inside richtext/table-cell HTML, *and* — found only by cross-checking for
+   residual old-path references after the first pass — `<a href download>` links (a
+   thumbnail + "download full size" pattern in 7 `design/` lessons, same shape as the PDF
+   download tables) and one `<iframe src="....jpg">` (`photoshop/shortcut-keys`, using an
+   iframe for scroll behavior on a very tall reference image). Zero residual old-path
+   references remain, verified by direct query, not just script exit code.
+4. **Verify:** zero unmapped images in a fresh report, zero 404s in a link crawl — still
+   worth doing once Stage 5 pages exist to crawl.
 
-**Exit criteria:** `image-map.json` covers every referenced image · `public/` under 5 MB ·
-no broken images after the extraction re-run.
+**Exit criteria:** ✅ met — `image-map.json` covers every referenced image, `public/` stays
+under 5 MB (nothing was ever added there), no broken image/video references in the DB.
 
 ---
 

@@ -429,6 +429,34 @@ user via dashboard, since wrangler's OAuth session can't produce those.
 
 ---
 
+## D-15 · GIFs become autoplay video, not animated images
+**Date:** 2026-07-25 · **Status:** Active · **Decided by:** User
+
+7 GIFs in the old site — color-theory diagrams in `design/color-theory` and
+`design/color-in-design` — run 3–16.2 MB each, ~51 MB total. `docs/ASSETS.md` had already
+planned "GIFs → MP4" for the size win, but implementing it turned out to be a real content-
+model decision, not a storage-format detail: HTML cannot autoplay a video through an `<img>`
+tag, so "convert to MP4" actually means replacing `<img src="x.gif">` with
+`<video autoplay muted loop playsinline>` — different markup, different block type.
+
+**Chosen: convert.** New block type `loop` (`docs/CONTENT-MODEL.md`), same shape as `image`,
+renders as a silent autoplaying loop. ffmpeg → MP4, uploaded to Cloudinary as
+`video/upload`. Typical result is 80–95% smaller than the source GIF for this kind of
+content (flat-color animation, few frames) — `black-color.gif` alone is 16.2 MB.
+
+**Rejected: keep as GIF, let Cloudinary's `f_auto` opportunistically serve an optimized
+animated format.** Simpler (zero markup change, stays an `<img>`), but no guaranteed size
+reduction and worst case ships the original GIF weight. Given the perf budget in
+`docs/UI.md` (Lighthouse ≥95) is a standing constraint, not a nice-to-have, the guaranteed
+win was worth the extra implementation surgery.
+
+**`video` stays a separate type.** It already means something specific — an embedded player
+with a title, for YouTube or a real Cloudinary video with controls. Conflating it with
+"decorative autoplay loop" because both happen to be video files at the storage layer would
+have muddied a type that Phase 2 already scoped narrowly on purpose.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

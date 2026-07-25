@@ -11,21 +11,16 @@ for picking up work weeks later.
 
 ## Current state — 2026-07-25
 
-**Phase:** Stage 1 ✅ · Stage 2 ✅ (schema live) · **Stage 3 ✅ DONE — 131 docs in Supabase.**
+**Phase:** Stage 1 ✅ · Stage 2 ✅ · Stage 3 ✅ · **Stage 4 ✅ DONE — all assets migrated.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
 ### ⚡ Next action
 
-Stage 4 continues — **PDFs are done, images are next.** Order per `docs/ASSETS.md`:
-1. Prune the 28.1 MB of orphaned images (list already known from RESEARCH.md).
-2. Convert the ~98 MB of referenced images to WebP q80 max 1600px, route through
-   `lib/storage.ts` (Cloudinary in practice — converted images won't near 10 MB).
-3. Emit `scripts/image-map.json` (old path → delivery URL).
-4. **Follow-up pass on `docs`**: two surfaces need rewriting, same lesson learned from the
-   PDF pass — `image` blocks' `_src` field (the join key kept for exactly this step), *and*
-   any `<img src>` sitting inside richtext/table-cell HTML (table cells can contain raw
-   `<img>` tags now that the extractor preserves cell HTML — confirmed in `design/intro`'s
-   book-thumbnail column).
+**Stage 5 — public site build.** Nothing left blocking it: all 131 docs have real content,
+all images/PDFs/videos resolve to live CDN URLs, zero residual old-path references anywhere
+in the DB (verified by direct query, not just script exit codes). Start with the shell
+(layout, `DocSidebar`, home) then one lesson page for design sign-off before building all
+131 — per `docs/UI.md`'s "approval flow before scale" rule.
 
 Also open, not blocking: `docs.sort_order` is currently file-scan order, not the old site's
 intended teaching sequence — needs a manual reorder pass once the admin panel exists
@@ -39,8 +34,8 @@ intended teaching sequence — needs a manual reorder pass once the admin panel 
 | 1 | Scaffold Next.js 16 + Tailwind + shadcn | ✅ **DONE** | Next 16.2.11, Tailwind v4, shadcn (manual), unplugin-icons, Supabase clients |
 | 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
 | 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
-| 4 | Assets → Cloudinary + R2 | 🟨 **PDFs done** | All 18 PDFs migrated (session 5). Images still open. See [ASSETS.md](ASSETS.md) |
-| 5 | Public site build | ⬜ | |
+| 4 | Assets → Cloudinary + R2 | ✅ **DONE** | 18 PDFs + 191 images/GIFs migrated (sessions 5–6). See [ASSETS.md](ASSETS.md) |
+| 5 | Public site build | ⬜ **next** | |
 | 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
@@ -56,13 +51,89 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - **URL completeness confirmed**: all 140 baseline URLs accounted for — 131 doc rows + 1 duplicate merged into a redirect + 8 standalone pages (home, about, contact, syllabus, resourses, box-model, box-shadow-generator, 404) that were never part of `_docs/` and get hand-built pages in Stage 5.
 - **Residue check: clean.** Grepped every block for `{%`, `{{`, `col-md-`, `class="loader"`. One hit — turned out to be React JSX `style={{...}}` in a legitimate code sample (`react/introduction`), not leftover Liquid/Bootstrap. No real residue found.
 - Content: **1.1 MB raw**, 132 files, avg 8.3 KB, 4,687 top-level blocks. In Postgres ≈ **5 MB of 500 MB — about 1%.**
-- Assets: 216 MB in `assets/img` → **188 MB referenced, 28 MB orphaned.** ~90 MB of the referenced is **PDFs**.
+- **Assets fully migrated — not just measured.** 18/18 PDFs + 191/191 images/GIFs live on
+  Cloudinary/R2. 0 residual old-path references anywhere in the DB, confirmed by direct
+  query. GIF→MP4 conversion (D-15) took the 7 large color-theory animations from 51.5 MB to
+  6.7 MB, an 87% reduction. Orphaned assets (198 files, 27.5 MB) were never uploaded — and
+  never touched in the read-only source either, since "prune" here just means "don't
+  migrate it," not delete anything.
 - Links: 131 distinct internal, **89 already broken on the live site today**.
 - Live URLs: **140** (`urls-before.txt`).
 - URL map: **131 entries** in `scripts/url-map.json` (132 − 1 redirect for duplicate poster page).
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
-- ⚠️ **Supabase pause clock resets only when schema is applied.** Do it today.
+
+---
+
+## 2026-07-25 — Session 6: full image + GIF migration, Stage 4 complete
+
+**Done**
+
+- Ran `scripts/audit-images.mjs` (fresh, loop-normalized path resolution — the earlier
+  157 MB-orphan bug from session 2 doesn't get to happen twice). Result: 191 referenced
+  (98.6 MB: 139 jpg, 42 png, 10 gif), 198 orphaned (27.5 MB), 11 "broken refs" that turned
+  out to be false positives — W3Schools-style placeholder filenames (`img_girl.jpg`,
+  `smiley.gif`) used inside code examples teaching HTML syntax, plus one pre-existing
+  external hotlink to an unrelated Cloudinary account. Numbers cross-checked against the
+  session-2 baseline (98 MB / 28 MB) before trusting them.
+- **Asked the user how to handle the 7 large color-theory GIFs** (51 MB combined,
+  `black-color.gif` alone 16.2 MB) before writing any conversion code — "convert to MP4"
+  wasn't just a format change, it meant swapping `<img>` for `<video autoplay muted loop
+  playsinline>`, a real content-model decision. User chose full conversion. Recorded as D-15.
+- Added a `loop` block type (`lib/types.ts`, `docs/CONTENT-MODEL.md`) — same shape as
+  `image`, renders as an autoplay video. Kept distinct from the existing `video` type
+  (real player, title, controls) on purpose.
+- Wrote `scripts/migrate-images.mjs`: rasters → WebP q80/max 1600px via `sharp` →
+  Cloudinary; GIFs → MP4 via `ffmpeg` → Cloudinary video. Verified both conversion paths in
+  isolation before running the full batch (a 2.98 MB test GIF came out at 0.24 MB, 92%
+  reduction — matched what shipped for real). Ran the full 191-file batch in the
+  background; 0 failures.
+- **Found a second real gap while verifying, same shape as the PDF-links-in-tables bug from
+  session 5**: the rewrite pass only scanned `<img src>`, but 7 `design/` lessons pair a
+  thumbnail `<img>` with a separate `<a href download>` "download full size" link — same
+  two-link-per-resource pattern already seen with PDFs, just missed for images because it
+  didn't occur to check for it a second time. Caught by grepping the DB for old-path
+  residue after the first pass instead of trusting the run's own summary line. One more
+  edge case found the same way: a single `<iframe src="....jpg">` (`photoshop/shortcut-keys`,
+  using an iframe purely for scroll behavior on a very tall image). Extended
+  `rewriteImgTags` to cover `a[href]` and `iframe[src]`, added a `--relink-only` flag so
+  the fix could be applied without re-uploading all 191 already-live files, re-ran. Zero
+  residual old-path references confirmed by direct query.
+- Live-verified a sample of both output types via `curl -I`: WebP image 200, MP4 video 200
+  with a byte size matching the conversion log.
+
+**Findings worth remembering**
+
+1. **A pattern found once should be checked for everywhere, not just where it was found.**
+   The `<img>` + `<a href download>` pairing was already known from the PDF pass (session
+   5) but the image migration script still only checked `<img>` — the same shape of bug
+   recurred because the lesson from the first instance wasn't generalized into the second
+   script. Both scripts now share the "check img, a[href], AND iframe[src]" checklist,
+   written down here so a future asset-type migration doesn't relearn it a third time.
+2. **`aria-label="Complementary"` appearing on the triadic and tetradic diagrams is a
+   pre-existing content bug**, not something this session introduced — confirmed by
+   checking the raw Jekyll source, where all four color-scheme images in that section
+   already shared the same (wrong) `alt="Complementary"`. Left as-is; not this migration's
+   job to silently correct authored content, only to carry it forward faithfully. Worth a
+   line in a future content-QA pass.
+3. **Cheerio's `$.root().html()` re-wraps fragment content in `<html><head></head><body>`**
+   even when the input was a bare fragment. `$('body').html()` is the correct call to get
+   back just the modified fragment. Caught by a 30-second isolated test before it could
+   corrupt 131 docs' worth of richtext HTML.
+4. Reused the "verify by direct query, not by trusting the script's own summary counter"
+   habit from the PDF session — the "11 links rewritten" undercount taught that lesson;
+   this session applied it proactively instead of after the fact.
+
+**Failed / abandoned**
+
+- Nothing failed outright. Both gaps found this session (download links, iframe) were
+  caught by verification before being reported as done, not discovered later as bugs.
+
+**Next session — start here**
+
+Stage 5, public site build. Layout + `DocSidebar` + home page first, then **one lesson page
+for design sign-off** before building all 131 — `docs/UI.md` is explicit that this approval
+gate comes before scale, not after.
 
 ---
 
@@ -201,64 +272,6 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 2. Write the DB-insert version of `scripts/extract-docs.mjs` (add `--write` flag, `upsert` on conflict `path`).
 3. Run it dry-run first, then `node scripts/extract-docs.mjs --write` to populate.
 4. Verify: 131 rows in `docs`, 7 in `categories`, no Liquid/Bootstrap residue.
-
----
-
-## 2026-07-24 — Session 2: research day (no code, by design)
-revalidation. ⚠️ **D-01 was reversed the same day it was made — content is in Postgres,
-not MDX. Read [D-10](DECISIONS.md) before touching anything.**
-**Next action:** Stage 3 — the extraction script.
-**Blocked on:** nothing. All credentials received.
-
-### Credentials — where they live (values never in a tracked file)
-
-| Service | Identifier | Status |
-|---|---|---|
-| Cloudinary | cloud `docslca` | ✅ in `.env.local` |
-| Supabase | project ref `ipurerfngdvoxbypfdzt` | ✅ in `.env.local`, **verified live 2026-07-24** |
-
-Variable names are in `.env.example`. Values are in `.env.local`, which is git-ignored and
-sweep-verified. Mirror both into Vercel → Settings → Environment Variables before the first
-deploy.
-
-⏰ **Supabase pause clock is running.** The project is empty and idle; free tier pauses
-after 7 days of no DB activity — **~2026-07-31** if nothing touches it. Either start
-Stage 2 before then or stand up the keep-alive job early (`docs/ADMIN.md`).
-
-### Stage board
-
-| # | Stage | Status | Notes |
-|---|---|---|---|
-| 0 | Baseline & URL inventory | 🟨 partial | `urls-before.txt` done (140 URLs). Search Console export + `git tag pre-migration` still outstanding |
-| 1 | Scaffold Next.js 16 + Tailwind + shadcn | ⬜ | |
-| 2 | Supabase schema + RLS + auth | ⬜ | **needs project credentials.** Schema in `MIGRATION-PLAN.md` §2 |
-| 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ⬜ | critical path — holds every unknown. Can be written and dry-run before Stage 2 lands |
-| 4 | Assets → Cloudinary | ⬜ | credentials received; see [ASSETS.md](ASSETS.md) |
-| 5 | Public site build | ⬜ | |
-| 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
-| 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md) |
-| 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
-| 9 | **SEO foundation** | ⬜ | ~~highest-risk~~ → low risk / high upside. D-12 confirmed |
-| 10 | Cutover to Vercel | ⬜ | **+ set up Search Console & Bing, submit sitemap** — never existed before |
-| 11 | Post-launch watch | ⬜ | watching for **first indexing**, not traffic recovery |
-
-### Measured facts worth not re-deriving
-
-Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
-
-- **Extraction is safe.** 0 of 132 files lack `.doc-content` — the plan's hard fail
-  condition is zero. 65 clean · 52 mechanical · **15 need a decision** (live demos → `tryit`).
-- Content: **1.1 MB raw**, 132 files, avg 8.3 KB, 4,687 top-level blocks. In Postgres
-  ≈ **5 MB of 500 MB — about 1%.**
-- Assets: 216 MB in `assets/img` → **188 MB referenced, 28 MB orphaned.** ~90 MB of the
-  referenced is **PDFs**, not images.
-- Links: 131 distinct internal, **89 already broken on the live site today**.
-- Live URLs: **140** (`urls-before.txt`).
-- Categories: **7** after the approved `design`/`photoshop` split — `basics` 1 · `css` 35 ·
-  `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
-- ⚠️ **`graphics-design-poster` and `-posters` are duplicate pages** (differ by one link).
-  Merging → 131 lessons. See `docs/URLS.md`.
-- Stack: **Next.js 16.2.x LTS** · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
 
 ---
 

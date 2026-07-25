@@ -11,6 +11,11 @@ export type Block =
   | { id: string; type: 'heading'; level: 2 | 3 | 4 | 5 | 6; text: string; anchor: string }
   | { id: string; type: 'code'; language: Lang; code: string; filename?: string; runnable?: boolean }
   | { id: string; type: 'image'; publicId: string; alt: string; caption?: string; width: number; height: number }
+  // Was a GIF in the Jekyll source. Renders as <video autoplay muted loop
+  // playsinline> — same visual role as an inline animated image, but as an
+  // MP4 (typically 80-95% smaller). Distinct from `video`, which is a real
+  // player (YouTube/Cloudinary) with a title and controls.
+  | { id: string; type: 'loop'; publicId: string; alt: string; width: number; height: number }
   | { id: string; type: 'table'; header: string[]; rows: string[][]; caption?: string }
   | { id: string; type: 'callout'; variant: 'note' | 'tip' | 'warning' | 'danger'; title?: string; html: string }
   | { id: string; type: 'tryit'; mode: 'web' | 'react'; files: { html?: string; css?: string; js?: string; jsx?: string } }

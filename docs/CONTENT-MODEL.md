@@ -40,6 +40,8 @@ type Block =
       files: { html?: string; css?: string; js?: string; jsx?: string } }
   | { id; type: "image";    publicId: string; alt: string;
       caption?: string; width: number; height: number }                // Cloudinary
+  | { id; type: "loop";     publicId: string; alt: string;
+      width: number; height: number }                                  // was a GIF — see D-15
   | { id; type: "table";    header: string[]; rows: string[][]; caption?: string }
   | { id; type: "callout";  variant: "note" | "tip" | "warning" | "danger";
       title?: string; html: string }
@@ -58,6 +60,14 @@ future per-block comments. Generate once, never regenerate.
 **`heading` is its own type** rather than living inside `richtext` — that is what makes the
 table of contents, anchor links and the admin's outline view fall out for free. 802 `<h2>`s
 across the site make this worth it.
+
+**`loop` vs `video`, and why both exist (D-15):** 7 GIFs in the old site (color-theory
+diagrams, up to 16.2 MB each) were originally `<img>` tags — a real animated-image use case,
+not a video-with-controls use case. `loop` mirrors `image`'s shape exactly (same fields) but
+renders as `<video autoplay muted loop playsinline>`, because HTML has no way to autoplay a
+video through an `<img>` tag. `video` stays a distinct type for actual embedded players
+(YouTube, a Cloudinary video with controls/title) — different UX, shouldn't share a type
+just because both are "video files" at the storage layer.
 
 ---
 
