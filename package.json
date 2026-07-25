@@ -20,10 +20,13 @@
     "next": "16.2.11",
     "react": "19.2.4",
     "react-dom": "19.2.4",
+    "shiki": "^4.3.1",
     "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.352",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
     "@tailwindcss/postcss": "^4",
     "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20",

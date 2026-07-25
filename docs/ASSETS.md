@@ -140,6 +140,14 @@ Order matters. Do not upload first.
    download tables) and one `<iframe src="....jpg">` (`photoshop/shortcut-keys`, using an
    iframe for scroll behavior on a very tall reference image). Zero residual old-path
    references remain, verified by direct query, not just script exit code.
+   ⚠️ **Second bug found during Stage 5 build-out**: `center-align.gif` (used in
+   `css/align`) was converted to MP4 like the other 9 GIFs, but it turned out to be a
+   **single-frame GIF** — `sharp().metadata().pages === 1`, not an animation. ffmpeg
+   produced a degenerate video (`duration: null`, unplayable in Chrome's own native
+   player, confirmed before assuming it was a React bug). Fixed the classification in
+   `migrate-images.mjs` (`pages > 1` gates the GIF→video path now) and re-uploaded that
+   one file as a normal WebP image; the other 9 GIFs were re-checked and are genuine
+   multi-frame animations (7 and 8 frames respectively for the two smallest).
 4. **Verify:** zero unmapped images in a fresh report, zero 404s in a link crawl — still
    worth doing once Stage 5 pages exist to crawl.
 

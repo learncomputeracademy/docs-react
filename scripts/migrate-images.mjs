@@ -178,7 +178,10 @@ async function main() {
 
   for (const f of files) {
     const absPath = path.join(DOCS_SOURCE, f.path)
-    const isGif = f.ext === '.gif'
+    // A .gif with 1 frame isn't an animation — ffmpeg produces a degenerate,
+    // unplayable video from it (duration: null). Treat as a normal image.
+    const frameCount = f.ext === '.gif' ? (await sharp(absPath).metadata()).pages ?? 1 : 1
+    const isGif = f.ext === '.gif' && frameCount > 1
     const relNoExt = f.path.replace(/^assets\//, '').replace(/\.[^.]+$/, '')
     const publicId = relNoExt // mirrors source tree, matches migrate-pdfs.mjs convention
 

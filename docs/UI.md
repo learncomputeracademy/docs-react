@@ -79,12 +79,20 @@ read, and animation that delays text is a bug wearing a costume.
 get designed, neither is an afterthought.
 
 - **Type:** two families max, self-hosted via `next/font` (zero layout shift, no external
-  request). One sans for UI/prose, one mono for code. Nothing else.
-- **Color:** a single accent, used for links, active sidebar item and primary actions.
-  W3Schools' green is recognisable to your students — a refined version keeps the
-  familiarity without the 2010s saturation.
-- **Contrast:** WCAG AA minimum on body text in **both** themes. Check the accent against
-  both backgrounds; a single accent that works on white often fails on near-black.
+  request). Geist Sans (UI/prose) + Geist Mono (code) — already present from the Next.js
+  scaffold, no extra font added.
+- **Color:** single accent, taken from the real LCA logo (not W3Schools green — the user
+  supplied the actual brand asset). Same hue (oklch H=53, C=0.171) in both themes, but
+  **different lightness per theme, deliberately**: `oklch(0.57 0.171 53)` in light mode,
+  `oklch(0.75 0.171 53)` in dark. The logo's own orange (L=0.75) is only 2.35:1 against
+  white — fails WCAG AA (4.5:1) outright if used as light-mode link/text color. Darkening
+  to L=0.57 gets 4.72:1. Dark mode keeps the full-vibrancy L=0.75, which reads 8.45:1
+  against the near-black background — no compromise needed there.
+  ⚠️ **Solid buttons using `--primary` as a fill need dark text in both themes**, not the
+  usual light-on-accent — this orange (either lightness) fails AA against white text but
+  passes comfortably against near-black. `--primary-foreground` is set accordingly.
+- **Contrast:** WCAG AA minimum on body text in **both** themes — verified by computing
+  actual contrast ratios (OKLCH → linear sRGB → relative luminance), not eyeballed.
 - **Spacing/radius:** one scale, defined once in Tailwind config, never ad-hoc values.
 
 ---

@@ -2,1338 +2,1338 @@
   "assets/img/art-history-brush.png": {
     "kind": "image",
     "publicId": "img/art-history-brush",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960204/img/art-history-brush.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/art-history-brush>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/block-diagram-of-computer.jpg": {
     "kind": "image",
     "publicId": "img/block-diagram-of-computer",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960205/img/block-diagram-of-computer.webp",
-    "width": 638,
-    "height": 479
+    "deliveryUrl": "<pending:img/block-diagram-of-computer>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/blur-tool.png": {
     "kind": "image",
     "publicId": "img/blur-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960206/img/blur-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/blur-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/boxmodel.jpg": {
     "kind": "image",
     "publicId": "img/boxmodel",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960207/img/boxmodel.webp",
-    "width": 1328,
-    "height": 416
+    "deliveryUrl": "<pending:img/boxmodel>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/brush-tool.png": {
     "kind": "image",
     "publicId": "img/brush-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960209/img/brush-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/brush-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/cat-dog.jpg": {
     "kind": "image",
     "publicId": "img/cat-dog",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960210/img/cat-dog.webp",
-    "width": 176,
-    "height": 120
+    "deliveryUrl": "<pending:img/cat-dog>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/cat-enlarge.jpg": {
     "kind": "image",
     "publicId": "img/cat-enlarge",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960211/img/cat-enlarge.webp",
-    "width": 765,
-    "height": 579
+    "deliveryUrl": "<pending:img/cat-enlarge>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/cat-img.jpg": {
     "kind": "image",
     "publicId": "img/cat-img",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960212/img/cat-img.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/cat-img>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/cat-resize-dialog.jpg": {
     "kind": "image",
     "publicId": "img/cat-resize-dialog",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960213/img/cat-resize-dialog.webp",
-    "width": 1196,
-    "height": 790
+    "deliveryUrl": "<pending:img/cat-resize-dialog>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/cat-resize.jpg": {
     "kind": "image",
     "publicId": "img/cat-resize",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960215/img/cat-resize.webp",
-    "width": 1338,
-    "height": 978
+    "deliveryUrl": "<pending:img/cat-resize>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/center-align.gif": {
-    "kind": "loop",
+    "kind": "image",
     "publicId": "img/center-align",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960216/img/center-align.mp4",
+    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784962159/img/center-align.webp",
     "width": 856,
     "height": 266
   },
   "assets/img/clone-stamp-tool.png": {
     "kind": "image",
     "publicId": "img/clone-stamp-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960217/img/clone-stamp-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/clone-stamp-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/color-boxes-modes.png": {
     "kind": "image",
     "publicId": "img/color-boxes-modes",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960218/img/color-boxes-modes.webp",
-    "width": 57,
-    "height": 82
+    "deliveryUrl": "<pending:img/color-boxes-modes>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/crop-tool.png": {
     "kind": "image",
     "publicId": "img/crop-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960219/img/crop-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/crop-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/dodge-tool.png": {
     "kind": "image",
     "publicId": "img/dodge-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960221/img/dodge-tool.webp",
-    "width": 49,
-    "height": 38
+    "deliveryUrl": "<pending:img/dodge-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/eraser-tool.png": {
     "kind": "image",
     "publicId": "img/eraser-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960222/img/eraser-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/eraser-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/eye-dropper.png": {
     "kind": "image",
     "publicId": "img/eye-dropper",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960223/img/eye-dropper.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/eye-dropper>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/folder-structure.jpg": {
     "kind": "image",
     "publicId": "img/folder-structure",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960224/img/folder-structure.webp",
-    "width": 1190,
-    "height": 1136
+    "deliveryUrl": "<pending:img/folder-structure>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/gradient-tool.png": {
     "kind": "image",
     "publicId": "img/gradient-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960225/img/gradient-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/gradient-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/gradient_Lg_N.png": {
     "kind": "image",
     "publicId": "img/gradient_Lg_N",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960226/img/gradient_Lg_N.webp",
-    "width": 20,
-    "height": 16
+    "deliveryUrl": "<pending:img/gradient_Lg_N>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/1-heightsandlines.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/1-heightsandlines",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960228/img/graphics-design/1-heightsandlines.webp",
-    "width": 550,
-    "height": 400
+    "deliveryUrl": "<pending:img/graphics-design/1-heightsandlines>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/analogous.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/analogous",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960230/img/graphics-design/analogous.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/analogous>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/black-color.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/black-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960236/img/graphics-design/black-color.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/black-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/blowfish.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/blowfish",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960237/img/graphics-design/blowfish.webp",
-    "width": 535,
-    "height": 346
+    "deliveryUrl": "<pending:img/graphics-design/blowfish>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/blue-color.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/blue-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960240/img/graphics-design/blue-color.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/blue-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-tri-fold-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-tri-fold-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960242/img/graphics-design/brochure/brochure-tri-fold-01.webp",
-    "width": 1600,
-    "height": 800
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-tri-fold-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-tri-fold-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-tri-fold-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960243/img/graphics-design/brochure/brochure-tri-fold-02.webp",
-    "width": 1600,
-    "height": 800
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-tri-fold-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-two-fold-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-two-fold-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960245/img/graphics-design/brochure/brochure-two-fold-01.webp",
-    "width": 1600,
-    "height": 900
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-two-fold-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-two-fold-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-two-fold-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960246/img/graphics-design/brochure/brochure-two-fold-02.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-two-fold-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-two-fold-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-two-fold-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960248/img/graphics-design/brochure/brochure-two-fold-03.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-two-fold-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochure-types.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochure-types",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960250/img/graphics-design/brochure/brochure-types.webp",
-    "width": 1522,
-    "height": 1500
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochure-types>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/brochures-demo.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/brochures-demo",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960251/img/graphics-design/brochure/brochures-demo.webp",
-    "width": 230,
-    "height": 164
+    "deliveryUrl": "<pending:img/graphics-design/brochure/brochures-demo>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/company-brochures.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/company-brochures",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960252/img/graphics-design/brochure/company-brochures.webp",
-    "width": 230,
-    "height": 164
+    "deliveryUrl": "<pending:img/graphics-design/brochure/company-brochures>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/sales-brochure.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/sales-brochure",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960253/img/graphics-design/brochure/sales-brochure.webp",
-    "width": 230,
-    "height": 164
+    "deliveryUrl": "<pending:img/graphics-design/brochure/sales-brochure>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/spec-brochure.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/spec-brochure",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960254/img/graphics-design/brochure/spec-brochure.webp",
-    "width": 230,
-    "height": 164
+    "deliveryUrl": "<pending:img/graphics-design/brochure/spec-brochure>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/thumbnail/brochure-tri-fold-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/thumbnail/brochure-tri-fold-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960255/img/graphics-design/brochure/thumbnail/brochure-tri-fold-01.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/brochure/thumbnail/brochure-tri-fold-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/thumbnail/brochure-tri-fold-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/thumbnail/brochure-tri-fold-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960256/img/graphics-design/brochure/thumbnail/brochure-tri-fold-02.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/brochure/thumbnail/brochure-tri-fold-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/thumbnail/brochure-two-fold-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/thumbnail/brochure-two-fold-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960257/img/graphics-design/brochure/thumbnail/brochure-two-fold-01.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/brochure/thumbnail/brochure-two-fold-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/thumbnail/brochure-two-fold-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/thumbnail/brochure-two-fold-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960258/img/graphics-design/brochure/thumbnail/brochure-two-fold-02.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/brochure/thumbnail/brochure-two-fold-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brochure/thumbnail/brochure-two-fold-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/brochure/thumbnail/brochure-two-fold-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960259/img/graphics-design/brochure/thumbnail/brochure-two-fold-03.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/brochure/thumbnail/brochure-two-fold-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/brown-color.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/brown-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960261/img/graphics-design/brown-color.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/brown-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/color-in-design.png": {
     "kind": "image",
     "publicId": "img/graphics-design/color-in-design",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960263/img/graphics-design/color-in-design.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/color-in-design>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/color-wheel-for-designers.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/color-wheel-for-designers",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960264/img/graphics-design/color-wheel-for-designers.webp",
-    "width": 1600,
-    "height": 1200
+    "deliveryUrl": "<pending:img/graphics-design/color-wheel-for-designers>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/complementary.png": {
     "kind": "image",
     "publicId": "img/graphics-design/complementary",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960265/img/graphics-design/complementary.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/complementary>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/diff-between-rgb-cmyk.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/diff-between-rgb-cmyk",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960266/img/graphics-design/diff-between-rgb-cmyk.webp",
-    "width": 1000,
-    "height": 698
+    "deliveryUrl": "<pending:img/graphics-design/diff-between-rgb-cmyk>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/favorite-color-on-gender.png": {
     "kind": "image",
     "publicId": "img/graphics-design/favorite-color-on-gender",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960267/img/graphics-design/favorite-color-on-gender.webp",
-    "width": 1024,
-    "height": 364
+    "deliveryUrl": "<pending:img/graphics-design/favorite-color-on-gender>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960268/img/graphics-design/flyer/flyer-01.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960269/img/graphics-design/flyer/flyer-02.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960271/img/graphics-design/flyer/flyer-03.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-04.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960272/img/graphics-design/flyer/flyer-04.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-05.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960273/img/graphics-design/flyer/flyer-05.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-06.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-06",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960274/img/graphics-design/flyer/flyer-06.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-06>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-07.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-07",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960276/img/graphics-design/flyer/flyer-07.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-07>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-08.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-08",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960276/img/graphics-design/flyer/flyer-08.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-08>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-09.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-09",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960277/img/graphics-design/flyer/flyer-09.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-09>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/flyer-10.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/flyer-10",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960278/img/graphics-design/flyer/flyer-10.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/flyer/flyer-10>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960279/img/graphics-design/flyer/thumbnail/flyer-01.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-02.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960280/img/graphics-design/flyer/thumbnail/flyer-02.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960281/img/graphics-design/flyer/thumbnail/flyer-03.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-04.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960282/img/graphics-design/flyer/thumbnail/flyer-04.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-05.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960283/img/graphics-design/flyer/thumbnail/flyer-05.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-06.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-06",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960284/img/graphics-design/flyer/thumbnail/flyer-06.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-06>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-07.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-07",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960285/img/graphics-design/flyer/thumbnail/flyer-07.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-07>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-08.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-08",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960286/img/graphics-design/flyer/thumbnail/flyer-08.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-08>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-09.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-09",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960287/img/graphics-design/flyer/thumbnail/flyer-09.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-09>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/flyer/thumbnail/flyer-10.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/flyer/thumbnail/flyer-10",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960290/img/graphics-design/flyer/thumbnail/flyer-10.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/flyer/thumbnail/flyer-10>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/font-selection.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/font-selection",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960291/img/graphics-design/font-selection.webp",
-    "width": 650,
-    "height": 287
+    "deliveryUrl": "<pending:img/graphics-design/font-selection>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/green-color.png": {
     "kind": "image",
     "publicId": "img/graphics-design/green-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960293/img/graphics-design/green-color.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/green-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/least-fav-colors-gender.png": {
     "kind": "image",
     "publicId": "img/graphics-design/least-fav-colors-gender",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960294/img/graphics-design/least-fav-colors-gender.webp",
-    "width": 1024,
-    "height": 364
+    "deliveryUrl": "<pending:img/graphics-design/least-fav-colors-gender>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960295/img/graphics-design/menu/food-flyer-1.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960297/img/graphics-design/menu/food-flyer-2.webp",
-    "width": 1600,
-    "height": 1110
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960298/img/graphics-design/menu/food-flyer-3.webp",
-    "width": 1600,
-    "height": 1648
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960299/img/graphics-design/menu/food-flyer-4.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960301/img/graphics-design/menu/food-flyer-5.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960304/img/graphics-design/menu/food-flyer-6.webp",
-    "width": 1600,
-    "height": 1101
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/food-flyer-7.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/food-flyer-7",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960305/img/graphics-design/menu/food-flyer-7.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/menu/food-flyer-7>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960306/img/graphics-design/menu/thumbnail/food-flyer-1.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960307/img/graphics-design/menu/thumbnail/food-flyer-2.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960308/img/graphics-design/menu/thumbnail/food-flyer-3.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960309/img/graphics-design/menu/thumbnail/food-flyer-4.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960310/img/graphics-design/menu/thumbnail/food-flyer-5.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960311/img/graphics-design/menu/thumbnail/food-flyer-6.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/menu/thumbnail/food-flyer-7.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/menu/thumbnail/food-flyer-7",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960312/img/graphics-design/menu/thumbnail/food-flyer-7.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/menu/thumbnail/food-flyer-7>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/monochomatic.png": {
     "kind": "image",
     "publicId": "img/graphics-design/monochomatic",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960313/img/graphics-design/monochomatic.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/monochomatic>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/orange-color.png": {
     "kind": "image",
     "publicId": "img/graphics-design/orange-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960314/img/graphics-design/orange-color.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/orange-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/pink-color.png": {
     "kind": "image",
     "publicId": "img/graphics-design/pink-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960315/img/graphics-design/pink-color.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/pink-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960316/img/graphics-design/poster/poster-01.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960317/img/graphics-design/poster/poster-03.webp",
-    "width": 626,
-    "height": 451
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-04.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960320/img/graphics-design/poster/poster-04.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-05.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960321/img/graphics-design/poster/poster-05.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-06.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-06",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960322/img/graphics-design/poster/poster-06.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-06>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-07.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-07",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960323/img/graphics-design/poster/poster-07.webp",
-    "width": 740,
-    "height": 740
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-07>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-08.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-08",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960324/img/graphics-design/poster/poster-08.webp",
-    "width": 1600,
-    "height": 691
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-08>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-09.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-09",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960325/img/graphics-design/poster/poster-09.webp",
-    "width": 626,
-    "height": 505
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-09>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/poster-10.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/poster-10",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960326/img/graphics-design/poster/poster-10.webp",
-    "width": 626,
-    "height": 626
+    "deliveryUrl": "<pending:img/graphics-design/poster/poster-10>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960327/img/graphics-design/poster/thumbnail/book-1.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960328/img/graphics-design/poster/thumbnail/book-2.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960329/img/graphics-design/poster/thumbnail/book-3.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960330/img/graphics-design/poster/thumbnail/book-4.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960331/img/graphics-design/poster/thumbnail/book-5.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/book-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/book-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960332/img/graphics-design/poster/thumbnail/book-6.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/book-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-01.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960333/img/graphics-design/poster/thumbnail/poster-01.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-03.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960334/img/graphics-design/poster/thumbnail/poster-03.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-04.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960335/img/graphics-design/poster/thumbnail/poster-04.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-05.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960336/img/graphics-design/poster/thumbnail/poster-05.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-06.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-06",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960337/img/graphics-design/poster/thumbnail/poster-06.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-06>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-07.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-07",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960338/img/graphics-design/poster/thumbnail/poster-07.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-07>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-08.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-08",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960339/img/graphics-design/poster/thumbnail/poster-08.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-08>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-09.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-09",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960340/img/graphics-design/poster/thumbnail/poster-09.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-09>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/poster/thumbnail/poster-10.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/poster/thumbnail/poster-10",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960341/img/graphics-design/poster/thumbnail/poster-10.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/poster/thumbnail/poster-10>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/purple-color.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/purple-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960342/img/graphics-design/purple-color.webp",
-    "width": 1024,
-    "height": 768
+    "deliveryUrl": "<pending:img/graphics-design/purple-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/red-color.png": {
     "kind": "image",
     "publicId": "img/graphics-design/red-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960343/img/graphics-design/red-color.webp",
-    "width": 1024,
-    "height": 680
+    "deliveryUrl": "<pending:img/graphics-design/red-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/split-complementary.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/split-complementary",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960345/img/graphics-design/split-complementary.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/split-complementary>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/tetradic.png": {
     "kind": "image",
     "publicId": "img/graphics-design/tetradic",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960346/img/graphics-design/tetradic.webp",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/tetradic>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/triadic.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/triadic",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960348/img/graphics-design/triadic.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/triadic>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960349/img/graphics-design/ui/thumbnail/ui-design-1.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960350/img/graphics-design/ui/thumbnail/ui-design-2.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960351/img/graphics-design/ui/thumbnail/ui-design-3.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960352/img/graphics-design/ui/thumbnail/ui-design-4.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960353/img/graphics-design/ui/thumbnail/ui-design-5.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960354/img/graphics-design/ui/thumbnail/ui-design-6.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/thumbnail/ui-design-7.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/thumbnail/ui-design-7",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960356/img/graphics-design/ui/thumbnail/ui-design-7.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/ui/thumbnail/ui-design-7>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-1.png": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960357/img/graphics-design/ui/ui-design-1.webp",
-    "width": 1600,
-    "height": 2388
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960358/img/graphics-design/ui/ui-design-2.webp",
-    "width": 640,
-    "height": 640
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-3.png": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960359/img/graphics-design/ui/ui-design-3.webp",
-    "width": 780,
-    "height": 1596
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960361/img/graphics-design/ui/ui-design-4.webp",
-    "width": 1600,
-    "height": 1067
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-5.png": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960362/img/graphics-design/ui/ui-design-5.webp",
-    "width": 1600,
-    "height": 1200
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960363/img/graphics-design/ui/ui-design-6.webp",
-    "width": 996,
-    "height": 664
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/ui/ui-design-7.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/ui/ui-design-7",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960365/img/graphics-design/ui/ui-design-7.webp",
-    "width": 996,
-    "height": 664
+    "deliveryUrl": "<pending:img/graphics-design/ui/ui-design-7>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960366/img/graphics-design/visiting-card/thumbnail/visiting-card-1.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960367/img/graphics-design/visiting-card/thumbnail/visiting-card-2.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960368/img/graphics-design/visiting-card/thumbnail/visiting-card-3.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960369/img/graphics-design/visiting-card/thumbnail/visiting-card-4.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960370/img/graphics-design/visiting-card/thumbnail/visiting-card-5.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/thumbnail/visiting-card-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/thumbnail/visiting-card-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960371/img/graphics-design/visiting-card/thumbnail/visiting-card-6.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/thumbnail/visiting-card-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-1.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960372/img/graphics-design/visiting-card/visiting-card-1.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-2.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960373/img/graphics-design/visiting-card/visiting-card-2.webp",
-    "width": 1600,
-    "height": 800
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-3.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960375/img/graphics-design/visiting-card/visiting-card-3.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-4.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-4",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960377/img/graphics-design/visiting-card/visiting-card-4.webp",
-    "width": 1600,
-    "height": 914
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-4>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-5.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-5",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960378/img/graphics-design/visiting-card/visiting-card-5.webp",
-    "width": 1600,
-    "height": 1600
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-5>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-6.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-6",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960379/img/graphics-design/visiting-card/visiting-card-6.webp",
-    "width": 1200,
-    "height": 1200
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-6>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/visiting-card/visiting-card-size.jpg": {
     "kind": "image",
     "publicId": "img/graphics-design/visiting-card/visiting-card-size",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960381/img/graphics-design/visiting-card/visiting-card-size.webp",
-    "width": 651,
-    "height": 420
+    "deliveryUrl": "<pending:img/graphics-design/visiting-card/visiting-card-size>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/white-color.gif": {
     "kind": "loop",
     "publicId": "img/graphics-design/white-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960384/img/graphics-design/white-color.mp4",
-    "width": 800,
-    "height": 600
+    "deliveryUrl": "<pending:img/graphics-design/white-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/graphics-design/yellow-color.png": {
     "kind": "image",
     "publicId": "img/graphics-design/yellow-color",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960386/img/graphics-design/yellow-color.webp",
-    "width": 1024,
-    "height": 640
+    "deliveryUrl": "<pending:img/graphics-design/yellow-color>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/hand-tool.png": {
     "kind": "image",
     "publicId": "img/hand-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960387/img/hand-tool.webp",
-    "width": 57,
-    "height": 40
+    "deliveryUrl": "<pending:img/hand-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/healing-brush-tool.png": {
     "kind": "image",
     "publicId": "img/healing-brush-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960388/img/healing-brush-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/healing-brush-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_5terre.jpg": {
     "kind": "image",
     "publicId": "img/img_5terre",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960389/img/img_5terre.webp",
-    "width": 600,
-    "height": 400
+    "deliveryUrl": "<pending:img/img_5terre>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_float1.jpg": {
     "kind": "image",
     "publicId": "img/img_float1",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960390/img/img_float1.webp",
-    "width": 600,
-    "height": 400
+    "deliveryUrl": "<pending:img/img_float1>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_float2.jpg": {
     "kind": "image",
     "publicId": "img/img_float2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960391/img/img_float2.webp",
-    "width": 600,
-    "height": 400
+    "deliveryUrl": "<pending:img/img_float2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_float3.jpg": {
     "kind": "image",
     "publicId": "img/img_float3",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960392/img/img_float3.webp",
-    "width": 600,
-    "height": 400
+    "deliveryUrl": "<pending:img/img_float3>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_forest.jpg": {
     "kind": "image",
     "publicId": "img/img_forest",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960393/img/img_forest.webp",
-    "width": 600,
-    "height": 400
+    "deliveryUrl": "<pending:img/img_forest>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_girl.jpg": {
     "kind": "image",
     "publicId": "img/img_girl",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960394/img/img_girl.webp",
-    "width": 500,
-    "height": 600
+    "deliveryUrl": "<pending:img/img_girl>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/img_smallflower.jpg": {
     "kind": "image",
     "publicId": "img/img_smallflower",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960395/img/img_smallflower.webp",
-    "width": 214,
-    "height": 204
+    "deliveryUrl": "<pending:img/img_smallflower>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/lasso-tool.png": {
     "kind": "image",
     "publicId": "img/lasso-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960396/img/lasso-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/lasso-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/layers-img.png": {
     "kind": "image",
     "publicId": "img/layers-img",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960397/img/layers-img.webp",
-    "width": 244,
-    "height": 287
+    "deliveryUrl": "<pending:img/layers-img>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/line-tool.png": {
     "kind": "image",
     "publicId": "img/line-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960398/img/line-tool.webp",
-    "width": 57,
-    "height": 40
+    "deliveryUrl": "<pending:img/line-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/magicwand-tool.png": {
     "kind": "image",
     "publicId": "img/magicwand-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960399/img/magicwand-tool.webp",
-    "width": 53,
-    "height": 40
+    "deliveryUrl": "<pending:img/magicwand-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/magnify-tool.png": {
     "kind": "image",
     "publicId": "img/magnify-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960400/img/magnify-tool.webp",
-    "width": 57,
-    "height": 40
+    "deliveryUrl": "<pending:img/magnify-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/marquee-s-tool.png": {
     "kind": "image",
     "publicId": "img/marquee-s-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960401/img/marquee-s-tool.webp",
-    "width": 65,
-    "height": 43
+    "deliveryUrl": "<pending:img/marquee-s-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/marquee-tool.jpg": {
     "kind": "image",
     "publicId": "img/marquee-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960403/img/marquee-tool.webp",
-    "width": 268,
-    "height": 97
+    "deliveryUrl": "<pending:img/marquee-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/menu-strip-2.gif": {
     "kind": "loop",
     "publicId": "img/menu-strip-2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960404/img/menu-strip-2.mp4",
-    "width": 1140,
-    "height": 65
+    "deliveryUrl": "<pending:img/menu-strip-2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/move-tool.png": {
     "kind": "image",
     "publicId": "img/move-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960405/img/move-tool.webp",
-    "width": 66,
-    "height": 54
+    "deliveryUrl": "<pending:img/move-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/outline-img.jpg": {
     "kind": "image",
     "publicId": "img/outline-img",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960406/img/outline-img.webp",
-    "width": 1318,
-    "height": 308
+    "deliveryUrl": "<pending:img/outline-img>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/paris.jpg": {
     "kind": "image",
     "publicId": "img/paris",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960407/img/paris.webp",
-    "width": 400,
-    "height": 300
+    "deliveryUrl": "<pending:img/paris>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/path-selection-tool.png": {
     "kind": "image",
     "publicId": "img/path-selection-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960408/img/path-selection-tool.webp",
-    "width": 47,
-    "height": 36
+    "deliveryUrl": "<pending:img/path-selection-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/pen-tool.png": {
     "kind": "image",
     "publicId": "img/pen-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960409/img/pen-tool.webp",
-    "width": 48,
-    "height": 32
+    "deliveryUrl": "<pending:img/pen-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/Photoshop_CC_icon.png": {
     "kind": "image",
     "publicId": "img/Photoshop_CC_icon",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960410/img/Photoshop_CC_icon.webp",
-    "width": 1000,
-    "height": 975
+    "deliveryUrl": "<pending:img/Photoshop_CC_icon>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/ps-interface.jpg": {
     "kind": "image",
     "publicId": "img/ps-interface",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960411/img/ps-interface.webp",
-    "width": 1073,
-    "height": 645
+    "deliveryUrl": "<pending:img/ps-interface>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/ps-interface2.jpg": {
     "kind": "image",
     "publicId": "img/ps-interface2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960412/img/ps-interface2.webp",
-    "width": 1600,
-    "height": 900
+    "deliveryUrl": "<pending:img/ps-interface2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/ps-shortcut-keys.jpg": {
     "kind": "image",
     "publicId": "img/ps-shortcut-keys",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960413/img/ps-shortcut-keys.webp",
-    "width": 1600,
-    "height": 2071
+    "deliveryUrl": "<pending:img/ps-shortcut-keys>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/selector2.png": {
     "kind": "image",
     "publicId": "img/selector2",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960415/img/selector2.webp",
-    "width": 501,
-    "height": 126
+    "deliveryUrl": "<pending:img/selector2>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/sementic-tags.gif": {
     "kind": "loop",
     "publicId": "img/sementic-tags",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/video/upload/v1784960416/img/sementic-tags.mp4",
-    "width": 220,
-    "height": 260
+    "deliveryUrl": "<pending:img/sementic-tags>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/serif.jpg": {
     "kind": "image",
     "publicId": "img/serif",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960417/img/serif.webp",
-    "width": 518,
-    "height": 160
+    "deliveryUrl": "<pending:img/serif>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/text-over-img.jpg": {
     "kind": "image",
     "publicId": "img/text-over-img",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960418/img/text-over-img.webp",
-    "width": 1266,
-    "height": 443
+    "deliveryUrl": "<pending:img/text-over-img>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/toolbar.jpg": {
     "kind": "image",
     "publicId": "img/toolbar",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960419/img/toolbar.webp",
-    "width": 1461,
-    "height": 912
+    "deliveryUrl": "<pending:img/toolbar>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/transparent-box.jpg": {
     "kind": "image",
     "publicId": "img/transparent-box",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960420/img/transparent-box.webp",
-    "width": 1600,
-    "height": 336
+    "deliveryUrl": "<pending:img/transparent-box>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/type-tool.png": {
     "kind": "image",
     "publicId": "img/type-tool",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960421/img/type-tool.webp",
-    "width": 47,
-    "height": 36
+    "deliveryUrl": "<pending:img/type-tool>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/thumbnail/wireframe-01.jpg": {
     "kind": "image",
     "publicId": "img/website-design/thumbnail/wireframe-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960422/img/website-design/thumbnail/wireframe-01.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/website-design/thumbnail/wireframe-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/thumbnail/wireframe-02.jpg": {
     "kind": "image",
     "publicId": "img/website-design/thumbnail/wireframe-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960423/img/website-design/thumbnail/wireframe-02.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/website-design/thumbnail/wireframe-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/thumbnail/wireframe-03.jpg": {
     "kind": "image",
     "publicId": "img/website-design/thumbnail/wireframe-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960424/img/website-design/thumbnail/wireframe-03.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/website-design/thumbnail/wireframe-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/thumbnail/wireframe-04.jpg": {
     "kind": "image",
     "publicId": "img/website-design/thumbnail/wireframe-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960425/img/website-design/thumbnail/wireframe-04.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/website-design/thumbnail/wireframe-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/thumbnail/wireframe-05.jpg": {
     "kind": "image",
     "publicId": "img/website-design/thumbnail/wireframe-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960426/img/website-design/thumbnail/wireframe-05.webp",
-    "width": 100,
-    "height": 100
+    "deliveryUrl": "<pending:img/website-design/thumbnail/wireframe-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/wireframe-01.jpg": {
     "kind": "image",
     "publicId": "img/website-design/wireframe-01",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960427/img/website-design/wireframe-01.webp",
-    "width": 1448,
-    "height": 1628
+    "deliveryUrl": "<pending:img/website-design/wireframe-01>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/wireframe-02.jpg": {
     "kind": "image",
     "publicId": "img/website-design/wireframe-02",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960428/img/website-design/wireframe-02.webp",
-    "width": 1448,
-    "height": 2264
+    "deliveryUrl": "<pending:img/website-design/wireframe-02>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/wireframe-03.png": {
     "kind": "image",
     "publicId": "img/website-design/wireframe-03",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960429/img/website-design/wireframe-03.webp",
-    "width": 1024,
-    "height": 2100
+    "deliveryUrl": "<pending:img/website-design/wireframe-03>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/wireframe-04.jpg": {
     "kind": "image",
     "publicId": "img/website-design/wireframe-04",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960431/img/website-design/wireframe-04.webp",
-    "width": 1600,
-    "height": 8013
+    "deliveryUrl": "<pending:img/website-design/wireframe-04>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/website-design/wireframe-05.jpg": {
     "kind": "image",
     "publicId": "img/website-design/wireframe-05",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960433/img/website-design/wireframe-05.webp",
-    "width": 1600,
-    "height": 3608
+    "deliveryUrl": "<pending:img/website-design/wireframe-05>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/win-btn.png": {
     "kind": "image",
     "publicId": "img/win-btn",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960434/img/win-btn.webp",
-    "width": 256,
-    "height": 256
+    "deliveryUrl": "<pending:img/win-btn>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/win10-btn.png": {
     "kind": "image",
     "publicId": "img/win10-btn",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960436/img/win10-btn.webp",
-    "width": 766,
-    "height": 768
+    "deliveryUrl": "<pending:img/win10-btn>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/with-float.jpg": {
     "kind": "image",
     "publicId": "img/with-float",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960437/img/with-float.webp",
-    "width": 1084,
-    "height": 276
+    "deliveryUrl": "<pending:img/with-float>",
+    "width": 0,
+    "height": 0
   },
   "assets/img/without-float.jpg": {
     "kind": "image",
     "publicId": "img/without-float",
-    "deliveryUrl": "https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960439/img/without-float.webp",
-    "width": 1084,
-    "height": 276
+    "deliveryUrl": "<pending:img/without-float>",
+    "width": 0,
+    "height": 0
   }
 }

@@ -11,20 +11,21 @@ for picking up work weeks later.
 
 ## Current state — 2026-07-25
 
-**Phase:** Stage 1 ✅ · Stage 2 ✅ · Stage 3 ✅ · **Stage 4 ✅ DONE — all assets migrated.**
+**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 first two pages built (home + one lesson page), design polish applied, awaiting user sign-off before scaling to all 131.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
 ### ⚡ Next action
 
-**Stage 5 — public site build.** Nothing left blocking it: all 131 docs have real content,
-all images/PDFs/videos resolve to live CDN URLs, zero residual old-path references anywhere
-in the DB (verified by direct query, not just script exit codes). Start with the shell
-(layout, `DocSidebar`, home) then one lesson page for design sign-off before building all
-131 — per `docs/UI.md`'s "approval flow before scale" rule.
-
-Also open, not blocking: `docs.sort_order` is currently file-scan order, not the old site's
-intended teaching sequence — needs a manual reorder pass once the admin panel exists
-(Stage 7).
+Get explicit sign-off on the homepage + `css/align` lesson page design (per `docs/UI.md`'s
+approval-flow rule), then scale the same components to all 131 docs — mechanically true
+already, since the lesson page is one dynamic route (`app/[category]/[slug]/page.tsx`) with
+`generateStaticParams()`, not 131 hand-built files. What's actually still open:
+- Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
+  link straight to each category's first lesson as a stand-in.
+- Command palette (⌘K / `cmdk`) and Try It Yourself — explicitly deferred per `docs/UI.md`'s
+  "four screens" priority order; screens 1–2 (lesson page, code block) came first.
+- `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
+  fix, unchanged from before.
 
 ### Stage board
 
@@ -35,7 +36,7 @@ intended teaching sequence — needs a manual reorder pass once the admin panel 
 | 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
 | 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
 | 4 | Assets → Cloudinary + R2 | ✅ **DONE** | 18 PDFs + 191 images/GIFs migrated (sessions 5–6). See [ASSETS.md](ASSETS.md) |
-| 5 | Public site build | ⬜ **next** | |
+| 5 | Public site build | 🟨 **in progress** | Home + 1 lesson page built and polished (session 7). Awaiting sign-off before scaling |
 | 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
@@ -62,6 +63,100 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - URL map: **131 entries** in `scripts/url-map.json` (132 − 1 redirect for duplicate poster page).
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
+
+---
+
+## 2026-07-25 — Session 7: Stage 5 build — home + one lesson page, design polish
+
+**Done**
+
+- Built the actual site shell: `app/layout.tsx` (theme-flash-prevention inline script,
+  header, footer), `components/site-header.tsx`, `components/site-footer.tsx`,
+  `components/doc-sidebar.tsx` (persistent, data-driven, replaces the old site's 4
+  near-duplicate sidebar includes per the repo-layout plan), `components/blocks/
+  block-renderer.tsx` (async server component, switches on block type: richtext, heading,
+  code via Shiki, image via `next/image` + custom Cloudinary loader, `loop` via
+  `<video autoplay muted loop playsinline>`, table).
+- `app/[category]/[slug]/page.tsx` — the one dynamic route that will eventually serve all
+  131 lessons. `generateStaticParams()` pre-renders every known path at build time (⚠️
+  content-in-server-HTML non-negotiable, never SSR). `app/page.tsx` — homepage with a
+  category grid.
+- `lib/shiki.ts` (singleton highlighter, avoids re-instantiating the WASM highlighter per
+  code block), `lib/cloudinary.ts` (URL builder + `next/image` custom loader).
+- Added `getSidebarTree()` to `lib/content.ts` — the sidebar needs every category with its
+  docs in one query, not fetched per-category.
+- **Design polish**, prompted mid-session by the user supplying the real LCA logo/favicon
+  and asking for a more professional feel: processed the logo (8588×1498 source down to a
+  64px header icon + app icon/apple-icon via Next's `app/icon.png` convention — no
+  hand-built `.ico`), extracted the brand orange and computed its exact OKLCH value,
+  verified WCAG AA contrast mathematically (not eyeballed) before committing to it as the
+  theme's `--primary` in both light and dark mode, added real brand icons (`logos:css-3`,
+  `logos:html-5`, etc. via `unplugin-icons`) replacing generic ones on the homepage, added
+  a shadcn-pattern `Button` component (hand-written, not `npx shadcn add` — that needs a
+  TTY, doesn't work in this environment) since buttons are a genuine cross-site need, not
+  speculative.
+- Removed the unused create-next-app scaffold SVGs and the old default favicon — nothing
+  referenced them.
+
+**Findings worth remembering**
+
+1. **`next/image`'s `loader` prop cannot be a plain function passed from a Server
+   Component** — "Functions cannot be passed directly to Client Components" at runtime,
+   not a type error, so it wasn't caught by `tsc`. Fixed by wiring the loader through
+   `next.config.ts`'s `images.loaderFile` instead (Next imports it directly, no prop
+   serialization needed) — also the documented pattern, not a workaround.
+2. **A global custom image loader conflicts with local `public/` assets.** Once
+   `loaderFile` is set, *every* `next/image` call routes through it — including the header
+   logo, which isn't a Cloudinary asset. Solution: plain `<img>` for local static assets,
+   custom loader only applies where it's actually pointed (Cloudinary `publicId`s). Two
+   different asset sources need two different tags, not one loader trying to handle both.
+3. **`generateStaticParams` runs at build time with no HTTP request** — the cookie-aware
+   Supabase SSR client throws if used there. Fixed by giving `getAllDocPaths()` (the one
+   function that runs in that context) a plain `@supabase/supabase-js` client instead of
+   the cookie-aware one. The read is public anyway (RLS already allows anon reads of
+   published docs), so this isn't a workaround, it's the correct client for a context that
+   was never going to have cookies.
+4. **Real bug, not a React bug**: `center-align.gif` broke as an autoplaying video —
+   `duration: null`, wouldn't play even in Chrome's own native video viewer (checked
+   before assuming the bug was in my code). Root cause: it's a **single-frame GIF**
+   (`sharp` metadata: `pages: 1`), not an animation — ffmpeg can't produce a meaningful
+   video from one frame. `migrate-images.mjs` was routing every `.gif` extension through
+   the video pipeline unconditionally. Fixed with a `pages > 1` gate; re-verified the
+   other 9 GIFs are genuine multi-frame animations (7 and 8 frames for the two smallest)
+   before trusting them.
+5. **Shiki's dual-theme output needs one CSS rule to actually switch themes.** It emits
+   both light and dark colors as CSS custom properties on every span and defaults to the
+   light one — without `.dark .shiki { color: var(--shiki-dark) !important; ... }`, code
+   blocks silently stay light-themed even when the rest of the page is dark. Caught by
+   actually toggling dark mode in a live browser check, not by reading the Shiki output.
+6. **Brand orange fails WCAG AA on white at the logo's own lightness** (2.35:1 against a
+   4.5:1 requirement) — computed exactly via OKLCH→linear-sRGB→relative-luminance, not
+   eyeballed. Same hue/chroma, darkened to L=0.57 for light-mode text use (4.72:1), kept at
+   the logo's native L=0.75 for dark mode (8.45:1, no compromise needed there). Also means
+   solid buttons using this color as a fill need **dark** text in both themes, not the
+   usual light-on-accent pattern — this orange doesn't clear AA against white text at
+   either lightness value tested.
+7. **`unplugin-icons`' JSX/React compiler mode needs `@svgr/core` as a real dependency**,
+   not just the plugin itself — didn't surface until a `~icons/*` import was actually used
+   for the first time this session (config was wired up in session 3, unused until now).
+
+**Failed / abandoned**
+
+- Dev server needed two full clean restarts (`rm -rf .next`, kill stray node processes)
+  during this session — accumulated config changes (`next.config.ts` edited while the
+  server was running) left Next's dev cache in a state throwing "Unexpected end of JSON
+  input" on its own manifest files. Not an app bug; a clean restart resolved it both times.
+  Worth remembering: after any `next.config.ts` edit, restart clean rather than trust hot
+  reload.
+
+**Next session — start here**
+
+1. Get the user's actual sign-off on what's built (not just "I think it looks fine" —
+   `docs/UI.md` calls for explicit confirmation before scaling to 131 pages).
+2. Build `/[category]` index pages — the one structural gap; homepage cards currently
+   route around it by linking straight to each category's first lesson.
+3. Screens 3–4 from `docs/UI.md` (Try It Yourself, command palette) — deferred on purpose,
+   not forgotten.
 
 ---
 
