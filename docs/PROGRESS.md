@@ -16,16 +16,20 @@ for picking up work weeks later.
 
 ### ⚡ Next action
 
-Get explicit sign-off on the homepage + `css/align` lesson page design (per `docs/UI.md`'s
-approval-flow rule), then scale the same components to all 131 docs — mechanically true
+User gave a first round of feedback on the home + lesson page (session 8): accordion
+sidebar, real logo/branding, wider layout, general polish. All addressed — see session 8.
+Get explicit sign-off on the current state, then scale to all 131 docs — mechanically true
 already, since the lesson page is one dynamic route (`app/[category]/[slug]/page.tsx`) with
 `generateStaticParams()`, not 131 hand-built files. What's actually still open:
 - Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
   link straight to each category's first lesson as a stand-in.
 - Command palette (⌘K / `cmdk`) and Try It Yourself — explicitly deferred per `docs/UI.md`'s
   "four screens" priority order; screens 1–2 (lesson page, code block) came first.
+- Admin panel — **does not exist yet.** No link, no login. Stage 7, unstarted.
 - `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
   fix, unchanged from before.
+- Mobile sidebar is currently just hidden (`hidden md:block`), not a drawer/sheet. Works,
+  but isn't the "collapsible drawer" pattern referenced from shadcn sidebar templates.
 
 ### Stage board
 
@@ -36,7 +40,7 @@ already, since the lesson page is one dynamic route (`app/[category]/[slug]/page
 | 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
 | 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
 | 4 | Assets → Cloudinary + R2 | ✅ **DONE** | 18 PDFs + 191 images/GIFs migrated (sessions 5–6). See [ASSETS.md](ASSETS.md) |
-| 5 | Public site build | 🟨 **in progress** | Home + 1 lesson page built and polished (session 7). Awaiting sign-off before scaling |
+| 5 | Public site build | 🟨 **in progress** | Home + 1 lesson page built (session 7), revised on user feedback — accordion sidebar, real branding, wider layout (session 8). Awaiting sign-off before scaling |
 | 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
@@ -63,6 +67,75 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - URL map: **131 entries** in `scripts/url-map.json` (132 − 1 redirect for duplicate poster page).
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
+
+---
+
+## 2026-07-25 — Session 8: sidebar accordion, real branding, wider layout, real bug fix
+
+User feedback on session 7's build, addressed in order:
+
+**Done**
+
+- **Duplicate heading-anchor bug — real, not cosmetic.** React console errors
+  (`key-characteristics`, `examples`, `types` colliding) traced to lessons with repeated
+  subheading text (e.g. "Key Characteristics" under every era in
+  `basics/computer-fundamentals`'s 16-section page) — the extractor's `slugify()` had no
+  per-document dedup, so identical text produced identical anchors. Affected 3 of 131 docs
+  (`basics/computer-fundamentals`, `javascript/control-flow`, `react/introduction`), 15
+  anchors total. **Did not re-run `extract-docs.mjs`** — that regenerates blocks from the
+  raw Jekyll source and would have wiped every Cloudinary URL from the Stage 4 migration.
+  Instead wrote a one-off script operating on the *current* DB content: same dedup
+  algorithm, applied to already-migrated `blocks`/`toc`, nothing else touched. Fixed the
+  extractor too (for correctness on any future re-extraction) but the live fix came from
+  the surgical script.
+- **Sidebar rebuilt as an accordion.** All 7 categories were rendering fully expanded —
+  36 HTML lessons visible at once with no way to collapse. Added `@radix-ui/react-accordion`
+  (matches the shadcn pattern already used for `Button`), split `DocSidebar` into a server
+  component (data fetch) + `SidebarNav` client component (interactive accordion), reused
+  the homepage's brand icons per category. The category containing the current page
+  defaults open; others closed but reachable.
+- **Real branding.** User supplied the actual LCA logo/favicon files (local paths, not in
+  the repo). Processed with `sharp`: `app/icon.png` (512px, Next's native favicon
+  convention — no hand-built `.ico`), `app/apple-icon.png` (180px), `public/logo-icon.png`
+  (64px header icon). **Did not use the full wordmark PNG** — its "LEARN COMPUTER ACADEMY"
+  text is baked into black pixels, which would be invisible in dark mode, and CSS `invert()`
+  would also wreck the orange badge alongside the text. Used the icon badge (no baked text)
+  + real DOM text (`text-foreground`, adapts to theme automatically) instead.
+- **Wider, flexible lesson-page layout.** Removed the `max-w-6xl` (1152px) cap entirely —
+  sidebar and TOC stay fixed-width, the center content column (`flex-1`) now absorbs all
+  remaining viewport width. Mobile unaffected (sidebar/TOC already hidden below md/xl
+  breakpoints, this only changes what happens on larger screens).
+- **Homepage overhaul** — user called the first pass "too bland." Added: a stats badge
+  ("131 free lessons, 7 subjects" — computed from live data, not hardcoded), a decorative
+  static code-editor mockup in the hero (not interactive — that's Try It Yourself's job,
+  Stage 6), a 3-column features section (runnable examples / beginner friendly / free), a
+  "Browse subjects" anchor-link secondary CTA, bigger/bolder subject cards with hover lift.
+  Extracted the category→icon map into `lib/category-icons.tsx` so the sidebar and
+  homepage share one source instead of two copies.
+- Fetched https://designrevision.com/blog/best-shadcn-templates for pattern reference
+  (collapsible sidebar sections, nested items, mobile drawer) before building — confirmed
+  the accordion direction rather than inventing it from scratch.
+
+**Findings worth remembering**
+
+1. **Console errors from a stale browser tab looked identical to a live bug.** After
+   fixing the duplicate-anchor issue in the DB, the dev server terminal kept relaying
+   `[browser] Encountered two children with the same key` from an already-open tab that
+   hadn't hard-reloaded since before the fix. Verified directly against the DB (0
+   duplicates) before spending more time chasing a bug that no longer existed — the
+   lesson: when a fix "doesn't seem to work" after confirming success, check whether
+   you're looking at stale client state before re-deriving the server-side logic.
+2. **A full wordmark logo with baked-in text is theme-hostile.** Any raster asset with
+   dark text baked into transparent PNG pixels can't adapt to dark mode without either a
+   second asset or accepting a hue-wrecking `invert()`. Icon-only image + real text is the
+   general fix, not specific to this logo.
+
+**Next session — start here**
+
+1. Get explicit sign-off before scaling to all 131 lessons.
+2. Mobile sidebar is still just hidden, not a drawer — worth a pass if the user wants the
+   full shadcn-sidebar-template pattern, not just desktop polish.
+3. Category index pages (`/[category]`) — still the one structural gap.
 
 ---
 

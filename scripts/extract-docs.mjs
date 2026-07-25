@@ -127,6 +127,15 @@ function extractBlocks($, $root) {
   const blocks = []
   let richtextBuf = []
   const warnings = []
+  const usedAnchors = new Map() // dedup within this doc — "Key Characteristics"
+                                 // repeats across sections in several lessons;
+                                 // colliding anchors break deep-links and React keys
+
+  function uniqueAnchor(base) {
+    const count = usedAnchors.get(base) ?? 0
+    usedAnchors.set(base, count + 1)
+    return count === 0 ? base : `${base}-${count + 1}`
+  }
 
   function flushRichtext() {
     const html = richtextBuf.join('\n').trim()
@@ -146,7 +155,7 @@ function extractBlocks($, $root) {
       flushRichtext()
       const level = parseInt(tag[1])
       const text = $(el).text().trim()
-      const anchor = $(el).attr('id') || slugify(text)
+      const anchor = uniqueAnchor($(el).attr('id') || slugify(text))
       blocks.push({ id: nanoid(12), type: 'heading', level, text, anchor })
       return
     }

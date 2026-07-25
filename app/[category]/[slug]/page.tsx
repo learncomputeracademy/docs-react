@@ -32,7 +32,10 @@ export default async function LessonPage({ params }: { params: Promise<{ categor
   const doc = await loadDoc(category, slug)
 
   return (
-    <div className="mx-auto flex max-w-6xl gap-8 px-6">
+    // No max-width cap: sidebar and TOC stay fixed-width, the center column
+    // (flex-1) absorbs all remaining space on wide/ultra-wide screens. Mobile
+    // is unaffected — sidebar/TOC are already hidden below md/xl.
+    <div className="mx-auto flex w-full gap-8 px-6 lg:px-10">
       <DocSidebar activePath={doc.path} />
 
       <main className="min-w-0 flex-1 py-8">
