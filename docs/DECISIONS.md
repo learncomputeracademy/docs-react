@@ -514,6 +514,12 @@ structure. The curriculum shape is the same because these are universal CS funda
 taught identically everywhere, not W3Schools' proprietary content — the actual words are
 not the same anywhere.
 
+**Addendum — dialect (2026-07-25):** after the 3-lesson Bengali pilot was approved, the
+user specified West Bengal/Indian Bengali vocabulary, not Bangladeshi Bengali — example
+given: জল (jol) not পানি (pani) for "water". Applies to every translation batch going
+forward, not just the pilot. Saved as a standing memory
+(`bengali_translation_dialect.md`) so it survives across sessions, not just this file.
+
 ---
 
 ## Open

@@ -16,17 +16,17 @@ for picking up work weeks later.
 
 ### ⚡ Next action
 
-**Migration applied, English content live, Bengali pilot live — waiting on the user's
-review of translation quality/tone** before continuing to translate the rest of the
-Programming category or moving to another category. This is the checkpoint the user
-explicitly asked for (D-16's chosen pace), not a blocker I'm introducing.
+**The entire Programming category is done, both languages.** Pilot (3 lessons) was
+reviewed and approved by the user, with one standing correction (West Bengal/Indian
+Bengali, not Bangladeshi — see the memory file and D-16 addendum), then all remaining 16
+were translated the same session and inserted.
 
-- All 19 English "Intro to Programming" lessons are live at `/programming/*`.
-- 3 are also live in Bengali at `/bn/programming/{intro,variables,data-types}` — chosen as
-  the pilot because they're the first three a student reads. The other 16 fall back to
-  English + a banner, exactly as designed.
-- Once the user signs off: translate the remaining 16 Programming lessons, then move to
-  the next category (their call which one).
+- All 19 English lessons live at `/programming/*`.
+- All 19 Bengali translations live at `/bn/programming/*`. Zero fallback banners remaining
+  in this category — first one to reach full bilingual parity.
+- **Next: user picks the next category to translate.** Nothing technical is blocking —
+  the pipeline (schema, routing, partial-rollout fallback, translation workflow) is proven
+  end-to-end on a real 19-lesson category, not just the 3-lesson pilot.
 
 ### Also still open (pre-existing, unchanged)
 - Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
@@ -156,7 +156,7 @@ comments all in scope (syntax itself stays English).
 - Nothing abandoned. Every bug found this session (regression, hardening gaps, switcher
   direction) was caught and fixed within the same session, not deferred.
 
-**Update, same session — migration applied, content live**
+**Update, same session — migration applied, content live, full category translated**
 
 User ran the migration shortly after this session's summary was posted. Immediately:
 - `node scripts/create-programming-section.mjs` — all 19 English lessons inserted and
@@ -166,6 +166,24 @@ User ran the migration shortly after this session's summary was posted. Immediat
   live at `/bn/programming/*`, screenshotted: translated titles sit correctly in the
   sidebar alongside the 16 still-English ones, in the right sort order, no rendering
   issues. Translation rules applied: prose translated, code blocks byte-identical to
+  English, comments translated only when descriptive (not when just echoing a literal
+  output value like `// 0` or `// "apple"`).
+- **User approved the pilot** and gave one standing correction: West Bengal/Indian Bengali
+  vocabulary, not Bangladeshi (জল not পানি). Saved as a memory file
+  (`bengali_translation_dialect.md`) — this needs to survive far past this session, into
+  every future translation batch.
+- User then said "continue, do all" — translated the remaining 16 lessons in the same
+  session (`scripts/translate-programming-rest.mjs`), all inserted and verified.
+  **The Programming category is now the first to reach full bilingual parity** — zero
+  fallback banners remain under `/bn/programming/*`.
+- **Caught my own translation bug during a routine visual spot-check**, not from user
+  feedback: the Arithmetic Operators table had its header translated but the row content
+  ("Addition", "Subtraction", etc.) was left in English by mistake — inconsistent with
+  the Comparison/Logical tables in the same lesson, which were done correctly. Fixed with
+  a targeted patch to that one table rather than re-running the whole batch. Worth noting
+  the failure mode: spreading `...en.block` and only overriding `header` silently keeps
+  the old `rows` — an easy mistake to repeat in future translation batches, so watch for
+  it specifically when a table needs its row *labels* (not just headers) translated.
   English (untranslated syntax, per the user's own note that syntax can't be translated),
   inline `<code>` spans inside sentences left as-is, anchors identical between languages
   so deep links and the "On this page" TOC scroll-to work the same in both.
