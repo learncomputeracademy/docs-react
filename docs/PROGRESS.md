@@ -14,18 +14,19 @@ for picking up work weeks later.
 **Phase:** Stage 1–4 ✅ · **Stage 5 🟨 in progress** · **New: i18n (Bengali) + Intro to Programming section — code complete, blocked on one SQL migration.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-### ⚡ Next action — blocking
+### ⚡ Next action
 
-**User must run `supabase/migrations/002-i18n.sql`** in the Supabase SQL editor (same
-project, same process as `supabase/schema.sql` back in session 4). Until that happens:
-- The new "Intro to Programming" category and its 19 lessons exist only as a script
-  (`scripts/create-programming-section.mjs`) — not yet in the database.
-- `/bn/*` routes work today (verified) but every page falls back to English with a
-  "not translated yet" banner, since `doc_translations` doesn't exist.
+**Migration applied, English content live, Bengali pilot live — waiting on the user's
+review of translation quality/tone** before continuing to translate the rest of the
+Programming category or moving to another category. This is the checkpoint the user
+explicitly asked for (D-16's chosen pace), not a blocker I'm introducing.
 
-**The moment the migration is applied**, run `node scripts/create-programming-section.mjs`
-to insert the 19 English Programming lessons, then the Bengali pilot translation (task 4,
-not started yet — deliberately sequenced after English content exists) can begin.
+- All 19 English "Intro to Programming" lessons are live at `/programming/*`.
+- 3 are also live in Bengali at `/bn/programming/{intro,variables,data-types}` — chosen as
+  the pilot because they're the first three a student reads. The other 16 fall back to
+  English + a banner, exactly as designed.
+- Once the user signs off: translate the remaining 16 Programming lessons, then move to
+  the next category (their call which one).
 
 ### Also still open (pre-existing, unchanged)
 - Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
@@ -155,14 +156,22 @@ comments all in scope (syntax itself stays English).
 - Nothing abandoned. Every bug found this session (regression, hardening gaps, switcher
   direction) was caught and fixed within the same session, not deferred.
 
-**Next session — start here**
+**Update, same session — migration applied, content live**
 
-1. **User runs `supabase/migrations/002-i18n.sql`.** Blocking everything else in this feature.
-2. `node scripts/create-programming-section.mjs` — inserts the 19 English lessons once the
-   migration is live. Dry-run flag available, already verified against the (then-missing)
-   category to fail loudly rather than silently.
-3. Bengali pilot: translate 2–3 Programming lessons, checkpoint with the user on quality
-   before continuing — per the pacing they explicitly chose (D-16).
+User ran the migration shortly after this session's summary was posted. Immediately:
+- `node scripts/create-programming-section.mjs` — all 19 English lessons inserted and
+  verified live at `/programming/*`.
+- Bengali pilot written and inserted (`scripts/translate-programming-pilot.mjs`):
+  `intro`, `variables`, `data-types` — the first three lessons a student reads. Verified
+  live at `/bn/programming/*`, screenshotted: translated titles sit correctly in the
+  sidebar alongside the 16 still-English ones, in the right sort order, no rendering
+  issues. Translation rules applied: prose translated, code blocks byte-identical to
+  English (untranslated syntax, per the user's own note that syntax can't be translated),
+  inline `<code>` spans inside sentences left as-is, anchors identical between languages
+  so deep links and the "On this page" TOC scroll-to work the same in both.
+- **Now waiting on the user's read of these 3 lessons for tone/quality** — the explicit
+  checkpoint from D-16, not a technical blocker. Once approved: the remaining 16 Programming
+  lessons, then the user picks the next category.
 
 ---
 
