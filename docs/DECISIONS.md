@@ -457,6 +457,65 @@ have muddied a type that Phase 2 already scoped narrowly on purpose.
 
 ---
 
+## D-16 · Bengali i18n architecture
+**Date:** 2026-07-25 · **Status:** Active · **Decided by:** User, with follow-up questions answered
+
+The site becomes bilingual — English (existing, source of truth) and Bengali (new), since
+the institute is in Habra, West Bengal and many students read Bengali. Three structural
+questions asked and answered before building:
+
+**URL scheme: path prefix, `/bn/css/intro`, not a toggle or subdomain.** English stays
+unprefixed (`/css/intro`). Chosen for SEO (hreflang-able, each language independently
+indexable) and shareability (a Bengali link is a real URL, not client-side state). Implemented
+as a literal `app/bn/` route tree mirroring `app/`, not a `[locale]` catch-all segment —
+simpler than the general N-language pattern when there are exactly two locales and one of
+them is unprefixed by design.
+
+**Translation pace: one category at a time, review before continuing.** Explicitly chosen
+over "translate everything in one pass" — the failure mode of a big-bang translation is
+redoing 131+ lessons if the tone or quality needs adjusting, versus redoing one category.
+Nothing is translated yet as of this entry; the schema and routing support partial rollout
+by design (see below), so this pacing was buildable from day one rather than retrofitted.
+
+**Scope: lesson prose + UI chrome + code comments, not code syntax.** Confirmed explicitly —
+`margin: auto;` stays `margin: auto;` in a Bengali lesson, but the sentence explaining it,
+the sidebar label, and the button that says "Start learning" all get translated.
+
+**Content model: `doc_translations` side table, not per-locale duplicate rows in `docs`.**
+English lives in `docs` unchanged — untouched by this feature entirely. A translation row
+holds only the fields that actually vary by language (title, meta, blocks, toc); category,
+sort_order, status, and path stay in `docs` and are never duplicated per locale, which
+avoids an entire class of "these went out of sync" bugs. Category titles are the one
+exception — 7 fixed rows, a `title_bn` column is simpler than a join table for something
+that small.
+
+**Partial rollout is load-bearing, not an afterthought.** Given the chosen pace (one
+category at a time), most `/bn/*` pages will have no translation for a long time. `getDoc`
+falls back to English content with an `isTranslated: false` flag and a banner, rather than
+404ing or crashing — a lesson with no Bengali yet is an expected, common state, not an
+error. `generateStaticParams` for `/bn/[category]/[slug]` only pre-builds pages that
+already have a translation; everything else resolves on demand. This also means the whole
+feature could ship today with zero Bengali content translated and nothing would be broken.
+
+---
+
+## D-17 · Intro to Programming: original content, not scraped
+**Date:** 2026-07-25 · **Status:** Active · **Decided by:** Claude, per copyright policy — not user-overridable
+
+User asked for a new section covering "everything that is there" on W3Schools' Intro to
+Programming course. **Declined the literal instruction** — reproducing another site's
+copyrighted explanatory text isn't something built here even on request. What got built
+instead: 19 lessons covering the same topic list (Variables, Data Types, Operators, Loops,
+Functions, Recursion, Scope, Bits and Bytes, Binary/Hex Numbers, Boolean Algebra, and
+the rest) — a factual chapter outline was fetched with an explicit instruction against
+reproducing prose, then every lesson written fresh: original explanations, original code
+examples (JavaScript throughout, matching this site's existing teaching language), original
+structure. The curriculum shape is the same because these are universal CS fundamentals
+taught identically everywhere, not W3Schools' proprietary content — the actual words are
+not the same anywhere.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

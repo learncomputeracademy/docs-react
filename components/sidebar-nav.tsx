@@ -5,9 +5,11 @@ import { cn } from '@/lib/utils'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@/components/ui/accordion'
 import type { SidebarCategory } from '@/lib/content'
+import type { Locale } from '@/lib/types'
 
-export function SidebarNav({ categories, activePath }: { categories: SidebarCategory[]; activePath?: string }) {
+export function SidebarNav({ categories, activePath, locale = 'en' }: { categories: SidebarCategory[]; activePath?: string; locale?: Locale }) {
   const activeCategory = categories.find(c => c.docs.some(d => d.path === activePath))?.slug
+  const prefix = locale === 'bn' ? '/bn' : ''
 
   return (
     <Accordion type="multiple" defaultValue={activeCategory ? [activeCategory] : [categories[0]?.slug]} className="text-sm">
@@ -25,7 +27,7 @@ export function SidebarNav({ categories, activePath }: { categories: SidebarCate
                 {cat.docs.map((doc) => (
                   <li key={doc.path}>
                     <Link
-                      href={`/${doc.path}`}
+                      href={`${prefix}/${doc.path}`}
                       className={cn(
                         'block rounded-md py-1.5 pl-9 pr-3 text-muted-foreground hover:text-foreground hover:bg-muted transition-colors',
                         activePath === doc.path && 'bg-accent text-primary font-medium'

@@ -11,25 +11,31 @@ for picking up work weeks later.
 
 ## Current state — 2026-07-25
 
-**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 first two pages built (home + one lesson page), design polish applied, awaiting user sign-off before scaling to all 131.**
+**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 in progress** · **New: i18n (Bengali) + Intro to Programming section — code complete, blocked on one SQL migration.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-### ⚡ Next action
+### ⚡ Next action — blocking
 
-User gave a first round of feedback on the home + lesson page (session 8): accordion
-sidebar, real logo/branding, wider layout, general polish. All addressed — see session 8.
-Get explicit sign-off on the current state, then scale to all 131 docs — mechanically true
-already, since the lesson page is one dynamic route (`app/[category]/[slug]/page.tsx`) with
-`generateStaticParams()`, not 131 hand-built files. What's actually still open:
+**User must run `supabase/migrations/002-i18n.sql`** in the Supabase SQL editor (same
+project, same process as `supabase/schema.sql` back in session 4). Until that happens:
+- The new "Intro to Programming" category and its 19 lessons exist only as a script
+  (`scripts/create-programming-section.mjs`) — not yet in the database.
+- `/bn/*` routes work today (verified) but every page falls back to English with a
+  "not translated yet" banner, since `doc_translations` doesn't exist.
+
+**The moment the migration is applied**, run `node scripts/create-programming-section.mjs`
+to insert the 19 English Programming lessons, then the Bengali pilot translation (task 4,
+not started yet — deliberately sequenced after English content exists) can begin.
+
+### Also still open (pre-existing, unchanged)
 - Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
   link straight to each category's first lesson as a stand-in.
-- Command palette (⌘K / `cmdk`) and Try It Yourself — explicitly deferred per `docs/UI.md`'s
-  "four screens" priority order; screens 1–2 (lesson page, code block) came first.
+- Try It Yourself — still deferred per `docs/UI.md`'s "four screens" order. Command palette
+  is **done** (see session 9), moving faster than that priority list implied.
 - Admin panel — **does not exist yet.** No link, no login. Stage 7, unstarted.
 - `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
   fix, unchanged from before.
-- Mobile sidebar is currently just hidden (`hidden md:block`), not a drawer/sheet. Works,
-  but isn't the "collapsible drawer" pattern referenced from shadcn sidebar templates.
+- Mobile sidebar is currently just hidden (`hidden md:block`), not a drawer/sheet.
 
 ### Stage board
 
@@ -67,6 +73,96 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - URL map: **131 entries** in `scripts/url-map.json` (132 − 1 redirect for duplicate poster page).
 - Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
+
+---
+
+## 2026-07-25 — Session 9: Bengali i18n + Intro to Programming + command palette
+
+Two new user requests in one turn: a new "Intro to Programming" section, and a full
+Bengali translation of the entire site. Both are big enough that the session opened with
+clarifying questions (see D-16) before writing code — answers: `/bn/` path prefix, one
+category translated at a time with review checkpoints, and lesson prose + UI chrome + code
+comments all in scope (syntax itself stays English).
+
+**Done**
+
+- **Schema** (`supabase/migrations/002-i18n.sql`, not yet applied — needs the user to run
+  it): `doc_translations` table (English stays in `docs`, untouched), `categories.title_bn`,
+  new `programming` category row (sort_order 8).
+- **Routing**: `app/bn/` route tree mirrors `app/` (literal folder split, not a `[locale]`
+  segment — simpler for exactly 2 locales with one unprefixed). Shared logic via
+  `components/home-content.tsx` and `components/lesson-content.tsx` so English and Bengali
+  routes aren't two independent copies of the same page.
+- **`proxy.ts`** (Next.js renamed `middleware.ts` → `proxy.ts` as of this version; caught
+  the deprecation warning and migrated rather than leaving it on the old convention) sets
+  an `x-locale` request header so the root layout can set the correct `<html lang>` — it
+  can't read dynamic route params directly since `/bn` is a folder split, not a segment.
+- **i18n string dictionary** (`lib/i18n.ts`) for UI chrome — nav, buttons, footer, the
+  "not translated yet" banner. Lesson content translations live in `doc_translations`, not
+  here; this file is chrome-only on purpose.
+- **Partial-rollout fallback, built in from the start**: `getDoc(path, 'bn')` returns
+  English content + `isTranslated: false` when no translation exists yet, rather than
+  404ing — a missing translation is the expected common case for most of the rollout, not
+  an error. `getTranslatedDocPaths()` (used by `/bn`'s `generateStaticParams`) only
+  pre-builds pages that already have a translation.
+- **Command palette** (⌘K), user's mid-session addition, referencing kbar's UX — built with
+  `cmdk` (already the decided library in `docs/UI.md`, not kbar itself) + Radix Dialog +
+  a Server Action calling the existing Postgres full-text `searchDocs()`. Lazy-loaded via
+  `next/dynamic` so it doesn't add to every page's initial JS. **Verified working
+  end-to-end live**: typed "align", got "CSS Align" back from a real database query.
+- **Intro to Programming content — written, not yet inserted** (blocked on the migration):
+  `scripts/create-programming-section.mjs` contains all 19 lessons as structured block
+  data — Variables, Constants, Data Types, Type Casting, Operators, Comments, If
+  Statements, Loops, Arrays, Strings, Functions, Recursion, Scope, Input/Output, Bits and
+  Bytes, Binary Numbers, Hexadecimal Numbers, Boolean Algebra, plus an intro. Entirely
+  original writing — see D-17 for why this wasn't scraped from the source the user named.
+- **Real regression found and fixed before it shipped**: `getDoc`'s category join
+  explicitly selected `title_bn`, a column that doesn't exist until the migration runs —
+  this silently broke **every** English lesson page too (not just Bengali ones), since the
+  query failed and the error was swallowed into a plain `notFound()`. Caught by testing
+  `/css/align` again after the i18n changes and seeing a 404 on a page that worked minutes
+  earlier — traced it directly against the DB rather than guessing. Fixed by dropping the
+  unused column from that query.
+- Also hardened `getSidebarTree` and `getTranslatedDocPaths` the same way — any
+  `doc_translations` failure degrades to "no Bengali data available yet," never a crash.
+- Fixed a real (if smaller) bug found via screenshot: the language-switch button showed
+  "বাংলা" while already on the Bengali page — read `t(otherLocale)` where it should have
+  read `t(locale)`, showing the wrong direction's label.
+
+**Findings worth remembering**
+
+1. **A query that references a not-yet-migrated column breaks everything selecting that
+   row, not just the new feature.** `title_bn` was meant to affect only Bengali rendering,
+   but including it in `getDoc`'s always-run category join broke English too, silently
+   (swallowed error → `notFound()`). New optional columns should not be selected in
+   shared/hot-path queries until they're confirmed to exist, or the code needs a fallback
+   that doesn't happen to look like a 404.
+2. **Next.js renamed `middleware.ts` to `proxy.ts`** in this version (deprecation warning,
+   not yet a hard break). Migrated rather than leaving the deprecated convention in a
+   fresh project.
+3. **A TypeScript narrowing limitation with try/catch reassignment** — `let x = null; try
+   { x = ... } catch { x = null }; if (!x) return ...; return {...x}` doesn't narrow `x`
+   cleanly after the guard, because the assignment happened inside a try block. Extracting
+   the try/catch into a small helper function that *returns* the value (so the caller gets
+   a plain `const`) sidesteps the limitation entirely and reads better besides.
+4. **Chrome DevTools/CDP had a run of transient screenshot timeouts** mid-session,
+   unrelated to the app — waiting a few seconds and retrying resolved every instance. Two
+   separate real UI bugs (language switcher direction, this session's earlier duplicate
+   anchors) were caught by *not* giving up on visual verification when the tool got flaky.
+
+**Failed / abandoned**
+
+- Nothing abandoned. Every bug found this session (regression, hardening gaps, switcher
+  direction) was caught and fixed within the same session, not deferred.
+
+**Next session — start here**
+
+1. **User runs `supabase/migrations/002-i18n.sql`.** Blocking everything else in this feature.
+2. `node scripts/create-programming-section.mjs` — inserts the 19 English lessons once the
+   migration is live. Dry-run flag available, already verified against the (then-missing)
+   category to fail loudly rather than silently.
+3. Bengali pilot: translate 2–3 Programming lessons, checkpoint with the user on quality
+   before continuing — per the pacing they explicitly chose (D-16).
 
 ---
 

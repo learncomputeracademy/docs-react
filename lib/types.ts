@@ -25,12 +25,19 @@ export type Block =
 
 export type TocItem = { id: string; text: string; level: 2 | 3 | 4 | 5 | 6 }
 
+// ── i18n ─────────────────────────────────────────────────────
+// English lives directly on `docs`/`categories` — it's the source of
+// truth, not a translation. 'bn' rows live in doc_translations.
+
+export type Locale = 'en' | 'bn'
+
 // ── Database row types ────────────────────────────────────────
 
 export type Category = {
   id: string
   slug: string
   title: string
+  title_bn: string | null
   description: string | null
   sort_order: number
   docs?: { count: number }[]
