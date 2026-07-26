@@ -1,11 +1,12 @@
 // All content access goes through here. Pages never call Supabase directly.
 // This is the mandatory choke point — see CLAUDE.md §4.
-import { createClient } from './supabase/server'
-import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import { cache } from 'react'
+import { unstable_cache } from 'next/cache'
+import { createPublicClient } from './supabase/public'
 import type { Category, Doc, Locale } from './types'
 
 export async function getCategories(): Promise<Category[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase
     .from('categories')
     .select('*, docs(count)')
@@ -22,42 +23,72 @@ export type SidebarCategory = Omit<Category, 'docs'> & { docs: SidebarDoc[] }
 // locale='bn': doc titles fall back to English where no translation exists
 // yet — partial rollout shows real titles, not blanks, while translation
 // is still in progress category-by-category.
-export async function getSidebarTree(locale: Locale = 'en'): Promise<SidebarCategory[]> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('categories')
-    .select('*, docs(id, slug, path, title, sort_order, status)')
-    .order('sort_order')
-  if (error) throw error
-  type Row = Omit<Category, 'docs'> & { docs: (SidebarDoc & { id: string; status: string })[] }
-  const rows = (data ?? []) as unknown as Row[]
+// Two layers of caching, doing two different jobs:
+// - React cache(): request-level memoization, so the category layout
+//   (sidebar) and the category/lesson page sharing one render don't issue
+//   the query twice.
+// - unstable_cache(): Next's persistent Data Cache, tagged 'sidebar' so the
+//   revalidation webhook can bust it on any docs/categories change without
+//   a redeploy. This is the layer that makes it ISR rather than frozen SSG.
+export const getSidebarTree = cache(function getSidebarTree(locale: Locale = 'en'): Promise<SidebarCategory[]> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*, docs(id, slug, path, title, sort_order, status)')
+        .order('sort_order')
+      if (error) throw error
+      type Row = Omit<Category, 'docs'> & { docs: (SidebarDoc & { id: string; status: string })[] }
+      const rows = (data ?? []) as unknown as Row[]
 
-  // Same graceful-degradation reasoning as getDoc: if doc_translations
-  // isn't there yet (pre-migration) or errors for any reason, the sidebar
-  // just shows English doc titles under Bengali category names, not a crash.
-  let titleByDocId = new Map<string, string>()
-  if (locale === 'bn') {
-    try {
-      const { data: translations } = await supabase.from('doc_translations').select('doc_id, title').eq('locale', 'bn')
-      const rows2 = (translations ?? []) as unknown as { doc_id: string; title: string }[]
-      titleByDocId = new Map(rows2.map(row => [row.doc_id, row.title]))
-    } catch {
-      // leave titleByDocId empty — falls back to English titles below
-    }
+      // Same graceful-degradation reasoning as getDoc: if doc_translations
+      // isn't there yet (pre-migration) or errors for any reason, the sidebar
+      // just shows English doc titles under Bengali category names, not a crash.
+      let titleByDocId = new Map<string, string>()
+      if (locale === 'bn') {
+        try {
+          const { data: translations } = await supabase.from('doc_translations').select('doc_id, title').eq('locale', 'bn')
+          const rows2 = (translations ?? []) as unknown as { doc_id: string; title: string }[]
+          titleByDocId = new Map(rows2.map(row => [row.doc_id, row.title]))
+        } catch {
+          // leave titleByDocId empty — falls back to English titles below
+        }
+      }
+
+      return rows.map(c => ({
+        ...c,
+        title: locale === 'bn' ? (c.title_bn ?? c.title) : c.title,
+        docs: c.docs
+          .filter(d => d.status === 'published')
+          .sort((a, b) => a.sort_order - b.sort_order)
+          .map(d => ({ ...d, title: titleByDocId.get(d.id) ?? d.title })),
+      }))
+    },
+    ['sidebar-tree', locale],
+    { tags: ['sidebar'] }
+  )()
+})
+
+export type AdjacentDoc = { path: string; title: string }
+
+// Flattens the sidebar tree (already locale-aware and correctly ordered) and
+// looks up the doc before/after the given path in that same order — mirrors
+// VitePress's prev/next, which follows sidebar order rather than a
+// category-only sequence.
+export async function getAdjacentDocs(path: string, locale: Locale = 'en'): Promise<{ prev: AdjacentDoc | null; next: AdjacentDoc | null }> {
+  const categories = await getSidebarTree(locale)
+  const flat = categories.flatMap(c => c.docs)
+  const i = flat.findIndex(d => d.path === path)
+  if (i === -1) return { prev: null, next: null }
+  return {
+    prev: i > 0 ? { path: flat[i - 1].path, title: flat[i - 1].title } : null,
+    next: i < flat.length - 1 ? { path: flat[i + 1].path, title: flat[i + 1].title } : null,
   }
-
-  return rows.map(c => ({
-    ...c,
-    title: locale === 'bn' ? (c.title_bn ?? c.title) : c.title,
-    docs: c.docs
-      .filter(d => d.status === 'published')
-      .sort((a, b) => a.sort_order - b.sort_order)
-      .map(d => ({ ...d, title: titleByDocId.get(d.id) ?? d.title })),
-  }))
 }
 
 export async function getCategoryDocs(categorySlug: string): Promise<Doc[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase
     .from('docs')
     .select('id, slug, path, title, sort_order, category:categories(slug, title)')
@@ -75,7 +106,7 @@ type Translation = Pick<Doc, 'title' | 'meta_title' | 'meta_description' | 'bloc
 // Falls back to null on ANY failure — including doc_translations not
 // existing yet pre-migration — rather than crashing the page. A missing
 // translation is an expected, common state during rollout, not an error.
-async function fetchBnTranslation(supabase: Awaited<ReturnType<typeof createClient>>, docId: string): Promise<Translation | null> {
+async function fetchBnTranslation(supabase: ReturnType<typeof createPublicClient>, docId: string): Promise<Translation | null> {
   try {
     const { data } = await supabase
       .from('doc_translations')
@@ -89,26 +120,37 @@ async function fetchBnTranslation(supabase: Awaited<ReturnType<typeof createClie
   }
 }
 
+// Tagged doc:${path} — shared by both locales, since an English edit
+// (blocks/toc a Bengali page falls back to) and a Bengali-only edit
+// (doc_translations) should each be able to bust both cached variants.
+// Slightly broader than strictly necessary; still one page's worth of
+// recompute per publish, not a redeploy — see docs/DECISIONS.md.
 export async function getDoc(path: string, locale: Locale = 'en'): Promise<LocalizedDoc | null> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('docs')
-    .select('*, category:categories(slug, title)')
-    .eq('path', path)
-    .eq('status', 'published')
-    .single()
-  if (error) return null
-  const doc = data as unknown as Doc
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase
+        .from('docs')
+        .select('*, category:categories(slug, title)')
+        .eq('path', path)
+        .eq('status', 'published')
+        .single()
+      if (error) return null
+      const doc = data as unknown as Doc
 
-  if (locale !== 'bn') return { ...doc, isTranslated: true }
+      if (locale !== 'bn') return { ...doc, isTranslated: true }
 
-  const translation = await fetchBnTranslation(supabase, doc.id)
-  if (!translation) return { ...doc, isTranslated: false }
-  return { ...doc, ...translation, isTranslated: true }
+      const translation = await fetchBnTranslation(supabase, doc.id)
+      if (!translation) return { ...doc, isTranslated: false }
+      return { ...doc, ...translation, isTranslated: true }
+    },
+    ['doc', path, locale],
+    { tags: [`doc:${path}`] }
+  )()
 }
 
 export async function searchDocs(query: string): Promise<Pick<Doc, 'id' | 'path' | 'title' | 'meta_description'>[]> {
-  const supabase = await createClient()
+  const supabase = createPublicClient()
   const { data, error } = await supabase
     .from('docs')
     .select('id, path, title, meta_description')
@@ -119,12 +161,15 @@ export async function searchDocs(query: string): Promise<Pick<Doc, 'id' | 'path'
   return data ?? []
 }
 
-// Used by generateStaticParams, which runs at build time with no HTTP
-// request — the cookie-aware SSR client can't work there. Reads are public
-// (RLS already allows anon reads of published docs), so a plain client is
-// correct, not a workaround.
+export async function getAllCategorySlugs(): Promise<{ slug: string }[]> {
+  const supabase = createPublicClient()
+  const { data, error } = await supabase.from('categories').select('slug')
+  if (error) throw error
+  return data ?? []
+}
+
 export async function getAllDocPaths(): Promise<{ path: string }[]> {
-  const supabase = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+  const supabase = createPublicClient()
   const { data, error } = await supabase
     .from('docs')
     .select('path')
@@ -149,7 +194,7 @@ export async function getTranslatedDocPaths(): Promise<{ path: string }[]> {
 }
 
 async function getTranslatedDocPathsUnsafe(): Promise<{ path: string }[]> {
-  const supabase = createSupabaseClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!)
+  const supabase = createPublicClient()
   const { data, error } = await supabase
     .from('doc_translations')
     .select('doc:docs!inner(path, status)')
