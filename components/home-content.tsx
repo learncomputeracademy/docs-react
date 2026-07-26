@@ -1,5 +1,9 @@
 import Link from 'next/link'
-import { ArrowRight, Zap, GraduationCap, Gift } from 'lucide-react'
+import { ArrowRight, Zap, GraduationCap, Languages, Sparkles, MapPin } from 'lucide-react'
+import IconWordpress from '~icons/logos/wordpress-icon'
+import IconPython from '~icons/logos/python'
+import IconNodejs from '~icons/logos/nodejs-icon'
+import IconOpenai from '~icons/logos/openai-icon'
 import { getSidebarTree } from '@/lib/content'
 import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -10,14 +14,21 @@ const FEATURES = {
   en: [
     { icon: Zap, title: 'Runnable examples', body: 'Every lesson comes with code you can edit and run right in the page — no setup required.' },
     { icon: GraduationCap, title: 'Beginner friendly', body: 'Structured like a real syllabus, from computer basics through to React, one topic at a time.' },
-    { icon: Gift, title: 'Completely free', body: 'No paywall, no signup wall. Every lesson is free for anyone, students or not.' },
+    { icon: Languages, title: 'Available in Bengali too', body: 'The whole site, and a growing number of lessons, read natively in বাংলা — switch anytime from the header.' },
   ],
   bn: [
     { icon: Zap, title: 'রান করার মতো উদাহরণ', body: 'প্রতিটি পাঠে এমন কোড থাকে যা আপনি পাতার মধ্যেই এডিট করে রান করতে পারবেন — কোনো সেটআপ ছাড়াই।' },
     { icon: GraduationCap, title: 'শিক্ষার্থীবান্ধব', body: 'কম্পিউটার বেসিক্স থেকে শুরু করে React পর্যন্ত, একটি বাস্তব সিলেবাসের মতো ধাপে ধাপে সাজানো।' },
-    { icon: Gift, title: 'সম্পূর্ণ ফ্রি', body: 'কোনো পেওয়াল নেই, সাইনআপের বাধা নেই। প্রতিটি পাঠ সবার জন্য ফ্রি, শিক্ষার্থী হোক বা না হোক।' },
+    { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
   ],
 } as const
+
+const COMING_SOON = [
+  { icon: IconWordpress, en: 'WordPress', bn: 'ওয়ার্ডপ্রেস' },
+  { icon: IconPython, en: 'Python', bn: 'পাইথন' },
+  { icon: IconNodejs, en: 'Node.js', bn: 'Node.js' },
+  { icon: IconOpenai, en: 'AI', bn: 'AI' },
+] as const
 
 export async function HomeContent({ locale }: { locale: Locale }) {
   const categories = await getSidebarTree(locale)
@@ -26,6 +37,12 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   const s = t(locale)
   const prefix = locale === 'bn' ? '/bn' : ''
   const features = FEATURES[locale]
+
+  const stats = [
+    { value: totalLessons, label: s.lessons },
+    { value: categories.length, label: s.statSubjects },
+    { value: 2, label: s.statLanguages },
+  ]
 
   return (
     <main className="flex-1">
@@ -38,11 +55,15 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             backgroundSize: '24px 24px',
           }}
         />
+        <div
+          className="pointer-events-none absolute -top-24 right-0 -z-10 size-[32rem] rounded-full bg-primary/10 blur-3xl"
+          aria-hidden
+        />
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
           <div>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">
               <span className="size-1.5 rounded-full bg-primary" />
-              {s.freeLessonsSubjects(totalLessons)}
+              {s.freeLessonsSubjects(totalLessons, categories.length)}
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
               {s.heroTitle1}<span className="text-primary">{s.heroTitle2}</span>
@@ -60,6 +81,16 @@ export async function HomeContent({ locale }: { locale: Locale }) {
                 </Button>
               </div>
             )}
+
+            <dl className="mt-10 flex max-w-sm gap-8 border-t pt-6">
+              {stats.map((stat) => (
+                <div key={stat.label}>
+                  <dt className="sr-only">{stat.label}</dt>
+                  <dd className="text-2xl font-bold tracking-tight text-foreground">{stat.value}</dd>
+                  <dd className="text-sm text-muted-foreground">{stat.label}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
           {/* Decorative code mockup — static, not interactive. Code itself
@@ -106,12 +137,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((cat) => {
             const Icon = CATEGORY_ICONS[cat.slug]
-            const first = cat.docs[0]
-            if (!first) return null // category-index pages are a fuller Stage 5 build-out, not this pass
+            if (cat.docs.length === 0) return null
             return (
               <Link
                 key={cat.id}
-                href={`${prefix}/${first.path}`}
+                href={`${prefix}/${cat.slug}`}
                 className="group relative flex items-start gap-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
               >
                 <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent">
@@ -127,6 +157,53 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               </Link>
             )
           })}
+        </div>
+      </section>
+
+      {/* Coming soon */}
+      <section className="border-t bg-muted/30">
+        <div className="mx-auto max-w-6xl px-6 py-16">
+          <div className="inline-flex items-center gap-1.5 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">
+            <Sparkles className="size-3.5" />
+            {s.comingSoonEyebrow}
+          </div>
+          <h2 className="mt-3 text-2xl font-bold tracking-tight">{s.comingSoonTitle}</h2>
+          <p className="mt-1 text-muted-foreground">{s.comingSoonSub}</p>
+
+          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+            {COMING_SOON.map((item) => (
+              <div
+                key={item.en}
+                className="flex flex-col items-center gap-3 rounded-xl border border-dashed bg-card/50 p-6 text-center opacity-80"
+              >
+                {/* White backing, deliberately theme-independent: WordPress
+                    and OpenAI's marks are dark-on-transparent by brand
+                    guideline and disappear on a dark card otherwise. */}
+                <div className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm">
+                  <item.icon className="size-8" />
+                </div>
+                <span className="text-sm font-medium">{locale === 'bn' ? item.bn : item.en}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About band */}
+      <section className="mx-auto max-w-6xl px-6 py-16">
+        <div className="flex flex-col items-start gap-6 rounded-2xl border bg-card p-8 sm:flex-row sm:items-center sm:justify-between">
+          <div>
+            <h2 className="text-lg font-semibold">{s.aboutBandTitle}</h2>
+            <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">
+              <MapPin className="mt-0.5 size-4 shrink-0" />
+              {s.aboutBandBody}
+            </p>
+          </div>
+          <Button asChild variant="outline" size="lg" className="shrink-0">
+            <a href="https://learncomputer.in" target="_blank" rel="noopener noreferrer">
+              {s.aboutBandCta} <ArrowRight className="size-4" />
+            </a>
+          </Button>
         </div>
       </section>
     </main>

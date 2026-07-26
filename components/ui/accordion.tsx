@@ -18,13 +18,13 @@ function AccordionTrigger({ className, children, ...props }: React.ComponentProp
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
         className={cn(
-          'flex flex-1 items-center gap-2 rounded-md px-3 py-2 text-left font-semibold text-foreground transition-all hover:bg-muted [&[data-state=open]>svg]:rotate-180',
+          'group flex flex-1 items-center gap-2 rounded-md px-3 py-2 text-left font-semibold text-foreground transition-all hover:bg-muted',
           className
         )}
         {...props}
       >
         {children}
-        <ChevronDown className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform duration-200" />
+        <ChevronDown className="ml-auto size-4 shrink-0 text-muted-foreground transition-transform duration-200 group-data-[state=open]:rotate-180" />
       </AccordionPrimitive.Trigger>
     </AccordionPrimitive.Header>
   )

@@ -1,6 +1,7 @@
+import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { getDoc } from '@/lib/content'
-import { DocSidebar } from '@/components/doc-sidebar'
+import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { getDoc, getAdjacentDocs } from '@/lib/content'
 import { BlockRenderer } from '@/components/blocks/block-renderer'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
@@ -11,17 +12,17 @@ export async function loadLocalizedDoc(category: string, slug: string, locale: L
   return doc
 }
 
+// Sidebar and the outer flex/padding shell live in layout.tsx now — this
+// only renders the part that actually changes per lesson (main + TOC), so
+// it's the only piece loading.tsx needs to suspend on.
 export async function LessonContent({ category, slug, locale }: { category: string; slug: string; locale: Locale }) {
   const doc = await loadLocalizedDoc(category, slug, locale)
+  const { prev, next } = await getAdjacentDocs(doc.path, locale)
   const s = t(locale)
+  const prefix = locale === 'bn' ? '/bn' : ''
 
   return (
-    // No max-width cap: sidebar and TOC stay fixed-width, the center column
-    // (flex-1) absorbs all remaining space on wide/ultra-wide screens. Mobile
-    // is unaffected — sidebar/TOC are already hidden below md/xl.
-    <div className="mx-auto flex w-full gap-8 px-6 lg:px-10">
-      <DocSidebar activePath={doc.path} locale={locale} />
-
+    <>
       <main className="min-w-0 flex-1 py-8">
         {locale === 'bn' && !doc.isTranslated && (
           <div className="mb-6 rounded-lg border border-primary/30 bg-accent/50 px-4 py-3 text-sm text-accent-foreground">
@@ -32,6 +33,27 @@ export async function LessonContent({ category, slug, locale }: { category: stri
         <div className="mt-8">
           <BlockRenderer blocks={doc.blocks} />
         </div>
+
+        {(prev || next) && (
+          <div className="mt-12 grid grid-cols-2 gap-4 border-t pt-6">
+            {prev ? (
+              <Link href={`${prefix}/${prev.path}`} className="group flex flex-col gap-1 rounded-lg border p-4 transition-colors hover:border-primary/40 hover:bg-accent/50">
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  <ArrowLeft className="size-3.5" /> {s.previous}
+                </span>
+                <span className="font-medium group-hover:text-primary">{prev.title}</span>
+              </Link>
+            ) : <div />}
+            {next ? (
+              <Link href={`${prefix}/${next.path}`} className="group flex flex-col items-end gap-1 rounded-lg border p-4 text-right transition-colors hover:border-primary/40 hover:bg-accent/50">
+                <span className="flex items-center gap-1 text-xs text-muted-foreground">
+                  {s.next} <ArrowRight className="size-3.5" />
+                </span>
+                <span className="font-medium group-hover:text-primary">{next.title}</span>
+              </Link>
+            ) : <div />}
+          </div>
+        )}
       </main>
 
       {doc.toc.length > 0 && (
@@ -50,6 +72,6 @@ export async function LessonContent({ category, slug, locale }: { category: stri
           </div>
         </aside>
       )}
-    </div>
+    </>
   )
 }

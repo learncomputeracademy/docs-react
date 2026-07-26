@@ -12,14 +12,25 @@ export const STRINGS = {
     lesson: 'lesson',
     lessons: 'lessons',
     onThisPage: 'On this page',
-    freeLessonsSubjects: (n: number) => `${n} free lessons, 7 subjects`,
+    freeLessonsSubjects: (lessons: number, subjects: number) => `${lessons} free lessons across ${subjects} subjects`,
     heroTitle1: 'Learn to build ',
     heroTitle2: 'for the web',
     heroSub: 'Free lessons on HTML, CSS, JavaScript, React, and graphic design — with runnable examples, for absolutely anyone.',
-    footer: (year: number) => `© ${year} Learn Computer Academy. Free to use, for everyone.`,
+    statSubjects: 'Subjects',
+    statLanguages: 'Languages',
+    comingSoonEyebrow: 'Coming soon',
+    comingSoonTitle: 'More subjects on the way',
+    comingSoonSub: "We're actively building out new syllabuses — these are next in line.",
+    aboutBandTitle: 'From the team behind Learn Computer Academy',
+    aboutBandBody: 'A hands-on training institute in Habra, West Bengal. This site brings the same lessons online — open to anyone, anywhere, at no cost.',
+    aboutBandCta: 'Visit learncomputer.in',
+    footer: (year: number) => `© ${year} Learn Computer Academy.`,
     notTranslatedBanner: 'This lesson isn’t translated into Bengali yet — showing the English version.',
     toggleTheme: 'Toggle theme',
     languageSwitchTo: 'বাংলা',
+    previous: 'Previous',
+    next: 'Next',
+    browseLessons: 'Browse lessons',
   },
   bn: {
     siteName: 'লার্ন কম্পিউটার একাডেমি',
@@ -30,16 +41,27 @@ export const STRINGS = {
     lesson: 'পাঠ',
     lessons: 'পাঠ',
     onThisPage: 'এই পাতায়',
-    freeLessonsSubjects: (n: number) => `${n}টি ফ্রি পাঠ, ৭টি বিষয়`,
+    freeLessonsSubjects: (lessons: number, subjects: number) => `${lessons}টি ফ্রি পাঠ, ${subjects}টি বিষয়ে`,
     heroTitle1: 'ওয়েবের জন্য ',
     heroTitle2: 'তৈরি করা শিখুন',
     heroSub: 'HTML, CSS, JavaScript, React এবং গ্রাফিক ডিজাইনের ফ্রি পাঠ — রান করার মতো উদাহরণসহ, সবার জন্য।',
-    footer: (year: number) => `© ${year} লার্ন কম্পিউটার একাডেমি। সবার জন্য সম্পূর্ণ ফ্রি।`,
+    statSubjects: 'বিষয়',
+    statLanguages: 'ভাষা',
+    comingSoonEyebrow: 'শীঘ্রই আসছে',
+    comingSoonTitle: 'আরও বিষয় শীঘ্রই যুক্ত হচ্ছে',
+    comingSoonSub: 'আমরা নতুন সিলেবাস নিয়ে কাজ করছি — এরপর যা আসছে তা এখানে দেখুন।',
+    aboutBandTitle: 'লার্ন কম্পিউটার একাডেমির টিমের একটি উদ্যোগ',
+    aboutBandBody: 'হাবরা, পশ্চিমবঙ্গের একটি হাতে-কলমে প্রশিক্ষণ কেন্দ্র। একই পাঠ এখন অনলাইনে পাওয়া যায় — সবার জন্য, যেকোনো জায়গা থেকে, বিনামূল্যে।',
+    aboutBandCta: 'learncomputer.in দেখুন',
+    footer: (year: number) => `© ${year} লার্ন কম্পিউটার একাডেমি।`,
     notTranslatedBanner: 'এই পাঠটি এখনও বাংলায় অনুবাদ করা হয়নি — ইংরেজি সংস্করণ দেখানো হচ্ছে।',
     toggleTheme: 'থিম পরিবর্তন করুন',
     languageSwitchTo: 'English',
+    previous: 'পূর্ববর্তী',
+    next: 'পরবর্তী',
+    browseLessons: 'পাঠ ব্রাউজ করুন',
   },
-} as const satisfies Record<Locale, Record<string, string | ((n: number) => string)>>
+} as const satisfies Record<Locale, Record<string, string | ((...args: number[]) => string)>>
 
 export function t(locale: Locale) {
   return STRINGS[locale]
@@ -47,8 +69,9 @@ export function t(locale: Locale) {
 
 // /css/intro <-> /bn/css/intro
 export function localizedPath(path: string, locale: Locale): string {
-  const clean = path.replace(/^\/?(bn\/)?/, '/')
-  return locale === 'bn' ? `/bn${clean}` : clean
+  const withoutLocale = path.replace(/^\/bn(?=\/|$)/, '') || '/'
+  if (locale === 'bn') return withoutLocale === '/' ? '/bn' : `/bn${withoutLocale}`
+  return withoutLocale
 }
 
 export function localeFromPathname(pathname: string): Locale {

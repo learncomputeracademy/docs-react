@@ -5,19 +5,23 @@ import { useRouter, usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Command } from 'cmdk'
 import { Search, FileText, Loader2 } from 'lucide-react'
-import { searchAction } from '@/lib/actions'
-import { localeFromPathname, localizedPath } from '@/lib/i18n'
+import { searchAction, categoriesAction } from '@/lib/actions'
+import { localeFromPathname, localizedPath, t } from '@/lib/i18n'
+import { CATEGORY_ICONS } from '@/lib/category-icons'
 
 type Result = { id: string; path: string; title: string; meta_description: string | null }
+type CategoryItem = { slug: string; title: string; firstPath: string; count: number }
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<Result[]>([])
+  const [categories, setCategories] = useState<CategoryItem[]>([])
   const [pending, startTransition] = useTransition()
   const router = useRouter()
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
+  const strings = t(locale)
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -29,6 +33,14 @@ export function CommandMenu() {
     document.addEventListener('keydown', onKeyDown)
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
+
+  // Fetched once per open, not on every keystroke — this list doesn't
+  // depend on the query, it's shown as quick navigation while it's empty.
+  useEffect(() => {
+    if (open && categories.length === 0) {
+      categoriesAction(locale).then(setCategories)
+    }
+  }, [open, locale, categories.length])
 
   const runSearch = useCallback((q: string) => {
     setQuery(q)
@@ -73,6 +85,29 @@ export function CommandMenu() {
                 />
               </div>
               <Command.List className="max-h-80 overflow-y-auto p-2">
+                {query.trim().length < 2 && categories.length > 0 && (
+                  <Command.Group heading={strings.pickASubject} className="px-2 pb-1 pt-2 text-xs font-medium text-muted-foreground [&_[cmdk-group-items]]:mt-1">
+                    {categories.map((cat) => {
+                      const Icon = CATEGORY_ICONS[cat.slug]
+                      return (
+                        <Command.Item
+                          key={cat.slug}
+                          value={`category-${cat.slug}`}
+                          onSelect={() => select(cat.firstPath)}
+                          className="flex cursor-pointer items-center gap-3 rounded-lg px-3 py-2 text-sm text-foreground data-[selected=true]:bg-accent"
+                        >
+                          <span className="flex size-7 shrink-0 items-center justify-center rounded-md bg-accent">
+                            {Icon && <Icon className="size-4" />}
+                          </span>
+                          <span className="font-medium">{cat.title}</span>
+                          <span className="ml-auto text-xs text-muted-foreground">
+                            {cat.count} {cat.count === 1 ? strings.lesson : strings.lessons}
+                          </span>
+                        </Command.Item>
+                      )
+                    })}
+                  </Command.Group>
+                )}
                 {query.trim().length >= 2 && !pending && results.length === 0 && (
                   <Command.Empty className="py-8 text-center text-sm text-muted-foreground">No lessons found.</Command.Empty>
                 )}

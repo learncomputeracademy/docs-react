@@ -2,11 +2,13 @@ import { getSidebarTree } from '@/lib/content'
 import { SidebarNav } from '@/components/sidebar-nav'
 import type { Locale } from '@/lib/types'
 
-export async function DocSidebar({ activePath, locale = 'en' }: { activePath?: string; locale?: Locale }) {
+export async function DocSidebar({ locale = 'en' }: { locale?: Locale }) {
   const categories = await getSidebarTree(locale)
   return (
-    <nav className="w-64 shrink-0 border-r overflow-y-auto py-6 pr-4 hidden md:block">
-      <SidebarNav categories={categories} activePath={activePath} locale={locale} />
+    // Sticky + its own bounded height so it scrolls independently of the
+    // page (VitePress-style) instead of scrolling away with the content.
+    <nav className="sticky top-14 hidden h-[calc(100vh-3.5rem)] w-64 shrink-0 overflow-y-auto border-r py-6 pr-4 md:block">
+      <SidebarNav categories={categories} locale={locale} />
     </nav>
   )
 }
