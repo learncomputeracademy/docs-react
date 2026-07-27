@@ -1083,8 +1083,8 @@ affected — Next.js's own env loading has no such bug — but `scripts/backfill
 had the identical fragile pattern (latent, never triggered since none of the vars it reads
 contain digits) and got the same fix while this was fresh.
 
-Mirror the same 5 vars into Vercel's environment variables — `.env.local` only covers
-local/dev; production uploads ≥10 MB won't work until they're there too.
+**User confirmed all `.env.local` secrets, including these 5, are mirrored into Vercel.**
+R2 uploads ≥10 MB should now work in production, not just local dev.
 
 ---
 
