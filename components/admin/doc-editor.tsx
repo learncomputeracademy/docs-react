@@ -16,6 +16,9 @@ import { TableBlockEditor } from './blocks/table-block-editor'
 import { ImageBlockEditor } from './blocks/image-block-editor'
 import { LoopBlockEditor } from './blocks/loop-block-editor'
 import { FileBlockEditor } from './blocks/file-block-editor'
+import { CalloutBlockEditor } from './blocks/callout-block-editor'
+import { VideoBlockEditor } from './blocks/video-block-editor'
+import { TryItBlockEditor } from './blocks/tryit-block-editor'
 import { UnsupportedBlock } from './blocks/unsupported-block'
 import type { Block, Doc } from '@/lib/types'
 
@@ -39,6 +42,9 @@ const ADDABLE_TYPES: { type: Block['type']; label: string }[] = [
   { type: 'image', label: 'Image' },
   { type: 'loop', label: 'Looping video' },
   { type: 'file', label: 'File (PDF/ZIP)' },
+  { type: 'callout', label: 'Callout' },
+  { type: 'video', label: 'Video' },
+  { type: 'tryit', label: 'Try It' },
 ]
 
 function newBlock(type: Block['type']): Block {
@@ -51,6 +57,9 @@ function newBlock(type: Block['type']): Block {
     case 'image': return { id, type, publicId: '', alt: '', width: 800, height: 600 }
     case 'loop': return { id, type, publicId: '', alt: '', width: 800, height: 600 }
     case 'file': return { id, type, publicId: '', kind: 'pdf', label: '', size: '' }
+    case 'callout': return { id, type, variant: 'note', html: '<p></p>' }
+    case 'video': return { id, type, provider: 'youtube', videoId: '', title: '' }
+    case 'tryit': return { id, type, mode: 'web', files: { html: '', css: '', js: '' } }
     default: throw new Error(`Cannot create a new "${type}" block from this editor yet`)
   }
 }
@@ -359,6 +368,12 @@ function BlockBody({ block, media, onChange }: { block: Block; media: MediaRow[]
       return <LoopBlockEditor publicId={block.publicId} alt={block.alt} width={block.width} height={block.height} media={media} onChange={onChange} />
     case 'file':
       return <FileBlockEditor publicId={block.publicId} kind={block.kind} label={block.label} size={block.size} media={media} onChange={onChange} />
+    case 'callout':
+      return <CalloutBlockEditor variant={block.variant} title={block.title} html={block.html} onChange={onChange} />
+    case 'video':
+      return <VideoBlockEditor provider={block.provider} videoId={block.videoId} title={block.title} onChange={onChange} />
+    case 'tryit':
+      return <TryItBlockEditor mode={block.mode} files={block.files} onChange={onChange} />
     default:
       return <UnsupportedBlock block={block} />
   }

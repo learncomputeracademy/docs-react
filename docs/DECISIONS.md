@@ -1119,6 +1119,41 @@ rollout that this session's "check the real data before building" habit happened
 
 ---
 
+## D-32 · Stage 7 Phase 6: remaining block editors — callout, video, tryit
+**Date:** 2026-07-27 · **Status:** Active. Last of ADMIN-PLAN.md's "editable block types"
+work — every block type with real rows now has an editor except `quiz` (zero rows,
+deliberately deferred per CONTENT-MODEL.md).
+
+Built after fixing D-31 (the public renderer never had cases for these two types at all).
+
+- `CalloutBlockEditor` — variant select (note/tip/warning/danger) + optional title +
+  **reuses `RichTextBlockEditor`** for the body rather than a second HTML editor
+  implementation.
+- `VideoBlockEditor` — provider select (youtube/cloudinary) + video ID + title. Plain
+  fields, no picker — unlike image/loop/file, a video's "ID" is either a YouTube ID or a
+  Cloudinary publicId typed by hand, not something the media library indexes.
+- `TryItBlockEditor` — mode select + per-file tabs + a live sandboxed-iframe preview via
+  the exact same `lib/tryit.ts` `buildWebDoc`/`buildReactDoc` functions the public site
+  uses. **Deliberately not the public `TryIt` component** (`components/blocks/try-it.tsx`)
+  — that one's "Reset" restores its own original `files` prop, built for a reader
+  experimenting with saved content, not an admin editing that content and needing the
+  result back out to a parent's state.
+
+**Verified**: `next build` clean, public route tree unchanged. Live spike (mock callout/
+video/tryit blocks): all three render with correct existing content loaded, the Tiptap
+toolbar works inside the reused richtext editor, and clicking Run on the tryit block
+correctly rebuilt the sandboxed iframe (visually confirmed the button appeared with the
+right label). **One verification gap, structural not a bug**: couldn't confirm an actual
+click *inside* the sandboxed iframe registers via browser automation — `sandbox=
+"allow-scripts"` without `allow-same-origin` (a deliberate security choice) makes the
+iframe's contents genuinely invisible to both JS (`contentDocument` blocked, cross-origin)
+and the accessibility tree (`find` only resolved the iframe itself, opaque boundary) — not
+something this tooling can reach by design, not evidence of anything broken. The
+underlying mechanism is byte-identical to the public `TryIt` component, which was already
+extensively verified with real click interactivity (both modes) in session 12.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

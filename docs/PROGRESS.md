@@ -314,15 +314,52 @@ script and `backfill-media.mjs` shared the same fragile pattern; both fixed. O-7
 — D-30. **Still needs mirroring into Vercel's env vars** before production uploads ≥10 MB
 will work; `.env.local` only covers local/dev.
 
+**R2 credentials recovered and verified — same session, right after**
+
+Bucket from the original migration (`lca-docs-files`) still existed. User generated a
+fresh scoped API token, added all 5 vars to `.env.local`, then confirmed they're mirrored
+into Vercel too. Verified for real via a direct S3-client script (bypassing the 10 MB
+routing threshold) — full PutObject/HeadObject/public-fetch/DeleteObject pipeline
+confirmed working. O-7 resolved. Full writeup: D-30.
+
+**Stage 7, Phase 6 — same session: callout, video, tryit editors**
+
+Before building an editor for `callout`/`video`, checked whether any real content already
+used these types — found **18 real `callout` blocks live in the Programming category**
+(session 9) that had been **silently rendering as nothing on the public site since session
+9**, because `block-renderer.tsx`'s switch had no case for either type. Confirmed directly:
+`programming/intro`'s "No setup required" tip was completely absent from the rendered
+page. Fixed the public renderer first (own commit, before the editor work) — 4-variant
+callout styling, YouTube/Cloudinary video embeds — then verified the fix in a real
+production build. Full writeup: D-31.
+
+Then built the actual Phase 6 editors: `CalloutBlockEditor` (reuses `RichTextBlockEditor`
+for the body), `VideoBlockEditor` (plain fields, no media-library picker — a video ID
+isn't something the library indexes), and `TryItBlockEditor` (mode + per-file tabs + a
+live sandboxed-iframe preview via the same `lib/tryit.ts` functions the public site uses —
+deliberately not the public `TryIt` component itself, which resets to its own original
+content rather than handing edits back to a parent). Verified via a live spike: all three
+render real content correctly, the Run button correctly rebuilds the iframe. Couldn't
+verify an actual click *inside* the sandboxed iframe via automation — the sandbox's
+`allow-scripts`-without-`allow-same-origin` deliberately makes its contents invisible to
+both JS and the accessibility tree, not something this tooling can reach by design. The
+underlying mechanism is identical to the public `TryIt` component, already proven with
+real click interactivity in session 12. Full writeup: D-32.
+
+**Stage 7's "every block type gets an editor" work is now complete** except `quiz` (zero
+rows, deliberately deferred).
+
 **Next session — start here**
 
-1. User: mirror the 5 R2 vars into Vercel (Project → Settings → Environment Variables) —
-   local is verified working, production isn't yet.
-2. Open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
-   works — first time real content (not spike data) passes through this editor. Also try
-   `/admin/media`: upload a small image, place it in a lesson via the image block's picker,
-   confirm it shows up correctly on the live page after Save & publish.
-3. Stage 7, Phase 6: remaining block editors — `callout`, `tryit`, `video`.
+1. Open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
+   works — still the first time real content (not spike data) passes through this editor.
+   Also try `/admin/media`: upload a small image, place it via the image block's picker,
+   confirm it shows correctly on the live page after Save & publish.
+2. Verify the callout fix (D-31) on the deployed site — check `/programming/intro` (and
+   its Bengali translation) actually shows the "No setup required" tip now.
+3. Stage 7, Phase 7: the Bengali translation editor — the one the user asked about
+   earlier this session, deliberately deferred until the rest of the editor surface
+   existed first.
 4. `generateMetadata` staleness (O-5) still open.
 
 ---
