@@ -23,6 +23,7 @@ import {
   saveSortOrder,
   createDraftDoc,
 } from '@/lib/admin/docs'
+import { saveCategoryOrder } from '@/lib/admin/categories'
 
 type Category = { id: string; slug: string; title: string }
 
@@ -114,6 +115,91 @@ function SortableDocRow(props: RowProps & { onMoveUp: () => void; onMoveDown: ()
   )
 }
 
+type CategoryGroup = { category: Category; allDocs: AdminDocRow[]; visibleDocs: AdminDocRow[] }
+
+// Same shared-content + sortable-wrapper split as the doc rows above, just
+// for the category headers instead. The drag handle and arrow buttons are
+// separate elements from the expand/collapse button so a drag gesture
+// starting on the handle never fires the toggle's click handler.
+function CategoryHeaderContent({
+  group,
+  isOpen,
+  onToggle,
+  dragHandleProps,
+  moveButtons,
+}: {
+  group: CategoryGroup
+  isOpen: boolean
+  onToggle: () => void
+  dragHandleProps?: Record<string, unknown>
+  moveButtons?: { onMoveUp: () => void; onMoveDown: () => void; isFirst: boolean; isLast: boolean }
+}) {
+  return (
+    <div className="flex items-center gap-1 bg-background px-2">
+      {dragHandleProps && (
+        <button
+          type="button"
+          {...dragHandleProps}
+          className="cursor-grab touch-none p-2 text-muted-foreground hover:text-foreground active:cursor-grabbing"
+          aria-label="Drag to reorder category"
+        >
+          <GripVertical className="size-4" />
+        </button>
+      )}
+      {moveButtons && (
+        <div className="flex flex-col">
+          <button
+            type="button"
+            disabled={moveButtons.isFirst}
+            onClick={moveButtons.onMoveUp}
+            aria-label="Move category up"
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+          >
+            <ArrowUp className="size-3.5" />
+          </button>
+          <button
+            type="button"
+            disabled={moveButtons.isLast}
+            onClick={moveButtons.onMoveDown}
+            aria-label="Move category down"
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+          >
+            <ArrowDown className="size-3.5" />
+          </button>
+        </div>
+      )}
+      <button type="button" onClick={onToggle} className="flex flex-1 items-center justify-between py-3 pl-1 text-left">
+        <span className="font-medium">{group.category.title}</span>
+        <span className="flex items-center gap-2 text-sm text-muted-foreground">
+          {group.visibleDocs.length} of {group.allDocs.length}
+          {isOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
+        </span>
+      </button>
+    </div>
+  )
+}
+
+function SortableCategoryHeader(
+  props: Omit<Parameters<typeof CategoryHeaderContent>[0], 'dragHandleProps' | 'moveButtons'> & {
+    onMoveUp: () => void
+    onMoveDown: () => void
+    isFirst: boolean
+    isLast: boolean
+  }
+) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: props.group.category.id })
+  const style = { transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.5 : 1 }
+  return (
+    <div ref={setNodeRef} style={style}>
+      <CategoryHeaderContent
+        {...props}
+        dragHandleProps={{ ...attributes, ...listeners }}
+        moveButtons={{ onMoveUp: props.onMoveUp, onMoveDown: props.onMoveDown, isFirst: props.isFirst, isLast: props.isLast }}
+      />
+    </div>
+  )
+}
+
 export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories: Category[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -126,6 +212,11 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
   const [newTitle, setNewTitle] = useState('')
   const [newSlug, setNewSlug] = useState('')
   const [newCategoryId, setNewCategoryId] = useState(categories[0]?.id ?? '')
+  // Categories arrive pre-sorted by sort_order (listCategoriesForAdmin);
+  // this is the client-side order that reordering (drag/arrows) mutates,
+  // kept separate from `categories` itself so a reorder doesn't need to
+  // wait on router.refresh() to feel instant.
+  const [categoryOrder, setCategoryOrder] = useState(() => categories.map((c) => c.id))
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
 
@@ -134,8 +225,15 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
   // filtered subset would silently corrupt the sequence for the rows
   // hidden by the filter. Disable reordering rather than risk that.
   const reorderDisabled = statusFilter !== '' || titleFilter !== ''
+  // A single filtered-to-one category has nothing to reorder against.
+  const categoryReorderDisabled = categoryFilter !== ''
 
-  const groups = useMemo(() => {
+  const orderedCategories = useMemo(() => {
+    const byId = new Map(categories.map((c) => [c.id, c]))
+    return categoryOrder.map((id) => byId.get(id)).filter((c): c is Category => Boolean(c))
+  }, [categories, categoryOrder])
+
+  const groups = useMemo((): CategoryGroup[] => {
     const byCategory = new Map<string, AdminDocRow[]>()
     for (const cat of categories) byCategory.set(cat.id, [])
     for (const doc of docs) {
@@ -143,7 +241,7 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
     }
     for (const list of byCategory.values()) list.sort((a, b) => a.sort_order - b.sort_order)
 
-    return categories
+    return orderedCategories
       .filter((c) => !categoryFilter || c.id === categoryFilter)
       .map((c) => {
         const allDocs = byCategory.get(c.id) ?? []
@@ -154,7 +252,7 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
         })
         return { category: c, allDocs, visibleDocs }
       })
-  }, [docs, categories, categoryFilter, statusFilter, titleFilter])
+  }, [docs, categories, orderedCategories, categoryFilter, statusFilter, titleFilter])
 
   const totalVisible = groups.reduce((sum, g) => sum + g.visibleDocs.length, 0)
 
@@ -200,6 +298,30 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
     const target = index + direction
     if (index === -1 || target < 0 || target >= allDocs.length) return
     persistOrder(arrayMove(allDocs, index, target).map((d) => d.id))
+  }
+
+  function persistCategoryOrder(orderedIds: string[]) {
+    setCategoryOrder(orderedIds)
+    startTransition(async () => {
+      await saveCategoryOrder(orderedIds)
+      router.refresh()
+    })
+  }
+
+  function onCategoryDragEnd(event: DragEndEvent) {
+    const { active, over } = event
+    if (!over || active.id === over.id) return
+    const oldIndex = categoryOrder.findIndex((id) => id === active.id)
+    const newIndex = categoryOrder.findIndex((id) => id === over.id)
+    if (oldIndex === -1 || newIndex === -1) return
+    persistCategoryOrder(arrayMove(categoryOrder, oldIndex, newIndex))
+  }
+
+  function moveCategoryByOne(categoryId: string, direction: -1 | 1) {
+    const index = categoryOrder.findIndex((id) => id === categoryId)
+    const target = index + direction
+    if (index === -1 || target < 0 || target >= categoryOrder.length) return
+    persistCategoryOrder(arrayMove(categoryOrder, index, target))
   }
 
   function toggleStatus(doc: AdminDocRow) {
@@ -299,17 +421,36 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
       )}
 
       <div className="space-y-3">
-        {groups.map(({ category, allDocs, visibleDocs }) => {
-          const isOpen = openGroups.has(category.id) || categoryFilter === category.id
-          return (
+        {categoryReorderDisabled && (
+          <p className="rounded-lg border bg-muted/30 px-4 py-2 text-xs text-muted-foreground">
+            Clear the category filter to drag-and-drop or reorder the categories themselves.
+          </p>
+        )}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={categoryReorderDisabled ? undefined : onCategoryDragEnd}
+        >
+          <SortableContext items={groups.map((g) => g.category.id)} strategy={verticalListSortingStrategy}>
+            {groups.map((group, groupIndex) => {
+              const { category, allDocs, visibleDocs } = group
+              const isOpen = openGroups.has(category.id) || categoryFilter === category.id
+              const header = categoryReorderDisabled ? (
+                <CategoryHeaderContent group={group} isOpen={isOpen} onToggle={() => toggleGroup(category.id)} />
+              ) : (
+                <SortableCategoryHeader
+                  group={group}
+                  isOpen={isOpen}
+                  onToggle={() => toggleGroup(category.id)}
+                  onMoveUp={() => moveCategoryByOne(category.id, -1)}
+                  onMoveDown={() => moveCategoryByOne(category.id, 1)}
+                  isFirst={groupIndex === 0}
+                  isLast={groupIndex === groups.length - 1}
+                />
+              )
+              return (
             <div key={category.id} className="overflow-hidden rounded-lg border">
-              <button type="button" onClick={() => toggleGroup(category.id)} className="flex w-full items-center justify-between px-4 py-3 text-left">
-                <span className="font-medium">{category.title}</span>
-                <span className="flex items-center gap-2 text-sm text-muted-foreground">
-                  {visibleDocs.length} of {allDocs.length}
-                  {isOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
-                </span>
-              </button>
+              {header}
               {isOpen && (
                 <div className="border-t">
                   {reorderDisabled && (
@@ -354,8 +495,10 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
                 </div>
               )}
             </div>
-          )
-        })}
+              )
+            })}
+          </SortableContext>
+        </DndContext>
       </div>
     </div>
   )

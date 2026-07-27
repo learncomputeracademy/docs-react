@@ -879,6 +879,32 @@ behind a clean install.
 
 ---
 
+## D-26 · Category-level reordering, same drag+arrows pattern
+**Date:** 2026-07-27 · **Status:** Active
+
+User asked, immediately after D-25 landed: the 8 top-level category headers (Computer
+Basics, HTML, CSS, ...) needed the same reordering treatment, not just lessons within a
+category.
+
+`lib/admin/categories.ts` — `saveCategoryOrder(orderedIds)`, same shape as
+`saveSortOrder`. `components/admin/docs-list.tsx` — the category headers are now
+themselves a `@dnd-kit/sortable` list (drag handle + up/down arrows, mirroring the doc-row
+pattern exactly), wrapped around the existing per-category doc lists rather than replacing
+them — two independent `DndContext`s, one for category order, one per open category's doc
+order. Disabled (with a note) only when the category filter narrows to one category, since
+there's nothing to reorder against. Client-side `categoryOrder` state applies the new
+order instantly, `router.refresh()` reconciles with the server after.
+
+**Verified the same way as D-25**, via the same throwaway `/dnd-spike` route extended with
+category-level mock data: arrow-click first (`saveCategoryOrder(["cat-2","cat-1","cat-3"])`
+— exact correct swap), then the actual drag gesture with the already-known `isPrimary:
+true` fix (`saveCategoryOrder(["cat-2","cat-3","cat-1"])` — exact correct
+drag-to-bottom), both erroring only on the spike's fake non-UUID ids. Both reorder
+surfaces (lessons within a category, and categories themselves) now share one proven
+mechanism.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

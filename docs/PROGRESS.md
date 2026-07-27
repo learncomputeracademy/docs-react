@@ -203,15 +203,26 @@ dev server log showed a fully correct reordered payload. **dnd-kit works correct
 this React 19 stack** — a real pass, not a CodeMirror-style silent failure. Full
 writeup: D-25.
 
+**Category-level reordering, same session, right after**
+
+User asked for the 8 top-level category headers (Computer Basics, HTML, CSS, ...) to get
+the same drag+arrows treatment, not just lessons within a category. Added
+`saveCategoryOrder` (`lib/admin/categories.ts`) and made the category headers themselves a
+second, independent `@dnd-kit` sortable list layered around the existing per-category doc
+lists. Verified the same rigorous way — extended the throwaway spike route with
+category-level mock data, confirmed both the arrow-click and the real drag gesture produce
+correctly reordered payloads to the real Server Action, erroring only on fake ids. Full
+writeup: D-26.
+
 **Not verified either time**: the actual authenticated `/admin/docs` screen — Claude
 doesn't have the admin password, same gap as Phase 1's login test.
 
 **Next session — start here**
 
 1. User: click through `/admin/docs` once deployed — filters, checkbox selection,
-   drag-and-drop *and* arrow-button reordering within a category, publish/unpublish
-   toggle, and (carefully, it's real data) New doc + Delete on a throwaway row. Report
-   anything that doesn't work as described.
+   drag-and-drop *and* arrow-button reordering both within a category and of the
+   categories themselves, publish/unpublish toggle, and (carefully, it's real data) New
+   doc + Delete on a throwaway row. Report anything that doesn't work as described.
 2. Stage 7, Phase 3: the doc/block editor (`/admin/docs/[id]`) — "the project," per
    ADMIN-PLAN.md. Everything built so far (Tiptap spike, docs list) exists to support it.
 3. `generateMetadata` staleness (O-5) still open — worth checking before Phase 3's publish
