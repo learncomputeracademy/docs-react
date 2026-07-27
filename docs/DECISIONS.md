@@ -990,6 +990,75 @@ tree unchanged, `/admin/docs/[id]/preview` correctly `ƒ`.
 
 ---
 
+## D-29 · Stage 7 Phase 5: media library + backfill + image/loop/file block editors
+**Date:** 2026-07-27 · **Status:** Active
+
+**Backfill first, before any UI** — the `media` table (migration 003) started empty next
+to 209 real assets already on Cloudinary/R2. Probed the actual data before writing
+`scripts/backfill-media.mjs`: a naive scan of dedicated `image`/`loop`/`file` blocks found
+only 15 assets — the majority (58+ blocks) turned out to be full Cloudinary URLs embedded
+as raw `<img>`/`<a>` tags inside `richtext`/`callout` HTML, which `extract-docs.mjs`'s
+top-level-only walker never pulled into their own block type. Rewrote the script to parse
+richtext/callout HTML with cheerio (same tool `extract-docs.mjs` uses — HTML isn't a
+regular language, not scanning it with regex for a script that only runs once) and derive
+`publicId` from the full delivery URL by stripping the Cloudinary transform/version
+segments. Also scanned `doc_translations` (Bengali) — added zero new assets, confirming
+translations reference the same media as English, as the translation rules always
+intended. Final count: **98 unique assets** (77 image, 9 video, 12 file) — the real
+current-reference count, not the historical "191 migrated" figure, which included files no
+longer actually referenced in current block content. Ran for real (not just `--dry-run`)
+directly against production; 98 rows inserted.
+
+**Real bug found and fixed in existing code, not new**: `lib/storage.ts`'s `uploadFile()`
+only ever passed `'image'` or `'raw'` as the Cloudinary resource type — never `'video'` —
+so any video/loop upload through it would have silently uploaded as a raw file instead of
+a proper Cloudinary video asset (no transcoding, wrong delivery URL shape). Widened the
+`kind` param to `'image' | 'video' | 'raw'` and pass it straight through; the one existing
+caller (Try It Yourself's asset paths, if any) is unaffected since this only widens the
+accepted type.
+
+**Built**: `/admin/media` (Screen 8) — grid, inline alt-text editing, upload (routes
+through the existing `uploadFile()`/`pickBackend()`), delete with a reference-check warning
+(`findMediaReferences` — JS-side scan across `docs` + `doc_translations`, not a jsonb `@>`
+containment query as the plan suggested, since a containment query can't match a publicId
+that only appears as a substring of a full URL embedded in richtext HTML — the exact case
+the backfill script above exists because of). Delete removes the `media` table row only,
+never the underlying Cloudinary/R2 file — `findMediaReferences` catches most but not
+provably every embedding shape, so actual storage cleanup stays a deliberate, separate,
+manual action.
+
+Block editors for `image`, `loop`, `file` — each a picker (`<select>` over the real media
+list) plus an inline "upload new" file input that uploads immediately and selects the
+result. No separate modal/grid picker component — a plain dropdown is much less code and
+was judged sufficient; revisit if the list becomes too long to scan by alt text/publicId.
+
+**⚠️ R2 not configured**: `.env.local` has no `R2_ENDPOINT`/`R2_ACCESS_KEY_ID`/
+`R2_SECRET_ACCESS_KEY`/`R2_BUCKET_NAME`/`NEXT_PUBLIC_R2_PUBLIC_URL`, despite R2 having been
+used during the original asset migration (some PDFs live there per `pdf-map.json`'s
+`r2.dev` URLs) — those credentials were apparently never persisted, or were only ever
+supplied ad hoc for that one script run. `uploadMedia` now catches this case and surfaces
+a specific, actionable error ("needs R2 storage, which is not configured yet...") for any
+upload ≥10 MB, rather than a raw AWS SDK stack trace. Flagged to the user; not blocking —
+day-to-day lesson images are always well under 10 MB.
+
+**Verified thoroughly**: `next build` — public route tree unchanged, `/admin/media`
+correctly `ƒ`. Grepped `.next/static/` for secrets — clean. Live check via a throwaway
+`/media-spike` route reading the **real** backfilled table (a safe read, RLS already
+allows it publicly): the grid rendered real Cloudinary thumbnails with correct existing alt
+text. `findMediaReferences` checked against a real publicId
+(`img/graphics-design/color-in-design`) correctly returned both the English and Bengali
+pages that reference it. **One automation mistake worth recording**: attempted to
+monkey-patch `window.confirm` via `javascript_tool` to safely test the delete button's
+warning dialog without actually confirming it — this triggered a real native dialog that
+froze the tab entirely (CDP `Runtime.evaluate` timeout, unrecoverable via further JS
+injection or key presses). Recovered by abandoning the tab and opening a fresh one, then
+re-verified `findMediaReferences` through a second throwaway route that renders the result
+as plain JSON instead of going anywhere near `confirm()`. Lesson: never attempt to
+intercept a native dialog via automation, even indirectly — build a confirm()-free path to
+test the same logic instead.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -1000,3 +1069,4 @@ tree unchanged, `/admin/docs/[id]/preview` correctly `ƒ`.
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
+| O-7 | R2 credentials not in `.env.local` (D-29) — need `R2_ENDPOINT`/`R2_ACCESS_KEY_ID`/`R2_SECRET_ACCESS_KEY`/`R2_BUCKET_NAME`/`NEXT_PUBLIC_R2_PUBLIC_URL`, either recovered from wherever they were during the original migration or reissued | Uploading a file ≥10 MB through the admin media library — surfaces a clear error rather than failing silently, so not urgent |

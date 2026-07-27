@@ -15,9 +15,12 @@ export default async function AdminDashboardPage() {
         <SignOutButton />
       </div>
       <p className="mt-2 text-sm text-muted-foreground">Signed in as {user?.email}.</p>
-      <nav className="mt-6">
+      <nav className="mt-6 flex gap-4">
         <Link href="/admin/docs" className="text-sm font-medium text-primary hover:underline">
           Docs →
+        </Link>
+        <Link href="/admin/media" className="text-sm font-medium text-primary hover:underline">
+          Media →
         </Link>
       </nav>
     </main>

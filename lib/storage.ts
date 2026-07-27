@@ -76,12 +76,12 @@ export async function uploadFile(
   buffer: Buffer,
   key: string,
   contentType: string,
-  kind: 'image' | 'raw'
+  kind: 'image' | 'video' | 'raw'
 ): Promise<{ url: string; backend: 'cloudinary' | 'r2' }> {
   const backend = pickBackend(buffer.byteLength)
   if (backend === 'r2') {
     return { url: await uploadToR2(buffer, key, contentType), backend: 'r2' }
   }
-  const url = await uploadToCloudinary(buffer, key.replace(/\.[^.]+$/, ''), kind === 'image' ? 'image' : 'raw')
+  const url = await uploadToCloudinary(buffer, key.replace(/\.[^.]+$/, ''), kind)
   return { url, backend: 'cloudinary' }
 }

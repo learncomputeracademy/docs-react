@@ -8,10 +8,14 @@ import { Button } from '@/components/ui/button'
 import { saveDoc, type SaveDocInput } from '@/lib/admin/doc'
 import { setDocStatus } from '@/lib/admin/docs'
 import { computeAnchorsAndToc } from '@/lib/admin/anchors'
+import type { MediaRow } from '@/lib/admin/media'
 import { RichTextBlockEditor } from './blocks/richtext-block-editor'
 import { HeadingBlockEditor } from './blocks/heading-block-editor'
 import { CodeBlockEditor } from './blocks/code-block-editor'
 import { TableBlockEditor } from './blocks/table-block-editor'
+import { ImageBlockEditor } from './blocks/image-block-editor'
+import { LoopBlockEditor } from './blocks/loop-block-editor'
+import { FileBlockEditor } from './blocks/file-block-editor'
 import { UnsupportedBlock } from './blocks/unsupported-block'
 import type { Block, Doc } from '@/lib/types'
 
@@ -32,6 +36,9 @@ const ADDABLE_TYPES: { type: Block['type']; label: string }[] = [
   { type: 'heading', label: 'Heading' },
   { type: 'code', label: 'Code' },
   { type: 'table', label: 'Table' },
+  { type: 'image', label: 'Image' },
+  { type: 'loop', label: 'Looping video' },
+  { type: 'file', label: 'File (PDF/ZIP)' },
 ]
 
 function newBlock(type: Block['type']): Block {
@@ -41,11 +48,14 @@ function newBlock(type: Block['type']): Block {
     case 'heading': return { id, type, level: 2, text: '', anchor: '' }
     case 'code': return { id, type, language: 'html', code: '' }
     case 'table': return { id, type, header: ['', ''], rows: [['', '']] }
+    case 'image': return { id, type, publicId: '', alt: '', width: 800, height: 600 }
+    case 'loop': return { id, type, publicId: '', alt: '', width: 800, height: 600 }
+    case 'file': return { id, type, publicId: '', kind: 'pdf', label: '', size: '' }
     default: throw new Error(`Cannot create a new "${type}" block from this editor yet`)
   }
 }
 
-export function DocEditor({ doc, categories }: { doc: Doc; categories: Category[] }) {
+export function DocEditor({ doc, categories, media }: { doc: Doc; categories: Category[]; media: MediaRow[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [saved, setSaved] = useState(true)
@@ -292,7 +302,7 @@ export function DocEditor({ doc, categories }: { doc: Doc; categories: Category[
               </button>
             </div>
             <div className="min-w-0 flex-1">
-              <BlockBody block={block} onChange={(patch) => updateBlock(block.id, patch)} />
+              <BlockBody block={block} media={media} onChange={(patch) => updateBlock(block.id, patch)} />
             </div>
             <div className="flex shrink-0 flex-col gap-1 pt-2">
               <button type="button" onClick={() => duplicateBlock(block.id)} aria-label="Duplicate block" className="text-muted-foreground hover:text-foreground">
@@ -333,7 +343,7 @@ function Field({ label, hint, children }: { label: string; hint?: string; childr
   )
 }
 
-function BlockBody({ block, onChange }: { block: Block; onChange: (patch: BlockPatch) => void }) {
+function BlockBody({ block, media, onChange }: { block: Block; media: MediaRow[]; onChange: (patch: BlockPatch) => void }) {
   switch (block.type) {
     case 'richtext':
       return <RichTextBlockEditor html={block.html} onChange={(html) => onChange({ html })} />
@@ -343,6 +353,12 @@ function BlockBody({ block, onChange }: { block: Block; onChange: (patch: BlockP
       return <CodeBlockEditor code={block.code} language={block.language} filename={block.filename} onChange={onChange} />
     case 'table':
       return <TableBlockEditor header={block.header} rows={block.rows} caption={block.caption} onChange={onChange} />
+    case 'image':
+      return <ImageBlockEditor publicId={block.publicId} alt={block.alt} caption={block.caption} width={block.width} height={block.height} media={media} onChange={onChange} />
+    case 'loop':
+      return <LoopBlockEditor publicId={block.publicId} alt={block.alt} width={block.width} height={block.height} media={media} onChange={onChange} />
+    case 'file':
+      return <FileBlockEditor publicId={block.publicId} kind={block.kind} label={block.label} size={block.size} media={media} onChange={onChange} />
     default:
       return <UnsupportedBlock block={block} />
   }

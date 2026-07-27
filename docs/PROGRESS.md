@@ -268,16 +268,47 @@ route; a throwaway spike confirmed the preview banner + `<BlockRenderer>` render
 correctly, including real Shiki syntax highlighting and a working copy button inside the
 dynamic admin context. `next build` clean, public route tree unchanged. Full writeup: D-28.
 
+**Stage 7, Phase 5 — same session: media library, backfill, image/loop/file editors**
+
+Discovered the `media` table (new in migration 003) was empty next to 209 real assets
+already live — wrote `scripts/backfill-media.mjs` to index them. First pass (dedicated
+`image`/`loop`/`file` blocks only) found just 15; the real majority turned out to be full
+Cloudinary URLs embedded as raw `<img>` tags inside `richtext`/`callout` HTML, which the
+extractor's top-level-only walker never pulled into their own block. Rewrote the script to
+parse that HTML with cheerio and derive publicIds from the full URLs. Also checked
+`doc_translations` — zero new assets found, confirming Bengali content reuses the same
+media as English, as intended. Final: **98 unique assets**, backfilled for real.
+
+Found and fixed a real, pre-existing bug while building on `lib/storage.ts`:
+`uploadFile()` never actually passed `'video'` as the Cloudinary resource type — any video
+upload through it would have silently gone up as a raw file. Fixed.
+
+Built `/admin/media` (grid, upload, inline alt editing, delete-with-reference-check) and
+picker-based editors for `image`/`loop`/`file` blocks, each with an inline "upload new"
+fallback. `findMediaReferences` scans both `docs` and `doc_translations` in JS (not a
+jsonb containment query as the plan suggested) since a publicId can appear as a substring
+of a full embedded URL, which containment can't match — verified correct against a real
+asset, returning both its English and Bengali referencing pages.
+
+**Real gap found, not code**: R2 credentials aren't in `.env.local` at all, despite R2
+having been used during the original migration. Uploads ≥10 MB will fail with a clear,
+specific error rather than a cryptic one — not blocking day-to-day use, but worth fixing
+(O-7).
+
+**Automation note**: an attempt to safely test the delete button's confirm() dialog by
+monkey-patching `window.confirm` backfired and froze the tab with a real native dialog —
+recovered by opening a fresh tab, then re-verified the same logic through a confirm()-free
+route instead. Full writeup: D-29.
+
 **Next session — start here**
 
-1. User: open a real lesson in `/admin/docs/[id]` once deployed and confirm it edits and
-   saves correctly — this is still the first time real content (not spike mock data) will
-   pass through this editor. Try a `richtext` edit, a `heading` rename, Save, and Preview;
-   separately confirm a doc containing `image`/`tryit`/other unsupported blocks still saves
-   cleanly without losing those blocks.
-2. Stage 7, Phase 5: media library + backfill · `image`/`loop`/`file` block editors.
-3. `generateMetadata` staleness (O-5) still open — now genuinely user-visible once real
-   publishing starts happening through this editor.
+1. User: open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
+   works — first time real content (not spike data) passes through this editor. Also try
+   `/admin/media`: upload a small image, place it in a lesson via the image block's picker,
+   confirm it shows up correctly on the live page after Save & publish.
+2. R2 credentials (O-7) — recover or reissue, needed for any upload ≥10 MB.
+3. Stage 7, Phase 6: remaining block editors — `callout`, `tryit`, `video`.
+4. `generateMetadata` staleness (O-5) still open.
 
 ---
 
