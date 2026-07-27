@@ -18,11 +18,12 @@ Bengali translation of all 8 pre-existing categories COMPLETE.
 
 ### ⚠️ Blocking next step
 
-**`supabase/migrations/007-resources-editable.sql` needs to be run in the Supabase SQL
-editor** — Session 20 (below) moved Resources to the editor tier. Skipping this doesn't
-lock anyone out, an editor just gets an RLS error trying to save until it's applied.
+**`supabase/migrations/008-nav-submenu.sql` needs to be run in the Supabase SQL editor** —
+Session 21 (below) added nav sub-menus. Skipping it is harmless: the header falls back to
+a flat nav (verified live), and the box model demo page works regardless since it has no
+database dependency. It just means Box Model Demo won't appear under Resources.
 
-Migrations 004, 005, and 006 are all confirmed run by the user.
+Migrations 004–007 are all confirmed run by the user.
 
 ### ⚡ Next action
 
@@ -103,6 +104,52 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 21: nav sub-menus + the interactive box model demo (D-43)
+
+**Done**
+
+- User confirmed `007-resources-editable.sql` ran — O-11 resolved.
+- **Nav sub-menus**: `nav_items.parent_id` (migration 008), two levels only, cap enforced
+  in `lib/admin/nav.ts` rather than a CHECK (a self-referencing FK can't express "parent
+  must be a root" without a trigger). Admin Menu screen gets WordPress-style indent/outdent
+  (indent = nest under the sibling above), indented child rows, parent picker, and a delete
+  confirm that names how many sub-items cascade.
+- **`components/site-nav.tsx`** (new): click-to-open dropdown, not hover — hover dropdowns
+  are unreachable on touch and hostile to keyboard. Escape + click-outside close,
+  `aria-expanded`/`aria-haspopup`, and the parent's own URL is the first dropdown row so
+  nesting a child never orphans the parent page.
+- **Box model demo** at `/tools/box-model` + `/bn/tools/box-model` (URL per URLS.md R4;
+  301 from the old `/box-model`). Three columns, deep controls (box-sizing, W/H with
+  px/%/em/rem, per-side padding/margin/border with link modes, border style + colour
+  picker, per-corner radius, editable content text + font size), and all four teaching
+  aids.
+- **The architectural difference that matters**: the old jQuery tool re-implemented the box
+  model in JS and hand-positioned four absolute divs. This applies **real CSS to real
+  elements** and lets the browser compute everything; the numbers come from
+  `getBoundingClientRect` via `ResizeObserver`, so they can't drift from what's rendered.
+  Because box-sizing forces border/padding/content onto one element, "which layer is the
+  pointer over" became a geometry question — solved with one coordinate-based `bandAt()`
+  handler rather than per-element events.
+- **Real contrast bug caught in the live pass**: first palette had a saturated orange
+  margin against the default amber border — in dark mode they nearly merged, exactly what
+  the user asked to avoid. Margin is now the least-saturated layer, since the border colour
+  is user-editable and is therefore the one layer whose contrast can't be guaranteed.
+
+**Verified**: `tsc --noEmit` clean; clean rebuild (`rm -rf .next`) with both tool routes
+`○` static; secret grep clean; `/box-model` → 308 → `/tools/box-model`. Live browser pass,
+both locales and both themes: presets work, the border-box payoff lands (300px asked →
+360px shown → flip to border-box → exactly 300px), pointer band detection is accurate,
+explanation panel updates, Bengali page fully translated, console clean.
+**Also verified the pre-migration fallback**: with 008 unrun, the header renders a flat nav
+with no dropdown and no error.
+
+**Not done**
+- 008 not yet run against production (harmless — see the blocking note at the top).
+- No mobile nav drawer; the header nav is still `sm:` and up. Real gap as the menu grows.
+- Admin Menu nesting not live-tested end-to-end (needs 008 applied first).
+
+---
 
 ## 2026-07-27 — Session 20: Resources moves to the editor tier (D-42)
 

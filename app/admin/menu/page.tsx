@@ -10,6 +10,8 @@ export default async function AdminMenuPage() {
       <p className="mt-1 text-sm text-muted-foreground">
         Links shown in the site header, next to the logo. URLs starting with{' '}
         <code className="rounded bg-muted px-1">http</code> open in a new tab automatically.
+        Use the indent button to nest an item under the one above it — nested items become a
+        dropdown. Menus are two levels deep.
       </p>
       <div className="mt-6">
         <NavManager items={items} />

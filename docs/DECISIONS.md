@@ -1683,13 +1683,109 @@ editor (would need a second test account) — RLS is the real enforcement either
 the policy swap here is identical in shape to four already-verified-working ones
 (docs/media/translations/settings).
 
+**Update, same day:** user ran `007-resources-editable.sql`. O-11 resolved.
+
+---
+
+## D-43 · Nav sub-menus (WordPress-style) + the interactive box model demo
+
+**Date:** 2026-07-27 · **Status:** Active — ⚠️ **migration 008 not yet run against production**
+
+User asked for the old site's `/box-model` tool rebuilt "modern with beautiful UI …
+highly customizable, even more than what it is now … contrasting colors for everything",
+placed in the nav as a **sub-menu of Resources**, plus a WordPress-style sub-menu manager
+in the admin. Four scoping questions were answered up front: deep box-model controls (not
+a general CSS playground), full Bengali version, three-column layout, all four teaching
+aids.
+
+### Nav sub-menus
+
+`nav_items` gains `parent_id` (migration `008-nav-submenu.sql`, self-referencing FK,
+`on delete cascade`). **Two levels only** — a site header never realistically needs more,
+and unbounded depth means unbounded dropdown UI. The cap is enforced in
+`lib/admin/nav.ts` (`assertValidParent`) rather than a CHECK constraint: a self-referencing
+FK can't express "the parent must itself be a root" without a trigger, and every write path
+already funnels through that one file. It also refuses to nest an item that has its own
+children, which is the other way a third level could appear.
+
+`getNavItems()` now returns a two-level tree. It still selects `*`, so with 008 unrun the
+`parent_id` column simply comes back undefined, every row reads as a root, and the header
+renders the old flat nav — **verified live before running the migration**: header showed
+"Resources" as a plain link, no dropdown, no error.
+
+Admin Menu screen gets indent/outdent buttons (indent = nest under the sibling directly
+above, WordPress's exact rule), indented child rows, a parent picker in the form, and a
+delete confirmation that names how many sub-items will cascade.
+
+`components/site-nav.tsx` (new) renders the dropdown: **click-to-open, not hover** — a
+hover dropdown is unreachable on touch and hostile to keyboard users. Escape and
+click-outside close it, `aria-expanded`/`aria-haspopup` on the trigger. The parent's own
+URL is the first row inside the dropdown, so nesting a child under a page never makes that
+page unreachable from the nav.
+
+### The box model demo
+
+`/tools/box-model` + `/bn/tools/box-model` (URL per `docs/URLS.md` R4, which already froze
+`/tools/…` for these). 301 from the old `/box-model` in `next.config.ts`, per CLAUDE.md
+§3.2. Both routes prerender static; both in the sitemap; canonical + hreflang wired.
+
+**The key architectural difference from the old tool**: the old jQuery version
+re-implemented the box model in JavaScript — manually positioning four absolutely-placed
+divs and computing every dimension by hand. This one applies **real CSS to real elements**
+and lets the browser do all of it, including `box-sizing`, `%`/`em`/`rem` units, and
+`border-radius`. `box-sizing`, `width`/`height`, `padding` and `border` all sit on one
+element (they must, for real box-sizing semantics); its background is the padding colour
+and a child fills the content box, so what shows through is exactly the padding region.
+The numbers under the box come from `getBoundingClientRect` via a `ResizeObserver`, not
+arithmetic — so they cannot drift from what's actually rendered, which is the whole point
+of a teaching tool.
+
+That one-element requirement makes "which layer is the pointer over" a geometry question
+rather than an event-target one, since border/padding/content are bands of the same
+element. `bandAt()` resolves it from pointer coordinates against the border and padding
+widths — exact, one handler. Margin is genuinely outside the box so it stays its own
+element. Layers are also reachable from the legend buttons (hover, click-to-pin,
+`aria-pressed`), which is what makes the tool usable by keyboard and on touch at all.
+
+**Controls**: box-sizing, width/height with px/%/em/rem, padding + margin per side with
+px/em/rem and the old tool's link modes (All / Top-Bottom / Left-Right / Each), border
+width per side plus style and colour picker, border-radius per corner, and editable
+content text + font-size. Deliberately *not* included: `display`, `position`, `overflow`,
+`box-shadow` — the user picked "deep on the box model itself" over a general playground,
+and each of those is a different lesson.
+
+**Teaching aids**, all four: hover/select explanation panel; four preset scenarios (the
+"why border-box exists" one loads 300px + 40 padding + 20 border and the readout says
+360px, then flipping to border-box snaps it to exactly 300 — verified live); a spelled-out
+arithmetic breakdown that swaps to a different explanation under border-box; and a link to
+the existing `/css/boxmodel` lesson.
+
+**Real contrast bug found and fixed during the live pass.** First palette used a saturated
+`orange-500` margin against the default `#f59e0b` amber border — in dark mode the two
+nearly merged, which is precisely what the user asked to avoid. Fixed by making margin the
+*least* saturated of the four layers (`orange-200` / `dark:orange-900`): the border colour
+is user-editable and therefore the one layer whose contrast can't be guaranteed, so margin
+has to work as a muted backdrop behind whatever they pick. Hues still follow the Chrome
+DevTools convention (blue/green/amber/orange) students will meet later. Re-verified zoomed
+in, both themes.
+
+**⚠️ Deployment order**: 008 unrun is harmless — the header falls back to a flat nav
+(verified). The demo page itself has no database dependency at all and works either way.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean with both
+tool routes `○` static; `.next/static/` grepped for secret names — no matches; `/box-model`
+returns 308 → `/tools/box-model`. Live browser pass on both locales and both themes:
+presets, the border-box payoff, pointer band detection, the explanation panel, and the
+Bengali page all confirmed working, with a clean console (no hydration warnings).
+
 ---
 
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
-| O-11 | **Run `supabase/migrations/007-resources-editable.sql`** in the Supabase SQL editor — see D-42 | Editors get an RLS error trying to save Resources without it (not a lockout) |
+| O-12 | **Run `supabase/migrations/008-nav-submenu.sql`** in the Supabase SQL editor — see D-43 | Box Model Demo won't appear as a sub-menu (header falls back to a flat nav; the demo page itself works regardless) |
+| ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |

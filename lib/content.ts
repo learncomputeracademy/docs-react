@@ -54,20 +54,37 @@ export const getResources = cache(function getResources(): Promise<Resource[]> {
   )()
 })
 
-export type NavItem = { id: string; label: string; label_bn: string | null; url: string; sort_order: number }
+export type NavItem = {
+  id: string
+  label: string
+  label_bn: string | null
+  url: string
+  sort_order: number
+  parent_id: string | null
+}
+export type NavNode = NavItem & { children: NavItem[] }
 
 // Read from the root layout (every page) — cached + graceful-empty on any
 // failure (including the migration not being run yet), same reasoning as
 // getSiteSettings: a missing/broken nav_items table must never break the
 // header, just render it with no extra links.
-export const getNavItems = cache(function getNavItems(): Promise<NavItem[]> {
+//
+// Returns a two-level tree (D-43). `parent_id` is selected via `*`, so this
+// still degrades correctly if 008 hasn't run — the column comes back
+// undefined, every item reads as a root, and the header renders a flat nav.
+export const getNavItems = cache(function getNavItems(): Promise<NavNode[]> {
   return unstable_cache(
     async () => {
       try {
         const supabase = createPublicClient()
         const { data, error } = await supabase.from('nav_items').select('*').order('sort_order')
         if (error) throw error
-        return data ?? []
+        const rows = (data ?? []) as NavItem[]
+        const roots = rows.filter((r) => !r.parent_id)
+        return roots.map((r) => ({
+          ...r,
+          children: rows.filter((c) => c.parent_id === r.id).sort((a, b) => a.sort_order - b.sort_order),
+        }))
       } catch {
         return []
       }

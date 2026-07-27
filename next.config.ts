@@ -2,6 +2,13 @@ import type { NextConfig } from 'next'
 import Icons from 'unplugin-icons/webpack'
 
 const nextConfig: NextConfig = {
+  // CLAUDE.md §3.2: every moved path gets a 301. The old Jekyll site served
+  // this tool at /box-model; docs/URLS.md R4 groups tools under /tools/.
+  async redirects() {
+    return [
+      { source: '/box-model', destination: '/tools/box-model', permanent: true },
+    ]
+  },
   images: {
     // Custom loader bypasses Next's own image optimizer/proxy entirely —
     // Cloudinary already does format/quality negotiation. remotePatterns

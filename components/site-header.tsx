@@ -6,13 +6,14 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Sun, Moon, Languages } from 'lucide-react'
 import { t, localizedPath, localeFromPathname } from '@/lib/i18n'
-import type { NavItem } from '@/lib/content'
+import { SiteNav } from './site-nav'
+import type { NavNode } from '@/lib/content'
 
 // Not loaded until the header itself hydrates and this runs — keeps cmdk +
 // Radix Dialog off the critical-path JS for a page someone's just reading.
 const CommandMenu = dynamic(() => import('./command-menu').then(m => m.CommandMenu), { ssr: false })
 
-export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
+export function SiteHeader({ navItems }: { navItems: NavNode[] }) {
   const [dark, setDark] = useState(false)
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
@@ -42,29 +43,11 @@ export function SiteHeader({ navItems }: { navItems: NavItem[] }) {
         <img src="/logo-icon.png" alt="" width={64} height={64} className="size-8" />
         <span className="font-semibold tracking-tight">{strings.siteName}</span>
       </Link>
-      {/* Admin-editable (D-40, /admin/menu) — hidden below sm since the
+      {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm since the
           command menu/language/theme controls already crowd narrow
-          viewports; a dedicated mobile nav drawer is a real gap if this
-          list grows, not built here since it's still just one link today. */}
-      {navItems.length > 0 && (
-        <nav className="hidden items-center gap-1 sm:flex">
-          {navItems.map((item) => {
-            const external = item.url.startsWith('http')
-            const label = locale === 'bn' ? (item.label_bn ?? item.label) : item.label
-            return (
-              <Link
-                key={item.id}
-                href={item.url}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                className="rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-              >
-                {label}
-              </Link>
-            )
-          })}
-        </nav>
-      )}
+          viewports; a dedicated mobile nav drawer is a real gap once this
+          list grows past a couple of entries. */}
+      <SiteNav navItems={navItems} locale={locale} />
       <div className="flex items-center gap-2">
         <CommandMenu />
         <Link
