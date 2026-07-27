@@ -11,8 +11,8 @@ export const metadata: Metadata = {
 // Kept in sync by hand as new screens ship — the sidebar shows every
 // planned item, but only these are actually linkable today.
 const BUILT_HREFS = [
-  '/admin', '/admin/docs', '/admin/media', '/admin/pages', '/admin/categories', '/admin/settings',
-  '/admin/resources', '/admin/users', '/admin/activity', '/admin/trash',
+  '/admin', '/admin/docs', '/admin/media', '/admin/pages', '/admin/seo', '/admin/categories',
+  '/admin/settings', '/admin/resources', '/admin/users', '/admin/activity', '/admin/trash',
 ]
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
