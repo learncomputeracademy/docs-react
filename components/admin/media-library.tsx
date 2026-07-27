@@ -1,17 +1,31 @@
 'use client'
 
-import { useRef, useState, useTransition } from 'react'
+import { useMemo, useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
-import { Trash2, FileText, Video } from 'lucide-react'
+import { Trash2, FileText, Video, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { type MediaRow, uploadMedia, updateMediaAlt, deleteMedia, findMediaReferences } from '@/lib/admin/media'
+
+type KindFilter = 'all' | 'image' | 'video' | 'file'
 
 export function MediaLibrary({ media }: { media: MediaRow[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [error, setError] = useState<string | null>(null)
   const [altDraft, setAltDraft] = useState<string>('')
+  const [kindFilter, setKindFilter] = useState<KindFilter>('all')
   const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const counts = useMemo(
+    () => ({
+      all: media.length,
+      image: media.filter((m) => m.kind === 'image').length,
+      video: media.filter((m) => m.kind === 'video').length,
+      file: media.filter((m) => m.kind === 'file').length,
+    }),
+    [media]
+  )
+  const filtered = kindFilter === 'all' ? media : media.filter((m) => m.kind === kindFilter)
 
   function onUpload(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -67,10 +81,31 @@ export function MediaLibrary({ media }: { media: MediaRow[] }) {
         <p className="mb-4 rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-sm text-destructive">{error}</p>
       )}
 
+      <div className="mb-4 flex flex-wrap items-center gap-1 border-b text-sm">
+        {(['all', 'image', 'video', 'file'] as const).map((k) => (
+          <button
+            key={k}
+            type="button"
+            onClick={() => setKindFilter(k)}
+            className={`border-b-2 px-3 py-2 capitalize transition-colors ${
+              kindFilter === k ? 'border-primary font-medium text-foreground' : 'border-transparent text-muted-foreground hover:text-foreground'
+            }`}
+          >
+            {k === 'all' ? 'All' : `${k}s`} ({counts[k]})
+          </button>
+        ))}
+      </div>
+
       <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {media.map((item) => (
+        {filtered.map((item) => (
           <div key={item.id} className="overflow-hidden rounded-lg border">
-            <div className="flex aspect-video items-center justify-center bg-muted">
+            <a
+              href={item.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative flex aspect-video items-center justify-center bg-muted"
+              title="Open file"
+            >
               {item.kind === 'image' ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.url} alt={item.alt ?? ''} className="size-full object-cover" />
@@ -79,7 +114,10 @@ export function MediaLibrary({ media }: { media: MediaRow[] }) {
               ) : (
                 <FileText className="size-8 text-muted-foreground" />
               )}
-            </div>
+              <span className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
+                <ExternalLink className="size-5 text-white" />
+              </span>
+            </a>
             <div className="space-y-1.5 p-2">
               <p className="truncate font-mono text-xs text-muted-foreground" title={item.public_id}>{item.public_id}</p>
               <input
@@ -98,7 +136,7 @@ export function MediaLibrary({ media }: { media: MediaRow[] }) {
             </div>
           </div>
         ))}
-        {media.length === 0 && <p className="col-span-full text-sm text-muted-foreground">No media yet.</p>}
+        {filtered.length === 0 && <p className="col-span-full text-sm text-muted-foreground">No media in this filter.</p>}
       </div>
     </div>
   )

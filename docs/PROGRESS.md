@@ -374,6 +374,20 @@ build` clean, public route tree unchanged. Full writeup: D-33.
 **Stage 7 now covers every planned screen except Categories/Settings (Phase 8) and
 Resources/Dashboard (Phase 9).**
 
+**Admin chrome pass — same session, user feedback on the screens above**
+
+Added a persistent left sidebar (`AdminChrome`/`AdminSidebar`) — Dashboard/Docs/Media
+active, Categories/Settings/Resources/Leads shown disabled until Phase 8/9 build them.
+Caught a real layout bug while verifying: the public site's header was still rendering
+above the admin panel (root layout wraps everything), pushing the sidebar's full-height
+layout past the actual viewport. Fixed by extracting `SiteChrome` to skip the public
+header/footer entirely on `/admin/*` — the admin panel is its own application surface now,
+not a page dressed in the public site's chrome. Media library got a WordPress-style
+type filter (All/Images/Videos/Files, live counts) and each thumbnail now links to the
+actual file. Verified live against real data — this browser tab still had a valid session
+from earlier testing, so the sidebar, filter, and view-links were all checked directly
+rather than through a spike. Full writeup: D-34.
+
 **Next session — start here**
 
 1. Open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving

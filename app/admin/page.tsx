@@ -1,28 +1,16 @@
-import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
-import { SignOutButton } from '@/components/admin/sign-out-button'
 
-// Phase 1 stub — proves the guard + login flow end to end. Screen 2's real
-// dashboard (counts, recent docs, usage panel) is separate, later work.
+// Phase 1 stub, still — proves the guard + login flow end to end. Nav and
+// sign-out moved to the sidebar (AdminChrome) this session. Screen 2's
+// real dashboard (counts, recent docs, usage panel) is Phase 9.
 export default async function AdminDashboardPage() {
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   return (
     <main className="mx-auto max-w-2xl px-6 py-12">
-      <div className="flex items-center justify-between">
-        <h1 className="text-xl font-bold">Admin</h1>
-        <SignOutButton />
-      </div>
+      <h1 className="text-xl font-bold">Dashboard</h1>
       <p className="mt-2 text-sm text-muted-foreground">Signed in as {user?.email}.</p>
-      <nav className="mt-6 flex gap-4">
-        <Link href="/admin/docs" className="text-sm font-medium text-primary hover:underline">
-          Docs →
-        </Link>
-        <Link href="/admin/media" className="text-sm font-medium text-primary hover:underline">
-          Media →
-        </Link>
-      </nav>
     </main>
   )
 }

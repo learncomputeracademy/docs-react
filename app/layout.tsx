@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { SiteHeader } from "@/components/site-header";
-import { SiteFooter } from "@/components/site-footer";
+import { SiteChrome } from "@/components/site-chrome";
 import { RouteProgressBar } from "@/components/magic/route-progress";
 import "./globals.css";
 
@@ -59,9 +58,7 @@ export default function RootLayout({
       </head>
       <body className="min-h-full flex flex-col">
         <RouteProgressBar />
-        <SiteHeader />
-        {children}
-        <SiteFooter />
+        <SiteChrome>{children}</SiteChrome>
       </body>
     </html>
   );

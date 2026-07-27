@@ -1199,6 +1199,44 @@ Resources/Dashboard (Phase 9).
 
 ---
 
+## D-34 · Admin chrome: persistent left sidebar; media page filter + view links
+**Date:** 2026-07-27 · **Status:** Active
+
+User feedback on the shipped screens: no way to navigate between admin sections without
+going back to the dashboard each time, and the media page needed a WordPress-style
+type filter and a direct link to each file.
+
+- `AdminSidebar` — flat nav (not a tree, unlike the public `DocSidebar`; this never grows
+  past a handful of top-level screens), Dashboard/Docs/Media active, Categories/Settings/
+  Resources/Leads shown disabled (grayed, no href) so the full shape of the panel is
+  visible before Phase 8/9 build them — `builtHrefs` in `app/admin/layout.tsx` is the one
+  place that list needs updating as each ships.
+- `AdminChrome` — client wrapper deciding whether to show the sidebar at all
+  (`usePathname()`), hidden on `/admin/login` (no session yet) and any `/preview` route
+  (meant to read close to the real public page, not framed in admin chrome).
+- **Real layout bug caught while verifying, not shipped blind**: the sidebar's `h-screen`
+  was overflowing past the actual viewport, because the public site's `SiteHeader` was
+  still rendering above the admin panel (the root layout wraps every route). Extracted
+  `SiteChrome` (client, same `usePathname()` pattern) to skip the public header/footer
+  entirely for `/admin/*` — the admin panel is a separate application surface, not a page
+  within the public site's chrome. Neither this nor `AdminChrome` touch `headers()`/
+  `cookies()`, so neither carries D-18's SSR-poisoning risk despite living in/near the root
+  layout.
+- Media library: WordPress-style type filter (All/Images/Videos/Files, tab UI with live
+  counts) and each thumbnail is now a link to the file's actual URL (opens in a new tab,
+  hover reveals an external-link icon).
+
+**Verified live against real data** — this session's admin panel testing has been
+spike-only throughout (no admin credentials), but this browser tab turned out to still
+hold a valid session from earlier testing, letting this be checked directly: sidebar
+renders and highlights the active section correctly, `/admin/media`'s filter tabs show the
+real backfilled counts (98/77/9/12) and correctly narrow the grid, hovering a thumbnail
+reveals the view-file overlay. Separately confirmed via a clean `curl` (no cookies) that
+the auth guard itself is unaffected — still redirects correctly. `next build` clean,
+public route tree unchanged.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
