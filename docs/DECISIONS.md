@@ -655,6 +655,67 @@ caught by rereading the file instead of trusting memory of what it "should" cont
 
 ---
 
+## D-20 · First Vercel deploy; motion-based UI component set, perf budget relaxed
+**Date:** 2026-07-27 · **Status:** Active · **Decided by:** user, "go broad, relax the perf budget"
+
+**Deployed to Vercel** — first real deployment of this project, via GitHub import
+(`learncomputeracademy/docs-react`, `main`). Project name changed after creation; the
+live preview domain is now `lca-docs.vercel.app` (not `docs-react.vercel.app` — note this
+wherever the webhook URL from D-18/O-6 gets used). `NEXT_PUBLIC_SITE_URL` stays
+`https://docs.learncomputer.in` regardless — that's only used for canonical/OG URLs, not
+deployment identity, and doesn't need to change before Stage 10's actual DNS cutover.
+
+**UI component pass**: user asked for components from smoothui.dev and magicui.design
+"wherever possible." Flagged the direct conflict with the documented perf budget (JS<100KB,
+Lighthouse≥95) and the "no animation in lesson content" rule before building anything —
+user chose to go broad and relax the budget explicitly (see the updated table in
+`docs/UI.md`) rather than a curated subset.
+
+Added `motion` as a real dependency (previously named in `docs/UI.md` but unused) and a
+`components/magic/` library: `BorderBeam`, `Marquee`, `ShimmerButton`, `MagicCard`,
+`NumberTicker`, `HeroReveal`, plus a `layoutId`-based sliding tab indicator on Try It
+Yourself and a CSS bounce on the code-block copy button. Full breakdown, including which
+are pure-CSS vs `motion`-backed and why, is in `docs/UI.md`'s new "Motion-based component
+set" section — not duplicating it here.
+
+**Scope discipline kept despite "go broad":** skipped every purely decorative piece from
+both libraries — confetti, meteors, particles, globe, siri orb, GSAP-based shader
+transitions. None of it fits a learning site, and the shader/particle pieces would have
+added GSAP as a *second* animation dependency for zero real benefit. Also kept the
+"never animate lesson content itself" rule from the original animation philosophy intact —
+everything landed in homepage chrome, card hover states, and UI affordances (tabs, copy
+button), never in the reading path. Neither library ships an installable package (same
+copy-paste model as shadcn/ui) and their CLI needs a TTY this environment doesn't have
+(same constraint as session 7's shadcn install) — components were hand-written against
+this project's actual oklch tokens rather than pasted from their Tailwind v3 source.
+
+**Follow-up, same session**: user noticed there was no feedback at all when clicking
+between pages (SSG pages navigate near-instantly once prefetched, but nothing signals a
+click registered before that). Existing `loading.tsx` skeletons don't fire for this case —
+they only trigger when a route genuinely suspends server-side, not for an
+already-prefetched static page swap. Fixed with a global `RouteProgressBar`
+(`components/magic/route-progress.tsx`): one `document`-level click listener catches every
+`<Link>` click site-wide with no per-component wiring, plus an exported
+`startRouteProgress()` for the one non-`<Link>` navigation path (command palette's
+`router.push()`). Deliberately `usePathname()` only, never `useSearchParams()` — the
+latter forces a static route into dynamic rendering without a Suspense boundary, the same
+class of mistake as D-18's `headers()`-in-root-layout bug. Verified the click listener
+fires correctly via a direct DOM check (dispatch a real click, confirm the bar element
+mounts within 60ms) and confirmed `next build` still shows all 323 routes static/SSG with
+this mounted in the root layout.
+
+**Verified**: `next build` after the change — all 323 routes still `●`/`○` (SSG/static),
+confirming the new client components didn't drag anything into per-request SSR. Checked
+live in a real browser, light and dark, homepage + a JavaScript lesson page: hero
+entrance, number ticker settling at 150/8/2, shimmer sweep on the CTA, border-beam on the
+hero mockup and about-band card, cursor-tracked spotlight border on subject/category
+cards, and the coming-soon marquee all confirmed working. Did not get a clean screenshot
+of the copy-button check-bounce specifically — likely just automation round-trip timing
+outrunning the 1.5s revert window (documented flakiness pattern, sessions 9/10/12), not a
+code issue; the swap logic itself is unchanged from before, only a CSS class was added.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

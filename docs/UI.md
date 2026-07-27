@@ -11,20 +11,50 @@ The old site shipped **~3.5 MB** of Bootstrap + FontAwesome + Themify + OwlCarou
 jQuery. Killing that is the largest single performance win available, and it is very easy
 to recreate it one convenient dependency at a time.
 
-**Budget, enforced per PR:**
+**Budget, previously enforced per PR — relaxed 2026-07-27 (D-20):**
 
-| Metric | Budget |
-|---|---|
-| JS shipped to a lesson page | **< 100 KB** gzipped |
-| CSS | **< 30 KB** gzipped |
-| Fonts | **< 100 KB** total, self-hosted, 2 families max |
-| Lighthouse Performance (desktop) | **≥ 95** |
+| Metric | Original budget | Current target |
+|---|---|---|
+| JS shipped to a lesson page | < 100 KB gzipped | best-effort, not a hard gate |
+| CSS | < 30 KB gzipped | best-effort, not a hard gate |
+| Fonts | < 100 KB total, self-hosted, 2 families max | unchanged |
+| Lighthouse Performance (desktop) | ≥ 95 | no longer a release gate |
 
-A lesson page is *text and code*. It should ship almost no JavaScript. The only client
-component on a typical page is Try-It, and it lazy-loads on interaction.
+User explicitly chose to trade the strict budget for a richer, more animated UI (MagicUI/
+SmoothUI-style components — see below) rather than a curated few. The numeric targets stay
+here as a *reference*, not a gate: don't add weight for no reason, but don't block a real
+visual improvement on them either. Re-tighten this if Lighthouse regresses badly enough to
+hurt actual usability (not just the score).
 
-**Rule:** a new runtime dependency needs a one-line justification in the PR. Build-time
-dependencies (Shiki, unplugin-icons) are free — use them liberally.
+**Rule, still true:** a new runtime dependency needs a one-line justification in the PR.
+Build-time dependencies (Shiki, unplugin-icons) are free — use them liberally.
+
+### Motion-based component set (D-20)
+
+Added `motion` (the framer-motion successor) as a real runtime dependency and built a
+small `components/magic/` library, styled after MagicUI/SmoothUI but hand-written against
+this project's own Tailwind v4 tokens (their CLI needs a TTY, doesn't work here — same
+constraint noted in session 7 for `npx shadcn add`). Split deliberately between pure-CSS
+(no JS weight) and `motion`-backed (where the effect genuinely needs JS orchestration):
+
+| Component | Mechanism | Used in |
+|---|---|---|
+| `BorderBeam` | pure CSS (`@property --border-angle` + conic-gradient mask-exclude ring) | hero code mockup, about-band card |
+| `Marquee` | pure CSS (`translateX(-50%)` over duplicated children) | "more subjects on the way" |
+| `ShimmerButton` | pure CSS (`background-position` sweep on `::before`) | hero primary CTA |
+| copy-check bounce | pure CSS keyframe on icon swap | code block copy button |
+| `MagicCard` | `motion` (`useMotionValue`/`useMotionTemplate`, cursor-tracked spotlight ring) | subject cards, category lesson cards |
+| `NumberTicker` | `motion` (`useSpring` + `useInView`, writes `textContent` directly, no per-frame re-render) | hero stats row |
+| `HeroReveal` | `motion` (one-shot mount fade/slide) | hero column only |
+| Try It tab indicator | `motion` (`layoutId` shared-element slide) | `components/blocks/try-it.tsx` |
+| `RouteProgressBar` | `motion`, global top-of-page bar. A single `document` click listener catches every `<Link>` click site-wide (sidebar, homepage, mobile drawer, prev/next); `startRouteProgress()` covers `router.push()` call sites like the command palette. `usePathname()` only, never `useSearchParams()` — the latter forces static routes dynamic without a Suspense boundary, same hazard as D-18's `headers()` bug | mounted once in `app/layout.tsx` |
+
+Still **not** touched: lesson prose/content itself has zero animation, per the original
+"students are here to read" rule below — everything added is homepage chrome, card hover
+state, or UI affordance (tabs, copy button), never something between the reader and the
+text. Decorative-only pieces from both libraries (confetti, meteors, particles, globe,
+siri orb, shader transitions) were deliberately skipped — no fit for a learning site,
+would have added GSAP as a second animation dependency for no real gain.
 
 ---
 
@@ -61,7 +91,7 @@ a course index page wants and what FontAwesome was being used badly for.
 | Code editor | ~~CodeMirror 6~~ plain `<textarea>` | Try-It. **CodeMirror 6 doesn't work in this stack — see D-19.** `@uiw/react-codemirror`'s `EditorView` never initializes (React 19 incompatibility, not a config issue); uninstalled. Textarea is lazy-loaded the same way CodeMirror would have been. Admin panel's code blocks (Stage 7, unbuilt) will hit the same wall — plan for a textarea there too, or confirm a CodeMirror version fixed for React 19 before assuming otherwise |
 | Syntax highlighting | **Shiki** (build time) | zero client JS. Never a client-side highlighter |
 | Rich text | Tiptap | the `richtext` block only |
-| Animation | **`motion`** | sparingly — see below |
+| Animation | **`motion`** | now a real dependency (D-20), not just a placeholder — see the component set above. Still restrained on lesson content specifically |
 
 ### Animation, deliberately restrained
 

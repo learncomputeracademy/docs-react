@@ -93,6 +93,48 @@ the English version. Verified spot-checks in browser after each major batch.
 - `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
   fix, unchanged from before.
 
+## 2026-07-27 — Session 13: first Vercel deploy, motion-based UI component pass
+
+**Done**
+
+- **First real deploy.** User imported the GitHub repo into Vercel; live preview domain
+  is `lca-docs.vercel.app` (project was renamed after creation from `docs-react`). Walked
+  through the import screen (Application Preset → Next.js, Root Directory `./`, all 8
+  `.env.local` vars mirrored in). `next build` output (323 static/SSG routes, 0 dynamic
+  except `/api/revalidate`) carried over cleanly.
+- **UI component pass from SmoothUI/MagicUI**, user's explicit request ("add whatever is
+  possible"). Flagged the conflict with the documented perf budget and the "no animation
+  on lesson content" rule first; user chose to go broad and relax the budget rather than a
+  curated subset — see D-20 for the full decision.
+- Added `motion` as a real dependency + `components/magic/` (`BorderBeam`, `Marquee`,
+  `ShimmerButton`, `MagicCard`, `NumberTicker`, `HeroReveal`), a sliding tab indicator on
+  Try It Yourself, and a copy-button check bounce. Wired into the homepage (hero, stats,
+  subject cards, coming-soon section, about band) and category index pages (lesson cards).
+  Kept confetti/particles/globe/GSAP-shader pieces out — pure decoration, no fit here, and
+  GSAP would've been a second animation dependency for nothing. Full list + rationale in
+  `docs/UI.md`.
+- **Verified**: `tsc --noEmit` clean, `next build` still shows every doc/category page as
+  `●`/`○` (no accidental SSR regression), and a live browser pass in both themes on the
+  homepage and a JS lesson page — hero fade-in, number ticker count-up, shimmer CTA,
+  border-beam, cursor-tracked card spotlight, and the marquee all confirmed working.
+
+**Not done**
+
+- Copy-button check-bounce specifically wasn't caught on screenshot (probably automation
+  round-trip timing outrunning the 1.5s window, not a real bug — see D-20).
+- Did not commit or push this session's UI changes — stopped short to check in with the
+  user first, matching this repo's "never commit without being asked" rule.
+
+**Next session — start here**
+
+1. Confirm the UI pass looks right on the user's own pass, then commit + push (Vercel
+   auto-deploys `main` once pushed, per the GitHub import).
+2. Supabase Database Webhook still not created — O-6, now unblocked by having a real
+   deploy URL (`lca-docs.vercel.app`, not the placeholder used in earlier instructions).
+3. Stage 7 (admin panel) is still next on the roadmap once the above two are closed out.
+
+---
+
 ### Stage board
 
 | # | Stage | Status | Notes |
