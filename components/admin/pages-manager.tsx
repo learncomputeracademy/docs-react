@@ -27,7 +27,7 @@ function fromValue(value: Record<string, unknown>, locale: 'en' | 'bn'): LocaleO
 // there's no safe way to make those admin-editable without either a
 // second icon-delivery mechanism or a fixed icon-per-slot convention this
 // phase didn't need to invent.
-export function SettingsManager({ initial }: { initial: Record<string, unknown> }) {
+export function PagesManager({ initial }: { initial: Record<string, unknown> }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [saved, setSaved] = useState(true)
