@@ -3,6 +3,17 @@
 import { useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import {
+  DndContext,
+  closestCenter,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy, useSortable, arrayMove } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { GripVertical, ChevronDown, ChevronUp, ArrowUp, ArrowDown } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
   type AdminDocRow,
@@ -19,6 +30,90 @@ function slugify(text: string) {
   return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
 }
 
+type RowProps = {
+  doc: AdminDocRow
+  selected: boolean
+  onToggleSelected: () => void
+  onToggleStatus: () => void
+  onDelete: () => void
+  pending: boolean
+}
+
+// Shared row markup for both the sortable (drag+arrows) and plain (filtered
+// browse, no reorder — see reorderDisabled below) presentations.
+function RowContent(
+  props: RowProps & {
+    dragHandleProps?: Record<string, unknown>
+    moveButtons?: { onMoveUp: () => void; onMoveDown: () => void; isFirst: boolean; isLast: boolean }
+  }
+) {
+  const { doc, selected, onToggleSelected, onToggleStatus, onDelete, pending, dragHandleProps, moveButtons } = props
+  return (
+    <div className="flex items-center gap-3 border-b bg-background px-4 py-2.5 last:border-0">
+      {dragHandleProps && (
+        <button
+          type="button"
+          {...dragHandleProps}
+          className="cursor-grab touch-none text-muted-foreground hover:text-foreground active:cursor-grabbing"
+          aria-label="Drag to reorder"
+        >
+          <GripVertical className="size-4" />
+        </button>
+      )}
+      {moveButtons && (
+        <div className="flex flex-col">
+          <button
+            type="button"
+            disabled={moveButtons.isFirst}
+            onClick={moveButtons.onMoveUp}
+            aria-label="Move up"
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+          >
+            <ArrowUp className="size-3.5" />
+          </button>
+          <button
+            type="button"
+            disabled={moveButtons.isLast}
+            onClick={moveButtons.onMoveDown}
+            aria-label="Move down"
+            className="text-muted-foreground hover:text-foreground disabled:opacity-30"
+          >
+            <ArrowDown className="size-3.5" />
+          </button>
+        </div>
+      )}
+      <input type="checkbox" checked={selected} onChange={onToggleSelected} />
+      <Link href={`/admin/docs/${doc.id}`} className="min-w-0 flex-1 truncate font-medium hover:text-primary">
+        {doc.title}
+      </Link>
+      <span className="hidden font-mono text-xs text-muted-foreground sm:inline">{doc.path}</span>
+      <span className={doc.status === 'published' ? 'text-xs text-emerald-600 dark:text-emerald-400' : 'text-xs text-muted-foreground'}>
+        {doc.status}
+      </span>
+      <Button size="sm" variant="ghost" disabled={pending} onClick={onToggleStatus}>
+        {doc.status === 'published' ? 'Unpublish' : 'Publish'}
+      </Button>
+      <Button size="sm" variant="ghost" disabled={pending} onClick={onDelete} className="text-destructive">
+        Delete
+      </Button>
+    </div>
+  )
+}
+
+function SortableDocRow(props: RowProps & { onMoveUp: () => void; onMoveDown: () => void; isFirst: boolean; isLast: boolean }) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id: props.doc.id })
+  const style = { transform: CSS.Transform.toString(transform), transition, opacity: isDragging ? 0.5 : 1 }
+  return (
+    <div ref={setNodeRef} style={style}>
+      <RowContent
+        {...props}
+        dragHandleProps={{ ...attributes, ...listeners }}
+        moveButtons={{ onMoveUp: props.onMoveUp, onMoveDown: props.onMoveDown, isFirst: props.isFirst, isLast: props.isLast }}
+      />
+    </div>
+  )
+}
+
 export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories: Category[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -26,20 +121,51 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
   const [statusFilter, setStatusFilter] = useState('')
   const [titleFilter, setTitleFilter] = useState('')
   const [selected, setSelected] = useState<Set<string>>(new Set())
-  const [orderEdits, setOrderEdits] = useState<Record<string, number>>({})
+  const [openGroups, setOpenGroups] = useState<Set<string>>(new Set())
   const [newDocOpen, setNewDocOpen] = useState(false)
   const [newTitle, setNewTitle] = useState('')
   const [newSlug, setNewSlug] = useState('')
   const [newCategoryId, setNewCategoryId] = useState(categories[0]?.id ?? '')
 
-  const filtered = useMemo(() => {
-    return docs.filter((d) => {
-      if (categoryFilter && d.category?.id !== categoryFilter) return false
-      if (statusFilter && d.status !== statusFilter) return false
-      if (titleFilter && !d.title.toLowerCase().includes(titleFilter.toLowerCase())) return false
-      return true
+  const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
+
+  // Drag-and-drop and the arrow buttons both need the FULL, unfiltered
+  // order of a category to stay correct — reordering a status/title-
+  // filtered subset would silently corrupt the sequence for the rows
+  // hidden by the filter. Disable reordering rather than risk that.
+  const reorderDisabled = statusFilter !== '' || titleFilter !== ''
+
+  const groups = useMemo(() => {
+    const byCategory = new Map<string, AdminDocRow[]>()
+    for (const cat of categories) byCategory.set(cat.id, [])
+    for (const doc of docs) {
+      if (doc.category) byCategory.get(doc.category.id)?.push(doc)
+    }
+    for (const list of byCategory.values()) list.sort((a, b) => a.sort_order - b.sort_order)
+
+    return categories
+      .filter((c) => !categoryFilter || c.id === categoryFilter)
+      .map((c) => {
+        const allDocs = byCategory.get(c.id) ?? []
+        const visibleDocs = allDocs.filter((d) => {
+          if (statusFilter && d.status !== statusFilter) return false
+          if (titleFilter && !d.title.toLowerCase().includes(titleFilter.toLowerCase())) return false
+          return true
+        })
+        return { category: c, allDocs, visibleDocs }
+      })
+  }, [docs, categories, categoryFilter, statusFilter, titleFilter])
+
+  const totalVisible = groups.reduce((sum, g) => sum + g.visibleDocs.length, 0)
+
+  function toggleGroup(id: string) {
+    setOpenGroups((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
     })
-  }, [docs, categoryFilter, statusFilter, titleFilter])
+  }
 
   function toggleSelected(id: string) {
     setSelected((prev) => {
@@ -50,24 +176,30 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
     })
   }
 
-  function toggleAll() {
-    setSelected((prev) => (prev.size === filtered.length ? new Set() : new Set(filtered.map((d) => d.id))))
-  }
-
-  function onOrderChange(id: string, value: string) {
-    const n = Number(value)
-    if (Number.isNaN(n)) return
-    setOrderEdits((prev) => ({ ...prev, [id]: n }))
-  }
-
-  function saveOrder() {
-    const updates = Object.entries(orderEdits).map(([id, sort_order]) => ({ id, sort_order }))
-    if (updates.length === 0) return
+  function persistOrder(orderedIds: string[]) {
+    const updates = orderedIds.map((id, i) => ({ id, sort_order: i + 1 }))
     startTransition(async () => {
       await saveSortOrder(updates)
-      setOrderEdits({})
       router.refresh()
     })
+  }
+
+  function onDragEnd(allDocs: AdminDocRow[]) {
+    return (event: DragEndEvent) => {
+      const { active, over } = event
+      if (!over || active.id === over.id) return
+      const oldIndex = allDocs.findIndex((d) => d.id === active.id)
+      const newIndex = allDocs.findIndex((d) => d.id === over.id)
+      if (oldIndex === -1 || newIndex === -1) return
+      persistOrder(arrayMove(allDocs, oldIndex, newIndex).map((d) => d.id))
+    }
+  }
+
+  function moveByOne(allDocs: AdminDocRow[], docId: string, direction: -1 | 1) {
+    const index = allDocs.findIndex((d) => d.id === docId)
+    const target = index + direction
+    if (index === -1 || target < 0 || target >= allDocs.length) return
+    persistOrder(arrayMove(allDocs, index, target).map((d) => d.id))
   }
 
   function toggleStatus(doc: AdminDocRow) {
@@ -107,21 +239,13 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
   return (
     <div>
       <div className="mb-4 flex flex-wrap items-center gap-2">
-        <select
-          value={categoryFilter}
-          onChange={(e) => setCategoryFilter(e.target.value)}
-          className="rounded-md border bg-background px-2 py-1.5 text-sm"
-        >
+        <select value={categoryFilter} onChange={(e) => setCategoryFilter(e.target.value)} className="rounded-md border bg-background px-2 py-1.5 text-sm">
           <option value="">All categories</option>
           {categories.map((c) => (
             <option key={c.id} value={c.id}>{c.title}</option>
           ))}
         </select>
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-md border bg-background px-2 py-1.5 text-sm"
-        >
+        <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)} className="rounded-md border bg-background px-2 py-1.5 text-sm">
           <option value="">All statuses</option>
           <option value="draft">Draft</option>
           <option value="published">Published</option>
@@ -133,15 +257,12 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
           onChange={(e) => setTitleFilter(e.target.value)}
           className="rounded-md border bg-background px-2 py-1.5 text-sm"
         />
-        <span className="text-sm text-muted-foreground">{filtered.length} of {docs.length}</span>
+        <span className="text-sm text-muted-foreground">{totalVisible} of {docs.length}</span>
         <div className="ml-auto flex items-center gap-2">
           {selected.size > 0 && (
             <Button size="sm" variant="outline" disabled={pending} onClick={onBulkPublish}>
               Publish {selected.size} selected
             </Button>
-          )}
-          {Object.keys(orderEdits).length > 0 && (
-            <Button size="sm" disabled={pending} onClick={saveOrder}>Save order</Button>
           )}
           <Button size="sm" disabled={pending} onClick={() => setNewDocOpen((v) => !v)}>New doc</Button>
         </div>
@@ -163,20 +284,11 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium">Slug</label>
-            <input
-              value={newSlug}
-              onChange={(e) => setNewSlug(e.target.value)}
-              required
-              className="block rounded-md border bg-background px-2 py-1.5 text-sm"
-            />
+            <input value={newSlug} onChange={(e) => setNewSlug(e.target.value)} required className="block rounded-md border bg-background px-2 py-1.5 text-sm" />
           </div>
           <div className="space-y-1">
             <label className="text-xs font-medium">Category</label>
-            <select
-              value={newCategoryId}
-              onChange={(e) => setNewCategoryId(e.target.value)}
-              className="block rounded-md border bg-background px-2 py-1.5 text-sm"
-            >
+            <select value={newCategoryId} onChange={(e) => setNewCategoryId(e.target.value)} className="block rounded-md border bg-background px-2 py-1.5 text-sm">
               {categories.map((c) => (
                 <option key={c.id} value={c.id}>{c.title}</option>
               ))}
@@ -186,66 +298,64 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
         </form>
       )}
 
-      <div className="overflow-x-auto rounded-lg border">
-        <table className="w-full text-sm">
-          <thead className="border-b bg-muted/50 text-left">
-            <tr>
-              <th className="w-8 p-2">
-                <input type="checkbox" checked={selected.size === filtered.length && filtered.length > 0} onChange={toggleAll} />
-              </th>
-              <th className="p-2">Title</th>
-              <th className="p-2">Category</th>
-              <th className="p-2">Path</th>
-              <th className="p-2">Status</th>
-              <th className="w-20 p-2">Order</th>
-              <th className="p-2">Updated</th>
-              <th className="p-2">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {filtered.map((doc) => (
-              <tr key={doc.id} className="border-b last:border-0">
-                <td className="p-2">
-                  <input type="checkbox" checked={selected.has(doc.id)} onChange={() => toggleSelected(doc.id)} />
-                </td>
-                <td className="p-2">
-                  <Link href={`/admin/docs/${doc.id}`} className="font-medium hover:text-primary">{doc.title}</Link>
-                </td>
-                <td className="p-2 text-muted-foreground">{doc.category?.title ?? '—'}</td>
-                <td className="p-2 font-mono text-xs text-muted-foreground">{doc.path}</td>
-                <td className="p-2">
-                  <span className={doc.status === 'published' ? 'text-emerald-600 dark:text-emerald-400' : 'text-muted-foreground'}>
-                    {doc.status}
-                  </span>
-                </td>
-                <td className="p-2">
-                  <input
-                    type="number"
-                    defaultValue={doc.sort_order}
-                    onChange={(e) => onOrderChange(doc.id, e.target.value)}
-                    className="w-16 rounded-md border bg-background px-1.5 py-1 text-sm"
-                  />
-                </td>
-                <td className="p-2 text-muted-foreground">{new Date(doc.updated_at).toLocaleDateString()}</td>
-                <td className="p-2">
-                  <div className="flex items-center gap-1">
-                    <Button size="sm" variant="ghost" disabled={pending} onClick={() => toggleStatus(doc)}>
-                      {doc.status === 'published' ? 'Unpublish' : 'Publish'}
-                    </Button>
-                    <Button size="sm" variant="ghost" disabled={pending} onClick={() => onDelete(doc)} className="text-destructive">
-                      Delete
-                    </Button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {filtered.length === 0 && (
-              <tr>
-                <td colSpan={8} className="p-6 text-center text-muted-foreground">No lessons match these filters.</td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+      <div className="space-y-3">
+        {groups.map(({ category, allDocs, visibleDocs }) => {
+          const isOpen = openGroups.has(category.id) || categoryFilter === category.id
+          return (
+            <div key={category.id} className="overflow-hidden rounded-lg border">
+              <button type="button" onClick={() => toggleGroup(category.id)} className="flex w-full items-center justify-between px-4 py-3 text-left">
+                <span className="font-medium">{category.title}</span>
+                <span className="flex items-center gap-2 text-sm text-muted-foreground">
+                  {visibleDocs.length} of {allDocs.length}
+                  {isOpen ? <ChevronUp className="size-4" /> : <ChevronDown className="size-4" />}
+                </span>
+              </button>
+              {isOpen && (
+                <div className="border-t">
+                  {reorderDisabled && (
+                    <p className="border-b bg-muted/30 px-4 py-2 text-xs text-muted-foreground">
+                      Clear the status/title filter to drag-and-drop or reorder this category.
+                    </p>
+                  )}
+                  {reorderDisabled ? (
+                    visibleDocs.map((doc) => (
+                      <RowContent
+                        key={doc.id}
+                        doc={doc}
+                        selected={selected.has(doc.id)}
+                        onToggleSelected={() => toggleSelected(doc.id)}
+                        onToggleStatus={() => toggleStatus(doc)}
+                        onDelete={() => onDelete(doc)}
+                        pending={pending}
+                      />
+                    ))
+                  ) : (
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd(allDocs)}>
+                      <SortableContext items={allDocs.map((d) => d.id)} strategy={verticalListSortingStrategy}>
+                        {allDocs.map((doc, i) => (
+                          <SortableDocRow
+                            key={doc.id}
+                            doc={doc}
+                            selected={selected.has(doc.id)}
+                            onToggleSelected={() => toggleSelected(doc.id)}
+                            onToggleStatus={() => toggleStatus(doc)}
+                            onDelete={() => onDelete(doc)}
+                            onMoveUp={() => moveByOne(allDocs, doc.id, -1)}
+                            onMoveDown={() => moveByOne(allDocs, doc.id, 1)}
+                            isFirst={i === 0}
+                            isLast={i === allDocs.length - 1}
+                            pending={pending}
+                          />
+                        ))}
+                      </SortableContext>
+                    </DndContext>
+                  )}
+                  {visibleDocs.length === 0 && <p className="px-4 py-3 text-sm text-muted-foreground">No lessons match these filters.</p>}
+                </div>
+              )}
+            </div>
+          )
+        })}
       </div>
     </div>
   )

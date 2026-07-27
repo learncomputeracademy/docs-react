@@ -843,6 +843,42 @@ have the admin password. Left for the user to click through.
 
 ---
 
+## D-25 · Docs list reordering: drag-and-drop + arrow buttons, replacing the raw number field
+**Date:** 2026-07-27 · **Status:** Active, supersedes D-24's plain-number-input reorder UI
+
+User feedback on D-24's screen, immediately: a bare number input per row is confusing to
+look at and hard to keep internally consistent across up to 36 rows. Presented three real
+options (drag-and-drop, up/down arrows, or keep numbers but group+normalize) — user chose
+**both** drag-and-drop and arrow buttons together, not just one.
+
+Rebuilt `components/admin/docs-list.tsx`: rows now grouped by category (collapsible,
+closed by default), each group a `@dnd-kit/core` + `@dnd-kit/sortable` sortable list with
+a drag handle *and* up/down buttons per row — the buttons double as a precise/keyboard-usable
+fallback for the "moving something 30 positions is painful to drag" case, not just a
+this-or-that choice. Reordering (drag or arrows) is disabled with an inline note whenever
+a status/title filter is active — filtering can hide same-category siblings, and
+reordering a filtered subset would silently corrupt the true order of the hidden rows.
+`@dnd-kit/core`'s peer range (`react: >=16.8.0`) is as loose as CodeMirror's was, so this
+got the same "verify it actually initializes, not just installs" treatment as D-19/D-22.
+
+**Verified working, thoroughly** — via a throwaway `/dnd-spike` route (fake mock data,
+deleted after): first confirmed the underlying reorder logic (`arrayMove` into the real
+`saveSortOrder` Server Action) is sound by clicking an arrow button and getting the
+*expected* "invalid input syntax for type uuid" error — proof the full chain from click to
+a real DB call executes correctly, failing only because the spike's ids aren't real
+UUIDs. Actual drag-and-drop initially looked broken (a simulated drag produced no visible
+reorder) — root-caused by dispatching synthetic `PointerEvent`s directly via JS and
+finding dnd-kit's `PointerSensor` requires `isPrimary: true`, which manually constructed
+`PointerEvent`s don't set by default; adding it made the dragged row's opacity correctly
+drop to 0.5 with a live `translate3d` transform following the pointer — real proof of an
+active, working drag, not just an installed one. The dev server log then showed a fully
+successful drag producing a correctly reordered payload, a genuine position swap between
+two rows, erroring only on the fake UUIDs. **dnd-kit is fully compatible with React 19 in
+this stack** — unlike CodeMirror (D-19), this is a real pass, not a silent failure hiding
+behind a clean install.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

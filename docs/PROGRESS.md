@@ -181,15 +181,37 @@ fixed a real bug in passing: `lib/supabase/server.ts` was typed against the stil
 worked around in `lib/supabase/public.ts`; untyped it, nothing else imports this client.
 
 Verified: `next build` unchanged public route tree, `/admin/docs` correctly dynamic,
-unauthenticated access redirects to login same as `/admin`. **Not verified**: the actual
-authenticated screen — Claude doesn't have the admin password, same gap as Phase 1's login
-test. Full writeup: D-24.
+unauthenticated access redirects to login same as `/admin`. Full writeup: D-24.
+
+**Reorder UX redone, same session, right after the user tried it**
+
+Immediate feedback: the plain number input was confusing and hard to keep consistent
+across up to 36 rows. Offered drag-and-drop, up/down arrows, or numbers-but-grouped —
+user chose to combine drag-and-drop *and* arrow buttons rather than pick one.
+
+Rebuilt the screen grouped by category (collapsible) with `@dnd-kit` sortable lists, drag
+handle + ↑/↓ per row. Reordering disabled with a note whenever a status/title filter is
+active, since a filtered subset hides same-category siblings and reordering it would
+corrupt their true order. dnd-kit's peer range is as loose as CodeMirror's was, so this
+got the same real-verification treatment as D-19/D-22 — via a throwaway `/dnd-spike`
+route with fake data: proved the reorder *logic* first (an arrow click produced the
+expected "invalid uuid" error, meaning the full chain to a real DB call works), then
+found the drag itself silently not activating, root-caused to synthetic `PointerEvent`s
+needing `isPrimary: true` (dnd-kit's `PointerSensor` requires it, unset by default) — once
+added, the drag visibly activated (opacity/transform live-tracking the pointer) and the
+dev server log showed a fully correct reordered payload. **dnd-kit works correctly in
+this React 19 stack** — a real pass, not a CodeMirror-style silent failure. Full
+writeup: D-25.
+
+**Not verified either time**: the actual authenticated `/admin/docs` screen — Claude
+doesn't have the admin password, same gap as Phase 1's login test.
 
 **Next session — start here**
 
-1. User: click through `/admin/docs` once deployed — filters, checkbox selection, editing
-   an order number + Save order, publish/unpublish toggle, and (carefully, it's real data)
-   New doc + Delete on a throwaway row. Report anything that doesn't work as described.
+1. User: click through `/admin/docs` once deployed — filters, checkbox selection,
+   drag-and-drop *and* arrow-button reordering within a category, publish/unpublish
+   toggle, and (carefully, it's real data) New doc + Delete on a throwaway row. Report
+   anything that doesn't work as described.
 2. Stage 7, Phase 3: the doc/block editor (`/admin/docs/[id]`) — "the project," per
    ADMIN-PLAN.md. Everything built so far (Tiptap spike, docs list) exists to support it.
 3. `generateMetadata` staleness (O-5) still open — worth checking before Phase 3's publish
