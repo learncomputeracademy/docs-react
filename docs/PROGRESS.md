@@ -15,6 +15,14 @@ for picking up work weeks later.
 except Testimonials** · Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
+### ⚠️ Blocking next step
+
+**`supabase/migrations/004-users.sql` must be run in the Supabase SQL editor before this
+code is deployed.** Session 15 (below) replaced the JWT-based admin check with a
+`profiles` table — `proxy.ts` queries it on every `/admin` request. Deploy before running
+the migration and the existing admin account gets locked out of `/admin` entirely (see
+D-37). Not yet run as of the last commit.
+
 ### ⚡ Next action
 
 **Bengali translation effort is done.** Status per category (`doc_translations` rows,
@@ -94,6 +102,57 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 15: Users, roles, revision history, activity log, soft delete (D-37)
+
+**Done**
+
+- User asked for a "Users" feature (multiple contributors, admin add/edit/delete/block,
+  "in depth review of what every user is doing"). Scoped it with `AskUserQuestion` first:
+  2 roles (admin/editor, both publish), activity feed + revision history, admin-set temp
+  passwords, admin-only soft-delete. Built all of it — see D-37 for the full writeup.
+- **`profiles` table replaces the JWT `app_metadata` role check** — a JWT claim doesn't
+  update until token refresh (up to an hour), which made "block this user" too slow.
+  `is_admin()`/`can_edit()` rewritten to read `profiles`; every RLS policy across all 9
+  tables re-permissions itself through those two functions. `proxy.ts` now redirects
+  blocked/unknown users on their very next request.
+- **Real gap caught during review, fixed before commit**: `doc_translations`'
+  RLS policy (002-i18n.sql) was still `is_admin()`-only — would have silently blocked
+  editors from saving Bengali translations. Moved to `can_edit()` alongside docs/media.
+- **Soft delete** (`docs.deleted_at` + a BEFORE UPDATE trigger that blocks the column
+  unless `is_admin()`) with a Trash screen + restore. Deliberately leaves `status`/
+  `published_at` untouched on delete — an earlier draft cleared them, which would have
+  unlocked a previously-published doc's slug field on restore, a real risk against the
+  URL-preservation rule (CLAUDE.md §3.2). `path`/`(category_id, slug)` unique constraints
+  became partial indexes (`where deleted_at is null`) so a soft-deleted row doesn't
+  permanently squat its path.
+- **Revision history**: every `saveDoc` snapshots into `doc_revisions` (capped 20/doc,
+  oldest pruned). New "History" panel in the doc editor diffs by block id
+  (added/changed/removed), not raw JSON — restoring snapshots the current state first, so
+  it's never a one-way trip either.
+- **Activity log**, wired into every existing admin action (~15 call sites): doc/media/
+  category/resource/settings/translation/user CRUD. Append-only, admin-only reads. Stated
+  ceiling in the doc, not glossed over: only catches what goes through the app — a script
+  run or a direct Studio edit has no attributable session.
+- **Mid-build, user added**: *"make sure that even admin can't delete admin by mistake."*
+  `deleteUser` now refuses outright unless the target is demoted to editor first — a
+  deliberate two-step process, no single click removes an admin account.
+- `/admin/users`, `/admin/activity`, `/admin/trash` — new admin-only screens, sidebar
+  filters them out entirely for editors (not just grayed — proxy.ts also redirects a
+  direct navigation).
+
+**Verified**: `tsc --noEmit` clean, `next build` clean (three new dynamic routes, no
+regression on 300+ static/SSG public routes), grepped `.next/static/` for service-role/R2/
+Cloudinary secret names — no matches.
+
+**Not done / blocking**
+- **Not live-tested.** `supabase/migrations/004-users.sql` has not been run against
+  production — doing so is a schema change against the live database, the user's action,
+  not mine. See the blocking note at the top of this file and O-8 in `DECISIONS.md`.
+  Deploying this code before running the migration locks the existing admin out of
+  `/admin` (the `profiles` lookup fails, every request redirects to login).
+
+---
 
 ## 2026-07-27 — Session 14: R2 credentials, Stage 7 Phases 6–9 (admin panel essentially done), Leads/contact-form dropped
 

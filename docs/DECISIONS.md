@@ -1348,10 +1348,94 @@ prerender `○` static, `/admin/resources` `ƒ` dynamic as expected), grepped
 
 ---
 
+## D-37 · Users, roles, revision history, activity log, soft delete
+
+**Date:** 2026-07-27 · **Status:** Active — ⚠️ **migration not yet run against production**
+
+User asked for a "Users" feature: multiple people uploading content, admin can add/edit/
+delete/block them, and "in depth review of what every user is doing." Four choices were
+made explicit before building (`AskUserQuestion`): **2 roles** (admin/editor, both can
+publish), **activity feed + revision history** (not feed-only, not revisions-only), **admin
+sets a temp password** (no invite-email/SMTP dependency), **admin-only soft-delete** for
+lessons. Mid-build the user added: *"make sure that even admin can't delete admin by
+mistake"* — see below.
+
+**Why `app_metadata` had to go.** The existing `is_admin()` (schema.sql) read
+`auth.jwt() ->> 'app_metadata' ->> 'role'`. A JWT claim only updates on token refresh — up
+to an hour. "Block this user" needing up to an hour to take effect fails the ask outright.
+`supabase/migrations/004-users.sql` replaces it with a `profiles` table
+(`id`/`name`/`role`/`status`) and rewrites `is_admin()` (+ new `can_edit()`, true for both
+roles) to read it — every RLS policy across all 9 tables re-permissions itself through
+those two functions, and blocking is instant on the next request since `proxy.ts` and
+every write now hit the live table, not a cached token. `docs`, `media`, and
+`doc_translations` (the last one caught only during review — 002-i18n.sql's translation
+policy was still `is_admin()`-only and would have silently blocked editors from
+translating) move to `can_edit()`; categories/testimonials/resources/settings/users/
+activity stay admin-only per the 2-role decision.
+
+**Admin-deleting-admin guard**, added mid-build per the user's explicit ask: `deleteUser`
+(`lib/admin/users.ts`) refuses outright if the target's role is `admin` — it must be
+demoted to editor first, a deliberate separate step, so no single click removes an admin
+account. Enforced in the server action itself (service-role bypasses RLS, so this can't be
+an RLS policy) and mirrored in the Users screen (delete disabled/grayed for admin rows).
+
+**Soft delete, not hard delete.** `docs.deleted_at` + a `docs_delete_restore_guard` BEFORE
+UPDATE trigger that raises unless `is_admin()` — enforced twice (RLS "editors manage docs"
+technically allows an editor to UPDATE, so the trigger is the real gate, not just the
+app-layer button hiding). Deliberately does **not** touch `status`/`published_at` on
+delete: an earlier draft cleared them, which would have unlocked the slug field on restore
+for a previously-published doc — a real risk against CLAUDE.md §3.2 (no accidental URL
+changes on migrated content). Restore is now a true undo. The public read policy's
+`deleted_at is null` clause is the actual hide mechanism (one policy, not ~8 query-site
+filters across `lib/content.ts`) — this is also why `path`/`(category_id, slug)`'s plain
+unique constraints had to become partial indexes (`where deleted_at is null`): otherwise a
+soft-deleted row keeps squatting on its path forever and recreating that lesson fails.
+
+**Revision history**, not just a log line. `doc_revisions` snapshots `title`/`blocks`/
+`toc`/`status` on every `saveDoc`, capped at 20/doc (oldest pruned after insert, ~60MB
+worst case against the 500MB free tier). The editor's new "History" panel diffs by block
+id (added/changed/removed vs. the next-older revision) rather than a raw JSON diff — a
+lesson is a list of blocks, so that's the unit that actually reads as "what changed."
+Restoring snapshots the pre-restore state first, so a restore is never a one-way trip
+either.
+
+**Activity log** (`activity_log`, append-only — no update/delete policy for anyone,
+including admins, short of the SQL editor) is wired into every existing admin action:
+doc save/publish/unpublish/delete/restore/create, media upload/delete, category/resource/
+settings CRUD, translation create/save/delete, and every user action. `logActivity()`
+(`lib/admin/activity.ts`) never throws — same graceful-degradation pattern as
+`getSiteSettings` — a logging failure must not take down the save it's recording.
+**Stated ceiling, not silently glossed over:** only catches what goes through the app. A
+`scripts/*.mjs` run or a direct Supabase Studio edit uses the service-role key or a
+different session with no app-attributed user, and won't appear here — a trigger-based
+approach wouldn't fix this either (service-role connections still have no user to
+attribute), so the log is honestly incomplete rather than falsely complete.
+
+**Onboarding**: `/admin/users`' "New user" generates a 16-char temp password client-never-
+sees-twice (shown once in the create response, admin copies and hands it over out of
+band), via `auth.admin.createUser` + `email_confirm: true`. No SMTP dependency, matching
+the "admin sets a temp password" choice over invite emails (would have needed Resend, which
+D-36 explicitly walked away from for the contact form).
+
+**⚠️ Deployment order matters.** `proxy.ts` and every admin server action now query
+`profiles` on every request. **The migration must be run in the Supabase SQL editor before
+this code is deployed** — otherwise `/admin` locks out immediately (the profile lookup
+fails, `role` stays `null`, every request redirects to `/admin/login`) including for the
+existing admin account. Not yet run as of this commit.
+
+**Verified:** `tsc --noEmit` clean, `next build` clean (`/admin/users`, `/admin/activity`,
+`/admin/trash` all `ƒ` dynamic as expected, no regression on the 300+ static/SSG public
+routes), grepped `.next/static/` for service-role/R2/Cloudinary secret names — no matches.
+**Not live-tested** — doing so requires the migration to be applied first (see above), a
+schema change against the production database that needs the user's own action, not mine.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
+| O-8 | **Run `supabase/migrations/004-users.sql` in the Supabase SQL editor** before deploying this branch — see D-37 | Everything in D-37; `/admin` locks out without it |
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |

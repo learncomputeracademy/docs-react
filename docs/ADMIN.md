@@ -12,12 +12,15 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 | Screen | Function |
 |---|---|
 | Dashboard | counts, recently edited docs, **usage panel** (below) |
-| Docs list | filter by category/status, drag to reorder, bulk publish |
-| Doc editor | title, slug, **path (locked after launch — see D-12)**, meta title/description, **block editor** → `docs/CONTENT-MODEL.md`, draft/publish, live preview |
-| Categories | CRUD + ordering |
+| Docs list | filter by category/status, drag to reorder, bulk publish, delete (admin-only, soft) |
+| Doc editor | title, slug, **path (locked after launch — see D-12)**, meta title/description, **block editor** → `docs/CONTENT-MODEL.md`, draft/publish, live preview, **revision history + restore** |
+| Categories | CRUD + ordering — **admin-only** |
 | Testimonials | CRUD + publish toggle |
-| Resources | CRUD, grouped |
-| Settings | homepage hero + about-band text |
+| Resources | CRUD, grouped — **admin-only** |
+| Settings | homepage hero + about-band text — **admin-only** |
+| Users | create/edit-role/block/delete accounts — **admin-only**, see D-37 |
+| Activity | who-did-what feed across the whole panel — **admin-only**, see D-37 |
+| Trash | soft-deleted lessons, restore — **admin-only**, see D-37 |
 
 ### Two rules that matter more than they look
 
@@ -93,10 +96,18 @@ before assuming the script broke.
 
 ## Auth
 
-- Create the admin user by hand in the Supabase dashboard.
-- Set `role: admin` in **`app_metadata`**, never `user_metadata` — users can edit their own
-  `user_metadata`, which would make the role self-assignable. This is the single most
-  common way a Supabase admin panel gets breached.
-- RLS policies key off `auth.jwt() ->> 'role' = 'admin'`.
+**Superseded by D-37 (2026-07-27).** Role/status now live in a `profiles` table, not
+`app_metadata` — a JWT claim doesn't change until the token refreshes (up to an hour),
+which made "block this user" too slow to be real. `public.is_admin()` / `public.can_edit()`
+read `profiles`; `proxy.ts` and every RLS policy across all 9 tables key off those two
+functions. Two roles: **admin** (everything, incl. Users/Categories/Settings/Resources,
+can delete/restore) and **editor** (docs, media, translations — write and publish, cannot
+delete).
+
+- New users are created from `/admin/users` (service-role `auth.admin.createUser`), not by
+  hand in the dashboard — a `handle_new_user()` trigger gives every new `auth.users` row a
+  `profiles` row automatically.
 - `SUPABASE_SERVICE_ROLE_KEY` is server-only. Never `NEXT_PUBLIC_*`, never a client
   component. Grep the build output before deploying.
+- Deleting an admin account is blocked outright — demote to editor first, a deliberate
+  separate step, so no single click removes an admin by mistake.
