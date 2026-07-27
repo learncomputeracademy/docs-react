@@ -1,0 +1,103 @@
+'use server'
+
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { createClient } from '@/lib/supabase/server'
+
+// Cookie-aware SSR client, never the service-role client — RLS's
+// "admin manages docs" policy is the actual enforcement (public.is_admin()),
+// the proxy.ts route guard is UX on top of it, not a substitute for it.
+
+export type AdminDocRow = {
+  id: string
+  title: string
+  path: string
+  status: 'draft' | 'published'
+  sort_order: number
+  updated_at: string
+  category: { id: string; slug: string; title: string } | null
+}
+
+export async function listDocsForAdmin(): Promise<AdminDocRow[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .select('id, title, path, status, sort_order, updated_at, category:categories(id, slug, title)')
+    .order('sort_order', { ascending: true })
+  if (error) throw new Error(error.message)
+  return (data ?? []) as unknown as AdminDocRow[]
+}
+
+export async function listCategoriesForAdmin() {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('categories').select('id, slug, title').order('sort_order')
+  if (error) throw new Error(error.message)
+  return data ?? []
+}
+
+function revalidateDoc(path: string) {
+  revalidateTag(`doc:${path}`, { expire: 0 })
+  revalidateTag('sidebar', { expire: 0 })
+  revalidatePath(`/${path}`, 'page')
+  revalidatePath(`/bn/${path}`, 'page')
+}
+
+export async function setDocStatus(id: string, status: 'draft' | 'published') {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .update({ status, published_at: status === 'published' ? new Date().toISOString() : null })
+    .eq('id', id)
+    .select('path')
+    .single()
+  if (error) throw new Error(error.message)
+  revalidateDoc(data.path)
+}
+
+export async function bulkPublish(ids: string[]) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .update({ status: 'published', published_at: new Date().toISOString() })
+    .in('id', ids)
+    .select('path')
+  if (error) throw new Error(error.message)
+  data?.forEach((d) => revalidateDoc(d.path))
+}
+
+export async function deleteDoc(id: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase.from('docs').delete().eq('id', id).select('path').single()
+  if (error) throw new Error(error.message)
+  revalidateDoc(data.path)
+}
+
+// One row per changed order number, not a single upsert — "Save order" is
+// a batch of at most ~40 rows (one category at a time in practice), and a
+// real upsert would need every NOT NULL column repeated for no benefit.
+export async function saveSortOrder(updates: { id: string; sort_order: number }[]) {
+  const supabase = await createClient()
+  for (const u of updates) {
+    const { error } = await supabase.from('docs').update({ sort_order: u.sort_order }).eq('id', u.id)
+    if (error) throw new Error(error.message)
+  }
+  revalidateTag('sidebar', { expire: 0 })
+}
+
+export async function createDraftDoc(categoryId: string, slug: string, title: string) {
+  const supabase = await createClient()
+  const { data: category, error: catError } = await supabase
+    .from('categories')
+    .select('slug')
+    .eq('id', categoryId)
+    .single()
+  if (catError) throw new Error(catError.message)
+
+  const path = `${category.slug}/${slug}`
+  const { data, error } = await supabase
+    .from('docs')
+    .insert({ category_id: categoryId, slug, path, title, blocks: [], toc: [], status: 'draft' })
+    .select('id')
+    .single()
+  if (error) throw new Error(error.message)
+  return data.id as string
+}

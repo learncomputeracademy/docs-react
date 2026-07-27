@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { createClient } from '@/lib/supabase/server'
 import { SignOutButton } from '@/components/admin/sign-out-button'
 
@@ -14,6 +15,11 @@ export default async function AdminDashboardPage() {
         <SignOutButton />
       </div>
       <p className="mt-2 text-sm text-muted-foreground">Signed in as {user?.email}.</p>
+      <nav className="mt-6">
+        <Link href="/admin/docs" className="text-sm font-medium text-primary hover:underline">
+          Docs →
+        </Link>
+      </nav>
     </main>
   )
 }

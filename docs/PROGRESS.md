@@ -158,24 +158,42 @@ recorded. No textarea fallback needed for the `richtext` block editor. Full writ
 
 **Stage 7, Phase 1 — same session**
 
-Built the migration (`supabase/migrations/003-admin.sql` — **not yet applied**, needs the
-user to run it), the scoped `proxy.ts` auth guard (`/admin/:path*` only, `getUser()` not
-`getSession()`), `/admin/login`, and a bare `/admin` dashboard stub. Verified: public route
-tree still all `●`/`○` after `next build`; unauthenticated `/admin` correctly 307s to
-`/admin/login` with no loop; a bad-credentials submit hits real Supabase Auth and shows
-"Invalid login credentials" cleanly. **User verified the successful-login path** — signed in with the real admin credentials,
-reached the `/admin` dashboard stub, email shown correctly, sign-out present. Phase 1's
-guard + login loop is fully confirmed, both halves. Full writeup: D-23.
+Built the migration (`supabase/migrations/003-admin.sql`), the scoped `proxy.ts` auth
+guard (`/admin/:path*` only, `getUser()` not `getSession()`), `/admin/login`, and a bare
+`/admin` dashboard stub. Verified: public route tree still all `●`/`○` after `next build`;
+unauthenticated `/admin` correctly 307s to `/admin/login` with no loop; a bad-credentials
+submit hits real Supabase Auth and shows "Invalid login credentials" cleanly. **User
+verified the successful-login path** — signed in with the real admin credentials, reached
+the `/admin` dashboard stub, email shown correctly, sign-out present. Phase 1's guard +
+login loop is fully confirmed, both halves. Full writeup: D-23.
+
+**Stage 7, Phase 2 — same session**
+
+Migration confirmed run by the user. Asked how to handle `sort_order` (wrong for all 150
+rows) — user chose to ship the docs list screen only, fix the actual sequence later
+through the UI rather than work out correct ordering right now.
+
+Built `/admin/docs`: filter (category/status/title), checkboxes + bulk publish, editable
+sort-order per row + "Save order," inline "New doc" form. `lib/admin/docs.ts` holds the
+Server Actions, all revalidating the same way the eventual publish flow will. Found and
+fixed a real bug in passing: `lib/supabase/server.ts` was typed against the still-empty
+`Database` stub, making every admin write infer `never` — same class of issue already
+worked around in `lib/supabase/public.ts`; untyped it, nothing else imports this client.
+
+Verified: `next build` unchanged public route tree, `/admin/docs` correctly dynamic,
+unauthenticated access redirects to login same as `/admin`. **Not verified**: the actual
+authenticated screen — Claude doesn't have the admin password, same gap as Phase 1's login
+test. Full writeup: D-24.
 
 **Next session — start here**
 
-1. Confirm `supabase/migrations/003-admin.sql` has actually been run in SQL Editor (seeds
-   `site_settings`, creates `media`) — needed before Phase 2/3 touch either.
-2. Stage 7, Phase 2: docs list screen + fixing `sort_order` (currently file-scan order,
-   wrong for all 150 rows — ADMIN-PLAN.md flags this needs a content judgement on the
-   correct sequence, possibly from the user, before the screen just picks one).
-3. `generateMetadata` staleness (O-5) still open — worth checking before the admin
-   panel's publish flow (Phase 3) makes it user-visible.
+1. User: click through `/admin/docs` once deployed — filters, checkbox selection, editing
+   an order number + Save order, publish/unpublish toggle, and (carefully, it's real data)
+   New doc + Delete on a throwaway row. Report anything that doesn't work as described.
+2. Stage 7, Phase 3: the doc/block editor (`/admin/docs/[id]`) — "the project," per
+   ADMIN-PLAN.md. Everything built so far (Tiptap spike, docs list) exists to support it.
+3. `generateMetadata` staleness (O-5) still open — worth checking before Phase 3's publish
+   flow makes it user-visible.
 
 ---
 

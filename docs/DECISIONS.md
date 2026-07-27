@@ -811,6 +811,38 @@ end-to-end, not just the failure-mode half Claude could test directly.
 
 ---
 
+## D-24 · Stage 7 Phase 2: docs list screen
+**Date:** 2026-07-27 · **Status:** Active. User chose "ship the screen only" —
+`sort_order` stays as file-scan order until fixed by hand through this UI later, not
+seeded correctly as part of this phase.
+
+`lib/admin/docs.ts` — Server Actions (`listDocsForAdmin`, `listCategoriesForAdmin`,
+`setDocStatus`, `bulkPublish`, `deleteDoc`, `saveSortOrder`, `createDraftDoc`), all via the
+cookie-aware SSR client so RLS's `admin manages docs` policy is the actual enforcement,
+not just the `proxy.ts` route guard. Every write that changes a doc's public output calls
+the same `revalidateTag`/`revalidatePath` pair `/api/revalidate` already used (§4.3's
+plan — publish revalidates directly, the webhook/trigger from D-21 is the backup path for
+out-of-band edits, not the primary one).
+
+`components/admin/docs-list.tsx` — filter by category/status/title (client-side, ~150
+rows, no reason for server-side search), row checkboxes + bulk publish, an editable
+sort-order number per row with a single "Save order" that only sends changed rows, and an
+inline "New doc" form (title/slug/category) rather than chained `prompt()` calls — a real
+multi-field form is barely more code and meaningfully less painful to use.
+
+**Found and fixed in passing**: `lib/supabase/server.ts` was still typed
+`createServerClient<Database>`, and every admin write inferred `never` for its payload —
+same root cause `lib/supabase/public.ts` already worked around (the `Database` type is
+still the pre-schema stub). Untyped it; nothing else imports this client, so no ripple.
+
+**Verified**: `next build` — public route tree still all `●`/`○`; `/admin/docs` correctly
+`ƒ`. Unauthenticated `GET /admin/docs` redirects to login same as `/admin`. **Not
+verified**: the actual authenticated screen (table rendering, filters, checkbox/order/
+publish/delete interactions) — same limitation as Phase 1's login test, Claude doesn't
+have the admin password. Left for the user to click through.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
