@@ -1,0 +1,67 @@
+---
+id: "daf51609-b37a-43d6-9e67-39aace37ff20"
+title: "Scope"
+path: "programming/scope"
+status: "published"
+meta_title: "Scope | Learn Computer Academy"
+sort_order: 14
+updated_at: "2026-07-25T08:16:50.637184+00:00"
+---
+
+```json
+[
+  {
+    "id": "LH1G8vM0aHAC",
+    "html": "<p>Scope determines where in your code a variable can be accessed. A variable declared inside a function generally can't be seen from outside it — that's not a limitation, it's what keeps different parts of a large program from accidentally interfering with each other.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AJ4pf7IUMcHb",
+    "text": "Local scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "local-scope"
+  },
+  {
+    "id": "ygSsU9yb5rVt",
+    "html": "<p>A variable declared inside a function only exists inside that function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MM9NWPyZJAsB",
+    "code": "function greet() {\n  let message = \"Hello!\";\n  console.log(message); // works fine\n}\n\ngreet();\nconsole.log(message); // ❌ ReferenceError: message is not defined",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "RjpIpeml7B1f",
+    "text": "Global scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "global-scope"
+  },
+  {
+    "id": "w-IwM7YiAekM",
+    "html": "<p>A variable declared outside any function is accessible everywhere in the file, including inside functions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LUdGFSh1RYT9",
+    "code": "let siteName = \"Learn Computer Academy\"; // global\n\nfunction printName() {\n  console.log(siteName); // can read the global variable\n}\n\nprintName(); // \"Learn Computer Academy\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eNrS-7MxHaAO",
+    "text": "Why scope matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-scope-matters"
+  },
+  {
+    "id": "ENdRC9bUkgiQ",
+    "html": "<p>Keeping variables local (rather than making everything global) prevents different parts of a program from stepping on each other's variables by accident — a common source of hard-to-find bugs in larger programs.</p>",
+    "type": "richtext"
+  }
+]
+```

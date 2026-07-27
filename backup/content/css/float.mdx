@@ -1,0 +1,316 @@
+---
+id: "c13bff32-37e9-4e22-9818-e55287cf37a3"
+title: "CSS Float"
+path: "css/float"
+status: "published"
+meta_title: "CSS Float | Learn Computer Academy"
+sort_order: 11
+updated_at: "2026-07-25T06:20:42.35426+00:00"
+---
+
+```json
+[
+  {
+    "id": "SwKITtwGuHM2",
+    "html": "<hr>\n<p>The CSS <code>float</code> property specifies how an element should float.</p>\n<p>The CSS <code>clear</code> property specifies what elements can float beside the cleared element and on which side.</p>\n<div class=\"clearfix\">\n                                    <div style=\"background-color:#2196F3;padding:16px;float:left;width:30%;opacity:0.85;text-align:center;color:#fff;\">\n                                        <span class=\"floatl\">Float Left</span>\n                                    </div>\n                                    <div style=\"background-color:#F44336;padding:16px;float:right;width:30%;opacity:0.85;text-align:center;color:#fff;\">\n                                        <span class=\"floatr\">Float Right</span>\n                                    </div>\n                                </div>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "sNAgJkgF_5sF",
+    "text": "The float Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-float-property"
+  },
+  {
+    "id": "pE1Bs_8DP996",
+    "html": "<p>The <code>float</code> property is used for positioning and formatting content e.g. let an image float left to the text in a container.</p>\n<p>The <code>float</code> property can have one of the following values:</p>\n<ul>\n                                    <li>left - The element floats to the left of its container</li>\n                                    <li>right - The element floats to the right of its container</li>\n                                    <li>none - The element does not float (will be displayed just where it occurs in the text). This is default</li>\n                                    <li>inherit - The element inherits the float value of its parent</li>\n                                </ul>\n<p>In its simplest use, the <code>float</code> property can be used to wrap text around images.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "AUaSqRjgqO9q",
+    "text": "Example - float: right;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example---float-right"
+  },
+  {
+    "id": "PXKkGoYniDeg",
+    "html": "<p>The following example specifies that an image should float to the <strong>right</strong> in a text:</p>\n<div class=\"clearfix\">\n                                    <p class=\"img-thumbnail p-4\"><img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960210/img/cat-dog.webp\" alt=\"cat\" style=\"width:120px;height:auto;float:right;margin-left:15px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. <span>Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac...</span></p>\n                                </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "JJQArodLs93A",
+    "code": "img {\n  float: right;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "iJyigYNiTzRQ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "865F1JL5-2Rh",
+    "text": "Example - float: left;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example---float-left"
+  },
+  {
+    "id": "wYPSdVcLPxmN",
+    "html": "<p>The following example specifies that an image should float to the <strong>left</strong> in a text:</p>\n<div class=\"clearfix\">\n                                    <p class=\"img-thumbnail p-4\"><img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960210/img/cat-dog.webp\" alt=\"cat\" style=\"width:120px;height:auto;float:left;margin-right:15px;\">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. <span class=\"w3-hide-small\">Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac...</span></p>\n                                </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "iKhVkZUTtxo5",
+    "code": "img {\n  float: left;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "-9VF8stnBTSx",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "HrVTJaM8iNYp",
+    "text": "Example - No float",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example---no-float"
+  },
+  {
+    "id": "VPKSZkmJWCVx",
+    "html": "<p>In the following example the image will be displayed just where it occurs in the text (float: none;):</p>\n<p class=\"img-thumbnail p-4\"><img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960210/img/cat-dog.webp\" alt=\"cat\" style=\"max-width:185px;width:50%;float:none;\">\n                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. <span class=\"w3-hide-small\">Fusce luctus vestibulum augue ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in odio. Praesent convallis urna a lacus interdum ut hendrerit risus congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim ac...</span></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x-8ebEFewprA",
+    "code": "img {\n  float: none;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "QvfOTNcpo8DQ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Yvd-77Ds2ltI",
+    "text": "The clear Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-clear-property"
+  },
+  {
+    "id": "EVS4alLIv9L2",
+    "html": "<p>The <code>clear</code> property specifies what elements can float beside the cleared element and on which side.</p>\n<p>The <code>clear</code> property can have one of the following values:</p>\n<ul>\n                                    <li>none - Allows floating elements on both sides. This is default</li>\n                                    <li>left - No floating elements allowed on the left side</li>\n                                    <li>right- No floating elements allowed on the right side</li>\n                                    <li>both - No floating elements allowed on either the left or the right side</li>\n                                    <li>inherit - The element inherits the clear value of its parent</li>\n                                </ul>\n<p>The most common way to use the <code>clear</code> property is after you have used a <code>float</code> property on an element.</p>\n<p>When clearing floats, you should match the clear to the float: If an element is floated to the left, then you should clear to the left. Your floated element will continue to float, but the cleared element will appear below it on the web page.</p>\n<p>The following example clears the float to the left. Means that no floating elements are allowed on the left side (of the div):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C7wjXUqDrrq9",
+    "code": "img {\n  float: left;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Oh4fjS_AsZ69",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "yB_02pHoleOy",
+    "text": "The clearfix Hack",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-clearfix-hack"
+  },
+  {
+    "id": "qtH0ykMg9GQP",
+    "html": "<p>If an element is taller than the element containing it, and it is floated, it will \"overflow\" outside of its container:</p>\n<div style=\"margin-bottom: 1rem;\" class=\"img-thumbnail p-4\">\n                                    <div>\n                                        <h3>Without Clearfix</h3>\n                                        <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960439/img/without-float.webp\" style=\"max-width:75%;\">\n                                    </div>\n                                    <div>\n                                        <h3>With Clearfix</h3>\n                                        <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960437/img/with-float.webp\" style=\"max-width:75%;\">\n                                    </div>\n                                </div>\n<p>Then we can add <code class=\"w3-codespan\">overflow: auto;</code> to the containing element to fix this problem:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "D6IXo7u4OVbK",
+    "code": ".clearfix {\n  overflow: auto;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "uBjnejFiVJdt",
+    "html": "<p>The <code>overflow: auto</code> clearfix works well as long as you are able to keep control of your margins and padding (else you might see scrollbars). The <b>new, modern clearfix hack</b> however, is safer to use, and the following code is used for most webpages:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xKgrYcu0Q98_",
+    "code": ".clearfix::after {\n  content: \"\";\n  clear: both;\n  display: table;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "XqD0CqVfBtB0",
+    "html": "<p class=\"note\">You will learn more about the <code>::after</code> pseudo-element in a later chapter.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "_Tv7WE8v2dYO",
+    "text": "Grid of Boxes / Equal Width Boxes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grid-of-boxes-equal-width-boxes"
+  },
+  {
+    "id": "hKxo2wsxxWsG",
+    "html": "<div style=\"margin-bottom: 1rem;\" class=\"clearfix\">\n                                  <div style=\"background-color:#bbb;padding: 20px;text-align: center;float: left;max-width: 50%;width: 50%;\">\n                                    <p>Box 1</p>\n                                  </div>\n                                  <div style=\"background-color:#ccc;padding: 20px;text-align: center;float: left;max-width: 50%;width: 50%;\">\n                                    <p>Box 2</p>\n                                  </div>\n                                </div>\n<br>\n<div style=\"margin-bottom:1rem;\" class=\"clearfix\">\n                                  <div style=\"background-color:#bbb;padding: 20px;text-align: center;float: left;max-width: 33.333%;width: 33.333%;\">\n                                    <p>Box 1</p>\n                                  </div>\n                                  <div style=\"background-color:#ccc;padding: 20px;text-align: center;float: left;max-width: 33.333%;width: 33.333%;\">\n                                    <p>Box 2</p>\n                                 </div>\n                                  <div style=\"background-color:#ddd;padding: 20px;text-align: center;float: left;max-width: 33.333%;width: 33.333%;\">\n                                    <p>Box 3</p>\n                                  </div>\n                                </div>\n<p>With the <code>float</code> property, it is easy to float boxes of content side by side:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "00UhE4UEoSN8",
+    "code": "* {\n  box-sizing: border-box;\n}\n.box {\n  float: left;\n  width: 33.33%; /* three boxes (use 25% for four, and 50% for two, etc) */\n  padding: 50px; /* if you want space between the images */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "kD7D7BcfsKEe",
+    "html": "<p class=\"note\"><b>What is box-sizing?</b><br>\n                                You can easily create three floating boxes side by side. However, when you add something that enlarges the width of each box (e.g. padding or borders), the box will break. The <code>box-sizing</code> property allows us to include the padding and border in the box's total width (and height), making sure that the padding stays inside of the box and that it does not break.<br>\n                                You can read more about the box-sizing property in our CSS Box Sizing Chapter.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TqeUDMZW8m6m",
+    "text": "Images Side By Side",
+    "type": "heading",
+    "level": 2,
+    "anchor": "images-side-by-side"
+  },
+  {
+    "id": "hQ7j1qRuRvL_",
+    "alt": "Italy",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_float1"
+  },
+  {
+    "id": "zmwFkKtvalNc",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_float2"
+  },
+  {
+    "id": "Byl6OAUUoc58",
+    "alt": "Mountains",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_float3"
+  },
+  {
+    "id": "OR_rr0RT-s4p",
+    "html": "<p>The grid of boxes can also be used to display images side by side:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8zLbXocMfA47",
+    "code": ".img-container {\n  float: left;\n  width: 33.33%; /* three containers (use 25% for four, and 50% for two, etc) */\n  padding: 5px; /* if you want space between the images */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Hp8x3bCucGsZ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "CC1FQ1ImjQfi",
+    "text": "Equal Height Boxes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "equal-height-boxes"
+  },
+  {
+    "id": "71GfG-ZInHSQ",
+    "html": "<p>In the previous example, you learned how to float boxes side by side with an equal width. However, it is not easy to create floating boxes with equal heights. A quick fix \n                                however, is to set a fixed height, like in the example below:</p>\n<div class=\"clearfix\">\n                                  <div style=\"background-color:#bbb;width:50%;height:300px;float:left;padding: 20px;\">\n                                      <h2>Box 1</h2>\n                                      <p>Some content, some content, some content</p>\n                                  </div>\n                                  <div style=\"background-color:#ccc;width:50%;height:300px;float:left;padding: 20px;\">\n                                      <h2>Box 2</h2>\n                                      <p>Some content, some content, some content</p>\n                                      <p>Some content, some content, some content</p>\n                                      <p>Some content, some content, some content</p>\n                                  </div>\n                                </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "jJAqmTgkv4TD",
+    "code": ".box {\n  height: 300px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "3aOxK0sVaL2Y",
+    "html": "<p class=\"note\"><b>However</b>, this is not very flexible. It is ok if you can guarantee that the boxes will always have the same amount of content in them. But many times, the content is not the same. If you try the example above on a mobile phone, you will see that the second box's content will be displayed outside of the box. This is where CSS3 Flexbox comes in handy - as it can automatically stretch boxes to be as long as the longest box:</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "-WZjMtkfkOrR",
+    "text": "Navigation Menu",
+    "type": "heading",
+    "level": 2,
+    "anchor": "navigation-menu"
+  },
+  {
+    "id": "99Hdu-IyKO01",
+    "html": "<p>Use <code>float</code> with a list of hyperlinks to create a horizontal menu:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "afKJFu3Aw7th",
+    "alt": "menu",
+    "type": "loop",
+    "width": 1140,
+    "height": 65,
+    "publicId": "img/menu-strip-2"
+  },
+  {
+    "id": "a4XBLrBMpn0o",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "3Uhvw3y6x173",
+    "text": "All CSS Float Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-float-properties"
+  },
+  {
+    "id": "W51ZbiZ-OYMU",
+    "rows": [
+      [
+        "box-sizing",
+        "Defines how the width and height of an element are calculated: should they include padding and borders, or not"
+      ],
+      [
+        "clear",
+        "Specifies what elements can float beside the cleared element and on which side"
+      ],
+      [
+        "float",
+        "Specifies how an element should float"
+      ],
+      [
+        "overflow",
+        "Specifies what happens if content overflows an element's box"
+      ],
+      [
+        "overflow-x",
+        "Specifies what to do with the left/right edges of the content if it overflows the element's content area"
+      ],
+      [
+        "overflow-y",
+        "Specifies what to do with the top/bottom edges of the content if it overflows the element's content area"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

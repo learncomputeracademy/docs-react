@@ -1,0 +1,592 @@
+---
+id: "f30314fe-c554-4d61-a979-28b04a7a531b"
+title: "HTML Form Input Types"
+path: "html/form-input-types"
+status: "published"
+meta_title: "HTML Form Input Types | Learn Computer Academy"
+sort_order: 9
+updated_at: "2026-07-27T06:26:15.49524+00:00"
+---
+
+```json
+[
+  {
+    "id": "jsWBvFRgH4Rq",
+    "html": "<hr>\n<p>This chapter describes the different input types for the <code>&lt;input&gt;</code> element.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "V4E541yGcB6c",
+    "text": "HTML Input Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-input-types"
+  },
+  {
+    "id": "nwrmNbq0_SHJ",
+    "html": "<p>Here are the different input types you can use in HTML:</p>\n<ul>\n                                    <li><code>&lt;input type=\"button\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"checkbox\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"color\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"date\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"datetime-local\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"email\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"file\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"hidden\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"image\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"month\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"number\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"password\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"radio\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"range\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"reset\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"search\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"submit\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"tel\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"text\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"time\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"url\"&gt;</code></li>\n                                    <li><code>&lt;input type=\"week\"&gt;</code></li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TuOyqTTUIKTX",
+    "text": "Input Type Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-text"
+  },
+  {
+    "id": "32iWCKZ1KP1f",
+    "html": "<p><code>&lt;input type=\"text\"&gt;</code> defines a <b>one-line text input field</b>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "unw9H9tpXHJU",
+    "code": "<form>\n    First name:<br>\n    <input type=\"text\" name=\"firstname\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "z0YbElxNuO3V",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  First name:<br>\n                                  <input type=\"text\" name=\"firstname\"><br>\n                                  Last name:<br>\n                                  <input type=\"text\" name=\"lastname\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "JqHfX__uo0aU",
+    "text": "Input Type Password",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-password"
+  },
+  {
+    "id": "40KzSSmx8q9v",
+    "html": "<p><code>&lt;input type=\"password\"&gt;</code> defines a <b>password field</b>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "e0ZhrArzp87j",
+    "code": "<form>\n    User name:<br>\n    <input type=\"text\" name=\"username\"><br>\n    User password:<br>\n    <input type=\"password\" name=\"psw\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "D75YE43U1d_D",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  User name:<br>\n                                  <input type=\"text\" name=\"username\"><br>\n                                  User password:<br>\n                                  <input type=\"password\" name=\"psw\">\n                                </form>\n<p>The characters in a password field are masked (shown as asterisks [*] or circles).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "LSAzL8zqIWjA",
+    "text": "Input Type Submit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-submit"
+  },
+  {
+    "id": "EeHw-lygefRW",
+    "html": "<p><code>&lt;input type=\"submit\"&gt;</code> defines a button for <b>submitting</b> form data to a <b>form-handler</b>.</p>\n<p>The form-handler is typically a server page with a script for processing input data.</p>\n<p>The form-handler is specified in the form's <code>action</code> attribute:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wn2WT-iwvFFm",
+    "code": "<form action=\"/action_page.php\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "VGi88Wpnmk5U",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"\">\n                                  First name:<br>\n                                  <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n                                  Last name:<br>\n                                  <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n                                  <input type=\"submit\" value=\"Submit\">\n                                </form>\n<p>If you omit the submit button's value attribute, the button will get a default text:</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "eS2EBXRHcPgd",
+    "text": "Input Type Reset",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-reset"
+  },
+  {
+    "id": "d2VuSIOQdl4o",
+    "html": "<p><code>&lt;input type=\"reset\"&gt;</code> defines a <b>reset button</b> that will reset all form values to their default values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V4CV3XQV_Xo5",
+    "code": "<form action=\"/action_page.php\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"reset\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "N6-xe3gLSp_A",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"\">\n                                  First name:<br>\n                                  <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n                                  Last name:<br>\n                                  <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n                                  <input type=\"submit\" value=\"Submit\">\n                                  <input type=\"reset\">\n                                </form>\n<p>If you change the input values and then click the \"Reset\" button, the form-data will be reset to the default values.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "zPg8o8WmPeGX",
+    "text": "Input Type Radio",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-radio"
+  },
+  {
+    "id": "j99D33Z7MKjN",
+    "html": "<p><code>&lt;input type=\"radio\"&gt;</code> defines a <b>radio button</b>.</p>\n<p>Radio buttons let a user select ONLY ONE of a limited number of choices:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bqJW1_uxVrQX",
+    "code": "<form>\n    <input type=\"radio\" name=\"gender\" value=\"male\" checked> Male<br>\n    <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\n    <input type=\"radio\" name=\"gender\" value=\"other\"> Other\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "49LrLXnWwEip",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  <input type=\"radio\" name=\"gender\" value=\"male\" checked=\"\"> Male<br>\n                                  <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\n                                  <input type=\"radio\" name=\"gender\" value=\"other\"> Other\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "-sVTB-AArzmP",
+    "text": "Input Type Checkbox",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-checkbox"
+  },
+  {
+    "id": "kmIPWpHaMw74",
+    "html": "<p><code>&lt;input type=\"checkbox\"&gt;</code> defines a <b>checkbox</b>.</p>\n<p>Checkboxes let a user select ZERO or MORE options of a limited number of choices.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cdITXYdjB4zc",
+    "code": "<form>\n    <input type=\"checkbox\" name=\"vehicle1\" value=\"Bike\"> I have a bike<br>\n    <input type=\"checkbox\" name=\"vehicle2\" value=\"Car\"> I have a car \n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "dMTee0BL5b_Q",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  <input type=\"checkbox\" name=\"vehicle1\" value=\"Bike\"> I have a bike<br>\n                                  <input type=\"checkbox\" name=\"vehicle2\" value=\"Car\"> I have a car \n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "7cmY_H1-l_5N",
+    "text": "Input Type Button",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-button"
+  },
+  {
+    "id": "3jas8WEsvCbu",
+    "html": "<p><code>&lt;input type=\"button\"&gt;</code> defines a button:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k1YSpOgAj0Kt",
+    "code": "<input type=\"button\" onclick=\"alert('Hello World!')\" value=\"Click Me!\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "1evn6H0cIKae",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<input type=\"button\" onclick=\"alert('Hello World!')\" value=\"Click Me!\">\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "BnF7UtW7MJVt",
+    "text": "HTML5 Input Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-input-types"
+  },
+  {
+    "id": "EJHtfbX_IL3U",
+    "html": "<p>HTML5 added several new input types:</p>\n<ul>\n                                    <li>color</li>\n                                    <li>date</li>\n                                    <li>datetime-local</li>\n                                    <li>email</li>\n                                    <li>month</li>\n                                    <li>number</li>\n                                    <li>range</li>\n                                    <li>search</li>\n                                    <li>tel</li>\n                                    <li>time</li>\n                                    <li>url</li>\n                                    <li>week</li>\n                                </ul>\n<p>New input types that are <u>not supported by older web browsers</u>, will behave as <code>&lt;input type=\"text\"&gt;</code>.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "P4KSZKpbUKe3",
+    "text": "Input Type Color",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-color"
+  },
+  {
+    "id": "EOUExWv0qC21",
+    "html": "<p>The <code>&lt;input type=\"color\"&gt;</code> is used for input fields that should contain a color.</p>\n<p>Depending on browser support, a color picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Vf22Yw_RDYzx",
+    "code": "<form>\n    Select your favorite color:\n    <input type=\"color\" name=\"favcolor\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "WelYr1W4aVMm",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Select your favorite color:\n                                  <input type=\"color\" name=\"favcolor\" value=\"#ff0000\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "pIx5ZVDDOv3m",
+    "text": "Input Type Date",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-date"
+  },
+  {
+    "id": "cfh1yRZyNaEe",
+    "html": "<p>The <code>&lt;input type=\"date\"&gt;</code> is used for input fields that should contain a date.</p>\n<p>Depending on browser support, a date picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "46PrU9wetsA1",
+    "code": "<form>\n    Birthday:\n    <input type=\"date\" name=\"bday\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "q2tfKzuWR4c3",
+    "html": "<p>You can also use the <code>min</code> and <code>max</code> attributes to add restrictions to dates:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N-nCvuWAWkJF",
+    "code": "<form>\n    Enter a date before 1980-01-01:\n    <input type=\"date\" name=\"bday\" max=\"1979-12-31\"><br>\n    Enter a date after 2000-01-01:\n    <input type=\"date\" name=\"bday\" min=\"2000-01-02\"><br>\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "9cW9-n6PiK0N",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Enter a date before 1980-01-01:\n                                  <input type=\"date\" name=\"bday\" max=\"1979-12-31\"><br>\n                                  Enter a date after 2000-01-01:\n                                  <input type=\"date\" name=\"bday\" min=\"2000-01-02\"><br>\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "MF_xmnlPsjAD",
+    "text": "Input Type Datetime-local",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-datetime-local"
+  },
+  {
+    "id": "wYRd3w9eYfau",
+    "html": "<p>The <code>&lt;input type=\"datetime-local\"&gt;</code> specifies a date and time input field, with no time zone.</p>\n<p>Depending on browser support, a date picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nTO6MW1gbTWR",
+    "code": "<form>\n    Birthday (date and time):\n    <input type=\"datetime-local\" name=\"bdaytime\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "5V60HiIuDIiv",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Birthday (date and time):\n                                  <input type=\"datetime-local\" name=\"bdaytime\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TohYP8GU4b4d",
+    "text": "Input Type Email",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-email"
+  },
+  {
+    "id": "STIeM8wrZqkr",
+    "html": "<p>The <code>&lt;input type=\"email\"&gt;</code> is used for input fields that should contain an e-mail address.</p>\n<p>Depending on browser support, the e-mail address can be automatically validated when submitted.</p>\n<p>Some smartphones recognize the email type, and add \".com\" to the keyboard to match email input.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "i_Q8lCfuEvTv",
+    "code": "<form>\n    E-mail:\n    <input type=\"email\" name=\"email\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "LfLw_m_TD0CX",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  E-mail:\n                                  <input type=\"email\" name=\"email\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "f2DZD2z-YZQd",
+    "text": "Input Type File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-file"
+  },
+  {
+    "id": "sneqjPTqUS9X",
+    "html": "<p>The <code>&lt;input type=\"file\"&gt;</code> defines a file-select field and a \"Browse\" button for file uploads.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "adqEfrgLsaaQ",
+    "code": "<form>\n    Select a file: <input type=\"file\" name=\"myFile\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "f-nl8haP240v",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Select a file: <input type=\"file\" name=\"myFile\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "tWKYAjg9nReg",
+    "text": "Input Type Month",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-month"
+  },
+  {
+    "id": "ixlIhVKLySia",
+    "html": "<p>The <code>&lt;input type=\"month\"&gt;</code> allows the user to select a month and year.</p>\n<p>Depending on browser support, a date picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KnWIThWb1NzD",
+    "code": "<form>\n    Birthday (month and year):\n    <input type=\"month\" name=\"bdaymonth\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "BDs2vKdO_sYD",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Birthday (month and year):\n                                  <input type=\"month\" name=\"bdaymonth\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9ZeKCJUqSbqw",
+    "text": "Input Type Number",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-number"
+  },
+  {
+    "id": "TwFd1SHj-Qxc",
+    "html": "<p>The <code>&lt;input type=\"number\"&gt;</code> defines a <b>numeric</b> input field.</p>\n<p>You can also set restrictions on what numbers are accepted.</p>\n<p>The following example displays a numeric input field, where you can enter a value from 1 to 5:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Om_98MyYifFo",
+    "code": "<form>\n    Quantity (between 1 and 5):\n    <input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "dIjFZniknm4U",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Quantity (between 1 and 5):\n                                  <input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "cPYHsgB-j6NS",
+    "text": "Input Restrictions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-restrictions"
+  },
+  {
+    "id": "JWU-PvKPiuvC",
+    "html": "<p>Here is a list of some common input restrictions:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "v1Zwe8eBtFtZ",
+    "rows": [
+      [
+        "disabled",
+        "Specifies that an input field should be disabled"
+      ],
+      [
+        "max",
+        "Specifies the maximum value for an input field"
+      ],
+      [
+        "maxlength",
+        "Specifies the maximum number of character for an input field"
+      ],
+      [
+        "min",
+        "Specifies the minimum value for an input field"
+      ],
+      [
+        "pattern",
+        "Specifies a regular expression to check the input value against"
+      ],
+      [
+        "readonly",
+        "Specifies that an input field is read only (cannot be changed)"
+      ],
+      [
+        "required",
+        "Specifies that an input field is required (must be filled out)"
+      ],
+      [
+        "size",
+        "Specifies the width (in characters) of an input field"
+      ],
+      [
+        "step",
+        "Specifies the legal number intervals for an input field"
+      ],
+      [
+        "value",
+        "Specifies the default value for an input field"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Attribute",
+      "Description"
+    ]
+  },
+  {
+    "id": "hW2h0xpKwaAl",
+    "html": "<p>You will learn more about input restrictions in the next chapter.</p>\n<p>The following example displays a numeric input field, where you can enter a value from 0 to 100, in steps of 10. The default value is 30:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pF4v9qQi7CKO",
+    "code": "<form>\n    Quantity:\n    <input type=\"number\" name=\"points\" min=\"0\" max=\"100\" step=\"10\" value=\"30\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "hWxY8gpm05Xk",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Quantity:\n                                  <input type=\"number\" name=\"points\" min=\"0\" max=\"100\" step=\"10\" value=\"30\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "rBAek4eWlRyL",
+    "text": "Input Type Range",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-range"
+  },
+  {
+    "id": "fAq_pZdmIgVK",
+    "html": "<p>The <code>&lt;input type=\"range\"&gt;</code> defines a control for entering a number whose exact value is not important (like a slider control). Default range is 0 to 100. However, you can set restrictions on what numbers are accepted with the <code>min</code>, <code>max</code>, and <code>step</code> attributes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HEykdmCmbjqk",
+    "code": "<form>\n    <input type=\"range\" name=\"points\" min=\"0\" max=\"10\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "uOjKthYLSuGf",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  <input type=\"range\" name=\"points\" min=\"0\" max=\"10\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "SXc-86DtE2Hq",
+    "text": "Input Type Search",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-search"
+  },
+  {
+    "id": "c8EvtwkEkEkm",
+    "html": "<p>The <code>&lt;input type=\"search\"&gt;</code> is used for search fields (a search field behaves like a regular text field).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k6o0SqXwSnPl",
+    "code": "<form>\n    Search Google:\n    <input type=\"search\" name=\"googlesearch\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "_vDsSJYLtgw8",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Search Google:\n                                  <input type=\"search\" name=\"googlesearch\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q2YoPFTk4ApW",
+    "text": "Input Type Tel",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-tel"
+  },
+  {
+    "id": "Ftju_blnhgns",
+    "html": "<p>The <code>&lt;input type=\"tel\"&gt;</code> is used for input fields that should contain a telephone number.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JmIIao7bLF6U",
+    "code": "<form>\n    Telephone:\n    <input type=\"tel\" name=\"phone\" pattern=\"[0-9]{4}-[0-9]{3}-[0-9]{3}\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "QL74e8jGILAj",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  Telephone:\n                                  <input type=\"tel\" name=\"phone\" pattern=\"[0-9]{4}-[0-9]{3}-[0-9]{3}\">\n                                    <input type=\"submit\">\n                                    <span>Format: 1234-567-890</span>\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "7sQ4dXwOCqrt",
+    "text": "Input Type Time",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-time"
+  },
+  {
+    "id": "yYX1d05ahQ6O",
+    "html": "<p>The <code>&lt;input type=\"time\"&gt;</code> allows the user to select a time (no time zone).</p>\n<p>Depending on browser support, a time picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2Dc3GeGN0drr",
+    "code": "<form>\n    Select a time:\n    <input type=\"time\" name=\"usr_time\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "MeNaCz2XMzC4",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"/action_page.php\">\n                                  Select a time:\n                                  <input type=\"time\" name=\"usr_time\">\n                                  <input type=\"submit\">\n                                </form>\n<p><b>Note:</b> type=\"time\" is not supported in Safari or Internet Explorer 12 and earlier versions.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "N5psAuaw7oeJ",
+    "text": "Input Type Url",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-url"
+  },
+  {
+    "id": "LIkXjTvg2VHY",
+    "html": "<p>The <code>&lt;input type=\"url\"&gt;</code> is used for input fields that should contain a URL address.</p>\n<p>Depending on browser support, the url field can be automatically validated when submitted.</p>\n<p>Some smartphones recognize the url type, and adds \".com\" to the keyboard to match url input.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cb9M7KVb5wKf",
+    "code": "<form>\n    Add your homepage:\n    <input type=\"url\" name=\"homepage\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "0PdwyRPBSu1_",
+    "html": "<form action=\"\">\n                                    Add your homepage:\n                                    <input type=\"url\" name=\"homepage\">\n                                    <input type=\"submit\">\n                                </form>\n<p><b>Note:</b>The type=\"url\" is not supported in IE9 and earlier versions.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "dZMCLIlLFBgu",
+    "text": "Input Type Week",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-type-week"
+  },
+  {
+    "id": "tyAEAuW_Pxas",
+    "html": "<p>The <code>lt;&amp;input type=\"week\"&gt;</code> allows the user to select a week and year.</p>\n<p>Depending on browser support, a date picker can show up in the input field.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Gxvah6o7cLE1",
+    "code": "<form>\n    Select a week:\n    <input type=\"week\" name=\"week_year\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "AHXNW8_dJ1o6",
+    "html": "<form action=\"\">\n                                    Select a week:\n                                    <input type=\"week\" name=\"year_week\">\n                                    <input type=\"submit\">\n                                </form>\n<p><b>Note:</b> type=\"week\" is not supported in Firefox, Safari or Internet Explorer 11 and earlier versions.</p>",
+    "type": "richtext"
+  }
+]
+```

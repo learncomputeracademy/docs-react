@@ -1,0 +1,214 @@
+---
+id: "fc81353a-5c69-4484-a122-f817fbc1b844"
+title: "JavaScript LocalStorage and SessionStorage"
+path: "javascript/localstorage-and-sessionstorage"
+status: "published"
+meta_title: "JavaScript LocalStorage and SessionStorage | Learn Computer Academy"
+sort_order: 17
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "Kaa5JCrwMVhy",
+    "html": "<p><em>(Storing data in the browser that persists between page reloads or sessions)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "EOzhP1qkU52k",
+    "text": "What is Web Storage?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-web-storage"
+  },
+  {
+    "id": "3RFhttogiGyS",
+    "html": "<p>Web Storage is a browser feature that allows you to store key/value pairs in a web browser.</p>\n<p>There are two types:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CZ6Zzg7O9TQh",
+    "rows": [
+      [
+        "<code>localStorage</code>",
+        "<strong>Persistent</strong> (until manually cleared)",
+        "Same-origin"
+      ],
+      [
+        "<code>sessionStorage</code>",
+        "<strong>Temporary</strong> (cleared on tab close)",
+        "Same-tab only"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Lifespan",
+      "Scope"
+    ]
+  },
+  {
+    "id": "_85yPNK7XDH3",
+    "text": "Why Use Web Storage?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-use-web-storage"
+  },
+  {
+    "id": "0sm1MPTVPW9j",
+    "html": "<ul>\n                                <li>Save user preferences (e.g., theme)</li>\n                                <li>Remember form input data</li>\n                                <li>Save cart items in e-commerce</li>\n                                <li>Avoid server calls for small data</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "4ZbpZPvFs1_z",
+    "text": "localStorage: Persistent Storage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "localstorage-persistent-storage"
+  },
+  {
+    "id": "QS-TEWSOXC8h",
+    "text": "Set Item",
+    "type": "heading",
+    "level": 3,
+    "anchor": "set-item"
+  },
+  {
+    "id": "7U3P12o_jgKV",
+    "code": "localStorage.setItem(\"username\", \"John\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "UVCxun06Ji4L",
+    "text": "Get Item",
+    "type": "heading",
+    "level": 3,
+    "anchor": "get-item"
+  },
+  {
+    "id": "V0OE11O9RZfA",
+    "code": "const name = localStorage.getItem(\"username\");\nconsole.log(name); // John",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "U8V3FsOiupZJ",
+    "text": "Remove Item",
+    "type": "heading",
+    "level": 3,
+    "anchor": "remove-item"
+  },
+  {
+    "id": "lIeMYtJbXjLz",
+    "code": "localStorage.removeItem(\"username\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "9CQPfeLvG9o5",
+    "text": "Clear All Storage",
+    "type": "heading",
+    "level": 3,
+    "anchor": "clear-all-storage"
+  },
+  {
+    "id": "dLIeL00KSmEc",
+    "code": "localStorage.clear();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "oRi12908yGrH",
+    "text": "sessionStorage: Temporary Storage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sessionstorage-temporary-storage"
+  },
+  {
+    "id": "8J9VcCwIjfvb",
+    "html": "<p>Works the same way as <code>localStorage</code> but data is lost when the <strong>browser tab is closed</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NRWMl7xryahR",
+    "code": "sessionStorage.setItem(\"sessionUser\", \"Alice\");\nconst sessionUser = sessionStorage.getItem(\"sessionUser\");\nconsole.log(sessionUser); // Alice",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "_Lu8FhrL-U1R",
+    "text": "Note on Data Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "note-on-data-types"
+  },
+  {
+    "id": "sPLTr305JM51",
+    "html": "<p>Web Storage only stores <strong>strings</strong>.</p>\n<p>To store objects/arrays, use <code>JSON.stringify()</code> and <code>JSON.parse()</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FCTTOKzA2LUr",
+    "code": "const user = { name: \"Alex\", age: 28 };\nlocalStorage.setItem(\"user\", JSON.stringify(user));\n                                \nconst userData = JSON.parse(localStorage.getItem(\"user\"));\nconsole.log(userData.name); // Alex",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "5_sQ5NOL0tBj",
+    "text": "Limitations of Web Storage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "limitations-of-web-storage"
+  },
+  {
+    "id": "Y860ArUSk3Qb",
+    "html": "<ul>\n                                <li>Storage limit: <strong>~5MB</strong> per origin (varies by browser)</li>\n                                <li>Only accessible on the <strong>same origin</strong> (protocol + domain + port)</li>\n                                <li>Not secure for sensitive data — it's accessible via JavaScript</li>\n                                <li>No expiration for <code>localStorage</code> unless manually removed</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "tThxNGt4g4mS",
+    "text": "Common Use Cases",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-use-cases"
+  },
+  {
+    "id": "aIJd58I71g2N",
+    "html": "<ul>\n                                <li>Save dark/light mode preference</li>\n                                <li>Keep items in a shopping cart</li>\n                                <li>Auto-fill form fields</li>\n                                <li>Store temporary form draft</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "kNlre9JqXuoq",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "z68zWo5_8nMD",
+    "html": "<ul>\n                                <li><code>localStorage</code> persists data until cleared manually.</li>\n                                <li><code>sessionStorage</code> clears when the tab is closed.</li>\n                                <li>Use <code>setItem()</code>, <code>getItem()</code>, <code>removeItem()</code>, and <code>clear()</code> methods.</li>\n                                <li>Store complex data (arrays/objects) using JSON methods.</li>\n                                <li>Avoid storing sensitive or secure data.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "1DdF5IBDofbL",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "BzMEYN3RYXtW",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "9DGC6BDcz4TT",
+    "html": "<ol>\n                                  <li>Save a user's name to <code>localStorage</code>, and greet them on the next visit.</li>\n                                  <li>Save a form draft to <code>sessionStorage</code> and restore it if the tab refreshes.</li>\n                                  <li>Use <code>JSON.stringify()</code> to save an object in localStorage.</li>\n                                  <li>Create a function to clear the saved data with a button click.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

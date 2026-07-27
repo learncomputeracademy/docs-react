@@ -1,0 +1,174 @@
+---
+id: "79658d56-1ab8-436f-8594-08746323fd28"
+title: "CSS Padding"
+path: "css/padding"
+status: "published"
+meta_title: "CSS Padding | Learn Computer Academy"
+sort_order: 26
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "ewoMq5KktGgL",
+    "html": "<hr>\n<p style=\"border:1px solid #4CAF50; padding:40px;\">This element has a padding of 40px.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "sI4B7O6001jc",
+    "text": "CSS Padding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-padding"
+  },
+  {
+    "id": "yEFJOvwmhcS4",
+    "html": "<p>The CSS <code>padding</code> properties are used to generate space around an element's content, inside of any defined borders.</p>\n<p>With CSS, you have full control over the padding. There are properties for setting the padding for each side of an element (top, right, bottom, and left).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "wiCtDCaEI5my",
+    "text": "Padding - Individual Sides",
+    "type": "heading",
+    "level": 2,
+    "anchor": "padding---individual-sides"
+  },
+  {
+    "id": "kJvEbMy8Lr6q",
+    "html": "<p>CSS has properties for specifying the padding for each side of an element:</p>\n<ul>\n                                    <li><code>padding-top</code></li>\n                                    <li><code>padding-right</code></li>\n                                    <li><code>padding-bottom</code></li>\n                                    <li><code>padding-left</code></li>\n                                </ul>\n<p>All the padding properties can have the following values:</p>\n<ul>\n                                    <li>length - specifies a padding in px, pt, cm, etc.</li>\n                                    <li>% - specifies a padding in % of the width of the containing element</li>\n                                    <li>inherit - specifies that the padding should be inherited from the parent element</li>\n                                </ul>\n<p><b>Note:</b> Negative values are not allowed.</p>\n<p>Set different padding for all four sides of a &lt;div&gt; element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9ra7aS1fHHCe",
+    "code": "div {\n  padding-top: 50px;\n  padding-right: 30px;\n  padding-bottom: 50px;\n  padding-left: 80px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "stX-7QSm0RCv",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "quwGEo99koYv",
+    "text": "Padding - Shorthand Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "padding---shorthand-property"
+  },
+  {
+    "id": "B2e_Knu2hIyE",
+    "html": "<p>To shorten the code, it is possible to specify all the padding properties in one property.</p>\n<p>The <code>padding</code> property is a shorthand property for the following individual padding properties:</p>\n<ul>\n                                    <li><code>padding-top</code></li>\n                                    <li><code>padding-right</code></li>\n                                    <li><code>padding-bottom</code></li>\n                                    <li><code>padding-left</code></li>\n                                </ul>\n<p>So, here is how it works:</p>\n<p>If the <code>padding</code> property has four values:</p>\n<ul>\n                                    <li><b>padding: 25px 50px 75px 100px;</b>\n                                        <ul>\n                                            <li>top padding is 25px</li>\n                                            <li>right padding is 50px</li>\n                                            <li>bottom padding is 75px</li>\n                                            <li>left padding is 100px</li>\n                                        </ul>\n                                    </li>\n                                </ul>\n<p>Use the padding shorthand property with four values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vLOSCeEaO1hr",
+    "code": "div {\n  padding: 25px 50px 75px 100px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "qneuZiG3xCfy",
+    "html": "<p>If the padding property has three values:</p>\n<ul>\n                                    <li><b>padding: 25px 50px 75px;</b>\n                                        <ul>\n                                            <li>top padding is 25px</li>\n                                            <li>right and left paddings are 50px</li>\n                                            <li>bottom padding is 75px</li>\n                                        </ul>\n                                    </li>\n                                </ul>\n<p>Use the padding shorthand property with three values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "47cydeUwBT9f",
+    "code": "div {\n  padding: 25px 50px 75px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "FDYuqTWWSWfT",
+    "html": "<p>If the padding property has two values:</p>\n<ul>\n                                    <li><b>padding: 25px 50px;</b>\n                                        <ul>\n                                            <li>top and bottom paddings are 25px</li>\n                                            <li>right and left paddings are 50px</li>\n                                        </ul>\n                                    </li>\n                                </ul>\n<p>Use the padding shorthand property with two values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wyhhXJ9rNi-4",
+    "code": "div {\n  padding: 25px 50px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "mNWBXqArTUOL",
+    "html": "<p>If the padding property has one value:</p>\n<ul>\n                                    <li><b>padding: 25px;</b>\n                                        <ul>\n                                            <li>all four paddings are 25px</li>\n                                        </ul>\n                                    </li>\n                                </ul>\n<p>Use the padding shorthand property with one value:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eDhZffHgXGQ1",
+    "code": "div {\n  padding: 25px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "la0XRZmpoQyy",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TP3OlTCd2eVS",
+    "text": "Padding and Element Width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "padding-and-element-width"
+  },
+  {
+    "id": "_AaLwax1h2bk",
+    "html": "<p>The CSS width property specifies the width of the element's content area. The content area is the portion inside the padding, border, and margin of an element (<a href=\"#\">the box model</a>).</p>\n<p>So, if an element has a specified width, the padding added to that element will be added to the total width of the element. This is often an undesirable result.</p>\n<p>Here, the &lt;div&gt; element is given a width of 300px. However, the actual width of the &lt;div&gt; element will be 350px (300px + 25px of left padding + 25px of right padding):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0P7v5fOJIiiH",
+    "code": "div {\n  width: 300px;\n  padding: 25px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "PUnwCBbbTlGT",
+    "html": "<p>To keep the width at 300px, no matter the amount of padding, you can use the <code>box-sizing</code> property. This causes the element to maintain its width; if you increase the padding, the available content space will decrease.</p>\n<p>Use the box-sizing property to keep the width at 300px, no matter the amount of padding:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZvaIWDcI4XZW",
+    "code": "div {\n  width: 300px;\n  padding: 25px;\n  box-sizing: border-box;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "i59Ezr-pnkvb",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "B4nGHEZkBRNV",
+    "rows": [
+      [
+        "padding",
+        "A shorthand property for setting all the padding properties in one declaration"
+      ],
+      [
+        "padding-bottom",
+        "Sets the bottom padding of an element"
+      ],
+      [
+        "padding-left",
+        "Sets the left padding of an element"
+      ],
+      [
+        "padding-right",
+        "Sets the right padding of an element"
+      ],
+      [
+        "padding-top",
+        "Sets the top padding of an element"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

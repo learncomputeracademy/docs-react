@@ -1,0 +1,240 @@
+---
+id: "dbb0f170-1850-4a69-bab1-988ab1cb5ad1"
+title: "Sementic Elements"
+path: "html/semantic-elements"
+status: "published"
+meta_title: "Sementic Elements | Learn Computer Academy"
+sort_order: 23
+updated_at: "2026-07-27T06:26:18.664792+00:00"
+---
+
+```json
+[
+  {
+    "id": "JFJnHN_ttXmW",
+    "html": "<hr>\n<p>Semantics is the study of the meanings of words and phrases in a language.</p>\n<p>Semantic elements = elements with a meaning.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PrEGEjXsxeZG",
+    "text": "What are Semantic Elements?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-are-semantic-elements"
+  },
+  {
+    "id": "jJklrz0-mRkp",
+    "html": "<p>A semantic element clearly describes its meaning to both the browser and the developer.</p>\n<p>Examples of non-semantic elements: <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> - Tells nothing about its content.</p>\n<p>Examples of semantic elements: <code>&lt;form&gt;</code>, <code>&lt;table&gt;</code>, and <code>&lt;article&gt;</code> - Clearly defines its content.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "kILI0d6zINn_",
+    "text": "New Semantic Elements in HTML5",
+    "type": "heading",
+    "level": 2,
+    "anchor": "new-semantic-elements-in-html5"
+  },
+  {
+    "id": "Rrw_GBkPvjkw",
+    "html": "<p>Many web sites contain HTML code like: <code>&lt;div id=\"nav\"&gt;</code> <code>&lt;div class=\"header\"&gt;</code> <code>&lt;div id=\"footer\"&gt;</code> to indicate navigation, header, and footer.</p>\n<p>HTML5 offers new semantic elements to define different parts of a web page:</p>\n<ul>\n                                            <li>&lt;article&gt;</li>\n                                            <li>&lt;aside&gt;</li>\n                                            <li>&lt;details&gt;</li>\n                                            <li>&lt;figcaption&gt;</li>\n                                            <li>&lt;figure&gt;</li>\n                                            <li>&lt;footer&gt;</li>\n                                            <li>&lt;header&gt;</li>\n                                            <li>&lt;main&gt;</li>\n                                            <li>&lt;mark&gt;</li>\n                                            <li>&lt;nav&gt;</li>\n                                            <li>&lt;section&gt;</li>\n                                            <li>&lt;summary&gt;</li>\n                                            <li>&lt;time&gt;</li>\n                                        </ul>\n<div class=\"img-block\">\n                                            <video autoplay=\"\" muted=\"\" loop=\"\" playsinline=\"\" aria-label=\"sementic-tags\"><source src=\"https://res.cloudinary.com/docslca/video/upload/v1784960416/img/sementic-tags.mp4\" type=\"video/mp4\"></video>\n                                        </div>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "bfu1ITK-Qt2T",
+    "text": "HTML5 section> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-section-element"
+  },
+  {
+    "id": "SKZOTdpq0KhH",
+    "html": "<p>The <code>&lt;section&gt;</code> element defines a section in a document.</p>\n<p>According to W3C's HTML5 documentation: \"A section is a thematic grouping of content, typically with a heading.\"</p>\n<p>A home page could normally be split into sections for introduction, content, and contact information.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "L8SjIPWd8AsF",
+    "code": "<section>\n  <h1>WWF</h1>\n  <p>The World Wide Fund for Nature (WWF) is....</p>\n</section>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Jd9an22oXJ5Z",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "b3leeVpoSjX5",
+    "text": "HTML5 <article> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-article-element"
+  },
+  {
+    "id": "5HqT91I81izt",
+    "html": "<p>The <code>&lt;article&gt;</code> element specifies independent, self-contained content.</p>\n<p>An article should make sense on its own, and it should be possible to read it independently from the rest of the web site.</p>\n<p>Examples of where an <code>&lt;article&gt;</code> element can be used:</p>\n<ul>\n                                    <li>Forum post</li>\n                                    <li>Blog post</li>\n                                    <li>Newspaper article</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "HkBstxPjDi-E",
+    "code": "<article>\n  <h1>What Does WWF Do?</h1>\n  <p>WWF's mission is to stop the degradation of our planet's natural environment,\n  and build a future in which humans live in harmony with nature.</p>\n</article>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "QhV1PVm6qUFx",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "rZf0ChmcbBVa",
+    "text": "Nesting <article> in <section> or Vice Versa?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nesting-article-in-section-or-vice-versa"
+  },
+  {
+    "id": "INatLGnrruxv",
+    "html": "<p>The <code>&lt;article&gt;</code> element specifies independent, self-contained content.</p>\n<p>The <code>&lt;section&gt;</code> element defines section in a document.</p>\n<p>Can we use the definitions to decide how to nest those elements? No, we cannot!</p>\n<p>So, on the Internet, you will find HTML pages with <code>&lt;section&gt;</code> elements containing <code>&lt;article&gt;</code> elements, and <code>&lt;article&gt;</code> elements containing <code>&lt;section&gt;</code> elements.</p>\n<p>You will also find pages with <code>&lt;section&gt;</code> elements containing <code>&lt;section&gt;</code> elements, and <code>&lt;article&gt;</code> elements containing <code>&lt;article&gt;</code> elements.</p>\n<p class=\"note\">Example for a newspaper: The sport <code>&lt;article&gt;</code> in the sport section, may have a technical section in each <code>&lt;article&gt;</code>.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OXsXSZwVuU8_",
+    "text": "HTML5 <header> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-header-element"
+  },
+  {
+    "id": "tIEphwSvYyVx",
+    "html": "<p>The <code>&lt;header&gt;</code> element specifies a header for a document or section.</p>\n<p>The <code>&lt;header&gt;</code> element should be used as a container for introductory content.</p>\n<p>You can have several <code>&lt;header&gt;</code> elements in one document.</p>\n<p>The following example defines a header for an article:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oVqXGF4_QF85",
+    "code": "<article>\n  <header>\n    <h1>What Does WWF Do?</h1>\n    <p>WWF's mission:</p>\n  </header>\n  <p>WWF's mission is to stop the degradation of our planet's natural environment,\n  and build a future in which humans live in harmony with nature.</p>\n</article>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "xlGf0Kcig9rO",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "VdB8wHDxr3gj",
+    "text": "HTML5 <footer> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-footer-element"
+  },
+  {
+    "id": "KPqZ3wTx7vkI",
+    "html": "<p>The <code>&lt;footer&gt;</code> element specifies a footer for a document or section.</p>\n<p>A <code>&lt;footer&gt;</code> element should contain information about its containing element.</p>\n<p>A footer typically contains the author of the document, copyright information, links to terms of use, contact information, etc.</p>\n<p>You may have several <code>&lt;footer&gt;</code> elements in one document.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2GmwQhLvUx-k",
+    "code": "<footer>\n  <p>Posted by: Hege Refsnes</p>\n  <p>Contact information: <a href=\"mailto:someone@example.com\">someone@example.com</a>.</p>\n</footer>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "jckgey0jFnwY",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fNAC_thvZUDu",
+    "text": "HTML5 <nav> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-nav-element"
+  },
+  {
+    "id": "33mVj60Hd5cH",
+    "html": "<p>The <code>&lt;nav&gt;</code> element defines a set of navigation links.</p>\n<p class=\"note\">Notice that <b>NOT</b> all links of a document should be inside a <code>&lt;nav&gt;</code> element. The <code>&lt;nav&gt;</code> element is intended only for major block of navigation links.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sndFAWvO4Skw",
+    "code": "<nav>\n  <a href=\"/html/\">HTML</a> \n  <a href=\"/css/\">CSS</a> \n  <a href=\"/js/\">JavaScript</a> \n  <a href=\"/jquery/\">jQuery</a>\n</nav>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "l7pQE89xJZV6",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "3GalcvJS4x3M",
+    "text": "HTML5 <aside> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-aside-element"
+  },
+  {
+    "id": "12WD1POhwmQj",
+    "html": "<p>The <code>&lt;aside&gt;</code> element defines some content aside from the content it is placed in (like a sidebar).</p>\n<p>The <code>&lt;aside&gt;</code> content should be related to the surrounding content.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hsD-0ZsFbrza",
+    "code": "<p>My family and I visited The Epcot center this summer.</p>\n\n<aside>\n  <h4>Epcot Center</h4>\n  <p>The Epcot Center is a theme park in Disney World, Florida.</p>\n</aside>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Y4Hcwr7WyqWU",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FVLrvwYjIWUF",
+    "text": "HTML5 <figure> and <figcaption> Elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-figure-and-figcaption-elements"
+  },
+  {
+    "id": "OJ0KoDDC2ZPX",
+    "html": "<p>The purpose of a figure caption is to add a visual explanation to an image.</p>\n<p>In HTML5, an image and a caption can be grouped together in a <code>&lt;figure&gt;</code> element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gMnfMxKUaw9i",
+    "code": "<figure>\n  <img src=\"pic_trulli.jpg\" alt=\"Trulli\">\n  <figcaption>Fig1. - Trulli, Puglia, Italy.</figcaption>\n</figure>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "6ERvhMBdrekS",
+    "html": "<p>The <code>&lt;img&gt;</code> element defines the image, the <code>&lt;figcaption&gt;</code> element defines the caption.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "EYsUCD4e-7Xl",
+    "text": "Why Semantic Elements?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-semantic-elements"
+  },
+  {
+    "id": "vi_cYUKGa7aW",
+    "html": "<p>With HTML4, developers used their own id/class names to style elements: header, top, bottom, footer, menu, navigation, main, container, content, article, sidebar, topnav, etc.</p>\n<p>This made it impossible for search engines to identify the correct web page content.</p>\n<p>With the new HTML5 elements (<code>&lt;header&gt;</code> <code>&lt;footer&gt;</code> <code>&lt;nav&gt;</code> <code>&lt;section&gt;</code> <code>&lt;article&gt;</code>), this will become easier.</p>\n<p>According to the W3C, a Semantic Web: \"Allows data to be shared and reused across applications, enterprises, and communities.\"</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "LxQCuawKNEKA",
+    "text": "Semantic Elements in HTML5",
+    "type": "heading",
+    "level": 2,
+    "anchor": "semantic-elements-in-html5"
+  },
+  {
+    "id": "pzpujbst1NkR",
+    "html": "<p>Below is an alphabetical list of the new semantic elements in HTML5.</p>\n<p>The links go to our complete HTML5 Reference.</p>",
+    "type": "richtext"
+  }
+]
+```

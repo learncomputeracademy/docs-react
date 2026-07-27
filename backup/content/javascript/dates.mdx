@@ -1,0 +1,323 @@
+---
+id: "b7729601-644a-47ef-aedc-a7b1f4fa6333"
+title: "JavaScript Dates"
+path: "javascript/dates"
+status: "published"
+meta_title: "JavaScript Dates | Learn Computer Academy"
+sort_order: 7
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "Fe1xVLyfZLjO",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "HQhS84MFGa8J",
+    "text": "What is a Date in JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-a-date-in-javascript"
+  },
+  {
+    "id": "x9FLvEH5rSyX",
+    "html": "<p>JavaScript uses the <code>Date</code> object to work with dates and times.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rZfm0yuAuncZ",
+    "code": "const now = new Date();\nconsole.log(now); // Current date and time",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "smP7yLZia2xC",
+    "html": "<p>Behind the scenes, JavaScript stores dates as the number of milliseconds since January 1, 1970 (Unix Epoch).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ip7uPt4tGZ30",
+    "text": "Creating Date Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-date-objects"
+  },
+  {
+    "id": "M1dFlESJSza_",
+    "html": "<p>You can create a <code>Date</code> in several ways:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LrHIQhXrA55W",
+    "text": "1. Current Date and Time",
+    "type": "heading",
+    "level": 3,
+    "anchor": "1-current-date-and-time"
+  },
+  {
+    "id": "FUQbNmpv-QTE",
+    "code": "const now = new Date();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "0JVuAHDbjJuZ",
+    "text": "2. Specific Date and Time",
+    "type": "heading",
+    "level": 3,
+    "anchor": "2-specific-date-and-time"
+  },
+  {
+    "id": "6PJZiJ209vb7",
+    "code": "const birthday = new Date(\"2000-06-15\");\nconst meeting = new Date(\"2025-04-30T10:30:00\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "fhOgTCqhbq5t",
+    "text": "3. Using Individual Values",
+    "type": "heading",
+    "level": 3,
+    "anchor": "3-using-individual-values"
+  },
+  {
+    "id": "YuPYt7OY9lKG",
+    "html": "<p><code>new Date(year, monthIndex, day, hours, minutes, seconds)</code></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TY0aPiUuMNj1",
+    "code": "const customDate = new Date(2025, 3, 30, 10, 30); // April 30, 2025 (month is 0-based)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Sq0UHLQG4adf",
+    "text": "Getting Date Components",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-date-components"
+  },
+  {
+    "id": "I5sHJR1L4Z-q",
+    "rows": [
+      [
+        "<code>getFullYear()</code>",
+        "Year (e.g., 2025)"
+      ],
+      [
+        "<code>getMonth()</code>",
+        "Month (0 = Jan, 11 = Dec)"
+      ],
+      [
+        "<code>getDate()</code>",
+        "Day of the month (1-31)"
+      ],
+      [
+        "<code>getDay()</code>",
+        "Day of the week (0 = Sun)"
+      ],
+      [
+        "<code>getHours()</code>",
+        "Hour (0–23)"
+      ],
+      [
+        "<code>getMinutes()</code>",
+        "Minutes (0–59)/td&gt;"
+      ],
+      [
+        "<code>getSeconds()</code>",
+        "Seconds (0–59)"
+      ],
+      [
+        "<code>getMilliseconds()</code>",
+        "Milliseconds (0–999)"
+      ],
+      [
+        "<code>getTime()</code>",
+        "Milliseconds (0–999)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description"
+    ]
+  },
+  {
+    "id": "oU-uHdOinW-K",
+    "code": "const now = new Date();\nconsole.log(now.getFullYear());  // 2025\nconsole.log(now.getMonth());     // 3 (April)\nconsole.log(now.getDate());      // 30\nconsole.log(now.getDay());       // 3 (Wednesday)\nconsole.log(now.getHours());     // e.g., 14",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ddqdlm3NrLDR",
+    "text": "Setting Date Components",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-date-components"
+  },
+  {
+    "id": "c50CG2W9gh6P",
+    "rows": [
+      [
+        "<code>getFullYear()</code>",
+        "Year (e.g., 2025)"
+      ],
+      [
+        "<code>setMonth()</code>",
+        "Set the month (0–11)"
+      ],
+      [
+        "<code>setDate()</code>",
+        "Set the day of the month"
+      ],
+      [
+        "<code>setHours()</code>",
+        "Set the hours"
+      ],
+      [
+        "<code>setMinutes()</code>",
+        "Set the minutes"
+      ],
+      [
+        "<code>setSeconds()</code>",
+        "Set the seconds"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description"
+    ]
+  },
+  {
+    "id": "Xh00NG8HGjTH",
+    "code": "const d = new Date();\nd.setFullYear(2030);\nd.setMonth(0); // January\nd.setDate(1);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "y7qx4JW33DP3",
+    "text": "Formatting Dates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "formatting-dates"
+  },
+  {
+    "id": "_K1FeGnSQptf",
+    "html": "<p>JavaScript doesn't have built-in formatting like <code>\"dd/mm/yyyy\"</code>, but you can manually format:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8NjoyDoMhwU5",
+    "code": "const d = new Date();\nconst day = d.getDate();\nconst month = d.getMonth() + 1;\nconst year = d.getFullYear();\n                                    \nconst formatted = `${day}/${month}/${year}`;\nconsole.log(formatted); // e.g., 30/4/2025",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eB2d7WYqCq6f",
+    "text": "Date Comparison",
+    "type": "heading",
+    "level": 2,
+    "anchor": "date-comparison"
+  },
+  {
+    "id": "aIecsNTnC7ml",
+    "code": "const d1 = new Date(\"2024-01-01\");\nconst d2 = new Date(\"2025-01-01\");\n                                    \nconsole.log(d1 < d2); // true",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-fXZrUpMjaiU",
+    "text": "Calculating Time Differences",
+    "type": "heading",
+    "level": 2,
+    "anchor": "calculating-time-differences"
+  },
+  {
+    "id": "DGk9zWKWmpao",
+    "html": "<p>You can subtract two dates to get the time in milliseconds.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zFB7fjeJk0PI",
+    "code": "const start = new Date(\"2025-01-01\");\nconst end = new Date(\"2025-02-01\");\n                                    \nconst diffInMs = end - start;\nconst diffInDays = diffInMs / (1000 * 60 * 60 * 24);\n                                    \nconsole.log(diffInDays); // 31",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "cuHpbqoJLiMT",
+    "text": "Auto-Correction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "auto-correction"
+  },
+  {
+    "id": "r-Bn0w54yR_u",
+    "html": "<p>JavaScript adjusts invalid dates automatically:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fDmA7mccW-Dr",
+    "code": "const d = new Date(2025, 0, 32); // Jan 32 → auto-corrects to Feb 1\nconsole.log(d); // Sat Feb 01 2025",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "4V2TYZwjES7m",
+    "text": "Converting to String",
+    "type": "heading",
+    "level": 2,
+    "anchor": "converting-to-string"
+  },
+  {
+    "id": "084OIi71Jkot",
+    "rows": [
+      [
+        "<code>toString()</code>",
+        "<code>\"Wed Apr 30 2025 10:30:00 GMT+...\"</code>"
+      ],
+      [
+        "<code>toDateString()</code>",
+        "<code>\"Wed Apr 30 2025\"</code>"
+      ],
+      [
+        "<code>toTimeString()</code>",
+        "<code>\"10:30:00 GMT+...\"</code>"
+      ],
+      [
+        "<code>toISOString()</code>",
+        "<code>\"2025-04-30T10:30:00.000Z\"</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Example Output"
+    ]
+  },
+  {
+    "id": "pIY5NgX3oB0l",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "Vthwv44cbtcR",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "L07RwDafIJ4u",
+    "html": "<ol>\n                                    <li>Create a new date for your birthday.</li>\n                                    <li>Print the current year, month, and date using <code>get...()</code> methods.</li>\n                                    <li>Calculate how many days are left until New Year.</li>   \n                                    <li>Compare two dates to check which comes first.</li>\n                                    <li>Format today’s date as <code>\"DD-MM-YYYY\"</code> using string interpolation.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

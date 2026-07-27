@@ -1,0 +1,218 @@
+---
+id: "818bcccd-c292-43f7-88d1-5767efc4c54c"
+title: "JavaScript Error Handling"
+path: "javascript/error-handling"
+status: "published"
+meta_title: "JavaScript Error Handling | Learn Computer Academy"
+sort_order: 10
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "Ei1mtJWJlIrg",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "qp91RDY49mQl",
+    "text": "Why Error Handling Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-error-handling-matters"
+  },
+  {
+    "id": "jgGeZedKXkPz",
+    "html": "<p>Errors happen! Maybe the user enters invalid data, a server is down, or a function receives the wrong input.</p>\n<p><strong>JavaScript provides</strong> <code>try...catch</code> blocks to handle errors gracefully instead of crashing the program.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "e9o4EhubvsIo",
+    "text": "Syntax: try...catch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "syntax-trycatch"
+  },
+  {
+    "id": "asvT-jyen087",
+    "code": "try {\n  // Code that might throw an error\n} catch (error) {\n  // Code to handle the error\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "nAwgWTVv5yTM",
+    "text": "Example:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example"
+  },
+  {
+    "id": "m_-3d_G3-8_Q",
+    "code": "try {\n  let result = someUndefinedVariable + 10;\n} catch (err) {\n  console.log(\"Something went wrong:\", err.message);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-YEuZlaXu9Bt",
+    "html": "<p>Output:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iFZ8WAm7rrBv",
+    "code": "Something went wrong: someUndefinedVariable is not defined",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "bpA-vUc-fP23",
+    "html": "<p>Without <code>try...catch</code>, this error would stop the rest of your JavaScript from running!</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Btrvb2HEm9wz",
+    "text": "The finally Block",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-finally-block"
+  },
+  {
+    "id": "BnChg_LrvzII",
+    "html": "<p><code>finally</code> always runs — whether there was an error or not.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "68YfJxuU-nGI",
+    "code": "try {\n  console.log(\"Trying something risky\");\n} catch (err) {\n  console.log(\"Error happened!\");\n} finally {\n  console.log(\"Always runs!\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NLGn6_rT6FJf",
+    "html": "<p>Use <code>finally</code> to clean up resources, close files/connections, or reset states.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R1qcyT2EhwiN",
+    "text": "The throw Keyword",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-throw-keyword"
+  },
+  {
+    "id": "BH9yGBxgljAK",
+    "html": "<p>You can throw custom errors manually using <code>throw</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5a4a1NTmea4t",
+    "code": "function divide(a, b) {\n  if (b === 0) {\n    throw new Error(\"Cannot divide by zero\");\n  }\n  return a / b;\n}\n\ntry {\n  console.log(divide(10, 0));\n} catch (err) {\n  console.log(\"Caught:\", err.message);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "sIB1jrl32Xqb",
+    "text": "Built-in Error Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-error-types"
+  },
+  {
+    "id": "UK1rhjNR2B0i",
+    "rows": [
+      [
+        "<code>ReferenceError</code>",
+        "Variable not defined"
+      ],
+      [
+        "<code>TypeError</code>",
+        "Wrong type or invalid operation"
+      ],
+      [
+        "<code>SyntaxError</code>",
+        "Invalid JavaScript syntax"
+      ],
+      [
+        "<code>RangeError</code>",
+        "Number out of allowable range"
+      ],
+      [
+        "<code>EvalError</code>",
+        "Error in <code>eval()</code> function"
+      ],
+      [
+        "<code>URIError</code>",
+        "Invalid URI functions like <code>decodeURI()</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Error Type",
+      "Description"
+    ]
+  },
+  {
+    "id": "GT1KH6PnsSSJ",
+    "text": "Real-Life Use Case: Form Validation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "real-life-use-case-form-validation"
+  },
+  {
+    "id": "fJ8wX3KMPk_z",
+    "code": "function validateAge(age) {\n  if (isNaN(age)) throw new Error(\"Age must be a number\");\n  if (age < 18) throw new Error(\"You must be at least 18\");\n  return true;\n}\n                              \ntry {\n  validateAge(\"hello\");\n} catch (err) {\n  console.log(\"Validation error:\", err.message);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "H-zZx-uHGzZG",
+    "text": "Nesting and Re-throwing Errors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nesting-and-re-throwing-errors"
+  },
+  {
+    "id": "0rdco9SEE961",
+    "html": "<p>You can catch an error, handle it partly, and re-throw it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OR1g8Z55thRs",
+    "code": "try {\n  try {\n    throw new Error(\"Original error\");\n  } catch (err) {\n    console.log(\"Logging:\", err.message);\n    throw err; // Re-throwing\n  }\n} catch (e) {\n  console.log(\"Final catch:\", e.message);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "4adB0eJzo7yV",
+    "text": "Optional: Using try...catch with async/await",
+    "type": "heading",
+    "level": 2,
+    "anchor": "optional-using-trycatch-with-asyncawait"
+  },
+  {
+    "id": "rc1_vc1aUXEy",
+    "code": "async function fetchData() {\n  try {\n    let res = await fetch(\"https://invalid-url.com\");\n    let data = await res.json();\n  } catch (error) {\n    console.log(\"Network or JSON error:\", error.message);\n  }\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "k2v3vM-h7EnU",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "DefYgTnRVQzi",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "LCB3pQuSaRGN",
+    "html": "<ol>\n                                    <li>Write a function that throws an error if the argument is not a string.</li>\n                                    <li>Use <code>try...catch...finally</code> to divide two numbers.</li>\n                                    <li>Validate a name field in a form — throw if it's empty.</li>\n                                    <li>Write a nested <code>try...catch</code> block and re-throw the error.</li>\n                                    <li>Handle a <code>fetch()</code> request error using <code>try/catch</code>.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

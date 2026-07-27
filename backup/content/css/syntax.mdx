@@ -1,0 +1,210 @@
+---
+id: "45ce6981-e889-41af-8f6a-18f0ec0d2596"
+title: "CSS Syntax"
+path: "css/syntax"
+status: "published"
+meta_title: "CSS Syntax | Learn Computer Academy"
+sort_order: 32
+updated_at: "2026-07-25T06:20:42.702988+00:00"
+---
+
+```json
+[
+  {
+    "id": "PvkMsCPvGY13",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "q8xiEScVOhYD",
+    "text": "CSS Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-syntax"
+  },
+  {
+    "id": "qJ5bo614AvJN",
+    "html": "<p>A CSS rule-set consists of a selector and a declaration block:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HjWsOf1-N8Q3",
+    "alt": "",
+    "type": "image",
+    "width": 501,
+    "height": 126,
+    "publicId": "img/selector2"
+  },
+  {
+    "id": "aUwo-I454MNa",
+    "html": "<p>The selector points to the HTML element you want to style.</p>\n<p>The declaration block contains one or more declarations separated by semicolons.</p>\n<p>Each declaration includes a CSS property name and a value, separated by a colon.</p>\n<p>A CSS declaration always ends with a semicolon, and declaration blocks are surrounded by curly braces.</p>\n<p><b>In this example all &lt;p&gt; elements will be center-aligned, with a red text color:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DuJqYQAGYzpC",
+    "code": "p {\n  color: red;\n  text-align: center;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "c15us78TioQF",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "LB7ZAwBab4dF",
+    "text": "CSS Selectors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-selectors"
+  },
+  {
+    "id": "KU9jA22wy27v",
+    "html": "<p>CSS selectors are used to \"find\" (or select) HTML elements based on their element name, id, class, attribute, and more.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "U7TJwinEdmRZ",
+    "text": "The element Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-element-selector"
+  },
+  {
+    "id": "g9qqG2DxppIz",
+    "html": "<p>The element selector selects elements based on the element name.</p>\n<p><b>You can select all &lt;p&gt; elements on a page like this (here, all &lt;p&gt; elements will be center-aligned, with a red text color):</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sxMKQEWf7bLu",
+    "code": "p {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "b02PkmELdLRB",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "JVclN7Y_MXBD",
+    "text": "The id Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-id-selector"
+  },
+  {
+    "id": "RO876gjFETh-",
+    "html": "<p>The id selector uses the id attribute of an HTML element to select a specific element.</p>\n<p>The id of an element should be unique within a page, so the id selector is used to select one unique element!</p>\n<p>To select an element with a specific id, write a hash (#) character, followed by the id of the element.</p>\n<p><b>The style rule below will be applied to the HTML element with id=\"para1\":</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mgff9nKvV8Da",
+    "code": "#para1 {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "OkKhL2Toifoz",
+    "html": "<p><b>Note:</b> An id name cannot start with a number!</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "YKtJ95AnGz0H",
+    "text": "The class Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-class-selector"
+  },
+  {
+    "id": "k3Cl8AnApz3R",
+    "html": "<p>The class selector selects elements with a specific class attribute.</p>\n<p>To select elements with a specific class, write a period (.) character, followed by the name of the class.</p>\n<p><b>In this example all HTML elements with class=\"center\" will be red and center-aligned: </b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hyjmPzs4cEa8",
+    "code": ".center {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "BAKWlcCsWgMJ",
+    "html": "<p>You can also specify that only specific HTML elements should be affected by a class.</p>\n<p><b>In this example only &lt;p&gt; elements with class=\"center\" will be center-aligned: </b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jK2cQUeI30fs",
+    "code": "p.center {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "NV7Y8qSm7pa0",
+    "html": "<p>HTML elements can also refer to more than one class.</p>\n<p><b>In this example the &lt;p&gt; element will be styled according to class=\"center\" and to class=\"large\":</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dCLCqzJQikF4",
+    "code": "<p class=\"center large\">This paragraph refers to two classes.</p>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "V4r4IIgL3JBE",
+    "html": "<p><b>Note:</b> A class name cannot start with a number!</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UVFbCRyzl5Fn",
+    "text": "Grouping Selectors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grouping-selectors"
+  },
+  {
+    "id": "zev9TL3a_bOL",
+    "html": "<p>If you have elements with the same style definitions, like this:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Pkao9qroE_Mv",
+    "code": "h1 {\n  text-align: center;\n  color: red;\n}\nh2 {\n  text-align: center;\n  color: red;\n}\np {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "-m6mBI5MjACt",
+    "html": "<p>It will be better to group the selectors, to minimize the code.</p>\n<p>To group selectors, separate each selector with a comma.</p>\n<p><b>In this example we have grouped the selectors from the code above:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ptUPfX2hOC2K",
+    "code": "h1, h2, p {\n  text-align: center;\n  color: red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "BRvlERT-whdD",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "JTsSubNzM0g2",
+    "text": "CSS Comments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-comments"
+  },
+  {
+    "id": "JsvqlsJwm1p_",
+    "html": "<p>Comments are used to explain the code, and may help when you edit the source code at a later date.</p>\n<p>Comments are ignored by browsers.</p>\n<p><b>A CSS comment starts with /* and ends with */. Comments can also span multiple lines: </b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "srVVk2spCF7y",
+    "code": "p {\n  color: red;\n  /* This is a single-line comment */\n  text-align: center;\n}\n/* This is\na multi-line\ncomment */",
+    "type": "code",
+    "language": "css"
+  }
+]
+```

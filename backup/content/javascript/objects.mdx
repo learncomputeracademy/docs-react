@@ -1,0 +1,383 @@
+---
+id: "ffc16255-d4f6-43f4-80a5-369932eb1042"
+title: "JavaScript Objects"
+path: "javascript/objects"
+status: "published"
+meta_title: "JavaScript Objects | Learn Computer Academy"
+sort_order: 20
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "CvuyuD-pnvYb",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "T1WnXD6-yjuT",
+    "text": "What is an Object?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-an-object"
+  },
+  {
+    "id": "n-Ayuysp4buu",
+    "html": "<p>In JavaScript, an <strong>object</strong> is a collection of key-value pairs (also called properties).</p>\n<p>Objects help store and organize <strong>related data</strong> and <strong>functions</strong> in one place.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sfXxPInywep8",
+    "text": "Object Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "object-syntax"
+  },
+  {
+    "id": "5EBG7v-zrxdN",
+    "code": "const person = {\n  firstName: \"Alice\",\n  lastName: \"Johnson\",\n  age: 30,\n  isStudent: false\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eEpnCuEj9922",
+    "html": "<ul>\n                                    <li><code>firstName</code>, <code>lastName</code>, <code>age</code>, <code>isStudent</code> are <strong>keys (properties)</strong></li>\n                                    <li><code>\"Alice\"</code>, <code>\"Johnson\"</code>, <code>30</code>, <code>false</code> are values</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "4o6hmVgFohtK",
+    "text": "Accessing Object Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "accessing-object-properties"
+  },
+  {
+    "id": "1GBRglDQJzOv",
+    "text": "Dot Notation:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "dot-notation"
+  },
+  {
+    "id": "iqk3zOvqyDP6",
+    "code": "console.log(person.firstName); // Output: Alice",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "nvhagGHgMqF9",
+    "text": "Bracket Notation:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "bracket-notation"
+  },
+  {
+    "id": "8VG5CIdPjX6P",
+    "code": "console.log(person[\"lastName\"]); // Output: Johnson",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "lRen8exnsXNt",
+    "html": "<p>Use brackets when:</p>\n<ul>\n                                    <li>Property name has spaces/special characters</li>\n                                    <li>You access properties dynamically</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RBfpko902kWz",
+    "text": "Updating & Adding Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "updating-adding-properties"
+  },
+  {
+    "id": "AODV24EWC0OD",
+    "text": "Update:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "update"
+  },
+  {
+    "id": "ZE4yUHIjz1QM",
+    "code": "person.age = 31;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-kq_c3qvfffN",
+    "text": "Add New Property:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "add-new-property"
+  },
+  {
+    "id": "AJQfL8kUCH1h",
+    "code": "person.country = \"India\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "hFY3K09uYnME",
+    "text": "Deleting Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deleting-properties"
+  },
+  {
+    "id": "OHJxi_eYWTj2",
+    "code": "delete person.isStudent;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "VP9etyz9hwxz",
+    "text": "Object Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "object-methods"
+  },
+  {
+    "id": "KnvyfTGllJhS",
+    "html": "<p>A <strong>method</strong> is a function inside an object.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Xa2CrPiabAZj",
+    "code": "const car = {\n  brand: \"Toyota\",\n  model: \"Camry\",\n  start: function () {\n    console.log(\"Engine started\");\n  }\n};\n\ncar.start(); // Output: Engine started",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-iDyOVmKanAk",
+    "html": "<p>You can also use <strong>shorthand syntax</strong>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M2Wwirtm4L7K",
+    "code": "const car = {\n  brand: \"Toyota\",\n  start() {\n    console.log(\"Engine started\");\n  }\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "th6DxcYh4Cmy",
+    "text": "this Keyword",
+    "type": "heading",
+    "level": 2,
+    "anchor": "this-keyword"
+  },
+  {
+    "id": "tCNsRU6xUczj",
+    "html": "<p>Inside an object method, <code>this</code> refers to the <strong>object itself</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N6xHp8vbkICi",
+    "code": "const user = {\n  name: \"Sara\",\n  greet() {\n    console.log(\"Hi, I'm \" + this.name);\n  }\n};\n\nuser.greet(); // Output: Hi, I'm Sara",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NlWT1Ard9ZtQ",
+    "text": "Nested Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nested-objects"
+  },
+  {
+    "id": "iWErHn6SCA-7",
+    "html": "<p>Objects can contain other objects.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RI0yfZPfbvk8",
+    "code": "const student = {\n  name: \"John\",\n  grades: {\n    math: 90,\n    english: 85\n  }\n};\n                                  \nconsole.log(student.grades.math); // Output: 90",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eq1-cB93UDGp",
+    "text": "Looping Through Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "looping-through-objects"
+  },
+  {
+    "id": "hxO2gW1mxtYg",
+    "text": "for...in Loop:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "forin-loop"
+  },
+  {
+    "id": "LR7UYineahDF",
+    "code": "const book = {\n  title: \"1984\",\n  author: \"George Orwell\"\n};\n                                  \nfor (let key in book) {\n  console.log(key + \": \" + book[key]);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ipnxqNewA3Ns",
+    "text": "Built-in Object Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-object-methods"
+  },
+  {
+    "id": "LstJRUzUr75V",
+    "text": "Object.keys(obj)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "objectkeysobj"
+  },
+  {
+    "id": "2bEujYJHjZ8b",
+    "html": "<p>Returns an array of keys.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WHjAlUY6aCUR",
+    "code": "Object.keys(book); // ['title', 'author']",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "uBC56PR5qvYi",
+    "text": "Object.values(obj)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "objectvaluesobj"
+  },
+  {
+    "id": "Byug93u8nXMn",
+    "html": "<p>Returns an array of values.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7MWKyNIxYIDA",
+    "code": "Object.values(book); // ['1984', 'George Orwell']",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Dy2r3ruELZNV",
+    "text": "Object.entries(obj)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "objectentriesobj"
+  },
+  {
+    "id": "yHaV9vsajOiL",
+    "html": "<p>Returns an array of [key, value] pairs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "STBALzqBFZTT",
+    "code": "Object.entries(book);\n// [['title', '1984'], ['author', 'George Orwell']]",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "o9fb4tTTkhQ0",
+    "text": "Object Destructuring (ES6)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "object-destructuring-es6"
+  },
+  {
+    "id": "GKG4119tNuIU",
+    "html": "<p>Extract values into variables easily.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "09YHWj4BCJIy",
+    "code": "const user = {\n  name: \"Liam\",\n  age: 25\n};\n                                  \nconst { name, age } = user;\nconsole.log(name); // Liam\nconsole.log(age);  // 25",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "1Zius3tV8f9u",
+    "text": "Object in Arrays",
+    "type": "heading",
+    "level": 2,
+    "anchor": "object-in-arrays"
+  },
+  {
+    "id": "Frx_-XYO8kz-",
+    "html": "<p>Useful for storing lists of items (e.g., users, products).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KRoMwfLO1se2",
+    "code": "const users = [\n  { name: \"Alice\", age: 20 },\n  { name: \"Bob\", age: 25 }\n];\n                                  \nconsole.log(users[1].name); // Output: Bob",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "8a0hkDz3qr3E",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "Y0ZWvGCazNCG",
+    "rows": [
+      [
+        "Create object",
+        "<code>const obj = { key: value }</code>"
+      ],
+      [
+        "Access property",
+        "<code>obj.key</code> or <code>obj[\"key\"]</code>"
+      ],
+      [
+        "Add/update property",
+        "<code>obj.newKey = value</code>"
+      ],
+      [
+        "Delete property",
+        "<code>delete obj.key</code>"
+      ],
+      [
+        "Object method",
+        "<code>obj.method = function() {}</code>"
+      ],
+      [
+        "Use <code>this</code>",
+        "Inside method: refers to object"
+      ],
+      [
+        "Loop object",
+        "<code>for (let key in obj)</code>"
+      ],
+      [
+        "Destructuring",
+        "<code>const { key } = obj</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Example"
+    ]
+  },
+  {
+    "id": "1YIY3saeBtm1",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "OJCGovhJ-15o",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "Xu0QJfyOeJcB",
+    "html": "<ol>\n                                    <li>Create an object called <code>movie</code> with keys: <code>title</code>, <code>director</code>, <code>year</code>.</li>\n                                    <li>Add a method <code>getDetails</code> that returns a formatted string using <code>this.title</code>, etc.</li>\n                                    <li>Loop over the object to print all key-value pairs.</li>\n                                    <li>Try destructuring the <code>movie</code> object.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

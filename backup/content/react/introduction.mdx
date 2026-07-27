@@ -1,0 +1,248 @@
+---
+id: "7bfbaad4-d366-4776-bb2c-6700e05e45b4"
+title: "React Introduction"
+path: "react/introduction"
+status: "published"
+meta_title: "React Introduction | Learn Computer Academy"
+sort_order: 1
+updated_at: "2026-07-25T07:08:18.984247+00:00"
+---
+
+```json
+[
+  {
+    "id": "uo-p1IFryYJP",
+    "text": "Introduction to React vs. Vanilla JS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "introduction-to-react-vs-vanilla-js"
+  },
+  {
+    "id": "RO1aKOKeoUOS",
+    "html": "<p>Welcome to the world of React! If you're new to web development or just starting with React, you're in the right place. In this guide, we’ll take a look at what React is, why it’s important, and the interesting story behind its creation. Let's begin!</p>\n<p>React is a <strong>JavaScript library</strong> for building <strong>user interfaces</strong>. It was created by <strong>Facebook (now Meta)</strong> to help developers build fast and interactive web applications. With React, you can create web pages that <strong>update automatically</strong> when data changes, without needing to reload the page manually.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NtYSmBJEAzRM",
+    "text": "Why is React Important?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-is-react-important"
+  },
+  {
+    "id": "mndYPiQ51SyF",
+    "html": "<p>Before React, developers had to write a lot of code to manage updates on a webpage. Every time something changed (like a new message or a new comment), the entire page had to reload or update manually. This was slow and inefficient.</p>\n<p>React makes web development <strong>faster</strong>, <strong>simpler</strong>, and <strong>more efficient</strong> by:</p>\n<ul>\n                                    <li><strong>Reusing Components</strong>: You can build reusable UI pieces and combine them to make complex applications.</li>\n                                    <li><strong>Efficient Updates</strong>: React updates only the parts of the page that need to change, rather than reloading everything.</li>\n                                    <li><strong>Better Performance</strong>: React uses a \"Virtual DOM,\" which makes updates faster and smoother for users.</li>\n                                    <li><strong>Easy to Learn</strong>: Because it focuses purely on the UI, you can quickly understand and use React.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "tdcidBVhcQWa",
+    "text": "The History of React: Why Was It Created?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-history-of-react-why-was-it-created"
+  },
+  {
+    "id": "SqyhhzTtXb4I",
+    "html": "<p>React was created at <strong>Facebook</strong> to fix a frustrating issue,\" where notifications showed unread messages that didn’t exist. The problem arose because messages were displayed in multiple places but didn’t stay in sync. To solve this, <strong>Facebook engineers</strong> built React, which updates the UI efficiently using the <strong>Virtual DOM</strong>. This improved performance and fixed inconsistencies, leading to <strong>React’s</strong> public release in 2013. Today, it’s one of the most popular web development tools.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LepbEeOrTWyl",
+    "text": "Why Should You Learn React?",
+    "type": "heading",
+    "level": 3,
+    "anchor": "why-should-you-learn-react"
+  },
+  {
+    "id": "PvVr5A0e9NQt",
+    "html": "<p>Today, <strong>big companies like Instagram, WhatsApp, Airbnb, Uber, Netflix, and many more</strong> use React to build web applications. Learning React can open up <strong>great career opportunities</strong>, whether you're building your own project or looking for a job in tech.</p>\n<p>Now you understand what React is and why it was created, it's time to dive in! Step by step, we’ll learn how React works while also building some exciting projects along the way.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "eHZx0gxs7naV",
+    "text": "Again, What is React?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "again-what-is-react"
+  },
+  {
+    "id": "gwR4n72PRT5b",
+    "html": "<p>React is a <strong>JavaScript library</strong> developed by Facebook for building <strong>user interfaces (UIs)</strong>, especially for single-page applications (SPAs). It makes it easier to build dynamic web apps by breaking the UI into reusable components.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LGdw6eQZ3RAb",
+    "text": "What is Vanilla JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-vanilla-javascript"
+  },
+  {
+    "id": "8Jr4mKirZEN9",
+    "html": "<p>Vanilla JavaScript refers to using plain, native JavaScript without any libraries or frameworks. It’s powerful but can get verbose and harder to manage as your app grows in complexity.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3tjPzmUBn0sx",
+    "text": "Why Use React Instead of Vanilla JS?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-use-react-instead-of-vanilla-js"
+  },
+  {
+    "id": "UssP2ORL38vw",
+    "rows": [
+      [
+        "DOM Manipulation",
+        "Manual and verbose",
+        "Abstracted via virtual DOM"
+      ],
+      [
+        "UI Reusability",
+        "Custom functions &amp; HTML templates",
+        "Component-based"
+      ],
+      [
+        "State Management",
+        "Manual state tracking",
+        "Built-in state with hooks (<code>useState</code>)"
+      ],
+      [
+        "Performance Optimization",
+        "Manual tuning",
+        "Virtual DOM diffing"
+      ],
+      [
+        "Learning Curve",
+        "Lower (initially)",
+        "Slightly higher, but scales better"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Vanilla JS",
+      "React"
+    ]
+  },
+  {
+    "id": "_c7C1ItzpAIm",
+    "text": "💡 Real-World Analogy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "real-world-analogy"
+  },
+  {
+    "id": "0e1bOE_i8Ip-",
+    "html": "<p class=\"note\"><strong>Vanilla JS</strong> is like building a car from scratch using metal, bolts, and an engine.</p>\n<p class=\"note\"><strong>React</strong> is like assembling a car using high-quality prebuilt components (engine block, seats, dashboard) with flexible customization.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "g-jNrMM-hr2D",
+    "text": "Example: Creating a Button that Shows an Alert",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example-creating-a-button-that-shows-an-alert"
+  },
+  {
+    "id": "bYbt5_WtOZ2W",
+    "text": "1. Vanilla JS Approach",
+    "type": "heading",
+    "level": 3,
+    "anchor": "1-vanilla-js-approach"
+  },
+  {
+    "id": "IMbwiI_MuW1X",
+    "code": "<!-- index.html -->\n<!DOCTYPE html>\n<html>\n<head>\n    <title>Vanilla JS Button</title>\n</head>\n<body>\n    <div id=\"app\"></div>\n\n    <script>\n        const app = document.getElementById('app');\n\n        const button = document.createElement('button');\n        button.textContent = 'Click Me';\n        button.style.padding = '10px 20px';\n        button.style.fontSize = '16px';\n\n        button.addEventListener('click', () => {\n            alert('Hello from Vanilla JS!');\n        });\n\n        app.appendChild(button);\n    </script>\n</body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "1gwwRTI-YLc3",
+    "text": "Breakdown:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "breakdown"
+  },
+  {
+    "id": "55gXqN5hfxk_",
+    "html": "<ul>\n                                    <li>Manually create a button element.</li>\n                                    <li>Add styles via JavaScript.</li>\n                                    <li>Attach event listeners.</li>\n                                    <li>Append to the DOM.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "UD5ZgIUPPV_j",
+    "text": "2. React JS Approach (with CDN)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "2-react-js-approach-with-cdn"
+  },
+  {
+    "id": "eTOf3Kemvy_a",
+    "code": "<!-- react.html -->\n<!DOCTYPE html>\n<html>\n<head>\n    <title>React Button</title>\n    <script src=\"https://unpkg.com/react@18/umd/react.development.js\" crossorigi></script>\n    <script src=\"https://unpkg.com/react-dom@18/umd/react-dom.development.js\" crossorigin></script>\n    <script src=\"https://unpkg.com/@babel/standalone/babel.min.js\"></script>\n</head>\n<body>\n    <div id=\"root\"></div>\n\n    <script type=\"text/babel\">\n    function App() {\n        const handleClick = () => {\n        alert('Hello from React!');\n        };\n\n        return (\n        <button\n            onClick={handleClick}\n            style={{ padding: '10px 20px', fontSize: '16px' }}\n        >\n            Click Me\n        </button>\n        );\n    }\n\n    const root = ReactDOM.createRoot(document.getElementById('root'));\n    root.render(<App />);\n    </script>\n</body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Vpuqi5d5qo7l",
+    "text": "Breakdown:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "breakdown-2"
+  },
+  {
+    "id": "CNx3Q4-KqAzT",
+    "html": "<ul>\n                                    <li>Define a component as a function.</li>\n                                    <li>Use JSX to describe the UI.</li>\n                                    <li><code>onClick</code> is syntactic sugar around event listeners.</li>\n                                    <li>Styles can be applied via objects.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "gy3N1oNBFS72",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "0ZuMrenGHZcC",
+    "rows": [
+      [
+        "DOM Access",
+        "<code>document.getElementById</code>",
+        "Not needed; declarative rendering"
+      ],
+      [
+        "Event Binding",
+        "<code>addEventListener</code>",
+        "<code>onClick</code>, <code>onChange</code> via props"
+      ],
+      [
+        "UI Definition",
+        "HTML + JS DOM Manipulation",
+        "JSX + Component function"
+      ],
+      [
+        "Readability",
+        "Lower for large apps",
+        "High (especially with reuse)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Vanilla JS",
+      "React"
+    ]
+  },
+  {
+    "id": "dTGtrp80eyIc",
+    "text": "What’s Next?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "whats-next"
+  },
+  {
+    "id": "jIMH83DRtRPp",
+    "html": "<p>In <strong>Chapter 2</strong>, we’ll:</p>\n<ul>\n                                    <li>Set up a basic project with both Vanilla JS and React.</li>\n                                    <li>Explore file structure and rendering basics.</li>\n                                </ul>",
+    "type": "richtext"
+  }
+]
+```

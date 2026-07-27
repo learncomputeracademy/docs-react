@@ -1,0 +1,234 @@
+---
+id: "48f2c9e9-d40c-4451-9229-fd21d2938c05"
+title: "JavaScript Events"
+path: "javascript/events"
+status: "published"
+meta_title: "JavaScript Events | Learn Computer Academy"
+sort_order: 12
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "gFwuf2VVlonZ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "BcHUihu-j4or",
+    "text": "What is an Event in JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-an-event-in-javascript"
+  },
+  {
+    "id": "UUdqsee2A-gM",
+    "html": "<p>An <strong>event</strong> is a signal that something has happened — a user action or browser-triggered activity like:</p>\n<ul>\n                                    <li>Clicking a button</li>\n                                    <li>Typing into a form</li>\n                                    <li>Hovering over an element</li>\n                                    <li>Page load or resize</li>\n                                    <li>Form submission</li>\n                                </ul>\n<p>JavaScript <strong>listens</strong> for these events and lets you run code when they occur.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p3968Uu1YFh-",
+    "text": "Common HTML Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-html-events"
+  },
+  {
+    "id": "4FwyIMdRaMSM",
+    "rows": [
+      [
+        "<code>click</code>",
+        "An element is clicked"
+      ],
+      [
+        "<code>mouseover</code>",
+        "Mouse hovers over an element"
+      ],
+      [
+        "<code>mouseout</code>",
+        "Mouse leaves an element"
+      ],
+      [
+        "<code>keydown</code>",
+        "A key is pressed"
+      ],
+      [
+        "<code>keyup</code>",
+        "A key is released"
+      ],
+      [
+        "<code>change</code>",
+        "Form field value changes"
+      ],
+      [
+        "<code>submit</code>",
+        "A form is submitted"
+      ],
+      [
+        "<code>load</code>",
+        "The page or image finishes loading"
+      ],
+      [
+        "<code>dblclick</code>",
+        "Element is double-clicked"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Event Name",
+      "Triggered When..."
+    ]
+  },
+  {
+    "id": "pauYm14x8Ojh",
+    "text": "3 Ways to Handle Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "3-ways-to-handle-events"
+  },
+  {
+    "id": "SCC5t3bTbX50",
+    "text": "1. Inline Event Handler (in HTML)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "1-inline-event-handler-in-html"
+  },
+  {
+    "id": "rF7CLKz-h01i",
+    "code": "<button onclick=\"sayHello()\">Click Me</button>\n<script>\n  function sayHello() {\n    alert(\"Hello from inline event!\");\n  }\n</script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "8RNKcWiO_S0i",
+    "text": "2. Internal Event Handler (using DOM)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "2-internal-event-handler-using-dom"
+  },
+  {
+    "id": "MDDBqlIs212Q",
+    "code": "<button id=\"btn\">Click</button>\n\n<script>\n  document.getElementById(\"btn\").onclick = function () {\n    alert(\"Clicked!\");\n  };\n</script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "n-lL9L8XKToi",
+    "text": "3. addEventListener() Method",
+    "type": "heading",
+    "level": 3,
+    "anchor": "3-addeventlistener-method"
+  },
+  {
+    "id": "Mwiv9vQJNZkO",
+    "code": "const btn = document.getElementById(\"btn\");\n\nbtn.addEventListener(\"click\", function () {\n  alert(\"Event using addEventListener\");\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "r4GhzTtmZkie",
+    "html": "<p>This is the <strong>recommended way</strong> — it allows multiple listeners and better separation of HTML and JS.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mHNyu-KqLvgO",
+    "text": "Mouse Events Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mouse-events-example"
+  },
+  {
+    "id": "IYIT0XElkSH6",
+    "code": "<div id=\"box\" style=\"width:100px;height:100px;background:red;\"></div>\n\n<script>\n  const box = document.getElementById(\"box\");\n                                    \n  box.addEventListener(\"mouseover\", () => {\n    box.style.background = \"blue\";\n  });\n                                    \n  box.addEventListener(\"mouseout\", () => {\n    box.style.background = \"red\";\n  });\n</script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "pLl7sfalApZi",
+    "text": "Keyboard Events Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keyboard-events-example"
+  },
+  {
+    "id": "S4Zm7wLZ7W6h",
+    "code": "document.addEventListener(\"keydown\", function (e) {\n  console.log(\"Key pressed:\", e.key);\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "3UrIfUG4xfGU",
+    "html": "<p>You can capture key values like <code>'Enter'</code>, <code>'Escape'</code>, <code>'ArrowUp'</code>, etc.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qTcjiSbuurMj",
+    "text": "Form Events Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "form-events-example"
+  },
+  {
+    "id": "8O2PfLfChm9v",
+    "code": "<form id=\"myForm\">\n  <input type=\"text\" name=\"username\" />\n  <button type=\"submit\">Submit</button>\n</form>\n                                  \n<script>\n  const form = document.getElementById(\"myForm\");\n                                  \n  form.addEventListener(\"submit\", function (e) {\n    e.preventDefault(); // Prevents actual form submission\n    alert(\"Form submitted via JavaScript!\");\n  });\n</script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "lRJwjCJX5GQl",
+    "text": "The event Object",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-event-object"
+  },
+  {
+    "id": "KbBADvFR3QrE",
+    "html": "<p>You can access event details like type, target element, key pressed, mouse position, etc.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pMAGIgg9rixO",
+    "code": "document.addEventListener(\"click\", function (event) {\n  console.log(event.type);   // click\n  console.log(event.target); // element clicked\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "dAIVC8EQddHm",
+    "text": "Removing an Event Listener",
+    "type": "heading",
+    "level": 2,
+    "anchor": "removing-an-event-listener"
+  },
+  {
+    "id": "F1HTLkfV2xHR",
+    "code": "function greet() {\n  alert(\"Hello!\");\n}\n                                  \nbtn.addEventListener(\"click\", greet);\n                                  \n// Later...\nbtn.removeEventListener(\"click\", greet);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "rBTY4yxC64yD",
+    "html": "<p class=\"note\"><strong>Note: </strong>You must use a named function (not an anonymous one) to remove a listener.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HxjOO2UN0V4N",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "0Clh9mjsE4Pm",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "R7xQcpEpIWVC",
+    "html": "<ol>\n                                    <li>Add a click event to change the text of a paragraph.</li>\n                                    <li>Use mouseover and mouseout to animate a box’s color.</li>\n                                    <li>Create a form that prevents default submission and logs the input value.</li>\n                                    <li>Display the key a user presses using keydown.</li>\n                                    <li>Write a function that runs only once on the first button click.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

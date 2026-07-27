@@ -1,0 +1,338 @@
+---
+id: "c0733852-ace0-4b1a-a5b6-754354e6a42a"
+title: "JavaScript Control Flow"
+path: "javascript/control-flow"
+status: "published"
+meta_title: "JavaScript Control Flow | Learn Computer Academy"
+sort_order: 6
+updated_at: "2026-07-25T07:08:18.903719+00:00"
+---
+
+```json
+[
+  {
+    "id": "FAd91-F2pBAY",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "EZhrQKyLGShi",
+    "text": "What is Control Flow?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-control-flow"
+  },
+  {
+    "id": "bSEJxaCC62CN",
+    "html": "<p><strong>Control Flow</strong> in JavaScript refers to the <strong>order in which code is executed</strong>.</p>\n<p>By default, JavaScript runs code from top to bottom, but control flow statements let you:</p>\n<ul>\n                                    <li>Make decisions (<code>if</code>, <code>else</code>)</li>\n                                    <li>Repeat code using loops</li>\n                                    <li>Handle multiple outcomes (<code>switch</code>)</li>\n                                    <li>Exit early (<code>break</code>, <code>return</code>, <code>continue</code>)</li>    \n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RTtUjgReJmJ3",
+    "text": "1. if, else if, else Statements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "1-if-else-if-else-statements"
+  },
+  {
+    "id": "QDXji0J1s4sy",
+    "text": "Syntax:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "syntax"
+  },
+  {
+    "id": "R81Rb7TrvOjr",
+    "code": "if (condition) {\n    // code runs if condition is true\n} else if (anotherCondition) {\n    // code runs if anotherCondition is true\n} else {\n    // code runs if none of the above are true\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "5UykjPwxpc9L",
+    "text": "Example:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "example"
+  },
+  {
+    "id": "INoNKcEsyZEg",
+    "code": "let age = 20;\n\nif (age >= 18) {\n  console.log(\"You are an adult.\");\n} else {\n  console.log(\"You are a minor.\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "MqLLDd3VEIye",
+    "text": "2. switch Statement",
+    "type": "heading",
+    "level": 2,
+    "anchor": "2-switch-statement"
+  },
+  {
+    "id": "spt8x_7-d31v",
+    "html": "<p>The <code>switch</code> statement is used to handle <strong>multiple conditions</strong> more cleanly than many <code>else if</code>s.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fthVxds3QotY",
+    "text": "Syntax:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "syntax-2"
+  },
+  {
+    "id": "VULBxv-9jHO7",
+    "code": "switch (expression) {\n  case value1:\n    // code block\n    break;\n  case value2:\n    // code block\n    break;\n  default:\n    // default code block\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "gP9c520YXBlZ",
+    "text": "Example:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "example-2"
+  },
+  {
+    "id": "Qo7C-TVUWQjo",
+    "code": "let color = \"blue\";\n\nswitch (color) {\n  case \"red\":\n    console.log(\"Stop!\");\n    break;\n  case \"yellow\":\n    console.log(\"Get ready!\");\n    break;\n  case \"green\":\n    console.log(\"Go!\");\n    break;\n  default:\n    console.log(\"Unknown color\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ikOpMns3CnnT",
+    "text": "3. Loops in JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "3-loops-in-javascript"
+  },
+  {
+    "id": "KpB9Zt9Ih-xa",
+    "html": "<p>Loops let you <strong>run a block of code repeatedly</strong>, either a set number of times or until a condition is false.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DAdH_NBISmYy",
+    "text": "for Loop",
+    "type": "heading",
+    "level": 3,
+    "anchor": "for-loop"
+  },
+  {
+    "id": "tQ801TS0WxFt",
+    "html": "<p>Use when you know <strong>how many times</strong> to loop.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tpAgHkNXqNKC",
+    "code": "for (let i = 1; i <= 5; i++) {\n  console.log(\"Count:\", i);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "6PBa_Q-V6YZj",
+    "text": "while Loop",
+    "type": "heading",
+    "level": 3,
+    "anchor": "while-loop"
+  },
+  {
+    "id": "Wre13bA_dFm-",
+    "html": "<p>Runs while a <strong>condition is true</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eceP6tDxpJZL",
+    "code": "let i = 1;\nwhile (i <= 3) {\n  console.log(\"While loop:\", i);\n  i++;\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "7EBuMz1U46ZH",
+    "text": "do...while Loop",
+    "type": "heading",
+    "level": 3,
+    "anchor": "dowhile-loop"
+  },
+  {
+    "id": "q5awWu1DgGa0",
+    "html": "<p>Runs <strong>at least once</strong>, even if the condition is false.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OnxFSgxeWtKn",
+    "code": "let i = 1;\ndo {\n  console.log(\"Do-While:\", i);\n  i++;\n} while (i <= 3);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eEPIkLI5LWfX",
+    "text": "for...of Loop",
+    "type": "heading",
+    "level": 3,
+    "anchor": "forof-loop"
+  },
+  {
+    "id": "yWwpBVWH5Co-",
+    "html": "<p>Used to iterate <strong>over arrays or iterable objects</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "adh0gLXxk1Hj",
+    "code": "let fruits = [\"apple\", \"banana\", \"mango\"];\n\nfor (let fruit of fruits) {\n  console.log(fruit);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "MPNISWLgpjbZ",
+    "text": "for...in Loop",
+    "type": "heading",
+    "level": 3,
+    "anchor": "forin-loop"
+  },
+  {
+    "id": "quMwoMX_E6rG",
+    "html": "<p>Used to iterate over <strong>object properties</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ExgE8bwuuHPv",
+    "code": "let person = { name: \"Sam\", age: 25 };\n\nfor (let key in person) {\n    console.log(key, \"=\", person[key]);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "WZlqcn3q3OpG",
+    "text": "4. break,continue,return",
+    "type": "heading",
+    "level": 2,
+    "anchor": "4-breakcontinuereturn"
+  },
+  {
+    "id": "UHHunSVOcOS7",
+    "text": "break:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "break"
+  },
+  {
+    "id": "Jl-SUIeXS5tM",
+    "html": "<p>Exits the current loop or <code>switch</code> early.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OaiyjbmznwwM",
+    "code": "for (let i = 1; i <= 5; i++) {\nif (i === 3) break;\n    console.log(i);  // Output: 1, 2\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "neupLpHDM-Z3",
+    "text": "continue:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "continue"
+  },
+  {
+    "id": "gfL0F2403vUF",
+    "html": "<p>Skips the current iteration and continues with the next one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EjXRjs6J5OnR",
+    "code": "for (let i = 1; i <= 5; i++) {\nif (i === 3) continue;\n    console.log(i);  // Output: 1, 2, 4, 5\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "tu3Yfy2FUo__",
+    "text": "return:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "return"
+  },
+  {
+    "id": "q9IhovFFVNU7",
+    "html": "<p>Ends function execution and returns a value (covered more in functions chapter).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "teAjjjr7wEY8",
+    "code": "function multiply(a, b) {\n    return a * b;\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "IXZvGnPokMae",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "-da2jDGMEVQz",
+    "rows": [
+      [
+        "Decision",
+        "<code>if</code>, <code>else</code>",
+        "Run code conditionally"
+      ],
+      [
+        "Multi-condition",
+        "<code>switch</code>",
+        "Cleaner alternative to many <code>if</code>s"
+      ],
+      [
+        "Repetition",
+        "<code>for</code>, <code>while</code>",
+        "Repeat code while condition holds"
+      ],
+      [
+        "Break flow",
+        "<code>break</code>",
+        "Exit loop/switch early"
+      ],
+      [
+        "Skip iteration",
+        "<code>continue</code>",
+        "Skip current loop iteration"
+      ],
+      [
+        "Exit function",
+        "<code>return</code>",
+        "Return value from function"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Control Type",
+      "Statement",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "VV516zCRFZqp",
+    "text": "🧪 Practice Challenge:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-challenge"
+  },
+  {
+    "id": "IBHIVQathK5_",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "Uh8ea6ow1gbA",
+    "html": "<p>Write a script that checks a number and prints:</p>\n<ul>\n                                    <li>\"Fizz\" if divisible by 3</li>\n                                    <li>\"Buzz\" if divisible by 5</li>\n                                    <li>\"FizzBuzz\" if divisible by both</li>\n                                    <li>The number itself otherwise</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "9ugcpTvfE2zP",
+    "code": "let num = 15;\n\nif (num % 3 === 0 && num % 5 === 0) {\n  console.log(\"FizzBuzz\");\n} else if (num % 3 === 0) {\n  console.log(\"Fizz\");\n} else if (num % 5 === 0) {\n  console.log(\"Buzz\");\n} else {\n  console.log(num);\n}",
+    "type": "code",
+    "language": "javascript"
+  }
+]
+```

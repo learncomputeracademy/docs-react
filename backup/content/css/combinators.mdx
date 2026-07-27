@@ -1,0 +1,161 @@
+---
+id: "50263d36-0754-4b19-ad05-96a3ccf51285"
+title: "CSS Combinators"
+path: "css/combinators"
+status: "published"
+meta_title: "CSS Combinators | Learn Computer Academy"
+sort_order: 7
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "Nc0jzIwaOa7f",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "QsCRb9ScLKjm",
+    "text": "CSS Combinators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-combinators"
+  },
+  {
+    "id": "2ii14PIPrMNQ",
+    "html": "<p class=\"note\">A combinator is something that explains the relationship between the selectors.</p>\n<p>A CSS selector can contain more than one simple selector. Between the simple selectors, we can include a combinator.</p>\n<p>There are four different combinators in CSS:</p>\n<ul>\n                                    <li>descendant selector (space)</li>\n                                    <li>child selector (&gt;)</li>\n                                    <li>adjacent sibling selector (+)</li>\n                                    <li>general sibling selector (~)</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "YbFqXdKr38Yq",
+    "text": "Descendant Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "descendant-selector"
+  },
+  {
+    "id": "tcRRfCOBI8AB",
+    "html": "<p>The descendant selector matches all elements that are descendants of a specified element.</p>\n<p>The following example selects all &lt;p&gt; elements inside &lt;div&gt; elements:&nbsp;</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fpI2KTYECEBx",
+    "code": "div p {\n  background-color: yellow;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "NFvACdZhyE5e",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "6ZG0O0Ncfp4J",
+    "text": "Child Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "child-selector"
+  },
+  {
+    "id": "BnDtQ8bWBxIV",
+    "html": "<p>The child selector selects all elements that are the children of a specified element.</p>\n<p>The following example selects all &lt;p&gt; elements that are children of a &lt;div&gt; element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NqiNJjLB--os",
+    "code": "div > p {\n  background-color: yellow;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "95VPnIMz1I_W",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "RQcqCxoeMi6f",
+    "text": "Adjacent Sibling Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adjacent-sibling-selector"
+  },
+  {
+    "id": "ttIQ4YwM2JnQ",
+    "html": "<p>The adjacent sibling selector selects all elements that are the adjacent siblings of a specified element.</p>\n<p>Sibling elements must have the same parent element, and \"adjacent\" means \"immediately following\".</p>\n<p>The following example selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vzl1ip2v9zhB",
+    "code": "div + p {\n  background-color: yellow;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "lirSVU2tlNkz",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "DEg-uVL-_bBf",
+    "text": "General Sibling Selector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "general-sibling-selector"
+  },
+  {
+    "id": "-BH2fw5jgQif",
+    "html": "<p>The general sibling selector selects all elements that are siblings of a specified element.</p>\n<p>The following example selects all &lt;p&gt; elements that are siblings of &lt;div&gt; elements:&nbsp;</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VyQBpv45LOju",
+    "code": "div ~ p {\n  background-color: yellow;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "u6K2ornnI6nS",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "hAezkNynOcUM",
+    "text": "All CSS Combinator Selectors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-combinator-selectors"
+  },
+  {
+    "id": "QTOQFU6dR6Q_",
+    "rows": [
+      [
+        "element element",
+        "div p",
+        "Selects all &lt;p&gt; elements inside &lt;div&gt; elements"
+      ],
+      [
+        "element&gt;element",
+        "div &gt; p",
+        "Selects all &lt;p&gt; elements where the parent is a &lt;div&gt; element"
+      ],
+      [
+        "element+element",
+        "div + p",
+        "Selects all &lt;p&gt; elements that are placed immediately after &lt;div&gt; elements"
+      ],
+      [
+        "element1~element2",
+        "p ~ ul",
+        "Selects every &lt;ul&gt; element that are preceded by a &lt;p&gt; element"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Selector",
+      "Example",
+      "Example description"
+    ]
+  }
+]
+```

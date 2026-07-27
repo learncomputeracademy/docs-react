@@ -1,0 +1,239 @@
+---
+id: "9f29988a-ea15-4d57-86a3-347fd0e62ce8"
+title: "CSS Opacity"
+path: "css/image-transparency"
+status: "published"
+meta_title: "CSS Opacity | Learn Computer Academy"
+sort_order: 16
+updated_at: "2026-07-25T06:20:42.532762+00:00"
+---
+
+```json
+[
+  {
+    "id": "WwyAzd6_41Y-",
+    "html": "<hr>\n<p>The <code>opacity</code> property specifies the opacity/transparency of an element.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "hR-D33bUCzXR",
+    "text": "Transparent Image",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transparent-image"
+  },
+  {
+    "id": "GzQZfpInSqZx",
+    "html": "<p>The <code>opacity</code> property can take a value from 0.0 - 1.0. The lower value, the more transparent:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8_vyqmvDyUKf",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "thpLcVYCniy0",
+    "html": "<span>opacity 0.2</span>",
+    "type": "richtext"
+  },
+  {
+    "id": "b91H9UbR0G8V",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "Xgx0W1PvXEsN",
+    "html": "<span>opacity 0.5</span>",
+    "type": "richtext"
+  },
+  {
+    "id": "skSQykU092om",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "lqoOebNRZZVh",
+    "html": "<span>opacity 1 (default)</span>\n<p><b>Note:</b> IE8 and earlier use <code>filter:alpha(opacity=x)</code>. The x can take a value from 0 - 100. A lower value makes the element more transparent.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U4bUIrfTanD0",
+    "code": "img {\n  opacity: 0.5;\n  filter: alpha(opacity=50); /* For IE8 and earlier */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "H7tV_kTxiNnH",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "kG6QP0Kk-l7i",
+    "text": "Transparent Hover Effect",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transparent-hover-effect"
+  },
+  {
+    "id": "EGkdqjLHSXms",
+    "html": "<p>The <code>opacity</code> property is often used together with the <code>:hover</code>\n                                <style>\n                                    img.forest {\n                                      opacity: 0.5;\n                                      filter: alpha(opacity=50); /* For IE8 and earlier */\n                                      transition: all .3s ease;\n                                    }\n                                    img.forest:hover {\n                                      opacity: 1.0;\n                                      filter: alpha(opacity=100); /* For IE8 and earlier */\n                                    }\n                                </style> \n                                </p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4f2Vl34d-h_J",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "NuHIFxXiTtoo",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "PKKgmdGZ93rI",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "XtXdoertjJt4",
+    "code": "img {\n  opacity: 0.5;\n  filter: alpha(opacity=50); /* For IE8 and earlier */\n}\nimg:hover {\n  opacity: 1.0;\n  filter: alpha(opacity=100); /* For IE8 and earlier */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "OrkAWLZ8JQgc",
+    "text": "Example explained",
+    "type": "heading",
+    "level": 3,
+    "anchor": "example-explained"
+  },
+  {
+    "id": "mzyPMVKVV2Rn",
+    "html": "<p>The first CSS block is similar to the code in Example 1. In addition, we have added what should happen when a user hovers over one of the images. In this case we want the image to NOT be transparent when the user hovers over it. The CSS for this is <code>opacity:1;</code>.</p>\n<p>When the mouse pointer moves away from the image, the image will be transparent again.</p>\n<p>An example of reversed hover effect:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5J67bVzm5S6F",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "LUMu2dwtNkCp",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "-4Ry-dY0LdB9",
+    "alt": "Forest",
+    "type": "image",
+    "width": 600,
+    "height": 400,
+    "publicId": "img/img_forest"
+  },
+  {
+    "id": "ZOyHUBYXmPfI",
+    "code": "img:hover {\n  opacity: 0.5;\n  filter: alpha(opacity=50); /* For IE8 and earlier */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "yvkJzzBuOMyk",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "h7R1MFRznXqD",
+    "text": "Transparent Box",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transparent-box"
+  },
+  {
+    "id": "ecP6jX0i7-Co",
+    "html": "<p>When using the <code>opacity</code> property to add transparency to the background of an element, all of its child elements \n                                inherit the same transparency. This can make the text inside a fully transparent element hard to read:</p>\n<p>opacity 1</p>\n<p>opacity 0.6</p>\n<p>opacity 0.3</p>\n<p>opacity 0.1</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BZL0PgJAxIhy",
+    "code": "div {\n  opacity: 0.3;\n  filter: alpha(opacity=30); /* For IE8 and earlier */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "0_yK_AhNCxQv",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "8NtunffloJVk",
+    "text": "Transparency using RGBA",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transparency-using-rgba"
+  },
+  {
+    "id": "EAXeIaEDyaqC",
+    "html": "<p>If you do not want to apply opacity to child elements, like in our example above, use <strong>RGBA</strong> color values. The following example sets the opacity for the background color and not the text:</p>\n<p>100% opacity</p>\n<p>60% opacity</p>\n<p>30% opacity</p>\n<p>10% opacity</p>\n<p>You learned from our <a href=\"#\">CSS Colors Chapter</a>, that you can use RGB as a color value. In addition to RGB, you can use an RGB color value with an alpha channel (RGBA) - which specifies the opacity for a color.</p>\n<p>An RGBA color value is specified with: rgba(red, green, blue, <em>alpha</em>). The <em>alpha</em> parameter is a number between 0.0 (fully transparent) and 1.0 (fully opaque).</p>\n<p><strong>Tip:</strong> You will learn more about RGBA Colors in our <a href=\"#\">CSS Colors Chapter</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gf6O-PKf1f-F",
+    "code": "div {\n  background: rgba(76, 175, 80, 0.3) /* Green background with 30% opacity */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "A3pZgSNujaUZ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "s5HaMO6iUrs0",
+    "text": "Text in Transparent Box",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-in-transparent-box"
+  },
+  {
+    "id": "TIEA05MQPRkC",
+    "html": "<div class=\"img-block\" style=\"margin-bottom: 1rem;\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960420/img/transparent-box.webp\" alt=\"Transparent Image\" class=\"img-fluid\">\n                                </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "1Ji98uklhsHK",
+    "code": "<html>\n<head>\n    <style>\n    div.background {\n      background: url(klematis.jpg) repeat;\n      border: 2px solid black;\n    }\n    div.transbox {\n      margin: 30px;\n      background-color: #ffffff;\n      border: 1px solid black;\n      opacity: 0.6;\n      filter: alpha(opacity=60); /* For IE8 and earlier */\n    }\n    div.transbox p {\n      margin: 5%;\n      font-weight: bold;\n      color: #000000;\n    }\n    </style>\n</head>\n<body>\n    <div class=\"background\">\n      <div class=\"transbox\">\n        <p>This is some text that is placed in the transparent box.</p>\n      </div>\n    </div>\n</body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "_ng2I9LW6zyL",
+    "html": "<p>First, we create a &lt;div&gt; element (class=\"background\") with a background image, and a border. Then we create another &lt;div&gt; (class=\"transbox\") inside the first &lt;div&gt;. The &lt;div class=\"transbox\"&gt; have a background color, and a border - the div is transparent. Inside the transparent &lt;div&gt;, we add some text inside a &lt;p&gt; element.</p>",
+    "type": "richtext"
+  }
+]
+```

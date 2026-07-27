@@ -1,0 +1,240 @@
+---
+id: "146892ae-4d2c-489b-a7ec-53ee460aea7d"
+title: "JavaScript Scope Hoisting"
+path: "javascript/scope-hoisting"
+status: "published"
+meta_title: "JavaScript Scope Hoisting | Learn Computer Academy"
+sort_order: 23
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "wvCYC7dXBhb2",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "mLTte8vMJiA9",
+    "text": "What is Scope?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-scope"
+  },
+  {
+    "id": "VUyVRtEa7ND0",
+    "html": "<p><strong>Scope</strong> determines where variables are accessible in your code. In JavaScript, you’ll mainly deal with:</p>\n<ul>\n                                  <li><strong>Global Scope</strong></li>\n                                  <li><strong>Function (Local) Scope</strong></li>\n                                  <li><strong>Block Scope</strong> (added in ES6)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Bz4Xuf9hRHal",
+    "text": "Global Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "global-scope"
+  },
+  {
+    "id": "KgUogsNa5aXE",
+    "html": "<p>Variables declared <strong>outside</strong> of any function or block are global.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "g2qm8Q-jFK3e",
+    "code": "let name = \"Alice\";\n\nfunction greet() {\n  console.log(\"Hello, \" + name); // can access global variable\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Z4j-1pgw4F5H",
+    "html": "<p>Global variables can be accessed from <strong>anywhere</strong> in the code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qkbnW7BuMMf-",
+    "text": "Function Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "function-scope"
+  },
+  {
+    "id": "OPMwGASpN_X8",
+    "html": "<p>Variables declared <strong>inside a function</strong> are only available inside that function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "neDxKCMMkLU1",
+    "code": "function sayHello() {\n  let message = \"Hi!\";\n  console.log(message);\n}\n                                \nsayHello();\n// console.log(message); ❌ Error: message is not defined",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "rQwIrcAtICS7",
+    "text": "Block Scope (let and const)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "block-scope-let-and-const"
+  },
+  {
+    "id": "VvMaVhVOQ3d-",
+    "html": "<p>Variables declared with <code>let</code> or <code>const</code> inside <code>{}</code> are only available within that block.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2bLm91jyhHBS",
+    "code": "if (true) {\n  let age = 25;\n  const city = \"Delhi\";\n  console.log(age, city); // ✅ Works here\n}\n                                \nconsole.log(age); // ❌ Error\nconsole.log(city); // ❌ Error",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "LVdWB8jaqHt5",
+    "html": "<p>But <code>var</code> is <code>not block-scoped</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xUsGB-9Xcn4W",
+    "code": "if (true) {\n  var test = \"Visible outside block\";\n}\nconsole.log(test); // ✅ Works, but not recommended",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "VDWqR_jG84k6",
+    "text": "Hoisting in JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "hoisting-in-javascript"
+  },
+  {
+    "id": "K2czM9UtVabi",
+    "html": "<p><strong>Hoisting</strong> is JavaScript's default behavior of moving declarations to the top of their scope <strong>before code is executed</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OVr4MQJ236NR",
+    "text": "Variable Hoisting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "variable-hoisting"
+  },
+  {
+    "id": "hS3zUM8kDnKv",
+    "html": "<p>Variables declared with <code>var</code> are <strong>hoisted</strong>, but not their values.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uOm3gt0ByN9j",
+    "code": "console.log(a); // undefined\nvar a = 10;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "bJ1lus7zpqQ9",
+    "html": "<p>Behind the scenes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T9W2M_dt_V1b",
+    "code": "var a;\nconsole.log(a); // undefined\na = 10;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "MzX0S1E3A48-",
+    "html": "<p>⚠️ <code>let</code> and <code>const</code> are hoisted <strong>but not initialized</strong>, so accessing them before declaration throws an error.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PhSbaCeFDV_T",
+    "code": "console.log(b); // ❌ ReferenceError\nlet b = 20;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "2iGHEI_m4M3A",
+    "text": "Function Hoisting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "function-hoisting"
+  },
+  {
+    "id": "m9We6FcX6LW_",
+    "html": "<p><strong>Function declarations</strong> are hoisted — you can use them before defining:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xmQQB8MRGGDJ",
+    "code": "greet(); // ✅ Works\n\nfunction greet() {\n  console.log(\"Hello!\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eJLoyf8AljjV",
+    "html": "<p>But <strong>function expressions</strong> (assigned to variables) are not fully hoisted:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "20HVxTvpXdx7",
+    "code": "sayHi(); // ❌ TypeError: sayHi is not a function\n\nvar sayHi = function () {\n  console.log(\"Hi!\");\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "YEhuG3g8CObT",
+    "rows": [
+      [
+        "<code>var</code>",
+        "Function/global",
+        "Yes",
+        "Yes",
+        "❌ No"
+      ],
+      [
+        "<code>let</code>",
+        "Block",
+        "Yes ❗(TDZ)",
+        "Yes",
+        "✅ Yes"
+      ],
+      [
+        "<code>const</code>",
+        "Block",
+        "Yes ❗(TDZ)",
+        "❌ No",
+        "✅ Yes"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Keyword",
+      "Scope Type",
+      "Hoisted",
+      "Re-assignable",
+      "Block Scoped"
+    ]
+  },
+  {
+    "id": "kEaWX9tjrOV2",
+    "html": "<p><strong>TDZ (Temporal Dead Zone)</strong>: The phase between entering scope and variable declaration where it can't be used.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6R4D3VVNviQd",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "2U1_kh1f62dw",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "SojDslsnAcLT",
+    "html": "<ol>\n                                    <li>Declare a variable inside a function and try accessing it outside.</li>\n                                    <li>Try accessing a <code>let</code> variable before it’s declared — observe the error.</li>\n                                    <li>Use <code>var</code> in an <code>if</code> block and see if it leaks outside.</li>\n                                    <li>Write a function that is called before it's declared using a function declaration.</li>\n                                    <li>Compare the behavior of function declaration and function expression with hoisting.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,113 @@
+---
+id: "a448e196-a9a5-412f-921c-8c1c7d5b3907"
+title: "Video Tag"
+path: "html/tag-video"
+status: "published"
+meta_title: "Video Tag | Learn Computer Academy"
+sort_order: 35
+updated_at: "2026-07-27T06:26:21.310804+00:00"
+---
+
+```json
+[
+  {
+    "id": "yR3latTac5Lx",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "RLXT3ysZOU-5",
+    "text": "Playing Videos in HTML",
+    "type": "heading",
+    "level": 2,
+    "anchor": "playing-videos-in-html"
+  },
+  {
+    "id": "psEzFPhBQ-rT",
+    "html": "<p>Before HTML5, a video could only be played in a browser with a plug-in (like flash).</p>\n<p>The HTML5 <code>&lt;video&gt;</code> element specifies a standard way to embed a video in a web page.</p>\n<video width=\"100%\" height=\"auto\" controls=\"\" autoplay=\"\">\n                                  <source src=\"/assets/img/movie.mp4\" type=\"video/mp4\">\n                                  <source src=\"/assets/img/movie.ogg\" type=\"video/ogg\">\n                                Your browser does not support the video tag.\n                                </video>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "MGQLaWgIafrQ",
+    "text": "The HTML <video> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-html-video-element"
+  },
+  {
+    "id": "6GxL3XNrcNLI",
+    "html": "<p>To show a video in HTML, use the &lt;video&gt; element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4nyD7uYBA5mz",
+    "code": "<video width=\"320\" height=\"240\" controls>\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  <source src=\"movie.ogg\" type=\"video/ogg\">\nYour browser does not support the video tag.\n</video>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "cUiyYyspFta5",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "s0Z2ClFHXRrT",
+    "text": "How it Works",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-it-works"
+  },
+  {
+    "id": "-eLjvntAFv01",
+    "html": "<p>The controls attribute adds video controls, like play, pause, and volume.</p>\n<p>It is a good idea to always include width and height attributes. If height and width are not set, the page might flicker while the video loads.</p>\n<p>The <code>&lt;source&gt;</code> element allows you to specify alternative video files which the browser may choose from. The browser will use the first recognized format.</p>\n<p>The text between the <code>&lt;video&gt;</code> and <code>&lt;/video&gt;</code> tags will only be displayed in browsers that do not support the <code>&lt;video&gt;</code> element.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "jPEOJ07QYYj6",
+    "text": "HTML <video> Autoplay",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-video-autoplay"
+  },
+  {
+    "id": "NdEC2Z_lBlDu",
+    "html": "<p>To start a video automatically use the autoplay attribute:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rDAB3tvuXh-D",
+    "code": "<video width=\"320\" height=\"240\" autoplay>\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  <source src=\"movie.ogg\" type=\"video/ogg\">\nYour browser does not support the video tag.\n</video>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "49oNabh2HqMj",
+    "html": "<p class=\"note\">The autoplay attribute does not work in mobile devices like iPad and iPhone.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FgYILD3BUano",
+    "text": "HTML Video - Methods, Properties, and Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-video---methods-properties-and-events"
+  },
+  {
+    "id": "5YcDmOY14kNk",
+    "html": "<p>HTML5 defines DOM methods, properties, and events for the <code>&lt;video&gt;</code> element.</p>\n<p>This allows you to load, play, and pause videos, as well as setting duration and volume.</p>\n<p>There are also DOM events that can notify you when a video begins to play, is paused, etc.</p>\n<button onclick=\"playPause()\" class=\"btn btn-primary\">Play/Pause</button>\n<button onclick=\"makeBig()\" class=\"btn btn-primary\">Big</button>\n<button onclick=\"makeSmall()\" class=\"btn btn-primary\">Small</button>\n<button onclick=\"makeNormal()\" class=\"btn btn-primary\">Normal</button>\n<br>\n<br>\n<video id=\"video1\" width=\"420\">\n                                    <source src=\"/assets/img/movie.mp4\" type=\"video/mp4\">\n                                    <source src=\"/assets/img/movie.ogg\" type=\"video/ogg\">\n                                    Your browser does not support HTML5 video.\n                                  </video>",
+    "type": "richtext"
+  },
+  {
+    "id": "w-mvMpYnWvHK",
+    "code": "<div style=\"text-align:center\"> \n  <button onclick=\"playPause()\">Play/Pause</button> \n  <button onclick=\"makeBig()\">Big</button>\n  <button onclick=\"makeSmall()\">Small</button>\n  <button onclick=\"makeNormal()\">Normal</button>\n  <br><br>\n  <video id=\"video1\" width=\"420\">\n    <source src=\"movie.mp4\" type=\"video/mp4\">\n    <source src=\"movie.ogg\" type=\"video/ogg\">\n    Your browser does not support HTML5 video.\n  </video>\n</div>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "KrkeniUePKGq",
+    "code": "<script> \n    var myVideo = document.getElementById(\"video1\"); \n    function playPause() { \n      if (myVideo.paused) \n        myVideo.play(); \n      else \n        myVideo.pause(); \n    } \n    function makeBig() { \n        myVideo.width = 560; \n    } \n    function makeSmall() { \n        myVideo.width = 320; \n    } \n    function makeNormal() { \n        myVideo.width = 420; \n    } \n</script>",
+    "type": "code",
+    "language": "javascript"
+  }
+]
+```

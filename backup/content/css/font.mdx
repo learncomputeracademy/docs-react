@@ -1,0 +1,311 @@
+---
+id: "f3e1498e-b7ff-4e0b-9650-9dc8172e7bbd"
+title: "CSS Fonts"
+path: "css/font"
+status: "published"
+meta_title: "CSS Fonts | Learn Computer Academy"
+sort_order: 12
+updated_at: "2026-07-25T06:20:42.445269+00:00"
+---
+
+```json
+[
+  {
+    "id": "AycBa7DW_Eju",
+    "html": "<hr>\n<p>The CSS font properties define the font family, boldness, size, and the style of a text.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "xh7jAAMShI7P",
+    "text": "Difference Between Serif and Sans-serif Fonts",
+    "type": "heading",
+    "level": 2,
+    "anchor": "difference-between-serif-and-sans-serif-fonts"
+  },
+  {
+    "id": "TK4X5f93yRmh",
+    "html": "<div class=\"img-block\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960417/img/serif.webp\" alt=\"font\" class=\"img-fluid\">\n                                </div>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "DRLLBbEuA-79",
+    "text": "CSS Font Families",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-font-families"
+  },
+  {
+    "id": "7aWLgmLrbgyY",
+    "html": "<p>In CSS, there are two types of font family names:</p>\n<ul>\n                                <li><b>generic family</b> - a group of font families with a \n                                similar look (like \"Serif\" or \"Monospace\")</li>\n                                <li><b>font family</b> - a specific font family (like \"Times New Roman\" \n                                or \"Arial\")</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "4q4OFlnNUby9",
+    "rows": [
+      [
+        "Serif",
+        "<span style=\"font-size:150%;font-family:Times New Roman\">Times New Roman</span><br>\n                                            <span style=\"font-size:150%;font-family:Georgia\">Georgia</span>",
+        "Serif fonts have small lines at the ends on some characters"
+      ],
+      [
+        "Sans-serif",
+        "<span style=\"font-size:150%;font-family:Arial\">Arial</span><br>\n                                            <span style=\"font-size:150%;font-family:Verdana\">Verdana</span>",
+        "\"Sans\" means without - these fonts do not have the lines at the ends of characters"
+      ],
+      [
+        "Monospace",
+        "<span style=\"font-size:150%;font-family:Courier New\">Courier New</span><br>\n                                            <span style=\"font-size:150%;font-family:Lucida Console\">Lucida Console</span>",
+        "All monospace characters have the same width"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Generic family",
+      "Font family",
+      "Description"
+    ]
+  },
+  {
+    "id": "otWrt-zkRy_A",
+    "html": "<p class=\"note\"><b>Note:</b> On computer screens, sans-serif fonts are considered easier to read than serif fonts.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "hid0wapg2dQw",
+    "text": "Font Family",
+    "type": "heading",
+    "level": 2,
+    "anchor": "font-family"
+  },
+  {
+    "id": "BQR_USMuOaBK",
+    "html": "<p>The font family of a text is set with the <code>font-family</code> property.</p>\n<p>The <code>font-family</code> property should hold several font names as a \"fallback\" system. If the browser does not support the first font, it tries the next font, and so on.</p>\n<p>Start with the font you want, and end with a generic family, to let the browser pick a similar font in the generic family, if no other fonts are available.</p>\n<p><b>Note</b>: If the name of a font family is more than one word, it must be in quotation marks, like: \"Times New Roman\".</p>\n<p>More than one font family is specified in a comma-separated list:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T7JjEsJsTvG_",
+    "code": "p {\n  font-family: \"Times New Roman\", Times, serif;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "xd1uVllqZWu_",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "WdcbQSsevCz0",
+    "text": "Font Style",
+    "type": "heading",
+    "level": 2,
+    "anchor": "font-style"
+  },
+  {
+    "id": "ELOptLfWOJjK",
+    "html": "<p>The <code>font-style</code> property is mostly used to specify italic text.</p>\n<p>This property has three values:</p>\n<ul>\n                                    <li>normal - The text is shown normally</li>\n                                    <li>italic - The text is shown in italics</li>\n                                    <li>oblique - The text is \"leaning\"\n                                    (oblique is very similar to italic, but less supported)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ItpwKE5gqdSW",
+    "code": "p.normal {\n  font-style: normal;\n}\np.italic {\n  font-style: italic;\n}\np.oblique {\n  font-style: oblique;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Ferv6FIAKEFv",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "eP_H1E6pbAd7",
+    "text": "Font Size",
+    "type": "heading",
+    "level": 2,
+    "anchor": "font-size"
+  },
+  {
+    "id": "MERlyx3SU1zx",
+    "html": "<p>The <code>font-size</code> property sets the size of the text.</p>\n<p>Being able to manage the text size is important in web design. However, you should not use font size adjustments to make paragraphs look like headings, or headings look like paragraphs.</p>\n<p>Always use the proper HTML tags, like &lt;h1&gt; - &lt;h6&gt; for headings and &lt;p&gt; for paragraphs.</p>\n<p>The font-size value can be an absolute, or relative size.</p>\n<p>Absolute size:</p>\n<ul>\n                                    <li>Sets the text to a specified size</li>\n                                    <li>Does not allow a user to change the text size in all browsers (bad for accessibility reasons)</li>\n                                    <li>Absolute size is useful when the physical size of the output is known</li>\n                                </ul>\n<p>Relative size:</p>\n<ul>\n                                    <li>Sets the size relative to surrounding elements</li>\n                                    <li>Allows a user to change the text size in browsers</li>\n                                </ul>\n<p class=\"note\"><b>Note:</b> If you do not specify a font size, the default size for normal text, like paragraphs, is 16px (16px=1em).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NFlTTz_QKWJH",
+    "text": "Set Font Size With Pixels",
+    "type": "heading",
+    "level": 2,
+    "anchor": "set-font-size-with-pixels"
+  },
+  {
+    "id": "5SGFUo3GHcrg",
+    "html": "<p>Setting the text size with pixels gives you full control over the text size:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3rFz8KA0-p-7",
+    "code": "h1 {\n  font-size: 40px;\n}\nh2 {\n  font-size: 30px;\n}\np {\n  font-size: 14px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "fihIL3QaXHEw",
+    "html": "<p><b>Tip:</b> If you use pixels, you can still use the zoom tool to resize the entire page.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "5xuaf6KqKotC",
+    "text": "Set Font Size With Em",
+    "type": "heading",
+    "level": 2,
+    "anchor": "set-font-size-with-em"
+  },
+  {
+    "id": "clxoJ-s7U_bI",
+    "html": "<p>To allow users to resize the text (in the browser menu), many developers use em instead of pixels.</p>\n<p>The em size unit is recommended by the W3C.</p>\n<p>1em is equal to the current font size. The default text size in browsers is 16px. So, the default size of 1em is 16px.</p>\n<p>The size can be calculated from pixels to em using this formula: <i>pixels</i>/16=<i>em</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sskaHfOpwA7E",
+    "code": "h1 {\n  font-size: 2.5em; /* 40px/16=2.5em */\n}\nh2 {\n  font-size: 1.875em; /* 30px/16=1.875em */\n}\np {\n  font-size: 0.875em; /* 14px/16=0.875em */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "cKTN8nnmYoLq",
+    "html": "<p>In the example above, the text size in em is the same as the previous example in pixels. However, with the em size, it is possible to adjust the text size in all browsers.</p>\n<p>Unfortunately, there is still a problem with older versions of IE. The text becomes larger than it should when made larger, and smaller than it should when made smaller.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "BcIVa2nxMJsR",
+    "text": "Use a Combination of Percent and Em",
+    "type": "heading",
+    "level": 2,
+    "anchor": "use-a-combination-of-percent-and-em"
+  },
+  {
+    "id": "EtSD0AapShWS",
+    "html": "<p>The solution that works in all browsers, is to set a default font-size in percent for the &lt;body&gt; element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-CGd0JRYAaPd",
+    "code": "body {\n  font-size: 100%;\n}\nh1 {\n  font-size: 2.5em;\n}\nh2 {\n  font-size: 1.875em;\n}\np {\n  font-size: 0.875em;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "7Sso1gZgy1kw",
+    "html": "<p>Our code now works great! It shows the same text size in all browsers, and allows all browsers to zoom or resize the text!</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "yDGVWqZH7TcB",
+    "text": "Font Weight",
+    "type": "heading",
+    "level": 2,
+    "anchor": "font-weight"
+  },
+  {
+    "id": "je1_94C5iOz5",
+    "html": "<p>The <code>font-weight</code> property specifies the weight of a font:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CiknV7JlMggC",
+    "code": "p.normal {\n  font-weight: normal;\n}\np.thick {\n  font-weight: bold;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "palyUECBekxo",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "hvj1LIy1-zbw",
+    "text": "Responsive Font Size",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responsive-font-size"
+  },
+  {
+    "id": "9tpn0kGEjerK",
+    "html": "<p>The text size can be set with a <code>vw</code> unit, which means the \"viewport width\".</p>\n<p>That way the text size will follow the size of the browser window:</p>\n<div class=\"bg-gray p-4\" style=\"margin-bottom: 1em;\">\n                                <h1 style=\"font-size:8vw;\">Hello World</h1>\n                                <p style=\"font-size:2vw;\">Resize the browser window to see how the font size scales.</p>\n                            </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qd_GZpoa75_b",
+    "code": "<h1 style=\"font-size:10vw\">Hello World</h1>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "BWwm1a-fFc0g",
+    "html": "<p class=\"note\">Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ulv69J6PFzZ3",
+    "text": "Font Variant",
+    "type": "heading",
+    "level": 2,
+    "anchor": "font-variant"
+  },
+  {
+    "id": "n7Wq0C_kN6y8",
+    "html": "<p>The <code>font-variant</code> property specifies whether or not a text should be displayed in a small-caps font.</p>\n<p>In a small-caps font, all lowercase letters are converted to uppercase letters. However, the converted uppercase letters appears in a smaller font size than the original uppercase letters in the text.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wPVCnVa1gEGX",
+    "code": "p.normal {\n  font-variant: normal;\n}\np.small {\n  font-variant: small-caps;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "F3ylGabLO1wd",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "CfGuhAirz7jo",
+    "text": "All CSS Font Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-font-properties"
+  },
+  {
+    "id": "e8dgM2isWD_5",
+    "rows": [
+      [
+        "font",
+        "Sets all the font properties in one declaration"
+      ],
+      [
+        "font-family",
+        "Specifies the font family for text"
+      ],
+      [
+        "font-size",
+        "Specifies the font size of text"
+      ],
+      [
+        "font-style",
+        "Specifies the font style for text"
+      ],
+      [
+        "font-variant",
+        "Specifies whether or not a text should be displayed in a small-caps font"
+      ],
+      [
+        "font-weight",
+        "Specifies the weight of a font"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

@@ -1,0 +1,228 @@
+---
+id: "a1bfcf49-c440-4e8e-961c-065d11cf9abc"
+title: "JavaScript Debugging Techniques"
+path: "javascript/debugging-techniques"
+status: "published"
+meta_title: "JavaScript Debugging Techniques | Learn Computer Academy"
+sort_order: 8
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "s8XlduWYxIdQ",
+    "html": "<p><em>(Identify, inspect, and fix issues in your JavaScript code with confidence)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NTzLJvCAILfX",
+    "text": "What is Debugging?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-debugging"
+  },
+  {
+    "id": "g7cuematlLoU",
+    "html": "<p><strong>Debugging</strong> is the process of <strong>finding and fixing errors</strong> (bugs) in your code. JavaScript offers several tools and techniques to help you understand what's going wrong and why.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HtlIeJkR7fgA",
+    "text": "1. Use console.log() Wisely",
+    "type": "heading",
+    "level": 2,
+    "anchor": "1-use-consolelog-wisely"
+  },
+  {
+    "id": "VgwU5w10StYF",
+    "html": "<p>The simplest and most common way to debug:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lR1bCJCoVNaz",
+    "code": "const total = calculateTotal(100, 5);\nconsole.log(\"Total:\", total);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "445HIdrpI5WR",
+    "text": "Tips:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "tips"
+  },
+  {
+    "id": "K7xg1mo270J_",
+    "html": "<ul>\n                                  <li>Use meaningful labels.</li>\n                                  <li>Log objects or arrays to inspect them.</li>\n                                  <li>Use <code>console.table()</code> to display data in a table.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "XUrUU2tIGPjE",
+    "text": "2. Understanding Console Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "2-understanding-console-methods"
+  },
+  {
+    "id": "Rgjgux3_AckY",
+    "code": "console.warn(\"This is a warning\");\nconsole.error(\"This is an error\");\nconsole.info(\"Some information\");\nconsole.table([{name: \"Alice\", age: 25}, {name: \"Bob\", age: 30}]);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "xxHkrc9KD9Uf",
+    "text": "3. Breakpoints in Developer Tools",
+    "type": "heading",
+    "level": 2,
+    "anchor": "3-breakpoints-in-developer-tools"
+  },
+  {
+    "id": "25RNrU_JVFCm",
+    "html": "<p>Most browsers (Chrome, Firefox, Edge) have built-in <code>DevTools</code>.</p>\n<p>Use the Sources tab to:</p>\n<ul>\n                                  <li>Open your script files</li>\n                                  <li>Click on a line number to set a <strong>breakpoint</strong></li>\n                                  <li>Reload the page to pause code execution there</li>\n                                </ul>\n<p>You can:</p>\n<ul>\n                                  <li>Step through code line by line</li>\n                                  <li>Inspect variables</li>\n                                  <li>Watch expressions</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "64zDnwzAtCFg",
+    "text": "4. Using debugger Keyword",
+    "type": "heading",
+    "level": 2,
+    "anchor": "4-using-debugger-keyword"
+  },
+  {
+    "id": "YfQlU1ESCypC",
+    "html": "<p>Insert the <code>debugger</code> statement in your code to trigger a breakpoint:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kMYJmGyocaIo",
+    "code": "function calculate(a, b) {\n  debugger; // Execution pauses here\n  return a + b;\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "au4ACyu6Q2Ws",
+    "html": "<p>Open DevTools and reload the page — your code will pause at this line.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uZx14VfpDdyK",
+    "text": "5. Catching Errors with try...catch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "5-catching-errors-with-trycatch"
+  },
+  {
+    "id": "29uG0ihT4JZP",
+    "html": "<p>Use <code>try...catch</code> to handle and inspect runtime errors gracefully:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CdNNA99wGaPZ",
+    "code": "try {\n  riskyFunction();\n} catch (error) {\n  console.error(\"Error caught:\", error.message);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Ru3GkYX_4ZqQ",
+    "html": "<p>Add optional <code>finally</code> for cleanup code that always runs:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r1bGicdcdaqb",
+    "code": "finally {\n  console.log(\"Cleaning up...\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "hZJcFH_pON1C",
+    "text": "6. Understanding Stack Traces",
+    "type": "heading",
+    "level": 2,
+    "anchor": "6-understanding-stack-traces"
+  },
+  {
+    "id": "woa--ZHFRInN",
+    "html": "<p>When an error occurs, JavaScript shows a <strong>stack trace</strong>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "H7VOk5aNOwa9",
+    "code": "TypeError: Cannot read properties of undefined\n    at doSomething (app.js:12)\n    at main (app.js:20)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "saXGDCRAU-UU",
+    "html": "<p>This tells you:</p>\n<ul>\n                                  <li>What the error was</li>\n                                  <li>Where it happened</li>\n                                  <li>Which function calls led to it</li>\n                                </ul>\n<p>Use this to trace back to the bug source.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "542I1RTrzzIT",
+    "text": "7. Watching Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "7-watching-variables"
+  },
+  {
+    "id": "Dj4BNaEugbk4",
+    "html": "<p>In browser DevTools:</p>\n<ul>\n                                  <li>Use the <strong>Watch panel</strong> to track specific variables</li>\n                                  <li>Use Call Stack to see the path of function calls</li>\n                                  <li>Hover over variables during breakpoints to inspect values</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "lSXkDNOC-KHA",
+    "text": "8. Network Tab for API Debugging",
+    "type": "heading",
+    "level": 2,
+    "anchor": "8-network-tab-for-api-debugging"
+  },
+  {
+    "id": "j7uF0A_OF1dT",
+    "html": "<p>If you're fetching data from a server:</p>\n<ul>\n                                  <li>Open DevTools → <strong>Network</strong></li>\n                                  <li>Check if the request succeeded</li>\n                                  <li>View headers, payloads, and responses</li>\n                                  <li>Identify HTTP errors like 404 or 500</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q4Fw0kcwkJjN",
+    "text": "Pro Debugging Tips",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pro-debugging-tips"
+  },
+  {
+    "id": "HH4dPJx4xBo8",
+    "html": "<li>Always check spelling and case sensitivity.</li>\n<li>Log before and after function calls to track flow.</li>\n<li>Use meaningful, descriptive variable names.</li>\n<li>Comment out sections to isolate bugs.</li>\n<li>Start from the most likely point of failure, not the first error.</li>",
+    "type": "richtext"
+  },
+  {
+    "id": "8N3LzxU1pI5j",
+    "text": "Summary:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "6xXChVPYQ5o8",
+    "html": "<ul>\n                                <li>Use <code>console.log()</code> and DevTools for simple debugging.</li>\n                                <li><code>debugger</code> and breakpoints let you pause and step through code.</li>\n                                <li>Use the Network tab and stack traces for deeper insights.</li>\n                                <li>Good debugging saves time, reduces frustration, and builds confidence.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "LwJc-5HsJHyP",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "4BXc-jMA2MnX",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "sU1h-GtX5mf8",
+    "html": "<ol>\n                                    <li>Create a function with a logic bug. Use <code>console.log()</code> to trace the issue.</li>\n                                    <li>Insert a <code>debugger</code> and use Chrome DevTools to pause and inspect.</li>\n                                    <li>Intentionally throw an error and handle it using <code>try...catch</code>.</li>\n                                    <li>Make a <code>fetch()</code> request and inspect it via the Network tab.</li>\n                                    <li>Use <code>console.table()</code> to debug an array of objects.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

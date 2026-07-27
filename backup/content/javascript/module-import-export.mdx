@@ -1,0 +1,255 @@
+---
+id: "92b7942d-990c-43cf-8d4f-e6829a3505b4"
+title: "JavaScript Modules and Import/Export in Depth"
+path: "javascript/module-import-export"
+status: "published"
+meta_title: "JavaScript Modules and Import/Export in Depth | Learn Computer Academy"
+sort_order: 19
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "asNGMwOjx-Hn",
+    "html": "<p><em>(Organize code into reusable and maintainable blocks with ES Modules)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "R5ND0QcKl9YZ",
+    "text": "What Are JavaScript Modules?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-are-javascript-modules"
+  },
+  {
+    "id": "34YyQrvoifUA",
+    "html": "<p>Modules allow you to split your code into multiple files, keeping your codebase clean and organized. Each file can export variables, functions, or classes, and other files can import them.</p>\n<p>This modular approach helps in:</p>\n<ul>\n                                  <li><strong>Code Reusability</strong></li>\n                                  <li><strong>Maintainability</strong></li>\n                                  <li><strong>Namespace Isolation (no global scope pollution)</strong></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "QRneiXvf6iN9",
+    "text": "Enabling Modules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "enabling-modules"
+  },
+  {
+    "id": "wBZhSU0U2aLa",
+    "html": "<p>To use modules in the browser, add <code>type=\"module\"</code> in your <code>&lt;script&gt;</code> tag:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "c8-OzIuUAwKC",
+    "code": "<script type=\"module\" src=\"main.js\"></script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "IteUZB4U72Bz",
+    "text": "Exporting from a Module",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exporting-from-a-module"
+  },
+  {
+    "id": "OKQYQ65lOqzu",
+    "html": "<p>You can <strong>export</strong> functions, variables, or classes from a module file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XDXhHdW80_KK",
+    "text": "Named Exports",
+    "type": "heading",
+    "level": 3,
+    "anchor": "named-exports"
+  },
+  {
+    "id": "xj9RWI24DbnI",
+    "code": "// file: mathUtils.js\nexport const add = (a, b) => a + b;\nexport const subtract = (a, b) => a - b;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "yIZJRHffn1HK",
+    "html": "<p>You can also export after declaration:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BFRAs7KJz1Bo",
+    "code": "const multiply = (a, b) => a * b;\nexport { multiply };",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NgpU--16KjNu",
+    "text": "Importing Named Exports",
+    "type": "heading",
+    "level": 2,
+    "anchor": "importing-named-exports"
+  },
+  {
+    "id": "XfI9qDrEepg5",
+    "code": "// file: main.js\nimport { add, subtract } from './mathUtils.js';\n\nconsole.log(add(5, 3));      // 8\nconsole.log(subtract(5, 3)); // 2",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-kQ_iWDnwOCC",
+    "html": "<p>You can also alias the import:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AjlqkuhVBc5p",
+    "code": "import { add as sum } from './mathUtils.js';",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "t9ZLfGP_nJmw",
+    "text": "Default Exports",
+    "type": "heading",
+    "level": 2,
+    "anchor": "default-exports"
+  },
+  {
+    "id": "vxsA-ZxWmZ6O",
+    "html": "<p>A module can have one default export.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gCwr0elMrXXo",
+    "code": "// file: greet.js\nexport default function greet(name) {\n  console.log(`Hello, ${name}`);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "qDMauFPs5alk",
+    "html": "<p>Importing a default export:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fvVnio1qmgRn",
+    "code": "import greet from './greet.js';\ngreet('Alice'); // Hello, Alice",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NOyA-t2bWQLz",
+    "text": "Mixing Named and Default Exports",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mixing-named-and-default-exports"
+  },
+  {
+    "id": "c_-aaqyguzkX",
+    "code": "// file: utils.js\nexport const log = msg => console.log(msg);\nexport default function sayHi() {\n  console.log(\"Hi!\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "azZcBeygE1Nr",
+    "code": "import sayHi, { log } from './utils.js';",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "C_BAtzrqPjr3",
+    "text": "Export All from Another File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "export-all-from-another-file"
+  },
+  {
+    "id": "9GtZhd_8FS9q",
+    "html": "<p>You can re-export everything from another module:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "j7eaK9sttnwW",
+    "code": "// file: allUtils.js\nexport * from './mathUtils.js';",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "f_eH2y23MGWo",
+    "text": "Importing All as an Object",
+    "type": "heading",
+    "level": 2,
+    "anchor": "importing-all-as-an-object"
+  },
+  {
+    "id": "JvaPj-EfqffA",
+    "code": "// file: main.js\nimport * as math from './mathUtils.js';\n\nconsole.log(math.add(2, 3)); // 5",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "VZbtrYyyj9R8",
+    "text": "Modules Are Strict Mode by Default",
+    "type": "heading",
+    "level": 2,
+    "anchor": "modules-are-strict-mode-by-default"
+  },
+  {
+    "id": "6NL4p0sX9dgn",
+    "html": "<p>You don't need <code>\"use strict\"</code> in module files — they run in strict mode automatically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sQGoTZ_uhfcM",
+    "text": "Modules Run in Their Own Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "modules-run-in-their-own-scope"
+  },
+  {
+    "id": "3xEEDUjmRvVw",
+    "html": "<p>Variables in modules are <code>local</code> to that module. They don’t leak into the global scope.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JOZkPs1eHtbw",
+    "text": "Browser Compatibility and Notes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "browser-compatibility-and-notes"
+  },
+  {
+    "id": "1pb716j590gi",
+    "html": "<ul>\n                                <li>Modern browsers fully support modules.</li>\n                                <li>When using modules locally, you must serve files using a local server (e.g., <code>Live Server</code> in VS Code or <code>http-server</code>) — otherwise, you may get CORS or loading errors.</li>\n                                <li>In <strong>Node.js</strong>, use <code>.mjs</code> extension or set <code>\"type\": \"module\"</code> in <code>package.json</code> to use ES modules.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "daZEL5KufuH6",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "9T7arNmH_Yct",
+    "html": "<ul>\n                                <li>ES Modules let you organize code into small, reusable files.</li>\n                                <li>Use <code>export</code> and <code>import</code> to share code across files.</li>\n                                <li>Modules are scoped, strict, and avoid polluting the global namespace.</li>\n                                <li>Mastering modules is essential for scalable applications and working with modern frameworks.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "oiSWX6lqFH9W",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "dOgfjtTtdao7",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "niP7IEn2zL7W",
+    "html": "<ol>\n                                    <li>Create a <code>math.js</code> file and export <code>add</code>, <code>subtract</code>, <code>multiply</code>, <code>divide</code>.</li>\n                                    <li>Create a <code>main.js</code> file that imports and uses all those functions.</li>\n                                    <li>Use default export for a <code>greet()</code> function in a separate module.</li>\n                                    <li>Use <code>import *</code> as syntax to bring all exports into one object.</li>\n                                    <li>Try mixing named and default exports in a utilities file.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

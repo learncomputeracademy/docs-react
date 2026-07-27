@@ -1,0 +1,331 @@
+---
+id: "25fc2302-0296-4ded-bd75-a1173b0bb7f4"
+title: "JavaScript Functions"
+path: "javascript/functions"
+status: "published"
+meta_title: "JavaScript Functions | Learn Computer Academy"
+sort_order: 14
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "B8MyAahj6CLF",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "AmN6VCtX3j6x",
+    "text": "What is a Function?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-a-function"
+  },
+  {
+    "id": "uANrdNCthQms",
+    "html": "<p>A <strong>function</strong> is a block of reusable code that performs a specific task.</p>\n<p>Instead of repeating the same code, we write it once inside a function and call it when needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sbAwIK2Fy5ge",
+    "text": "Why Use Functions?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-use-functions"
+  },
+  {
+    "id": "EfmKGMxbHIy8",
+    "html": "<ul>\n                                    <li>Reuse code (Write once, use many times)</li>\n                                    <li>Make code organized and readable</li>\n                                    <li>Break programs into smaller parts</li>\n                                    <li>Avoid repetition</li>    \n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "-nwX8-jFEoYP",
+    "text": "Function Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "function-syntax"
+  },
+  {
+    "id": "LZcKgtghH_L6",
+    "text": "Basic Function Declaration",
+    "type": "heading",
+    "level": 3,
+    "anchor": "basic-function-declaration"
+  },
+  {
+    "id": "LYxPYOdDeIKh",
+    "code": "function greet() {\n  console.log(\"Hello, world!\");\n}\n\ngreet(); // Call the function",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "jhL8p0zYJLoZ",
+    "text": "Parameters and Arguments",
+    "type": "heading",
+    "level": 3,
+    "anchor": "parameters-and-arguments"
+  },
+  {
+    "id": "3L8yi9PZXEJZ",
+    "html": "<p>You can pass values to a function using <strong>parameters</strong> (placeholders).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RZK4N_XPTrz_",
+    "code": "function greet(name) {\n  console.log(\"Hello, \" + name);\n}\n\ngreet(\"Alice\"); // Output: Hello, Alice\ngreet(\"Bob\");   // Output: Hello, Bob",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "l7pNdRwWPtNt",
+    "text": "Return Statement",
+    "type": "heading",
+    "level": 3,
+    "anchor": "return-statement"
+  },
+  {
+    "id": "NyRmF32WPVCt",
+    "html": "<p>Use <code>return</code> to send a value back from the function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xMFB5FGkaDzi",
+    "code": "function add(a, b) {\n  return a + b;\n}\n\nlet result = add(5, 3);\nconsole.log(result); // Output: 8",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-fG3JU6h-2so",
+    "html": "<p>Once a <code>return</code> is hit, the function <strong>exits</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X99O4D24vYbl",
+    "text": "Function Expressions",
+    "type": "heading",
+    "level": 3,
+    "anchor": "function-expressions"
+  },
+  {
+    "id": "N3XP6fDBvgUR",
+    "html": "<p>Functions can also be assigned to variables.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hiKPM2NAjbu0",
+    "code": "const multiply = function(x, y) {\n  return x * y;\n};\n\nconsole.log(multiply(4, 5)); // Output: 20",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "lBKsPhb5R6mj",
+    "text": "Arrow Functions (ES6)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "arrow-functions-es6"
+  },
+  {
+    "id": "LlKzEJJUJHjQ",
+    "html": "<p>A shorter way to write function expressions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZldVjuSZXni9",
+    "code": "const square = (n) => {\n  return n * n;\n};\n\nconsole.log(square(6)); // Output: 36",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-YGWCrMkIc8o",
+    "code": "const square = n => n * n;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Qne9foL1p5q1",
+    "text": "Default Parameters",
+    "type": "heading",
+    "level": 3,
+    "anchor": "default-parameters"
+  },
+  {
+    "id": "0Zgdm2-L7G_2",
+    "html": "<p>You can set default values for parameters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p_sBL8BYrdT-",
+    "code": "function greet(name = \"Guest\") {\n  console.log(\"Hello, \" + name);\n}\n\ngreet();        // Output: Hello, Guest\ngreet(\"John\");  // Output: Hello, John",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "qigBFgIaHsjv",
+    "text": "Function Scope",
+    "type": "heading",
+    "level": 3,
+    "anchor": "function-scope"
+  },
+  {
+    "id": "RuMtqWt2wIao",
+    "html": "<p>Variables defined <strong>inside</strong> a function are not accessible <strong>outside</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PnLPH0EyZQGj",
+    "code": "function sayHi() {\n  let message = \"Hi!\";\n  console.log(message);  // OK\n}\n\nsayHi();\n// console.log(message); // ❌ Error: message is not defined",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "FrkgCjNXm02W",
+    "text": "Nested Functions",
+    "type": "heading",
+    "level": 3,
+    "anchor": "nested-functions"
+  },
+  {
+    "id": "WY_zzvXJXF-0",
+    "html": "<p>Functions can be defined inside other functions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SAci4iKD3Apy",
+    "code": "function outer() {\n  function inner() {\n    console.log(\"Hello from inner\");\n  }\n  inner();\n}\n\nouter(); // Output: Hello from inner",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Ic56t-0nS1DZ",
+    "text": "Anonymous Functions",
+    "type": "heading",
+    "level": 3,
+    "anchor": "anonymous-functions"
+  },
+  {
+    "id": "deWu2wdbD-2a",
+    "html": "<p>A function without a name — used often in event handlers or callbacks.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DRaLm61ZkDWL",
+    "code": "setTimeout(function() {\n  console.log(\"Executed after 2 seconds\");\n}, 2000);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "81-Jy5PCs1jE",
+    "text": "Callback Functions",
+    "type": "heading",
+    "level": 3,
+    "anchor": "callback-functions"
+  },
+  {
+    "id": "D79y57OYW-uj",
+    "html": "<p>A <strong>callback</strong> is a function passed <strong>as an argument</strong> to another function, to be executed later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q9e4MROw3QTk",
+    "code": "function greetUser(name, callback) {\n  console.log(\"Hi \" + name);\n  callback();\n}\n                                \nfunction showMessage() {\n  console.log(\"Welcome to our site!\");\n}\n\ngreetUser(\"Alice\", showMessage);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NVHj4gN4rpkZ",
+    "text": "Immediately Invoked Function Expression (IIFE)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "immediately-invoked-function-expression-iife"
+  },
+  {
+    "id": "L9i3vywqxyKB",
+    "html": "<p>A function that runs <strong>immediately after it's defined</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A9SVTdh4fJwI",
+    "code": "(function() {\n  console.log(\"IIFE runs instantly!\");\n})();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "jH9f-lHoxmGW",
+    "html": "<p>Useful for:</p>\n<ul>\n                                  <li>Avoiding global variable pollution</li>\n                                  <li>Creating private scopes</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "qTMqjxQ8VgeH",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "skabA5E3meIg",
+    "rows": [
+      [
+        "Function Declaration",
+        "<code>function add() {}</code>",
+        "Hoisted (can be used before defined)"
+      ],
+      [
+        "Function Expression",
+        "<code>const add = function() {}</code>",
+        "Not hoisted"
+      ],
+      [
+        "Arrow Function",
+        "<code>const add = (a, b) =&gt; a + b</code>",
+        "Short, modern syntax"
+      ],
+      [
+        "Default Parameters",
+        "<code>function(a = 1) {}</code>",
+        "Sets fallback value"
+      ],
+      [
+        "Return Value",
+        "<code>return x * y</code>",
+        "Sends result back"
+      ],
+      [
+        "Callback Function",
+        "<code>func(callback)</code>",
+        "Used for async/events"
+      ],
+      [
+        "IIFE",
+        "<code>(function() {})();</code>",
+        "Runs immediately"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Statement",
+      "Notes"
+    ]
+  },
+  {
+    "id": "dD6U_qLvFfbL",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "Ud69exg-z3eJ",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "Bg7rj8okLDps",
+    "html": "<ol>\n                                    <li>Write a function <code>isEven(number)</code> that returns <code>true</code> if the number is even, else <code>false</code>.</li>\n                                    <li>Write a function <code>greetUser(name, time)</code> that returns \"Good Morning/Evening, [name]\" based on the time (AM/PM).</li>\n                                    <li>Create an arrow function that adds two numbers and returns the result.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

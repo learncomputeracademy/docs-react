@@ -1,0 +1,316 @@
+---
+id: "54732d18-b46c-4419-9347-c24b754ce8fa"
+title: "JavaScript ES6 and Modern Features"
+path: "javascript/es6-and-modern-features"
+status: "published"
+meta_title: "JavaScript ES6 and Modern Features | Learn Computer Academy"
+sort_order: 11
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "WRGHCHwoUPXd",
+    "html": "<p><em>(A major leap in JavaScript with cleaner syntax, better scoping, arrow functions, and more)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZeLyueo4ANZK",
+    "text": "What is ES6?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-es6"
+  },
+  {
+    "id": "X5lFM3xGRZgN",
+    "html": "<p><strong>ES6 (ECMAScript 2015)</strong> is a major update to JavaScript that introduced new syntax and features to make code more readable, maintainable, and powerful.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ynIG_MOG12He",
+    "text": "It paved the way for modern JavaScript development.",
+    "type": "heading",
+    "level": 2,
+    "anchor": "it-paved-the-way-for-modern-javascript-development"
+  },
+  {
+    "id": "frsndf-uTEUV",
+    "text": "1. let and const - Block Scoped Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "1-let-and-const---block-scoped-variables"
+  },
+  {
+    "id": "HHNMqAPAAW6X",
+    "text": "let - Replaces var for reassignable variables",
+    "type": "heading",
+    "level": 3,
+    "anchor": "let---replaces-var-for-reassignable-variables"
+  },
+  {
+    "id": "q74tTwrlqHrU",
+    "code": "let name = \"John\";\nname = \"Doe\"; // Allowed",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "1Sy0u9j3f16j",
+    "text": "const - Immutable reference",
+    "type": "heading",
+    "level": 3,
+    "anchor": "const---immutable-reference"
+  },
+  {
+    "id": "lBnAPf9bXgO-",
+    "code": "const age = 30;\n// age = 31; // ❌ Error: Assignment to constant variable",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "NNTa80i6lfv_",
+    "html": "<p class=\"note\"><code>let</code> and <code>const</code> are <strong>block-scoped</strong> and don't hoist like <code>var</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AzALBhaNm2Up",
+    "text": "2. Arrow Functions (Shorter Function Syntax)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "2-arrow-functions-shorter-function-syntax"
+  },
+  {
+    "id": "2AFQ8A3xAN3T",
+    "code": "// Traditional function\nfunction greet(name) {\n  return \"Hello \" + name;\n}\n\n// Arrow function\nconst greet = name => \"Hello \" + name;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "8Bfa5-fC4RdX",
+    "html": "<p>If there are multiple lines or parameters:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HHwSn82g7RC7",
+    "code": "const add = (a, b) => {\n  return a + b;\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "9d4bREIV28Yb",
+    "text": "3. Template Literals - Using Backticks `",
+    "type": "heading",
+    "level": 2,
+    "anchor": "3-template-literals---using-backticks"
+  },
+  {
+    "id": "xDIyjDamtml4",
+    "code": "const name = \"Alice\";\nconsole.log(`Hello, ${name}!`); // Hello, Alice!",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "VWk82pYdBymO",
+    "html": "<p>You can also write multi-line strings:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wnhcP9aqi9V8",
+    "code": "const msg = `This is\na multiline\nstring`;",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "r94_oaRJxn93",
+    "text": "4. Default Parameters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "4-default-parameters"
+  },
+  {
+    "id": "tEnfwYce9q93",
+    "code": "function greet(name = \"Guest\") {\n  console.log(\"Hello \" + name);\n}\n\ngreet(); // Hello Guest",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "D-jvmjA60ggL",
+    "text": "5. Destructuring",
+    "type": "heading",
+    "level": 2,
+    "anchor": "5-destructuring"
+  },
+  {
+    "id": "AgkEwoMmitV5",
+    "text": "Array Destructuring",
+    "type": "heading",
+    "level": 3,
+    "anchor": "array-destructuring"
+  },
+  {
+    "id": "zHuvfGndsCro",
+    "code": "const [a, b] = [1, 2];\nconsole.log(a); // 1",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "E3ZU4xTBY_T7",
+    "text": "Object Destructuring",
+    "type": "heading",
+    "level": 3,
+    "anchor": "object-destructuring"
+  },
+  {
+    "id": "-6U5iZ0CMKC-",
+    "code": "const user = { name: \"Sam\", age: 25 };\nconst { name, age } = user;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ygOfUW2geYLL",
+    "text": "6. Spread and Rest Operators (...)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "6-spread-and-rest-operators"
+  },
+  {
+    "id": "VMFTtvkZEGul",
+    "text": "Spread (expands)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "spread-expands"
+  },
+  {
+    "id": "PSXyrHaJRime",
+    "code": "const arr1 = [1, 2];\nconst arr2 = [...arr1, 3, 4]; // [1, 2, 3, 4]",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "0pv0Y1gNhM4F",
+    "text": "Rest (collects)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "rest-collects"
+  },
+  {
+    "id": "k2CFEgNL-2Bg",
+    "code": "function sum(...nums) {\n  return nums.reduce((a, b) => a + b, 0);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "v57kMMqcjg1A",
+    "text": "7. Enhanced Object Literals",
+    "type": "heading",
+    "level": 2,
+    "anchor": "7-enhanced-object-literals"
+  },
+  {
+    "id": "4hkcE2PChjNT",
+    "code": "const name = \"Bob\";\nconst user = {\n  name,\n  greet() {\n    console.log(\"Hi \" + this.name);\n  }\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "aPNPx5FdxC_S",
+    "text": "8. for...of Loop (Array iteration)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "8-forof-loop-array-iteration"
+  },
+  {
+    "id": "snvjjz9QeINf",
+    "code": "const colors = [\"red\", \"green\", \"blue\"];\nfor (const color of colors) {\n  console.log(color);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "jc0l1XUKLNqy",
+    "html": "<p class=\"note\">Use <code>for...of</code> with arrays, not objects.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vWcXm2tfkw8I",
+    "text": "9. Promises (Covered in Chapter 18)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "9-promises-covered-in-chapter-18"
+  },
+  {
+    "id": "iA3czRC2cS5I",
+    "code": "const fetchData = () => {\n  return new Promise((resolve, reject) => {\n    setTimeout(() => resolve(\"Data loaded\"), 1000);\n  });\n};",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "p1jxtzPOfhNl",
+    "text": "10. Modules (import/export)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "10-modules-importexport"
+  },
+  {
+    "id": "3o5gjVJmjs2Z",
+    "text": "Export (in math.js)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "export-in-mathjs"
+  },
+  {
+    "id": "DXW-woENjhyA",
+    "code": "export const add = (a, b) => a + b;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "AG1Ogfiw1EEj",
+    "text": "Import (in another file)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "import-in-another-file"
+  },
+  {
+    "id": "mmpwBAB8Rkua",
+    "code": "import { add } from './math.js';\nconsole.log(add(2, 3));",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "2nfi2mBRiH2K",
+    "html": "<p class=\"note\">Requires setting <code>type=\"module\"</code> in your HTML script tag or using a bundler.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ETOQCspMAX8M",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "prl2f45AhZOF",
+    "html": "<ul>\n                                <li>ES6 brought powerful improvements to variable scoping (<code>let</code>, <code>const</code>), cleaner syntax (arrow functions, template literals), and more.</li>\n                                <li>Spread/rest operators, destructuring, and modules simplify code and improve reusability.</li>\n                                <li>These features are foundational for modern JavaScript and frameworks like React, Vue, and Angular.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "5R8AqVoAo3c9",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "mKRmBAIa0jWB",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "U80UyaWC6PQP",
+    "html": "<ol>\n                                    <li>Rewrite a function using arrow function syntax.</li>\n                                    <li>Use template literals to insert variables into a sentence.</li>\n                                    <li>Use destructuring to extract values from an object.</li>\n                                    <li>Create a <code>sum(...args)</code> function using the rest operator.</li>\n                                    <li>Create and import a module in two separate files.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

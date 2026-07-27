@@ -1,0 +1,166 @@
+---
+id: "198489a9-3fe2-489d-8a54-6aec03391cab"
+title: "Embed YouTube Iframe"
+path: "html/tag-youtube"
+status: "published"
+meta_title: "Embed YouTube Iframe  | Learn Computer Academy"
+sort_order: 36
+updated_at: "2026-07-27T06:26:21.539786+00:00"
+---
+
+```json
+[
+  {
+    "id": "GRNu3PZeVHYL",
+    "html": "<hr>\n<p>The easiest way to play videos in HTML, is to use YouTube.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "shq_AHELdnfs",
+    "text": "Struggling with Video Formats?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "struggling-with-video-formats"
+  },
+  {
+    "id": "IE29kKX5KHYL",
+    "html": "<p>Earlier in this tutorial, you have seen that you might have to convert your videos to different formats to make them play in all browsers.</p>\n<p>Converting videos to different formats can be difficult and time-consuming.</p>\n<p>An easier solution is to let YouTube play the videos in your web page.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FiAtAfqK5tDg",
+    "text": "YouTube Video Id",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube-video-id"
+  },
+  {
+    "id": "jpN06FbQp_G8",
+    "html": "<p>YouTube will display an id (like tgbNymZ7vqY), when you save (or play) a video.</p>\n<p>You can use this id, and refer to your video in the HTML code.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fIHujlgcoWJi",
+    "text": "Playing a YouTube Video in HTML",
+    "type": "heading",
+    "level": 2,
+    "anchor": "playing-a-youtube-video-in-html"
+  },
+  {
+    "id": "MRv864FHa5SW",
+    "html": "<p>To play your video on a web page, do the following:</p>\n<ul>\n                                    <li>Upload the video to YouTube</li>\n                                    <li>Take a note of the video id</li>\n                                    <li>Define an <code>&lt;iframe&gt;</code> element in your web page</li>\n                                    <li>Let the src attribute point to the video URL</li>\n                                    <li>Use the width and height attributes to specify the dimension of the player</li>\n                                    <li>Add any other parameters to the URL (see below)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "m1pdiKkbmKrZ",
+    "code": "<iframe width=\"420\" height=\"315\"\nsrc=\"https://www.youtube.com/embed/tgbNymZ7vqY\">\n</iframe>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "oeXH1KqFRv7I",
+    "html": "<iframe width=\"100%\" height=\"520\" style=\"border: none;\" src=\"https://www.youtube.com/embed/GY-CLke_gVI\" allow=\"accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\"></iframe>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ECNEVqpTlKRw",
+    "text": "YouTube Autoplay",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube-autoplay"
+  },
+  {
+    "id": "qH3A4IwEp9U_",
+    "html": "<p>You can have your video start playing automatically when a user visits that page by adding a simple parameter to your YouTube URL.</p>\n<p class=\"note\"><b>Note</b>: Take careful consideration when deciding to autoplay your videos. Automatically starting a video can annoy your visitor and end up causing more harm than good.</p>\n<p>Value 0 (default): The video will not play automatically when the player loads.</p>\n<p>Value 1: The video will play automatically when the player loads.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Yv_mFeZc1_B2",
+    "text": "YouTube - Autoplay",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube---autoplay"
+  },
+  {
+    "id": "ez6rE6KJrlmo",
+    "code": "<iframe width=\"420\" height=\"315\"\nsrc=\"https://www.youtube.com/embed/tgbNymZ7vqY?autoplay=1\">\n</iframe>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "mhTnXocJFpig",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UnIcDYc7lTYD",
+    "text": "YouTube Playlist",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube-playlist"
+  },
+  {
+    "id": "3XOrJ-MclY8R",
+    "html": "<p>A comma separated list of videos to play (in addition to the original URL).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "o9dhWlY5uvBh",
+    "text": "YouTube Loop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube-loop"
+  },
+  {
+    "id": "3SsFELqPS55F",
+    "html": "<p>Value 0 (default): The video will play only once.</p>\n<p>Value 1: The video will loop (forever).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "mJmiLX5gmUPz",
+    "code": "<iframe width=\"420\" height=\"315\"\nsrc=\"https://www.youtube.com/embed/tgbNymZ7vqY?playlist=tgbNymZ7vqY&loop=1\">\n</iframe>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "1N7AY56GMs2h",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "vF3wCNQ3p7Cm",
+    "text": "YouTube Controls",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube-controls"
+  },
+  {
+    "id": "oZn0XUZrEAK0",
+    "html": "<p>Value 0: Player controls does not display.</p>\n<p>Value 1 (default): Player controls display.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pn6cqauSfAA9",
+    "code": "<iframe width=\"420\" height=\"315\"\nsrc=\"https://www.youtube.com/embed/tgbNymZ7vqY?controls=0\">\n</iframe>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "bnAewIAprt3P",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "GBKsORwEUUre",
+    "text": "YouTube - Using <object> or <embed>",
+    "type": "heading",
+    "level": 2,
+    "anchor": "youtube---using-object-or-embed"
+  },
+  {
+    "id": "lG-2rg_mKPh5",
+    "html": "<p><b>Note</b>: YouTube <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code> were deprecated from January 2015. You should migrate your videos to use <code>&lt;iframe&gt;</code> instead.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,76 @@
+---
+id: "74acf7f3-a15c-451e-95f2-76f6f914b6e9"
+title: "CSS Box Model"
+path: "css/boxmodel"
+status: "published"
+meta_title: "CSS Box Model | Learn Computer Academy"
+sort_order: 5
+updated_at: "2026-07-25T06:20:42.162795+00:00"
+---
+
+```json
+[
+  {
+    "id": "2TBmaRKSvzWs",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9r4KhBtmz-hH",
+    "text": "The CSS Box Model",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-css-box-model"
+  },
+  {
+    "id": "ol1vOfcKg98f",
+    "html": "<p>All HTML elements can be considered as boxes. In CSS, the term \"box model\" is used when talking about design and layout.</p>\n<p>The CSS box model is essentially a box that wraps around every HTML element. It consists of: margins, borders, padding, and the actual content. The image below illustrates the box model:</p>\n<div class=\"img-block\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960207/img/boxmodel.webp\" alt=\"boxmodel\" class=\"img-fluid\">\n                                </div>\n<p>Explanation of the different parts:</p>\n<ul>\n                                    <li><b>Content</b> - The content of the box, where text and images appear</li>\n                                    <li><b>Padding</b> - Clears an area around the content. The padding is transparent</li>\n                                    <li><b>Border</b> - A border that goes around the padding and content</li>\n                                    <li><b>Margin</b> - Clears an area outside the border. The margin is transparent</li>\n                                </ul>\n<p>The box model allows us to add a border around elements, and to define space between elements.</p>\n<p>Demonstration of the box model:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x1w5dxyQYGEj",
+    "code": "div {\n  width: 300px;\n  border: 15px solid green;\n  padding: 50px;\n  margin: 20px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "FRhV3HMsJxrc",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "d8234PGvkwC7",
+    "text": "Width and Height of an Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "width-and-height-of-an-element"
+  },
+  {
+    "id": "FIr-tJuDWHCz",
+    "html": "<p>In order to set the width and height of an element correctly in all browsers, you need to know how the box model works.</p>\n<p class=\"note\"><b>Important:</b> When you set the width and height properties of an element with CSS, you just set the width and height of the <b>content area</b>. To calculate the full size of an element, you must also add padding, borders and margins.</p>\n<p>This &lt;div&gt; element will have a total width of 350px: </p>",
+    "type": "richtext"
+  },
+  {
+    "id": "D7kKCQjbrPiC",
+    "code": "div {\n  width: 320px;\n  padding: 10px;\n  border: 5px solid gray;\n  margin: 0; \n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Iqjohqm2hwPh",
+    "html": "<p>Here is the calculation:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s16x67usPUAb",
+    "code": "320px (width)\n+ 20px (left + right padding)\n+ 10px (left + right border)\n+ 0px (left + right margin)\n= 350px",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Pcjuetv0vlgl",
+    "html": "<p>The total width of an element should be calculated like this:</p>\n<p>Total element width = width + left padding + right padding + left border + right border + left margin + right margin</p>\n<p>The total height of an element should be calculated like this:</p>\n<p>Total element height = height + top padding + bottom padding + top border + bottom border + top margin + bottom margin</p>",
+    "type": "richtext"
+  }
+]
+```

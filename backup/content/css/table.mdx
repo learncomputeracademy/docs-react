@@ -1,0 +1,676 @@
+---
+id: "8944d099-3ab1-45fc-8330-bab35b0f9efb"
+title: "CSS Table"
+path: "css/table"
+status: "published"
+meta_title: "CSS Table | Learn Computer Academy"
+sort_order: 33
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "W_CZPStYsEuF",
+    "html": "<hr>\n<p>The look of an HTML table can be greatly improved with CSS:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3A6Fem8S-OEL",
+    "rows": [
+      [
+        "Alfreds Futterkiste",
+        "Maria Anders",
+        "Germany"
+      ],
+      [
+        "Berglunds snabbköp",
+        "Christina Berglund",
+        "Sweden"
+      ],
+      [
+        "Centro comercial Moctezuma",
+        "Francisco Chang",
+        "Mexico"
+      ],
+      [
+        "Ernst Handel",
+        "Roland Mendel",
+        "Austria"
+      ],
+      [
+        "Island Trading",
+        "Helen Bennett",
+        "UK"
+      ],
+      [
+        "Königlich Essen",
+        "Philip Cramer",
+        "Germany"
+      ],
+      [
+        "Laughing Bacchus Winecellars",
+        "Yoshi Tannamuri",
+        "Canada"
+      ],
+      [
+        "Magazzini Alimentari Riuniti",
+        "Giovanni Rovelli",
+        "Italy"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Company",
+      "Contact",
+      "Country"
+    ]
+  },
+  {
+    "id": "CKcFW4o2hvZt",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "lgHthjK37hzX",
+    "text": "Table Borders",
+    "type": "heading",
+    "level": 2,
+    "anchor": "table-borders"
+  },
+  {
+    "id": "iEQnMsuJyyjT",
+    "html": "<p>To specify table borders in CSS, use the <code>border</code> property.</p>\n<p>The example below specifies a black border for &lt;table&gt;, &lt;th&gt;, and &lt;td&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C3C8lvaVkLH2",
+    "rows": [
+      [
+        "Peter",
+        "Griffin"
+      ],
+      [
+        "Lois",
+        "Griffin"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname"
+    ]
+  },
+  {
+    "id": "0cSypxfIDcMD",
+    "code": "table, th, td {\n  border: 1px solid black;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "259jb3YlPsnb",
+    "html": "<p>Notice that the table in the example above has double borders. This is because both the table and the  and  elements have separate borders.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "CK1cMTSEWOoh",
+    "text": "Collapse Table Borders",
+    "type": "heading",
+    "level": 2,
+    "anchor": "collapse-table-borders"
+  },
+  {
+    "id": "yvp9hTN8kKbK",
+    "html": "<p>The <code>border-collapse</code> property sets whether the table borders should be collapsed into a single border:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o4e0Keq7BwMX",
+    "rows": [
+      [
+        "Peter",
+        "Griffin"
+      ],
+      [
+        "Lois",
+        "Griffin"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname"
+    ]
+  },
+  {
+    "id": "hmuddR0QoD2X",
+    "code": "table {\n  border-collapse: collapse;\n}\ntable, th, td {\n  border: 1px solid black;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "CINF3bvng4kw",
+    "html": "<p>If you only want a border around the table, only specify the <code>border</code> property for &lt;table&gt;:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s6zV_U4jeePC",
+    "rows": [
+      [
+        "Peter",
+        "Griffin"
+      ],
+      [
+        "Lois",
+        "Griffin"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname"
+    ]
+  },
+  {
+    "id": "gGln4xhWjzgC",
+    "code": "table {\n  border: 1px solid black;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "s6BQ_d7HfPpy",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "yO0TuYacsf-Z",
+    "text": "Table Width and Height",
+    "type": "heading",
+    "level": 2,
+    "anchor": "table-width-and-height"
+  },
+  {
+    "id": "rkp_NyObNOK1",
+    "html": "<p>Width and height of a table are defined by the <code>width</code> and <code>height</code> properties.</p>\n<p>The example below sets the width of the table to 100%, and the height of the &lt;th&gt; elements to 50px:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_B-skB0jRSZf",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname",
+      "Savings"
+    ]
+  },
+  {
+    "id": "EER_-AcFkpaZ",
+    "code": "table {\n  width: 100%;\n}\nth {\n  height: 50px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "QCHZIzuBeOfR",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "zLEmmvzwXTfy",
+    "text": "Horizontal Alignment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "horizontal-alignment"
+  },
+  {
+    "id": "_GfVj0Hd-bYe",
+    "html": "<p>The <code>text-align</code> property sets the horizontal alignment (like left, right, or center) of the content in &lt;th&gt; or &lt;td&gt;.</p>\n<p>By default, the content of &lt;th&gt; elements are center-aligned and the content of &lt;td&gt; elements are left-aligned.</p>\n<p>The following example left-aligns the text in &lt;th&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MIfq_a7FfyU7",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname",
+      "Savings"
+    ]
+  },
+  {
+    "id": "t8GILXyNZsF2",
+    "code": "th {\n  text-align: left;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "MOLc0O8qNplH",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "LJsfsT2p5jwF",
+    "text": "Vertical Alignment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "vertical-alignment"
+  },
+  {
+    "id": "kmnp06Il-Cwx",
+    "html": "<p>The <code>vertical-align</code> property sets the vertical alignment (like top, bottom, or middle) of the content in &lt;th&gt; or &lt;td&gt;.</p>\n<p>By default, the vertical alignment of the content in a table is middle (for both &lt;th&gt; and &lt;td&gt; elements).</p>\n<p>The following example sets the vertical text alignment to bottom for &lt;td&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XyabCNVjudoL",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname",
+      "Savings"
+    ]
+  },
+  {
+    "id": "iHnSPItsngMk",
+    "code": "td {\n  height: 50px;\n  vertical-align: bottom;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "9ObLaEHSUDap",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "e5nxeKm_F9n-",
+    "text": "Table Padding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "table-padding"
+  },
+  {
+    "id": "MSMQeiUHurRi",
+    "html": "<p>To control the space between the border and the content in a table, use the <code>padding</code> property on &lt;td&gt; and &lt;th&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "y3X57Zygufnw",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Firstname",
+      "Lastname",
+      "Savings"
+    ]
+  },
+  {
+    "id": "yesg_fsRwIZS",
+    "code": "th, td {\n  padding: 15px;\n  text-align: left;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "5FzKLqopO2X0",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "AXglczt0u65Q",
+    "text": "Horizontal Dividers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "horizontal-dividers"
+  },
+  {
+    "id": "PiojJzsIZQRU",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "First Name",
+      "Last Name",
+      "Savings"
+    ]
+  },
+  {
+    "id": "b3PmmmlXusPL",
+    "html": "<p>Add the <code>border-bottom</code> property to &lt;th&gt; and &lt;td&gt; for horizontal dividers:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-8mGf-xOTROs",
+    "code": "th, td {\n  border-bottom: 1px solid #ddd;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "53Cm3BdN2T7e",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "y0QrC2sT8RCT",
+    "text": "Hoverable Table",
+    "type": "heading",
+    "level": 2,
+    "anchor": "hoverable-table"
+  },
+  {
+    "id": "b5tWDMZS8_gy",
+    "html": "<p>Use the <code class=\"w3-codespan\">:hover</code> selector on &lt;tr&gt; to highlight table rows on mouse \n                                over:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ozg-vCvrCoXj",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "First Name",
+      "Last Name",
+      "Savings"
+    ]
+  },
+  {
+    "id": "CWOEWARf0CPs",
+    "code": "tr:hover {background-color: #f5f5f5;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "7YRVdvlD4-u9",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fgJeskKMkm5p",
+    "text": "Striped Tables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "striped-tables"
+  },
+  {
+    "id": "zp9jfWqV9Xrb",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "First Name",
+      "Last Name",
+      "Savings"
+    ]
+  },
+  {
+    "id": "x5nn1D_pgrwN",
+    "html": "<p>For zebra-striped tables, use the <code>nth-child()</code> selector and add a <code>background-color</code> to all even (or odd) table rows:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sq9dz4PdzXcN",
+    "code": "tr:nth-child(even) {background-color: #dee2e6;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "WIboRoRTWyCg",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PHpg9kKxRYe5",
+    "text": "Table Color",
+    "type": "heading",
+    "level": 2,
+    "anchor": "table-color"
+  },
+  {
+    "id": "yfVxEYOnx15e",
+    "html": "<p>The example below specifies the background color \n                                and text color of \n                                &lt;th&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PFx5fnXbQKNU",
+    "rows": [
+      [
+        "Peter",
+        "Griffin",
+        "$100"
+      ],
+      [
+        "Lois",
+        "Griffin",
+        "$150"
+      ],
+      [
+        "Joe",
+        "Swanson",
+        "$300"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "First Name",
+      "Last Name",
+      "Savings"
+    ]
+  },
+  {
+    "id": "GRa5fk0-G8LK",
+    "code": "th {\n  background-color: #0054D1;\n  color: white;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "_exOR2tr3WxS",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "IrP9lC653AJN",
+    "text": "Responsive Table",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responsive-table"
+  },
+  {
+    "id": "aqcs2hvPSzzX",
+    "html": "<p>A responsive table will display a horizontal scroll bar if the screen is too small to display the full content:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WS5YGhuA3SFw",
+    "rows": [
+      [
+        "Jill",
+        "Smith",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50",
+        "50"
+      ],
+      [
+        "Eve",
+        "Jackson",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94",
+        "94"
+      ],
+      [
+        "Jill",
+        "Smith",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67",
+        "67"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "First Name",
+      "Last Name",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points",
+      "Points"
+    ]
+  },
+  {
+    "id": "LLyKBZDyMhJD",
+    "html": "<p>Add a container element (like &lt;div&gt;) with <code>overflow-x:auto</code> around the &lt;table&gt; element to make it responsive:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EN37N2kndnoq",
+    "code": "<div style=\"overflow-x:auto;\">\n<table>\n... table content ...\n</table>\n</div>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "ZD6MgApi5YdG",
+    "html": "<p class=\"note\"><b>Note:</b> In OS X Lion (on Mac), scrollbars are hidden by default and only shown when being used (even though \"overflow:scroll\" is set).</p>",
+    "type": "richtext"
+  }
+]
+```

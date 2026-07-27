@@ -1,0 +1,191 @@
+---
+id: "c4ddf5cf-4a57-4a34-9da8-02186c9f91a0"
+title: "JavaScript Classes and OOP"
+path: "javascript/classes-oop"
+status: "published"
+meta_title: "JavaScript Classes and OOP | Learn Computer Academy"
+sort_order: 4
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "WXodmYdZ4eZz",
+    "html": "<p><em>(Modeling real-world data using objects and blueprints)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "QcQoSS2OdaRx",
+    "text": "What is Object-Oriented Programming?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-object-oriented-programming"
+  },
+  {
+    "id": "aOJeDdKTJ0yV",
+    "html": "<p>Object-Oriented Programming (OOP) is a <strong>programming style based on objects</strong>. JavaScript supports OOP using both <strong>constructor functions</strong> and <strong>ES6 classes</strong>.</p>\n<p>Key OOP concepts:</p>\n<ul>\n                                  <li><strong>Class</strong>: A blueprint/template</li>\n                                  <li><strong>Object</strong>: An instance of a class</li>\n                                  <li><strong>Constructor</strong>: Special function that initializes an object</li>\n                                  <li><strong>Method</strong>: A function inside an object</li>\n                                  <li><strong>Inheritance</strong>: One class inherits properties/methods from another</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "98plVc7CIt6N",
+    "text": "Creating Classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-classes"
+  },
+  {
+    "id": "aw2pQuQg2u-E",
+    "text": "ES6 Class Syntax",
+    "type": "heading",
+    "level": 3,
+    "anchor": "es6-class-syntax"
+  },
+  {
+    "id": "UYyyy2p6oxPu",
+    "code": "class Person {\n  constructor(name, age) {\n    this.name = name;\n    this.age = age;\n  }\n                                \n  greet() {\n    console.log(`Hello, my name is ${this.name}`);\n  }\n}\n                                \nconst alice = new Person(\"Alice\", 25);\nalice.greet(); // Hello, my name is Alice",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "QnLGu9fwCVAv",
+    "html": "<ul>\n                                  <li><code>constructor()</code> is called automatically when creating a new object using <code>new</code>.</li>\n                                  <li><code>this</code> refers to the new object being created.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "_bOdZ-CAoLeX",
+    "text": "Inheritance (Extending a Class)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inheritance-extending-a-class"
+  },
+  {
+    "id": "Ms3vMx7S_7ZD",
+    "html": "<p>You can create a child class that inherits from a parent class using <code>extends</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nCyW_5SUTX-n",
+    "code": "class Employee extends Person {\n  constructor(name, age, role) {\n    super(name, age); // Calls parent constructor\n    this.role = role;\n  }\n                                \n  work() {\n    console.log(`${this.name} is working as a ${this.role}`);\n  }\n}\n                                \nconst bob = new Employee(\"Bob\", 30, \"Developer\");\nbob.greet(); // Hello, my name is Bob\nbob.work();  // Bob is working as a Developer",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "bC36AnrHGPwI",
+    "text": "Encapsulation (Private Properties)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "encapsulation-private-properties"
+  },
+  {
+    "id": "7odJOZbuzRiC",
+    "html": "<p>JavaScript supports private fields using <code>#</code> syntax (ES2022+).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FZvZUFukE3Kc",
+    "code": "class BankAccount {\n  #balance = 0;\n                                \n  deposit(amount) {\n    this.#balance += amount;\n  }\n                                \n  getBalance() {\n    return this.#balance;\n  }\n}\n                                \nconst acc = new BankAccount();\nacc.deposit(1000);\nconsole.log(acc.getBalance()); // 1000\n// console.log(acc.#balance); // ❌ Error: Private field",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Nw5d-gw8vn_i",
+    "text": "Method Overriding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "method-overriding"
+  },
+  {
+    "id": "ErV8mQDd7NQz",
+    "html": "<p>Child classes can override parent methods:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PiEfsUGtcKlR",
+    "code": "class Animal {\n  speak() {\n    console.log(\"Animal makes a sound\");\n  }\n}\n                                \nclass Dog extends Animal {\n  speak() {\n    console.log(\"Dog barks\");\n  }\n}\n                                \nconst d = new Dog();\nd.speak(); // Dog barks",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "xOubYb976GBU",
+    "text": "Class vs Constructor Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "class-vs-constructor-function"
+  },
+  {
+    "id": "lCeu5cfM3_EC",
+    "rows": [
+      [
+        "Syntax",
+        "Function-based",
+        "Cleaner, class-based"
+      ],
+      [
+        "Inheritance",
+        "Via <code>prototype</code>",
+        "Using <code>extends</code>, <code>super</code>"
+      ],
+      [
+        "Private fields",
+        "Not supported (older)",
+        "Supported with <code>#</code>"
+      ],
+      [
+        "Readability",
+        "Moderate",
+        "Better"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Constructor Function",
+      "ES6 Class Syntax"
+    ]
+  },
+  {
+    "id": "IuXWw0hdBsUm",
+    "text": "Real-Life Analogy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "real-life-analogy"
+  },
+  {
+    "id": "jy-ZT-2woYut",
+    "html": "<p>Think of a <code>Car</code> class as a <strong>blueprint</strong>.</p>\n<p>Each object created from it (like <code>myCar</code>, <code>yourCar</code>) is an actual car with its own data but follows the same design.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sIboQnPhVGDg",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "q1liUmxKr_lv",
+    "html": "<ul>\n                                <li>Classes are blueprints for creating objects.</li>\n                                <li>Use <code>constructor()</code> to initialize values.</li>\n                                <li>Inheritance allows code reuse with <code>extends</code> and <code>super()</code>.</li>\n                                <li>Use <code>#</code> for private fields (ES2022+).</li>\n                                <li>OOP helps organize code better using objects and relationships.</li>\n                              </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "V0_8QhINO1IM",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "RZjafOrJjXXG",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "JL4RLzD7WJ3j",
+    "html": "<ol>\n                                  <li>Create a <code>Book</code> class with title, author, and a <code>getSummary()</code> method.</li>\n                                  <li>Extend <code>Book</code> into a <code>Magazine</code> class with an extra <code>issue</code> property.</li>\n                                  <li>Create a class with a private field <code>#password</code> and methods to change it.</li>\n                                  <li>Try method overriding in a class hierarchy (e.g., Animal → Dog → Bulldog).</li>                                   \n                                  <li>Make a class that counts how many objects were created from it.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

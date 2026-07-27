@@ -1,0 +1,222 @@
+---
+id: "ae8b922b-f357-4bbb-a117-b4d700f817b7"
+title: "Introduction of CSS"
+path: "css/intro"
+status: "published"
+meta_title: "Introduction of CSS | Learn Computer Academy"
+sort_order: 18
+updated_at: "2026-07-26T08:01:57.717558+00:00"
+---
+
+```json
+[
+  {
+    "id": "34P5vpJl_KDI",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "i_6vFrv_Lw0H",
+    "text": "What is CSS?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-css"
+  },
+  {
+    "id": "goynf92aHnw9",
+    "html": "<ul>\n                                    <li><b>CSS</b> stands for <b>C</b>ascading <b>S</b>tyle <b>S</b>heets</li>\n                                    <li>CSS describes <b>how HTML elements are to be displayed on screen, paper, or in other media</b></li>\n                                    <li>CSS <b>saves a lot of work</b>. It can control the layout of multiple web pages all at once</li>\n                                    <li>External stylesheets are stored in <b>CSS files</b></li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "GUfzqtTFTop4",
+    "text": "Why Use CSS?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-use-css"
+  },
+  {
+    "id": "LYpwNN_bTV8H",
+    "html": "<p>CSS is used to define styles for your web pages, including the design, layout and variations in display for different devices and screen sizes.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "IB09Xo0ITkAm",
+    "text": "CSS Solved a Big Problem",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-solved-a-big-problem"
+  },
+  {
+    "id": "F0d1Qx8bSVFv",
+    "html": "<p>HTML was NEVER intended to contain tags for formatting a web page!</p>\n<p>HTML was created to <b>describe the content</b> of a web page, like:</p>\n<p>&lt;h1&gt;This is a heading&lt;/h1&gt;</p>\n<p>&lt;p&gt;This is a paragraph.&lt;/p&gt;</p>\n<p>When tags like &lt;font&gt;, and color attributes were added to the HTML 3.2 specification, it started a nightmare for web developers. Development of large websites, where fonts and color information were added to every single page, became a long and expensive process.</p>\n<p>To solve this problem, the <b>World Wide Web Consortium (W3C)</b> created CSS.</p>\n<p>CSS removed the style formatting from the HTML page!</p>\n<p><b>If you don't know what HTML is, we suggest that you read our HTML Tutorial.</b>\n                                </p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Hs9MXkagKvY6",
+    "text": "CSS Saves a Lot of Work!",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-saves-a-lot-of-work"
+  },
+  {
+    "id": "amox478y_WDj",
+    "html": "<p>The style definitions are normally saved in external <b>.css</b> files.</p>\n<p>With an external stylesheet file, you can change the look of an entire website by changing just one file!</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "eN2ykWlus3xW",
+    "text": "The Difference Between Inline, External and Internal CSS Styles",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-difference-between-inline-external-and-internal-css-styles"
+  },
+  {
+    "id": "FVy8Ag0xZZAh",
+    "html": "<p>There are three ways you can use to implement CSS: internal, external, and inline styles. Let’s break them down.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Hms2hgoH6bey",
+    "text": "Internal CSS",
+    "type": "heading",
+    "level": 3,
+    "anchor": "internal-css"
+  },
+  {
+    "id": "rmFU83YlfHVo",
+    "html": "<p>Internal or embedded CSS requires you to add <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> section of your HTML document.</p>\n<p>This CSS style is an effective method of styling a single page. However, using this style for multiple pages is time-consuming as you need to put CSS rules to every page of your website.</p>\n<p>Here’s how you can use internal CSS:</p>\n<ol>\n                                    <li>Open your HTML page and locate <code>&lt;head&gt;</code> opening tag.</li>\n                                    <li>Put the following code right after the <code>&lt;head&gt;</code> tag</li>\n                                </ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "kXqLQNn4lHB1",
+    "code": "<!DOCTYPE html>\n<html>\n    <head>\n        <style>\n            body {\n                background-color: blue;\n            }\n            h1 {\n                color: red;\n                padding: 60px;\n            } \n        </style>\n    </head>\n    <body>\n        <h1>Learn Computer Academy Tutorials</h1>\n        <p>This is our paragraph.</p>\n    </body>\n</html>",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "YHiHT_rQN7JI",
+    "text": "Advantages of Internal CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "advantages-of-internal-css"
+  },
+  {
+    "id": "5YhZglRZeQZi",
+    "html": "<ul>\n                                <li>You can use class and ID selectors in this style sheet. Here’s an example:</li>\n                                <pre class=\"snippet\"><code class=\"css\">.class {\n    property1 : value1; \n    property2 : value2; \n    property3 : value3; \n}\n#id {\n    property1 : value1; \n    property2 : value2; \n    property3 : value3; \n}</code></pre>\n                                <li>Since you’ll only add the code within the same HTML file, you don’t need to upload multiple files.</li>\n                            </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "UX1NichGIbts",
+    "text": "Disadvantages of Internal CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "disadvantages-of-internal-css"
+  },
+  {
+    "id": "pYho0ufzjjMP",
+    "html": "<ul>\n                                <li>Adding the code to the HTML document can increase the page’s size and loading time.</li>\n                            </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ajJNOO2VLan0",
+    "text": "External CSS",
+    "type": "heading",
+    "level": 3,
+    "anchor": "external-css"
+  },
+  {
+    "id": "Hb4I3MBuCa5I",
+    "html": "<p>With external CSS, you’ll link your web pages to an external <b>.css file</b>, which can be created by any text editor in your device (e.g., Notepad++).</p>\n<p>This CSS type is a more efficient method, especially for styling a large website. By editing one <b>.css file</b>, you can change your entire site at once.</p>\n<p>Follow these steps to use external CSS:</p>\n<ol>\n                             <li>Create a new <b>.css</b> file with the text editor, and add the style rules. For example:</li>\n<pre class=\"snippet\"><code class=\"css\">.xleftcol {\n   float: left;\n   width: 33%;\n   background:#809900;\n}\n.xmiddlecol {\n   float: left;\n   width: 34%;\n   background:#eff2df;\n}\n</code></pre>               \n                            <li>In the <code>&lt;head&gt;</code> section of your HTML sheet, add a reference to your external .css file right after <code>&lt;title&gt;</code> tag:</li>\n                         </ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "stQnisR_2oK-",
+    "code": "<link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" />",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "ubYJWwe279mG",
+    "html": "<p class=\"note\"><b>Note:</b> Don’t forget to change style.css with the name of your .css file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "h7y4HQZKqGGR",
+    "text": "Advantages of External CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "advantages-of-external-css"
+  },
+  {
+    "id": "vdKTS-dZZqx2",
+    "html": "<ol>\n                                <li>Since the CSS code is in a separate document, your HTML files will have a cleaner structure and are smaller in size.</li>\n                                <li>You can use the same <b>.css</b> file for multiple pages.</li>\n                            </ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "nDeTWHg8l53S",
+    "text": "Disadvantages of External CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "disadvantages-of-external-css"
+  },
+  {
+    "id": "BPa35FQU-snd",
+    "html": "<ol>\n                                <li>Your pages may not be rendered correctly until the external CSS is loaded.</li>\n                                <li>Uploading or linking to multiple CSS files can increase your site’s download time.</li>\n                            </ol>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "VxrhkUoBNT-T",
+    "text": "Inline CSS",
+    "type": "heading",
+    "level": 3,
+    "anchor": "inline-css"
+  },
+  {
+    "id": "huNWQ9aqB8z6",
+    "html": "<p>Inline CSS is used to style a specific HTML element. For this CSS style, you’ll only need to add the style attribute to each HTML tag, without using selectors.</p>\n<p>This CSS type is not really recommended, as each HTML tag needs to be styled individually. Managing your website may become too hard if you only use inline CSS.</p>\n<p>However, inline CSS in HTML can be useful in some situations. For example, in cases where you don’t have access to CSS files or need to apply styles for a single element only.</p>\n<p>Let’s take a look at an example. Here, we add an inline CSS to the <code>&lt;p&gt;</code> and <code>&lt;h1&gt;</code> tag:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MbkzQNJCrlHW",
+    "code": "<!DOCTYPE html>\n<html>\n<body style=\"background-color:black;\">\n    <h1 style=\"color:white;padding:30px;\">Hostinger Tutorials</h1>\n    <p style=\"color:white;\">Something usefull here.</p>\n</body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "icbRJFo9JLZt",
+    "text": "Advantages of Inline CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "advantages-of-inline-css"
+  },
+  {
+    "id": "L8u7GQNrcPpY",
+    "html": "<ol>\n                                <li>You can easily and quickly insert CSS rules to an HTML page. That’s why this method is useful for testing or previewing the changes, and performing quick-fixes to your website.</li>\n                                <li>You don’t need to create and upload a separate document as in the external style.</li>\n                            </ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "SdwgwTnfoyZL",
+    "text": "Disadvantages of Inline CSS:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "disadvantages-of-inline-css"
+  },
+  {
+    "id": "XtSeukfX-hKI",
+    "html": "<ol>\n                                <li>Adding CSS rules to every HTML element is time-consuming and makes your HTML structure messy.</li>\n                                <li>Styling multiple elements can affect your page’s size and download time.</li>\n                            </ol>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "cIuvP8jEvUZg",
+    "text": "Conclusion",
+    "type": "heading",
+    "level": 2,
+    "anchor": "conclusion"
+  },
+  {
+    "id": "9WZtCf5zvBzZ",
+    "html": "<p>In this tutorial, you’ve learned the difference between the three types of CSS: internal, external, and inline. Here’s the recap:</p>\n<ol>\n                                <li><b>Internal or embedded</b> ⁠— add <code>&lt;style&gt;</code> tag in the <code>&lt;head&gt;</code> section of HTML document</li>\n                                <li><b>External</b> ⁠— link the HTML sheet to a separate <b>.css file</b></li>\n                                <li><b>Inline</b> ⁠— apply CSS rules for specific elements.</li>\n                            </ol>",
+    "type": "richtext"
+  }
+]
+```

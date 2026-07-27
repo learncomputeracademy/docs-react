@@ -1,0 +1,532 @@
+---
+id: "4eda3ace-5546-43c8-8ad6-e184e92a8b1d"
+title: "HTML Form Attributes"
+path: "html/form-attributes"
+status: "published"
+meta_title: "HTML Form Attributes | Learn Computer Academy"
+sort_order: 7
+updated_at: "2026-07-27T06:26:15.008739+00:00"
+---
+
+```json
+[
+  {
+    "id": "yOy6z149iqHr",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UDN7RbNVDIwf",
+    "text": "The value Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-value-attribute"
+  },
+  {
+    "id": "MImW3G8vSJaf",
+    "html": "<p>The <code>value</code> attribute specifies the initial value for an input field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gp5Vu0srS5mP",
+    "code": "<form action=\"\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"John\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "spssya-hff56",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "dKb2zZBYUBTK",
+    "text": "The readonly Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-readonly-attribute"
+  },
+  {
+    "id": "SzG9dgmCVaVQ",
+    "html": "<p>The <code>readonly</code> attribute specifies that the input field is read only (cannot be changed):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QyiRNwFmQgKx",
+    "code": "<form action=\"\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"John\" readonly>\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "PsQsPOkz2Qyb",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OsoD_k-oK2df",
+    "text": "The disabled Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-disabled-attribute"
+  },
+  {
+    "id": "uz_dtmWgx-5L",
+    "html": "<p>The <code>disabled</code> attribute specifies that the input field is disabled.</p>\n<p>A disabled input field is <u>unusable and un-clickable</u>, and its value will not be sent when submitting the form:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aXyCxN38jzCK",
+    "code": "<form action=\"\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"John\" disabled>\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "OKrb4P-5uCqU",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OnjjF9Z5_4RK",
+    "text": "The size Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-size-attribute"
+  },
+  {
+    "id": "ft3yZQ-Wqi_a",
+    "html": "<p>The <code>size</code> attribute specifies the size (in characters) for the input field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zzlCqgRyJiT5",
+    "code": "<form action=\"\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"John\" size=\"40\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "s98Srv8qb7wB",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ea1YpMmv_xm7",
+    "text": "The maxlength Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-maxlength-attribute"
+  },
+  {
+    "id": "LEiETLhwo7e-",
+    "html": "<p>The <code>maxlength</code> attribute specifies the maximum allowed length for the input field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oVqlzpagb25y",
+    "code": "<form action=\"\">  \n    First name:<br>\n    <input type=\"text\" name=\"firstname\" maxlength=\"10\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "bDQOqwgyuAau",
+    "html": "<code>maxlength</code>\n<p></p>\n<p>The <code>maxlength</code> attribute does not provide any feedback. If you want to alert the user, you must write JavaScript code.</p>\n<p><b>Note:</b> Input restrictions are not foolproof, and JavaScript provides many ways to add illegal input. To safely restrict input, it must be checked by the receiver (the server) as well!\n                                </p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "vVynTHhKimnr",
+    "text": "HTML5 Attributes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-attributes"
+  },
+  {
+    "id": "eVjhIHOvMa-R",
+    "html": "<p>HTML5 added the following attributes for <code>&lt;input&gt;</code>:</p>\n<ul>\n                                    <li>autocomplete</li>\n                                    <li>autofocus</li>\n                                    <li>form</li>\n                                    <li>formaction</li>\n                                    <li>formenctype</li>\n                                    <li>formmethod</li>\n                                    <li>formnovalidate</li>\n                                    <li>formtarget</li>\n                                    <li>height and width</li>\n                                    <li>list</li>\n                                    <li>min and max</li>\n                                    <li>multiple</li>\n                                    <li>pattern (regexp)</li>\n                                    <li>placeholder</li>\n                                    <li>required</li>\n                                    <li>step</li>\n                                </ul>\n<p>and the following attributes for <code>&lt;form&gt;</code>:</p>\n<ul>\n                                    <li>autocomplete</li>\n                                    <li>novalidate</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ixnFBN6jdf5J",
+    "text": "The autocomplete Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-autocomplete-attribute"
+  },
+  {
+    "id": "nXvJ1o4Pr6ls",
+    "html": "<p>The <code>autocomplete</code> attribute specifies whether a form or input field should have autocomplete on or off.</p>\n<p>When autocomplete is on, the browser automatically completes the input values based on values that the user has entered before.</p>\n<p><b>Tip:</b> It is possible to have autocomplete \"on\" for the form, and \"off\" for specific input fields, or vice versa.</p>\n<p>The <code>autocomplete</code> attribute works with <code>&lt;form&gt;</code> and the following <code>&lt;input&gt;</code> types: text, search, url, tel, email, password, datepickers, range, and color.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4nz9B-J4mxBL",
+    "code": "<form action=\"\" autocomplete=\"on\">\n    First name:<input type=\"text\" name=\"fname\"><br>\n    Last name: <input type=\"text\" name=\"lname\"><br>\n    E-mail: <input type=\"email\" name=\"email\" autocomplete=\"off\"><br>\n    <input type=\"submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "xjz7BRogu38y",
+    "html": "<p><b>Tip:</b> In some browsers you may need to activate the autocomplete function for this to work.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NHqEeKVJJuUA",
+    "text": "The novalidate Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-novalidate-attribute"
+  },
+  {
+    "id": "855NHTBcJhzO",
+    "html": "<p>The <code>novalidate</code> attribute is a <code>&lt;form&gt;</code> attribute.</p>\n<p>When present, novalidate specifies that the form data should not be validated when submitted.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ON9NUl-RFU-s",
+    "code": "<form action=\"\" novalidate>\n    E-mail: <input type=\"email\" name=\"user_email\">\n    <input type=\"submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "QweQRXYCbm4H",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZFfBnlWa_Pv5",
+    "text": "The autofocus Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-autofocus-attribute"
+  },
+  {
+    "id": "-kRTLL9mcKMI",
+    "html": "<p>The <code>autofocus</code> attribute specifies that the input field should automatically get focus when the page loads.</p>\n<p>Let the \"First name\" input field automatically get focus when the page loads:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "c1Ka05HBAlJt",
+    "code": "<form action=\"\">\n    First name: <input type=\"text\" name=\"fname\" autofocus>\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "a1l7g1VIvWSH",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Mna4rhXTWxeW",
+    "text": "The form Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-form-attribute"
+  },
+  {
+    "id": "mnh27kqROJ5Y",
+    "html": "<p>The <code>form</code> attribute specifies one or more forms an <code>&lt;input&gt;</code> element belongs to.</p>\n<p>An input field located outside the HTML form (but still a part of the form):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G0cKfTWVwQQZ",
+    "code": "<form action=\"\" id=\"form1\">\n    First name: <input type=\"text\" name=\"fname\"><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>\nLast name: <input type=\"text\" name=\"lname\" form=\"form1\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "LMowpnf629UE",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "HjSmRi2omC_L",
+    "text": "The formaction Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-formaction-attribute"
+  },
+  {
+    "id": "M5SQ96Cyb_Nt",
+    "html": "<p>The <code>formaction</code> attribute specifies the URL of a file that will process the input control when the form is submitted.</p>\n<p>The formaction attribute overrides the action attribute of the <code>&lt;form&gt;</code> element.</p>\n<p>The formaction attribute is used with <code>type=\"submit\"</code> and <code>type=\"image\"</code></p>\n<p>An HTML form with two submit buttons, with different actions:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Vg30UtDk-Bkz",
+    "code": "<form action=\"\">\n  First name: <input type=\"text\" name=\"fname\"><br>\n  Last name: <input type=\"text\" name=\"lname\"><br>\n  <input type=\"submit\" value=\"Submit\"><br>\n  <input type=\"submit\" formaction=\"/action_page2.php\"\n  value=\"Submit as admin\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "X8mPo6dwaMvS",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fSVx4o5R61gU",
+    "text": "The formenctype Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-formenctype-attribute"
+  },
+  {
+    "id": "0_RoU5h4ouTG",
+    "html": "<p>The <code>formenctype</code> attribute specifies how the form data should be encoded when submitted (only for forms with method=\"post\").</p>\n<p>The <code>formenctype</code> attribute overrides the enctype attribute of the <code>&lt;form&gt;</code> element.</p>\n<p>The <code>formenctype</code> attribute is used with <code>type=\"submit\"</code> and <code>type=\"image\"</code>.</p>\n<p>Send form-data that is default encoded (the first submit button), and encoded as \"multipart/form-data\" (the second submit button):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CpXVfHwhbNDr",
+    "code": "<form action=\"\" method=\"post\">\n    First name: <input type=\"text\" name=\"fname\"><br>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"submit\" formenctype=\"multipart/form-data\"\n    value=\"Submit as Multipart/form-data\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "scmkBMra_4jC",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OMBIs1_syled",
+    "text": "The formmethod Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-formmethod-attribute"
+  },
+  {
+    "id": "8pHFwag5FUTy",
+    "html": "<p>The <code>formmethod</code> attribute defines the HTTP method for sending form-data to the action URL.</p>\n<p>The <code>formmethod</code> attribute overrides the method attribute of the <code>&lt;form&gt;</code> element.</p>\n<p>The <code>formmethod</code> attribute can be used with <code>type=\"submit\"</code> and <code>type=\"image\"</code>.</p>\n<p>The second submit button overrides the HTTP method of the form:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oX0xr6eCLmjn",
+    "code": "<form action=\"\" method=\"get\">\n    First name: <input type=\"text\" name=\"fname\"><br>\n    Last name: <input type=\"text\" name=\"lname\"><br>\n    <input type=\"submit\" value=\"Submit\">\n    <input type=\"submit\" formmethod=\"post\" value=\"Submit using POST\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "99aHRLiMWAn1",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "wBIxJZC0PDIS",
+    "text": "The formnovalidate Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-formnovalidate-attribute"
+  },
+  {
+    "id": "IkoJXb3C1bi6",
+    "html": "<p>The <code>formnovalidate</code> attribute overrides the novalidate attribute of the <code>&lt;form&gt;</code> element.</p>\n<p>The <code>formnovalidate</code> attribute can be used with <code>type=\"submit\"</code>.</p>\n<p>A form with two submit buttons (with and without validation):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8ZPG1t8gZsWN",
+    "code": "<form action=\"\">\n    E-mail: <input type=\"email\" name=\"userid\"><br>\n    <input type=\"submit\" value=\"Submit\"><br>\n    <input type=\"submit\" formnovalidate value=\"Submit without validation\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "ot-_dAzBggmt",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TFk3eaoOpuZ8",
+    "text": "The formtarget Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-formtarget-attribute"
+  },
+  {
+    "id": "4lThOLzZx8Hg",
+    "html": "<p>The <code>formtarget</code> attribute specifies a name or a keyword that indicates where to display the response that is received after submitting the form.</p>\n<p>The <code>formtarget</code> attribute overrides the target attribute of the <code>&lt;form&gt;</code> element.</p>\n<p>The <code>formtarget</code> attribute can be used with type=\"submit\" and type=\"image\".</p>\n<p>A form with two submit buttons, with different target windows:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eOoDPlxqu-Bb",
+    "code": "<form action=\"\">\n    First name: <input type=\"text\" name=\"fname\"><br>\n    Last name: <input type=\"text\" name=\"lname\"><br>\n    <input type=\"submit\" value=\"Submit as normal\">\n    <input type=\"submit\" formtarget=\"_blank\"\n    value=\"Submit to a new window\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "L9oXcSKMmziX",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "nzpCvEBqmTUd",
+    "text": "The height and width Attributes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-height-and-width-attributes"
+  },
+  {
+    "id": "YKfj1-OaBn_9",
+    "html": "<p>The <code>height</code> and <code>width</code> attributes specify the height and width of an <code>&lt;input type=\"image\"&gt;</code> element.</p>\n<p>Always specify the size of images. If the browser does not know the size, the page will flicker while images load.</p>\n<p>Define an image as the submit button, with height and width attributes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "quzE38jIj22v",
+    "code": "<input type=\"image\" src=\"img_submit.gif\" alt=\"Submit\" width=\"48\" height=\"48\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "SCEr4pGuDGck",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "29EVgWTmt4zi",
+    "text": "The list Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-list-attribute"
+  },
+  {
+    "id": "QbrchFsNrzHA",
+    "html": "<p>The list attribute refers to a <code>&lt;datalist&gt;</code> element that contains pre-defined options for an <code>&lt;input&gt;</code> element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Wc4aIvoq8D9i",
+    "code": "<input list=\"browsers\">\n<datalist id=\"browsers\">\n  <option value=\"Internet Explorer\">\n  <option value=\"Firefox\">\n  <option value=\"Chrome\">\n  <option value=\"Opera\">\n  <option value=\"Safari\">\n</datalist>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "l-TJJsrLzvsL",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FjpmIo7XRbmI",
+    "text": "The min and max Attributes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-min-and-max-attributes"
+  },
+  {
+    "id": "CSPGrKLhDg4H",
+    "html": "<p>The <code>min</code> and <code>max</code> attributes specify the minimum and maximum values for an <code>&lt;input&gt;</code> element.</p>\n<p>The <code>min</code> and <code>max</code> attributes work with the following input types: number, range, date, datetime-local, month, time and week.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UokU7sMb84eD",
+    "code": "Enter a date before 1980-01-01:\n<input type=\"date\" name=\"bday\" max=\"1979-12-31\">\nEnter a date after 2000-01-01:\n<input type=\"date\" name=\"bday\" min=\"2000-01-02\">\nQuantity (between 1 and 5):\n<input type=\"number\" name=\"quantity\" min=\"1\" max=\"5\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "sF-eGaLG3ZXK",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "zH0rqqTb7m4i",
+    "text": "The multiple Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-multiple-attribute"
+  },
+  {
+    "id": "JZyX3HHQmO1H",
+    "html": "<p>The <code>multiple</code> attribute specifies that the user is allowed to enter more than one value in the <code>&lt;input&gt;</code> element.</p>\n<p>The <code>multiple</code> attribute works with the following input types: email, and file.</p>\n<p>A file upload field that accepts multiple values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2IZzYWv5gBwh",
+    "code": "Select images: <input type=\"file\" name=\"img\" multiple>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "h3YXy_N6WcNU",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PvG4AdtVIji6",
+    "text": "The pattern Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-pattern-attribute"
+  },
+  {
+    "id": "ZlkIw8UOqoyy",
+    "html": "<p>The pattern attribute specifies a regular expression that the <input> element's value is checked against.</p>\n<p>The pattern attribute works with the following input types: text, search, url, tel, email, and password.</p>\n<p><b>Tip:</b> Use the global title attribute to describe the pattern to help the user.</p>\n<p><b>Tip:</b> Learn more about regular expressions in our JavaScript tutorial.</p>\n<p>An input field that can contain only three letters (no numbers or special characters):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zs-nRGrinh-v",
+    "code": "Country code: <input type=\"text\" name=\"country_code\" pattern=\"[A-Za-z]{3}\" title=\"Three letter country code\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "_2M-_oOZmUNq",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "1wMOVwp5wN2T",
+    "text": "The placeholder Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-placeholder-attribute"
+  },
+  {
+    "id": "5VA6ROAue4Dg",
+    "html": "<p>The <code>placeholder</code> attribute specifies a hint that describes the expected value of an input field (a sample value or a short description of the format).</p>\n<p>The hint is displayed in the input field before the user enters a value.</p>\n<p>The <code>placeholder</code> attribute works with the following input types: text, search, url, tel, email, and password.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "21YcxPPBxvlt",
+    "code": "<input type=\"text\" name=\"fname\" placeholder=\"First name\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "pg8z-IMBdbFa",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "dzBFacRAXNby",
+    "text": "The required Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-required-attribute"
+  },
+  {
+    "id": "C13oec6AEV1N",
+    "html": "<p>The <code>required</code> attribute specifies that an input field must be filled out before submitting the form.</p>\n<p>The <code>required</code> attribute works with the following input types: text, search, url, tel, email, password, date pickers, number, checkbox, radio, and file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cqOcd_UirHT1",
+    "code": "Username: <input type=\"text\" name=\"usrname\" required>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "VxivZSTxtg8j",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "E3URV4yyNSo3",
+    "text": "The step Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-step-attribute"
+  },
+  {
+    "id": "2uLjQs4yan1T",
+    "html": "<p>The <code>step</code> attribute specifies the legal number intervals for an <code>&lt;input&gt;</code> element.</p>\n<p>Example: if step=\"3\", legal numbers could be -3, 0, 3, 6, etc.</p>\n<p><b>Tip:</b> The step attribute can be used together with the max and min attributes to create a range of legal values.</p>\n<p>The <code>step</code> attribute works with the following input types: number, range, date, datetime-local, month, time and week.</p>\n<p>An input field with a specified legal number intervals:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0dwCeSior_3X",
+    "code": "<input type=\"number\" name=\"points\" step=\"3\">",
+    "type": "code",
+    "language": "html"
+  }
+]
+```

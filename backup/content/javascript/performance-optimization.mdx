@@ -1,0 +1,292 @@
+---
+id: "5fa8805e-897e-4dbb-9d84-bb8397d31566"
+title: "JavaScript Performance Optimization"
+path: "javascript/performance-optimization"
+status: "published"
+meta_title: "JavaScript Performance Optimization | Learn Computer Academy"
+sort_order: 21
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "MF6sAaOYK5Ys",
+    "html": "<p><em>(Make your JavaScript applications faster, smoother, and more efficient)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OpnW-jKpL58W",
+    "text": "Why Optimize JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-optimize-javascript"
+  },
+  {
+    "id": "AsAN56KoTtd0",
+    "html": "<p>JavaScript runs in the browser. Poor performance can cause:</p>\n<ul>\n                                  <li>Slow page load times</li>\n                                  <li>Laggy UI and animations</li>\n                                  <li>Poor user experience</li>\n                                  <li>Increased mobile battery/data usage</li>\n                                </ul>\n<p>Optimizing your code ensures:</p>\n<ul>\n                                  <li>✅ Faster performance</li>\n                                  <li>✅ Better SEO</li>\n                                  <li>✅ Happier users</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "VaA3VOjIifyt",
+    "text": "1. Minimize DOM Manipulations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "1-minimize-dom-manipulations"
+  },
+  {
+    "id": "uUkRq5NEQnOY",
+    "text": "❌ Inefficient:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "inefficient"
+  },
+  {
+    "id": "sXeCsnvEYHio",
+    "code": "for (let i = 0; i < 1000; i++) {\n  const div = document.createElement(\"div\");\n  document.body.appendChild(div);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "EOz-8xMKNyCF",
+    "text": "✅ Better:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "better"
+  },
+  {
+    "id": "A1wjMPpE55ms",
+    "code": "const fragment = document.createDocumentFragment();\nfor (let i = 0; i < 1000; i++) {\n  const div = document.createElement(\"div\");\n  fragment.appendChild(div);\n}\ndocument.body.appendChild(fragment);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "kYAb9TQ2vx3b",
+    "html": "<p>Using <code>DocumentFragment</code> reduces layout recalculations and repainting.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zUl29Zi2NI1Z",
+    "text": "2. Debouncing and Throttling",
+    "type": "heading",
+    "level": 2,
+    "anchor": "2-debouncing-and-throttling"
+  },
+  {
+    "id": "7Ty_MjMfGARG",
+    "text": "Debounce (limit execution frequency for events like typing):",
+    "type": "heading",
+    "level": 3,
+    "anchor": "debounce-limit-execution-frequency-for-events-like-typing"
+  },
+  {
+    "id": "TRa1D7DnaDij",
+    "code": "function debounce(fn, delay) {\n  let timeout;\n  return function () {\n    clearTimeout(timeout);\n    timeout = setTimeout(fn, delay);\n  };\n}\n\nwindow.addEventListener(\"resize\", debounce(() => {\n  console.log(\"Resized!\");\n}, 300));",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "PG1CXzlWwibT",
+    "text": "Throttle (limit calls to once per interval):",
+    "type": "heading",
+    "level": 3,
+    "anchor": "throttle-limit-calls-to-once-per-interval"
+  },
+  {
+    "id": "1l2x3eXI45pt",
+    "code": "function throttle(fn, limit) {\n  let lastCall = 0;\n  return function () {\n    const now = Date.now();\n    if (now - lastCall >= limit) {\n      lastCall = now;\n      fn();\n    }\n  };\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "mgxzdccH7HNE",
+    "text": "3. Avoid Unnecessary Loops and Recalculations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "3-avoid-unnecessary-loops-and-recalculations"
+  },
+  {
+    "id": "OuK8ujbEV5Bw",
+    "text": "❌ Repeating calculations:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "repeating-calculations"
+  },
+  {
+    "id": "IsTyCdDdcQwO",
+    "code": "for (let i = 0; i < array.length; i++) {\n  if (array.length > 0) { /* redundant check */ }\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "G9rdKXLE4W0t",
+    "text": "✅ Optimize:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "optimize"
+  },
+  {
+    "id": "lvokTULMbR7J",
+    "code": "const len = array.length;\nfor (let i = 0; i < len; i++) {\n  // ...\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "SMdqD2SNX88k",
+    "html": "<p>Also, avoid nested loops if possible or use <code>map()</code>, <code>filter()</code>, or <code>reduce()</code> effectively.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UHrajf_yXLJW",
+    "text": "4. Use Efficient Data Structures",
+    "type": "heading",
+    "level": 2,
+    "anchor": "4-use-efficient-data-structures"
+  },
+  {
+    "id": "Fzhr0scQWFdw",
+    "html": "<ul>\n                                  <li>Use <code>Set</code> instead of arrays for unique values.</li>\n                                  <li>Use <code>Map</code> instead of plain objects for key-value storage.</li>\n                                  <li>Avoid deeply nested loops and large object copies unless necessary.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "qrCJFIQHE0pz",
+    "text": "5. Lazy Loading & Code Splitting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "5-lazy-loading-code-splitting"
+  },
+  {
+    "id": "hMxAoobjZT6S",
+    "html": "<p>Only load what’s needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rJfHFnhuMUdl",
+    "text": "Lazy Load with import():",
+    "type": "heading",
+    "level": 3,
+    "anchor": "lazy-load-with-import"
+  },
+  {
+    "id": "9FU0rlya1r3p",
+    "code": "button.addEventListener(\"click\", async () => {\n  const { heavyFunction } = await import(\"./heavy.js\");\n  heavyFunction();\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "_LH58nQBw3zc",
+    "text": "Code Splitting in Webpack:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "code-splitting-in-webpack"
+  },
+  {
+    "id": "YIJUP-wIgVoC",
+    "html": "<p>Split large JavaScript bundles into smaller chunks to reduce initial load.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MsLgwZKFibum",
+    "text": "6. Minify and Compress JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "6-minify-and-compress-javascript"
+  },
+  {
+    "id": "cuDZCrih4KUK",
+    "html": "<p>Minification removes whitespace, comments, and shortens variable names.</p>\n<p>Use tools like:</p>\n<ul>\n                                  <li><strong>Terser</strong></li>\n                                  <li><strong>UglifyJS</strong></li>\n                                  <li><strong>Webpack</strong> with <code>mode: 'production'</code></li>\n                                </ul>\n<p>Also enable Gzip or Brotli compression on your server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mF9RMZIN-gIt",
+    "text": "7. Avoid Memory Leaks",
+    "type": "heading",
+    "level": 2,
+    "anchor": "7-avoid-memory-leaks"
+  },
+  {
+    "id": "ZzLtrPE61BDa",
+    "html": "<ul>\n                                  <li>Remove unused event listeners.</li>\n                                  <li>Avoid global variables.</li>\n                                  <li>Null out large unused objects or DOM references.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RKfZzg4Zlo3E",
+    "code": "element.removeEventListener(\"click\", handler);\nelement = null;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ojHGg9GvW6z0",
+    "text": "8. Use Performance Tools",
+    "type": "heading",
+    "level": 2,
+    "anchor": "8-use-performance-tools"
+  },
+  {
+    "id": "5X1KFFbU0KzY",
+    "html": "<ul>\n                                    <li><strong>Chrome DevTools &gt; Performance tab</strong>: Profile JS runtime</li>\n                                    <li><strong>Lighthouse</strong>: Analyze and suggest improvements</li>\n                                    <li><strong>WebPageTest / GTMetrix</strong>: Test load times and bottlenecks</li>\n                                  </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "XEmZMMPO7gEK",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "RYfmKrEWjJKx",
+    "rows": [
+      [
+        "<code>DocumentFragment</code>",
+        "Fewer DOM updates"
+      ],
+      [
+        "<code>debounce()</code> / <code>throttle()</code>",
+        "Smoother event handling"
+      ],
+      [
+        "<code>Map</code> / <code>Set</code>",
+        "Better performance on large data"
+      ],
+      [
+        "Lazy loading",
+        "Faster initial page load"
+      ],
+      [
+        "Minify &amp; compress JS",
+        "Smaller download sizes"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Technique",
+      "Benefit"
+    ]
+  },
+  {
+    "id": "Txi1kPagreTU",
+    "html": "<p class=\"note\">Efficient JavaScript isn't just faster — it's smarter and scalable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NpugJbV5hRWO",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "YMJ9jsVd8ckT",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "VvdEW09JxrGP",
+    "html": "<ol>\n                                    <li>Convert a loop DOM operation to use <code>DocumentFragment</code>.</li>\n                                    <li>Implement debounce on a <code>scroll</code> or <code>resize</code> event.</li>\n                                    <li>Use <code>Set</code> instead of an array to remove duplicates.</li>\n                                    <li>Create a lazy-loading <code>import()</code> function.</li>\n                                    <li>Profile a sample script in Chrome DevTools Performance tab.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

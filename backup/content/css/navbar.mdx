@@ -1,0 +1,106 @@
+---
+id: "7fa19a76-8806-48d5-bc8c-77dc912e1a5e"
+title: "CSS Navbar"
+path: "css/navbar"
+status: "published"
+meta_title: "CSS Navbar | Learn Computer Academy"
+sort_order: 23
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "lQyMvVjML8b1",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "GFrKDPkkQ8XR",
+    "text": "Demo: Navigation Bars",
+    "type": "heading",
+    "level": 2,
+    "anchor": "demo-navigation-bars"
+  },
+  {
+    "id": "Ksn8Jjt0_oJH",
+    "html": "<p>Vertical</p>\n<ul class=\"vertical ex\">\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a href=\"javascript:void(0)\">Contact</a></li>\n                                          <li><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<p>Horizontal</p>\n<ul class=\"horizontal\">\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a href=\"javascript:void(0)\">Contact</a></li>\n                                          <li class=\"rightli\" style=\"float:right\"><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<br>\n<ul class=\"horizontal gray\">\n                                          <li><a href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Contact</a></li>\n                                          <li class=\"rightli\" style=\"float:right\"><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "dS0aZdN06Ip2",
+    "text": "Navigation Bars",
+    "type": "heading",
+    "level": 2,
+    "anchor": "navigation-bars"
+  },
+  {
+    "id": "-9qIN1fNrQBX",
+    "html": "<p>Having easy-to-use navigation is important for any web site.</p>\n<p>With CSS you can transform boring HTML menus into good-looking navigation bars.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "e388jHIXDWGv",
+    "text": "Navigation Bar = List of Links",
+    "type": "heading",
+    "level": 2,
+    "anchor": "navigation-bar-list-of-links"
+  },
+  {
+    "id": "_dk4Vk4uOLHh",
+    "html": "<p>A navigation bar needs standard HTML as a base.</p>\n<p>In our examples we will build the navigation bar from a standard HTML list.</p>\n<p>A navigation bar is basically a list of links, so using the &lt;ul&gt; and &lt;li&gt; elements makes perfect sense:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AigSUkkIWsnF",
+    "code": "<ul>\n  <li><a href=\"default.html\">Home</a></li>\n  <li><a href=\"news.html\">News</a></li>\n  <li><a href=\"contact.html\">Contact</a></li>\n  <li><a href=\"about.html\">About</a></li>\n</ul>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "vZTC11ZF00Zs",
+    "html": "<p>Now let's remove the bullets and the margins and padding from the list:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1LDVgBzD9kGu",
+    "code": "ul {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "QGqtvEJ7mu4l",
+    "html": "<p>Example explained:</p>\n<ul>\n                                    <li><code class=\"w3-codespan\">list-style-type: none;</code> - Removes the bullets. A navigation bar \n                                    does not need list markers</li>\n                                    <li>Set <code class=\"w3-codespan\">margin: 0;</code> and <code class=\"w3-codespan\">padding: 0;</code> \n                                    to remove browser default settings</li>\n                                </ul>\n<p>The code in the example above is the standard code used in both vertical, and horizontal navigation bars.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "jfr_54lYqN-5",
+    "text": "Vertical Navigation Bar",
+    "type": "heading",
+    "level": 2,
+    "anchor": "vertical-navigation-bar"
+  },
+  {
+    "id": "mIQMCAntm8Tx",
+    "html": "<p>To build a vertical navigation bar, you can style the &lt;a&gt; elements inside the list, in addition to the code above:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1Ma92-ijUwig",
+    "code": "li a {\n  display: block;\n  width: 60px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "b3zariRZGHDz",
+    "html": "<p>Example explained:</p>\n<ul>\n                                    <li><code class=\"w3-codespan\">display: block;</code> - Displaying the links as block elements makes the whole link area clickable (not just the text), and it allows us to specify the width \n                                    (and padding, margin, height, etc. if you want)</li>\n                                    <li><code class=\"w3-codespan\">width: 60px;</code> - Block elements take up the full width available by default. We want to specify a 60 pixels width</li>\n                                </ul>\n<p>You can also set the width of &lt;ul&gt;, and remove the width of &lt;a&gt;, as they will take up the full width available when displayed as block elements. This will produce the same result as our previous example:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ksJ56ftUhaxk",
+    "code": "ul {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n  width: 60px;\n} \nli a {\n  display: block;\n}",
+    "type": "code",
+    "language": "css"
+  }
+]
+```

@@ -1,0 +1,371 @@
+---
+id: "76f8333a-7f39-46c5-9184-9b05bf9a796d"
+title: "JavaScript Basics"
+path: "javascript/basics"
+status: "published"
+meta_title: "JavaScript Basics | Learn Computer Academy"
+sort_order: 3
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "Oczk8D3vbkFm",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "1RazDD0eje5Z",
+    "text": "JavaScript Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-syntax"
+  },
+  {
+    "id": "7a3vQZZ7eRO0",
+    "html": "<p>JavaScript syntax is the set of rules that define how a JavaScript program is written and interpreted.</p>\n<ul>\n                                    <li>JavaScript is <strong>case-sensitive</strong></li>\n                                    <li>Statements end with a semicolon <code>;</code> (optional, but recommended)</li>\n                                    <li>Statements are executed <strong>top to bottom</strong>, <strong>left to right</strong></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "X51mdMpLRWzL",
+    "code": "let message = \"Hello!\";\nconsole.log(message);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "CSGnwE8usPzr",
+    "text": "JavaScript Statements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-statements"
+  },
+  {
+    "id": "nuuD4cVwSshL",
+    "html": "<p>A <strong>statement</strong> is a line of code that performs an action.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oqNlC6Wm6XSP",
+    "code": "let x = 10;       // Statement 1\nx = x + 5;        // Statement 2\nconsole.log(x);   // Statement 3",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "JmCbJgWirRMA",
+    "html": "<p>Multiple statements can be grouped using <strong>curly braces</strong> <code>{}</code> (called a code block):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tliIwj6S8ynF",
+    "code": "{\n    let name = \"John\";\n    console.log(name);\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "x8MMCZ3LTTTG",
+    "text": "JavaScript Comments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-comments"
+  },
+  {
+    "id": "cjeJr-gs6Cxf",
+    "html": "<p>Comments are used to explain code and are ignored by the browser.</p>\n<ul>\n                                    <li><strong>Single-line comment:</strong></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RffEBRIb_rxR",
+    "code": "// This is a single-line comment",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "6Qy9_CJlrnnH",
+    "html": "<ul>\n                                    <li><strong>Multi-line comment:</strong></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Mn6u2PvdpwQ0",
+    "code": "/* This is a \nmulti-line comment */",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Z9IkKH5gBC2m",
+    "text": "Variables in JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "variables-in-javascript"
+  },
+  {
+    "id": "O0su0vnH-zwz",
+    "html": "<p>Variables store <strong>data values</strong>. You can declare them using:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EGVZ3o2336-6",
+    "text": "var (Old way)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "var-old-way"
+  },
+  {
+    "id": "BhZTpLR619PA",
+    "code": "var name = \"Alice\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "enx2Pt-tWK5H",
+    "text": "let (Modern, block-scoped)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "let-modern-block-scoped"
+  },
+  {
+    "id": "x1LWveYEBtJZ",
+    "code": "let age = 25;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "TFm9pBZXJOuf",
+    "text": "const (Constant - value cannot change)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "const-constant---value-cannot-change"
+  },
+  {
+    "id": "sruAr5fXJ44e",
+    "code": "const country = \"India\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "cn867a0lRvEW",
+    "rows": [
+      [
+        "var",
+        "Yes",
+        "Function-level"
+      ],
+      [
+        "let",
+        "Yes",
+        "Block-level"
+      ],
+      [
+        "const",
+        "No",
+        "Block-level"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Keyword",
+      "Can Reassign?",
+      "Scope Type"
+    ]
+  },
+  {
+    "id": "Q_RF5rhkUsL5",
+    "text": "JavaScript Data Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-data-types"
+  },
+  {
+    "id": "IZu_AMiEnwne",
+    "html": "<p>JavaScript is <strong>dynamically typed</strong>, meaning you don't need to declare a data type.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-pQXPP6r6-XV",
+    "text": "Primitive Types:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "primitive-types"
+  },
+  {
+    "id": "C0j9hz3qWP7L",
+    "html": "<ul>\n                                    <li><code>String</code> - <code>\"Hello\"</code></li>\n                                    <li><code>Number</code> - <code>42</code>, <code>3.14</code></li>\n                                    <li><code>Boolean</code> - <code>true</code>, <code>false</code></li>\n                                    <li><code>Undefined</code> - variable declared but not assigned</li>\n                                    <li><code>Null</code> - intentional absence of value</li>\n                                    <li><code>Symbol</code> - unique identifiers (advanced use cases)</li>\n                                    <li><code>BigInt</code> - very large numbers (added in ES2020)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "EUABNYUpoa3-",
+    "text": "Non-Primitive Types:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "non-primitive-types"
+  },
+  {
+    "id": "M7xGdgW0Bruw",
+    "html": "<ul>\n                                    <li><code>Object</code></li>\n                                    <li><code>Array</code></li>\n                                    <li><code>Function</code></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "h0iBEJWG5myA",
+    "code": "let name = \"Tom\";           // String\nlet age = 30;               // Number\nlet isOnline = true;        // Boolean\nlet person = {name: \"Tom\", age: 30}; // Object",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "5u7SveYLu3Ow",
+    "text": "JavaScript Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-operators"
+  },
+  {
+    "id": "ZPJ0jrQlumel",
+    "html": "<p>JavaScript supports several kinds of operators:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VQ7asABLQiwB",
+    "text": "1. Arithmetic Operators",
+    "type": "heading",
+    "level": 3,
+    "anchor": "1-arithmetic-operators"
+  },
+  {
+    "id": "sygYvglK4acf",
+    "code": "+  -  *  /  %  **  ++  --",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "BVgKpJWtDqQ3",
+    "text": "2. Assignment Operators",
+    "type": "heading",
+    "level": 3,
+    "anchor": "2-assignment-operators"
+  },
+  {
+    "id": "yQCe_Aq0jZMT",
+    "code": "=  +=  -=  *=  /=  %=  **=",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "1UBDae1Wc5Zy",
+    "text": "3. Comparison Operators",
+    "type": "heading",
+    "level": 3,
+    "anchor": "3-comparison-operators"
+  },
+  {
+    "id": "D2WxyhAOPY-v",
+    "code": "==   ===   !=   !==   >   <   >=   <=",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "x5xsuc7WywYI",
+    "html": "<ul>\n                                    <li><code>==</code> checks value only</li>\n                                    <li><code>===</code> checks value and type (recommended)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "isfid5oKQcEG",
+    "text": "4. Logical Operators",
+    "type": "heading",
+    "level": 3,
+    "anchor": "4-logical-operators"
+  },
+  {
+    "id": "z4QYLftIkagV",
+    "code": "&&   ||   !",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "64Y6ST-3bLs_",
+    "code": "true && false // false\ntrue || false // true\n!false        // true",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "UvB37MRQlbsy",
+    "text": "5. String Concatenation Operator",
+    "type": "heading",
+    "level": 3,
+    "anchor": "5-string-concatenation-operator"
+  },
+  {
+    "id": "B-esEz4yHbli",
+    "code": "let fullName = \"John\" + \" \" + \"Doe\"; // \"John Doe\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "gfJkU25jTn4C",
+    "text": "Type Conversion (Casting)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "type-conversion-casting"
+  },
+  {
+    "id": "p_qv5OVhtavw",
+    "text": "👉 Implicit (Automatic)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "implicit-automatic"
+  },
+  {
+    "id": "unzhyuua0svq",
+    "code": "let result = \"5\" + 2;    // \"52\" (number 2 converted to string)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-BbsG0rF8qDs",
+    "text": "👉 Explicit (Manual)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "explicit-manual"
+  },
+  {
+    "id": "o9mqsvPfoFUn",
+    "code": "Number(\"10\");     // 10\nString(20);       // \"20\"\nBoolean(0);       // false",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "KRFxv4VVq5yE",
+    "text": "typeof Operator",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typeof-operator"
+  },
+  {
+    "id": "QHm9fdNPBOMn",
+    "html": "<p>Used to check the <strong>type</strong> of a variable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HDoCMhXklPwi",
+    "code": "typeof \"hello\";    // \"string\"\ntypeof 5;          // \"number\"\ntypeof true;       // \"boolean\"\ntypeof undefined;  // \"undefined\"\ntypeof null;       // \"object\" (a quirk in JavaScript)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "2dx0rKFz7H0_",
+    "text": "🧪 Practice Tip:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-tip"
+  },
+  {
+    "id": "7pleDE_CIqJm",
+    "html": "<p>Create a small script that:</p>\n<ol>\n                                    <li>Declares variables using <code>let</code> and <code>const</code></li>\n                                    <li>Uses arithmetic and logical operators</li>\n                                    <li>Outputs results with <code>console.log()</code></li>\n                                </ol>\n<p>Example:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4-kI66nghJrH",
+    "code": "let a = 10;\nlet b = 5;\nlet sum = a + b;\n                                    \nconsole.log(\"Sum:\", sum);\nconsole.log(\"Are both greater than 0?\", a > 0 && b > 0);",
+    "type": "code",
+    "language": "javascript"
+  }
+]
+```

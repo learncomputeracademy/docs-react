@@ -1,0 +1,176 @@
+---
+id: "93d1ce86-25fb-4617-b7d6-ce652df61795"
+title: "HTML Tables"
+path: "html/tables"
+status: "published"
+meta_title: "HTML Tables | Learn Computer Academy"
+sort_order: 20
+updated_at: "2026-07-27T06:26:17.988985+00:00"
+---
+
+```json
+[
+  {
+    "id": "0Tw78GrVxZMN",
+    "html": "<hr>\n<p>An HTML table is defined with the <code>&lt;table&gt;</code> tag.</p>\n<p>Each table row is defined with the <code>&lt;tr&gt;</code> tag. A table header is defined with the <code>&lt;th&gt;</code> tag. By default, table headings are bold and centered. A table data/cell is defined with the <code>&lt;td&gt;</code> tag.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nZDPlL-w77YY",
+    "code": "<table style=\"width:100%\">\n    <tr>\n        <th>Firstname</th>\n        <th>Lastname</th> \n        <th>Age</th>\n    </tr>\n    <tr>\n        <td>Jill</td>\n        <td>Smith</td> \n        <td>50</td>\n    </tr>\n    <tr>\n        <td>Eve</td>\n        <td>Jackson</td> \n        <td>94</td>\n    </tr>\n</table>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "UrDMs_P-Vuin",
+    "html": "<hr>\n<p><b>Note:</b> The <code>&lt;td&gt;</code> elements are the data containers of the table.</p>\n<p>They can contain all sorts of HTML elements; text, images, lists, other tables, etc.</p>\n<hr>\n<p>If you do not specify a border for the table, it will be displayed without borders.</p>\n<p>A border is set using the CSS <code>border</code> property:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZtF6oxw9PjbI",
+    "code": "table, th, td {\n    border: 1px solid black;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "pKwRrOhI4y8l",
+    "html": "<hr>\n<p>Cell padding specifies the space between the cell content and its borders.</p>\n<p>If you do not specify a padding, the table cells will be displayed without padding.</p>\n<p>To set the padding, use the CSS <code>padding</code> property:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F6aILK587LWu",
+    "code": "th, td {\n    padding: 15px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Q2fIj5v7PYdr",
+    "html": "<hr>\n<p>By default, table headings are bold and centered.</p>\n<p>To left-align the table headings, use the CSS <code>text-align</code> property:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Fo6SftnQKcF9",
+    "code": "th {\n    text-align: left;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "5K3Pf7FMhV65",
+    "html": "<hr>\n<p>Border spacing specifies the space between the cells.</p>\n<p>To set the border spacing for a table, use the CSS <code>border-spacing</code> property:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NPxz3M5REKmg",
+    "code": "table {\n    border-spacing: 5px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "jmbGdbCaZFvi",
+    "html": "<p><b>Note:</b> If the table has collapsed borders, border-spacing has no effect.</p>\n<hr>\n<p>To make a cell span more than one column, use the <code>colspan</code> attribute:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Lyy3etYiaLSZ",
+    "code": "<table style=\"width:100%\">\n    <tr>\n        <th>Name</th>\n        <th colspan=\"2\">Telephone</th>\n    </tr>\n    <tr>\n        <td>Bill Gates</td>\n        <td>55577854</td>\n        <td>55577855</td>\n    </tr>\n</table>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "jHB1CKm8Mog6",
+    "html": "<hr>\n<p>To make a cell span more than one row, use the <code>rowspan</code> attribute:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sH_08TFyo2iN",
+    "code": "<table style=\"width:100%\">\n    <tr>\n        <th>Name:</th>\n        <td>Bill Gates</td>\n    </tr>\n    <tr>\n        <th rowspan=\"2\">Telephone:</th>\n        <td>55577854</td>\n    </tr>\n    <tr>\n        <td>55577855</td>\n    </tr>\n</table>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "wQI6sUPzMowW",
+    "html": "<hr>\n<p>To add a caption to a table, use the <code>&lt;caption&gt;</code> tag:</p>\n<p><b>Note:</b> The <code>&lt;caption&gt;</code> tag must be inserted immediately after the <code>&lt;table&gt;</code> tag.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zmL4T3wPh4I-",
+    "code": "<table style=\"width:100%\">\n    <caption>Monthly savings</caption>\n    <tr>\n        <th>Month</th>\n        <th>Savings</th>\n    </tr>\n    <tr>\n        <td>January</td>\n        <td>$100</td>\n    </tr>\n    <tr>\n        <td>February</td>\n        <td>$50</td>\n    </tr>\n</table>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "KZ-7KP-FHH3l",
+    "html": "<p><b>Note:</b> The <code>&lt;caption&gt;</code> tag must be inserted immediately after the <code>&lt;table&gt;</code> tag.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "s918LZZNShiI",
+    "text": "Chapter Summary",
+    "type": "heading",
+    "level": 4,
+    "anchor": "chapter-summary"
+  },
+  {
+    "id": "EQorLI2YQcO2",
+    "html": "<ul>\n                                    <li>Use the HTML <code>&lt;table&gt;</code> element to define a table</li>\n                                    <li>Use the HTML <code>&lt;tr&gt;</code> element to define a table row</li>\n                                    <li>Use the HTML <code>&lt;td&gt;</code> element to define a table data</li>\n                                    <li>Use the HTML <code>&lt;th&gt;</code> element to define a table heading</li>\n                                    <li>Use the HTML <code>&lt;caption&gt;</code> element to define a table caption</li>\n                                    <li>Use the CSS <code>border</code> property to define a border</li>\n                                    <li>Use the CSS <code>border-collapse</code> property to collapse cell borders</li>\n                                    <li>Use the CSS <code>padding</code> property to add padding to cells</li>\n                                    <li>Use the CSS <code>text-align</code> property to align cell text</li>\n                                    <li>Use the CSS <code>border-spacing</code> property to set the spacing between cells</li>\n                                    <li>Use the <code>colspan</code> attribute to make a cell span many columns</li>\n                                    <li>Use the <code>rowspan</code> attribute to make a cell span many rows</li>\n                                    <li>Use the <code>id</code> attribute to uniquely define one table</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "T4okJEA5DpEb",
+    "text": "HTML Table Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-table-tags"
+  },
+  {
+    "id": "l2rx0hLhLzAx",
+    "rows": [
+      [
+        "&lt;table&gt;",
+        "Defines a table"
+      ],
+      [
+        "&lt;th&gt;",
+        "Defines a header cell in a table"
+      ],
+      [
+        "&lt;tr&gt;",
+        "Defines a row in a table"
+      ],
+      [
+        "&lt;td&gt;",
+        "Defines a cell in a table"
+      ],
+      [
+        "&lt;caption&gt;",
+        "Defines a table caption"
+      ],
+      [
+        "&lt;colgroup&gt;",
+        "Specifies a group of one or more columns in a table for formatting"
+      ],
+      [
+        "&lt;col&gt;",
+        "Specifies column properties for each column within a &lt;colgroup&gt; element"
+      ],
+      [
+        "&lt;thead&gt;",
+        "Groups the header content in a table"
+      ],
+      [
+        "&lt;tbody&gt;",
+        "Groups the body content in a table"
+      ],
+      [
+        "&lt;tfoot&gt;",
+        "Groups the footer content in a table"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tag",
+      "Description"
+    ]
+  }
+]
+```

@@ -1,0 +1,309 @@
+---
+id: "60580c14-de90-4e16-9dd6-90e7a8045052"
+title: "JavaScript DOM"
+path: "javascript/dom"
+status: "published"
+meta_title: "JavaScript DOM | Learn Computer Academy"
+sort_order: 9
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "RTusvzjP104i",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PTnXWQowqZvS",
+    "text": "What is the DOM?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-the-dom"
+  },
+  {
+    "id": "znVEsrgKwsLk",
+    "html": "<p><strong>DOM</strong> stands for <strong>Document Object Model</strong>. It’s a tree-like structure that represents the contents of an HTML document.</p>\n<p>When a webpage loads, the browser turns your HTML into a <strong>DOM tree</strong>, where:</p>\n<ul>\n                                    <li>Each HTML element becomes an <strong>object</strong></li>\n                                    <li>JavaScript can access, update, add, or delete these elements</li>\n                                </ul>\n<p>📌 <strong>In short</strong>: JavaScript uses the DOM to interact with your web page dynamically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "osWmFbqxD6sk",
+    "text": "Visualizing the DOM Tree",
+    "type": "heading",
+    "level": 2,
+    "anchor": "visualizing-the-dom-tree"
+  },
+  {
+    "id": "VSV5IX28t-Gh",
+    "code": "<html>\n  <body>\n    <h1>Hello</h1>\n    <p>This is a paragraph.</p>\n  </body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "czbGvax3QIRg",
+    "code": "Document\n└── html\n    └── body\n        ├── h1\n        └── p",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "ZucPhwkkYWuE",
+    "text": "Accessing Elements in the DOM",
+    "type": "heading",
+    "level": 2,
+    "anchor": "accessing-elements-in-the-dom"
+  },
+  {
+    "id": "oaD8cWyRVX0n",
+    "rows": [
+      [
+        "<code>getElementById()</code>",
+        "Finds element by ID"
+      ],
+      [
+        "<code>getElementsByClassName()</code>",
+        "Finds elements by class name"
+      ],
+      [
+        "<code>getElementsByTagName()</code>",
+        "Finds elements by tag"
+      ],
+      [
+        "<code>querySelector()</code>",
+        "Finds first matching element (CSS)"
+      ],
+      [
+        "<code>querySelectorAll()</code>",
+        "Finds all matching elements (CSS)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description"
+    ]
+  },
+  {
+    "id": "fP5Y-5EOi3rV",
+    "code": "<p id=\"demo\" class=\"text\">Hello!</p>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "T5k2C4WcJXO2",
+    "code": "document.getElementById(\"demo\"); // By ID\ndocument.getElementsByClassName(\"text\");    // By class\ndocument.querySelector(\"p\");                // First <p>\ndocument.querySelectorAll(\"p\");             // All <p>",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "koUcODvxklPG",
+    "text": "Changing Content with JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "changing-content-with-javascript"
+  },
+  {
+    "id": "c5quH2IUxp3P",
+    "text": "innerHTML",
+    "type": "heading",
+    "level": 3,
+    "anchor": "innerhtml"
+  },
+  {
+    "id": "Aiq2ibDMWjUZ",
+    "html": "<p>Replaces the HTML content inside an element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PD-l9xiLAjlq",
+    "code": "document.getElementById(\"demo\").innerHTML = \"Updated!\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Z0HowoRWWanW",
+    "text": "textContent",
+    "type": "heading",
+    "level": 3,
+    "anchor": "textcontent"
+  },
+  {
+    "id": "L-rBF3JdLPfQ",
+    "html": "<p>Changes only the text (ignores HTML tags).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T_e7SJsCCqOi",
+    "code": "document.getElementById(\"demo\").textContent = \"Plain Text\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "qopnnQtoElHf",
+    "text": "Changing Style",
+    "type": "heading",
+    "level": 3,
+    "anchor": "changing-style"
+  },
+  {
+    "id": "XdviJmo7SMfF",
+    "code": "const box = document.getElementById(\"box\");\nbox.style.backgroundColor = \"blue\";\nbox.style.fontSize = \"20px\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "JkS5LurUWoIm",
+    "text": "Creating and Appending Elements",
+    "type": "heading",
+    "level": 3,
+    "anchor": "creating-and-appending-elements"
+  },
+  {
+    "id": "H8lXyTL4eeSS",
+    "code": "const newP = document.createElement(\"p\");\nnewP.textContent = \"This is a new paragraph.\";\n                                  \ndocument.body.appendChild(newP);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "sito0m8Im8gn",
+    "text": "Removing Elements",
+    "type": "heading",
+    "level": 3,
+    "anchor": "removing-elements"
+  },
+  {
+    "id": "-AFwP4BMlOfj",
+    "code": "const item = document.getElementById(\"removeMe\");\nitem.remove();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Sl_tdB6MjWlO",
+    "html": "<p>Or using parent element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V3KIW1Ktwp-S",
+    "code": "item.parentNode.removeChild(item);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "7FcecVqDg1Cm",
+    "text": "DOM Events Recap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dom-events-recap"
+  },
+  {
+    "id": "cV8aP_Zz7XBm",
+    "html": "<p>You can combine DOM selection with events:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HcqN3tZlVEGc",
+    "code": "document.getElementById(\"btn\").addEventListener(\"click\", function () {\n  document.getElementById(\"demo\").textContent = \"Button clicked!\";\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "dQZwvsBMtc1p",
+    "text": "Traversing the DOM",
+    "type": "heading",
+    "level": 2,
+    "anchor": "traversing-the-dom"
+  },
+  {
+    "id": "VC40rfOAVVpa",
+    "rows": [
+      [
+        "<code>parentNode</code>",
+        "Access parent element"
+      ],
+      [
+        "<code>children</code>",
+        "Access all child elements"
+      ],
+      [
+        "<code>firstElementChild</code>",
+        "First child element"
+      ],
+      [
+        "<code>lastElementChild</code>",
+        "Last child element"
+      ],
+      [
+        "<code>nextElementSibling</code>",
+        "Next element at the same level"
+      ],
+      [
+        "<code>previousElementSibling</code>",
+        "Previous element at same level"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  },
+  {
+    "id": "soy-4c0Sw1YJ",
+    "code": "const list = document.getElementById(\"myList\");\nconsole.log(list.children); // HTMLCollection of li elements",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Kv7XpgOTWhcP",
+    "text": "Attributes and Classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "attributes-and-classes"
+  },
+  {
+    "id": "IlYGKEvpMtDO",
+    "text": "Getting & Setting Attributes",
+    "type": "heading",
+    "level": 3,
+    "anchor": "getting-setting-attributes"
+  },
+  {
+    "id": "HQIqhAulYMil",
+    "code": "const link = document.getElementById(\"myLink\");\nconsole.log(link.getAttribute(\"href\")); // Get\n                                  \nlink.setAttribute(\"href\", \"https://example.com\"); // Set",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "GRybI0qoiswT",
+    "text": "Working with Classes",
+    "type": "heading",
+    "level": 3,
+    "anchor": "working-with-classes"
+  },
+  {
+    "id": "L0ZwcBL9yJXq",
+    "code": "const box = document.querySelector(\".box\");\n\nbox.classList.add(\"active\");    // Add class\nbox.classList.remove(\"box\");    // Remove class\nbox.classList.toggle(\"hidden\"); // Toggle class",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "RQcaojEYGJgd",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "JnwvEPnFOXfm",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "EDbMSKF_Ecid",
+    "html": "<ol>\n                                    <li>Change the text of a heading using <code>innerHTML</code>.</li>\n                                    <li>Create a new <code>&lt;li&gt;</code> item and add it to an unordered list.</li>\n                                    <li>Toggle a class on button click.</li>\n                                    <li>Remove an element after a few seconds using <code>setTimeout()</code>.</li>\n                                    <li>Change the <code>src</code> attribute of an image dynamically.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

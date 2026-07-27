@@ -1,0 +1,63 @@
+---
+id: "80f43b6d-508d-4201-968b-f9a6bf6dfaac"
+title: "Type Casting"
+path: "programming/type-casting"
+status: "published"
+meta_title: "Type Casting | Learn Computer Academy"
+sort_order: 5
+updated_at: "2026-07-25T08:16:49.981168+00:00"
+---
+
+```json
+[
+  {
+    "id": "zaPVG-oXWRXL",
+    "html": "<p>Type casting (also called type conversion) means converting a value from one type to another — turning the text <code>\"42\"</code> into the number <code>42</code>, for example. It matters because a value read from a form, a file, or user input often arrives as text, even when it represents a number.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fkU2HYtlmXLS",
+    "text": "Converting text to a number",
+    "type": "heading",
+    "level": 2,
+    "anchor": "converting-text-to-a-number"
+  },
+  {
+    "id": "CEYQUH7vlclw",
+    "code": "let input = \"25\";\nlet age = Number(input);\n\nconsole.log(age);         // 25\nconsole.log(age + 5);     // 30 — real addition now, not text joining",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "2HIZBpTF59at",
+    "text": "Converting a number to text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "converting-a-number-to-text"
+  },
+  {
+    "id": "guO8IxkMWRwW",
+    "code": "let count = 7;\nlet message = \"You have \" + String(count) + \" items.\";\n\nconsole.log(message); // \"You have 7 items.\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "oyx39rNqoVP_",
+    "text": "What happens if the conversion fails",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-happens-if-the-conversion-fails"
+  },
+  {
+    "id": "5jEDtEdJ3aCz",
+    "html": "<p>Not every piece of text is a valid number. Converting something that isn't produces a special value called <code>NaN</code> (\"Not a Number\") rather than crashing the program.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "K_Kj6jApG2Ce",
+    "code": "console.log(Number(\"hello\")); // NaN\nconsole.log(Number(\"42\"));   // 42",
+    "type": "code",
+    "language": "javascript"
+  }
+]
+```

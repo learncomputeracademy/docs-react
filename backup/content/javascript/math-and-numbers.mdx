@@ -1,0 +1,341 @@
+---
+id: "b480cc47-7ca6-4e21-80ba-54001c3e9998"
+title: "JavaScript Math and Numbers"
+path: "javascript/math-and-numbers"
+status: "published"
+meta_title: "JavaScript Math and Numbers | Learn Computer Academy"
+sort_order: 18
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "CZ8s1DJwmKmi",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "cnZE1IEWtIYJ",
+    "text": "What are Numbers in JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-are-numbers-in-javascript"
+  },
+  {
+    "id": "1B-m8AQcQTp5",
+    "html": "<p>JavaScript uses a single <strong>Number type</strong> to represent all kinds of numeric values — including:</p>\n<ul>\n                                    <li>Integers: <code>1</code>, <code>42</code>, <code>-5</code></li>\n                                    <li>Floating-point numbers (decimals): <code>3.14</code>, <code>-0.99</code></li>\n                                    <li>Exponential numbers: <code>1.5e3</code> (equals 1500)</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "cibwrqfsCJZF",
+    "code": "let a = 10;\nlet b = 3.14;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "g7PEm7b34P2_",
+    "html": "<p class=\"note\"><b>NOTE:</b>JavaScript does <code>not</code> have different types for int and float like some other languages.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fChH4N45IrjT",
+    "text": "Basic Arithmetic Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-arithmetic-operators"
+  },
+  {
+    "id": "REZpLEvaHKa-",
+    "rows": [
+      [
+        "<code>+</code>",
+        "Addition",
+        "<code>5 + 3</code> → <code>8</code>"
+      ],
+      [
+        "<code>-</code>",
+        "Subtraction",
+        "<code>5 - 2</code> → <code>3</code>"
+      ],
+      [
+        "<code>*</code>",
+        "Multiplication",
+        "<code>5 * 3</code> → <code>15</code>"
+      ],
+      [
+        "<code>/</code>",
+        "Division",
+        "<code>15 / 3</code> → <code>5</code>"
+      ],
+      [
+        "<code>%</code>",
+        "Modulus (remainder)",
+        "<code>7 / 3</code> → <code>1</code>"
+      ],
+      [
+        "<code>**</code>",
+        "Exponentiation",
+        "<code>2**3</code> → <code>8</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Description",
+      "Example"
+    ]
+  },
+  {
+    "id": "8pZnMkue1HNL",
+    "text": "Increment and Decrement",
+    "type": "heading",
+    "level": 2,
+    "anchor": "increment-and-decrement"
+  },
+  {
+    "id": "mUnzSMEW_KTW",
+    "code": "let x = 5;\nx++;  // x = 6\nx--;  // x = 5",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "N-q0FJ-NX7_Z",
+    "html": "<p>You can also use:</p>\n<ul>\n                                    <li>x += 2</li>\n                                    <li>x *= 3</li>\n                                    <li>x /= 2, etc.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "7UoJnEPgn0_k",
+    "text": "Working with the Math Object",
+    "type": "heading",
+    "level": 2,
+    "anchor": "working-with-the-math-object"
+  },
+  {
+    "id": "fZOMISfA7ijA",
+    "html": "<p>JavaScript provides a built-in <code>Math</code> object with many methods and properties.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ikpsyb9BMgja",
+    "text": "Common Math Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-math-methods"
+  },
+  {
+    "id": "boiU9NnIhCU_",
+    "rows": [
+      [
+        "<code>Math.round()</code>",
+        "Rounds to nearest integer",
+        "<code>Math.round(4.6)</code> → <code>5</code>"
+      ],
+      [
+        "<code>Math.floor()</code>",
+        "Rounds down",
+        "<code>Math.floor(4.9)</code> → <code>4</code>"
+      ],
+      [
+        "<code>Math.ceil()</code>",
+        "Rounds up",
+        "<code>Math.ceil(4.1)</code> → <code>5</code>"
+      ],
+      [
+        "<code>Math.trunc()</code>",
+        "Removes decimal part",
+        "<code>Math.trunc(4.8)</code> → <code>4</code>"
+      ],
+      [
+        "<code>Math.abs()</code>",
+        "Absolute value",
+        "<code>Math.abs(-10)</code> → <code>10</code>"
+      ],
+      [
+        "<code>Math.pow()</code>",
+        "Exponentiation",
+        "<code>Math.pow(2, 3)</code> → <code>8</code>"
+      ],
+      [
+        "<code>Math.sqrt()</code>",
+        "Square root",
+        "<code>Math.sqrt(16)</code> → <code>4</code>"
+      ],
+      [
+        "<code>Math.max()</code>",
+        "Highest value",
+        "<code>Math.max(1, 5, 3)</code> → <code>5</code>"
+      ],
+      [
+        "<code>Math.min()</code>",
+        "Lowest value",
+        "<code>Math.min(1, 5, 3)</code> → <code>1</code>"
+      ],
+      [
+        "<code>Math.random()</code>",
+        "Random number between 0 and 1",
+        "<code>Math.random()</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description",
+      "Example"
+    ]
+  },
+  {
+    "id": "REAIN0432SET",
+    "text": "Random Number Between a Range",
+    "type": "heading",
+    "level": 2,
+    "anchor": "random-number-between-a-range"
+  },
+  {
+    "id": "y3WyhNG1d-jf",
+    "code": "// Random number between 1 and 10\nlet random = Math.floor(Math.random() * 10) + 1;\nconsole.log(random);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "LMlp3C2HgvdC",
+    "text": "Number Conversion",
+    "type": "heading",
+    "level": 2,
+    "anchor": "number-conversion"
+  },
+  {
+    "id": "GKyjw6dyyvMh",
+    "text": "parseInt() - Converts string to integer",
+    "type": "heading",
+    "level": 3,
+    "anchor": "parseint---converts-string-to-integer"
+  },
+  {
+    "id": "Bkvackghav0h",
+    "code": "let n = parseInt(\"42\");  // 42",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "SI8V5IcoggUp",
+    "text": "parseFloat() - Converts string to float",
+    "type": "heading",
+    "level": 3,
+    "anchor": "parsefloat---converts-string-to-float"
+  },
+  {
+    "id": "pvAFq7uvDeqC",
+    "code": "let n = parseFloat(\"3.14\"); // 3.14",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ybJ5zXj9TciK",
+    "text": "Number() - Converts any type to number",
+    "type": "heading",
+    "level": 3,
+    "anchor": "number---converts-any-type-to-number"
+  },
+  {
+    "id": "z8DAUJ8nvKgo",
+    "code": "Number(\"10\")      // 10\nNumber(true)      // 1\nNumber(\"abc\")     // NaN",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "O9opWgZkRW1R",
+    "text": "isNaN() - Is Not a Number?",
+    "type": "heading",
+    "level": 3,
+    "anchor": "isnan---is-not-a-number"
+  },
+  {
+    "id": "_65fiJarjZbe",
+    "code": "console.log(isNaN(\"abc\")); // true\nconsole.log(isNaN(123));   // false",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "CkZNSvzb2yfW",
+    "text": "Dealing with Decimals",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dealing-with-decimals"
+  },
+  {
+    "id": "LupwjrRLvQis",
+    "html": "<p>Sometimes floating-point math can be imprecise:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o0-e6RIIeylQ",
+    "code": "console.log(0.1 + 0.2); // 0.30000000000000004 😕",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "iEsqq4sNQb75",
+    "html": "<p>You can fix it using <code>toFixed()</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0vqtsarTFVMK",
+    "code": "let total = (0.1 + 0.2).toFixed(2); // \"0.30\" (as a string)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Dq9bNECrjvcu",
+    "text": "Number Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "number-methods"
+  },
+  {
+    "id": "uUVCrj6YFYLa",
+    "rows": [
+      [
+        "<code>toFixed(n)</code>",
+        "Rounds to <code>n</code> decimal places",
+        "<code>(3.14159).toFixed(2)</code> → <code>\"3.14\"</code>"
+      ],
+      [
+        "<code>toString()</code>",
+        "Converts number to string",
+        "<code>(100).toString()</code> → <code>\"100\"</code>"
+      ],
+      [
+        "<code>typeof</code>",
+        "Checks if it's a number",
+        "<code>typeof 42</code> → <code>\"number\"</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description",
+      "Example"
+    ]
+  },
+  {
+    "id": "-PYtiVy8vHw8",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "fukGy1RpgzZa",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "3eEUmVuByMxy",
+    "html": "<ol>\n                                    <li>Write a program that adds, subtracts, multiplies and divides two numbers.</li>\n                                    <li>Generate a random number between 1 and 100.</li>\n                                    <li>Round <code>4.675</code> to 2 decimal places using <code>toFixed()</code>.</li>\n                                    <li>Convert <code>\"123.45\"</code> to a number and multiply it by <code>2</code>.</li>\n                                    <li>Get the square root of any number using <code>Math.sqrt()</code>.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

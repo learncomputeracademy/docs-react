@@ -1,0 +1,423 @@
+---
+id: "c6caff7d-43a2-48ba-8b65-82f2e2a6ac5b"
+title: "CSS Pseudo Class"
+path: "css/pseudo-classes"
+status: "published"
+meta_title: "CSS Pseudo Class | Learn Computer Academy"
+sort_order: 28
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "vUukKa8qUYaG",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Vw5lZwJEV8BB",
+    "text": "What are Pseudo-classes?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-are-pseudo-classes"
+  },
+  {
+    "id": "GF1R6opb7scS",
+    "html": "<p>A pseudo-class is used to define a special state of an element.</p>\n<p>For example, it can be used to:</p>\n<ul>\n                                    <li>Style an element when a user mouses over it</li>\n                                    <li>Style visited and unvisited links differently</li>\n                                    <li>Style an element when it gets focus</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "dQ1mXljjLZoH",
+    "text": "Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "syntax"
+  },
+  {
+    "id": "mW3KQHry-WzG",
+    "html": "<p>The syntax of pseudo-classes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8pMdIYpKzaB3",
+    "code": "selector:pseudo-class {\n  property:value;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "6m9B7HSxzc-3",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "G2-B2VOmVbfH",
+    "text": "Anchor Pseudo-classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "anchor-pseudo-classes"
+  },
+  {
+    "id": "zFCW3emgTJRk",
+    "html": "<p>Links can be displayed in different ways:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LhUbJq6gQI3Y",
+    "code": "/* unvisited link */\na:link {\n  color: #FF0000;\n}\n/* visited link */\na:visited {\n  color: #00FF00;\n}\n/* mouse over link */\na:hover {\n  color: #FF00FF;\n}\n/* selected link */\na:active {\n  color: #0000FF;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "_YQP7w46fpPa",
+    "html": "<p class=\"note\"><b>Note:</b> <code>a:hover</code> MUST come after <code>a:link</code> and <code>a:visited</code> in the CSS definition in order to be effective! <code>a:active</code> MUST come after <code>a:hover</code> in the CSS definition in order to be effective! Pseudo-class names are not case-sensitive.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TTyWWvF3ZISe",
+    "text": "Pseudo-classes and CSS Classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pseudo-classes-and-css-classes"
+  },
+  {
+    "id": "nTprrBf5jjIx",
+    "html": "<p>Pseudo-classes can be combined with CSS classes:</p>\n<p>When you hover over the link in the example, it will change color:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2jqk3nb93KKE",
+    "code": "a.highlight:hover {\n  color: #ff0000;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "zBINWcMNen15",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fb5bT2TPCe0w",
+    "text": "Hover on <div>",
+    "type": "heading",
+    "level": 2,
+    "anchor": "hover-on-div"
+  },
+  {
+    "id": "2yM4gw3JZSXI",
+    "html": "<p>An example of using the <code>:hover</code> pseudo-class on a &lt;div&gt; element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oOX7rXtuvgW-",
+    "code": "div:hover {\n  background-color: blue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "IGC_8vu8WX1w",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "JaZbdr6XUBAR",
+    "text": "Simple Tooltip Hover",
+    "type": "heading",
+    "level": 2,
+    "anchor": "simple-tooltip-hover"
+  },
+  {
+    "id": "c3qWo5TidLj6",
+    "html": "<p>Hover over a &lt;div&gt; element to show a &lt;p&gt; element (like a tooltip):</p>\n<span>Hover over me to show the &lt;p&gt; element.</span>\n<p class=\"p-4\">Tada! Here I am!</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "McmaXUN7-Dj6",
+    "code": "p {\n  display: none;\n  background-color: yellow;\n  padding: 20px;\n}\ndiv:hover p {\n  display: block;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "WE6mDAFFdsml",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "C4uEI7fV52R5",
+    "text": "CSS - The :first-child Pseudo-class",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css---the-first-child-pseudo-class"
+  },
+  {
+    "id": "z8yoBWB9N8bI",
+    "html": "<p>The <code>:first-child</code> pseudo-class matches a specified element that is the first child of another element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OKpuwo0IjWGA",
+    "text": "Match the first <p> element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-the-first-p-element"
+  },
+  {
+    "id": "b-6NoslDm_UY",
+    "html": "<p>In the following example, the selector matches any &lt;p&gt; element that is the first child of any element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8eRnDThVvd_x",
+    "code": "p:first-child {\n  color: blue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "xGtzyHAA_rxF",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "pG0mQcHZRBGb",
+    "text": "Match the first <i> element in all <p> elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-the-first-i-element-in-all-p-elements"
+  },
+  {
+    "id": "-USgwjOVZTJ3",
+    "html": "<p>In the following example, the selector matches the first &lt;i&gt; element in all &lt;p&gt; elements:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eeZFkISLkH-A",
+    "code": "p i:first-child {\n  color: blue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "vIZRaqHdSebA",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "XhR_9ct9UNms",
+    "text": "Match all <i> elements in all first child <p> elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-all-i-elements-in-all-first-child-p-elements"
+  },
+  {
+    "id": "D5tx1BIPoLa_",
+    "html": "<p>In the following example, the selector matches all &lt;i&gt; elements in &lt;p&gt; elements that are the first child of another element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6XFDMa164cKw",
+    "code": "p:first-child i {\n  color: blue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "hwl_pFOIQT7z",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "rDej9pobdgDN",
+    "text": "CSS - The :lang Pseudo-class",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css---the-lang-pseudo-class"
+  },
+  {
+    "id": "SioioQAa2B9m",
+    "html": "<p>The <code class=\"w3-codespan\">:lang</code> pseudo-class allows you to define special rules for different languages.</p>\n<p>In the example below, <code class=\"w3-codespan\">:lang</code> defines the quotation marks for &lt;q&gt; elements with lang=\"no\":</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jTTbKEjxeaw4",
+    "code": "<html>\n    <head>\n        <style>\n            q:lang(no) {\n              quotes: \"~\" \"~\";\n            }\n        </style>\n    </head>\n\n    <body>\n\n        <p>Some text <q lang=\"no\">A quote in a paragraph</q> Some text.</p>\n    </body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "pFNQAC61KY7L",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "giqeSWuD6MrA",
+    "text": "All CSS Pseudo Classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-pseudo-classes"
+  },
+  {
+    "id": "j-7Lls7uxuZm",
+    "rows": [
+      [
+        ":active",
+        "a:active",
+        "Selects the active link"
+      ],
+      [
+        ":checked",
+        "input:checked",
+        "Selects every checked &lt;input&gt; element"
+      ],
+      [
+        ":disabled",
+        "input:disabled",
+        "Selects every disabled &lt;input&gt; element"
+      ],
+      [
+        ":empty",
+        "p:empty",
+        "Selects every &lt;p&gt; element that has no children"
+      ],
+      [
+        ":enabled",
+        "input:enabled",
+        "Selects every enabled &lt;input&gt; element"
+      ],
+      [
+        ":first-child",
+        "p:first-child",
+        "Selects every &lt;p&gt; elements that is the first child of its parent"
+      ],
+      [
+        ":first-of-type",
+        "p:first-of-type",
+        "Selects every &lt;p&gt; element that is the first &lt;p&gt; element of its parent"
+      ],
+      [
+        ":focus",
+        "input:focus",
+        "Selects the &lt;input&gt; element that has focus"
+      ],
+      [
+        ":hover",
+        "a:hover",
+        "Selects links on mouse over"
+      ],
+      [
+        ":in-range",
+        "input:in-range",
+        "Selects &lt;input&gt; elements with a value within a specified range"
+      ],
+      [
+        ":invalid",
+        "input:invalid",
+        "Selects all &lt;input&gt; elements with an invalid value"
+      ],
+      [
+        ":lang(language)",
+        "p:lang(it)",
+        "Selects every &lt;p&gt; element with a lang attribute value starting with \"it\""
+      ],
+      [
+        ":last-child",
+        "p:last-child",
+        "Selects every &lt;p&gt; elements that is the last child of its parent"
+      ],
+      [
+        ":last-of-type",
+        "p:last-of-type",
+        "Selects every &lt;p&gt; element that is the last &lt;p&gt; element of its parent"
+      ],
+      [
+        ":link",
+        "a:link",
+        "Selects all unvisited links"
+      ],
+      [
+        ":not(selector)",
+        ":not(p)",
+        "Selects every element that is not a &lt;p&gt; element"
+      ],
+      [
+        ":nth-child(n)",
+        "p:nth-child(2)",
+        "Selects every &lt;p&gt; element that is the second child of its parent"
+      ],
+      [
+        ":nth-last-child(n)",
+        "p:nth-last-child(2)",
+        "Selects every &lt;p&gt; element that is the second child of its parent, counting from the last child"
+      ],
+      [
+        ":nth-last-of-type(n)",
+        "p:nth-last-of-type(2)",
+        "Selects every &lt;p&gt; element that is the second &lt;p&gt; element of its parent, counting from the last child"
+      ],
+      [
+        ":nth-of-type(n)",
+        "p:nth-of-type(2)",
+        "Selects every &lt;p&gt; element that is the second &lt;p&gt; element of its parent, counting from the last child"
+      ],
+      [
+        ":only-of-type",
+        "p:only-of-type",
+        "Selects every &lt;p&gt; element that is the second &lt;p&gt; element of its parent"
+      ],
+      [
+        ":only-child",
+        "p:only-child",
+        "Selects every &lt;p&gt; element that is the only &lt;p&gt; element of its parent"
+      ],
+      [
+        ":optional",
+        "input:optional",
+        "Selects every &lt;p&gt; element that is the only child of its parent"
+      ],
+      [
+        ":out-of-range",
+        "input:out-of-range",
+        "Selects &lt;input&gt; elements with no \"required\" attribute"
+      ],
+      [
+        ":read-only",
+        "input:read-only",
+        "Selects &lt;input&gt; elements with a \"readonly\" attribute specified"
+      ],
+      [
+        ":read-write",
+        "input:read-write",
+        "Selects &lt;input&gt; elements with no \"readonly\" attribute"
+      ],
+      [
+        ":required",
+        "input:required",
+        "Selects &lt;input&gt; elements with a \"required\" attribute specified"
+      ],
+      [
+        ":root",
+        "root",
+        "Selects the document's root element"
+      ],
+      [
+        ":target",
+        "#news:target",
+        "Selects the current active #news element (clicked on a URL containing that anchor name)"
+      ],
+      [
+        ":valid",
+        "input:valid",
+        "Selects all &lt;input&gt; elements with a valid value"
+      ],
+      [
+        ":visited",
+        "a:visited",
+        "Selects all visited links"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Selector",
+      "Example",
+      "Example description"
+    ]
+  }
+]
+```

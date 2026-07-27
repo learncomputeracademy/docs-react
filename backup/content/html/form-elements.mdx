@@ -1,0 +1,226 @@
+---
+id: "31297d61-291e-4cb4-9655-d410e5edc17f"
+title: "HTML Form Elements"
+path: "html/form-elements"
+status: "published"
+meta_title: "HTML Form Elements | Learn Computer Academy"
+sort_order: 8
+updated_at: "2026-07-27T06:26:15.25652+00:00"
+---
+
+```json
+[
+  {
+    "id": "YUmQ2WX0aFYp",
+    "html": "<hr>\n<p>This chapter describes all HTML form elements.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "2wK_RgssE5bM",
+    "text": "The <input> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-input-element"
+  },
+  {
+    "id": "HnVXkr7qYtXy",
+    "html": "<p>The most important form element is the <code>&lt;input&gt;</code> element.</p>\n<p>The <code>&lt;input&gt;</code> element can be displayed in several ways, depending on the <code>type</code> attribute.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X5iPMpOm73xB",
+    "code": "<input name=\"firstname\" type=\"text\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "xWS752iYF9xX",
+    "html": "<p>If the <code>type</code> attribute is omitted, the input field gets the default type: \"text\".</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fQ5cEFdySkHn",
+    "text": "The <select> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-select-element"
+  },
+  {
+    "id": "zjQeJG0fWTD9",
+    "html": "<p>The <code>&lt;select&gt;</code> element defines a <b>drop-down list</b>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gMLH4LESZY2z",
+    "code": "<select name=\"cars\">\n    <option value=\"volvo\">Volvo</option>\n    <option value=\"saab\">Saab</option>\n    <option value=\"fiat\">Fiat</option>\n    <option value=\"audi\">Audi</option>\n</select>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "9zfQNeCLIByX",
+    "html": "<p>The <code>&lt;option&gt;</code> elements defines an option that can be selected.</p>\n<p>By default, the first item in the drop-down list is selected.</p>\n<p>To define a pre-selected option, add the <code>selected</code> attribute to the option:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cFq5W7hLA_lQ",
+    "code": "<option value=\"fiat\" selected>Fiat</option>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "SY-4_8Kv87Tj",
+    "html": "<p>This is how it will look like in a browser:</p>\n<select name=\"cars\">\n                                    <option value=\"volvo\">Volvo</option>\n                                    <option value=\"saab\">Saab</option>\n                                    <option value=\"fiat\" selected=\"\">Fiat</option>\n                                    <option value=\"audi\">Audi</option>\n                                </select>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "S8VG6x_hQ6mZ",
+    "text": "Visible Values:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "visible-values"
+  },
+  {
+    "id": "w0AEaUtk11WD",
+    "html": "<p>Use the <code>size</code> attribute to specify the number of visible values:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sSldQo0zrCMh",
+    "code": "<select name=\"cars\" size=\"3\">\n    <option value=\"volvo\">Volvo</option>\n    <option value=\"saab\">Saab</option>\n    <option value=\"fiat\">Fiat</option>\n    <option value=\"audi\">Audi</option>\n</select>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "p8c9ELC4vrT6",
+    "html": "<p>This is how it will look like in a browser:</p>\n<select name=\"cars\" size=\"3\">\n                                    <option value=\"volvo\">Volvo</option>\n                                    <option value=\"saab\">Saab</option>\n                                    <option value=\"fiat\">Fiat</option>\n                                    <option value=\"audi\">Audi</option>\n                                </select>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "cPt4K0J8YZ0E",
+    "text": "Allow Multiple Selections:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "allow-multiple-selections"
+  },
+  {
+    "id": "M92Y6XYJ9b4e",
+    "html": "<p>Use the <code>multiple</code> attribute to allow the user to select more than one value:</p>\n<select name=\"cars\" size=\"4\" multiple=\"\">\n                                  <option value=\"volvo\">Volvo</option>\n                                  <option value=\"saab\">Saab</option>\n                                  <option value=\"fiat\">Fiat</option>\n                                  <option value=\"audi\">Audi</option>\n                                </select>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "lWmhfw-tob-8",
+    "text": "The <textarea> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-textarea-element"
+  },
+  {
+    "id": "IjmhG7dWTi-3",
+    "html": "<p>The <code>&lt;textarea&gt;</code> element defines a multi-line input field (a text area):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "q7oDmNLDaEKv",
+    "code": "<textarea name=\"message\" rows=\"10\" cols=\"30\">\n    The cat was playing in the garden.\n</textarea>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "8HyIx3wAoLQW",
+    "html": "<p>The <code>rows</code> attribute specifies the visible number of lines in a text area.</p>\n<p>The <code>cols</code> attribute specifies the visible width of a text area.</p>\n<p>This is how the HTML code above will be displayed in a browser:</p>\n<textarea name=\"message\" rows=\"10\" cols=\"30\">The cat was playing in the garden.</textarea>\n<p>You can also define the size of the text area by using CSS:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V0drOFgKduRk",
+    "code": "<textarea name=\"message\" style=\"width:200px; height:600px;\">\n    The cat was playing in the garden.\n</textarea>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "0dq6addNkKVi",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "f4cVa6ZcevN-",
+    "text": "The <button> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-button-element"
+  },
+  {
+    "id": "bGa80iQ2KkN9",
+    "html": "<p>The <code>&lt;button&gt;</code> element defines a clickable button:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5W96LMy9RJuR",
+    "code": "<button type=\"button\" onclick=\"alert('Hello World!')\">Click Me!</button>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "wNgqeSZdVk7V",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<button type=\"button\" onclick=\"alert('Hello World!')\">Click Me!</button>\n<p><b>Note:</b> Always specify the <b>type</b> attribute for the button element. Different browsers may use different default types for the button element.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UgPiL88cO_QM",
+    "text": "HTML5 Form Elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-form-elements"
+  },
+  {
+    "id": "N2P05q_uSmjo",
+    "html": "<p>HTML5 added the following form elements:</p>\n<ul>\n                                    <li><code>&lt;datalist&gt;</code></li>\n                                    <li><code>&lt;output&gt;</code></li>\n                                </ul>\n<p><b>Note:</b> Browsers do not display unknown elements. New elements that are not supported in older browsers will not \"destroy\" your web page.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "OPyUTwq4TAfh",
+    "text": "HTML5  Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-element"
+  },
+  {
+    "id": "X6BEg17ewb55",
+    "html": "<p>The <code>&lt;datalist&gt;</code> element specifies a list of pre-defined options for an <code>&lt;input&gt;</code> element.</p>\n<p>Users will see a drop-down list of the pre-defined options as they input data.</p>\n<p>The <code>list</code> attribute of the <code>&lt;input&gt;</code> element, must refer to the <code>id</code> attribute of the <code>&lt;datalist&gt;</code> element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pOSBmRXId5Ok",
+    "code": "<form action=\"/action_page.php\">\n        <input list=\"browsers\">\n        <datalist id=\"browsers\">\n        <option value=\"Internet Explorer\">\n        <option value=\"Firefox\">\n        <option value=\"Chrome\">\n        <option value=\"Opera\">\n        <option value=\"Safari\">\n    </datalist> \n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Fbo8SiAUyAVi",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"\">\n                                    <input list=\"browsers\">\n                                    <datalist id=\"browsers\">\n                                        <option value=\"Internet Explorer\">\n                                        </option><option value=\"Firefox\">\n                                        </option><option value=\"Chrome\">\n                                        </option><option value=\"Opera\">\n                                        </option><option value=\"Safari\">\n                                    </option></datalist> \n                                    <input type=\"submit\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "rGz9mM5qD7bm",
+    "text": "HTML5 <output> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html5-output-element"
+  },
+  {
+    "id": "_2Qzdpb4Ap9X",
+    "html": "<p>The <code>&lt;output&gt;</code> element represents the result of a calculation (like one performed by a script).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3VA1iXxU4Umb",
+    "code": "<form action=\"/action_page.php\"\n    oninput=\"x.value=parseInt(a.value)+parseInt(b.value)\">\n    0\n    <input type=\"range\"  id=\"a\" name=\"a\" value=\"50\">\n    100 +\n    <input type=\"number\" id=\"b\" name=\"b\" value=\"50\">\n    =\n    <output name=\"x\" for=\"a b\"></output>\n    <br><br>\n    <input type=\"submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "8zwsFKfG7wG_",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"\" oninput=\"x.value=parseInt(a.value)+parseInt(b.value)\">\n                                    0\n                                    <input type=\"range\" id=\"a\" name=\"a\" value=\"50\">\n                                    100 +\n                                    <input type=\"number\" id=\"b\" name=\"b\" value=\"50\">\n                                    =\n                                    <output name=\"x\" for=\"a b\"></output>\n                                    <br><br>\n                                    <input type=\"submit\">\n                                </form>",
+    "type": "richtext"
+  }
+]
+```

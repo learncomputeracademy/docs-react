@@ -1,0 +1,295 @@
+---
+id: "1386c804-eb5a-46b7-b417-8853852bc10c"
+title: "JavaScript Strings"
+path: "javascript/strings"
+status: "published"
+meta_title: "JavaScript Strings | Learn Computer Academy"
+sort_order: 24
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "AlvG9eubWEl0",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "kFGiJo_8eF3g",
+    "text": "What is a String?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-a-string"
+  },
+  {
+    "id": "Nms5xep1p8MX",
+    "html": "<p>A <strong>string</strong> in JavaScript is a sequence of characters used to represent <strong>text</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1-wxcFtDnrwV",
+    "code": "const message = \"Hello, world!\";\nconst name = 'John Doe';",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "u8eCv8oiMXDY",
+    "html": "<p>Strings can be written using:</p>\n<ul>\n                                    <li>Double quotes <code>\" \"</code></li>\n                                    <li>Single quotes <code>' '</code></li>\n                                    <li>Backticks (Template literals) <code>` `</code></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "uTjBFjGb0jBe",
+    "text": "Declaring Strings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "declaring-strings"
+  },
+  {
+    "id": "q9X5g05gKXR2",
+    "code": "let greeting = \"Good morning\";\nlet city = 'Mumbai';\nlet message = `Welcome, user!`;",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "L-YexA6xqQyC",
+    "text": "String Length",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-length"
+  },
+  {
+    "id": "7ND-21xY5-f_",
+    "code": "const msg = \"Hello\";\nconsole.log(msg.length); // 5",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "dDJCfKMVqXJC",
+    "text": "Accessing Characters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "accessing-characters"
+  },
+  {
+    "id": "lH285Yq44TYd",
+    "html": "<p>You can access characters using index (starting from 0):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VMcw8tOHuIhZ",
+    "code": "const word = \"JavaScript\";\nconsole.log(word[0]);  // J\nconsole.log(word.charAt(4)); // S",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "_oXFlrt5HuKE",
+    "text": "Changing Case",
+    "type": "heading",
+    "level": 2,
+    "anchor": "changing-case"
+  },
+  {
+    "id": "MFeohtonTMWw",
+    "code": "const text = \"Learn JavaScript\";\n\nconsole.log(text.toUpperCase()); // LEARN JAVASCRIPT\nconsole.log(text.toLowerCase()); // learn javascript",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "IKKvhn2bkdQI",
+    "text": "Common String Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-string-methods"
+  },
+  {
+    "id": "Ym-Nl-GMIqlb",
+    "rows": [
+      [
+        "<code>length</code>",
+        "Returns length",
+        "<code>str.length</code>"
+      ],
+      [
+        "<code>toUpperCase()</code>",
+        "Converts to uppercase",
+        "<code>\"hello\".toUpperCase()</code> → <code>\"HELLO\"</code>"
+      ],
+      [
+        "<code>toLowerCase()</code>",
+        "Converts to lowercase",
+        "<code>\"HELLO\".toLowerCase()</code> → <code>\"hello\"</code>"
+      ],
+      [
+        "<code>includes()</code>",
+        "Checks if string contains text",
+        "<code>\"abc\".includes(\"b\")</code> → <code>true</code>"
+      ],
+      [
+        "<code>indexOf()</code>",
+        "Finds position of first occurrence",
+        "<code>\"banana\".indexOf(\"a\")</code> → <code>1</code>"
+      ],
+      [
+        "<code>lastIndexOf()</code>",
+        "Finds position of last occurrence",
+        "<code>\"banana\".lastIndexOf(\"a\")</code> → <code>5</code>"
+      ],
+      [
+        "<code>startsWith()</code>",
+        "Checks if string starts with given text",
+        "<code>\"hello\".startsWith(\"he\")</code> → <code>true</code>"
+      ],
+      [
+        "<code>endsWith()</code>",
+        "Checks if string ends with given text",
+        "<code>\"hello\".endsWith(\"o\")</code> → <code>true</code>"
+      ],
+      [
+        "<code>slice(start, end)</code>",
+        "Extracts part of string",
+        "<code>\"abcdef\".slice(1, 4)</code> → <code>\"bcd\"</code>"
+      ],
+      [
+        "<code>substring()</code>",
+        "Similar to slice",
+        "<code>\"hello\".substring(0, 2)</code> → <code>\"he\"</code>"
+      ],
+      [
+        "<code>replace()</code>",
+        "Replaces first match",
+        "<code>\"I love cats\".replace(\"cats\", \"dogs\")</code>"
+      ],
+      [
+        "<code>trim()</code>",
+        "Removes whitespace",
+        "<code>\" hello \".trim()</code> → <code>\"hello\"</code>"
+      ],
+      [
+        "<code>split()</code>",
+        "Splits string into array",
+        "<code>\"a,b,c\".split(\",\")</code> → <code>[\"a\", \"b\", \"c\"]</code>"
+      ],
+      [
+        "<code>concat()</code>",
+        "Joins two strings",
+        "<code>\"Hi\".concat(\" there\")</code> → <code>\"Hi there\"</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Description",
+      "Example"
+    ]
+  },
+  {
+    "id": "_wHqcGYN3GPS",
+    "text": "Template Literals (ES6)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "template-literals-es6"
+  },
+  {
+    "id": "DXcDGLEzG5sH",
+    "html": "<p>Template literals use backticks (` `) to support:</p>\n<ul>\n                                    <li>Multi-line strings</li>\n                                    <li>Variable interpolation using <code>${}</code></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ttOkUn3oWcLz",
+    "code": "const name = \"Amit\";\nconst greeting = `Hello, ${name}!`;\nconsole.log(greeting); // Hello, Amit!",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "cNeuo_1MIpJf",
+    "code": "const fullMessage = `\nDear Student,\nYour result is ready.\n                                    \nRegards,\nAdmin\n`;\nconsole.log(fullMessage);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "YNKPR7vI5aW3",
+    "text": "Escape Characters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "escape-characters"
+  },
+  {
+    "id": "05Wd9goXYgeQ",
+    "html": "<p>Use <code>\\</code> (backslash) to escape special characters:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tCsn44eTnqz4",
+    "code": "const quote = \"He said, \\\"Let's go!\\\"\";",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "IOXFRp2A_-59",
+    "html": "<p>Other escape sequences:\n                                </p>\n<ul>\n                                    <li><code>\\n</code> - New line</li>\n                                    <li><code>\\t</code> - Tab</li>\n                                    <li><code>\\\\</code> - Backslash<p></p></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "6IdvzfHFzBgi",
+    "text": "String Comparison",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-comparison"
+  },
+  {
+    "id": "ajzyrIgbRGNQ",
+    "html": "<p>Strings can be compared alphabetically using <code>==</code>, <code>===</code>, <code>&lt;</code>, <code>&gt;</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OThu84gmIC35",
+    "code": "console.log(\"apple\" < \"banana\"); // true\nconsole.log(\"A\" < \"a\"); // true (uppercase comes before lowercase)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "glA8LGP11OpB",
+    "text": "String Immutability",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-immutability"
+  },
+  {
+    "id": "z_xOScOvRDiS",
+    "html": "<p>Strings are immutable — you can't change a character directly:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AdTswLNBSeH1",
+    "code": "let msg = \"hello\";\nmsg[0] = \"H\";  // ❌ Invalid\nmsg = \"Hello\"; // ✅ Correct way",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "0issyqBrTQcn",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "Viv0BVnd3GtU",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "hfmXSrEk00kF",
+    "html": "<ol>\n                                    <li>Create a string with your full name and print each character using a loop.</li>\n                                    <li>Count how many times the letter <code>a</code> appears using <code>.split()</code> and <code>.length</code>.</li>\n                                    <li>Use <code>slice()</code> to extract the first name from a full name.</li>\n                                    <li>Convert <code>\" Welcome! \"</code> to <code>\"welcome!\"</code> (trim + lowercase).</li>\n                                    <li>Use template literals to print:</li>\n                                </ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "5_sfDc_6JF45",
+    "code": "Hello, [Your Name]!\nWelcome to JavaScript Strings.",
+    "type": "code",
+    "language": "javascript"
+  }
+]
+```

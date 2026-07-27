@@ -1,0 +1,179 @@
+---
+id: "0f7ac16f-290c-4528-9de1-53c1d5f3553e"
+title: "HTML Responsive"
+path: "html/responsive"
+status: "published"
+meta_title: "HTML Responsive | Learn Computer Academy"
+sort_order: 18
+updated_at: "2026-07-27T06:26:17.54516+00:00"
+---
+
+```json
+[
+  {
+    "id": "G5gC65nWdoG-",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "_rdRrLGZDDc8",
+    "text": "What is Responsive Web Design?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-responsive-web-design"
+  },
+  {
+    "id": "v-92zOvPSoEm",
+    "html": "<p>Responsive Web Design is about using HTML and CSS to automatically resize, hide, shrink, or enlarge, a website, to make it look good on all devices (desktops, tablets, and phones):</p>\n<p><b>Note:</b> A web page should look good on <b><u>any device!</u></b></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "8p2HlL8DKygy",
+    "text": "Setting The Viewport",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-the-viewport"
+  },
+  {
+    "id": "ThwBgU917Okn",
+    "html": "<p>When making responsive web pages, add the following <code>&lt;meta&gt;</code> element in all your web pages:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "93oUvUK9eWvG",
+    "code": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "2HAVcThUxwDR",
+    "html": "<p>This will set the viewport of your page, which will give the browser instructions on how to control the page's dimensions and scaling.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "boQsBfCpjzKr",
+    "text": "Responsive Images",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responsive-images"
+  },
+  {
+    "id": "vZgnYYpGbJcK",
+    "html": "<p>Responsive images are images that scale nicely to fit any browser size.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LVFKcZbo3M3_",
+    "text": "Using the width Property",
+    "type": "heading",
+    "level": 3,
+    "anchor": "using-the-width-property"
+  },
+  {
+    "id": "gqA03TS-S2aC",
+    "html": "<p>If the CSS <code>width</code> property is set to 100%, the image will be responsive and scale up and down:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WBzmQMtPmWOp",
+    "alt": "",
+    "type": "image",
+    "width": 500,
+    "height": 600,
+    "publicId": "img/img_girl"
+  },
+  {
+    "id": "A2gLdLjbX8HK",
+    "html": "<p></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "c1ffNchHcrWd",
+    "code": "<img src=\"img_girl.jpg\" style=\"width:100%;\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "u1kmhQKU2NQ5",
+    "html": "<p>Notice that in the example above, the image can be scaled up to be larger than its original size. A better solution, in many cases, will be to use the <code>max-width</code> property instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kzEf_C8-neu8",
+    "text": "Using the max-width Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-the-max-width-property"
+  },
+  {
+    "id": "ETqwV_80z2Dc",
+    "html": "<p>If the <code>max-width</code> property is set to 100%, the image will scale down if it has to, but never scale up to be larger than its original size:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RV1RleG1hnEG",
+    "alt": "",
+    "type": "image",
+    "width": 500,
+    "height": 600,
+    "publicId": "img/img_girl"
+  },
+  {
+    "id": "AoO0BEjdY_B0",
+    "html": "<p></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_ARxunwDB6GZ",
+    "code": "<img src=\"img_girl.jpg\" style=\"max-width:100%;height:auto;\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "bst4XTJ5irIm",
+    "text": "Show Different Images Depending on Browser Width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "show-different-images-depending-on-browser-width"
+  },
+  {
+    "id": "P0mr689yuT75",
+    "html": "<p>The HTML <code>&lt;picture&gt;</code> element allows you to define different images for different browser window sizes.</p>\n<p>Resize the browser window to see how the image below change depending on the width:</p>\n<picture>\n                                    <source srcset=\"../assets/img/img_smallflower.jpg\" media=\"(max-width: 600px)\">\n                                    <source srcset=\"../assets/img/img_flowers.jpg\" media=\"(max-width: 1500px)\">\n                                    <source srcset=\"../assets/img/flowers.jpg\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960395/img/img_smallflower.webp\" alt=\"Flowers\">\n                                </picture>\n<p></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OvNUz1_056eB",
+    "code": "<picture>\n    <source srcset=\"img_smallflower.jpg\" media=\"(max-width: 600px)\">\n    <source srcset=\"img_flowers.jpg\" media=\"(max-width: 1500px)\">\n    <source srcset=\"flowers.jpg\">\n    <img src=\"img_smallflower.jpg\" alt=\"Flowers\">\n</picture>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "L8eESqRx8cMq",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "cvJeSP6GtZAL",
+    "text": "Responsive Text Size",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responsive-text-size"
+  },
+  {
+    "id": "gMW3YOhrgQtt",
+    "html": "<p>The text size can be set with a \"vw\" unit, which means the \"viewport width\".</p>\n<p>That way the text size will follow the size of the browser window:</p>\n<div class=\"bg-gray p-5 mb-3\">\n                                    <h1 style=\"font-size:8vw;\">Hello World</h1>\n                                    <p style=\"font-size:2vw;\">Resize the browser window to see how the text size scales.</p>\n                                </div>",
+    "type": "richtext"
+  },
+  {
+    "id": "IgAPXkMlck9V",
+    "code": "<h1 style=\"font-size:10vw\">Hello World</h1>\n<p style=\"font-size:2vw;\">Resize the browser window to see how the text size scales.</p>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "e7NyK1QGJfuA",
+    "html": "<p><b>Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm.</b></p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,215 @@
+---
+id: "a8fb395e-78d6-4800-875b-88031280a86c"
+title: "JavaScript this Keyword"
+path: "javascript/this-keyword"
+status: "published"
+meta_title: "JavaScript this Keyword | Learn Computer Academy"
+sort_order: 25
+updated_at: "2026-07-25T05:59:09.151483+00:00"
+---
+
+```json
+[
+  {
+    "id": "belzt7hinmeR",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "18TJurNZW_u0",
+    "text": "What is this?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-this"
+  },
+  {
+    "id": "AlVKk_fTFHNt",
+    "html": "<p>In JavaScript, <code>this</code> refers to the <strong>object that is executing the current function</strong>.</p>\n<p>The value of <code>this</code> <strong>depends on how a function is called</strong>, not where it is written.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0AxNd2DX15m3",
+    "text": "Global Context",
+    "type": "heading",
+    "level": 2,
+    "anchor": "global-context"
+  },
+  {
+    "id": "deYFzQNl1T7q",
+    "html": "<p>In the <strong>global scope</strong>, <code>this</code> refers to the <strong>global object</strong>.</p>\n<ul>\n                                  <li>In browsers, the global object is <code>window</code>.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "MT0oW5qe4_Ml",
+    "code": "console.log(this); // window",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ta0XhAz5TGP5",
+    "text": "Inside an Object Method",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inside-an-object-method"
+  },
+  {
+    "id": "7eb4fcP-gW1m",
+    "html": "<p>When used in an object method, <code>this</code> refers to the <strong>object</strong> itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EtVEgWS0kBzM",
+    "code": "const person = {\n  name: \"Alice\",\n  greet() {\n    console.log(\"Hello, I'm \" + this.name);\n  },\n};\n                                \nperson.greet(); // \"Hello, I'm Alice\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "f3vovPeDk7dw",
+    "html": "<p><code>this.name</code> points to <code>person.name</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NWO_hEiLhxP0",
+    "text": "❌ Detached Function (Loses Context)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "detached-function-loses-context"
+  },
+  {
+    "id": "HcfMhFQqzq5L",
+    "code": "const person = {\n  name: \"Alice\",\n  greet() {\n    console.log(this.name);\n  },\n};\n                                \nconst sayHello = person.greet;\nsayHello(); // undefined (in non-strict mode) or error (in strict mode)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "QZGQd6KWSoX1",
+    "html": "<p><code>this</code> is not bound, so it refers to the global object or <code>undefined</code> in strict mode.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QEr1RX7NojMk",
+    "text": "🧲 Fixing this with bind, call, apply",
+    "type": "heading",
+    "level": 2,
+    "anchor": "fixing-this-with-bind-call-apply"
+  },
+  {
+    "id": "iaxOk7W0Uhmz",
+    "code": "const person = {\n  name: \"Bob\",\n};\n                                \nfunction greet() {\n  console.log(\"Hello, \" + this.name);\n}\n                                \ngreet.call(person);  // \"Hello, Bob\"\ngreet.apply(person); // \"Hello, Bob\"\n                                \nconst greetPerson = greet.bind(person);\ngreetPerson();       // \"Hello, Bob\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "X7gdNfPJpUkj",
+    "html": "<ul>\n                                  <li><code>call()</code> and <code>apply()</code> <strong>call the function immediately</strong>, passing a new <code>this</code>.</li>\n                                  <li><code>bind()</code> returns a <strong>new function</strong> with the bound <code>this</code>.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "_DmHJZWTuKk4",
+    "text": "Inside a Constructor Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inside-a-constructor-function"
+  },
+  {
+    "id": "aXC1Ga6_1imU",
+    "html": "<p>In a constructor function, <code>this</code> refers to the newly created object.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aFcDomILgfz5",
+    "code": "function Car(brand) {\n  this.brand = brand;\n}\n                                \nconst myCar = new Car(\"Toyota\");\nconsole.log(myCar.brand); // \"Toyota\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "jXom1Uyw3oOQ",
+    "text": "this in Arrow Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "this-in-arrow-functions"
+  },
+  {
+    "id": "rphybo9xOchF",
+    "html": "<p>Arrow functions <strong>don’t have their own</strong> <code>this</code>. They inherit <code>this</code> from their <code>parent scope</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JxddOURd79JB",
+    "code": "const user = {\n  name: \"Alice\",\n  greet: () => {\n    console.log(this.name); // undefined\n  },\n};\n                                \nuser.greet();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "q29Ggw4K5HDy",
+    "html": "<p>Arrow functions are great when you want to <strong>preserve the surrounding</strong> <code>this</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N-YO3xHgIVbK",
+    "code": "function Timer() {\n  this.seconds = 0;\n                                \n  setInterval(() => {\n    this.seconds++;\n    console.log(this.seconds);\n  }, 1000);\n}\n                                \nnew Timer(); // Correctly logs seconds",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "FUqBfaDyKFud",
+    "text": "Summary Table",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary-table"
+  },
+  {
+    "id": "1wt4nxhHfErl",
+    "rows": [
+      [
+        "Global scope",
+        "Global object (<code>window</code>)"
+      ],
+      [
+        "Object method",
+        "The object itself"
+      ],
+      [
+        "Function (non-method) call",
+        "Global object or <code>undefined</code> (strict)"
+      ],
+      [
+        "Constructor function",
+        "The new object created"
+      ],
+      [
+        "Arrow function",
+        "Inherits <code>this</code> from outer scope"
+      ],
+      [
+        "With <code>bind()</code>, <code>call()</code>, <code>apply()</code>",
+        "Manually defined object"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Context",
+      "<code>this</code> Refers To"
+    ]
+  },
+  {
+    "id": "yXY9lrlGsM_E",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "v0itWQm-kOAK",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "uUTNb923pRw6",
+    "html": "<ol>\n                                    <li>Create an object with a method and use <code>this</code> to access properties.</li>\n                                    <li>Try detaching a method and calling it separately — observe <code>this</code>.</li>\n                                    <li>Use <code>bind()</code> to fix <code>this</code> in a detached function.</li>\n                                    <li>Use arrow functions inside <code>setTimeout</code> to preserve outer <code>this</code>.</li>\n                                    <li>Create a constructor that sets properties using <code>this</code>.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,117 @@
+---
+id: "bb997197-565e-41c3-8605-1d6dd4c22039"
+title: "CSS Link"
+path: "css/link"
+status: "published"
+meta_title: "CSS Link | Learn Computer Academy"
+sort_order: 19
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "2IO2TiJhSYXK",
+    "html": "<hr>\n<p>With CSS, links can be styled in different ways.</p>\n<hr>\n<a href=\"javascript:void(0)\">Text Link</a>\n<a href=\"javascript:void(0)\" style=\"color: green; text-decoration: none; margin-left: 20px; font-size: 16px;\">Text Link</a>\n<a href=\"javascript:void(0)\" style=\"background-color: white; color: black; border: 2px solid #4CAF50; padding: 10px 20px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; margin-left: 20px;\">Link Button</a>\n<a href=\"javascript:void(0)\" style=\"display: inline-block; background-color: #f44336; color: #FFFFFF; padding: 14px 25px; text-align: center; text-decoration: none; font-size: 16px; margin-left: 20px; opacity: 0.9;\" onmouseover=\"this.style.opacity=1\" onmouseout=\"this.style.opacity=0.9\">Link Button</a>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "xN_UBILUyvWb",
+    "text": "Styling Links",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-links"
+  },
+  {
+    "id": "ONYbrEXthJc2",
+    "html": "<p>Links can be styled with any CSS property (e.g. <code>color</code>, <code>font-family</code>, <code>background</code>, etc.).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d-m625op4tcx",
+    "code": "a {\n  color: hotpink;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "xP7Zfxwk3LW3",
+    "html": "<p>In addition, links can be styled differently depending on what <strong>state</strong> they are in.</p>\n<p>The four links states are:</p>\n<ul>\n                                    <li><code>a:link</code> - a normal, unvisited link</li>\n                                    <li><code>a:visited</code> - a link the user has visited</li>\n                                    <li><code>a:hover</code> - a link when the user mouses over it</li>\n                                    <li><code>a:active</code> - a link the moment it is clicked</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "sgu6yBj2llHX",
+    "code": "/* unvisited link */\na:link {\n  color: red;\n}\n/* visited link */\na:visited {\n  color: green;\n}\n/* mouse over link */\na:hover {\n  color: hotpink;\n}\n/* selected link */\na:active {\n  color: blue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "_cNF0MyL8dK4",
+    "html": "<p>When setting the style for several link states, there are some order rules:</p>\n<ul>\n                                    <li>a:hover MUST come after a:link and a:visited</li>\n                                    <li>a:active MUST come after a:hover</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PZmyYoePuLBA",
+    "text": "Text Decoration",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-decoration"
+  },
+  {
+    "id": "f_tMVfjOTnXG",
+    "html": "<p>The <code>text-decoration</code> property is mostly used to remove underlines from links:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dyg3XXd0VXJ6",
+    "code": "a:link {\n  text-decoration: none;\n}\na:visited {\n  text-decoration: none;\n}\na:hover {\n  text-decoration: underline;\n}\na:active {\n  text-decoration: underline;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "-K2_AICjgW8w",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "D2s3byOiGyk4",
+    "text": "Background Color",
+    "type": "heading",
+    "level": 2,
+    "anchor": "background-color"
+  },
+  {
+    "id": "Q5A68EulcsBm",
+    "html": "<p>The <code>background-color</code> property can be used to specify a background color for links:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "i1iK57n2B4UO",
+    "code": "a:link {\n  background-color: yellow;\n}\na:visited {\n  background-color: cyan;\n}\na:hover {\n  background-color: lightgreen;\n}\na:active {\n  background-color: hotpink;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "YFq0GiRRnSFc",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "6CaIPzQEjfJR",
+    "text": "Advanced - Link Buttons",
+    "type": "heading",
+    "level": 2,
+    "anchor": "advanced---link-buttons"
+  },
+  {
+    "id": "UgaU8n3ucbbt",
+    "html": "<p>This example demonstrates a more advanced example where we combine several CSS properties to display links as boxes/buttons:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W6ZiyWoLfXr6",
+    "code": "a:link, a:visited {\n  background-color: #f44336;\n  color: white;\n  padding: 14px 25px;\n  text-align: center; \n  text-decoration: none;\n  display: inline-block;\n}\na:hover, a:active {\n  background-color: red;\n}",
+    "type": "code",
+    "language": "css"
+  }
+]
+```

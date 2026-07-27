@@ -1,0 +1,122 @@
+---
+id: "ac8aae47-d4e2-4450-b514-b50e9216801f"
+title: "CSS Speficity"
+path: "css/specificity"
+status: "published"
+meta_title: "CSS Speficity | Learn Computer Academy"
+sort_order: 30
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "E4WRkRUrdd2g",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "AuVECgSdb54R",
+    "text": "What is Specificity?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-specificity"
+  },
+  {
+    "id": "bwPcFvtjiqu9",
+    "html": "<p>If there are two or more conflicting CSS rules that point to the same element, the browser follows some rules to determine which one is most specific and therefore wins out.</p>\n<p>Think of specificity as a score/rank that determines which style declarations are ultimately applied to an element.</p>\n<p>The universal selector (*) has low specificity, while ID selectors are highly specific!&nbsp;</p>\n<p class=\"note\"><strong>Note:</strong> Specificity is a common reason why your CSS-rules don't apply to some elements, although you think they should.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FLxSElslNmey",
+    "text": "Specificity Hierarchy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "specificity-hierarchy"
+  },
+  {
+    "id": "1CqoDC38CaRY",
+    "html": "<p>Every selector has its place in the specificity hierarchy. There are four categories which define the specificity level of a selector:</p>\n<p><strong>Inline styles</strong> - An inline style is attached directly to the element to be styled. Example: &lt;h1 style=\"color: #ffffff;\"&gt;.</p>\n<p><strong>IDs</strong> - An ID is a unique identifier for the page elements, such as #navbar.</p>\n<p><strong>Classes, attributes and pseudo-classes</strong> - This category includes .classes, [attributes] and pseudo-classes such as :hover, :focus etc.</p>\n<p><strong>Elements and pseudo-elements</strong> - This category includes element names and pseudo-elements, such as h1, div, :before and :after.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UgJSiJ4EVtXJ",
+    "text": "How to Calculate Specificity?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-to-calculate-specificity"
+  },
+  {
+    "id": "kkevD5PeaYul",
+    "html": "<p>Memorize how to calculate specificity!</p>\n<p>Start at 0, add 1000 for style attribute, add 100 for each ID, add 10 for each attribute, class or pseudo-class, add 1 for each element name or pseudo-element.</p>\n<p>Consider these three code fragments:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "J5QVD2HZS5IU",
+    "code": "A: h1\nB: #content h1\nC: <div id=\"content\"><h1 style=\"color: #ffffff\">Heading</h1></div>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "JoHyB5Fo7Ly2",
+    "html": "<p>The specificity of A is 1 (one element)<br>The specificity of B is 101 (one ID reference and one element)<br>The specificity of C is 1000 (inline styling)</p>\n<p>Since 1 &lt; 101 &lt; 1000, the third rule (C) has a greater level of specificity, and therefore will be applied.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UzeikahrrRp6",
+    "text": "Specificity Rules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "specificity-rules"
+  },
+  {
+    "id": "6G8CnEG3L3ZZ",
+    "html": "<p><strong>Equal specificity: the latest rule counts </strong>- If the same rule is written twice into the external style sheet, then the lower rule in the style sheet is closer to the element to be styled, and therefore will be applied:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Obi41zaY1vbG",
+    "code": "h1 {background-color: yellow;}\nh1 {background-color: red;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "spPtiuhag_u3",
+    "html": "<p>the <b>latter rule</b> is always applied.</p>\n<hr>\n<p><b>ID selectors have a higher specificity than attribute selectors - Look at the following three code lines:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NqeY3xESI5Nr",
+    "code": "div#a {background-color: green;}\n#a {background-color: yellow;}\ndiv[id=a] {background-color: blue;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "DdDH1NYAYOHv",
+    "html": "<p>the <b>first rule</b> is more specific than the other two, and will be applied.</p>\n<hr>\n<p><b>Contextual selectors are more specific than a single element selector</b> - The embedded style sheet is closer to the element to be styled. So in the following situation</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KAO6PiLXelNV",
+    "code": "From external CSS file:\n#content h1 {background-color: red;}\n\nIn HTML file:\n<style>\n    #content h1 {\n      background-color: yellow;\n    }\n</style>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "7o5v8RShx-UQ",
+    "html": "<p>the latter rule will be applied.</p>\n<hr>\n<p><b>A class selector beats any number of element selectors</b> - a class selector such as .intro beats h1, p, div, etc:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uFmmpSd5Ih0_",
+    "code": ".intro {background-color: yellow;}\nh1 {background-color: red;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "7nKZHpya75zT",
+    "html": "<p><b>The universal selector and inherited values have a specificity of 0</b> - *, body * and similar have a zero specificity. Inherited values also have a specificity of 0.</p>",
+    "type": "richtext"
+  }
+]
+```

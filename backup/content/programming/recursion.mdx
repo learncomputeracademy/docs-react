@@ -1,0 +1,68 @@
+---
+id: "792b6fcd-e57f-4737-9685-9dfbcf528b59"
+title: "Recursion"
+path: "programming/recursion"
+status: "published"
+meta_title: "Recursion | Learn Computer Academy"
+sort_order: 13
+updated_at: "2026-07-25T08:16:50.56945+00:00"
+---
+
+```json
+[
+  {
+    "id": "Kush6NKQJ8hx",
+    "html": "<p>Recursion is when a function calls itself to solve a smaller version of the same problem, until it reaches a simple case it can answer directly. It's a different way of expressing repetition than a loop — sometimes more natural, especially for problems that are naturally defined in terms of themselves.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iZf5BvJgFBIs",
+    "text": "A classic example: factorial",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-classic-example-factorial"
+  },
+  {
+    "id": "-o1A_nV_Dz9E",
+    "html": "<p>The factorial of a number is that number multiplied by the factorial of the number below it, until you reach 1. For example, <code>4! = 4 × 3 × 2 × 1 = 24</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WVDte7UUFfux",
+    "code": "function factorial(n) {\n  if (n <= 1) {\n    return 1; // base case — stops the recursion\n  }\n  return n * factorial(n - 1); // recursive case\n}\n\nconsole.log(factorial(4)); // 24",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "AL1UqfkrEh12",
+    "text": "The two parts every recursive function needs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-two-parts-every-recursive-function-needs"
+  },
+  {
+    "id": "6e9AYm-e_TqI",
+    "rows": [
+      [
+        "Base case",
+        "The simple case that returns an answer directly, with no further recursion — without this, the function calls itself forever"
+      ],
+      [
+        "Recursive case",
+        "Calls the function again on a smaller version of the problem, moving toward the base case"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Part",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "Dl6Sl5g9S2bX",
+    "html": "<p>A recursive function with no base case (or one that's never reached) causes a \"stack overflow\" — the program runs out of memory tracking all the pending calls. Every recursive function needs a way to eventually stop.</p>",
+    "type": "callout",
+    "variant": "warning"
+  }
+]
+```

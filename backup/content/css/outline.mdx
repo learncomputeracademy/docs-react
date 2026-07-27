@@ -1,0 +1,205 @@
+---
+id: "eaec4916-f81a-4674-b395-a7115489c313"
+title: "CSS Outline"
+path: "css/outline"
+status: "published"
+meta_title: "CSS Outline | Learn Computer Academy"
+sort_order: 24
+updated_at: "2026-07-25T06:20:42.616584+00:00"
+---
+
+```json
+[
+  {
+    "id": "_LPDZJoPj8n0",
+    "html": "<hr>\n<p style=\"width:98%;border:2px solid #ea0059;outline:#0054D1 solid 10px;padding:20px;margin:auto;text-align:center\">This element has a <b>pink border</b> and a <b>blue outline</b> with a width of 10px.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Wv-UGmETyn2A",
+    "text": "CSS Outline",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline"
+  },
+  {
+    "id": "J-PesTk1Pj9P",
+    "html": "<p>An outline is a line that is drawn around elements, OUTSIDE the borders, to make the element \"stand out\".</p>\n<div class=\"img-block\" style=\"margin-bottom: 1rem;\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960406/img/outline-img.webp\" alt=\"boxmodel\" class=\"img-fluid\">\n                                </div>\n<p>CSS has the following outline properties:</p>\n<ul>\n                                    <li><code>outline-style</code></li>\n                                    <li><code>outline-color</code></li>\n                                    <li><code>outline-width</code></li>\n                                    <li><code>outline-offset</code></li>\n                                    <li><code>outline</code></li>\n                                </ul>\n<p class=\"note\"><b>Note:</b> Outline differs from borders! Unlike border, the outline is drawn outside the element's border, and may overlap other content. Also, the outline is NOT a part of the element's dimensions; the element's total width and height is not affected by the width of the outline.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "gEPSOICKm8Is",
+    "text": "CSS Outline Style",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline-style"
+  },
+  {
+    "id": "LXVSpP4BI4TN",
+    "html": "<p>The outline-style property specifies the style of the outline, and can have one of the following values:</p>\n<ul>\n                                    <li><code>dotted</code> - Defines a dotted outline</li>\n                                    <li><code>dashed</code> - Defines a dashed outline</li>\n                                    <li><code>solid</code> - Defines a solid outline</li>\n                                    <li><code>double</code> - Defines a double outline</li>\n                                    <li><code>groove</code> - Defines a 3D grooved outline</li>\n                                    <li><code>ridge</code> - Defines a 3D ridged outline</li>\n                                    <li><code>inset</code> - Defines a 3D inset outline</li>\n                                    <li><code>outset</code> - Defines a 3D outset outline</li>\n                                    <li><code>none</code> - Defines no outline</li>\n                                    <li><code>hidden</code> - Defines a hidden outline</li>\n                                </ul>\n<p>The following example shows the different <code>outline-style</code> values:</p>\n<p style=\"outline-style:dotted;\">A dotted outline.</p>\n<p style=\"outline-style:dashed;\">A dashed outline.</p>\n<p style=\"outline-style:solid;\">A solid outline.</p>\n<p style=\"outline-style:double;\">A double outline.</p>\n<p style=\"outline-style:groove;\">A groove outline. The effect depends on the outline-color value.</p>\n<p style=\"outline-style:ridge;\">A ridge outline. The effect depends on the outline-color value.</p>\n<p style=\"outline-style:inset;\">An inset outline. The effect depends on the outline-color value.</p>\n<p style=\"outline-style:outset;\">An outset outline. The effect depends on the outline-color value.</p>\n<p>Demonstration of the different outline styles:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lmhV1MxpkA4j",
+    "code": "p.dotted {outline-style: dotted;}\np.dashed {outline-style: dashed;}\np.solid {outline-style: solid;}\np.double {outline-style: double;}\np.groove {outline-style: groove;}\np.ridge {outline-style: ridge;}\np.inset {outline-style: inset;}\np.outset {outline-style: outset;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "78szq1D7AsPG",
+    "html": "<p><b>Note:</b> None of the other outline properties will have any effect, unless the <code>outline-style</code> property is set!</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "_A1oDnk7gu5j",
+    "text": "CSS Outline Color",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline-color"
+  },
+  {
+    "id": "tcrZBHWqAq7L",
+    "html": "<p>The <code>outline-color</code> property is used to set the color of the outline.</p>\n<p>The color can be set by:</p>\n<ul>\n                                <li>name - specify a color name, like \"red\"</li>\n                                <li>RGB - specify a RGB value, like \"rgb(255,0,0)\"</li>\n                                <li>Hex - specify a hex value, like \"#ff0000\"</li>\n                                <li>invert - performs a color inversion (which ensures that the outline is visible, regardless of color background)</li>\n                                </ul>\n<p>The following example shows some different outlines with different colors. \n                                Also notice that these elements also have a thin black border inside the outline:</p>\n<p style=\"border: 1px solid black;outline-style:solid;outline-color:red;\">A solid red outline.</p>\n<p style=\"border: 1px solid black;outline-style:double;outline-color:green;\">A double green outline.</p>\n<p style=\"border: 1px solid black;outline-style:outset;outline-color:yellow;\">An outset yellow outline.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5_kRBfYJrp3l",
+    "code": "p.ex1 {\n  border: 1px solid black;\n  outline-style: solid;\n  outline-color: red;\n}\np.ex2 {\n  border: 1px solid black;\n  outline-style: double;\n  outline-color: green;\n}\np.ex3 {\n  border: 1px solid black;\n  outline-style: outset;\n  outline-color: yellow;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "VmW-1tr1ynWF",
+    "html": "<p>The following example uses <code>outline-color: invert</code>, which performs a color inversion. This ensures that the outline is visible, regardless of color background:</p>\n<p style=\"border: 1px solid yellow;outline-style:solid;outline-color:invert;\">A solid invert outline.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CEHhwPCVRaix",
+    "code": "p.ex1 {\n  border: 1px solid yellow;\n  outline-style: solid;\n  outline-color: invert;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "ODPyE6_mJoHk",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "6mEQrvRkFnOa",
+    "text": "CSS Outline Width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline-width"
+  },
+  {
+    "id": "5qKNl2a79dH3",
+    "html": "<p>The <code class=\"w3-codespan\">outline-width</code> property specifies the width of the outline, \n                                and can have one of the following values:</p>\n<ul>\n                                  <li>thin (typically 1px)</li>\n                                  <li>medium (typically 3px)</li>\n                                  <li>thick (typically 5px)</li>\n                                  <li>A specific size (in px, pt, cm, em, etc)</li>\n                                </ul>\n<p>The following example shows some outlines with different widths:</p>\n<p style=\"border: 1px solid black;outline-style:solid;outline-color:red;outline-width:thin;\">A thin outline.</p>\n<p style=\"border: 1px solid black;outline-style:solid;outline-color:red;outline-width:medium;\">A medium outline.</p>\n<p style=\"border: 1px solid black;outline-style:solid;outline-color:red;outline-width:thick;\">A thick outline.</p>\n<p style=\"border: 1px solid black;outline-style:solid;outline-color:red;outline-width:4px;\">A 4px thick outline.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cwhq1GUbQwz7",
+    "code": "p.ex1 {\n  border: 1px solid black;\n  outline-style: solid;\n  outline-color: red;\n  outline-width: thin;\n}\np.ex2 {\n  border: 1px solid black;\n  outline-style: solid;\n  outline-color: red;\n  outline-width: medium;\n}\np.ex3 {\n  border: 1px solid black;\n  outline-style: solid;\n  outline-color: red;\n  outline-width: thick;\n}\np.ex4 {\n  border: 1px solid black;\n  outline-style: solid;\n  outline-color: red;\n  outline-width: 4px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "VS1l-WEP0l5G",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "uFL_nMagXwdx",
+    "text": "CSS Outline - Shorthand property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline---shorthand-property"
+  },
+  {
+    "id": "0GZubRizxck-",
+    "html": "<p>The <code>outline</code> property is a shorthand property for \n                                setting the following individual outline properties:</p>\n<ul>\n                                <li><code>outline-width</code></li>\n                                <li><code>outline-style</code> (required)</li>\n                                <li><code>outline-color</code></li>\n                                </ul>\n<p>The <code>outline</code> property is specified as one, \n                                two, or three values from the list above. The order of the values does not \n                                matter.</p>\n<p>The following example shows some outlines specified with the shorthand <code>outline</code> \n                                property:</p>\n<p style=\"outline: dashed;\">A dashed outline.</p>\n<p style=\"outline: dotted red;\">A dotted red outline.</p>\n<p style=\"outline: 5px solid yellow;\">A 5px solid yellow outline.</p>\n<p style=\"outline: ridge thick pink;\">A thick ridge pink outline.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gc67mHu7mGxO",
+    "code": "p.ex1 {outline: dashed;}\np.ex2 {outline: dotted red;}\np.ex3 {outline: 5px solid yellow;}\np.ex4 {outline: thick ridge pink;}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "BHs8042A-GDZ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q5BiTaHy9yN4",
+    "text": "CSS Outline Offset",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-outline-offset"
+  },
+  {
+    "id": "HbIC4djvpCLO",
+    "html": "<p>The <code>outline-offset</code> property adds space \n                                between an outline and the edge/border of an element. The space between an \n                                element and its outline is transparent.</p>\n<p>The following example specifies an outline 15px outside the border edge:</p>\n<p style=\"margin:30px;border:1px solid black;outline:1px solid red;outline-offset:15px;\">\n                                This paragraph has an outline 15px outside the border edge.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LNCBFvCdUYTq",
+    "code": "p {\n  margin: 30px;\n  border: 1px solid black;\n  outline: 1px solid red;\n  outline-offset: 15px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "K4jthNOntMcx",
+    "html": "<p>The following example shows that the space between an element and its outline is transparent:</p>\n<p style=\"margin:30px;background:yellow;border:1px solid black;outline:1px solid red;outline-offset:15px;\">\n                                This paragraph has an outline of 15px outside the border edge.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3KQEN7ZPEkYw",
+    "code": "p {\n  margin: 30px;\n  background: yellow;\n  border: 1px solid black;\n  outline: 1px solid red;\n  outline-offset: 15px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "1QAV0DsmKnIc",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "QBkE5P8Kl0cM",
+    "text": "All CSS Outline Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-outline-properties"
+  },
+  {
+    "id": "YdZzhVw_0PV7",
+    "rows": [
+      [
+        "outline",
+        "A shorthand property for setting outline-width, outline-style, and outline-color in one declaration"
+      ],
+      [
+        "outline-color",
+        "Sets the color of an outline"
+      ],
+      [
+        "outline-offset",
+        "Specifies the space between an outline and the edge or border of an element"
+      ],
+      [
+        "outline-style",
+        "Sets the style of an outline"
+      ],
+      [
+        "outline-width",
+        "Sets the width of an outline"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

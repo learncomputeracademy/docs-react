@@ -1,0 +1,219 @@
+---
+id: "695cc37a-cbda-4c03-a5fd-ffa6d3ef26d3"
+title: "CSS List"
+path: "css/list"
+status: "published"
+meta_title: "CSS List | Learn Computer Academy"
+sort_order: 20
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "kmXwAzyjZLwy",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "e5Be3b95mzQL",
+    "text": "Unordered Lists:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unordered-lists"
+  },
+  {
+    "id": "2srI1KX6qB6a",
+    "html": "<ul style=\"list-style:circle\">\n                                            <li>Coffee</li>\n                                            <li>Tea</li>\n                                            <li>Coca Cola</li>\n                                        </ul>\n<ul style=\"list-style:square\">\n                                            <li>Coffee</li>\n                                            <li>Tea</li>\n                                            <li>Coca Cola</li>\n                                        </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "UPmgvdxs24cH",
+    "text": "Ordered Lists:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ordered-lists"
+  },
+  {
+    "id": "PyKq99Z7QprK",
+    "html": "<ol style=\"list-style:decimal\">\n                                            <li>Coffee</li>\n                                            <li>Tea</li>\n                                            <li>Coca Cola</li>\n                                        </ol>\n<ol style=\"list-style:lower-alpha\">\n                                            <li>Coffee</li>\n                                            <li>Tea</li>\n                                            <li>Coca Cola</li>\n                                        </ol>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "uCbizLjYBoYQ",
+    "text": "HTML Lists and CSS List Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-lists-and-css-list-properties"
+  },
+  {
+    "id": "m3jVemak4EgL",
+    "html": "<p>In HTML, there are two main types of lists:</p>\n<ul>\n                                  <li>unordered lists (&lt;ul&gt;) - the list items are marked with bullets</li>\n                                  <li>ordered lists (&lt;ol&gt;) - the list items are marked with numbers or letters</li>\n                                </ul>\n<p>The CSS list properties allow you to:</p>\n<ul>\n                                  <li>Set different list item markers for ordered lists</li>\n                                  <li>Set different list item markers for unordered lists</li>\n                                  <li>Set an image as the list item marker</li>\n                                  <li>Add background colors to lists and list items</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "VODddIguYY0A",
+    "text": "Different List Item Markers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "different-list-item-markers"
+  },
+  {
+    "id": "2UvYU9q_mTEL",
+    "html": "<p>The <code>list-style-type</code> property specifies the type of list item marker.</p>\n<p>The following example shows some of the available list item markers: </p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fllzfptuik5x",
+    "code": "ul.a {\n  list-style-type: circle;\n}\nul.b {\n  list-style-type: square;\n}\nol.c {\n  list-style-type: upper-roman;\n}\nol.d {\n  list-style-type: lower-alpha;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "FNY9CuHBWsL1",
+    "html": "<p class=\"note\"><b>Note:</b> Some of the values are for unordered lists, and some for ordered lists.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "6KwuEvCZQcJg",
+    "text": "An Image as The List Item Marker",
+    "type": "heading",
+    "level": 2,
+    "anchor": "an-image-as-the-list-item-marker"
+  },
+  {
+    "id": "u7zrqNe2Yxnp",
+    "html": "<p>The <code>list-style-image</code> property specifies an image as the list item marker:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eG1aGUg8IwpJ",
+    "code": "ul {\n  list-style-image: url('cat.png');\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "9olWWZlV1WlH",
+    "html": "<ul style=\"list-style-image: url('assets/img/cat.png');\">\n                                  <li>Coffee</li>\n                                  <li>Tea</li>\n                                  <li>Coca Cola</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Bpx8Nd57m6rG",
+    "text": "Position The List Item Markers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-the-list-item-markers"
+  },
+  {
+    "id": "hvOhHlwOtg_8",
+    "html": "<p>The <code>list-style-position</code> property specifies the position of the list-item markers \n                                (bullet points).</p>\n<p>\"list-style-position: outside;\" means that the bullet points will be outside the list item. The start of each line of a list item will be aligned vertically. \n                                This is default:</p>\n<ul style=\"list-style-position:outside;width:25%;\">\n                                    <li style=\"border:1px solid #000000;\">Coffee -\n                                    <span style=\"display: inline !important; float: none; background-color: transparent; color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; list-style-position: inside; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\">\n                                    A brewed drink prepared from roasted coffee beans...</span></li>\n                                    <li style=\"border:1px solid #000000;border-top:0;\">Tea</li>\n                                    <li style=\"border:1px solid #000000;border-top:0;\">Coca-cola</li>\n                                </ul>\n<p>\"list-style-position: inside;\" means that the bullet points will be inside the list item. As it is part of the list item, it will be part of the text and \n                                push the text at the start:</p>\n<ul style=\"list-style-position:inside;width:25%;\">\n                                    <li style=\"border:1px solid #000000;\">Coffee -\n                                    <span style=\"display: inline !important; float: none; background-color: transparent; color: rgb(0, 0, 0); font-family: Times New Roman; font-size: 16px; font-style: normal; font-variant: normal; font-weight: 400; letter-spacing: normal; list-style-position: inside; orphans: 2; text-align: left; text-decoration: none; text-indent: 0px; text-transform: none; -webkit-text-stroke-width: 0px; white-space: normal; word-spacing: 0px;\">\n                                    A brewed drink prepared from roasted coffee beans...</span></li>\n                                    <li style=\"border:1px solid #000000;border-top:0;\">Tea</li>\n                                    <li style=\"border:1px solid #000000;border-top:0;\">Coca-cola</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "McNl2VNlmbwY",
+    "code": "ul.a {\n  list-style-position: outside;\n}\nul.b {\n  list-style-position: inside;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "KpeaDkJm6E0P",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "vHsXurvgIv6E",
+    "text": "Remove Default Settings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "remove-default-settings"
+  },
+  {
+    "id": "qZ5T0UJxvqAy",
+    "html": "<p>The <code>list-style-type:none</code> property can also be used to remove the markers/bullets. Note that the list also has default margin and padding. To remove this, add <code>margin:0</code> and <code>padding:0</code> to &lt;ul&gt; or &lt;ol&gt;:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bRFBAAwfsoXB",
+    "code": "ul {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "0W9qV1YtJfVo",
+    "html": "<p>Default list:</p>\n<ul>\n                                  <li>Coffee</li>\n                                  <li>Tea</li>\n                                  <li>Coca Cola</li>\n                                </ul>\n<p>Remove bullets, margin and padding:</p>\n<ul style=\"list-style-type: none; margin: 0; padding: 0;\">\n                                  <li>Coffee</li>\n                                  <li>Tea</li>\n                                  <li>Coca Cola</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "MaHmd5H46Xti",
+    "text": "List - Shorthand property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "list---shorthand-property"
+  },
+  {
+    "id": "Kl9WASAxUVfO",
+    "html": "<p>The <code>list-style</code> property is a shorthand property. It is used to set all the list properties in one declaration:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PAv5vn16l54y",
+    "code": "ul {\n  list-style: square inside url('cat.png');\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "u5vejRTwCLvY",
+    "html": "<ul style=\"list-style: square inside url('assets/img/cat.png');\">\n                                  <li>Coffee</li>\n                                  <li>Tea</li>\n                                  <li>Coca Cola</li>\n                                </ul>\n<hr>\n<p>When using the shorthand property, the order of the property values are:</p>\n<ul>\n                                    <li><code>list-style-type</code> (if a list-style-image is specified, the value of this property will be displayed if the image for some reason cannot be displayed)</li>\n                                    <li><code>list-style-position</code> (specifies whether the list-item markers should appear inside or outside the content flow)</li>\n                                    <li><code>list-style-image</code> (specifies an image as the list item marker)</li>\n                                </ul>\n<p>If one of the property values above are missing, the default value for the missing property will be inserted, if any.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "s-OTLlOfnxcd",
+    "text": "Styling List With Colors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-list-with-colors"
+  },
+  {
+    "id": "uJrgbEJjoiag",
+    "html": "<p>We can also style lists with colors, to make them look a little more interesting.</p>\n<p>Anything added to the &lt;ol&gt; or &lt;ul&gt; tag, affects the entire list, while properties added to the &lt;li&gt; tag will affect the individual list items:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PQw65FBZtn__",
+    "code": "ol {\n  background: #ff9999;\n  padding: 20px;\n}\nul {\n  background: #3399ff;\n  padding: 20px;\n}\nol li {\n  background: #ffe5e5;\n  padding: 5px;\n  margin-left: 35px;\n}\nul li {\n  background: #cce5ff;\n  margin: 5px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "UlaQbqOtmTO7",
+    "html": "<ol style=\"  background: #ff9999; padding: 20px;\">\n                              <li style=\"background: #ffe5e5; padding: 5px; margin-left: 35px;\">Coffee</li>\n                              <li style=\"background: #ffe5e5; padding: 5px; margin-left: 35px;\">Tea</li>\n                              <li style=\"background: #ffe5e5; padding: 5px; margin-left: 35px;\">Coca Cola</li>\n                            </ol>\n<ul style=\"background: #3399ff; padding: 20px;\">\n                              <li style=\"background: #cce5ff; margin: 5px;\">Coffee</li>\n                              <li style=\"background: #cce5ff; margin: 5px;\">Tea</li>\n                              <li style=\"background: #cce5ff; margin: 5px;\">Coca Cola</li>\n                            </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "R7kwhR46jXUB",
+    "rows": [
+      [
+        "list-style",
+        "Sets all the properties for a list in one declaration"
+      ],
+      [
+        "list-style-image",
+        "Specifies an image as the list-item marker"
+      ],
+      [
+        "list-style-position",
+        "Specifies the position of the list-item markers (bullet points)"
+      ],
+      [
+        "list-style-type",
+        "Specifies the type of list-item marker"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

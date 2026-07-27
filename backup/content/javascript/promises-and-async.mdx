@@ -1,0 +1,204 @@
+---
+id: "33a8eeeb-f986-4cd2-a6c2-799a82416f76"
+title: "JavaScript Promises and Async"
+path: "javascript/promises-and-async"
+status: "published"
+meta_title: "JavaScript Promises and Async | Learn Computer Academy"
+sort_order: 22
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "PMMkzzknD9fa",
+    "html": "<p><em>(Handle asynchronous tasks like API calls, delays, and file loading)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "63JT2zSUeHuk",
+    "text": "Why Asynchronous Programming?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-asynchronous-programming"
+  },
+  {
+    "id": "TRIGi5yN6iXh",
+    "html": "<p>JavaScript is <strong>single-threaded</strong>, meaning it executes one task at a time.</p>\n<p>But real-world tasks (like fetching data or waiting for a timer) can take time.</p>\n<p><strong>Asynchronous programming</strong> lets your code continue running <strong>without blocking</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zKnbDs2609CA",
+    "text": "Common Async Tasks in JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-async-tasks-in-javascript"
+  },
+  {
+    "id": "g42vhXL7rgH1",
+    "html": "<ul>\n                                  <li>Fetching data from an API</li>\n                                  <li>Reading/writing files (in Node.js)</li>\n                                  <li>setTimeout / setInterval</li>\n                                  <li>Event handling</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "5aEVEPE4dQ-R",
+    "text": "Callbacks (Old Method)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "callbacks-old-method"
+  },
+  {
+    "id": "xCteyr_PgM9e",
+    "code": "function getData(callback) {\n  setTimeout(() => {\n    callback(\"Data loaded\");\n  }, 1000);\n}\n                                \ngetData((result) => {\n  console.log(result); // Data loaded\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "8M9L2rfMo9lN",
+    "html": "<p>⚠️ <strong>Problem</strong>: Callback Hell — nested callbacks are hard to read and debug.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oRGg9o3qVWx5",
+    "text": "Promises (Modern Way)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "promises-modern-way"
+  },
+  {
+    "id": "MLlUE7qdWkNt",
+    "html": "<p>A <strong>Promise</strong> is an object that represents the <strong>future value</strong> of an async operation.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sqq61Tt0yhVk",
+    "text": "States of a Promise:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "states-of-a-promise"
+  },
+  {
+    "id": "WKAwfTR4ixym",
+    "html": "<ul>\n                                  <li>Pending</li>\n                                  <li>Fulfilled</li>\n                                  <li>Rejected</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "8yex562XUsiZ",
+    "text": "Creating a Promise",
+    "type": "heading",
+    "level": 3,
+    "anchor": "creating-a-promise"
+  },
+  {
+    "id": "YJ3LToLxrdrV",
+    "code": "const myPromise = new Promise((resolve, reject) => {\n  let success = true;\n  setTimeout(() => {\n    if (success) resolve(\"Success!\");\n    else reject(\"Error occurred\");\n  }, 1000);\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "QZH7ZLVDXb23",
+    "text": "Consuming a Promise",
+    "type": "heading",
+    "level": 3,
+    "anchor": "consuming-a-promise"
+  },
+  {
+    "id": "gDoygJN92bbj",
+    "code": "myPromise\n  .then((value) => {\n    console.log(value); // Success!\n  })\n  .catch((error) => {\n    console.error(error);\n  })\n  .finally(() => {\n    console.log(\"Promise completed\");\n  });",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "rhAA1Bo_Yq4T",
+    "text": "Real Example with fetch()",
+    "type": "heading",
+    "level": 3,
+    "anchor": "real-example-with-fetch"
+  },
+  {
+    "id": "Rdy_9I8-cgjN",
+    "code": "fetch(\"https://jsonplaceholder.typicode.com/posts/1\")\n  .then((response) => response.json())\n  .then((data) => console.log(data))\n  .catch((err) => console.error(err));",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "lWSMyYVOBsXp",
+    "text": "Async/Await (Syntactic Sugar for Promises)",
+    "type": "heading",
+    "level": 3,
+    "anchor": "asyncawait-syntactic-sugar-for-promises"
+  },
+  {
+    "id": "fVcMVuCCc8nn",
+    "html": "<p><code>async</code> makes a function return a promise.</p>\n<p><code>await</code> waits for the promise to resolve.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "l4KhW7J20iGY",
+    "code": "async function getPost() {\n  try {\n    const response = await fetch(\"https://jsonplaceholder.typicode.com/posts/1\");\n    const data = await response.json();\n    console.log(data);\n  } catch (err) {\n    console.error(\"Error:\", err);\n  }\n}\n                                \ngetPost();",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "GQW5DWRSvx30",
+    "html": "<p>More readable than <code>.then()</code> chaining.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "voy_aFPEx9oY",
+    "text": "setTimeout / setInterval (Delay functions)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "settimeout-setinterval-delay-functions"
+  },
+  {
+    "id": "BDDIid1lW_y3",
+    "code": "setTimeout(() => {\n  console.log(\"Runs after 2 seconds\");\n}, 2000);\n                                \nlet counter = 0;\nconst intervalId = setInterval(() => {\n  counter++;\n  console.log(counter);\n  if (counter === 3) clearInterval(intervalId);\n}, 1000);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "eCQxcmHeOiOu",
+    "text": "Promise.all and Promise.race",
+    "type": "heading",
+    "level": 2,
+    "anchor": "promiseall-and-promiserace"
+  },
+  {
+    "id": "ase0ZjVzD23O",
+    "code": "const p1 = Promise.resolve(\"First\");\nconst p2 = Promise.resolve(\"Second\");\n                                  \nPromise.all([p1, p2]).then(values => console.log(values)); // [ \"First\", \"Second\" ]\n                                  \nPromise.race([p1, p2]).then(value => console.log(value)); // \"First\" (whichever resolves first)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ppZnRt_7aljn",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "RKWj-65ljIqt",
+    "html": "<ul>\n                                  <li>Promises handle async tasks more cleanly than callbacks.</li>\n                                  <li><code>async/await</code> makes code cleaner and easier to read.</li>\n                                  <li>Always use <code>catch()</code> or <code>try...catch</code> to handle errors.</li>\n                                  <li><code>Promise.all</code> waits for all promises; <code>Promise.race</code> returns the first one.</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "xdHL-FfWXGDC",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "1iA3-cqeqHKx",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "yZVZCyF4NuVJ",
+    "html": "<ol>\n                                  <li>Create a Promise that resolves after 2 seconds and logs a message.</li>\n                                  <li>Use <code>fetch()</code> to get a list of users from a public API.</li>\n                                  <li>Write an async function that uses <code>await</code> to fetch and display data.</li>                                  \n                                  <li>Try catching errors using <code>try...catch</code> with <code>async/await</code>.</li>\n                                  <li>Chain multiple <code>.then()</code> methods to process fetched data.</li>\n                              </ol>",
+    "type": "richtext"
+  }
+]
+```

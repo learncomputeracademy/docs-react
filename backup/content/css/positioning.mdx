@@ -1,0 +1,222 @@
+---
+id: "cbfe7768-9839-4d30-9671-216d050f86c8"
+title: "CSS Position"
+path: "css/positioning"
+status: "published"
+meta_title: "CSS Position | Learn Computer Academy"
+sort_order: 27
+updated_at: "2026-07-25T06:20:41.629832+00:00"
+---
+
+```json
+[
+  {
+    "id": "ndyq3pE48e70",
+    "html": "<hr>\n<p>The <code>position</code> property specifies the type of positioning method used for an element.</p>\n<hr>\n<p>There are five different position values: </p>\n<ul>\n                                    <li><code class=\"w3-codespan\">static</code></li>\n                                    <li><code class=\"w3-codespan\">relative</code></li>\n                                    <li><code class=\"w3-codespan\">fixed</code></li>\n                                    <li><code class=\"w3-codespan\">absolute</code></li>\n                                    <li><code class=\"w3-codespan\">sticky</code></li>\n                                </ul>\n<p>Elements are then positioned using the top, bottom, left, and right properties. However, these properties will not work unless the <code>position</code> \n                                property is set first. They also work differently depending on the position value.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "vrh4AKRCJhPK",
+    "text": "position: static;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-static"
+  },
+  {
+    "id": "5Pay0U5kBxYt",
+    "html": "<p>HTML elements are positioned static by default.</p>\n<p>Static positioned elements are not affected by the top, bottom, left, and right properties.</p>\n<p>An element with <code>position: static;</code> is not positioned in any special way; it is always positioned according to the normal flow of the page:</p>\n<p>Here is the CSS that is used:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4pD0jot5JTy2",
+    "code": "div.static {\n  position: static;\n  border: 3px solid #73AD21;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "O1K_TFU3Np_9",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UrqGSNkHEwny",
+    "text": "position: relative;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-relative"
+  },
+  {
+    "id": "FKt27dNo-Xwp",
+    "html": "<p>An element with <code class=\"w3-codespan\">position: relative;</code> is positioned relative to its normal position.</p>\n<p>Setting the top, right, bottom, and left properties of a relatively-positioned element will cause it to be adjusted away from its normal position. Other content will not be adjusted to fit into any gap left by the element.</p>\n<p>Here is the CSS that is used:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1j0ckz6_rXUO",
+    "code": "div.relative {\n  position: relative;\n  left: 30px;\n  border: 3px solid #73AD21;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "2ZmNLkCnxb__",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "5UkMt3D7yiDH",
+    "text": "position: fixed;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-fixed"
+  },
+  {
+    "id": "VLaNF_Qf-mau",
+    "html": "<p>An element with <code>position: fixed;</code> is positioned relative to the viewport, which means it always stays in the same place even if the page is scrolled. The top, right, bottom, and left properties are used to position the element.</p>\n<p>A fixed element does not leave a gap in the page where it would normally have been located.</p>\n<p>Notice the fixed element in the lower-right corner of the page. Here is the CSS that is used:</p>\n<code>position: fixed;</code>",
+    "type": "richtext"
+  },
+  {
+    "id": "lz6Xpt0Ol8lu",
+    "code": "div.fixed {\n  position: fixed;\n  bottom: 0;\n  right: 0;\n  width: 300px;\n  border: 3px solid #73AD21;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "aN1NqPwImzLj",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "nCsf2biAqhSR",
+    "text": "position: absolute;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-absolute"
+  },
+  {
+    "id": "tBgNs-VFii6p",
+    "html": "<p>An element with <code class=\"w3-codespan\">position: absolute;</code> is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed).</p>\n<p>However; if an absolute positioned element has no positioned ancestors, it uses the document body, and moves along with page scrolling.</p>\n<p><b>Note:</b> A \"positioned\" element is one whose position is anything except <code>static</code>.</p>\n<p>Here is a simple example:</p>\n<p>Here is the CSS that is used:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XbQBgLjT_zoO",
+    "code": "div.relative {\n  position: relative;\n  width: 400px;\n  height: 200px;\n  border: 3px solid #0054D1;\n} \ndiv.absolute {\n  position: absolute;\n  top: 80px;\n  right: 0;\n  width: 200px;\n  height: 100px;\n  border: 3px solid #0054D1;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "lXSm8KG87DqS",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "x1nhuqETTn3o",
+    "text": "position: sticky;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "position-sticky"
+  },
+  {
+    "id": "RBk99D34Ta5S",
+    "html": "<p>An element with <code>position: sticky;</code> is positioned based on the user's scroll position.</p>\n<p>A sticky element toggles between <code>relative</code> and <code>fixed</code>, depending on the scroll position. It is positioned relative until a given offset position is met in the viewport - then it \"sticks\" in place (like position:fixed).</p>\n<p><b>Try to scroll inside this frame to understand how sticky positioning works.</b></p>\n<p><b>Note: IE/Edge 15 and earlier versions do not support sticky position.</b></p>\n<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos deserunt porro corrupti, harum quos itaque! Facilis corporis hic tempore, alias repellat minima optio. Ab ea autem mollitia sunt fuga, ut quasi quisquam alias, magni dolore assumenda. Quidem praesentium dicta, totam voluptate, pariatur officia! Voluptates quam ad alias quidem aperiam, adipisci eum ipsam magnam enim, non doloribus suscipit illo consequatur labore ab vero maxime quas ullam dolor, recusandae quos, officiis ipsa. Harum, atque aliquam et doloremque sed eaque temporibus dolores, deserunt rem quibusdam assumenda dicta eius, voluptatibus amet nisi optio consequuntur soluta sequi fuga eum quasi velit odio excepturi impedit. Odio! Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi, fuga perspiciatis rem asperiores, eum provident temporibus alias magni modi iste tenetur distinctio voluptatem? Quae eveniet, earum eaque. Fugiat labore harum, atque porro, fugit odio amet. Quam, rerum dolore, adipisci laudantium consectetur quae. Neque eius deserunt similique, aliquid quis deleniti eaque, animi atque molestiae magni doloribus officiis fuga aut a expedita in ad vitae illo voluptatem. Unde beatae sint laudantium, ipsa corrupti vel repudiandae cupiditate repellendus ex modi similique dolor laboriosam vitae officia cum aut, consectetur laborum iusto at! Nobis, quisquam sit rerum ea vero, reiciendis eligendi aliquam labore sint quod. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, iste, eligendi. Natus nemo aut quos adipisci, ipsum impedit eligendi, voluptatibus ab qui enim aspernatur, beatae aliquid id molestiae veritatis eveniet harum illo dolor quaerat eos blanditiis explicabo. Optio repellat neque quod nulla molestias ut nisi, corporis minima sint. Perspiciatis, modi vitae vero sit quibusdam magnam quo unde! Nisi iure non illo provident, voluptatum harum, dicta quia facilis, dolorum totam dignissimos maiores, itaque porro unde! Non inventore ullam quidem repellendus neque voluptates distinctio itaque eaque voluptatum ad. Eos repellendus debitis, totam deleniti quidem eligendi alias ratione, est, soluta, facilis rem. Eaque?</p>\n<p class=\"note\"><b>Note:</b> Internet Explorer, Edge 15 and earlier versions do not support sticky positioning. Safari requires a -webkit- prefix (see example below). You must also specify at least one of top, right, bottom or left for sticky positioning to work.</p>\n<p>In this example, the sticky element sticks to the top of the page (<code>top: 0</code>), when you reach its scroll position.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uyO0hpLUWX0k",
+    "code": "div.sticky {\n  position: -webkit-sticky; /* Safari */\n  position: sticky;\n  top: 0;\n  background-color: green;\n  border: 2px solid #4CAF50;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "tb-EAQ_6qomF",
+    "text": "Overlapping Elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overlapping-elements"
+  },
+  {
+    "id": "goqbWoTcIo4i",
+    "html": "<p>When elements are positioned, they can overlap other elements.</p>\n<p>The <code>z-index</code> property specifies the stack order of an element (which element should be placed in front of, or behind, the others).</p>\n<p>An element can have a positive or negative stack order:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Kv1De04FC494",
+    "alt": "",
+    "type": "image",
+    "width": 100,
+    "height": 100,
+    "publicId": "img/cat-img"
+  },
+  {
+    "id": "FvfMmymShWrJ",
+    "html": "<p style=\"position:absolute;left:35px;top:65px;z-index:2;color: #000;\">Because the image has a z-index of -1, it will be placed behind the text.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6T21zaTHXPwS",
+    "code": "img {\n  position: absolute;\n  left: 0px;\n  top: 0px;\n  z-index: -1;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "UaQBLjS89sRE",
+    "html": "<p>An element with greater stack order is always in front of an element with a lower stack order.</p>\n<p class=\"note\"><b>Note:</b> If two positioned elements overlap without a z-index specified, the element positioned last in the HTML code will be shown on top.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "lmCHsVUb5GjW",
+    "text": "Positioning Text In an Image",
+    "type": "heading",
+    "level": 2,
+    "anchor": "positioning-text-in-an-image"
+  },
+  {
+    "id": "f98Jwo-kd5Yp",
+    "html": "<p>How to position text over an image:</p>\n<div class=\"img-thumbnail\">\n                                    <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960418/img/text-over-img.webp\" alt=\"\" class=\"img-fluid\">\n                                </div>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "g75NhtM7UCed",
+    "text": "All CSS Positioning Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-positioning-properties"
+  },
+  {
+    "id": "twjQeqcxhVGj",
+    "rows": [
+      [
+        "bottom",
+        "Sets the bottom margin edge for a positioned box"
+      ],
+      [
+        "clip",
+        "Clips an absolutely positioned element"
+      ],
+      [
+        "left",
+        "Sets the left margin edge for a positioned box"
+      ],
+      [
+        "position",
+        "Specifies the type of positioning for an element"
+      ],
+      [
+        "right",
+        "Sets the right margin edge for a positioned box"
+      ],
+      [
+        "top",
+        "Sets the top margin edge for a positioned box"
+      ],
+      [
+        "z-index",
+        "Sets the stack order of an element"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

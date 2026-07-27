@@ -1,0 +1,243 @@
+---
+id: "bf6faa0d-3a62-41db-9cbf-c34c032a0959"
+title: "CSS Form"
+path: "css/form"
+status: "published"
+meta_title: "CSS Form | Learn Computer Academy"
+sort_order: 13
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "O7bGM2phYiH1",
+    "html": "<hr>\n<p>The look of an HTML form can be greatly improved with CSS:</p>\n<form action=\"\" class=\"test\">\n                                        <label for=\"fname\">First Name</label>\n                                        <input type=\"text\" id=\"fname\" name=\"firstname\" placeholder=\"Your name..\" class=\"form-control\">\n                                        <label for=\"lname\">Last Name</label>\n                                        <input type=\"text\" id=\"lname\" name=\"lastname\" placeholder=\"Your last name..\" class=\"form-control\">\n                                        <label for=\"country\">Country</label>\n                                        <select id=\"country\" name=\"country\" class=\"form-control\">\n                                        <option value=\"usa\">Australia</option>\n                                        <option value=\"usa\">Canada</option>\n                                        <option value=\"usa\">USA</option>\n                                        </select>\n                                        <a target=\"_blank\" href=\"#\" class=\"btn btn-primary form-control\" style=\"margin-top: 20px;\">SUBMIT »</a>\n                                    </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TmRuDkfwcIDN",
+    "text": "Styling Input Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-input-fields"
+  },
+  {
+    "id": "pSBm7C1gmC-u",
+    "html": "<p>Use the <code class=\"w3-codespan\">width</code> property to determine the width of the input field:</p>\n<label for=\"fname2\">First Name</label>\n<input type=\"text\" id=\"fname2\" name=\"firstname\" style=\"width:100%; margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "wjPnHLa300ST",
+    "code": "input {\n  width: 100%;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "XdhVYSJd1Ukg",
+    "html": "<p>The example above applies to all &lt;input&gt; elements. If you only want to style a specific input type, you can use attribute selectors:</p>\n<ul>\n                                    <li><code>input[type=text]</code> - will only select text fields</li>\n                                    <li><code>input[type=password]</code> - will only select password fields</li>\n                                    <li><code>input[type=number]</code> - will only select number fields</li>\n                                    <li>etc..</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "-As9f62uSsIV",
+    "text": "Padded Inputs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "padded-inputs"
+  },
+  {
+    "id": "XMClK7GBj9o1",
+    "html": "<p>Use the <code class=\"w3-codespan\">padding</code> property to add space inside the text field.</p>\n<p><strong>Tip:</strong> When you have many inputs after each other, you might \n                                also want to add some <code class=\"w3-codespan\">margin</code>, to add more space \n                                outside of them:</p>\n<label for=\"fname3\">First Name</label>\n<input type=\"text\" id=\"fname3\" name=\"firstname\" class=\"form-control\">\n<label for=\"lname3\">Last Name</label>\n<input type=\"text\" id=\"lname3\" name=\"lastname\" class=\"form-control\" style=\"margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "Ax__CwKqqu-0",
+    "code": "input[type=text] {\n  width: 100%;\n  padding: 12px 20px;\n  margin: 8px 0;\n  box-sizing: border-box;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "yQpsBPFO2q43",
+    "html": "<p class=\"note\">Note that we have set the <code>box-sizing</code> property to <code>border-box</code>. This makes sure that the padding and eventually borders are included in the total width and height of the elements. <br>Read more about the <code>box-sizing</code> property in our <a href=\"#\">CSS Box Sizing</a> chapter.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "RN0VP0byTmDB",
+    "text": "Bordered Inputs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "bordered-inputs"
+  },
+  {
+    "id": "CUOApOxzOXSd",
+    "html": "<p>Use the <code>border</code> property to change the border size and color, and \n                                use the <code>border-radius</code> property to add rounded corners:</p>\n<label for=\"fname4\">First Name</label>\n<input type=\"text\" id=\"fname4\" name=\"firstname\" class=\"form-control\" style=\"border: 1px solid red;margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "cLp00iItkoOw",
+    "code": "input[type=text] {\n  border: 2px solid red;\n  border-radius: 4px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "WLubmYpZFl9t",
+    "html": "<p>If you only want a bottom border, use the <code>border-bottom</code> property:</p>\n<label for=\"fname7\">First Name</label>\n<input type=\"text\" id=\"fname7\" name=\"firstname\" placeholder=\"First Name\" class=\"form-control\" style=\"border-width: 1px; border-style: solid; border-color: transparent transparent red transparent;margin-bottom: 1rem; \">",
+    "type": "richtext"
+  },
+  {
+    "id": "8v7QotobOhK1",
+    "code": "input[type=text] {\n  border: none;\n  border-bottom: 2px solid red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "lJ2wvr_Yy4Pf",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9qNMSosPRvdl",
+    "text": "Colored Inputs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "colored-inputs"
+  },
+  {
+    "id": "4hzow1OQFmjr",
+    "html": "<p>Use the <code>background-color</code> property to add a background color to the input, and the <code>color</code> property to change the text color:</p>\n<input type=\"text\" value=\"John\" name=\"firstname\" class=\"form-control\" style=\"background: #0054D1;color: #fff;margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "zq7uURsxYWTp",
+    "code": "input[type=text] {\n  background-color: #3CBC8D;\n  color: white;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "0Fuj3mpj9i6O",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "3cgBqx7JYFcB",
+    "text": "Focused Inputs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "focused-inputs"
+  },
+  {
+    "id": "aoS63EIq0-Wi",
+    "html": "<p>By default, some browsers will add a blue outline around the input when it gets focus (clicked on). You can remove this behavior by adding <code>outline: none;</code> to the input.</p>\n<p>Use the <code>:focus</code> selector to do something with the input field when it gets focus:</p>\n<input class=\"focus1 form-control\" type=\"text\" name=\"firstname\" style=\"margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "K72-1FRNzccv",
+    "code": "input[type=text]:focus {\n  background-color: lightblue;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "l3NEoy_-humE",
+    "html": "<input class=\"focus2 form-control\" type=\"text\" name=\"lastname\" style=\"margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "70iT5Shw_Hni",
+    "code": "input[type=text]:focus {\n  background-color: pink;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "UAb1ypTyxEqQ",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "sjUkmfukZmYD",
+    "text": "Input with icon/image",
+    "type": "heading",
+    "level": 2,
+    "anchor": "input-with-iconimage"
+  },
+  {
+    "id": "lihBkoT3bBPo",
+    "html": "<p>If you want an icon inside the input, use the <code class=\"w3-codespan\">background-image</code> property and position it with the <code>background-position</code> property. Also notice that we add a large left padding to reserve the space of the icon:</p>\n<input type=\"text\" name=\"search\" placeholder=\"Search..\" class=\"icon form-control\" style=\"margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "jPX5MhGtjACQ",
+    "code": "input[type=text] {\n  background-color: white;\n  background-image: url('searchicon.png');\n  background-position: 10px 10px; \n  background-repeat: no-repeat;\n  padding-left: 40px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "y8CIAUoIwFuP",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "qILDZToZqat3",
+    "text": "Styling Textareas",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-textareas"
+  },
+  {
+    "id": "kUIzcBAwO1N_",
+    "html": "<p><strong>Tip:</strong> Use the <code>resize</code> property to prevent textareas from being resized (disable the \"grabber\" in the bottom right corner):</p>\n<textarea name=\"firstname\" class=\"form-control\" style=\"margin-bottom: 1rem;\">Some text...</textarea>",
+    "type": "richtext"
+  },
+  {
+    "id": "fZfnaaJP3yrb",
+    "code": "textarea {\n  width: 100%;\n  height: 150px;\n  padding: 12px 20px;\n  box-sizing: border-box;\n  border: 2px solid #ccc;\n  border-radius: 4px;\n  background-color: #f8f8f8;\n  resize: none;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "ZPiWh18XxiIM",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TcffKOTIyY8P",
+    "text": "Styling Select Menus",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-select-menus"
+  },
+  {
+    "id": "i8qXdxNafieZ",
+    "html": "<form class=\"test\">\n                                  <select id=\"country\" name=\"country\" style=\"background-color:#f1f1f1;border:none;margin-bottom: 1rem;\">\n                                    <option value=\"usa\">Choose...</option>\n                                    <option value=\"usa\">Australia</option>\n                                    <option value=\"usa\">Canada</option>\n                                    <option value=\"usa\">USA</option>\n                                  </select>\n                                </form>",
+    "type": "richtext"
+  },
+  {
+    "id": "TvU-E5-E__X8",
+    "code": "select {\n  width: 100%;\n  padding: 16px 20px;\n  border: none;\n  border-radius: 4px;\n  background-color: #f1f1f1;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "dVaDVoG8W_ws",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "JTlFr8JAwjB8",
+    "text": "Styling Input Buttons",
+    "type": "heading",
+    "level": 2,
+    "anchor": "styling-input-buttons"
+  },
+  {
+    "id": "kTyUmuBu7to2",
+    "html": "<input type=\"button\" value=\"Button\" class=\"btn btn-primary\" style=\"margin-bottom: 1rem;\">\n<input type=\"button\" value=\"Button\" class=\"btn btn-primary\" style=\"width:100%;margin-bottom: 1rem;\">",
+    "type": "richtext"
+  },
+  {
+    "id": "nYXGzC7fV6Pu",
+    "code": "input[type=button], input[type=submit], input[type=reset] {\n  background-color: #4CAF50;\n  border: none;\n  color: white;\n  padding: 16px 32px;\n  text-decoration: none;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n/* Tip: use width: 100% for full-width buttons */",
+    "type": "code",
+    "language": "css"
+  }
+]
+```

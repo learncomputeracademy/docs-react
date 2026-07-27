@@ -1,0 +1,43 @@
+name: Supabase daily keep-alive + backup
+
+# ADMIN.md "Keep-alive + backup job" — one daily Action does both jobs:
+# pings the DB (resets the free tier's 7-day inactivity pause) and exports
+# every docs/categories/doc_translations row to backup/, committing only
+# if something changed. Needs two repo secrets set in GitHub (Settings →
+# Secrets and variables → Actions), same values as .env.local:
+#   NEXT_PUBLIC_SUPABASE_URL
+#   SUPABASE_SERVICE_ROLE_KEY
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 03:00 UTC daily
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/daily-backup.mjs
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+      - name: Commit backup if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add backup/
+          git diff --staged --quiet || git commit -m "chore: daily backup $(date -u +%Y-%m-%d)"
+          git push

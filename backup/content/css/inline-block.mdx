@@ -1,0 +1,65 @@
+---
+id: "ab07e4cc-b7c4-48a9-aeff-07769bb0a895"
+title: "CSS Layout"
+path: "css/inline-block"
+status: "published"
+meta_title: "CSS Layout | Learn Computer Academy"
+sort_order: 17
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "k0cPtUxONT0G",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "zUIro2huZL1V",
+    "text": "The display: inline-block Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-display-inline-block-value"
+  },
+  {
+    "id": "doDJR68ounI0",
+    "html": "<p>Compared to <code>display: inline</code>, the major difference is that <code>display: inline-block</code> allows to set a width and height on the element.</p>\n<p>Also, with <code>display: inline-block</code>, the top and bottom margins/paddings are respected, but with <code>display: inline</code> they are not.</p>\n<p>Compared to <code>display: block</code>, the major difference is that <code>display: inline-block</code> does not add a line-break after the element, so the element can sit next to other elements.</p>\n<p>The following example shows the different behavior of <code>display: inline</code>, <code>display: inline-block</code> \n                                and <code>display: block</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pKUSMoiw2hdY",
+    "code": "span.a {\n  display: inline; /* the default for span */\n  width: 100px;\n  height: 100px;\n  padding: 5px;\n  border: 1px solid blue; \n  background-color: yellow; \n}\nspan.b {\n  display: inline-block;\n  width: 100px;\n  height: 100px;\n  padding: 5px;\n  border: 1px solid blue; \n  background-color: yellow; \n}\nspan.c {\n  display: block;\n  width: 100px;\n  height: 100px;\n  padding: 5px;\n  border: 1px solid blue; \n  background-color: yellow; \n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "Pw1raTlOq2wo",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "KnPtGGEVvXyo",
+    "text": "Using inline-block to Create Navigation Links",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-inline-block-to-create-navigation-links"
+  },
+  {
+    "id": "fdqdKvl9-tpE",
+    "html": "<p>One common use for <code>display: inline-block</code>is to display list items horizontally instead of vertically. The following example creates horizontal navigation links:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T4DGAbGBvww8",
+    "code": ".nav {\n  background-color: yellow; \n  list-style-type: none;\n  text-align: center; \n  padding: 0;\n  margin: 0;\n}\n.nav li {\n  display: inline-block;\n  font-size: 20px;\n  padding: 20px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "mhnoL0KEF39F",
+    "html": "<p>By default, list items are displayed vertically. In this example we use display: inline-block to display them horizontally (side by side).</p>\n<p>Note: If you resize the browser window, the links will automatically break when it becomes too crowded.</p>\n<ul class=\"navi\">\n                              <li><a href=\"#home\">Home</a></li>\n                              <li><a href=\"#about\">About Us</a></li>\n                              <li><a href=\"#clients\">Our Clients</a></li>  \n                              <li><a href=\"#contact\">Contact Us</a></li>\n                            </ul>",
+    "type": "richtext"
+  }
+]
+```

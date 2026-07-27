@@ -1,0 +1,157 @@
+---
+id: "1288c751-92d6-42ed-a6ab-1dae5637d1c8"
+title: "JavaScript Closures"
+path: "javascript/closures"
+status: "published"
+meta_title: "JavaScript Closures | Learn Computer Academy"
+sort_order: 5
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "dZZUB_ICyT7_",
+    "html": "<p><em>(Functions remembering their outer scope — even after the outer function has finished)</em></p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "bsHm2uRud9iI",
+    "text": "What is a Closure?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-a-closure"
+  },
+  {
+    "id": "jt3Ryg6Y7op7",
+    "html": "<p>A <strong>closure</strong> is formed when a <strong>function \"remembers\" the variables from its outer (lexical) scope</strong>, even after the outer function has returned.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W6sgv6-166Qa",
+    "text": "Basic Concept",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-concept"
+  },
+  {
+    "id": "NQ5Pwk0krFXO",
+    "code": "function outer() {\n  let name = \"Alice\";\n                                \n  function inner() {\n    console.log(\"Hello, \" + name); // name comes from outer()\n  }\n                                \n  return inner;\n}\n                                \nconst greet = outer(); // outer() returns inner\ngreet(); // \"Hello, Alice\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "rKPOacwtaM_E",
+    "html": "<p>Even though <code>outer()</code> has finished executing, <code>inner()</code> still remembers <code>name</code> because of closure.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nAymdeYNlggy",
+    "text": "Why Closures Are Useful",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-closures-are-useful"
+  },
+  {
+    "id": "QucDcsRmtoCO",
+    "html": "<p>Closures are used in:</p>\n<ul>\n                                  <li>Data privacy (encapsulation)</li>\n                                  <li>Function factories (customized functions)</li>\n                                  <li>Maintaining state in async operations</li>\n                                  <li>React hooks like <code>useState</code>, <code>useEffect</code></li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "w60Hwu41QhMu",
+    "text": "Closure for Data Privacy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "closure-for-data-privacy"
+  },
+  {
+    "id": "I7S1VNFJiKBd",
+    "code": "function secretHolder() {\n  let secret = \"1234\";\n                                \n  return {\n    getSecret: function () {\n      return secret;\n    },\n    setSecret: function (newSecret) {\n      secret = newSecret;\n    },\n  };\n}\n                                \nconst vault = secretHolder();\nconsole.log(vault.getSecret()); // \"1234\"\nvault.setSecret(\"5678\");\nconsole.log(vault.getSecret()); // \"5678\"",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "GNBhb1s3h_m9",
+    "html": "<p><code>secret</code> can't be accessed directly — only through the returned methods.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8BplFVXILTr0",
+    "text": "Closure in Loop Problem (var vs let)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "closure-in-loop-problem-var-vs-let"
+  },
+  {
+    "id": "_sVmel2ZLlGa",
+    "code": "for (var i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 1000);\n}\n// Output: 3 3 3 (Not 0 1 2!)",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "foOinJuEJFim",
+    "html": "<p>Fix with <code>let</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lnyGCf6saShj",
+    "code": "for (let i = 0; i < 3; i++) {\n  setTimeout(() => console.log(i), 1000);\n}\n// Output: 0 1 2 ✅",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ETPswZeLo0LB",
+    "html": "<p>Explanation: <code>let</code> creates a new block scope per iteration, so each <code>i</code> is preserved properly due to closure.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "b8OVTUavLNqj",
+    "text": "Function Factory (Function that creates other functions)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "function-factory-function-that-creates-other-functions"
+  },
+  {
+    "id": "EmcEPAuE3McZ",
+    "code": "function makeMultiplier(x) {\n  return function (y) {\n    return x * y;\n  };\n}\n                                  \nconst double = makeMultiplier(2);\nconsole.log(double(5)); // 10\n                                  \nconst triple = makeMultiplier(3);\nconsole.log(triple(5)); // 15",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "51Y0N2oY1be6",
+    "html": "<p>Each returned function \"remembers\" its own value of <code>x</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GY2oxZ0wCcs_",
+    "text": "Summary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "summary"
+  },
+  {
+    "id": "2dFBOxgSP2jh",
+    "html": "<ul>\n                                      <li>A <code>closure</code> gives you access to an outer function’s variables from an inner function.</li>\n                                      <li>Closures <code>preserve state</code> across calls and <code>enable private</code> variables.</li>\n                                      <li>Common in JavaScript features like event handlers, timeouts, and module patterns.</li>\n                                    </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "QZlt8MbA2Hrm",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "Jb1nucorVZu6",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "3ElHUJ610V6-",
+    "html": "<ol>\n                                    <li>Create a <code>counter()</code> function that returns a function that increments and logs the count.</li>\n                                    <li>Build a <code>greeting(name)</code> function that returns another function saying \"Hello, name\".</li>\n                                    <li>Use closure to protect a secret password (get/set it only through methods).</li>\n                                    <li>Write a function that returns a multiplier function using closure.</li>\n                                    <li>Explain in comments why a closure retains access to outer variables.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

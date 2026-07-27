@@ -1,0 +1,283 @@
+---
+id: "ed384158-e9b5-40ca-aa4e-ec80bad21662"
+title: "JavaScript Intro"
+path: "javascript/intro"
+status: "published"
+meta_title: "JavaScript Intro | Learn Computer Academy"
+sort_order: 15
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "1SmVvyu5ZQzr",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qn632UmhqJ4F",
+    "text": "What is JavaScript?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-javascript"
+  },
+  {
+    "id": "HiThhTz3eJ_g",
+    "html": "<p>JavaScript is a <strong>lightweight, interpreted programming language</strong> primarily used to make web pages interactive. It allows developers to create features like sliders, pop-ups, form validation, and dynamic content updates <strong>without reloading the page</strong>.</p>\n<p>JavaScript is:</p>\n<ul>\n                                    <li><strong>Client-side</strong> (runs in the browser)</li>\n                                    <li><strong>Object-based</strong></li>\n                                    <li><strong>Event-driven</strong></li>\n                                    <li>A key part of the <strong>web development trio</strong>: HTML (structure), CSS (style), JavaScript (behavior)</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Og6Whq3iN6CB",
+    "text": "History and Evolution",
+    "type": "heading",
+    "level": 2,
+    "anchor": "history-and-evolution"
+  },
+  {
+    "id": "mBp4WWpV_dqH",
+    "html": "<ul>\n                                    <li><strong>1995</strong>: JavaScript was created by <strong>Brendan Eich</strong> at Netscape and originally called Mocha.</li>\n                                    <li>Later renamed <strong>LiveScript</strong>, and finally <strong>JavaScript</strong> (for marketing reasons, to ride Java's popularity).</li>\n                                    <li>Standardized as <strong>ECMAScript (ES)</strong> by <strong>ECMA International</strong>.</li>\n                                    <li>Major Versions:\n                                        <ul>\n                                            <li>ES3 (1999): First widely adopted version.</li>\n                                            <li>ES5 (2009): Introduced <code>strict mode</code>, JSON, and more.</li>\n                                            <li>ES6 (2015): Huge update — introduced <code>let</code>, <code>const</code>, arrow functions, classes, promises, etc.</li>\n                                            <li>Later versions (ES7 to ES13): Continued improving language features, performance, and async programming.</li>\n                                        </ul>\n                                    </li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RlKgwni9Yj9j",
+    "text": "JavaScript vs Other Languages",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-vs-other-languages"
+  },
+  {
+    "id": "NhHk7ap6Tz31",
+    "rows": [
+      [
+        "Typing",
+        "Dynamic",
+        "Static",
+        "Dynamic"
+      ],
+      [
+        "Execution",
+        "Interpreted (in browsers)",
+        "Compiled (JVM)",
+        "Interpreted"
+      ],
+      [
+        "Use Case",
+        "Web interactivity, apps",
+        "Enterprise apps, Android",
+        "Data science, scripting"
+      ],
+      [
+        "Syntax Simplicity",
+        "Medium",
+        "Complex",
+        "Simple"
+      ],
+      [
+        "Popularity",
+        "Very High (Front-end dev)",
+        "High",
+        "High"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "JavaScript",
+      "Java",
+      "Python"
+    ]
+  },
+  {
+    "id": "-ckaPWIQAEF-",
+    "html": "<p>JavaScript is mainly used <strong>in the browser</strong>, unlike many languages that run on servers or local machines.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dSMQaU7BYYtv",
+    "text": "How to Add JavaScript to HTML",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-to-add-javascript-to-html"
+  },
+  {
+    "id": "I74DVUXmw_--",
+    "html": "<p>JavaScript can be added in <strong>three main ways</strong>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HnR8Pl1D2DKs",
+    "text": "1. Inline Script",
+    "type": "heading",
+    "level": 3,
+    "anchor": "1-inline-script"
+  },
+  {
+    "id": "m2eoOkLwD_XC",
+    "html": "<p>You can write JavaScript directly inside an HTML element using the <code>onclick</code>, <code>onmouseover</code>, or similar attributes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ty4opMnoDcDC",
+    "code": "<button onclick=\"alert('Hello!')\">Click Me</button>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "odsqNSsuQ6eq",
+    "html": "<p>✅ Simple</p>\n<p>❌ Not recommended for large projects (mixes JS with HTML)</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A6eZYpn0nP3R",
+    "text": "2. Internal Script",
+    "type": "heading",
+    "level": 3,
+    "anchor": "2-internal-script"
+  },
+  {
+    "id": "Fzj5l5OnTI6u",
+    "html": "<p>JavaScript can be embedded within the <code>&lt;script&gt;</code> tag in the <code>&lt;head&gt;</code> or <code>&lt;body&gt;</code> of your HTML file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KmJbZVFWZ56e",
+    "code": "<!DOCTYPE html>\n<html>\n<head>\n    <script>\n    function greet() {\n        alert(\"Welcome to JavaScript!\");\n    }\n    </script>\n</head>\n<body>\n    <button onclick=\"greet()\">Greet</button>\n</body>\n</html>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Q8aMvY5kURGX",
+    "html": "<p>✅ Good for small projects or testing</p>\n<p>❌ Not reusable</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8eLg2qLbidlg",
+    "text": "3. External Script",
+    "type": "heading",
+    "level": 3,
+    "anchor": "3-external-script"
+  },
+  {
+    "id": "QLS1jFEgL3OW",
+    "html": "<p>JavaScript is placed in a separate <code>.js</code> file and linked using the <code>&lt;script src=\"\"&gt;</code> tag.</p>\n<code><strong>index.html</strong></code>",
+    "type": "richtext"
+  },
+  {
+    "id": "u0w_qlOqqcyc",
+    "code": "<script src=\"app.js\"></script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "zeHy88v_RbGS",
+    "html": "<code><strong>app.js</strong></code>",
+    "type": "richtext"
+  },
+  {
+    "id": "4ATCcft3Cj44",
+    "code": "function greet() {\n    alert(\"Hello from external JS!\");\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "jAKx-vYaYfaQ",
+    "html": "<p>✅ Clean, reusable, modular</p>\n<p>✅ Recommended for real-world projects</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VGqoMa55o2M9",
+    "text": "JavaScript Output Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "javascript-output-methods"
+  },
+  {
+    "id": "RbgYXcHuf6RV",
+    "html": "<p>JavaScript can output data in various ways:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UILHkkycmCIJ",
+    "text": "1. alert()",
+    "type": "heading",
+    "level": 4,
+    "anchor": "1-alert"
+  },
+  {
+    "id": "AGVO9xpbGv6V",
+    "html": "<p>Shows a pop-up message box to the user.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ArljlgAUyN1A",
+    "code": "alert(\"Welcome!\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "s8liTI8134no",
+    "text": "2. console.log()",
+    "type": "heading",
+    "level": 4,
+    "anchor": "2-consolelog"
+  },
+  {
+    "id": "NBzwn8HTg07T",
+    "html": "<p>Prints output to the browser's <strong>developer console</strong>. Useful for <strong>debugging</strong>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aFddbNsVbYdH",
+    "code": "console.log(\"This is a log message.\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "qX6xRDAW4dDp",
+    "text": "3. document.write()",
+    "type": "heading",
+    "level": 4,
+    "anchor": "3-documentwrite"
+  },
+  {
+    "id": "IO2vbLCIDMHl",
+    "html": "<p>Writes directly into the HTML document.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2Xu74v5deFAs",
+    "code": "document.write(\"Hello, World!\");",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "EjftbMXTAVEO",
+    "html": "<p>⚠️ Overwrites the whole document if used after the page loads — use with caution.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8X8n5eAHQk8Z",
+    "text": "4. innerHTML",
+    "type": "heading",
+    "level": 4,
+    "anchor": "4-innerhtml"
+  },
+  {
+    "id": "yh1Ba6kF-VGx",
+    "html": "<p>Changes the content of an HTML element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QgeGz3EzD5D2",
+    "code": "<p id=\"demo\"></p>\n<script>\n    document.getElementById(\"demo\").innerHTML = \"Hello from JS!\";\n</script>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "oqzeL5MZW-Z-",
+    "html": "<p>✅ Most commonly used for dynamic content updates</p>",
+    "type": "richtext"
+  }
+]
+```

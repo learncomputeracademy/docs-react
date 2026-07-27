@@ -1,0 +1,160 @@
+---
+id: "b38303f9-e3f3-4903-a136-6d8ca2d79648"
+title: "CSS Visibility"
+path: "css/display-visibility"
+status: "published"
+meta_title: "CSS Visibility | Learn Computer Academy"
+sort_order: 9
+updated_at: "2026-07-25T05:59:07.753006+00:00"
+---
+
+```json
+[
+  {
+    "id": "yXLs3-06xQKb",
+    "html": "<hr>\n<p>The <code>display</code> property is the most important CSS property for controlling layout.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "FcrPA6-AfQ_S",
+    "text": "The display Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-display-property"
+  },
+  {
+    "id": "n-S0zc73GApo",
+    "html": "<p>The <code>display</code> property specifies if/how an element is displayed.</p>\n<p>Every HTML element has a default display value depending on what type of element it is. The default display value for most elements is <code>block</code> or \n                                <code>inline</code>.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "c4M5_2q01MlO",
+    "text": "Block-level Elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "block-level-elements"
+  },
+  {
+    "id": "cIv-uVtLfhKt",
+    "html": "<p>A block-level element always starts on a new line and takes up the full width available (stretches out to the left and right as far as it can).</p>\n<p>Examples of block-level elements:</p>\n<ul>\n                                    <li>&lt;div&gt;</li>\n                                    <li>&lt;h1&gt; - &lt;h6&gt;</li>\n                                    <li>&lt;p&gt;</li>\n                                    <li>&lt;form&gt;</li>\n                                    <li>&lt;header&gt;</li>\n                                    <li>&lt;footer&gt;</li>\n                                    <li>&lt;section&gt;</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "-HmvR-xRR-G3",
+    "text": "Inline Elements",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inline-elements"
+  },
+  {
+    "id": "mVqn0T3Rv8P9",
+    "html": "<p>An inline element does not start on a new line and only takes up as much width as necessary.</p>\n<p>This is <span style=\"border-width:3px;border-style:solid;\">an inline &lt;span&gt; element inside</span> a paragraph.</p>\n<p>Examples of inline elements:</p>\n<ul>\n                                    <li>&lt;span&gt;</li>\n                                    <li>&lt;a&gt;</li>\n                                    <li>&lt;img&gt;</li>\n                                    </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "nix7zHid99LA",
+    "text": "Display: none;",
+    "type": "heading",
+    "level": 2,
+    "anchor": "display-none"
+  },
+  {
+    "id": "wd8O9DUJdEK3",
+    "html": "<p><code>display: none;</code> is commonly used with JavaScript to hide and show elements without deleting and recreating them. Take a look at our last example on this page if you want to know how this can be achieved.</p>\n<p>The <code>&lt;script&gt;</code> element uses <code>display: none;</code> as default.&nbsp;</p>\n<hr>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "47a1BsmMkPvC",
+    "text": "Override The Default Display Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "override-the-default-display-value"
+  },
+  {
+    "id": "we3xUKQkT7xa",
+    "html": "<p>As mentioned, every element has a default display value. However, you can override this.</p>\n<p>Changing an inline element to a block element, or vice versa, can be useful for making the page look a specific way, and still follow the web standards.</p>\n<p>A common example is making inline <code>&lt;li&gt;</code> elements for horizontal menus:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HwXhtiCz0IJ_",
+    "code": "li {\n  display: inline;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "rLpGjE4jFnMU",
+    "html": "<p class=\"note\"><b>Note:</b> Setting the display property of an element only changes <b>how the element is displayed</b>, NOT what kind of element it is. So, an inline element with <code>display: block</code>; is not allowed to have other block elements inside it.</p>\n<p>The following example displays <span> elements as block elements:</span></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mSaIFO1gKA3J",
+    "code": "span {\n  display: block;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "c5x7Rlgoi5MU",
+    "html": "<span>A display property with a value of \"block\" results in</span>\n<span style=\"display: block;\">a line break between the two elements.</span>\n<hr>\n<p>The following example displays &lt;a&gt; elements as block elements:</p>\n<a href=\"#\" target=\"_blank\" style=\"display: block; border: 1px solid pink;\">HTML</a>\n<a href=\"#\" target=\"_blank\" style=\"display: block; border: 1px solid pink;\">CSS</a>\n<a href=\"#\" target=\"_blank\" style=\"display: block; border: 1px solid pink;\">JavaScript</a>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "VtYPAhgcpnx0",
+    "text": "Hide an Element - display:none or visibility:hidden?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "hide-an-element---displaynone-or-visibilityhidden"
+  },
+  {
+    "id": "ejTUuY4YOBXu",
+    "html": "<p>Hiding an element can be done by setting the <code>display</code> property to <code>none</code>. The element will be hidden, and the page will be displayed as if the element is not there:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6GehPDQFSJ81",
+    "code": "h1.hidden {\n  display: none;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "yJDOa4kdhg2O",
+    "html": "<p><code>visibility:hidden</code>; also hides an element.</p>\n<p>However, the element will still take up the same space as before. The element will be hidden, but still affect the layout:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZtrgDZtqi_HF",
+    "code": "h1.hidden {\n  visibility: hidden;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "nxiBDcOk3BPV",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "R7cL6ALh0QMK",
+    "text": "CSS Display/Visibility Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-displayvisibility-properties"
+  },
+  {
+    "id": "sKvtq03d0W4H",
+    "rows": [
+      [
+        "display",
+        "Specifies how an element should be displayed"
+      ],
+      [
+        "visibility",
+        "Specifies whether or not an element should be visible"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

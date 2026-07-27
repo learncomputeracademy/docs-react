@@ -1,0 +1,358 @@
+---
+id: "d34f5725-e507-43c3-8b23-7f7681674848"
+title: "HTML Forms"
+path: "html/forms"
+status: "published"
+meta_title: "HTML Forms | Learn Computer Academy"
+sort_order: 10
+updated_at: "2026-07-27T06:26:15.752897+00:00"
+---
+
+```json
+[
+  {
+    "id": "e_H8RBHkS6Fu",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "_xO5KGjflfnM",
+    "text": "The <form> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-form-element"
+  },
+  {
+    "id": "Y9Htls-VYtOZ",
+    "html": "<p>The HTML <code>&lt;form&gt;</code> element defines a form that is used to collect user input:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0pr-HH6VJsds",
+    "code": "<form>\n.\nform elements\n.\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "LWc9MfEi9vic",
+    "html": "<p>HTML Form Example:</p>\n<div class=\"bg-gray p-3\">\n                                    <form action=\"/action_page.php\" target=\"_blank\">\n                                      First name:<br>\n                                      <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n                                      Last name:<br>\n                                      <input type=\"text\" name=\"lastname\" value=\"Mouse\">\n                                      <br><br>\n                                      <input type=\"submit\" value=\"Submit\">\n                                    </form> \n                                </div>\n<p>An HTML form contains <b>form elements</b>.</p>\n<p>Form elements are different types of input elements, like text fields, checkboxes, radio buttons, submit buttons, and more.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "DNSb2nskiu10",
+    "text": "The <input> Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-input-element"
+  },
+  {
+    "id": "GPvHSwO_2JkT",
+    "html": "<p>The <code>&lt;input&gt;</code> element is the most important form element.</p>\n<p>The <code>&lt;input&gt;</code> element can be displayed in several ways, depending on the <b>type</b> attribute.</p>\n<p>Here are some examples:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "90supEQPIUgI",
+    "rows": [
+      [
+        "&lt;input type=\"text\"&gt;",
+        "Defines a one-line text input field"
+      ],
+      [
+        "&lt;input type=\"radio\"&gt;",
+        "Defines a radio button (for selecting one of many choices)"
+      ],
+      [
+        "&lt;input type=\"submit\"&gt;",
+        "Defines a submit button (for submitting the form)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Description"
+    ]
+  },
+  {
+    "id": "-mnYa6t3S7P2",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9PWQq8rmez7i",
+    "text": "Text Input",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-input"
+  },
+  {
+    "id": "XWCqz1ROy34v",
+    "html": "<p><code>&lt;input type=\"text\"&gt;</code> defines a one-line input field for <b>text input</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LC9t61D9kExk",
+    "code": "<form>\n    First name:<br>\n    <input type=\"text\" name=\"firstname\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "SmWebM_8iPk6",
+    "html": "<p>This is how it will look like in a browser:</p>\n<form>\n                                    First name:<br>\n                                    <input type=\"text\" name=\"firstname\"><br>\n                                    Last name:<br>\n                                    <input type=\"text\" name=\"lastname\">\n                                </form>\n<p class=\"pt-3\"><b>Note:</b> The form itself is not visible. Also note that the default width of a <u>text field is 20 characters</u>.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "DQAS5I-4HD-4",
+    "text": "Radio Button Input",
+    "type": "heading",
+    "level": 2,
+    "anchor": "radio-button-input"
+  },
+  {
+    "id": "mMfB6xC4r0uG",
+    "html": "<p><code>&lt;input type=\"radio\"&gt;</code> defines a <b>radio button</b>.</p>\n<p>Radio buttons let a user select ONE of a limited number of choices:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U_qKU-eJHmfG",
+    "code": "<form>\n    <input type=\"radio\" name=\"gender\" value=\"male\" checked> Male<br>\n    <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\n    <input type=\"radio\" name=\"gender\" value=\"other\"> Other\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "rxrCEvknWNZr",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form>\n                                  <input type=\"radio\" name=\"gender\" value=\"male\" checked=\"\"> Male<br>\n                                  <input type=\"radio\" name=\"gender\" value=\"female\"> Female<br>\n                                  <input type=\"radio\" name=\"gender\" value=\"other\"> Other\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "rHyosai-uAIm",
+    "text": "The Submit Button",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-submit-button"
+  },
+  {
+    "id": "0J9-WqyLDJw0",
+    "html": "<p><code>&lt;input type=\"submit\"&gt;</code> defines a button for <b>submitting</b> the form data to a <b>form-handler</b>.</p>\n<p>The form-handler is typically a server page with a script for processing input data.</p>\n<p>The form-handler is specified in the form's <b>action</b> attribute:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GRq0F65OBF_6",
+    "code": "<form action=\"/action_page.php\">\n    First name:<br>\n    <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "V5vLBWPkZShl",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"/\">\n                                    First name:<br>\n                                    <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n                                    Last name:<br>\n                                    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n                                    <input type=\"submit\" value=\"Submit\">\n                                </form>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "CvTBx5649lwh",
+    "text": "The Action Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-action-attribute"
+  },
+  {
+    "id": "TqpVCQt-N5HC",
+    "html": "<p>The <code>action</code> attribute defines the action to be performed when the form is submitted.</p>\n<p>Normally, the form data is sent to a web page on the server when the user clicks on the submit button.</p>\n<p>In the example above, the form data is sent to a page on the server called \"/action_page.php\". This page contains a server-side script that handles the form data:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "J_CB4hA8pLm1",
+    "code": "<form action=\"/action_page.php\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "Ljy3qdyLYZMj",
+    "html": "<p>If the <code>action</code> attribute is omitted, the action is set to the current page.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "hzSSwAHkU10c",
+    "text": "The Target Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-target-attribute"
+  },
+  {
+    "id": "TbQ9k5AB_kKL",
+    "html": "<p>The <code>target</code> attribute specifies if the submitted result will open in a new browser tab, a frame, or in the current window.</p>\n<p>The default value is \"<code>_self</code>\" which means the form will be submitted in the current window.</p>\n<p>To make the form result open in a new browser tab, use the value \"<code>_blank</code>\":</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "K7sZjAbB6r0w",
+    "code": "<form action=\"/action_page.php\" target=\"_blank\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "5IrcOMyFy3Me",
+    "html": "<p>Other legal values are \"<code>_parent</code>\", \"<code>_top</code>\", or a name representing the name of an iframe.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "CEtzQ_29LykY",
+    "text": "The Method Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-method-attribute"
+  },
+  {
+    "id": "zSyuG3UwqRv-",
+    "html": "<p>The <code>method</code> attribute specifies the HTTP method (<b>GET</b> or <b>POST</b>) to be used when submitting the form data:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LGjy7GnabMAI",
+    "code": "<form action=\"/action_page.php\" method=\"get\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "vjtjw-eACS9f",
+    "html": "<p>or:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ANwDwESzJtsA",
+    "code": "<form action=\"/action_page.php\" method=\"post\">",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "rlGm-j9ay6R7",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "4gJUby9JJmtU",
+    "text": "When to Use GET?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-to-use-get"
+  },
+  {
+    "id": "isImbxNRLf86",
+    "html": "<p>The default method when submitting form data is GET.</p>\n<p>However, when GET is used, the submitted form data will be <b>visible in the page address field</b>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_0Eis9snLA74",
+    "code": "/action_page.php?firstname=Mickey&lastname=Mouse",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "oshKz119WtBV",
+    "html": "<p><b>Notes on GET:</b></p>\n<ul>\n                                    <li>Appends form-data into the URL in name/value pairs</li>\n                                    <li>The length of a URL is limited (about 3000 characters)</li>\n                                    <li>Never use GET to send sensitive data! (will be visible in the URL)</li>\n                                    <li>Useful for form submissions where a user wants to bookmark the result</li>\n                                    <li>GET is better for non-secure data, like query strings in Google</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "YWQ6Ce7-Cems",
+    "text": "When to Use POST?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-to-use-post"
+  },
+  {
+    "id": "1KSBUaVBxBF2",
+    "html": "<p>Always use POST if the form data contains sensitive or personal information. The POST method does not display the submitted form data in the page address field.</p>\n<p><b>Notes on POST:</b></p>\n<ul>\n                                    <li>POST has no size limitations, and can be used to send large amounts of data.</li>\n                                    <li>Form submissions with POST cannot be bookmarked</li>\n                                </ul>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "IisGAHZ2X4eg",
+    "text": "The Name Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-name-attribute"
+  },
+  {
+    "id": "Met9kNNqSMd6",
+    "html": "<p>Each input field must have a <code>name</code>name attribute to be submitted.</p>\n<p>If the <code>name</code>name attribute is omitted, the data of that input field will not be sent at all.</p>\n<p>This example will only submit the \"Last name\" input field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gJsMmXD18fin",
+    "code": "<form action=\"/action_page.php\">\n    First name:<br>\n    <input type=\"text\" value=\"Mickey\"><br>\n    Last name:<br>\n    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n    <input type=\"submit\" value=\"Submit\">\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "liWT3ooVcoy8",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "K7Mht8pftLOO",
+    "text": "Grouping Form Data with <fieldset>",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grouping-form-data-with-fieldset"
+  },
+  {
+    "id": "3FY2oSXPBT0F",
+    "html": "<p>The <code>&lt;fieldset&gt;</code> element is used to group related data in a form.</p>\n<p>The <code>&lt;legend&gt;</code> element defines a caption for the <code>&lt;fieldset&gt;</code> element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8fg2IfOEEpNr",
+    "code": "<form action=\"/action_page.php\">\n    <fieldset>\n        <legend>Personal information:</legend>\n        First name:<br>\n        <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n        Last name:<br>\n        <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n        <input type=\"submit\" value=\"Submit\">\n    </fieldset>\n</form>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "AM8awK0PKRY1",
+    "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"/action_page.php\">\n                                  <fieldset>\n                                    <legend>Personal information:</legend>\n                                    First name:<br>\n                                    <input type=\"text\" name=\"firstname\" value=\"Mickey\"><br>\n                                    Last name:<br>\n                                    <input type=\"text\" name=\"lastname\" value=\"Mouse\"><br><br>\n                                    <input type=\"submit\" value=\"Submit\">\n                                  </fieldset>\n                                </form>\n<hr>\n<p>Here is the list of all <code>&lt;form&gt;</code> attributes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Voteo7jgB1yG",
+    "rows": [
+      [
+        "accept-charset",
+        "Specifies the charset used in the submitted form (default: the page charset)."
+      ],
+      [
+        "action",
+        "Specifies an address (url) where to submit the form (default: the submitting page)."
+      ],
+      [
+        "autocomplete",
+        "Specifies if the browser should autocomplete the form (default: on)."
+      ],
+      [
+        "enctype",
+        "Specifies the encoding of the submitted data (default: is url-encoded)."
+      ],
+      [
+        "method",
+        "Specifies the HTTP method used when submitting the form (default: GET)."
+      ],
+      [
+        "name",
+        "Specifies a name used to identify the form (for DOM usage: document.forms.name)."
+      ],
+      [
+        "novalidate",
+        "Specifies that the browser should not validate the form."
+      ],
+      [
+        "target",
+        "Specifies the target of the address in the action attribute (default: _self)."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Attribute",
+      "Description"
+    ]
+  },
+  {
+    "id": "TSIBOCNUZ_Ho",
+    "html": "<p>You will learn more about the form attributes in the next chapters.</p>",
+    "type": "richtext"
+  }
+]
+```

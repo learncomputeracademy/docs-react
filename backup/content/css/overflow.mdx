@@ -1,0 +1,175 @@
+---
+id: "e4d25864-038d-46a6-bd61-5c988a4c3e2e"
+title: "CSS Overflow"
+path: "css/overflow"
+status: "published"
+meta_title: "CSS Overflow | Learn Computer Academy"
+sort_order: 25
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "2U2PIGordhd4",
+    "html": "<hr>\n<p>The CSS <code>overflow</code> property controls what happens to content that is too big to fit into an area.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NnonEuXUKZPo",
+    "text": "CSS Overflow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-overflow"
+  },
+  {
+    "id": "5j-vVlaK1pji",
+    "html": "<p>The <code>overflow</code> property specifies whether to clip the content or to add scrollbars when the content of an element is too big to fit in the specified \n                                area.</p>\n<p>The <code>overflow</code> property has the following values:</p>\n<ul>\n                                    <li><code>visible</code> - Default. The overflow is not clipped. \n                                    The content renders outside the element's box</li>\n                                    <li><code>hidden</code> - The overflow is clipped, and the rest of the content will be invisible</li>\n                                    <li><code>scroll</code> - The overflow is clipped, and a scrollbar is added to see the rest of the content</li>\n                                    <li><code>auto</code> - Similar to <code>scroll</code>, \n                                    but it adds scrollbars only when necessary</li>\n                                </ul>\n<p><strong>Note:</strong> The <code>overflow</code> property only works for block elements with a specified height.</p>\n<p><strong>Note:</strong> In OS X Lion (on Mac), scrollbars are hidden by default and only shown when being used (even though \"overflow:scroll\" is set).</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "2Rc0hi6OVnAq",
+    "text": "overflow: visible",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overflow-visible"
+  },
+  {
+    "id": "dReQDFOuSw5k",
+    "html": "<p>By default, the overflow is <code class=\"w3-codespan\">visible</code>, meaning that it is not clipped and it \n                                renders outside the element's box:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "abReF1WCW7IV",
+    "code": "div {\n  width: 200px;\n  height: 50px;\n  background-color: #eee;\n  overflow: visible;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "yQEWE3C01Mre",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NUYO7TUDiDPn",
+    "text": "overflow: hidden",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overflow-hidden"
+  },
+  {
+    "id": "9QwICwVGCQBl",
+    "html": "<p>With the <code>hidden</code> value, the overflow is clipped, and the rest of the content is hidden:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QyOpU6cODPKQ",
+    "code": "div {\n  overflow: hidden;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "KHlIky9hRCX4",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "kFEnAWE_K9Vm",
+    "text": "overflow: scroll",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overflow-scroll"
+  },
+  {
+    "id": "dJ2wDoD3jx-S",
+    "html": "<p>Setting the value to <code>scroll</code>, the overflow is clipped and a scrollbar is added to scroll inside the box. Note that this will add a scrollbar both horizontally and vertically (even if you do not need it):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VSVUbHcUeLmw",
+    "code": "div {\n    overflow: scroll;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "hyeKNObdy8Eb",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ez0BLuveLSP4",
+    "text": "overflow: auto",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overflow-auto"
+  },
+  {
+    "id": "lLU7Tp7Xdira",
+    "html": "<p>The <code>auto</code> value is similar to <code>scroll</code>, but it adds scrollbars only when necessary:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LxrFz6mSbiZ5",
+    "code": "div {\n    overflow: auto;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "_lJOqeXoW_ER",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9B0vhk-yIJeF",
+    "text": "overflow-x and overflow-y",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overflow-x-and-overflow-y"
+  },
+  {
+    "id": "nkzic_32TLG8",
+    "html": "<p>The <code>overflow-x</code> and <code>overflow-y</code> properties specifies whether to change the overflow of content just horizontally or vertically (or both):</p>\n<p><code>overflow-x</code> specifies what to do with the left/right edges of the content.</p>\n<p><code>overflow-y</code> specifies what to do with the top/bottom edges of the content.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EB_te-xjBu6H",
+    "code": "div {\n    overflow-x: hidden; /* Hide horizontal scrollbar */\n    overflow-y: scroll; /* Add vertical scrollbar */\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "4VHLf0WG7llD",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9PEUmuZAIWNX",
+    "text": "All CSS Overflow Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-css-overflow-properties"
+  },
+  {
+    "id": "RFZ1MkhN6IGY",
+    "rows": [
+      [
+        "overflow",
+        "Specifies what happens if content overflows an element's box"
+      ],
+      [
+        "overflow-x",
+        "Specifies what to do with the left/right edges of the content if it overflows the element's content area"
+      ],
+      [
+        "overflow-y",
+        "Specifies what to do with the top/bottom edges of the content if it overflows the element's content area"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```

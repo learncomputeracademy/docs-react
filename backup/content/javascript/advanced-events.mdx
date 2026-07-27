@@ -1,0 +1,233 @@
+---
+id: "991f3739-2533-4b56-b512-8161e297e869"
+title: "JavaScript Events Advanced"
+path: "javascript/advanced-events"
+status: "published"
+meta_title: "JavaScript Events Advanced | Learn Computer Academy"
+sort_order: 1
+updated_at: "2026-07-25T05:59:09.015744+00:00"
+---
+
+```json
+[
+  {
+    "id": "SDbGuLWNCWou",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "AdMXQVS-kkSV",
+    "text": "Introduction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "introduction"
+  },
+  {
+    "id": "6Ck85sWulf4n",
+    "html": "<p>In this chapter, we’ll go deeper into how JavaScript handles events behind the scenes, including:</p>\n<ul>\n                                    <li>Event bubbling vs capturing</li>\n                                    <li><code>event.target</code> vs <code>event.currentTarget</code></li>\n                                    <li>Event delegation</li>\n                                    <li>Preventing event propagation</li>\n                                </ul>\n<p>Understanding these concepts is essential for building scalable, dynamic UIs — especially in lists, tables, forms, and SPAs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T2SZk9AfRSk4",
+    "text": "Event Bubbling (Default Behavior)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "event-bubbling-default-behavior"
+  },
+  {
+    "id": "nHAmakrJSXUb",
+    "html": "<p>By default, events bubble up the DOM tree — starting from the target element and moving to its ancestors.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bMdNiGWORHRM",
+    "code": "<div id=\"parent\">\n  <button id=\"child\">Click Me</button>\n</div>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "wOHYVbcXTpVi",
+    "code": "document.getElementById(\"child\").addEventListener(\"click\", () => {\n  console.log(\"Child clicked\");\n});\n                                  \ndocument.getElementById(\"parent\").addEventListener(\"click\", () => {\n  console.log(\"Parent clicked\");\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "el_eCfaiDj5Z",
+    "html": "<p>Output if you click the button:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sY3Le51UkIpC",
+    "code": "Child clicked\nParent clicked",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "-uncF1g7WWzD",
+    "html": "<p>👉 This is because the event “bubbles” from child to parent. Know more about <a href=\"https://www.youtube.com/watch?v=Pd70u1fBcxU\" target=\"_blank\">event bubbles</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tSQUnlmecYR7",
+    "text": "Stopping Bubbling",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stopping-bubbling"
+  },
+  {
+    "id": "lvESBX54sBzI",
+    "html": "<p>Use <strong>event.stopPropagation()</strong> to prevent the event from bubbling up.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GNw9vebeORU7",
+    "code": "document.getElementById(\"child\").addEventListener(\"click\", function (event) {\n  event.stopPropagation();\n  console.log(\"Only child clicked\");\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "GeuZN7VxTnyg",
+    "html": "<p>Now, clicking the button won’t trigger the parent’s listener.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y2x-MwMEgKFb",
+    "text": "Event Capturing (Trickier)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "event-capturing-trickier"
+  },
+  {
+    "id": "9C5wLwD_TI3P",
+    "html": "<p>Capturing is the opposite of bubbling: the event goes top → bottom in the DOM before hitting the target.</p>\n<p>Enable capturing with the 3rd parameter of <strong>addEventListener()</strong>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eby-J9jKbNs5",
+    "code": "element.addEventListener(\"click\", handler, true);",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "c97YWLEC3Q-J",
+    "code": "document.getElementById(\"parent\").addEventListener(\"click\", () => {\n  console.log(\"Parent Capturing\");\n}, true);\n                                  \ndocument.getElementById(\"child\").addEventListener(\"click\", () => {\n  console.log(\"Child Bubble\");\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "pf-rA7DPkXtd",
+    "html": "<p>Capturing runs first (<strong>if enabled</strong>), then bubbling.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "udSgLTOzr-ey",
+    "text": "event.target vs event.currentTarget",
+    "type": "heading",
+    "level": 2,
+    "anchor": "eventtarget-vs-eventcurrenttarget"
+  },
+  {
+    "id": "QqN6XAPeAGt0",
+    "html": "<ul>\n                                    <li><code>event.target</code>: The <strong>actual element</strong> that triggered the event</li>\n                                    <li><code>event.currentTarget</code>: The <strong>element the handler</strong> is attached to</li>\n                                </ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "XdkSUAHPvCNl",
+    "code": "document.getElementById(\"parent\").addEventListener(\"click\", function (e) {\n  console.log(\"Target:\", e.target); // What was clicked\n  console.log(\"Current Target:\", e.currentTarget); // #parent\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "w1E02KXxPnQV",
+    "text": "Event Delegation (Very Useful)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "event-delegation-very-useful"
+  },
+  {
+    "id": "A-Z6rDQwLHhx",
+    "html": "<p>Instead of adding event listeners to multiple child elements, add one listener to their parent and check which child triggered it using <code>event.target</code>.</p>\n<p>Great for dynamic content like to-do lists or comment sections.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DRGM5hnsFW-P",
+    "text": "Example: Click on dynamic list items",
+    "type": "heading",
+    "level": 2,
+    "anchor": "example-click-on-dynamic-list-items"
+  },
+  {
+    "id": "S00nyyAm6OYG",
+    "code": "<ul id=\"myList\">\n  <li>Item 1</li>\n  <li>Item 2</li>\n</ul>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "AKEC4p26bR5Z",
+    "code": "document.getElementById(\"myList\").addEventListener(\"click\", function (e) {\n  if (e.target.tagName === \"LI\") {\n    alert(\"You clicked \" + e.target.textContent);\n  }\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "nCthnOn2-b32",
+    "html": "<p>This works even if new <code>&lt;li&gt;</code> items are added later — no need to bind again!</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4AQCLiDhcoBI",
+    "text": "once Option (Run a Handler Only Once)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "once-option-run-a-handler-only-once"
+  },
+  {
+    "id": "us0OoWJ1q22u",
+    "code": "button.addEventListener(\"click\", function () {\n  alert(\"You’ll see me only once!\");\n}, { once: true });",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "3ghZO0yBy2Rt",
+    "text": "Combining It All: A Practical Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "combining-it-all-a-practical-example"
+  },
+  {
+    "id": "TFdDpDFGLQvD",
+    "code": "<ul id=\"tasks\">\n  <li>Task 1 <button>Delete</button></li>\n  <li>Task 2 <button>Delete</button></li>\n</ul>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "TdRINXWAuSZ-",
+    "code": "document.getElementById(\"tasks\").addEventListener(\"click\", function (e) {\n  if (e.target.tagName === \"BUTTON\") {\n    e.target.parentElement.remove(); // Remove <li>\n  }\n});",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "mFhMlDRE21ke",
+    "html": "<p>This is cleaner and more efficient than assigning listeners to every button individually.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dnRdt9tPfmqe",
+    "text": "🧪 Practice Exercise:",
+    "type": "heading",
+    "level": 2,
+    "anchor": "practice-exercise"
+  },
+  {
+    "id": "k4ROGCTiaDDJ",
+    "text": "Task:",
+    "type": "heading",
+    "level": 3,
+    "anchor": "task"
+  },
+  {
+    "id": "9Rdxy9KiXUgS",
+    "html": "<ol>\n                                    <li>Demonstrate event bubbling with nested elements.</li>\n                                    <li>Prevent bubbling with <code>stopPropagation</code>.</li>\n                                    <li>Use event delegation on a list where clicking an item changes its color.</li>\n                                    <li>Create a \"run once\" button using <code>{ once: true }</code>.</li>\n                                    <li>Log <code>target</code> and <code>currentTarget</code> and observe the difference.</li>\n                                </ol>",
+    "type": "richtext"
+  }
+]
+```

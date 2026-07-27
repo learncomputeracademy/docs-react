@@ -1,0 +1,337 @@
+---
+id: "c98fd669-6be1-4455-b5a4-37d4f9b8f6d6"
+title: "CSS Text"
+path: "css/text"
+status: "published"
+meta_title: "CSS Text | Learn Computer Academy"
+sort_order: 34
+updated_at: "2026-07-25T05:59:08.155238+00:00"
+---
+
+```json
+[
+  {
+    "id": "GIu9vHtjASAX",
+    "html": "<hr>\n<p style=\"text-indent:50px;text-align:justify;letter-spacing:3px;\">This text is styled with some of the text formatting properties. The heading uses the text-align, text-transform, and color properties.\nThe paragraph is indented, aligned, and the space between characters is specified. The underline is removed from this colored\n<a style=\"text-decoration:none;color:#008CBA;\" target=\"_blank\" href=\"tryit.asp?filename=trycss_text\">\"Try it Yourself\"</a> link.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "BB2xmF7yZsfi",
+    "text": "Text Color",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-color"
+  },
+  {
+    "id": "UYYfXjtoZK0q",
+    "html": "<p>The <code>color</code> property is used to set the color of the text. \n                                The color is specified by:</p>\n<ul>\n                                <li>a color name - like \"red\"</li>\n                                <li>a HEX value - like \"#ff0000\"</li>\n                                <li>an RGB value - like \"rgb(255,0,0)\"</li>\n                                </ul>\n<p>Look at <a href=\"#\">CSS Color Values</a> for a complete list of possible color values.</p>\n<p>The default text color for a page is defined in the body selector.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GRFnqyYIOt2S",
+    "code": "body {\n  color: blue;\n}\nh1 {\n  color: green;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "ar-uSAQAY8By",
+    "html": "<p class=\"note\"><b>Note:</b> For W3C compliant CSS: If you define the <code>color</code> property, you must also define the <code>background-color</code>.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "NhG46-rv9HGs",
+    "text": "Text Alignment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-alignment"
+  },
+  {
+    "id": "9-ctjJSDvM0r",
+    "html": "<p>The <code>text-align</code> property is used to set the horizontal alignment of a text.</p>\n<p>A text can be left or right aligned, centered, or justified.</p>\n<p>The following example shows center aligned, and left and right aligned text \n                                (left alignment is default if text direction is left-to-right, and right \n                                alignment is default if text direction is right-to-left):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CZ3omJ4XtvwH",
+    "code": "h1 {\n  text-align: center;\n}\nh2 {\n  text-align: left;\n}\nh3 {\n  text-align: right;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "AorGiCeazbs7",
+    "html": "<p>When the <code>text-align</code> property is set to \"justify\", each line is stretched so that every line has equal width, and the left and right margins are straight (like in magazines and newspapers):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OHC8AoaRcpop",
+    "code": "div {\n  text-align: justify;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "QTta0vmBV-JB",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "c7QBSpseevi9",
+    "text": "Text Decoration",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-decoration"
+  },
+  {
+    "id": "lpQ74JvU2SQU",
+    "html": "<p>The <code>text-decoration</code> property is used to set or remove decorations from text.</p>\n<p>The value <code>text-decoration: none;</code> is often used to remove underlines from links:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cd1g0XGqyLU7",
+    "code": "a {\n  text-decoration: none;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "DqutKKi83_nO",
+    "html": "<p>The other <code>text-decoration</code> values are used to decorate text:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ewy1KOdZ48r4",
+    "code": "h1 {\n  text-decoration: overline;\n}\nh2 {\n  text-decoration: line-through;\n}\nh3 {\n  text-decoration: underline;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "d5gP1n7FydeT",
+    "html": "<p class=\"note\"><b>Note:</b> It is not recommended to underline text that is not a link, as this often confuses the reader.</p>\n<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9xnTC-oLavpQ",
+    "text": "Text Transformation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-transformation"
+  },
+  {
+    "id": "ODhkxo4O-E-T",
+    "html": "<p>The <code>text-transform</code> property is used to specify uppercase and lowercase letters in a text.</p>\n<p>It can be used to turn everything into uppercase or lowercase letters, or \n                            capitalize the first letter of each word:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YawfKrAEOdIx",
+    "code": "p.uppercase {\n  text-transform: uppercase;\n}\np.lowercase {\n  text-transform: lowercase;\n}\np.capitalize {\n  text-transform: capitalize;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "1vUcva89pNib",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "tOMAQ4BJibqr",
+    "text": "Text Indentation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-indentation"
+  },
+  {
+    "id": "Iu2mRH_PP_IQ",
+    "html": "<p>The <code>text-indent</code> property is used to specify the indentation of the first line of a text:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "spVq4vRdSzoy",
+    "code": "p {\n  text-indent: 50px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "CMqy5iQDxP9A",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "6c5Les1FiK_g",
+    "text": "Letter Spacing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "letter-spacing"
+  },
+  {
+    "id": "Ui9rx486kjBT",
+    "html": "<p>The <code>letter-spacing</code> property is used to specify the space between the characters in a text.</p>\n<p>The following example demonstrates how to increase or decrease the space between characters:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zBNQ-O6kKx2a",
+    "code": "h1 {\n  letter-spacing: 3px;\n}\nh2 {\n  letter-spacing: -3px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "tEUqTLKvETIo",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "UKllkGYrxEIV",
+    "text": "Line Height",
+    "type": "heading",
+    "level": 2,
+    "anchor": "line-height"
+  },
+  {
+    "id": "l546LyJ3tJxB",
+    "html": "<p>The <code>line-height</code> property is used to specify the space between lines:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-2MygBHEjppy",
+    "code": "p.small {\n  line-height: 0.8;\n}\np.big {\n  line-height: 1.8;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "mcVmI1B9Z1yD",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9CBc9n1cuy6q",
+    "text": "Text Direction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-direction"
+  },
+  {
+    "id": "mrBPfaNk7bVQ",
+    "html": "<p>The <code>direction</code> property is used to change the text direction of an element:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uChuey_9trDR",
+    "code": "p {\n  direction: rtl;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "h_aUeqgU6MAp",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "YutK9tWlDpFw",
+    "text": "Word Spacing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "word-spacing"
+  },
+  {
+    "id": "HiJC-PVi1T0l",
+    "html": "<p>The <code>word-spacing</code> property is used to specify the space between \n                            the words in a text.</p>\n<p>The following example demonstrates how to increase or decrease the space between \n                            words:&nbsp;</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fE4F6pbNuIpc",
+    "code": "h1 {\n  word-spacing: 10px;\n}\nh2 {\n  word-spacing: -5px;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "iJBT9lTkpqxj",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "Rtf-DwQzcIgn",
+    "text": "Text Shadow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-shadow"
+  },
+  {
+    "id": "BMTlG2qZ2Jrm",
+    "html": "<p>The <code>text-shadow</code> property adds shadow to text.</p>\n<p>The following example specifies the position of the horizontal shadow (3px), the position of the vertical shadow (2px) and the color of the shadow (red):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vNoshse71jPE",
+    "code": "h1 {\n  text-shadow: 3px 2px red;\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "ocfkbh3o0rWm",
+    "html": "<hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "TLCO1VBbPSvq",
+    "rows": [
+      [
+        "color",
+        "Sets the color of text"
+      ],
+      [
+        "direction",
+        "Specifies the text direction/writing direction"
+      ],
+      [
+        "letter-spacing",
+        "Increases or decreases the space between characters in a text"
+      ],
+      [
+        "line-height",
+        "Sets the line height"
+      ],
+      [
+        "text-align",
+        "Specifies the horizontal alignment of text"
+      ],
+      [
+        "text-decoration",
+        "Specifies the decoration added to text"
+      ],
+      [
+        "text-indent",
+        "Specifies the indentation of the first line in a text-block"
+      ],
+      [
+        "text-shadow",
+        "Specifies the shadow effect added to text"
+      ],
+      [
+        "text-transform",
+        "Controls the capitalization of text"
+      ],
+      [
+        "text-overflow",
+        "Specifies how overflowed content that is not displayed should be signaled to the user"
+      ],
+      [
+        "unicode-bidi",
+        "Used together with the direction property to set or return whether the text should be overridden to support multiple languages in the same document"
+      ],
+      [
+        "vertical-align",
+        "Sets the vertical alignment of an element"
+      ],
+      [
+        "white-space",
+        "Specifies how white-space inside an element is handled"
+      ],
+      [
+        "word-spacing",
+        "Increases or decreases the space between words in a text"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Description"
+    ]
+  }
+]
+```
