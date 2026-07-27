@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 // Kept in sync by hand as new screens ship (Phase 8/9) — the sidebar shows
 // every planned item, but only these are actually linkable today.
-const BUILT_HREFS = ['/admin', '/admin/docs', '/admin/media', '/admin/categories', '/admin/settings']
+const BUILT_HREFS = ['/admin', '/admin/docs', '/admin/media', '/admin/categories', '/admin/settings', '/admin/resources']
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()

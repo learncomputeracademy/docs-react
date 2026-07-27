@@ -30,6 +30,15 @@ export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'foo
   )()
 })
 
+export type Resource = { id: string; group_name: string; name: string; url: string; thumbnail_url: string | null }
+
+export async function getResources(): Promise<Resource[]> {
+  const supabase = createPublicClient()
+  const { data, error } = await supabase.from('resources').select('*').order('group_name').order('sort_order')
+  if (error) throw error
+  return data ?? []
+}
+
 export async function getCategories(): Promise<Category[]> {
   const supabase = createPublicClient()
   const { data, error } = await supabase
