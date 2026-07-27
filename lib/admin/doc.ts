@@ -1,9 +1,9 @@
 'use server'
 
 import { revalidatePath, revalidateTag } from 'next/cache'
-import sanitizeHtml from 'sanitize-html'
 import { createClient } from '@/lib/supabase/server'
 import { computeAnchorsAndToc } from '@/lib/admin/anchors'
+import { sanitizeBlock } from '@/lib/admin/sanitize'
 import type { Block, Doc } from '@/lib/types'
 
 export async function getDocForAdmin(id: string): Promise<Doc | null> {
@@ -15,23 +15,6 @@ export async function getDocForAdmin(id: string): Promise<Doc | null> {
     .single()
   if (error) return null
   return data as unknown as Doc
-}
-
-// ADMIN-PLAN.md §4.5: admin-authored HTML is semi-trusted, but a paste can
-// carry anything, and richtext/callout html lands in dangerouslySetInnerHTML
-// on a public page — sanitize on every write, server-side, regardless of
-// whether the block actually changed this save.
-const SANITIZE_OPTIONS: sanitizeHtml.IOptions = {
-  allowedTags: ['p', 'br', 'strong', 'em', 's', 'a', 'ul', 'ol', 'li', 'blockquote', 'code'],
-  allowedAttributes: { a: ['href', 'target', 'rel'] },
-  allowedSchemes: ['http', 'https', 'mailto'],
-}
-
-function sanitizeBlock(block: Block): Block {
-  if (block.type === 'richtext' || block.type === 'callout') {
-    return { ...block, html: sanitizeHtml(block.html, SANITIZE_OPTIONS) }
-  }
-  return block
 }
 
 export type SaveDocInput = {

@@ -230,6 +230,9 @@ export function DocEditor({ doc, categories, media }: { doc: Doc; categories: Ca
             {status}
           </span>
           {!saved && <span className="text-xs text-muted-foreground">Unsaved changes</span>}
+          <Button variant="outline" size="sm" asChild>
+            <Link href={`/admin/docs/${doc.id}/bn`}>বাংলা</Link>
+          </Button>
           <Button variant="outline" size="sm" disabled={pending} onClick={onPreview}>
             <Eye className="size-3.5" /> Preview
           </Button>

@@ -1154,6 +1154,51 @@ extensively verified with real click interactivity (both modes) in session 12.
 
 ---
 
+## D-33 · Stage 7 Phase 7: the Bengali translation editor
+**Date:** 2026-07-27 · **Status:** Active
+
+Built `/admin/docs/[id]/bn` per ADMIN-PLAN.md §5 Screen 5. Two columns, aligned by block
+`id` — English read-only on the left, Bengali editable on the right — which is the whole
+feature: it's what makes a partial translation visually obvious instead of a silent gap,
+the exact class of bug session 9 caught by hand (a table's row labels left in English).
+
+- **Only `richtext`/`heading`/`table`/`callout` are translatable.** Everything else
+  (`code`, `image`, `loop`, `file`, `video`, `tryit`, `quiz`) shows "stays identical to
+  English, not translated here" — `code` because the project's own translation rule
+  requires byte-identical code across locales, the rest because they have no natural
+  translated content today (a future enhancement could open up alt-text/title fields, not
+  built now).
+- **Anchors are never recomputed from Bengali text.** `saveTranslation` copies each
+  heading's anchor from the matching English block by id, so `/css/intro#anchor` and
+  `/bn/css/intro#anchor` resolve to the same fragment — the manual translation scripts
+  already followed this rule by hand (PROGRESS.md session 9), this enforces it in code.
+- **Block order and set are always derived from English, never trusted from client
+  state.** `saveTranslation` rebuilds the final array by walking `englishBlocks` and
+  looking up each by id — a translation added out of sequence (e.g. via "Copy from
+  English" on a block with no prior translation) can't end up in the wrong position on the
+  actual `/bn` page, and a Bengali block whose English counterpart was since deleted gets
+  dropped rather than lingering as an orphan.
+- **Reused block editors directly** — `RichTextBlockEditor`/`HeadingBlockEditor`/
+  `TableBlockEditor`/`CalloutBlockEditor` are the exact same components the English editor
+  uses, just bound to Bengali block fields. Same sanitization (`lib/admin/sanitize.ts`,
+  extracted from `lib/admin/doc.ts` this phase so both editors share one rule instead of
+  drifting).
+- "Create Bengali translation" clones the full English `blocks` array as the starting
+  point (ADMIN-PLAN.md's own instruction), rather than starting empty.
+
+**Verified**: `next build` clean, public route tree unchanged, `/admin/docs/[id]/bn`
+correctly `ƒ`. Live spike (a doc with a translated heading/richtext, a correctly-locked
+code block, and one deliberately untranslated heading): rendered exactly as designed,
+"Copy from English" correctly populated the empty slot with editable English content, and
+Save called the real Server Action end-to-end (dev log confirmed the full chain executing,
+erroring only on the spike's fake id) with the error surfacing inline rather than crashing
+the page.
+
+Stage 7 now covers every planned screen except Categories/Settings (Phase 8) and
+Resources/Dashboard (Phase 9).
+
+---
+
 ## Open
 
 | # | Question | Blocks |

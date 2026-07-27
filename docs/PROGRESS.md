@@ -349,17 +349,40 @@ real click interactivity in session 12. Full writeup: D-32.
 **Stage 7's "every block type gets an editor" work is now complete** except `quiz` (zero
 rows, deliberately deferred).
 
+**Stage 7, Phase 7 — same session: the Bengali translation editor**
+
+Built `/admin/docs/[id]/bn` — two columns aligned by block id, English read-only left,
+Bengali editable right, which is the whole feature (makes a partial translation visually
+obvious, the exact bug class session 9 caught by hand). Only richtext/heading/table/
+callout are translatable; code and every media/structural block type stay locked to
+English (code must be byte-identical per the project's own rule; the rest have no natural
+translated content today). Heading anchors are never recomputed from Bengali text — always
+copied from the matching English block by id, so deep links resolve to the same fragment
+in both locales, enforcing in code a rule the manual translation scripts already followed
+by hand. Block order/set on save always derives from English's current blocks, never
+trusted from client state, so an out-of-sequence "Copy from English" can't land in the
+wrong position and a since-deleted English block's orphaned translation gets dropped
+automatically. Reused the exact same block editor components the English editor uses.
+Extracted `lib/admin/sanitize.ts` out of `lib/admin/doc.ts` so both editors share one
+sanitization rule.
+
+Verified via a live spike (translated heading/richtext, correctly-locked code block, one
+deliberately untranslated heading): rendered exactly as designed, "Copy from English"
+correctly populated the empty slot, Save reached the real Server Action end-to-end. `next
+build` clean, public route tree unchanged. Full writeup: D-33.
+
+**Stage 7 now covers every planned screen except Categories/Settings (Phase 8) and
+Resources/Dashboard (Phase 9).**
+
 **Next session — start here**
 
 1. Open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
-   works — still the first time real content (not spike data) passes through this editor.
-   Also try `/admin/media`: upload a small image, place it via the image block's picker,
-   confirm it shows correctly on the live page after Save & publish.
+   works — still the first time real content (not spike data) passes through any of this
+   session's editors. Also try `/admin/media` (upload + place an image) and
+   `/admin/docs/[id]/bn` (translate a block on a real lesson) for the same reason.
 2. Verify the callout fix (D-31) on the deployed site — check `/programming/intro` (and
    its Bengali translation) actually shows the "No setup required" tip now.
-3. Stage 7, Phase 7: the Bengali translation editor — the one the user asked about
-   earlier this session, deliberately deferred until the rest of the editor surface
-   existed first.
+3. Stage 7, Phase 8: categories screen, site settings (home/footer copy), `/about/` page.
 4. `generateMetadata` staleness (O-5) still open.
 
 ---

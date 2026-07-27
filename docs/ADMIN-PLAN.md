@@ -398,7 +398,7 @@ separate commits (`CLAUDE.md` §5).
 | **4** | ✅ Preview route · draft/publish rules (§4.9) — **built, D-28** | A draft is viewable by an admin and invisible to anon (verify with a logged-out request) |
 | **5** | ✅ Media library + backfill · `image`/`loop`/`file` block editors — **built, D-29** | An image can be uploaded and placed in a lesson end-to-end — code-verified against the real (backfilled) media table, not yet user-verified through a real upload |
 | **6** | ✅ Remaining block editors: `callout`, `tryit`, `video` — **built, D-32** | Every block type present in the 150 live lessons is editable — `quiz` (0 rows) stays deliberately unbuilt |
-| **7** | Translation editor | A Bengali lesson is editable without a script in `scripts/` |
+| **7** | ✅ Translation editor — **built, D-33** | A Bengali lesson is editable without a script in `scripts/` — code-verified, not yet used on a real lesson |
 | **8** | Categories · settings + home/footer refactor · `/about/` page | No editor-facing copy remains hardcoded except `lib/i18n.ts` and the icon map |
 | **9** | Resources screen + `/resourses/` page · dashboard usage panel · daily keep-alive/backup Action | ADMIN.md is fully implemented |
 
