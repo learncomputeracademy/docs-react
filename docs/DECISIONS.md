@@ -1088,6 +1088,37 @@ R2 uploads ≥10 MB should now work in production, not just local dev.
 
 ---
 
+## D-31 · Real bug found: `callout`/`video` blocks silently rendered as nothing on the live site
+**Date:** 2026-07-27 · **Status:** Active
+
+Starting Stage 7 Phase 6 (admin editors for `callout`/`tryit`/`video`), checked whether
+any real content already used these types before building an editor for them — found
+**18 real `callout` blocks live in the Programming category** (`scripts/
+create-programming-section.mjs`, session 9), none in `video`. `components/blocks/
+block-renderer.tsx`'s switch had no case for either type — both silently hit `default:
+return null`. Confirmed directly: `programming/intro`'s "No setup required" tip callout
+was completely absent from the rendered page (`document.body.innerText` didn't contain
+its text at all), on both the deployed site and a fresh local production build.
+
+**This has been live and losing content since session 9** — every Programming lesson with
+a callout (and its Bengali translation) has been silently missing that content the entire
+time, with no error, no warning, nothing to notice unless you compared block count against
+what actually rendered.
+
+Fixed `block-renderer.tsx`: added `callout` (icon + optional title + richtext body, 4
+variants — note/tip/warning/danger — colored per-variant the same "hardcoded badge"
+convention already used elsewhere, e.g. admin's status colors, not new design-system
+tokens for four one-off cases) and `video` (YouTube iframe embed or a Cloudinary
+`<video controls>`, distinct from `loop`'s autoplay/muted/no-controls). Verified: rebuilt,
+confirmed `programming/intro`'s callout now renders correctly (green tip box, lightbulb
+icon, title, body) in a real production build.
+
+This was found and fixed before any admin editor for these types existed — not a
+regression from Phase 6's editor work, a pre-existing gap in the original block-type
+rollout that this session's "check the real data before building" habit happened to catch.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
