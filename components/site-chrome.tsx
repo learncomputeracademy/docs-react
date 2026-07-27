@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { SiteHeader } from './site-header'
 import { SiteFooter } from './site-footer'
+import type { NavItem } from '@/lib/content'
 
 // The admin panel is a separate application surface with its own sidebar
 // chrome (AdminChrome) — the public marketing header/footer (home logo,
@@ -12,13 +13,13 @@ import { SiteFooter } from './site-footer'
 // far less restructuring for the same result, and (like AdminChrome)
 // carries none of D-18's SSR-poisoning risk since it never touches
 // headers()/cookies(), just the client-only usePathname() hook.
-export function SiteChrome({ children }: { children: React.ReactNode }) {
+export function SiteChrome({ navItems, children }: { navItems: NavItem[]; children: React.ReactNode }) {
   const pathname = usePathname()
   if (pathname.startsWith('/admin')) return children
 
   return (
     <>
-      <SiteHeader />
+      <SiteHeader navItems={navItems} />
       {children}
       <SiteFooter />
     </>

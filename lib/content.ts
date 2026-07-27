@@ -32,12 +32,50 @@ export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'foo
 
 export type Resource = { id: string; group_name: string; name: string; url: string; thumbnail_url: string | null }
 
-export async function getResources(): Promise<Resource[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase.from('resources').select('*').order('group_name').order('sort_order')
-  if (error) throw error
-  return data ?? []
-}
+// Real bug fixed here: this was a plain Supabase fetch with no
+// unstable_cache wrapper, but lib/admin/resources.ts's create/update/
+// delete actions already called revalidateTag('resources', ...) assuming
+// a 'resources'-tagged cache entry existed. Since none did, that
+// revalidation was a no-op, and Next's default fetch caching served
+// whatever was in the DB at the very first production build forever —
+// caught when 94 real rows were seeded directly and /resources kept
+// showing empty against a rebuilt production server. Tagged now, matching
+// every other read in this file.
+export const getResources = cache(function getResources(): Promise<Resource[]> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase.from('resources').select('*').order('group_name').order('sort_order')
+      if (error) throw error
+      return data ?? []
+    },
+    ['resources'],
+    { tags: ['resources'] }
+  )()
+})
+
+export type NavItem = { id: string; label: string; label_bn: string | null; url: string; sort_order: number }
+
+// Read from the root layout (every page) — cached + graceful-empty on any
+// failure (including the migration not being run yet), same reasoning as
+// getSiteSettings: a missing/broken nav_items table must never break the
+// header, just render it with no extra links.
+export const getNavItems = cache(function getNavItems(): Promise<NavItem[]> {
+  return unstable_cache(
+    async () => {
+      try {
+        const supabase = createPublicClient()
+        const { data, error } = await supabase.from('nav_items').select('*').order('sort_order')
+        if (error) throw error
+        return data ?? []
+      } catch {
+        return []
+      }
+    },
+    ['nav-items'],
+    { tags: ['nav'] }
+  )()
+})
 
 export async function getCategories(): Promise<Category[]> {
   const supabase = createPublicClient()

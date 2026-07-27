@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SiteChrome } from "@/components/site-chrome";
 import { RouteProgressBar } from "@/components/magic/route-progress";
 import { SITE_URL, SITE_NAME, organizationJsonLd, websiteJsonLd, jsonLdScript } from "@/lib/seo";
-import { getSiteSettings } from "@/lib/content";
+import { getSiteSettings, getNavItems } from "@/lib/content";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -74,11 +74,17 @@ const headScript = `
 })();
 `;
 
-export default function RootLayout({
+// async — fetches the header nav once here (cached, graceful-empty on
+// failure) rather than in SiteChrome/SiteHeader, since both stay client
+// components (SiteChrome needs usePathname() to hide the header on
+// /admin/*, D-34) and can't do server data fetching themselves.
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const navItems = await getNavItems();
+
   return (
     <html
       lang="en"
@@ -94,7 +100,7 @@ export default function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(organizationJsonLd()) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(websiteJsonLd()) }} />
         <RouteProgressBar />
-        <SiteChrome>{children}</SiteChrome>
+        <SiteChrome navItems={navItems}>{children}</SiteChrome>
       </body>
     </html>
   );
