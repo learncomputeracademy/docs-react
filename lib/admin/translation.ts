@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { sanitizeBlock } from '@/lib/admin/sanitize'
+import { logActivity } from '@/lib/admin/activity'
 import type { Block, TocItem } from '@/lib/types'
 
 export type TranslationRow = {
@@ -39,6 +40,7 @@ export async function createTranslation(docId: string, englishTitle: string, eng
     .select('*')
     .single()
   if (error) throw new Error(error.message)
+  await logActivity('translated', 'translation', docId, englishTitle)
   return data
 }
 
@@ -49,6 +51,7 @@ export async function deleteTranslation(docId: string) {
 
   const { error } = await supabase.from('doc_translations').delete().eq('doc_id', docId).eq('locale', 'bn')
   if (error) throw new Error(error.message)
+  await logActivity('deleted', 'translation', docId, docRow.path)
 
   // Public site already falls back to English + a banner when no
   // translation exists (lib/content.ts) — deleting is safe, just revalidate
@@ -116,6 +119,7 @@ export async function saveTranslation(docId: string, englishBlocks: Block[], inp
     .eq('doc_id', docId)
     .eq('locale', 'bn')
   if (error) throw new Error(error.message)
+  await logActivity('translated', 'translation', docId, input.title)
 
   if (docRow.status === 'published') {
     revalidateTag(`doc:${docRow.path}`, { expire: 0 })

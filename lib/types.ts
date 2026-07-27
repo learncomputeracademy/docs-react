@@ -59,6 +59,7 @@ export type Doc = {
   created_at: string
   updated_at: string
   published_at: string | null
+  deleted_at: string | null
   category?: Category
 }
 

@@ -2,6 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { logActivity } from '@/lib/admin/activity'
 
 export type ResourceRow = {
   id: string
@@ -40,6 +41,7 @@ export async function createResource(input: ResourceInput) {
     sort_order: (count ?? 0) + 1,
   })
   if (error) throw new Error(error.message)
+  await logActivity('created', 'resource', null, input.name)
   revalidateTag('resources', { expire: 0 })
 }
 
@@ -50,6 +52,7 @@ export async function updateResource(id: string, input: ResourceInput) {
     .update({ group_name: input.groupName, name: input.name, url: input.url, thumbnail_url: input.thumbnailUrl })
     .eq('id', id)
   if (error) throw new Error(error.message)
+  await logActivity('updated', 'resource', id, input.name)
   revalidateTag('resources', { expire: 0 })
 }
 
@@ -57,5 +60,6 @@ export async function deleteResource(id: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('resources').delete().eq('id', id)
   if (error) throw new Error(error.message)
+  await logActivity('deleted', 'resource', id, null)
   revalidateTag('resources', { expire: 0 })
 }

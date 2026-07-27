@@ -3,6 +3,7 @@
 import * as cheerio from 'cheerio'
 import { createClient } from '@/lib/supabase/server'
 import { uploadFile } from '@/lib/storage'
+import { logActivity } from '@/lib/admin/activity'
 
 export type MediaRow = {
   id: string
@@ -74,6 +75,7 @@ export async function uploadMedia(formData: FormData): Promise<MediaRow> {
     .select('*')
     .single()
   if (error) throw new Error(error.message)
+  await logActivity('uploaded', 'media', data.id, file.name)
   return data
 }
 
@@ -134,4 +136,5 @@ export async function deleteMedia(id: string) {
   const supabase = await createClient()
   const { error } = await supabase.from('media').delete().eq('id', id)
   if (error) throw new Error(error.message)
+  await logActivity('deleted', 'media', id, null)
 }

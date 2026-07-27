@@ -4,6 +4,8 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { computeAnchorsAndToc } from '@/lib/admin/anchors'
 import { sanitizeBlock } from '@/lib/admin/sanitize'
+import { snapshotRevision } from '@/lib/admin/revisions'
+import { logActivity } from '@/lib/admin/activity'
 import type { Block, Doc } from '@/lib/types'
 
 export async function getDocForAdmin(id: string): Promise<Doc | null> {
@@ -54,6 +56,9 @@ export async function saveDoc(id: string, input: SaveDocInput) {
     .single()
 
   if (error) throw new Error(error.message)
+
+  await snapshotRevision(id, input.title, blocks, toc, data.status)
+  await logActivity('updated', 'doc', id, data.path)
 
   // Editing an already-published doc's content changes what's live right
   // now, even though this action never touches `status` itself.

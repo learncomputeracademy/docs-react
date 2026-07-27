@@ -12,6 +12,13 @@ import type { NextRequest } from 'next/server'
 // auth.getUser() (not getSession()) — it revalidates the token against
 // Supabase's auth server instead of trusting a cookie-only session, which
 // is what Supabase's own docs call out as required in middleware.
+//
+// D-37: role/status now come from `profiles`, not the JWT's app_metadata.
+// A blocked user's JWT stays technically valid for up to an hour, but this
+// query hits the live table every request — blocking takes effect on
+// their very next navigation, not on token refresh.
+const ADMIN_ONLY_PREFIXES = ['/admin/categories', '/admin/settings', '/admin/resources', '/admin/users', '/admin/activity', '/admin/trash']
+
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })
 
@@ -33,15 +40,24 @@ export async function proxy(request: NextRequest) {
   )
 
   const { data: { user } } = await supabase.auth.getUser()
-  const isAdmin = user?.app_metadata?.role === 'admin'
+  let role: 'admin' | 'editor' | null = null
+  if (user) {
+    const { data: profile } = await supabase.from('profiles').select('role, status').eq('id', user.id).single()
+    if (profile?.status === 'active') role = profile.role as 'admin' | 'editor'
+  }
   const isLoginPage = request.nextUrl.pathname === '/admin/login'
 
-  if (!isAdmin && !isLoginPage) {
+  if (!role && !isLoginPage) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin/login'
     return NextResponse.redirect(url)
   }
-  if (isAdmin && isLoginPage) {
+  if (role && isLoginPage) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/admin'
+    return NextResponse.redirect(url)
+  }
+  if (role === 'editor' && ADMIN_ONLY_PREFIXES.some((p) => request.nextUrl.pathname.startsWith(p))) {
     const url = request.nextUrl.clone()
     url.pathname = '/admin'
     return NextResponse.redirect(url)

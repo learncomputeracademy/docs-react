@@ -2,6 +2,7 @@
 
 import { revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { logActivity } from '@/lib/admin/activity'
 
 export async function saveCategoryOrder(orderedIds: string[]) {
   const supabase = await createClient()
@@ -62,6 +63,7 @@ export async function createCategory(input: CategoryInput) {
     sort_order: (count ?? 0) + 1,
   })
   if (error) throw new Error(error.message)
+  await logActivity('created', 'category', null, input.title)
   revalidateTag('sidebar', { expire: 0 })
 }
 
@@ -72,6 +74,7 @@ export async function updateCategory(id: string, input: CategoryInput) {
     .update({ slug: input.slug, title: input.title, title_bn: input.titleBn, description: input.description })
     .eq('id', id)
   if (error) throw new Error(error.message)
+  await logActivity('updated', 'category', id, input.title)
   revalidateTag('sidebar', { expire: 0 })
 }
 
@@ -87,5 +90,6 @@ export async function deleteCategory(id: string) {
     }
     throw new Error(error.message)
   }
+  await logActivity('deleted', 'category', id, null)
   revalidateTag('sidebar', { expire: 0 })
 }

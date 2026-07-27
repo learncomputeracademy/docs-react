@@ -2,6 +2,7 @@
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
+import { logActivity } from '@/lib/admin/activity'
 
 // Cookie-aware SSR client, never the service-role client — RLS's
 // "admin manages docs" policy is the actual enforcement (public.is_admin()),
@@ -22,6 +23,7 @@ export async function listDocsForAdmin(): Promise<AdminDocRow[]> {
   const { data, error } = await supabase
     .from('docs')
     .select('id, title, path, status, sort_order, updated_at, category:categories(id, slug, title)')
+    .is('deleted_at', null)
     .order('sort_order', { ascending: true })
   if (error) throw new Error(error.message)
   return (data ?? []) as unknown as AdminDocRow[]
@@ -50,6 +52,7 @@ export async function setDocStatus(id: string, status: 'draft' | 'published') {
     .select('path')
     .single()
   if (error) throw new Error(error.message)
+  await logActivity(status === 'published' ? 'published' : 'unpublished', 'doc', id, data.path)
   revalidateDoc(data.path)
 }
 
@@ -61,13 +64,60 @@ export async function bulkPublish(ids: string[]) {
     .in('id', ids)
     .select('path')
   if (error) throw new Error(error.message)
+  for (const d of data ?? []) await logActivity('published', 'doc', null, d.path)
   data?.forEach((d) => revalidateDoc(d.path))
 }
 
+// Soft delete, admin-only (enforced by the docs_delete_restore_guard
+// trigger, not just this app-layer check) — the 150 migrated lessons are
+// the one genuinely irreplaceable thing in this project, so "delete" here
+// means "hide + revalidate," never a real DELETE. status/published_at are
+// deliberately left untouched: the public read policy's `deleted_at is
+// null` clause is what actually hides it, so restoreDoc can be a true
+// undo — a previously-published doc comes back still published, and
+// still slug-locked (CLAUDE.md §3.2, no accidental URL changes).
 export async function deleteDoc(id: string) {
   const supabase = await createClient()
-  const { data, error } = await supabase.from('docs').delete().eq('id', id).select('path').single()
+  const { data, error } = await supabase
+    .from('docs')
+    .update({ deleted_at: new Date().toISOString() })
+    .eq('id', id)
+    .select('path')
+    .single()
   if (error) throw new Error(error.message)
+  await logActivity('deleted', 'doc', id, data.path)
+  revalidateDoc(data.path)
+}
+
+export type TrashedDocRow = {
+  id: string
+  title: string
+  path: string
+  deleted_at: string
+  category: { id: string; slug: string; title: string } | null
+}
+
+export async function listTrash(): Promise<TrashedDocRow[]> {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .select('id, title, path, deleted_at, category:categories(id, slug, title)')
+    .not('deleted_at', 'is', null)
+    .order('deleted_at', { ascending: false })
+  if (error) throw new Error(error.message)
+  return (data ?? []) as unknown as TrashedDocRow[]
+}
+
+export async function restoreDoc(id: string) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .update({ deleted_at: null })
+    .eq('id', id)
+    .select('path')
+    .single()
+  if (error) throw new Error(error.message)
+  await logActivity('restored', 'doc', id, data.path)
   revalidateDoc(data.path)
 }
 
@@ -99,5 +149,6 @@ export async function createDraftDoc(categoryId: string, slug: string, title: st
     .select('id')
     .single()
   if (error) throw new Error(error.message)
+  await logActivity('created', 'doc', data.id, path)
   return data.id as string
 }
