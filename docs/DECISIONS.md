@@ -775,6 +775,41 @@ No fallback textarea needed. Phase 1 (migration, auth guard, login shell) is nex
 
 ---
 
+## D-23 · Stage 7 Phase 1: migration, scoped auth guard, login, bare admin shell
+**Date:** 2026-07-27 · **Status:** Active
+
+Built per `docs/ADMIN-PLAN.md`'s Phase 1 (`migration 003 · proxy.ts guard · login ·
+/admin shell + noindex`).
+
+- **`supabase/migrations/003-admin.sql`** — seeds `site_settings` (`home`/`footer`/
+  `contact` keys) and creates the `media` table (RLS: public read, admin write via
+  `public.is_admin()`). **Not yet applied** — needs the user to run it in SQL Editor, same
+  as `002-i18n.sql` before it. One correction to the plan itself: §3 proposed dropping a
+  `NOT NULL` constraint on `docs.category_id` for standalone pages — checked
+  `supabase/schema.sql` directly, that column was never `NOT NULL` in the first place, so
+  the line was omitted as a no-op. Standalone pages (e.g. the still-outstanding `/about/`,
+  O-1) already work at the DB level today.
+- **`proxy.ts`** re-added — deleted in session 11 for forcing the whole site dynamic via
+  a root-layout `headers()` call (D-18); this time `matcher: '/admin/:path*'` keeps it
+  scoped to the one subtree that should be dynamic. Uses `supabase.auth.getUser()`, not
+  `getSession()` — the former revalidates the JWT against Supabase's auth server rather
+  than trusting an unverified cookie, which is what Supabase's own docs require for
+  middleware specifically.
+- `/admin/login` (email+password against Supabase Auth), `/admin/layout.tsx` (`noindex`,
+  no shared chrome yet — nothing to navigate between besides login and one dashboard stub),
+  `/admin` (bare stub: signed-in email + sign-out button, proves the loop works — the real
+  Screen 2 dashboard is separate, later work).
+
+**Verified**: `next build` — public route tree unchanged, still all `●`/`○`; only `/admin`
+(`ƒ`, correctly dynamic — it reads the auth cookie) and `/admin/login` (`○`, no server
+data dependency) are new. Live: unauthenticated `GET /admin` → 307 to `/admin/login` (no
+loop); a wrong-credentials submit hits real Supabase Auth and surfaces "Invalid login
+credentials" cleanly, no crash. **Not verified**: the successful-login path — that needs
+the real admin password (`learncomputerseo@gmail.com`, in the user's password manager,
+never available to Claude) — left for the user to confirm.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

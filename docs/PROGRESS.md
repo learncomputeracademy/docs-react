@@ -156,14 +156,26 @@ correct cursor position, `Ctrl+B` correctly produced `<strong>` via `getHTML()`,
 console errors, clean production build), then deleted the spike files once the result was
 recorded. No textarea fallback needed for the `richtext` block editor. Full writeup: D-22.
 
+**Stage 7, Phase 1 — same session**
+
+Built the migration (`supabase/migrations/003-admin.sql` — **not yet applied**, needs the
+user to run it), the scoped `proxy.ts` auth guard (`/admin/:path*` only, `getUser()` not
+`getSession()`), `/admin/login`, and a bare `/admin` dashboard stub. Verified: public route
+tree still all `●`/`○` after `next build`; unauthenticated `/admin` correctly 307s to
+`/admin/login` with no loop; a bad-credentials submit hits real Supabase Auth and shows
+"Invalid login credentials" cleanly. Did **not** verify the successful-login path — needs
+the real admin password, which Claude doesn't have and shouldn't. Full writeup: D-23.
+
 **Next session — start here**
 
-1. Stage 7, Phase 1: migration `003-admin.sql`, `proxy.ts` auth guard scoped to
-   `/admin/:path*` (re-adding it — verify `next build`'s route table still shows `●`/`○`
-   on every public route after, per session 11's lesson about root-layout dynamic APIs),
-   login page, bare `/admin` shell with `noindex`.
-2. `generateMetadata` staleness (O-5) still open — worth checking before the admin
-   panel's publish flow makes it user-visible.
+1. User: run `supabase/migrations/003-admin.sql` in SQL Editor, then confirm logging into
+   `/admin` with the real admin credentials actually reaches the dashboard stub and
+   sign-out works.
+2. Stage 7, Phase 2: docs list screen + fixing `sort_order` (currently file-scan order,
+   wrong for all 150 rows — ADMIN-PLAN.md flags this needs a content judgement on the
+   correct sequence, possibly from the user, before the screen just picks one).
+3. `generateMetadata` staleness (O-5) still open — worth checking before the admin
+   panel's publish flow (Phase 3) makes it user-visible.
 
 ---
 
