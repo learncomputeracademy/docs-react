@@ -163,14 +163,14 @@ user to run it), the scoped `proxy.ts` auth guard (`/admin/:path*` only, `getUse
 `getSession()`), `/admin/login`, and a bare `/admin` dashboard stub. Verified: public route
 tree still all `●`/`○` after `next build`; unauthenticated `/admin` correctly 307s to
 `/admin/login` with no loop; a bad-credentials submit hits real Supabase Auth and shows
-"Invalid login credentials" cleanly. Did **not** verify the successful-login path — needs
-the real admin password, which Claude doesn't have and shouldn't. Full writeup: D-23.
+"Invalid login credentials" cleanly. **User verified the successful-login path** — signed in with the real admin credentials,
+reached the `/admin` dashboard stub, email shown correctly, sign-out present. Phase 1's
+guard + login loop is fully confirmed, both halves. Full writeup: D-23.
 
 **Next session — start here**
 
-1. User: run `supabase/migrations/003-admin.sql` in SQL Editor, then confirm logging into
-   `/admin` with the real admin credentials actually reaches the dashboard stub and
-   sign-out works.
+1. Confirm `supabase/migrations/003-admin.sql` has actually been run in SQL Editor (seeds
+   `site_settings`, creates `media`) — needed before Phase 2/3 touch either.
 2. Stage 7, Phase 2: docs list screen + fixing `sort_order` (currently file-scan order,
    wrong for all 150 rows — ADMIN-PLAN.md flags this needs a content judgement on the
    correct sequence, possibly from the user, before the screen just picks one).

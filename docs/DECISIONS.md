@@ -804,9 +804,10 @@ Built per `docs/ADMIN-PLAN.md`'s Phase 1 (`migration 003 · proxy.ts guard · lo
 (`ƒ`, correctly dynamic — it reads the auth cookie) and `/admin/login` (`○`, no server
 data dependency) are new. Live: unauthenticated `GET /admin` → 307 to `/admin/login` (no
 loop); a wrong-credentials submit hits real Supabase Auth and surfaces "Invalid login
-credentials" cleanly, no crash. **Not verified**: the successful-login path — that needs
-the real admin password (`learncomputerseo@gmail.com`, in the user's password manager,
-never available to Claude) — left for the user to confirm.
+credentials" cleanly, no crash. **Successful-login path verified by the user**: signed in with the real admin credentials,
+landed on the `/admin` dashboard stub showing "Signed in as learncomputerseo@gmail.com."
+with a working Sign out button. Phase 1's guard + login loop is confirmed working
+end-to-end, not just the failure-mode half Claude could test directly.
 
 ---
 
