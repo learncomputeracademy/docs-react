@@ -11,13 +11,14 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 
 | Screen | Function |
 |---|---|
-| Dashboard | counts, recently edited docs, **usage panel** (below) |
+| Dashboard | counts, recently edited docs |
 | Docs list | filter by category/status, drag to reorder, bulk publish, delete (admin-only, soft) |
 | Doc editor | title, slug, **path (locked after launch — see D-12)**, meta title/description, **block editor** → `docs/CONTENT-MODEL.md`, draft/publish, live preview, **revision history + restore** |
+| Pages | homepage hero + about-band text today, more pages as needed — see D-38 |
 | Categories | CRUD + ordering — **admin-only** |
 | Testimonials | CRUD + publish toggle |
 | Resources | CRUD, grouped — **admin-only** |
-| Settings | homepage hero + about-band text — **admin-only** |
+| Settings | **usage panel** (below) — **admin-only**, see D-38 |
 | Users | create/edit-role/block/delete accounts — **admin-only**, see D-37 |
 | Activity | who-did-what feed across the whole panel — **admin-only**, see D-37 |
 | Trash | soft-deleted lessons, restore — **admin-only**, see D-37 |
@@ -35,7 +36,9 @@ authenticated admins. Editors will otherwise publish to check their work.
 
 ## Usage panel — requested feature
 
-A dashboard card tracking free-tier headroom. **Track all four limits, not just storage** —
+A Settings-screen card (moved off the Dashboard, D-38 — admin-only, editors don't need
+free-tier internals in front of them) tracking free-tier headroom. **Track all four
+limits, not just storage** —
 storage is the one with the most headroom and the least likely to bite.
 
 | Metric | Free tier | Where it comes from | Warn at |

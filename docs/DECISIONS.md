@@ -1429,13 +1429,59 @@ routes), grepped `.next/static/` for service-role/R2/Cloudinary secret names —
 **Not live-tested** — doing so requires the migration to be applied first (see above), a
 schema change against the production database that needs the user's own action, not mine.
 
+**Update, same day:** user ran `004-users.sql` and confirmed via `select id, name, role,
+status from profiles;` — one row, `role='admin'`, `status='active'`. Pushed and deployed
+(`2413296`). O-8 resolved.
+
+Also added, same session: a dark/light toggle and a build-version label
+(`lib/admin/version.ts` — `VERCEL_GIT_COMMIT_SHA` in production, `git rev-parse --short
+HEAD` locally) in the sidebar footer, since the admin panel has no header of its own
+(`SiteChrome` hides the public one on `/admin/*`) and had no way to switch theme.
+
+---
+
+## D-38 · Settings split into Settings (usage, admin-only) and Pages (site copy, editors too)
+
+**Date:** 2026-07-27 · **Status:** Active — ⚠️ **migration not yet run against production**
+
+User: the free-tier usage widget should move from Dashboard into Settings ("since only
+admin can see it"), and the site-content fields inside Settings (home hero/about-band copy)
+should move to a new **Pages** tab that editors can also reach, "from where even editors
+can change contents of different pages, that are still to be added."
+
+- `/admin` (Dashboard) loses the usage panel — editors already see Dashboard, and free-tier
+  internals (DB size, days-to-pause) aren't something an editor needs in front of them.
+- `/admin/settings` becomes admin-only-and-only-usage — just the panel that moved in.
+- `/admin/pages` (new, `components/admin/pages-manager.tsx`, renamed from
+  `settings-manager.tsx` — same component, same `site_settings` key `'home'`) is reachable
+  by editors. Today it holds one form (home hero + about-band, EN/BN); the `footer`/
+  `contact` `site_settings` keys already exist (003-admin.sql seed) with no editor UI yet —
+  more pages get a form here the same way, as they're actually needed, not built ahead of
+  demand.
+- **`supabase/migrations/005-pages-editable.sql`**: `site_settings`'s RLS policy
+  (schema.sql) was `is_admin()`-only — moving its content screen to editors without this
+  would mean `saveSettings()` fails against RLS for every editor, the same class of gap
+  D-37 caught for `doc_translations`. Opens to `can_edit()`, same as docs/media/
+  doc_translations.
+
+**⚠️ Deployment order, same caution as D-37 but lower stakes**: unlike 004, skipping this
+migration doesn't lock anyone out — an editor saving Pages content just gets a normal RLS
+error surfaced as the existing inline-error banner. Still, run
+`005-pages-editable.sql` in the Supabase SQL editor before editors are expected to use
+`/admin/pages`.
+
+**Verified:** `tsc --noEmit` clean, `next build` clean (`/admin/pages` new, `ƒ` dynamic;
+no regressions elsewhere), grepped `.next/static/` for secret names — no matches. Not yet
+live-tested (same reasoning as D-37 — needs the migration run first).
+
 ---
 
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
-| O-8 | **Run `supabase/migrations/004-users.sql` in the Supabase SQL editor** before deploying this branch — see D-37 | Everything in D-37; `/admin` locks out without it |
+| O-9 | **Run `supabase/migrations/005-pages-editable.sql`** in the Supabase SQL editor — see D-38 | Editors can't save `/admin/pages` content without it (not a lockout, just a save error) |
+| ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |

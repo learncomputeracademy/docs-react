@@ -17,11 +17,14 @@ except Testimonials** · Bengali translation of all 8 pre-existing categories CO
 
 ### ⚠️ Blocking next step
 
-**`supabase/migrations/004-users.sql` must be run in the Supabase SQL editor before this
-code is deployed.** Session 15 (below) replaced the JWT-based admin check with a
-`profiles` table — `proxy.ts` queries it on every `/admin` request. Deploy before running
-the migration and the existing admin account gets locked out of `/admin` entirely (see
-D-37). Not yet run as of the last commit.
+**`supabase/migrations/005-pages-editable.sql` needs to be run in the Supabase SQL
+editor** — Session 16 (below) moved home-page copy editing to a new Pages screen that
+editors can reach, but `site_settings`'s RLS policy is still admin-only from schema.sql.
+Lower stakes than 004 was: skipping this doesn't lock anyone out, an editor just gets a
+save error on `/admin/pages` until it's run.
+
+004-users.sql is confirmed run — user verified `role='admin'`, `status='active'` via the
+SQL editor, and Session 15's work is live at commit `2413296`.
 
 ### ⚡ Next action
 
@@ -102,6 +105,37 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 16: dark/light toggle + version label; Settings/Pages split (D-38)
+
+**Done**
+
+- User confirmed Session 15's migration (`004-users.sql`) ran clean — verified
+  `role='admin'`, `status='active'` — and the branch was pushed and deployed (`2413296`).
+- **Dark/light toggle + build-version label** in the admin sidebar footer: the panel has
+  no header of its own (`SiteChrome` hides the public one on `/admin/*`), so there was no
+  way to switch theme from inside it. Version reads `VERCEL_GIT_COMMIT_SHA` in production
+  (`git rev-parse --short HEAD` fallback for local dev) — `lib/admin/version.ts`.
+- **Settings/Pages split**, per user request: the free-tier usage widget moves from
+  Dashboard into Settings (now admin-only-and-only-that), and the home-page copy editor
+  (hero/about-band, previously living in Settings) moves to a new **Pages** screen that
+  editors can also reach — "contents of different pages, that are still to be added."
+  `components/admin/settings-manager.tsx` renamed to `pages-manager.tsx`, same component.
+- **New migration, `005-pages-editable.sql`**: `site_settings`'s RLS policy was still
+  `is_admin()`-only from schema.sql — the same class of gap D-37 caught for
+  `doc_translations`, this time for the table backing the new editor-reachable Pages
+  screen. Opens to `can_edit()`.
+
+**Verified**: `tsc --noEmit` clean, `next build` clean (`/admin/pages` new and `ƒ`
+dynamic, no regressions on the 300+ public static/SSG routes), grepped `.next/static/` for
+secret names — no matches.
+
+**Not done / blocking**
+- `005-pages-editable.sql` not yet run against production. Lower-stakes than 004 — skipping
+  it doesn't lock anyone out, an editor just hits a save error on `/admin/pages` until it's
+  applied. See the blocking note at the top of this file and O-9 in `DECISIONS.md`.
+
+---
 
 ## 2026-07-27 — Session 15: Users, roles, revision history, activity log, soft delete (D-37)
 
