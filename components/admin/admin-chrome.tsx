@@ -15,10 +15,12 @@ function shouldHideSidebar(pathname: string) {
 
 export function AdminChrome({
   email,
+  role,
   builtHrefs,
   children,
 }: {
   email: string | undefined
+  role: 'admin' | 'editor' | null
   builtHrefs: string[]
   children: React.ReactNode
 }) {
@@ -28,7 +30,7 @@ export function AdminChrome({
 
   return (
     <div className="flex">
-      <AdminSidebar email={email} builtHrefs={builtHrefs} />
+      <AdminSidebar email={email} role={role} builtHrefs={builtHrefs} />
       <div className="min-w-0 flex-1">{children}</div>
     </div>
   )

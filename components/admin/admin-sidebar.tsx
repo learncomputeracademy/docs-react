@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked } from 'lucide-react'
+import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Users, History, Trash2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SignOutButton } from './sign-out-button'
 
@@ -12,17 +12,25 @@ import { SignOutButton } from './sign-out-button'
 // 404s. No Leads item — user decided against a contact form/leads
 // pipeline entirely; /contact is static info linking out to the main
 // site's own contact form instead (D-36).
+// adminOnly items are filtered out entirely for editors (D-37) — not
+// grayed out like unbuilt items, since an editor navigating there
+// directly gets redirected by proxy.ts anyway; hiding them here is just
+// so the sidebar doesn't advertise screens they can't open.
 const NAV_ITEMS = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
-  { href: '/admin/docs', label: 'Docs', icon: FileText, exact: false },
-  { href: '/admin/media', label: 'Media', icon: Images, exact: false },
-  { href: '/admin/categories', label: 'Categories', icon: FolderTree, exact: false },
-  { href: '/admin/settings', label: 'Settings', icon: Settings, exact: false },
-  { href: '/admin/resources', label: 'Resources', icon: BookMarked, exact: false },
+  { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true, adminOnly: false },
+  { href: '/admin/docs', label: 'Docs', icon: FileText, exact: false, adminOnly: false },
+  { href: '/admin/media', label: 'Media', icon: Images, exact: false, adminOnly: false },
+  { href: '/admin/categories', label: 'Categories', icon: FolderTree, exact: false, adminOnly: true },
+  { href: '/admin/settings', label: 'Settings', icon: Settings, exact: false, adminOnly: true },
+  { href: '/admin/resources', label: 'Resources', icon: BookMarked, exact: false, adminOnly: true },
+  { href: '/admin/users', label: 'Users', icon: Users, exact: false, adminOnly: true },
+  { href: '/admin/activity', label: 'Activity', icon: History, exact: false, adminOnly: true },
+  { href: '/admin/trash', label: 'Trash', icon: Trash2, exact: false, adminOnly: true },
 ] as const
 
-export function AdminSidebar({ email, builtHrefs }: { email: string | undefined; builtHrefs: string[] }) {
+export function AdminSidebar({ email, role, builtHrefs }: { email: string | undefined; role: 'admin' | 'editor' | null; builtHrefs: string[] }) {
   const pathname = usePathname()
+  const items = NAV_ITEMS.filter((item) => !item.adminOnly || role === 'admin')
 
   return (
     <aside className="flex h-screen w-56 shrink-0 flex-col border-r bg-muted/20">
@@ -30,7 +38,7 @@ export function AdminSidebar({ email, builtHrefs }: { email: string | undefined;
         <Link href="/admin" className="font-semibold">Admin</Link>
       </div>
       <nav className="flex-1 space-y-0.5 overflow-y-auto p-2">
-        {NAV_ITEMS.map((item) => {
+        {items.map((item) => {
           const built = builtHrefs.includes(item.href)
           const active = built && (item.exact ? pathname === item.href : pathname.startsWith(item.href))
           const Icon = item.icon

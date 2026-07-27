@@ -3,12 +3,13 @@
 import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ArrowUp, ArrowDown, Copy, Trash2, Plus, Eye } from 'lucide-react'
+import { ArrowLeft, ArrowUp, ArrowDown, Copy, Trash2, Plus, Eye, History } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { saveDoc, type SaveDocInput } from '@/lib/admin/doc'
 import { setDocStatus } from '@/lib/admin/docs'
 import { computeAnchorsAndToc } from '@/lib/admin/anchors'
 import type { MediaRow } from '@/lib/admin/media'
+import { RevisionHistory } from './revision-history'
 import { RichTextBlockEditor } from './blocks/richtext-block-editor'
 import { HeadingBlockEditor } from './blocks/heading-block-editor'
 import { CodeBlockEditor } from './blocks/code-block-editor'
@@ -78,6 +79,7 @@ export function DocEditor({ doc, categories, media }: { doc: Doc; categories: Ca
   const [sortOrder, setSortOrder] = useState(doc.sort_order)
   const [status, setStatus] = useState(doc.status)
   const [blocks, setBlocks] = useState<Block[]>(doc.blocks)
+  const [historyOpen, setHistoryOpen] = useState(false)
 
   // ADMIN-PLAN.md §4.8: path is locked after first publish, no redirects
   // table — a rename post-launch is rare/deliberate enough to be manual.
@@ -233,6 +235,9 @@ export function DocEditor({ doc, categories, media }: { doc: Doc; categories: Ca
           <Button variant="outline" size="sm" asChild>
             <Link href={`/admin/docs/${doc.id}/bn`}>বাংলা</Link>
           </Button>
+          <Button variant="outline" size="sm" onClick={() => setHistoryOpen(true)}>
+            <History className="size-3.5" /> History
+          </Button>
           <Button variant="outline" size="sm" disabled={pending} onClick={onPreview}>
             <Eye className="size-3.5" /> Preview
           </Button>
@@ -341,6 +346,10 @@ export function DocEditor({ doc, categories, media }: { doc: Doc; categories: Ca
           ))}
         </div>
       </div>
+
+      {historyOpen && (
+        <RevisionHistory docId={doc.id} currentBlocks={blocks} onClose={() => setHistoryOpen(false)} />
+      )}
     </div>
   )
 }

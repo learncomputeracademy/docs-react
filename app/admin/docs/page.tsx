@@ -1,8 +1,9 @@
 import { listDocsForAdmin, listCategoriesForAdmin } from '@/lib/admin/docs'
+import { getCurrentRole } from '@/lib/admin/session'
 import { DocsList } from '@/components/admin/docs-list'
 
 export default async function AdminDocsPage() {
-  const [docs, categories] = await Promise.all([listDocsForAdmin(), listCategoriesForAdmin()])
+  const [docs, categories, role] = await Promise.all([listDocsForAdmin(), listCategoriesForAdmin(), getCurrentRole()])
 
   return (
     <main className="mx-auto max-w-6xl px-6 py-12">
@@ -11,7 +12,7 @@ export default async function AdminDocsPage() {
         {docs.length} lessons across {categories.length} categories.
       </p>
       <div className="mt-6">
-        <DocsList docs={docs} categories={categories} />
+        <DocsList docs={docs} categories={categories} canDelete={role === 'admin'} />
       </div>
     </main>
   )

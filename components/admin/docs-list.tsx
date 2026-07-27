@@ -38,6 +38,7 @@ type RowProps = {
   onToggleStatus: () => void
   onDelete: () => void
   pending: boolean
+  canDelete: boolean
 }
 
 // Shared row markup for both the sortable (drag+arrows) and plain (filtered
@@ -48,7 +49,7 @@ function RowContent(
     moveButtons?: { onMoveUp: () => void; onMoveDown: () => void; isFirst: boolean; isLast: boolean }
   }
 ) {
-  const { doc, selected, onToggleSelected, onToggleStatus, onDelete, pending, dragHandleProps, moveButtons } = props
+  const { doc, selected, onToggleSelected, onToggleStatus, onDelete, pending, canDelete, dragHandleProps, moveButtons } = props
   return (
     <div className="flex items-center gap-3 border-b bg-background px-4 py-2.5 last:border-0">
       {dragHandleProps && (
@@ -94,9 +95,11 @@ function RowContent(
       <Button size="sm" variant="ghost" disabled={pending} onClick={onToggleStatus}>
         {doc.status === 'published' ? 'Unpublish' : 'Publish'}
       </Button>
-      <Button size="sm" variant="ghost" disabled={pending} onClick={onDelete} className="text-destructive">
-        Delete
-      </Button>
+      {canDelete && (
+        <Button size="sm" variant="ghost" disabled={pending} onClick={onDelete} className="text-destructive">
+          Delete
+        </Button>
+      )}
     </div>
   )
 }
@@ -200,7 +203,7 @@ function SortableCategoryHeader(
   )
 }
 
-export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories: Category[] }) {
+export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[]; categories: Category[]; canDelete: boolean }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
   const [categoryFilter, setCategoryFilter] = useState('')
@@ -341,7 +344,7 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
   }
 
   function onDelete(doc: AdminDocRow) {
-    const ok = confirm(`Delete "${doc.title}"? This also removes its Bengali translation, if any. This cannot be undone.`)
+    const ok = confirm(`Delete "${doc.title}"? It moves to Trash and can be restored later.`)
     if (!ok) return
     startTransition(async () => {
       await deleteDoc(doc.id)
@@ -468,6 +471,7 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
                         onToggleStatus={() => toggleStatus(doc)}
                         onDelete={() => onDelete(doc)}
                         pending={pending}
+                        canDelete={canDelete}
                       />
                     ))
                   ) : (
@@ -486,6 +490,7 @@ export function DocsList({ docs, categories }: { docs: AdminDocRow[]; categories
                             isFirst={i === 0}
                             isLast={i === allDocs.length - 1}
                             pending={pending}
+                            canDelete={canDelete}
                           />
                         ))}
                       </SortableContext>
