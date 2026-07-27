@@ -2,9 +2,42 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Users, History, Trash2 } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Users, History, Trash2, Sun, Moon } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SignOutButton } from './sign-out-button'
+
+// Same toggle logic as components/site-header.tsx — duplicated rather
+// than shared, since the two live in otherwise-unrelated chrome trees and
+// the whole thing is four lines. Root layout's inline head script (D-19
+// era) already applies the stored/system theme before paint on every
+// route including /admin, so there's no separate FOUC concern here.
+function ThemeToggle() {
+  const [dark, setDark] = useState(false)
+
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains('dark'))
+  }, [])
+
+  function toggle() {
+    const next = !dark
+    setDark(next)
+    document.documentElement.classList.toggle('dark', next)
+    localStorage.setItem('theme', next ? 'dark' : 'light')
+  }
+
+  return (
+    <button
+      type="button"
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className="flex items-center gap-2 rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+    >
+      {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+      {dark ? 'Light mode' : 'Dark mode'}
+    </button>
+  )
+}
 
 // Flat list, not a tree — unlike the public DocSidebar this never grows
 // past a handful of top-level screens. Items without an href yet show
@@ -28,7 +61,7 @@ const NAV_ITEMS = [
   { href: '/admin/trash', label: 'Trash', icon: Trash2, exact: false, adminOnly: true },
 ] as const
 
-export function AdminSidebar({ email, role, builtHrefs }: { email: string | undefined; role: 'admin' | 'editor' | null; builtHrefs: string[] }) {
+export function AdminSidebar({ email, role, builtHrefs, version }: { email: string | undefined; role: 'admin' | 'editor' | null; builtHrefs: string[]; version: string }) {
   const pathname = usePathname()
   const items = NAV_ITEMS.filter((item) => !item.adminOnly || role === 'admin')
 
@@ -67,11 +100,15 @@ export function AdminSidebar({ email, role, builtHrefs }: { email: string | unde
           )
         })}
       </nav>
+      <div className="border-t p-2">
+        <ThemeToggle />
+      </div>
       <div className="border-t p-3">
         <p className="truncate text-xs text-muted-foreground" title={email}>{email}</p>
         <div className="mt-2">
           <SignOutButton />
         </div>
+        <p className="mt-2 font-mono text-xs text-muted-foreground/60">v{version}</p>
       </div>
     </aside>
   )

@@ -17,11 +17,13 @@ export function AdminChrome({
   email,
   role,
   builtHrefs,
+  version,
   children,
 }: {
   email: string | undefined
   role: 'admin' | 'editor' | null
   builtHrefs: string[]
+  version: string
   children: React.ReactNode
 }) {
   const pathname = usePathname()
@@ -30,7 +32,7 @@ export function AdminChrome({
 
   return (
     <div className="flex">
-      <AdminSidebar email={email} role={role} builtHrefs={builtHrefs} />
+      <AdminSidebar email={email} role={role} builtHrefs={builtHrefs} version={version} />
       <div className="min-w-0 flex-1">{children}</div>
     </div>
   )
