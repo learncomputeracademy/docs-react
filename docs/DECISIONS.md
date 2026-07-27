@@ -1614,13 +1614,61 @@ matches. Live-checked against a local production build twice — first catching 
 Unsplash, Coolors, Figma, Google Fonts) and confirming the nav's graceful-empty behavior
 pre-migration.
 
+**Update, same day:** user ran `006-nav-items.sql`. O-10 resolved.
+
+---
+
+## D-41 · Real thumbnails for all 94 seeded resources, uploaded to Cloudinary
+
+**Date:** 2026-07-27 · **Status:** Active
+
+User pointed at `docs-master/docs-master/_data/resources.yml` (the thumbnail filenames
+D-40's seed deliberately skipped) and `docs-master/docs-master/assets/img/` (where the 96
+actual `preview-N.*` image files live), and asked for them uploaded and wired in.
+
+`scripts/upload-resource-thumbnails.mjs` (new) — parses the same source `.yml` with a
+small line-based parser (no YAML dependency added for a fixed 3-line-per-entry shape),
+matches each entry to its already-seeded `resources` row by `(name, url)`, uploads the
+local file to **Cloudinary, not R2** (these are tiny preview images, nowhere near the 10MB
+`pickBackend()` cutoff in `lib/storage.ts` — R2 is for oversized files only, per
+`docs/ASSETS.md`), sets `resources.thumbnail_url`, and registers the upload in `media` too
+so it's visible from the admin Media library like every other image on the site, not a
+side channel invisible to the admin panel.
+
+**Real matching bug caught by the dry run**: two entries failed to match — `seed-
+resources.mjs` had transcribed "W3Schools Javascript"/"W3Schools JQuery" as "W3Schools
+JavaScript"/"W3Schools jQuery" (a casing correction made by hand while transcribing D-40,
+not a bug in the source data itself) — this script's name-matcher needed to know about
+that drift too. Added to the same `correctName()` table as the Vectr fix. Re-ran the dry
+run after the fix: 95/95 matched (94 unique resources + the one intentionally-deduped
+Tinypng entry matching the same row twice), 0 missing files, 0 unmatched — confirmed
+before touching Cloudinary or the DB.
+
+**Real non-bug, worth recording anyway**: the first post-upload verification (`next build
+&& next start` without clearing `.next`) showed zero thumbnails and an empty header nav,
+looking exactly like D-40's caching bug again. It wasn't — `rm -rf .next` and a fully clean
+rebuild rendered everything correctly (real Cloudinary thumbnails, "Resources" nav link).
+Root cause was local: repeated `next build` calls during this same session's testing had
+left a stale on-disk Data Cache entry from *before* the thumbnails/nav migration existed,
+and nothing had triggered `revalidateTag` between those builds since the seed/upload
+scripts write directly to Postgres, bypassing the app entirely. This does **not** reproduce
+on a real deploy — Vercel builds from a clean container each time — but it's a real trap
+for local verification after any script-driven DB write: **always `rm -rf .next` before a
+verification rebuild that follows a direct-DB script**, not just `next build` again.
+
+**Verified:** `tsc --noEmit` clean, dry run matched 95/95 before any write. Queried
+production directly after running for real: 94/94 resources have `thumbnail_url` set,
+94/94 have a matching `media` row. Live-checked against a **fully clean** rebuild (`rm -rf
+.next && next build && next start`): real Cloudinary thumbnail URLs render on `/resources`,
+header nav shows "Resources". Grepped `.next/static/` for secret names — no matches.
+
 ---
 
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
-| O-10 | **Run `supabase/migrations/006-nav-items.sql`** in the Supabase SQL editor — see D-40 | Header nav stays invisible without it (not a lockout, not an error — graceful-empty) |
+| ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |

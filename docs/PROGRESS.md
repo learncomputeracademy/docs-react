@@ -16,14 +16,8 @@ for) · **Stage 9 (SEO foundation) 🟨 code-complete, not yet submitted to sear
 Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-### ⚠️ Blocking next step
-
-**`supabase/migrations/006-nav-items.sql` needs to be run in the Supabase SQL editor** —
-Session 18 (below) added an admin-editable header nav menu. Skipping this doesn't break
-anything (`getNavItems()` degrades to an empty array, verified live — no nav shown, no
-error), the nav just stays invisible until it's run.
-
-Migrations 004 and 005 are confirmed run by the user.
+Migrations 004, 005, and 006 are all confirmed run by the user. No blocking migration
+outstanding as of Session 19.
 
 ### ⚡ Next action
 
@@ -104,6 +98,39 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 19: real thumbnails for all 94 resources, uploaded to Cloudinary (D-41)
+
+**Done**
+
+- User confirmed `006-nav-items.sql` ran successfully — O-10 resolved.
+- User pointed at the old site's `_data/resources.yml` (thumbnail filenames) and
+  `assets/img/` (the actual 96 preview images) and asked for them uploaded and wired in.
+- `scripts/upload-resource-thumbnails.mjs` (new) — matches each `.yml` entry to its
+  already-seeded `resources` row by `(name, url)`, uploads to **Cloudinary, not R2**
+  (tiny preview images, nowhere near the 10MB `pickBackend()` cutoff), sets
+  `thumbnail_url`, and registers each upload in `media` so it's visible in the admin
+  Media library too.
+- **Real matching bug caught by the dry run, before any write**: two entries failed to
+  match because `seed-resources.mjs` (D-40) had corrected "W3Schools Javascript"/
+  "W3Schools JQuery" casing to "JavaScript"/"jQuery" by hand while transcribing — this
+  script's matcher needed to know about that drift too. Fixed, re-ran dry run: 95/95
+  matched (94 unique + one intentionally-deduped Tinypng entry), 0 missing files.
+- **Real non-bug worth recording**: first post-upload verification looked exactly like
+  D-40's caching bug again (empty thumbnails, empty nav) — but `rm -rf .next` and a fully
+  clean rebuild fixed it. Root cause was local: repeated test builds this session had left
+  a stale on-disk Data Cache from before the migration/seed existed, and the seed/upload
+  scripts write directly to Postgres, bypassing the app's `revalidateTag` calls entirely.
+  Doesn't reproduce on a real Vercel deploy (clean container per build), but it's a real
+  trap for local verification — **always `rm -rf .next` before a verification rebuild that
+  follows a direct-DB script.**
+
+**Verified**: `tsc --noEmit` clean. Queried production directly: 94/94 resources have
+`thumbnail_url`, 94/94 have a matching `media` row. Live-checked against a fully clean
+rebuild — real Cloudinary thumbnails render on `/resources`, header nav shows "Resources".
+Grepped `.next/static/` for secret names — no matches.
+
+---
 
 ## 2026-07-27 — Session 18: header nav menu (admin-editable) + real /resources content (D-40)
 
