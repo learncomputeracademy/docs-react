@@ -3,6 +3,7 @@ import type { Block } from '@/lib/types'
 import { cldVideoUrl } from '@/lib/cloudinary'
 import { highlight } from '@/lib/shiki'
 import { CopyButton } from './copy-button'
+import { TryItLazy } from './try-it-lazy'
 
 export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
   return (
@@ -52,6 +53,8 @@ export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
                 <source src={cldVideoUrl(b.publicId)} type="video/mp4" />
               </video>
             )
+          case 'tryit':
+            return <TryItLazy key={b.id} mode={b.mode} files={b.files} />
           case 'table':
             return (
               <table key={b.id}>
