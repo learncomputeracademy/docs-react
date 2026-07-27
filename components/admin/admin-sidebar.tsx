@@ -2,14 +2,16 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Mail } from 'lucide-react'
+import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SignOutButton } from './sign-out-button'
 
 // Flat list, not a tree — unlike the public DocSidebar this never grows
-// past a handful of top-level screens. Items without an href yet
-// (Phase 8/9, still unbuilt) show disabled so the full shape of the panel
-// is visible without linking to 404s.
+// past a handful of top-level screens. Items without an href yet show
+// disabled so the full shape of the panel is visible without linking to
+// 404s. No Leads item — user decided against a contact form/leads
+// pipeline entirely; /contact is static info linking out to the main
+// site's own contact form instead (D-36).
 const NAV_ITEMS = [
   { href: '/admin', label: 'Dashboard', icon: LayoutDashboard, exact: true },
   { href: '/admin/docs', label: 'Docs', icon: FileText, exact: false },
@@ -17,7 +19,6 @@ const NAV_ITEMS = [
   { href: '/admin/categories', label: 'Categories', icon: FolderTree, exact: false },
   { href: '/admin/settings', label: 'Settings', icon: Settings, exact: false },
   { href: '/admin/resources', label: 'Resources', icon: BookMarked, exact: false },
-  { href: '/admin/leads', label: 'Leads', icon: Mail, exact: false },
 ] as const
 
 export function AdminSidebar({ email, builtHrefs }: { email: string | undefined; builtHrefs: string[] }) {
