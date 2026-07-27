@@ -1474,13 +1474,84 @@ error surfaced as the existing inline-error banner. Still, run
 no regressions elsewhere), grepped `.next/static/` for secret names — no matches. Not yet
 live-tested (same reasoning as D-37 — needs the migration run first).
 
+**Update, same day:** user ran `005-pages-editable.sql`. O-9 resolved.
+
+---
+
+## D-39 · Custom 404 page; Stage 9 SEO foundation (sitemap, robots, canonical, JSON-LD); admin SEO screen
+
+**Date:** 2026-07-27 · **Status:** Active
+
+User asked for three things: a "beautiful" 404 page, the Stage 9 SEO work (sitemap,
+robots, canonical, structured data — flagged in CLAUDE.md's roadmap as no-longer-risky
+per D-12, since the old site was never indexed and there's nothing to break), and,
+conditionally, "if needed for certain tasks," a new SEO tab editors can also reach.
+
+**404 page** (`app/not-found.tsx`) — reuses existing motion components
+(`HeroReveal`/`ShimmerButton`/`BorderBeam`/`NumberTicker`) rather than inventing new ones,
+matching `docs/UI.md`'s "chrome/transitions, not lesson content" rule for where motion
+belongs. One English-only page, same as the old Jekyll site's single `404.html` — no
+per-locale variant, since nothing calls `notFound()` on a Bengali-specific path today.
+
+**`lib/seo.ts`** (new) — `SITE_URL` (reads the already-set `NEXT_PUBLIC_SITE_URL`),
+`buildAlternates()` for canonical + hreflang, `organizationJsonLd()`/`websiteJsonLd()`/
+`articleJsonLd()`, and `jsonLdScript()`. **Two real bugs caught before they shipped**:
+- `buildAlternates()`'s first draft computed canonical by checking whether `enPath`
+  (always an English path, by definition) `startsWith('/bn')` — always false, so the
+  Bengali homepage would have gotten the *English* URL as its own canonical, telling
+  Google to ignore the Bengali page entirely. Redesigned to take the calling page's own
+  `currentPath` explicitly rather than infer it.
+- `jsonLdScript()` originally did a bare `JSON.stringify` for the `dangerouslySetInnerHTML`
+  script content — an admin-authored doc title containing the literal string `</script>`
+  would have broken out of the script tag. Escapes `<` → `<`, standard practice for
+  inline JSON-LD.
+
+**`app/sitemap.ts`** / **`app/robots.ts`** (new) — fully data-driven via a new
+`getAllPublishedPaths()`/`getTranslatedPathsForSitemap()` in `lib/content.ts` (the
+existing `getAllDocPaths()` filters out standalone pages like `about`, which
+`generateStaticParams` needs but a sitemap doesn't). This means `/about` starts appearing
+in the sitemap automatically the day it's actually published — never before, so the
+sitemap can't ever point Google at a 404 (O-1 stays unaffected). Verified live:
+`robots.txt` and `sitemap.xml` both prerender `○` static and serve real content against
+the real `docs.learncomputer.in` domain.
+
+**Canonical + hreflang** added via `buildAlternates()` to home (en/bn), category (en/bn),
+lesson (en/bn), about, contact, resources. **Article JSON-LD** added to lesson pages
+(`datePublished`/`dateModified` from the real `docs` row — verified live, correct
+timestamps). **Organization + WebSite JSON-LD** added once in the root layout (site-wide,
+not per-page).
+
+**Admin SEO screen** (`/admin/seo`, editor-accessible per the user's explicit ask) — one
+new `site_settings` key, `'seo'` (no migration needed: `site_settings.key` has no fixed
+constraint, and `saveSettings`'s upsert creates the row on first save). Holds Search
+Console / Bing Webmaster verification codes so they can be pasted in later — when Stage 10
+actually happens — without a code deploy. Root layout's `metadata` became `generateMetadata`
+(async, reading `getSiteSettings('seo')`) to serve them as real `<meta
+name="google-site-verification">`/`msvalidate.01` tags. `saveSettings()` now branches:
+the `'seo'` key revalidates via `revalidatePath('/', 'layout')` (busts the root layout
+across every route) instead of the existing per-page `'/'`/`'/bn'` revalidation, since
+verification tags are site-wide, not homepage-only.
+
+**Verified:** `tsc --noEmit` clean, `next build` clean (`/robots.txt`/`/sitemap.xml` both
+`○` static — the async `generateMetadata` read didn't force the root layout dynamic,
+confirming the same caching pattern already proven safe by `home-content.tsx`'s
+`getSiteSettings('home')` call), grepped `.next/static/` for secret names — no matches.
+Live-checked against a local production build: real canonical/hreflang/JSON-LD tags on
+`/html/intro` and `/bn/html/intro`, correct `sitemap.xml`/`robots.txt` content, 404 page
+returns HTTP 404 with the real page rendered, `/admin/seo` correctly redirects
+unauthenticated requests to login.
+
+**Not done**: actually standing up Search Console/Bing Webmaster Tools and submitting the
+sitemap (Stage 10) — that needs the user's own Google/Microsoft account and is outward-
+facing, not something to do unprompted.
+
 ---
 
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
-| O-9 | **Run `supabase/migrations/005-pages-editable.sql`** in the Supabase SQL editor — see D-38 | Editors can't save `/admin/pages` content without it (not a lockout, just a save error) |
+| ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |

@@ -11,20 +11,13 @@ for picking up work weeks later.
 
 ## Current state — 2026-07-27
 
-**Phase:** Stage 1–6 ✅ · **Stage 7 (admin panel) 🟨 nearly complete — every screen built
-except Testimonials** · Bengali translation of all 8 pre-existing categories COMPLETE.
+**Phase:** Stage 1–7 ✅ (admin panel — every screen built except Testimonials, never asked
+for) · **Stage 9 (SEO foundation) 🟨 code-complete, not yet submitted to search engines** ·
+Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-### ⚠️ Blocking next step
-
-**`supabase/migrations/005-pages-editable.sql` needs to be run in the Supabase SQL
-editor** — Session 16 (below) moved home-page copy editing to a new Pages screen that
-editors can reach, but `site_settings`'s RLS policy is still admin-only from schema.sql.
-Lower stakes than 004 was: skipping this doesn't lock anyone out, an editor just gets a
-save error on `/admin/pages` until it's run.
-
-004-users.sql is confirmed run — user verified `role='admin'`, `status='active'` via the
-SQL editor, and Session 15's work is live at commit `2413296`.
+Both pending migrations (004, 005) are confirmed run by the user. No blocking migration
+outstanding as of Session 17.
 
 ### ⚡ Next action
 
@@ -105,6 +98,47 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 17: custom 404 page; Stage 9 SEO foundation; admin SEO screen (D-39)
+
+**Done**
+
+- User confirmed `005-pages-editable.sql` ran successfully — O-9 resolved.
+- **Custom 404 page** (`app/not-found.tsx`) — reuses existing motion components
+  (HeroReveal/ShimmerButton/BorderBeam/NumberTicker), English-only, matches the old
+  Jekyll site's single `404.html`.
+- **Stage 9, SEO foundation** — `lib/seo.ts` (new): `SITE_URL`, `buildAlternates()`
+  (canonical + hreflang), JSON-LD builders. **Two real bugs caught before shipping**:
+  `buildAlternates()`'s first draft would have given the Bengali homepage the *English*
+  URL as its own canonical (computed canonical from the wrong path — fixed to take the
+  calling page's own path explicitly); `jsonLdScript()`'s bare `JSON.stringify` was
+  vulnerable to a doc title containing the literal string `</script>` breaking out of the
+  inline script tag — added the standard `<` → `<` escape.
+- `app/sitemap.ts` + `app/robots.ts` (new), fully data-driven — a new
+  `getAllPublishedPaths()`/`getTranslatedPathsForSitemap()` in `lib/content.ts` (existing
+  `getAllDocPaths()` filters out standalone pages, which a sitemap shouldn't). `/about`
+  will appear automatically the day it's actually published, never before.
+- Canonical + hreflang added to home/category/lesson (en+bn)/about/contact/resources.
+  Article JSON-LD on lesson pages (real `datePublished`/`dateModified`). Organization +
+  WebSite JSON-LD once in the root layout.
+- **New admin SEO screen** (`/admin/seo`, editor-accessible per explicit user request) —
+  new `site_settings` key `'seo'` (no migration needed), holds Search Console/Bing
+  verification codes for when Stage 10 actually happens. Root layout's static `metadata`
+  became `generateMetadata` (async) to serve them as real meta tags.
+
+**Verified**: `tsc --noEmit` clean, `next build` clean (`/robots.txt`/`/sitemap.xml` both
+`○` static — confirms the async settings read didn't force the root layout dynamic),
+grepped `.next/static/` for secret names — no matches. **Live-checked against a local
+production build** (`next start`): real canonical/hreflang/JSON-LD on `/html/intro` and
+`/bn/html/intro`, correct sitemap/robots content against the real domain, 404 returns
+HTTP 404 with the styled page, `/admin/seo` redirects unauthenticated requests to login.
+
+**Not done**
+- Testimonials admin screen — never asked for, still just an unused table.
+- Actually registering with Search Console/Bing Webmaster Tools and submitting the
+  sitemap (Stage 10) — needs the user's own Google/Microsoft account, outward-facing.
+
+---
 
 ## 2026-07-27 — Session 16: dark/light toggle + version label; Settings/Pages split (D-38)
 
