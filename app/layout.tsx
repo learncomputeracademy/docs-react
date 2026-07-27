@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { RouteProgressBar } from "@/components/magic/route-progress";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -57,6 +58,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: headScript }} />
       </head>
       <body className="min-h-full flex flex-col">
+        <RouteProgressBar />
         <SiteHeader />
         {children}
         <SiteFooter />

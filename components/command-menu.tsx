@@ -8,6 +8,7 @@ import { Search, FileText, Loader2 } from 'lucide-react'
 import { searchAction, categoriesAction } from '@/lib/actions'
 import { localeFromPathname, localizedPath, t } from '@/lib/i18n'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
+import { startRouteProgress } from '@/components/magic/route-progress'
 
 type Result = { id: string; path: string; title: string; meta_description: string | null }
 type CategoryItem = { slug: string; title: string; firstPath: string; count: number }
@@ -54,6 +55,7 @@ export function CommandMenu() {
   function select(path: string) {
     setOpen(false)
     setQuery('')
+    startRouteProgress()
     router.push(localizedPath(`/${path}`, locale))
   }
 
