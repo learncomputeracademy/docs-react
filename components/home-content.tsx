@@ -4,7 +4,7 @@ import IconWordpress from '~icons/logos/wordpress-icon'
 import IconPython from '~icons/logos/python'
 import IconNodejs from '~icons/logos/nodejs-icon'
 import IconOpenai from '~icons/logos/openai-icon'
-import { getSidebarTree } from '@/lib/content'
+import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
@@ -36,11 +36,34 @@ const COMING_SOON = [
   { icon: IconOpenai, en: 'AI', bn: 'AI' },
 ] as const
 
+// Optional per-locale text overrides from /admin/settings, layered on top
+// of lib/i18n.ts's defaults — an empty/missing site_settings row (true
+// today until an admin fills it in) changes nothing, so this can never
+// blank out the homepage. Only the plain-text fields are overridable;
+// feature-card and coming-soon icons stay hardcoded (CLAUDE.md §4 bans
+// runtime icon loading, so there's no safe way to make icon choice
+// admin-editable without it).
+type HomeOverrides = Partial<{
+  heroTitle1: string
+  heroTitle2: string
+  heroSub: string
+  aboutBandTitle: string
+  aboutBandBody: string
+}>
+
 export async function HomeContent({ locale }: { locale: Locale }) {
-  const categories = await getSidebarTree(locale)
+  const [categories, settings] = await Promise.all([getSidebarTree(locale), getSiteSettings('home')])
   const firstLesson = categories.find(c => c.slug === 'html')?.docs[0] ?? categories[0]?.docs[0]
   const totalLessons = categories.reduce((sum, c) => sum + c.docs.length, 0)
   const s = t(locale)
+  const override = (settings[locale] ?? {}) as HomeOverrides
+  // || not ?? — the settings form always sends a string (possibly ''), and
+  // an empty override means "cleared, use the default," never "show blank."
+  const heroTitle1 = override.heroTitle1 || s.heroTitle1
+  const heroTitle2 = override.heroTitle2 || s.heroTitle2
+  const heroSub = override.heroSub || s.heroSub
+  const aboutBandTitle = override.aboutBandTitle || s.aboutBandTitle
+  const aboutBandBody = override.aboutBandBody || s.aboutBandBody
   const prefix = locale === 'bn' ? '/bn' : ''
   const features = FEATURES[locale]
 
@@ -72,9 +95,9 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               {s.freeLessonsSubjects(totalLessons, categories.length)}
             </div>
             <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              {s.heroTitle1}<span className="text-primary">{s.heroTitle2}</span>
+              {heroTitle1}<span className="text-primary">{heroTitle2}</span>
             </h1>
-            <p className="mt-5 max-w-lg text-lg text-muted-foreground">{s.heroSub}</p>
+            <p className="mt-5 max-w-lg text-lg text-muted-foreground">{heroSub}</p>
             {firstLesson && (
               <div className="mt-8 flex flex-wrap gap-3">
                 <ShimmerButton asChild size="lg">
@@ -204,10 +227,10 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         <div className="relative flex flex-col items-start gap-6 overflow-hidden rounded-2xl border bg-card p-8 sm:flex-row sm:items-center sm:justify-between">
           <BorderBeam duration={14} />
           <div>
-            <h2 className="text-lg font-semibold">{s.aboutBandTitle}</h2>
+            <h2 className="text-lg font-semibold">{aboutBandTitle}</h2>
             <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">
               <MapPin className="mt-0.5 size-4 shrink-0" />
-              {s.aboutBandBody}
+              {aboutBandBody}
             </p>
           </div>
           <Button asChild variant="outline" size="lg" className="shrink-0">

@@ -1237,6 +1237,64 @@ public route tree unchanged.
 
 ---
 
+## D-35 · Stage 7 Phase 8: categories screen, site settings, /about/ mechanism
+**Date:** 2026-07-27 · **Status:** Active
+
+**Categories** (`/admin/categories`) — CRUD over `categories`, doc count shown per row.
+Delete surfaces the FK `on delete restrict` violation (Postgres code `23503`) as a plain
+message ("still has N lessons, move or delete them first") instead of a raw PG error.
+
+**Site settings** (`/admin/settings`) — scoped to homepage hero + about-band text only,
+not the full "features, coming-soon, footer, contact" surface ADMIN-PLAN.md originally
+described. Two real constraints forced the trim:
+- Feature-card and coming-soon icons are hardcoded lucide/Iconify imports — CLAUDE.md §4
+  bans runtime icon loading, so there's no safe way to make icon choice admin-editable
+  without either a second delivery mechanism or inventing a fixed icon-per-slot
+  convention. Left hardcoded; only worth revisiting if the icon set itself needs to grow.
+- `SiteFooter` is a client component deriving locale via `usePathname()` specifically to
+  avoid needing `headers()`/`cookies()` near the root layout (D-18's lesson). Making its
+  text DB-editable would mean either fetching settings client-side or restructuring that
+  locale-derivation — not worth it for a copyright line nobody's asked to change. Skipped;
+  `site_settings.footer` stays seeded-empty and unused for now.
+- Home overrides layer on top of `lib/i18n.ts`'s existing defaults, never replace them —
+  `getSiteSettings()` (new, `lib/content.ts`) returns `{}` on any failure (missing row,
+  migration not run), and the merge uses `||` not `??` so an admin explicitly clearing a
+  field falls back to the default instead of rendering blank. This is what makes it safe:
+  every `site_settings` row is empty today, and the homepage must render identically
+  whether or not this feature exists.
+
+**`/about/` mechanism** — per ADMIN-PLAN.md §1c, a standalone page is just a `docs` row
+with `category_id IS NULL`, already supported since Phase 3's editor (the "Standalone
+page" category option). Two things were still missing: the actual `app/about/page.tsx`
+route, and a real bug the plan flagged in advance — `getAllDocPaths()`/
+`getTranslatedDocPaths()` split `path` on `/` for `[category]/[slug]`'s
+`generateStaticParams`, and a slash-less path like `about` would split into `{ category:
+'about', slug: undefined }`. Filtered both functions to `path.includes('/')`. Deliberately
+did **not** write real About copy — O-1 is a content decision, not a code one, and
+fabricating personal/institutional bio content without the user's input would be
+presumptuous. `/about/` 404s honestly until a real doc row exists at that path.
+
+**Real bug caught while testing, fixed before commit**: `CategoriesManager`'s
+delete-blocked message used `alert()` — same class of blocking native dialog as the
+`confirm()` mistake in D-29, froze the browser automation tab identically. Beyond the
+testing risk, it was also the only screen this session using a jarring native dialog
+instead of the inline-error pattern every other admin screen already uses — replaced with
+`setError()`.
+
+**Verified thoroughly, including a live homepage regression check** since this touches
+already-shipped, working code: `next build` clean, public route tree unchanged except
+`/about` (new, correctly `○` static since `getDoc('about')` returns null at build time and
+bakes a static not-found). Curled the live homepage HTML directly and confirmed "Learn to
+build"/"for the web" render byte-identical to before, proving the empty-settings fallback
+path works. `/about` confirmed 404. Categories and Settings screens checked live against
+real data via the still-authenticated browser tab from D-34 — real category list with
+correct doc counts, edit form pre-filled correctly, delete-blocking fired correctly (before
+the `alert()` fix landed).
+
+Stage 7 now has every screen except Resources + the usage dashboard (Phase 9).
+
+---
+
 ## Open
 
 | # | Question | Blocks |

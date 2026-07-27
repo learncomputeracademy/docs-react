@@ -396,8 +396,35 @@ rather than through a spike. Full writeup: D-34.
    `/admin/docs/[id]/bn` (translate a block on a real lesson) for the same reason.
 2. Verify the callout fix (D-31) on the deployed site — check `/programming/intro` (and
    its Bengali translation) actually shows the "No setup required" tip now.
-3. Stage 7, Phase 8: categories screen, site settings (home/footer copy), `/about/` page.
-4. `generateMetadata` staleness (O-5) still open.
+3. `generateMetadata` staleness (O-5) still open.
+
+**Stage 7, Phase 8 — same session: categories, site settings, `/about/` mechanism**
+
+Categories screen: CRUD, doc count per row, delete surfaces the FK restrict violation as
+a plain message. Settings screen: scoped down to homepage hero + about-band text only —
+feature/coming-soon icons stay hardcoded (CLAUDE.md §4 bans runtime icon loading) and
+footer text stays hardcoded too (`SiteFooter`'s client-side locale derivation exists
+specifically to avoid the D-18 root-layout pitfall; restructuring it for a copyright-line
+override wasn't worth it). Overrides layer on `lib/i18n.ts`'s existing defaults via `||`
+(not `??`, so an explicitly-cleared field falls back correctly) — every `site_settings`
+row is empty today, so this had to be provably safe before shipping.
+
+`/about/` mechanism: the standalone-page support was already there since Phase 3 (nullable
+`category_id`), just needed the actual route plus a real bug ADMIN-PLAN.md flagged in
+advance — `getAllDocPaths()`/`getTranslatedDocPaths()` split `path` on `/`, and a
+slash-less path like `about` would break `generateStaticParams`. Fixed. Deliberately did
+**not** write real About copy — that's O-1, a content decision, not built here.
+
+**Real bug caught and fixed before commit**: the delete-blocked message used `alert()`,
+the same class of blocking native dialog that froze the browser tab in D-29 - fixed to the
+inline-error pattern every other screen already uses.
+
+Verified thoroughly including a live homepage regression check (this phase touches
+already-shipped code): curled the homepage HTML directly, confirmed hero text renders
+byte-identical to before with empty settings. Categories and Settings screens checked live
+against real data via the still-authenticated tab. `next build` clean. Full writeup: D-35.
+
+**Stage 7 now has every screen except Resources + the usage dashboard (Phase 9).**
 
 ---
 

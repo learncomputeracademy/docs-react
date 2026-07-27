@@ -5,6 +5,31 @@ import { unstable_cache } from 'next/cache'
 import { createPublicClient } from './supabase/public'
 import type { Category, Doc, Locale } from './types'
 
+// Homepage/footer copy that's editable from /admin/settings without a
+// deploy. Graceful-degradation on any failure (missing row, migration not
+// run yet) — the caller merges this over hardcoded defaults from
+// lib/i18n.ts, so returning {} here just means "nothing overridden",
+// never a broken page. Tagged 'settings' so the admin's save action can
+// revalidate the (static) homepage on publish.
+export type SiteSettingsValue = Record<string, unknown>
+
+export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'footer' | 'contact'): Promise<SiteSettingsValue> {
+  return unstable_cache(
+    async () => {
+      try {
+        const supabase = createPublicClient()
+        const { data, error } = await supabase.from('site_settings').select('value').eq('key', key).maybeSingle()
+        if (error || !data) return {}
+        return (data.value as SiteSettingsValue) ?? {}
+      } catch {
+        return {}
+      }
+    },
+    ['site-settings', key],
+    { tags: ['settings'] }
+  )()
+})
+
 export async function getCategories(): Promise<Category[]> {
   const supabase = createPublicClient()
   const { data, error } = await supabase
@@ -168,6 +193,12 @@ export async function getAllCategorySlugs(): Promise<{ slug: string }[]> {
   return data ?? []
 }
 
+// Feeds [category]/[slug]'s generateStaticParams, which splits `path` on
+// '/' into exactly two segments — a standalone page (ADMIN-PLAN.md §1c,
+// category_id IS NULL, path = slug with no '/') would split into
+// { category: 'about', slug: undefined } and break the param list. Filter
+// here, the one place both static-param consumers read from, rather than
+// in each route.
 export async function getAllDocPaths(): Promise<{ path: string }[]> {
   const supabase = createPublicClient()
   const { data, error } = await supabase
@@ -175,7 +206,7 @@ export async function getAllDocPaths(): Promise<{ path: string }[]> {
     .select('path')
     .eq('status', 'published')
   if (error) throw error
-  return data ?? []
+  return (data ?? []).filter((d) => d.path.includes('/'))
 }
 
 // Only paths with a real Bengali translation get statically generated under
@@ -201,5 +232,7 @@ async function getTranslatedDocPathsUnsafe(): Promise<{ path: string }[]> {
     .eq('locale', 'bn')
     .eq('doc.status', 'published')
   if (error) throw error
-  return (data ?? []).map((r) => ({ path: (r.doc as unknown as { path: string }).path }))
+  return (data ?? [])
+    .map((r) => ({ path: (r.doc as unknown as { path: string }).path }))
+    .filter((d) => d.path.includes('/')) // same reasoning as getAllDocPaths
 }
