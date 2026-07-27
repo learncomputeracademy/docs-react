@@ -1059,6 +1059,35 @@ test the same logic instead.
 
 ---
 
+## D-30 · R2 credentials recovered, resolves O-7
+**Date:** 2026-07-27 · **Status:** Active, resolves O-7
+
+The bucket from the original migration (`lca-docs-files`, account
+`14885c4d3fe179895f53e0b57f243eb2`) still existed — confirmed by its Public Development URL
+matching the exact `pub-ae7f8faef01f4179b3ee65008d9277eb.r2.dev` host already seen in
+`scripts/pdf-map.json`. User generated a fresh R2 API token scoped to that bucket
+(Object Read & Write) and added all 5 vars (`R2_ENDPOINT`, `R2_ACCESS_KEY_ID`,
+`R2_SECRET_ACCESS_KEY`, `R2_BUCKET_NAME`, `NEXT_PUBLIC_R2_PUBLIC_URL`) to `.env.local`.
+
+**Verified for real**, not just "credentials present": a throwaway script called the S3
+client directly (bypassing `pickBackend()`'s 10 MB gate, no need for a huge dummy file) —
+PutObject, HeadObject, a public fetch confirming the body round-tripped correctly, then
+DeleteObject cleanup. Full pipeline confirmed working end to end.
+
+**Bug found in the verification tooling itself, not the app**: the throwaway script's
+`.env.local` parser used `/^([A-Z_]+)=(.*)$/`, which doesn't match variable names
+containing digits — every `R2_*` var name has "2" in it, so all of them silently failed to
+load, producing a confusing "No value provided for input HTTP label: Bucket" error on the
+first attempt. Fixed to `/^([A-Z0-9_]+)=(.*)$/` and re-ran clean. The real app was never
+affected — Next.js's own env loading has no such bug — but `scripts/backfill-media.mjs`
+had the identical fragile pattern (latent, never triggered since none of the vars it reads
+contain digits) and got the same fix while this was fresh.
+
+Mirror the same 5 vars into Vercel's environment variables — `.env.local` only covers
+local/dev; production uploads ≥10 MB won't work until they're there too.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -1069,4 +1098,4 @@ test the same logic instead.
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
-| O-7 | R2 credentials not in `.env.local` (D-29) — need `R2_ENDPOINT`/`R2_ACCESS_KEY_ID`/`R2_SECRET_ACCESS_KEY`/`R2_BUCKET_NAME`/`NEXT_PUBLIC_R2_PUBLIC_URL`, either recovered from wherever they were during the original migration or reissued | Uploading a file ≥10 MB through the admin media library — surfaces a clear error rather than failing silently, so not urgent |
+| ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |

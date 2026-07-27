@@ -28,7 +28,7 @@ async function loadEnv() {
   const text = await fs.readFile(new URL('../.env.local', import.meta.url), 'utf8')
   const env = {}
   for (const line of text.split('\n')) {
-    const m = line.match(/^([A-Z_]+)=(.*)$/)
+    const m = line.match(/^([A-Z0-9_]+)=(.*)$/)
     if (m) env[m[1]] = m[2]
   }
   return env

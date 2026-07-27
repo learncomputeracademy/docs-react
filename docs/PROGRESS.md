@@ -300,13 +300,28 @@ monkey-patching `window.confirm` backfired and froze the tab with a real native 
 recovered by opening a fresh tab, then re-verified the same logic through a confirm()-free
 route instead. Full writeup: D-29.
 
+**R2 credentials recovered, same session, right after**
+
+The original migration's bucket (`lca-docs-files`) still existed — user found it via its
+Public Development URL matching the exact host already known from `pdf-map.json`,
+generated a fresh scoped API token, added all 5 vars to `.env.local`. Verified for real via
+a direct S3-client script (PutObject/HeadObject/public-fetch/DeleteObject, bypassing the
+10 MB routing threshold rather than needing a huge dummy file) — full pipeline confirmed
+working. Caught and fixed a latent bug in the verification tooling itself along the way
+(env-parsing regex didn't match variable names containing digits, so every `R2_*` var
+silently failed to load) — the real app was never affected, only the throwaway test
+script and `backfill-media.mjs` shared the same fragile pattern; both fixed. O-7 resolved
+— D-30. **Still needs mirroring into Vercel's env vars** before production uploads ≥10 MB
+will work; `.env.local` only covers local/dev.
+
 **Next session — start here**
 
-1. User: open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
+1. User: mirror the 5 R2 vars into Vercel (Project → Settings → Environment Variables) —
+   local is verified working, production isn't yet.
+2. Open a real lesson in `/admin/docs/[id]` once deployed and confirm editing/saving
    works — first time real content (not spike data) passes through this editor. Also try
    `/admin/media`: upload a small image, place it in a lesson via the image block's picker,
    confirm it shows up correctly on the live page after Save & publish.
-2. R2 credentials (O-7) — recover or reissue, needed for any upload ≥10 MB.
 3. Stage 7, Phase 6: remaining block editors — `callout`, `tryit`, `video`.
 4. `generateMetadata` staleness (O-5) still open.
 
