@@ -1664,10 +1664,32 @@ header nav shows "Resources". Grepped `.next/static/` for secret names — no ma
 
 ---
 
+## D-42 · Resources moves to the editor tier
+
+**Date:** 2026-07-27 · **Status:** Active — ⚠️ **migration not yet run against production**
+
+User asked whether editors could manage Resources — they couldn't (left admin-only in
+schema.sql, unchanged by D-37/D-38 which moved docs/media/translations/settings but not
+resources/categories/testimonials). Moved to the editor tier, all three layers that
+enforce it: **`supabase/migrations/007-resources-editable.sql`** (RLS policy
+`is_admin()` → `can_edit()`, same swap as docs/media/translations/settings before it),
+`proxy.ts`'s `ADMIN_ONLY_PREFIXES` (`/admin/resources` removed), and `AdminSidebar`'s
+`NAV_ITEMS` (`adminOnly: false`). Categories/Settings/Users/Activity/Trash/Menu stay
+admin-only — this was specifically about Resources, not a broader re-opening.
+
+**Verified:** `tsc --noEmit` clean, fully clean rebuild (`rm -rf .next && next build`)
+clean, grepped `.next/static/` for secret names — no matches. Not live-tested as an
+editor (would need a second test account) — RLS is the real enforcement either way, and
+the policy swap here is identical in shape to four already-verified-working ones
+(docs/media/translations/settings).
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
+| O-11 | **Run `supabase/migrations/007-resources-editable.sql`** in the Supabase SQL editor — see D-42 | Editors get an RLS error trying to save Resources without it (not a lockout) |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |

@@ -16,8 +16,13 @@ for) · **Stage 9 (SEO foundation) 🟨 code-complete, not yet submitted to sear
 Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-Migrations 004, 005, and 006 are all confirmed run by the user. No blocking migration
-outstanding as of Session 19.
+### ⚠️ Blocking next step
+
+**`supabase/migrations/007-resources-editable.sql` needs to be run in the Supabase SQL
+editor** — Session 20 (below) moved Resources to the editor tier. Skipping this doesn't
+lock anyone out, an editor just gets an RLS error trying to save until it's applied.
+
+Migrations 004, 005, and 006 are all confirmed run by the user.
 
 ### ⚡ Next action
 
@@ -98,6 +103,27 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 20: Resources moves to the editor tier (D-42)
+
+**Done**
+
+- User asked whether editors could manage Resources — they couldn't, left admin-only in
+  schema.sql and never moved by D-37/D-38 (which covered docs/media/translations/
+  settings but not resources/categories/testimonials).
+- Moved Resources to the editor tier at all three enforcement layers: new migration
+  `007-resources-editable.sql` (RLS `is_admin()` → `can_edit()`), `proxy.ts`'s
+  `ADMIN_ONLY_PREFIXES` (removed `/admin/resources`), `AdminSidebar` (`adminOnly: false`).
+  Categories/Settings/Users/Activity/Trash/Menu stay admin-only — scoped to Resources only.
+
+**Verified**: `tsc --noEmit` clean, fully clean rebuild (`rm -rf .next && next build`)
+clean, grepped `.next/static/` for secret names — no matches.
+
+**Not done**
+- Not live-tested as an actual editor account (would need a second test user) — the RLS
+  policy swap is identical in shape to four already-proven-working ones.
+
+---
 
 ## 2026-07-27 — Session 19: real thumbnails for all 94 resources, uploaded to Cloudinary (D-41)
 
