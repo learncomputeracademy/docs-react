@@ -716,6 +716,37 @@ code issue; the swap logic itself is unchanged from before, only a CSS class was
 
 ---
 
+## D-21 · Revalidation webhook: Database Webhooks UI broken on this project, replaced with a hand-rolled pg_net trigger
+**Date:** 2026-07-27 · **Status:** Active, resolves O-6 · **Decided by:** Claude, user executed via SQL Editor
+
+The Supabase **Database Webhooks** UI (Database → Webhooks → Create a new hook, the path
+D-18 documented) fails on this project with `ERROR: 3F000: schema "supabase_functions"
+does not exist` — a platform-side provisioning gap, not a config mistake. Enabling
+`pg_net` first (the usual community fix) didn't resolve it either.
+
+**Worked around by building the same mechanism directly**, since Database Webhooks is
+just a UI wrapper over a Postgres trigger calling `pg_net.http_post` — skip the wrapper,
+write the trigger by hand:
+- Secret stored in Supabase **Vault** (`vault.create_secret`), not hardcoded into the
+  function body — avoids the secret being readable via `pg_proc`/function-source
+  inspection by any role with schema access.
+- `public.trigger_revalidate()` — `SECURITY DEFINER` plpgsql function, reads the secret
+  from `vault.decrypted_secrets`, calls `net.http_post` against
+  `https://lca-docs.vercel.app/api/revalidate` with the same payload shape
+  (`table`/`record`/`old_record`) the route already parses — zero changes needed on the
+  Next.js side, `app/api/revalidate/route.ts` doesn't know or care which mechanism called it.
+- Attached via a plain `AFTER INSERT OR UPDATE OR DELETE` trigger on `docs`,
+  `doc_translations`, and `categories` — functionally identical to what the three
+  Database Webhooks would have been.
+
+**Verified live** by the user: edited a doc's title in Table Editor, confirmed the live
+page updated within a couple seconds, no redeploy.
+
+**Stage 6 is now fully live**, both halves (ISR/revalidation from D-18, Try It Yourself
+from D-19) — not just code-complete.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -725,4 +756,4 @@ code issue; the swap logic itself is unchanged from before, only a CSS class was
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
-| O-6 | Set up the actual Supabase Database Webhook (D-18) — dashboard access needed, can't be done from this session | Stage 6 is code-complete but not live until this is wired up |
+| ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |

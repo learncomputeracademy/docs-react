@@ -122,16 +122,34 @@ the English version. Verified spot-checks in browser after each major batch.
 
 - Copy-button check-bounce specifically wasn't caught on screenshot (probably automation
   round-trip timing outrunning the 1.5s window, not a real bug — see D-20).
-- Did not commit or push this session's UI changes — stopped short to check in with the
-  user first, matching this repo's "never commit without being asked" rule.
+
+**Follow-ups, same session, after user review**
+
+- **Real bug**: NumberTicker (hero stats row) got stuck at 0 for "lessons" on the user's
+  phone while "Subjects"/"Languages" showed correct settled values — mathematically
+  impossible from normal animation lag (all three share one spring, so if two had reached
+  their exact targets the third couldn't still be at exactly 0). Root cause: the
+  `useInView()` scroll-gate, copied from MagicUI's below-the-fold pattern, doesn't fit
+  this always-above-the-fold usage and likely raced against the hero's own mount
+  animation on that device. Removed the gate; animates unconditionally on mount. Fixed,
+  committed, pushed (`38ea7f9`).
+- Committed and pushed all of this session's work (3 commits: UI component pass, route
+  progress bar, docs) plus the NumberTicker fix — `main` is fully in sync with what's
+  deployed.
+- **Supabase Database Webhook UI is broken on this project** — fails with `schema
+  "supabase_functions" does not exist`, a platform provisioning gap, not a mistake in
+  setup. Worked around with a hand-rolled `pg_net` trigger (Vault-stored secret,
+  `SECURITY DEFINER` function, attached to `docs`/`doc_translations`/`categories`) that
+  calls the same `/api/revalidate` endpoint. **User verified it live** — Stage 6 is now
+  fully live, not just code-complete. Full writeup: D-21.
 
 **Next session — start here**
 
-1. Confirm the UI pass looks right on the user's own pass, then commit + push (Vercel
-   auto-deploys `main` once pushed, per the GitHub import).
-2. Supabase Database Webhook still not created — O-6, now unblocked by having a real
-   deploy URL (`lca-docs.vercel.app`, not the placeholder used in earlier instructions).
-3. Stage 7 (admin panel) is still next on the roadmap once the above two are closed out.
+1. Stage 7 (admin panel) is next on the roadmap. An untracked `docs/ADMIN-PLAN.md` was
+   found sitting in the repo (Stage 7 build plan, dated today) — not written by Claude
+   this session; read it before starting to see whether it's current and usable or stale.
+2. `generateMetadata` staleness (O-5) still open — worth checking before the admin
+   panel's publish flow makes it user-visible.
 
 ---
 
@@ -145,7 +163,7 @@ the English version. Verified spot-checks in browser after each major batch.
 | 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
 | 4 | Assets → Cloudinary + R2 | ✅ **DONE** | 18 PDFs + 191 images/GIFs migrated (sessions 5–6). See [ASSETS.md](ASSETS.md) |
 | 5 | Public site build | ✅ **DONE** | Home + 1 lesson page built (session 7), revised on user feedback — accordion sidebar, real branding, wider layout (session 8). Category index pages (card-grid lesson lists) + persistent/independently-scrolling sidebar + mobile drawer + prev/next + homepage redesign (session 10) |
-| 6 | ISR + revalidation webhook · Try It editor | 🟨 **code-complete** | Revalidation (session 11): webhook + tag-based caching + a real SSR bug fix — live once the user wires up the Supabase Database Webhook (D-18/O-6). Try It (session 12): HTML/CSS/JS + React, verified working — textarea not CodeMirror, see D-19 |
+| 6 | ISR + revalidation webhook · Try It editor | ✅ **DONE, live** | Revalidation (session 11): webhook + tag-based caching + a real SSR bug fix. Database Webhooks UI was broken on this project (D-21) — replaced with a hand-rolled pg_net trigger, user verified live in production (session 13). Try It (session 12): HTML/CSS/JS + React, verified working — textarea not CodeMirror, see D-19 |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
 | 9 | **SEO foundation** | ⬜ | ~~highest-risk~~ → low risk / high upside. D-12 confirmed |
