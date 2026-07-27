@@ -960,6 +960,36 @@ every other Phase 1/2 screen, Claude doesn't have the admin password.
 
 ---
 
+## D-28 · Stage 7 Phase 4: draft preview route + unsaved-changes warning
+**Date:** 2026-07-27 · **Status:** Active
+
+Built exactly per ADMIN-PLAN.md §4.4: `app/admin/docs/[id]/preview/page.tsx`, dynamic,
+admin-only (covered by the existing `proxy.ts` matcher with zero new guard code), reusing
+the same `<BlockRenderer>` the public site uses — the public `[category]/[slug]` route is
+untouched. A draft is already invisible there today via the pre-existing RLS policy
+("public reads published docs" using status = 'published') from the original schema, not
+new code from this phase — Phase 4 didn't need to add that guarantee, only verify the
+preview route itself is admin-gated, which it is.
+
+The editor's new "Preview" button saves first if there are unsaved changes, then opens
+`/admin/docs/[id]/preview` in a new tab — since preview reads the DB row fresh rather than
+in-memory editor state, this is what keeps it from ever showing stale content.
+
+Also added the other half of §4.9 (draft/publish rules): a native `beforeunload` warning
+when there are unsaved changes. The rest of §4.9 — "autosave writes drafts, only publish
+is destructive" — was already satisfied by Phase 3's design choice to skip autosave
+entirely (D-27): every save is an explicit click regardless of draft/published status, so
+there's no keystroke-triggered overwrite risk to guard against in the first place.
+
+**Verified**: unauthenticated `GET /admin/docs/<id>/preview` correctly 307s to login
+(guard coverage, no new code). Visual check via a throwaway spike route showed the preview
+banner, title, and `<BlockRenderer>` output rendering correctly — real Shiki syntax
+highlighting and a working copy button, confirming the full public rendering pipeline
+works identically inside this dynamic admin context. `next build` clean, public route
+tree unchanged, `/admin/docs/[id]/preview` correctly `ƒ`.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

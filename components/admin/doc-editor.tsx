@@ -1,9 +1,9 @@
 'use client'
 
-import { useMemo, useState, useTransition } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { ArrowLeft, ArrowUp, ArrowDown, Copy, Trash2, Plus } from 'lucide-react'
+import { ArrowLeft, ArrowUp, ArrowDown, Copy, Trash2, Plus, Eye } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { saveDoc, type SaveDocInput } from '@/lib/admin/doc'
 import { setDocStatus } from '@/lib/admin/docs'
@@ -69,6 +69,19 @@ export function DocEditor({ doc, categories }: { doc: Doc; categories: Category[
   // Live anchor preview as headings are edited — same algorithm the save
   // action uses, so what's shown here matches what actually gets stored.
   const previewBlocks = useMemo(() => computeAnchorsAndToc(blocks).blocks, [blocks])
+
+  // ADMIN-PLAN.md §4.9: no autosave (deliberately — every save here is an
+  // explicit click, so there's no risk of silently overwriting published
+  // content on a keystroke), but a tab/navigation close losing unsaved
+  // edits silently is still a real footgun. Native browser confirmation,
+  // no dependency.
+  useEffect(() => {
+    function handler(e: BeforeUnloadEvent) {
+      if (!saved) e.preventDefault()
+    }
+    window.addEventListener('beforeunload', handler)
+    return () => window.removeEventListener('beforeunload', handler)
+  }, [saved])
 
   function markDirty() {
     setSaved(false)
@@ -166,6 +179,22 @@ export function DocEditor({ doc, categories }: { doc: Doc; categories: Category[
     })
   }
 
+  function onPreview() {
+    setError(null)
+    startTransition(async () => {
+      try {
+        // Preview reads the DB row fresh (ADMIN-PLAN.md §4.4) — save first
+        // so it reflects what's currently in the editor, not stale content
+        // from before this session's edits.
+        if (!saved) await saveDoc(doc.id, buildInput())
+        setSaved(true)
+        window.open(`/admin/docs/${doc.id}/preview`, '_blank', 'noopener')
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Save before preview failed')
+      }
+    })
+  }
+
   return (
     <div className="mx-auto max-w-4xl px-6 py-10">
       <Link href="/admin/docs" className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground">
@@ -182,6 +211,9 @@ export function DocEditor({ doc, categories }: { doc: Doc; categories: Category[
             {status}
           </span>
           {!saved && <span className="text-xs text-muted-foreground">Unsaved changes</span>}
+          <Button variant="outline" size="sm" disabled={pending} onClick={onPreview}>
+            <Eye className="size-3.5" /> Preview
+          </Button>
           <Button variant="outline" size="sm" disabled={pending} onClick={onSave}>Save</Button>
           {status === 'published' ? (
             <Button variant="outline" size="sm" disabled={pending} onClick={onUnpublish}>Unpublish</Button>

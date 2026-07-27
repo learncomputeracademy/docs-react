@@ -251,14 +251,31 @@ D-27.
 **Not verified**: the actual authenticated screen against a real lesson — same gap as
 every screen so far, Claude doesn't have the admin password.
 
+**Stage 7, Phase 4 — same session: draft preview + unsaved-changes warning**
+
+User confirmed Phase 3 looked good, asked to keep going. Built the preview route
+(`/admin/docs/[id]/preview`) exactly per plan — dynamic, admin-only via the existing
+`proxy.ts` guard (zero new code needed there), reusing the same `<BlockRenderer>` the
+public site uses. A draft is already invisible on the public route today via the
+original schema's RLS policy, not new code from this phase. The editor's new "Preview"
+button saves first if dirty, then opens the preview in a new tab, so it never shows stale
+content. Also added a native `beforeunload` warning for unsaved changes — the rest of
+§4.9's "autosave writes drafts" concern was already moot since Phase 3 has no autosave at
+all (every save is an explicit click).
+
+Verified: unauthenticated preview access redirects to login same as every other admin
+route; a throwaway spike confirmed the preview banner + `<BlockRenderer>` render
+correctly, including real Shiki syntax highlighting and a working copy button inside the
+dynamic admin context. `next build` clean, public route tree unchanged. Full writeup: D-28.
+
 **Next session — start here**
 
 1. User: open a real lesson in `/admin/docs/[id]` once deployed and confirm it edits and
-   saves correctly — this is the first time real content (not spike mock data) will pass
-   through this editor. Try a `richtext` edit, a `heading` rename, and Save; separately
-   confirm a doc containing `image`/`tryit`/other unsupported blocks still saves cleanly
-   without losing those blocks.
-2. Stage 7, Phase 4: preview route + draft/publish rules (§4.4/§4.9 in ADMIN-PLAN.md).
+   saves correctly — this is still the first time real content (not spike mock data) will
+   pass through this editor. Try a `richtext` edit, a `heading` rename, Save, and Preview;
+   separately confirm a doc containing `image`/`tryit`/other unsupported blocks still saves
+   cleanly without losing those blocks.
+2. Stage 7, Phase 5: media library + backfill · `image`/`loop`/`file` block editors.
 3. `generateMetadata` staleness (O-5) still open — now genuinely user-visible once real
    publishing starts happening through this editor.
 
