@@ -9,34 +9,89 @@ for picking up work weeks later.
 
 ---
 
-## Current state — 2026-07-25
+## Current state — 2026-07-26
 
-**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 in progress** · **New: i18n (Bengali) + Intro to Programming section — code complete, blocked on one SQL migration.**
+**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 in progress** · **Bengali translation of all 8
+pre-existing categories is now COMPLETE — every lesson on the site has a `/bn/` version.**
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
 ### ⚡ Next action
 
-**The entire Programming category is done, both languages.** Pilot (3 lessons) was
-reviewed and approved by the user, with one standing correction (West Bengal/Indian
-Bengali, not Bangladeshi — see the memory file and D-16 addendum), then all remaining 16
-were translated the same session and inserted.
+**Bengali translation effort is done.** Status per category (`doc_translations` rows,
+locale `bn`), all verified against the DB:
+- `programming` (19/19) — ✅ done.
+- `basics` (1/1) — ✅ done.
+- `html` (36/36) — ✅ done, all verified rendering at `/bn/html/*`.
+- `css` (35/35) — ✅ done.
+- `javascript` (28/28) — ✅ done.
+- `react` (2/2) — ✅ done: introduction, syllabus.
+- `design` (17/17) — ✅ done.
+- `photoshop` (12/12) — ✅ done (`scripts/translate-photoshop-all.mjs`), verified
+  12/12 rows present. Typos in the source prose (OCR-style: "Magniies", "speciied",
+  "Deines") were silently corrected in translation rather than replicated — unlike
+  code-block content, which stays byte-identical. One source bug preserved verbatim:
+  `photoshop/drawing-selection-tools` has an image `alt="Type Tool"` paired with caption
+  "Pen Tool" in the English original; the Bengali translation mirrors the same mismatch
+  rather than silently fixing it.
 
-- All 19 English lessons live at `/programming/*`.
-- All 19 Bengali translations live at `/bn/programming/*`. Zero fallback banners remaining
-  in this category — first one to reach full bilingual parity.
-- **Next: user picks the next category to translate.** Nothing technical is blocking —
-  the pipeline (schema, routing, partial-rollout fallback, translation workflow) is proven
-  end-to-end on a real 19-lesson category, not just the 3-lesson pilot.
+**Every one of the 131 pre-existing lessons across all 8 categories now has a Bengali
+translation.** No more `/bn/*` pages fall back to the English "not yet translated" banner.
+
+**Category index pages are done too (session 10)** — `/[category]` and `/bn/[category]`
+now exist; homepage cards link to them instead of routing around the gap. Their lesson list
+renders as a card grid (`sm:grid-cols-2 lg:grid-cols-3`), not the initial single-column
+numbered list — user asked for cards to match the homepage subject-picker style, same
+session. **Mobile sidebar drawer is also done** (same session) — Stage 5 (public site
+build) is feature-complete.
+
+**Stage 6 is now fully code-complete (sessions 11–12).**
+
+ISR half (session 11): `unstable_cache` + tagged `getDoc`/`getSidebarTree`,
+`/api/revalidate` webhook route, and a **real SSR bug fixed**: `app/layout.tsx`'s
+`headers()` call was forcing the entire site dynamic in production (every route showed
+`ƒ`, not `●`/`○`) — fixed, verified via `next build`. Verified against a real production
+build that content genuinely revalidates on-demand without a redeploy. **Not yet live**:
+the actual Supabase Database Webhook needs the user to create it in their dashboard
+(instructions in `docs/DECISIONS.md` D-18 / O-6) — can't be done from this session, no
+dashboard credentials. **Known gap**: `generateMetadata`'s `<title>` doesn't pick up the
+same invalidation the page body does — see D-18/O-5.
+
+Try It Yourself half (session 12): editable HTML/CSS/JS and React (Sucrase JSX transform +
+esm.sh-loaded React, since React 19 dropped UMD builds), sandboxed `<iframe sandbox=
+"allow-scripts">`, postMessage error relay — all verified working live, including actual
+click interactivity in both modes. **CodeMirror 6, named in `docs/UI.md`, doesn't work in
+this stack** — `@uiw/react-codemirror`'s `EditorView` never initializes (React 19
+incompatibility, isolated over ~2 hours of bisection), swapped for a plain `<textarea>`,
+package uninstalled. Also found and fixed, same investigation: `next/dynamic(fn,
+{ssr:false})` never resolves on a `generateStaticParams` route in this Next.js version —
+affects any future lazy client widget on a doc page, not just this one. Full writeup:
+`docs/DECISIONS.md` D-19.
+
+### Also this session: three site bugs found and fixed (not translation work)
+- Shiki code-block theme swapped to Ayu Light / Dracula per user request (`lib/shiki.ts`) —
+  dual-theme via CSS vars, dark-mode switch rule already existed in `app/globals.css`.
+- Language switcher was broken on the bare `/bn` homepage — `localizedPath()` in
+  `lib/i18n.ts` only stripped the `/bn` prefix when followed by a trailing slash, so
+  clicking "English" from `/bn` looped back to `/bn`. Fixed the regex, verified both
+  directions including the `/` → `/bn` (no double slash) case.
+- ⌘K search: confirmed already working (Postgres full-text search). Added a "Pick a
+  subject" section (categories with logo icons + lesson counts, shown when the query is
+  empty) to `components/command-menu.tsx`, backed by a new `categoriesAction` in
+  `lib/actions.ts` — same "link to first lesson" pattern as the homepage subject cards.
+
+Scripts are one-off per batch: `scripts/translate-<category>-<batch>.mjs`, safe to
+delete after running (idempotent upsert on `doc_id,locale`). Pattern: pull English
+`blocks`/`toc` for a batch of docs, hand-translate prose to West Bengal/Indian Bengali
+(see the `bengali-translation-dialect` memory — জল not পানি), keep all code blocks and
+HTML tag/attribute syntax byte-identical, translate visible labels inside **richtext**
+live-demo blocks (not inside `type: code` blocks), keep anchors/heading IDs identical to
+the English version. Verified spot-checks in browser after each major batch.
 
 ### Also still open (pre-existing, unchanged)
-- Category index pages (`/[category]`) — don't exist yet. Homepage category cards currently
-  link straight to each category's first lesson as a stand-in.
-- Try It Yourself — still deferred per `docs/UI.md`'s "four screens" order. Command palette
-  is **done** (see session 9), moving faster than that priority list implied.
-- Admin panel — **does not exist yet.** No link, no login. Stage 7, unstarted.
+- Admin panel — **does not exist yet.** No link, no login. Stage 7, unstarted — deliberately,
+  user confirmed sticking to the roadmap (Stage 6 before Stage 7) rather than jumping ahead.
 - `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
   fix, unchanged from before.
-- Mobile sidebar is currently just hidden (`hidden md:block`), not a drawer/sheet.
 
 ### Stage board
 
@@ -47,8 +102,8 @@ were translated the same session and inserted.
 | 2 | Supabase schema + RLS + auth | ✅ **DONE** | Schema live on `ipurerfngdvoxbypfdzt`. Admin user created (learncomputerseo@gmail.com — password in user's password manager, never stored here). `auth.is_admin()` moved to `public.is_admin()` — SQL editor role has no CREATE on the `auth` schema itself |
 | 3 | **Extraction: 132 HTML docs → Supabase** ⭐ | ✅ **DONE** | 131 rows written and verified. Re-run once more in session 5 after a table-extraction bug fix — see below |
 | 4 | Assets → Cloudinary + R2 | ✅ **DONE** | 18 PDFs + 191 images/GIFs migrated (sessions 5–6). See [ASSETS.md](ASSETS.md) |
-| 5 | Public site build | 🟨 **in progress** | Home + 1 lesson page built (session 7), revised on user feedback — accordion sidebar, real branding, wider layout (session 8). Awaiting sign-off before scaling |
-| 6 | ISR + revalidation webhook · Try It editor | ⬜ | HTML/CSS/JS + React |
+| 5 | Public site build | ✅ **DONE** | Home + 1 lesson page built (session 7), revised on user feedback — accordion sidebar, real branding, wider layout (session 8). Category index pages (card-grid lesson lists) + persistent/independently-scrolling sidebar + mobile drawer + prev/next + homepage redesign (session 10) |
+| 6 | ISR + revalidation webhook · Try It editor | 🟨 **code-complete** | Revalidation (session 11): webhook + tag-based caching + a real SSR bug fix — live once the user wires up the Supabase Database Webhook (D-18/O-6). Try It (session 12): HTML/CSS/JS + React, verified working — textarea not CodeMirror, see D-19 |
 | 7 | Admin panel + usage panel + daily keep-alive/backup | ⬜ | spec in [ADMIN.md](ADMIN.md). Also where `sort_order` gets fixed |
 | 8 | Search (Postgres FTS) + contact form | ⬜ | both are new functionality, not migration |
 | 9 | **SEO foundation** | ⬜ | ~~highest-risk~~ → low risk / high upside. D-12 confirmed |
@@ -72,8 +127,350 @@ Full detail and method in **[RESEARCH.md](RESEARCH.md)**.
 - Links: 131 distinct internal, **89 already broken on the live site today**.
 - Live URLs: **140** (`urls-before.txt`).
 - URL map: **131 entries** in `scripts/url-map.json` (132 − 1 redirect for duplicate poster page).
-- Categories: **7** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `react` 2.
+- Categories: **8** — `basics` 1 · `css` 35 · `design` 17 · `html` 36 · `javascript` 28 · `photoshop` 12 · `programming` 19 · `react` 2 (150 lessons total; the `7`/`131` figures elsewhere in this section predate the Programming category added in session 9).
 - Stack: **Next.js 16.2.x LTS** · Tailwind v4 · shadcn/ui (Radix) · Supabase free = 500 MB / 5 GB egress / **2 projects max**.
+
+---
+
+## 2026-07-26 — Session 10: Photoshop translation finished; sidebar/UX rework; category index pages
+
+Opened by finishing the last translation batch (Photoshop, 12/12 — see "Current state"
+above), then moved to a run of user-reported UX issues and one explicitly-requested feature.
+
+**Done**
+
+- **Sidebar reload bug (real, user-reported)** — clicking between lessons showed the sidebar
+  flashing/rebuilding on every navigation. Root cause: `DocSidebar` was rendered inside
+  `LessonContent`, i.e. inside the same Suspense boundary `loading.tsx` wraps, so the whole
+  page (sidebar included) fell back to a skeleton on every click. Fixed by moving the sidebar
+  into a `layout.tsx` (outside that Suspense boundary) and decoupling active-item
+  highlighting from a server-passed `activePath` prop to a client-side `usePathname()` read
+  in `SidebarNav` — the sidebar no longer depends on route params at all, so it doesn't
+  re-render on navigation.
+- **Independent sidebar scroll (also reported)** — sidebar was scrolling together with the
+  page instead of having its own scrollbar like VitePress. Fixed with `sticky` + a bounded
+  height (`h-[calc(100vh-3.5rem)]`) + its own `overflow-y-auto` on the `nav` element.
+- **Prev/Next lesson buttons**, VitePress-style — new `getAdjacentDocs()` in `lib/content.ts`
+  flattens the (already locale-aware, correctly ordered) sidebar tree and looks up the
+  doc before/after the current path; rendered at the bottom of every lesson in both locales.
+- **Footer/homepage copy trim** (user request) — removed "Free to use, for everyone." /
+  "সবার জন্য সম্পূর্ণ ফ্রি" from the footer, and the "Completely free" feature card from the
+  homepage (grid dropped from 3 to 2 columns to match).
+- **Accordion icon bug (real, screenshot-reported)** — opening a sidebar category rotated
+  the category's own logo badge (e.g. the JS icon), not just the chevron. Cause: the rotate
+  rule targeted `[data-state=open]>svg` — *any* direct SVG child of the trigger, which
+  matched both icons. Fixed by scoping rotation to the chevron specifically via a
+  `group`/`group-data-[state=open]` pair instead of a broad child selector.
+- **"Intro to Programming" had no sidebar/homepage icon** — `CATEGORY_ICONS` map was missing
+  a `programming` entry (added in session 9 but never given an icon). Added `Code2` (lucide).
+- **Homepage redesign** (user request: "make it more beautiful, add more text, we'll add
+  WordPress/Python etc. later") — researched tone/content from learncomputer.in (Habra
+  training institute, JS/Python/WordPress/AI courses, hands-on training angle) for ideas,
+  without copying its "for our students" framing (`CLAUDE.md` non-negotiable: public/free
+  framing only). Added: a dynamic lessons/subjects/languages stat row (was previously a
+  static, now-stale "7 subjects" hardcode — fixed to be computed), a third feature card
+  ("Available in Bengali too" — real differentiator, not a re-add of the removed "free"
+  card), a "More subjects on the way" section (WordPress/Python/Node.js/AI, via real
+  `logos:*` Iconify icons — found and fixed a dark-mode contrast bug where WordPress/OpenAI's
+  brand marks are dark-on-transparent and nearly invisible on a dark card; gave every
+  coming-soon icon a theme-independent white circular backing), and a closing "from the team
+  behind Learn Computer Academy" band with a link to learncomputer.in. Verified in both
+  locales and both themes.
+- **Category index pages** (`/[category]`, `/bn/[category]`) — the "one structural gap"
+  flagged in every prior session's notes. Consolidated the sidebar layout up one level, from
+  `[category]/[slug]/layout.tsx` to `[category]/layout.tsx`, so one persistent sidebar now
+  covers both the index page and every lesson under it (previously it only covered lessons).
+  New `components/category-content.tsx`, reusing `getSidebarTree()`. Homepage subject cards
+  now link to the index page instead of jumping straight to the first lesson (the previous
+  stand-in). Initially a numbered single-column list; **changed to a card grid**
+  (`sm:grid-cols-2 lg:grid-cols-3`, same visual language as the homepage subject picker) per
+  user follow-up request, same session — screenshots showed the list read as an oversized
+  accordion, not a landing page.
+- **Mobile sidebar drawer** — sidebar was `hidden md:block` with no mobile equivalent. Added
+  `components/mobile-sidebar.tsx` (server, fetches `getSidebarTree()` — free, deduped by the
+  `cache()` added earlier) + `components/mobile-sidebar-drawer.tsx` (client: `@radix-ui/
+  react-dialog`, already a dependency via the command palette). Reuses `SidebarNav` as-is
+  inside the drawer rather than building a second nav — one accordion implementation, two
+  presentations. Closes itself on route change via a `usePathname()` effect, since
+  `SidebarNav`'s links are plain `next/link`s with no knowledge of the drawer. Sits in its
+  own full-width bar above the content (`CategoryLayout`'s wrapper split into an outer block
+  container + inner flex row) rather than inside `DocSidebar`'s flex row, which can't host a
+  full-width mobile bar without squeezing the content column.
+
+**Bugs found while building the category index pages**
+
+1. **`generateStaticParams` crashed using the cookie-aware Supabase client** — `getCategories()`
+   calls `createClient()` from `lib/supabase/server.ts`, which reads cookies; that throws
+   outside a request context (`Route /[category] used cookies() inside generateStaticParams`).
+   Exact same class of bug `getAllDocPaths()` was already built to avoid for the lesson
+   route. Fixed the same way: added `getAllCategorySlugs()` using the plain anon
+   `@supabase/supabase-js` client instead.
+2. **Sidebar accordion regression, self-introduced by the layout consolidation** — moving the
+   sidebar to a shared, non-remounting layout meant its "which section is open" state
+   (`Accordion defaultValue`, computed once at mount) could go stale: landing on `/css`
+   (whose pathname doesn't match any *lesson* path) computed no active category, and since
+   the component never remounts on subsequent navigation within that subtree, it stayed
+   wrong. Fixed by making the Accordion controlled (`value`/`onValueChange`) and syncing the
+   open section reactively via a `useEffect` keyed on the pathname-derived active category,
+   while still preserving whatever other sections the user manually opened.
+3. Also added `getSidebarTree()` → wrapped in React's `cache()`, since the category layout
+   and the category/lesson page both call it once per request now — dedupes the DB round
+   trip within a single render pass rather than adding a bespoke caching layer.
+
+**Findings worth remembering**
+
+1. **A Suspense boundary's `loading.tsx` only wraps `page.tsx`, not a sibling `layout.tsx`
+   in the same folder.** This is *the* lever for "persistent sidebar, skeleton only on the
+   part that changes" — anything that should survive navigation without flashing belongs in
+   `layout.tsx`, not inside the component the page renders.
+2. **A layout that doesn't read the params it's nested under is free to be shared further up
+   the tree.** `DocSidebar` never needed `category`/`slug`, so moving its hosting layout from
+   `[category]/[slug]/` to `[category]/` cost nothing — the fix was almost entirely a file
+   move, not new logic.
+3. **Moving a component out of a remount boundary can silently invalidate assumptions baked
+   into "runs once at mount" state** (the accordion `defaultValue` bug above). Anything using
+   `defaultValue`/`useState(() => ...)` to seed state from a prop should be re-checked when
+   the surrounding remount lifecycle changes, even if the component's own code didn't change.
+4. **Iconify's `logos:*` collection ships true brand-color marks, not `currentColor`
+   monochrome icons** — WordPress and OpenAI's logos are dark by brand guideline and
+   disappear on a dark background. A white backing chip (not a theme-conditional class) is
+   the correct fix, since the icon itself doesn't change with the site's theme.
+5. Browser automation (Chrome DevTools MCP) had another run of transient screenshot
+   timeouts/staleness this session (same pattern noted in session 9) — cross-checked via
+   `location.href` through `javascript_tool` each time to confirm the app was actually
+   fine before concluding a screenshot failure wasn't a real bug.
+6. **`resize_window` didn't actually shrink the rendering viewport in this environment** —
+   called it twice (390×800, then 420×850), `window.innerWidth` stayed 1920 both times, and
+   screenshots kept coming back desktop-sized. Verified the mobile drawer instead via two
+   independent, non-visual checks: (a) reading the live DOM to confirm the trigger bar and
+   desktop `<nav>` carry opposite `md:hidden`/`md:block` classes, and (b) forcing that same
+   toggle with a one-off `element.style.display` override via `javascript_tool`, then
+   screenshotting the now-visible drawer opening and closing on navigation. Real mobile
+   check (resize a real browser or device) is still worth doing before calling this closed.
+
+**Failed / abandoned**
+
+- Nothing abandoned. Both self-introduced regressions (params crash, accordion state) were
+  caught by verification (typecheck + live navigation) within the same session, not left for
+  later discovery.
+
+**Next session — start here**
+
+1. **Stage 5 (public site build) is now feature-complete** — category index pages, mobile
+   drawer, persistent/independent-scroll sidebar, prev/next, homepage redesign all landed
+   this session. Worth a real-device or real-browser-resize mobile pass before calling it
+   fully signed off (see finding #6 above — this session's mobile verification was
+   DOM-state-based, not a true narrow-viewport screenshot).
+2. Try It Yourself (Stage 6) as its own dedicated session — new dependency (Sucrase for
+   in-browser JSX), a `tryit` block UI, sandboxed iframes. Bigger scope, deliberately not
+   folded into this session.
+3. Admin panel (Stage 7) — explicitly **not** starting yet; user confirmed sticking to the
+   roadmap order (Stage 6 before Stage 7) when asked directly this session.
+
+---
+
+## 2026-07-26 — Session 11: Stage 6 ISR + revalidation webhook (code-complete)
+
+User asked "what's next", got the recommendation to stick to the roadmap and do the ISR
+half of Stage 6 before Try It Yourself, then said to go ahead. Full detail in
+`docs/DECISIONS.md` D-18 — this is the short version.
+
+**Done**
+
+- `lib/supabase/public.ts` — plain anon Supabase client (no `cookies()`). Every public read
+  in `lib/content.ts` switched to it from the cookie-aware SSR client, which had been the
+  only reason those functions couldn't run inside `unstable_cache` or `generateStaticParams`
+  in the first place.
+- `getDoc` tagged `doc:${path}`, `getSidebarTree` tagged `sidebar`, both via `unstable_cache`
+  — this is the layer that actually makes revalidation possible; without it there's nothing
+  for `revalidateTag` to invalidate.
+- `app/api/revalidate/route.ts` — POST, secret-header auth, accepts a Supabase Database
+  Webhook payload or a manual `{ tag, path }` body. Resolves the right tag(s) per table
+  (`docs`/`doc_translations`/`categories`).
+- **Real bug, not on the plan**: `app/layout.tsx` called `headers()` for `<html lang>`,
+  which — because it's the ROOT layout, wrapping every route — forced the entire site into
+  per-request SSR in production. Invisible in `next dev` (which doesn't distinguish static
+  from dynamic the same way); caught by actually running `next build` for the first time in
+  this project's history and reading its route table (`ƒ` on every route, expected `●`/`○`).
+  Fixed by dropping `headers()` for a static `lang="en"` default corrected client-side via
+  the same inline script that already prevents theme-flash. Deleted `proxy.ts` — its only
+  job was feeding that now-unused header. Rebuilt: every doc/category page is now `●`
+  (SSG), homepage `○` (static). This was the load-bearing fix; tag-based revalidation on a
+  site that's fully dynamic anyway would have been a no-op wrapped around a bigger problem.
+- Also fixed: `package.json`'s `build`/`start` scripts were missing `--webpack` (only `dev`
+  had it, from session 3's unplugin-icons/Turbopack conflict). `next build` failed outright
+  without it — never caught because a production build had never been run in this project
+  before this session.
+- **Verified against a real production build**, not `next dev`: set a doc's title directly
+  in the DB via a throwaway script, confirmed the running server kept serving the old value
+  (`x-nextjs-cache: HIT`), POSTed to `/api/revalidate` with the doc's tag, confirmed the
+  page body picked up the new title on the next request. Reverted the test title afterward,
+  deleted the throwaway scripts. The core mechanism is proven, in production, without a
+  redeploy.
+
+**Known limitation, not resolved**
+
+`generateMetadata`'s `<title>`/meta output didn't pick up the same invalidation the page
+body did — stayed on the old value across repeated `revalidateTag` and `revalidatePath`
+calls, and a second full regeneration cycle, while the `<h1>` (page body, same underlying
+`getDoc` call) updated correctly every time. Read Next 16.2.11's `unstable_cache`/
+`revalidateTag`/route-module source directly trying to root-cause it; leading hypothesis is
+that a `generateStaticParams`-prerendered route's metadata gets baked into the static HTML
+shell on a path separate from the RSC body payload, and doesn't ride the same tag
+invalidation — not conclusively confirmed. Logged as D-18/O-5 rather than either claiming
+it's fixed or burning more time chasing Next.js internals with no clear stopping point.
+Page *content* is unaffected; only the tab title / search snippet can lag one publish cycle.
+
+**Not done — needs the user**
+
+The actual Supabase Database Webhook (dashboard → Database → Webhooks) has to be created by
+hand — no CLI/API credentials for this project's Supabase account were available in this
+session (the CLI on this machine is authenticated to a *different* Supabase account
+entirely, confirmed by `supabase projects list` not showing this project). Setup steps are
+in D-18/O-6: table events on `docs`/`doc_translations`/`categories` → POST to
+`/api/revalidate` → header `x-revalidate-secret: <REVALIDATE_SECRET value>`. Supabase's
+default webhook payload shape is already what the route expects, no template needed.
+
+**Findings worth remembering**
+
+1. **A dynamic API (`headers()`/`cookies()`) used in the ROOT layout poisons every route in
+   the app**, not just the component that calls it — this is a much bigger blast radius
+   than the same call in a leaf page, and `next dev` won't show you it happened. Any
+   "why is my ISR/SSG not working" investigation should check the root layout first.
+   `next build`'s route table (`○`/`●`/`ƒ`) is the actual source of truth, not assumptions.
+   Deployed to Vercel, this bug would have quietly meant every crawler hit was hitting
+   Supabase — the exact failure mode CLAUDE.md §3.3 exists to prevent.
+2. **`unstable_cache` can be created inline, per-call, with dynamic tags** — `unstable_cache(fn,
+   [key, ...args], { tags: [dynamicTag] })()`, called fresh every invocation — this is the
+   documented pattern for per-argument tags (e.g. `doc:${path}`), not a misuse; caching is
+   keyed by `keyParts`, not by the wrapper's identity.
+3. **`revalidateTag(tag, 'max')` is not "revalidate immediately with no periodic expiry"** —
+   reading Next's own source, a *string* profile like `'max'` only sets `pendingRevalidatedTags`
+   without setting `pathWasRevalidated`, which behaves like stale-while-revalidate for the
+   *first* subsequent hit. `revalidateTag(tag, { expire: 0 })` is what actually corresponds
+   to "on-demand, regenerate now." The deprecation warning for the old single-argument form
+   pushes toward `'max'`, which reads as "the new correct default" but isn't the same thing
+   as the old (deprecated but immediate) single-argument behavior.
+4. **Never trust a rebuild as a clean test of a caching bug** — `unstable_cache`'s default
+   revalidate window is `CACHE_ONE_YEAR_SECONDS`, and Next reuses `.next/cache` across
+   builds by default, so a second `next build` can silently bake in stale data cached by the
+   *first* build rather than re-fetching. `rm -rf .next/cache` before any build used as a
+   cache-behavior test, or the "before" state is contaminated by leftover cache from a
+   previous run — this cost real time during this session's testing.
+5. A background `next start` process left listening on a port from an earlier test survives
+   `pkill -f "next-server"`/`pkill -f "next start"` (pattern didn't match how the process
+   shows up), silently serving stale build output to every subsequent curl and making a
+   fixed bug look unfixed. `netstat -ano | grep :<port>` + `taskkill //PID <pid> //F` to
+   confirm the port is actually free before trusting a "clean" test run.
+
+**Failed / abandoned**
+
+- Did not resolve the `generateMetadata` staleness lag (see above) — logged as O-5 rather
+  than abandoned outright; worth revisiting with a Next.js version bump or upstream issue
+  search before Stage 7 makes it user-visible.
+- Did not set up the real Supabase Database Webhook — genuinely blocked on dashboard access
+  this session doesn't have, not a scope decision.
+
+**Next session — start here**
+
+1. User needs to create the Supabase Database Webhook (D-18/O-6) before Stage 6's
+   revalidation is actually live in production — everything on the code side is done and
+   verified, this is the one remaining manual step.
+2. Try It Yourself — the other half of Stage 6, still unstarted, still its own session.
+3. Worth a quick Next.js changelog/issue search for the `generateMetadata` staleness
+   quirk (O-5) before it becomes user-visible via the admin panel's publish flow.
+
+---
+
+## 2026-07-26 — Session 12: Try It Yourself built (Stage 6, second half)
+
+Full decision writeup in `docs/DECISIONS.md` D-19 — this is the short version.
+
+**Done**
+
+- `components/blocks/try-it.tsx` — the editor + preview UI. Tabs per file present in the
+  block's `files` (HTML/CSS/JS for web mode, JSX/CSS for react mode), Run/Reset buttons,
+  sandboxed `<iframe sandbox="allow-scripts">` (no `allow-same-origin` — opaque origin,
+  correct for running arbitrary user code per D-04), runtime errors relayed back via
+  `postMessage` and shown in an error panel.
+- `lib/tryit.ts` — pure srcDoc builders. Web mode: plain template, html/css/js inlined with
+  a try/catch + `window.onerror` wired to the postMessage relay. React mode: Sucrase
+  (`transforms:['jsx']`) compiles the block's JSX to `React.createElement` calls, injected
+  into a doc that loads React via an import map pointing at `esm.sh` (React's own
+  officially-documented no-build-tool pattern) since **React 19 no longer ships a UMD
+  build** to self-host the old way.
+- `components/blocks/try-it-lazy.tsx` + a `case 'tryit'` in `block-renderer.tsx` — wires it
+  into the content pipeline. Code-split so CodeMirror-successor weight doesn't hit every
+  lesson page, only ones that use it.
+- **Verified live**, not just built: inserted temporary test blocks (web-mode counter,
+  react-mode counter, a deliberate `thisWillThrow()`) into a real doc, confirmed in-browser
+  — both counters actually increment on click (not just initial render), the error panel
+  shows "thisWillThrow is not defined" correctly. Reverted the test doc back to its
+  original content afterward.
+
+**Two real bugs found and fixed, not on the original plan** — full detail in D-19:
+
+1. **CodeMirror 6 (named in `docs/UI.md`) doesn't work in this stack.**
+   `@uiw/react-codemirror`'s outer shell mounts but its `EditorView` never initializes — no
+   editor, no error, anywhere. Took roughly 2 hours to isolate via bisection (trivial stub
+   vs real component; bare CodeMirror with zero props/extensions still failed). Replaced
+   with a plain `<textarea>` (monospace, manual Tab-key indent) — not a real loss, W3Schools'
+   own original Tryit Editor used a textarea too. Package uninstalled.
+2. **`next/dynamic(fn, { ssr: false })` never resolves on a `generateStaticParams` route in
+   Next.js 16.2.11 (webpack)** — the loading fallback shows forever, zero console/server
+   errors, reproducible in dev and a real `next build && next start`. This was the actual
+   root cause of bug #1 looking like a CodeMirror problem for most of the investigation —
+   removing only `ssr: false` (keeping everything else, including the real heavy
+   component) fixed it instantly. Affects any *future* lazy-loaded client widget on a doc
+   page, not just this one — the workaround (drop the flag; the component just needs no
+   server-unsafe code outside effects/handlers) is documented in `try-it-lazy.tsx` and
+   D-19 so it doesn't need re-discovering.
+
+**Findings worth remembering**
+
+1. **A mid-investigation revert can silently invalidate everything tested after it.**
+   While isolating bug #2, `try-it-lazy.tsx` was reverted to its original `ssr:false` state
+   to test an unrelated production-build question, and never restored — every bisection
+   test run after that point (CodeMirror-only, bare CodeMirror, plain textarea) was
+   actually re-testing the *already-known-broken* `ssr:false` path, not the thing being
+   isolated. This pointed suspicion at CodeMirror for a long stretch before the mistake was
+   caught by rereading the file's actual current content instead of trusting memory of
+   what it should contain. Lesson: when a bisection result contradicts a previous one,
+   re-read the file before doubting the test.
+2. **A killed dev-server process on Windows can leave `.next` file-locked for a few
+   seconds** — `rm -rf .next` right after `taskkill` silently left `.next/dev` behind
+   (`rm: cannot remove '.next/dev': Directory not empty`), producing a "clean" rebuild that
+   wasn't. A short sleep between kill and delete, plus checking `ls .next` actually fails
+   before trusting a wipe, avoided repeating this.
+3. **`next/dynamic`'s loader must stay a simple `() => import(...)` expression.** Wrapping
+   it with extra statements (even just a `console.log` before the `import()` call) for
+   debugging purposes risked breaking Next's compile-time static analysis of that pattern —
+   reverted the debug wrapper once this became a live concern, rather than trusting output
+   from an instrumented version of the exact code path being debugged.
+4. **`next/dynamic`'s `loading` fallback can render successfully forever while the actual
+   import factory silently never resolves** — no exception, no rejected promise visible
+   anywhere. The only way this surfaced was checking Network tab requests for the expected
+   chunk file by name and noticing it was never fetched at all (later, once it *was* being
+   fetched, checking whether the DOM the loaded module actually produced matched
+   expectations, not just whether the request succeeded).
+
+**Failed / abandoned**
+
+- CodeMirror 6 as originally speced in `docs/UI.md` — not abandoned lightly, but after
+  thorough isolation showing it's a genuine library/React-19 incompatibility, not a mistake
+  in this project's usage of it. Textarea is the shipped replacement; revisiting CodeMirror
+  is future work, not blocking.
+
+**Next session — start here**
+
+1. User still needs to create the Supabase Database Webhook (D-18/O-6) — Stage 6 is fully
+   code-complete on both halves now (ISR + Try It), this is the one manual step left.
+2. Admin panel (Stage 7) is next per the roadmap — note for whoever builds it: its code
+   block editor was also speced around CodeMirror 6 (`docs/CONTENT-MODEL.md`) and will hit
+   the same wall; plan for a textarea-based editor there too unless a React-19-compatible
+   CodeMirror version is confirmed working first, in isolation.
+3. `generateMetadata` staleness (D-18/O-5) still unresolved — worth a Next.js version
+   check before the admin panel's publish flow makes it user-visible.
 
 ---
 

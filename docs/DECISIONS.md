@@ -522,6 +522,139 @@ forward, not just the pilot. Saved as a standing memory
 
 ---
 
+## D-18 · Stage 6 ISR + revalidation webhook implemented — and a real SSR bug it uncovered
+**Date:** 2026-07-26 · **Status:** Active · **Decided by:** Claude, per user's "do the stage 6 thing"
+
+D-10's diagram (`Editor clicks Publish → Supabase DB webhook → POST /api/revalidate →
+revalidateTag(...) → that ONE page regenerates`) is now real code, not just a plan.
+
+**What's built:**
+- `lib/supabase/public.ts` — plain anon Supabase client, no `cookies()`. Every public read
+  in `lib/content.ts` (`getDoc`, `getSidebarTree`, `getCategories`, `getCategoryDocs`,
+  `searchDocs`) now uses it instead of the cookie-aware SSR client.
+- `getDoc` and `getSidebarTree` wrapped in `unstable_cache`, tagged `doc:${path}` and
+  `sidebar` respectively.
+- `app/api/revalidate/route.ts` — POST endpoint, auth via `x-revalidate-secret` header
+  against `REVALIDATE_SECRET` (`.env.local`, `openssl rand -hex 32`). Accepts either a
+  Supabase Database Webhook payload (`table`/`record`/`old_record`) or a manual
+  `{ tag, path }` body for testing / a future admin panel "publish" button. Resolves
+  `docs` → `doc:${path}` + `sidebar`; `doc_translations` → looks up the doc's path via
+  `doc_id`, same tags; `categories` → `sidebar` only.
+
+**Real bug found and fixed, not just the planned work:** `app/layout.tsx` called
+`headers()` to read an `x-locale` header (set by `proxy.ts` middleware) for `<html lang>`.
+Since the root layout wraps every route, that one `headers()` call forced the **entire
+site** into per-request SSR in production — confirmed via `next build`, every route showed
+`ƒ` (Dynamic) instead of `●` (SSG). This directly violated CLAUDE.md §3.3 ("never SSR a
+doc page") and had been invisible because `next dev` doesn't distinguish the two. Fixed by
+removing `headers()` entirely: `<html lang="en">` is now a static default, corrected
+client-side to `"bn"` by the same inline script that already prevents theme-flash (one
+`document.documentElement.lang` line, no new dependency). `proxy.ts` had no other purpose,
+so it's deleted. Rebuilt: every doc/category page now shows `●` (SSG via
+`generateStaticParams`), homepage `○` (static) — this is what actually makes the rest of
+this decision meaningful; tag revalidation on top of a fully-dynamic site would have been
+a no-op.
+
+Also fixed in passing: `package.json`'s `build`/`start` scripts were missing `--webpack`
+(only `dev` had it, from the unplugin-icons/Turbopack conflict noted in session 3) — `next
+build` failed outright without it. Never caught before because a production build had
+never actually been run in this project until this verification pass.
+
+**Verified against a real production build** (`next build && next start`, not `next dev` —
+dev mode doesn't exercise the Data/Route Cache at all): set a doc's title directly in the
+DB, confirmed the running server kept serving the old title (`x-nextjs-cache: HIT`, proving
+static/cached, not SSR), POSTed to `/api/revalidate` with the doc's tag, confirmed the page
+body updated to the new title on the next request — the core mechanism works, in
+production, without a redeploy.
+
+**Known limitation, unresolved:** in that same test, the page **body** (`<h1>`) picked up
+the fresh title immediately, but the `<title>` tag from `generateMetadata` stayed on the
+old value — consistently, across repeated `revalidateTag` *and* `revalidatePath` calls, and
+across a second full regeneration cycle. Root cause not conclusively identified after
+significant investigation (Next 16.2.11's `unstable_cache`/`revalidateTag` internals were
+read directly); the leading hypothesis is that `generateMetadata`'s resolved output for a
+`generateStaticParams`-prerendered route is baked into the static HTML shell separately
+from the page's RSC body payload, and doesn't ride the same tag-invalidation path. Content
+freshness (the thing that actually matters — what the page says) is unaffected; the tab
+title / meta description specifically can lag one publish cycle behind. See O-5.
+
+**Manual step still required, not done here:** the actual Supabase Database Webhook has to
+be created by the user — no CLI/API credentials for this project's Supabase account were
+available in this session (this machine's Supabase CLI is authenticated to a *different*
+account). Two minutes in the dashboard, once per table:
+
+1. Supabase dashboard → **Database → Webhooks** → **Create a new hook**.
+2. Repeat for each of `docs`, `doc_translations`, `categories`:
+   - **Table**: the table name.
+   - **Events**: Insert, Update, Delete (all three).
+   - **Type**: HTTP Request.
+   - **Method**: POST.
+   - **URL**: `https://<deployed-domain>/api/revalidate`
+   - **HTTP Headers**: add `x-revalidate-secret` = the value of `REVALIDATE_SECRET` in
+     `.env.local` (mirror the same value into Vercel's env vars first — see `docs/ASSETS.md`
+     for the "mirror `.env.local` into Vercel before first deploy" reminder).
+   - Leave the payload as Supabase's default (`table`/`record`/`old_record`) — that's
+     exactly the shape `app/api/revalidate/route.ts` already parses. No custom template.
+3. Save. Test by editing any doc's title in the Table Editor and confirming the live page
+   updates within a couple seconds without a redeploy.
+
+---
+
+## D-19 · Try It Yourself built — CodeMirror swapped for a plain textarea
+**Date:** 2026-07-26 · **Status:** Active, supersedes docs/UI.md's "CodeMirror 6" choice for the editor specifically · **Decided by:** Claude, after ~2 hours isolating a library incompatibility
+
+D-04's editor (live HTML/CSS/JS + React, sandboxed iframe, no backend) is built:
+`components/blocks/try-it.tsx` (the editor + preview UI), `components/blocks/try-it-lazy.tsx`
+(code-split wrapper), `lib/tryit.ts` (srcDoc builders — plain template for web mode, Sucrase
+JSX transform + esm.sh-loaded React for react mode, since React 19 no longer ships a UMD
+build to self-host), a `case 'tryit'` in `block-renderer.tsx`. Verified end-to-end: web-mode
+click handler, React-mode click handler + state update, and the postMessage-based runtime
+error relay all confirmed working live.
+
+**docs/UI.md named CodeMirror 6 for the editor. It doesn't work in this stack and isn't
+used.** `@uiw/react-codemirror` mounts its outer shell (`.cm-theme-light` wrapper) but the
+actual `EditorView` never initializes — no `.cm-editor`, no visible editor, no console
+error, no server error, reproducible on a from-scratch `.next` wipe and a real
+`next build && next start`. Isolated by bisection: a trivial stub component worked, the
+real one didn't; stripped the real one down to bare `<CodeMirror value="x" />` with zero
+extensions — still nothing renders past the theme wrapper. Given `react`/`react-dom` are
+`19.2.4` (very new) and CodeMirror's peer range (`>=17.0.0`) is wide enough to not hard-block
+installation, the leading hypothesis is a React 19 compatibility gap in this specific
+package version, not a config mistake on this project's side. **Replaced with a plain
+`<textarea>`** — monospace, manual Tab-key indent handling, same tab/Run/Reset chrome. This
+is not a downgrade in spirit: the original W3Schools "Tryit Editor" this project's own
+design direction (D-03) is modernizing used a plain textarea too; live syntax-highlighting
+while typing was always a nice-to-have, not the feature. `@uiw/react-codemirror` and the
+`@codemirror/lang-*`/`@codemirror/theme-one-dark` packages were uninstalled — nothing
+imports them. Revisit CodeMirror later only if a version is confirmed working against
+React 19 first, in isolation, before reintroducing it here.
+
+**A second, unrelated bug found during the same isolation work, more consequential:**
+`next/dynamic(loader, { ssr: false })` does not work in this Next.js version (16.2.11,
+webpack) for a `generateStaticParams`-prerendered route — the `loading` fallback renders
+and then never resolves, forever, with zero console or server errors, in dev **and** in a
+real production build. This is not specific to Try It Yourself; it would break on *any*
+`ssr:false` dynamic import used inside a document under `[category]/[slug]`. Confirmed by
+bisection: removing only the `ssr: false` option (keeping everything else identical,
+including a real `next/dynamic` call and a genuinely heavy client component) fixed it
+immediately. `try-it-lazy.tsx` now omits `ssr: false` and relies on the component itself
+having no server-unsafe top-level code (only inside effects/handlers) to make plain SSR of
+its initial state harmless. **If any future lazy-loaded client widget on a doc page needs
+`ssr: false`, expect this same failure mode and use the same workaround (drop the flag, or
+gate rendering with a client-only mount-check instead) rather than re-debugging it from
+scratch.**
+
+**Time-cost note, for calibration on future sessions:** this took roughly 2 hours to isolate
+against ~10 minutes to actually build the working version once the real cause was found.
+Both bugs looked, at first, like something wrong in the newly-written application code —
+neither was. The lesson that mattered most: re-verify the *exact* file state before trusting
+a bisection result — a mid-investigation revert (restoring `ssr:false` while testing an
+unrelated production-build question) silently invalidated several subsequent tests and
+pointed suspicion at the wrong dependency (CodeMirror) for a while before the mistake was
+caught by rereading the file instead of trusting memory of what it "should" contain.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -530,3 +663,5 @@ forward, not just the pilot. Saved as a standing memory
 | O-2 | Contact form destination inbox + Resend account | Stage 8 |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
+| O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
+| O-6 | Set up the actual Supabase Database Webhook (D-18) — dashboard access needed, can't be done from this session | Stage 6 is code-complete but not live until this is wired up |

@@ -58,7 +58,7 @@ a course index page wants and what FontAwesome was being used badly for.
 | **Command palette** | **`cmdk`** | ⌘K search. The single highest-impact modern touch for a docs site |
 | Toasts | `sonner` | admin panel feedback |
 | Drag & drop | `dnd-kit` | block reordering — shadcn ships none |
-| Code editor | CodeMirror 6 | Try-It + admin code blocks. Lazy-loaded |
+| Code editor | ~~CodeMirror 6~~ plain `<textarea>` | Try-It. **CodeMirror 6 doesn't work in this stack — see D-19.** `@uiw/react-codemirror`'s `EditorView` never initializes (React 19 incompatibility, not a config issue); uninstalled. Textarea is lazy-loaded the same way CodeMirror would have been. Admin panel's code blocks (Stage 7, unbuilt) will hit the same wall — plan for a textarea there too, or confirm a CodeMirror version fixed for React 19 before assuming otherwise |
 | Syntax highlighting | **Shiki** (build time) | zero client JS. Never a client-side highlighter |
 | Rich text | Tiptap | the `richtext` block only |
 | Animation | **`motion`** | sparingly — see below |
