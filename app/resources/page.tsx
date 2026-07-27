@@ -1,8 +1,10 @@
 import { getResources } from '@/lib/content'
+import { buildAlternates } from '@/lib/seo'
 
 export const metadata = {
   title: 'Resources',
   description: 'Free tools and resources for web design and development.',
+  alternates: buildAlternates('/resources', '/resources'),
 }
 
 export default async function ResourcesPage() {

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { buildAlternates } from '@/lib/seo'
 
 // Static — no form, no backend. User: "the contact page too won't have any
 // contact form, just the basic info of our institute and if someone want to
@@ -7,6 +8,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Contact | Learn Computer Academy',
   description: 'Learn Computer Academy is a hands-on training institute in Habra, West Bengal.',
+  alternates: buildAlternates('/contact', '/contact'),
 }
 
 export default function ContactPage() {

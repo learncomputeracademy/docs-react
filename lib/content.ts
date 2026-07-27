@@ -13,7 +13,7 @@ import type { Category, Doc, Locale } from './types'
 // revalidate the (static) homepage on publish.
 export type SiteSettingsValue = Record<string, unknown>
 
-export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'footer' | 'contact'): Promise<SiteSettingsValue> {
+export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'footer' | 'contact' | 'seo'): Promise<SiteSettingsValue> {
   return unstable_cache(
     async () => {
       try {
@@ -244,4 +244,39 @@ async function getTranslatedDocPathsUnsafe(): Promise<{ path: string }[]> {
   return (data ?? [])
     .map((r) => ({ path: (r.doc as unknown as { path: string }).path }))
     .filter((d) => d.path.includes('/')) // same reasoning as getAllDocPaths
+}
+
+// Sitemap's own read — unlike getAllDocPaths, deliberately includes
+// standalone pages (path with no '/', e.g. 'about') since a sitemap entry
+// doesn't need to split into {category, slug} the way generateStaticParams
+// does. Soft-deleted rows never reach this: the public client is
+// RLS-bound, and the public read policy already excludes deleted_at rows.
+export async function getAllPublishedPaths(): Promise<{ path: string; updated_at: string }[]> {
+  const supabase = createPublicClient()
+  const { data, error } = await supabase
+    .from('docs')
+    .select('path, updated_at')
+    .eq('status', 'published')
+  if (error) throw error
+  return data ?? []
+}
+
+// Bengali equivalent of getAllPublishedPaths, for sitemap /bn/* entries.
+// Same graceful-empty-on-failure reasoning as getTranslatedDocPaths.
+export async function getTranslatedPathsForSitemap(): Promise<{ path: string; updated_at: string }[]> {
+  try {
+    const supabase = createPublicClient()
+    const { data, error } = await supabase
+      .from('doc_translations')
+      .select('updated_at, doc:docs!inner(path, status)')
+      .eq('locale', 'bn')
+      .eq('doc.status', 'published')
+    if (error) throw error
+    return (data ?? []).map((r) => ({
+      path: (r.doc as unknown as { path: string }).path,
+      updated_at: r.updated_at,
+    }))
+  } catch {
+    return []
+  }
 }
