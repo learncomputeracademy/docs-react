@@ -9,6 +9,12 @@ import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
+import { HeroReveal } from '@/components/magic/hero-reveal'
+import { ShimmerButton } from '@/components/magic/shimmer-button'
+import { BorderBeam } from '@/components/magic/border-beam'
+import { MagicCard } from '@/components/magic/magic-card'
+import { NumberTicker } from '@/components/magic/number-ticker'
+import { Marquee } from '@/components/magic/marquee'
 
 const FEATURES = {
   en: [
@@ -60,7 +66,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           aria-hidden
         />
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
-          <div>
+          <HeroReveal>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">
               <span className="size-1.5 rounded-full bg-primary" />
               {s.freeLessonsSubjects(totalLessons, categories.length)}
@@ -71,11 +77,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">{s.heroSub}</p>
             {firstLesson && (
               <div className="mt-8 flex flex-wrap gap-3">
-                <Button asChild size="lg">
+                <ShimmerButton asChild size="lg">
                   <Link href={`${prefix}/${firstLesson.path}`}>
                     {s.startLearning} <ArrowRight className="size-4" />
                   </Link>
-                </Button>
+                </ShimmerButton>
                 <Button asChild size="lg" variant="outline">
                   <Link href="#subjects">{s.browseSubjects}</Link>
                 </Button>
@@ -86,17 +92,20 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               {stats.map((stat) => (
                 <div key={stat.label}>
                   <dt className="sr-only">{stat.label}</dt>
-                  <dd className="text-2xl font-bold tracking-tight text-foreground">{stat.value}</dd>
+                  <dd className="text-2xl font-bold tracking-tight text-foreground">
+                    <NumberTicker value={stat.value} />
+                  </dd>
                   <dd className="text-sm text-muted-foreground">{stat.label}</dd>
                 </div>
               ))}
             </dl>
-          </div>
+          </HeroReveal>
 
           {/* Decorative code mockup — static, not interactive. Code itself
               stays in English/CSS syntax in both locales, on purpose. */}
           <div className="hidden lg:block">
-            <div className="overflow-hidden rounded-xl border bg-card shadow-lg">
+            <div className="relative overflow-hidden rounded-xl border bg-card shadow-lg">
+              <BorderBeam duration={10} />
               <div className="flex items-center gap-1.5 border-b bg-muted/50 px-4 py-2.5">
                 <span className="size-2.5 rounded-full bg-destructive/60" />
                 <span className="size-2.5 rounded-full bg-primary/60" />
@@ -139,22 +148,23 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             const Icon = CATEGORY_ICONS[cat.slug]
             if (cat.docs.length === 0) return null
             return (
-              <Link
-                key={cat.id}
-                href={`${prefix}/${cat.slug}`}
-                className="group relative flex items-start gap-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-              >
-                <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent">
-                  {Icon && <Icon className="size-6" />}
-                </div>
-                <div className="min-w-0">
-                  <h3 className="font-semibold">{cat.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    {cat.docs.length} {cat.docs.length === 1 ? s.lesson : s.lessons}
-                  </p>
-                </div>
-                <ArrowRight className="ml-auto size-4 shrink-0 self-center text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-              </Link>
+              <MagicCard key={cat.id} className="rounded-xl">
+                <Link
+                  href={`${prefix}/${cat.slug}`}
+                  className="group relative flex items-start gap-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+                >
+                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent">
+                    {Icon && <Icon className="size-6" />}
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="font-semibold">{cat.title}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      {cat.docs.length} {cat.docs.length === 1 ? s.lesson : s.lessons}
+                    </p>
+                  </div>
+                  <ArrowRight className="ml-auto size-4 shrink-0 self-center text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+                </Link>
+              </MagicCard>
             )
           })}
         </div>
@@ -170,11 +180,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           <h2 className="mt-3 text-2xl font-bold tracking-tight">{s.comingSoonTitle}</h2>
           <p className="mt-1 text-muted-foreground">{s.comingSoonSub}</p>
 
-          <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <Marquee duration={22} className="mt-8 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             {COMING_SOON.map((item) => (
               <div
                 key={item.en}
-                className="flex flex-col items-center gap-3 rounded-xl border border-dashed bg-card/50 p-6 text-center opacity-80"
+                className="flex w-40 shrink-0 flex-col items-center gap-3 rounded-xl border border-dashed bg-card/50 p-6 text-center opacity-80"
               >
                 {/* White backing, deliberately theme-independent: WordPress
                     and OpenAI's marks are dark-on-transparent by brand
@@ -185,13 +195,14 @@ export async function HomeContent({ locale }: { locale: Locale }) {
                 <span className="text-sm font-medium">{locale === 'bn' ? item.bn : item.en}</span>
               </div>
             ))}
-          </div>
+          </Marquee>
         </div>
       </section>
 
       {/* About band */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="flex flex-col items-start gap-6 rounded-2xl border bg-card p-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative flex flex-col items-start gap-6 overflow-hidden rounded-2xl border bg-card p-8 sm:flex-row sm:items-center sm:justify-between">
+          <BorderBeam duration={14} />
           <div>
             <h2 className="text-lg font-semibold">{s.aboutBandTitle}</h2>
             <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">

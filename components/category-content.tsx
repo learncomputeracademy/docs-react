@@ -5,6 +5,7 @@ import { getSidebarTree } from '@/lib/content'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
+import { MagicCard } from '@/components/magic/magic-card'
 
 export async function loadCategory(slug: string, locale: Locale) {
   const categories = await getSidebarTree(locale)
@@ -37,17 +38,18 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {category.docs.map((doc, i) => (
-          <Link
-            key={doc.path}
-            href={`${prefix}/${doc.path}`}
-            className="group flex items-center gap-4 rounded-xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-          >
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
-              {i + 1}
-            </span>
-            <span className="min-w-0 font-medium group-hover:text-primary">{doc.title}</span>
-            <ArrowRight className="ml-auto size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-          </Link>
+          <MagicCard key={doc.path} className="rounded-xl">
+            <Link
+              href={`${prefix}/${doc.path}`}
+              className="group flex items-center gap-4 rounded-xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+            >
+              <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
+                {i + 1}
+              </span>
+              <span className="min-w-0 font-medium group-hover:text-primary">{doc.title}</span>
+              <ArrowRight className="ml-auto size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+            </Link>
+          </MagicCard>
         ))}
       </div>
     </main>

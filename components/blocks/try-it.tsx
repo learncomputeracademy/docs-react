@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { motion } from 'motion/react'
 import { Play, RotateCcw } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { buildReactDoc, buildWebDoc } from '@/lib/tryit'
@@ -10,6 +11,9 @@ type Files = { html?: string; css?: string; js?: string; jsx?: string }
 const TAB_LABELS: Record<keyof Files, string> = { html: 'HTML', css: 'CSS', js: 'JS', jsx: 'JSX' }
 
 export function TryIt({ mode, files }: { mode: 'web' | 'react'; files: Files }) {
+  // Unique per instance so the sliding indicator's layoutId doesn't cross-
+  // animate between two separate TryIt blocks on the same lesson page.
+  const indicatorId = useId()
   const tabs = (Object.keys(files) as (keyof Files)[]).filter((k) => files[k] !== undefined)
   const [active, setActive] = useState(tabs[0])
   const [current, setCurrent] = useState<Files>(files)
@@ -75,11 +79,18 @@ export function TryIt({ mode, files }: { mode: 'web' | 'react'; files: Files }) 
             <button
               key={tab}
               onClick={() => setActive(tab)}
-              className={`px-3 py-2 text-xs font-medium transition-colors ${
-                active === tab ? 'border-b-2 border-primary text-foreground' : 'text-muted-foreground hover:text-foreground'
+              className={`relative px-3 py-2 text-xs font-medium transition-colors ${
+                active === tab ? 'text-foreground' : 'text-muted-foreground hover:text-foreground'
               }`}
             >
               {TAB_LABELS[tab]}
+              {active === tab && (
+                <motion.span
+                  layoutId={`tryit-tab-${indicatorId}`}
+                  className="absolute inset-x-0 -bottom-px h-0.5 bg-primary"
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
             </button>
           ))}
         </div>

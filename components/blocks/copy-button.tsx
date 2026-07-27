@@ -15,7 +15,7 @@ export function CopyButton({ code }: { code: string }) {
       className="absolute right-2 top-2 rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
       aria-label="Copy code"
     >
-      {copied ? <Check className="size-4" /> : <Copy className="size-4" />}
+      {copied ? <Check key="check" className="size-4 animate-copy-check" /> : <Copy key="copy" className="size-4" />}
     </button>
   )
 }
