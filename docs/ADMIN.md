@@ -15,6 +15,8 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 | Docs list | filter by category/status, drag to reorder, bulk publish, delete (admin-only, soft) |
 | Doc editor | title, slug, **path (locked after launch — see D-12)**, meta title/description, **block editor** → `docs/CONTENT-MODEL.md`, draft/publish, live preview, **revision history + restore** |
 | Pages | homepage hero + about-band text today, more pages as needed — see D-38 |
+| SEO | Search Console / Bing Webmaster verification codes — see D-39 |
+| Menu | header nav CRUD + reorder — **admin-only**, see D-40 |
 | Categories | CRUD + ordering — **admin-only** |
 | Testimonials | CRUD + publish toggle |
 | Resources | CRUD, grouped — **admin-only** |

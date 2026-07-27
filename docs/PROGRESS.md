@@ -16,8 +16,14 @@ for) · **Stage 9 (SEO foundation) 🟨 code-complete, not yet submitted to sear
 Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
-Both pending migrations (004, 005) are confirmed run by the user. No blocking migration
-outstanding as of Session 17.
+### ⚠️ Blocking next step
+
+**`supabase/migrations/006-nav-items.sql` needs to be run in the Supabase SQL editor** —
+Session 18 (below) added an admin-editable header nav menu. Skipping this doesn't break
+anything (`getNavItems()` degrades to an empty array, verified live — no nav shown, no
+error), the nav just stays invisible until it's run.
+
+Migrations 004 and 005 are confirmed run by the user.
 
 ### ⚡ Next action
 
@@ -98,6 +104,49 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 18: header nav menu (admin-editable) + real /resources content (D-40)
+
+**Done**
+
+- User pointed at the old Jekyll site's live `/resourses/` page and asked for it here too,
+  plus a header nav and an admin screen to manage nav items.
+- **Real bug found and fixed**, unrelated to the ask but caught while verifying it:
+  `getResources()` (`lib/content.ts`) was never wrapped in `unstable_cache`, but the admin
+  create/update/delete actions already called `revalidateTag('resources', ...)` assuming a
+  tag that nothing actually cached — every edit's revalidation was a silent no-op, and
+  Next's default fetch caching served whatever was in the table at the first production
+  build, forever. Only surfaced by an actual `next build && next start` after seeding real
+  rows — `next dev` doesn't hit this path the same way. Fixed, and cross-checked every
+  other `revalidateTag()` call in the admin layer against every `unstable_cache` tag in
+  `lib/content.ts` — nothing else was silently broken.
+- **94 real resource links seeded**, not fabricated — `scripts/seed-resources.mjs`
+  transcribes `docs-master/docs-master/_data/resources.yml` (the old site's actual data
+  file) across 10 groups. Idempotent, ran directly against production (94 inserted, 0
+  skipped). Fixed two obvious source bugs while transcribing (a mislabeled "Visit" entry
+  → "Vectr"; a duplicate Tinypng row) rather than replicating them. No thumbnails — the
+  old previews live on the old Jekyll deploy of this same domain, would 404 after cutover.
+- **Header nav**: new `nav_items` table (migration `006-nav-items.sql`, not yet run),
+  admin-only writes (same tier as Categories/Resources). Root layout became `async` to
+  fetch it once and thread it through `SiteChrome` → `SiteHeader`. External links get
+  `target="_blank"` automatically. Seeded with one entry: Resources → `/resources`.
+- **New admin Menu screen** (`/admin/menu`, admin-only) — CRUD + arrow reorder.
+
+**Verified**: `tsc --noEmit` clean, `next build` clean. Grepped `.next/static/` for secret
+names — no matches. Live-checked twice against a local production build: first run caught
+the `getResources()` bug (page showed the old empty state despite 94 rows in the DB),
+second run confirmed the fix (real names render) and confirmed the nav's graceful-empty
+behavior with the migration not yet applied (no nav shown, no error).
+
+**Not done / blocking**
+- `006-nav-items.sql` not yet run against production — see the blocking note at the top of
+  this file and O-10 in `DECISIONS.md`. Lower-stakes than 004: nothing breaks, the nav is
+  just invisible until it's applied.
+- No thumbnails on the seeded resources — admin can add them later via Media upload.
+- No mobile nav drawer for the header — fine today at one link, a real gap if the menu
+  grows.
+
+---
 
 ## 2026-07-27 — Session 17: custom 404 page; Stage 9 SEO foundation; admin SEO screen (D-39)
 

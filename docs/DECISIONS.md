@@ -1547,10 +1547,80 @@ facing, not something to do unprompted.
 
 ---
 
+## D-40 · Header nav menu (admin-editable) + real /resources content, ported from the old site
+
+**Date:** 2026-07-27 · **Status:** Active — ⚠️ **migration not yet run against production**
+
+User pointed at the old Jekyll site's live `/resourses/` page and asked for three things:
+the equivalent page on this site (it already existed — `/resources`, built Session 14 —
+but was **empty**, nobody had ever populated it), a header nav menu, and an admin screen
+to manage nav items.
+
+**Real bug found and fixed, unrelated to the new feature but caught while verifying it.**
+`lib/content.ts`'s `getResources()` was a plain Supabase fetch, never wrapped in
+`unstable_cache` — but `lib/admin/resources.ts`'s create/update/delete actions already
+called `revalidateTag('resources', ...)`, assuming a `'resources'`-tagged cache entry
+existed to invalidate. None did, so every admin edit's revalidation was silently a no-op,
+and Next's default fetch caching served whatever was in the table at the very first
+production build — forever, until a full clean rebuild. Live-tested against a real
+`next build && next start` (not just `next dev`, which doesn't hit this code path the same
+way) after seeding 94 real rows directly: `/resources` still rendered the pre-seed empty
+state. This is exactly the kind of bug `next dev` hides and only a production build
+surfaces — the session's build+verify step earning its keep. Fixed by tagging
+`getResources()` `'resources'`, matching every other read in the file. Checked the rest of
+`lib/content.ts` for the same class of bug (an admin action revalidating a tag nothing
+caches) — cross-referenced every `revalidateTag()` call against every `unstable_cache` tag;
+`nav`/`resources`/`settings`/`sidebar` all now match, nothing else was silently broken.
+
+**Real content ported**, not fabricated: `scripts/seed-resources.mjs` transcribes the old
+site's `docs-master/docs-master/_data/resources.yml` — 94 real external links across 10
+groups (Free Images, Colors, Free Icons, Free Fonts, Lorem Ipsum, Webfont Generators,
+W3Schools, CSS Generators, JavaScript Libraries, Design & UI). Idempotent (skips existing
+`name`+`url` pairs), writes a report to `scripts/reports/`. Two source bugs fixed rather
+than replicated while transcribing: one `design_uis` entry was literally labeled `"Visit"`
+(an obvious copy-paste artifact — corrected to "Vectr", the actual site at that URL), and
+a duplicate Tinypng row was deduped. **No thumbnails** — the old site's preview images live
+at `docs.learncomputer.in/assets/img/preview-N.png`, on the *old* Jekyll deploy of this
+same domain (still live pre-cutover); hotlinking them would 404 the moment this project
+takes over the domain, since those files were never migrated to Cloudinary per CLAUDE.md
+§6. Admin can attach real thumbnails later via Media upload. **Ran directly against
+production** (94/94 inserted, 0 skipped) — same judgment call as the daily-backup script
+and the translation scripts earlier this project: populating real, already-public content
+is in-scope for "make it in our site too," not a separate action needing its own sign-off.
+
+**Header nav** — `nav_items` table (new migration, `006-nav-items.sql`): `label`/`label_bn`/
+`url`/`sort_order`, public read, admin-only write (same tier as Categories/Resources — site
+structure, not day-to-day content, unlike Docs/Media/Pages/SEO which editors reach). Root
+layout became `async` to fetch it once (cached, graceful-empty on any failure — same
+pattern as every other admin-editable read) and threads it through `SiteChrome` →
+`SiteHeader` as a prop, since both stay client components (`SiteChrome` needs
+`usePathname()` to hide the header on `/admin/*`, D-34) and can't fetch server data
+themselves. External URLs (`http...`) get `target="_blank"` automatically. Hidden below
+`sm` — a real mobile-nav gap if this list grows past the one seeded "Resources" link, not
+built now since it's still just one link.
+
+**Admin Menu screen** (`/admin/menu`, admin-only) — CRUD + arrow-based reorder, mirrors
+`resources-manager.tsx`'s structure closely.
+
+**⚠️ Deployment order**: skipping the migration doesn't break anything — `getNavItems()`
+degrades to an empty array exactly like a missing `site_settings` row, verified live (no
+nav rendered, no error, no crash). It just means the nav stays invisible until
+`006-nav-items.sql` is run.
+
+**Verified:** `tsc --noEmit` clean, `next build` clean (`/admin/menu` new, `ƒ` dynamic; all
+341 routes otherwise unchanged in kind). Grepped `.next/static/` for secret names — no
+matches. Live-checked against a local production build twice — first catching the
+`getResources()` bug, then confirming the fix (`/resources` renders real names: Freepik,
+Unsplash, Coolors, Figma, Google Fonts) and confirming the nav's graceful-empty behavior
+pre-migration.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
+| O-10 | **Run `supabase/migrations/006-nav-items.sql`** in the Supabase SQL editor — see D-40 | Header nav stays invisible without it (not a lockout, not an error — graceful-empty) |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
