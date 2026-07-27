@@ -747,6 +747,34 @@ from D-19) — not just code-complete.
 
 ---
 
+## D-22 · Stage 7 Phase 0: Tiptap v3 spike — works, unlike CodeMirror (D-19)
+**Date:** 2026-07-27 · **Status:** Active, resolves ADMIN-PLAN.md §9 risk #1
+
+Per `docs/ADMIN-PLAN.md`'s explicit build order, spiked Tiptap in isolation before
+building any real editor UI around it — the same precaution that would have caught
+CodeMirror's failure (D-19) in an hour instead of two.
+
+Installed `@tiptap/react@3.29.0` + `@tiptap/starter-kit` + `@tiptap/pm`. Its
+`peerDependencies` explicitly list `react: ^17 || ^18 || ^19` (CodeMirror's was a vague
+`>=17.0.0`) — a good early signal, but not trusted on its own, since CodeMirror also
+installed cleanly and still failed at runtime.
+
+**Verified working, not just installed**, via a throwaway `/tiptap-spike` route (deleted
+after this decision was recorded): the editor rendered real content (not an empty shell
+the way CodeMirror's `.cm-theme-light` div was), accepted typed input at the correct
+cursor position, and `Ctrl+B` correctly triggered StarterKit's Bold extension —
+`getHTML()` returned `<p><strong>...</strong></p>`, proving the ProseMirror command
+pipeline actually runs, not just that a textbox exists. Zero console errors in dev. Also
+verified in a real `next build` — the spike route prerendered as `○` (static) with no
+SSR-poisoning, no `ssr:false` shenanigans needed (unlike Try It's `next/dynamic` issue in
+D-19 — that bug is specific to `generateStaticParams` routes, and nothing in the admin
+panel will be one).
+
+**Decision: Tiptap is the `richtext` block editor**, per `docs/UI.md`'s original choice.
+No fallback textarea needed. Phase 1 (migration, auth guard, login shell) is next.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

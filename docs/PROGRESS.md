@@ -143,11 +143,25 @@ the English version. Verified spot-checks in browser after each major batch.
   calls the same `/api/revalidate` endpoint. **User verified it live** — Stage 6 is now
   fully live, not just code-complete. Full writeup: D-21.
 
+**Stage 7, Phase 0 — same session, after the above**
+
+Read the pre-existing `docs/ADMIN-PLAN.md` (thorough, real content audit — hardcoded
+homepage copy, `/about/` reusing `docs` via nullable `category_id`, 11-screen breakdown,
+9-phase build order). Confirmed with the user to start at Phase 0 (its own recommendation):
+spike Tiptap in isolation before building any editor UI around it, same precaution that
+would have caught CodeMirror's failure (D-19) in an hour instead of two.
+
+**Tiptap v3 works** — installed, verified via a throwaway route (typed input at the
+correct cursor position, `Ctrl+B` correctly produced `<strong>` via `getHTML()`, zero
+console errors, clean production build), then deleted the spike files once the result was
+recorded. No textarea fallback needed for the `richtext` block editor. Full writeup: D-22.
+
 **Next session — start here**
 
-1. Stage 7 (admin panel) is next on the roadmap. An untracked `docs/ADMIN-PLAN.md` was
-   found sitting in the repo (Stage 7 build plan, dated today) — not written by Claude
-   this session; read it before starting to see whether it's current and usable or stale.
+1. Stage 7, Phase 1: migration `003-admin.sql`, `proxy.ts` auth guard scoped to
+   `/admin/:path*` (re-adding it — verify `next build`'s route table still shows `●`/`○`
+   on every public route after, per session 11's lesson about root-layout dynamic APIs),
+   login page, bare `/admin` shell with `noindex`.
 2. `generateMetadata` staleness (O-5) still open — worth checking before the admin
    panel's publish flow makes it user-visible.
 

@@ -391,7 +391,7 @@ separate commits (`CLAUDE.md` §5).
 
 | Phase | Contents | Done when |
 |---|---|---|
-| **0** | Tiptap spike in isolation (§4.5) | It renders and emits HTML in this stack — or it doesn't, and the textarea fallback is decided before any UI is built |
+| **0** | ✅ Tiptap spike in isolation (§4.5) — **done, D-22: it works.** No textarea fallback needed |
 | **1** | Migration 003 · `proxy.ts` guard · login · `/admin` shell + noindex | A non-admin cannot reach `/admin/docs`; `next build` still shows `●`/`○` on all public routes |
 | **2** | Docs list + `sort_order` fix | The sidebar order across all 8 categories is finally correct on the live site |
 | **3** | ⭐ Doc editor: metadata + `richtext`/`heading`/`code`/`table` blocks · save · publish + revalidate | Edit a real lesson, publish, see it change on the public URL with no redeploy |
@@ -455,8 +455,9 @@ real time to a stale Data Cache making a fixed bug look unfixed.
 
 ## 9. Known risks
 
-1. **Tiptap may not work in this stack.** Same class of failure as CodeMirror (D-19).
-   Phase 0 exists solely to find out in one hour instead of two days.
+1. ~~Tiptap may not work in this stack.~~ **Resolved, D-22 — it works.** Verified real
+   interactive editing (not just installing cleanly, which is exactly where CodeMirror's
+   failure hid) and a clean production build.
 2. **`sort_order` is wrong for 150 rows.** Fixing it means someone decides the correct
    lesson sequence per category — that's a content judgement, possibly needing the user,
    not something the screen decides. Surface it as a question before phase 2, not during.
