@@ -9,10 +9,10 @@ for picking up work weeks later.
 
 ---
 
-## Current state — 2026-07-26
+## Current state — 2026-07-27
 
-**Phase:** Stage 1–4 ✅ · **Stage 5 🟨 in progress** · **Bengali translation of all 8
-pre-existing categories is now COMPLETE — every lesson on the site has a `/bn/` version.**
+**Phase:** Stage 1–6 ✅ · **Stage 7 (admin panel) 🟨 nearly complete — every screen built
+except Testimonials** · Bengali translation of all 8 pre-existing categories COMPLETE.
 **Architecture:** Next.js 16 LTS + **Supabase (free tier)** + Vercel, ISR with on-demand
 
 ### ⚡ Next action
@@ -87,11 +87,73 @@ HTML tag/attribute syntax byte-identical, translate visible labels inside **rich
 live-demo blocks (not inside `type: code` blocks), keep anchors/heading IDs identical to
 the English version. Verified spot-checks in browser after each major batch.
 
-### Also still open (pre-existing, unchanged)
-- Admin panel — **does not exist yet.** No link, no login. Stage 7, unstarted — deliberately,
-  user confirmed sticking to the roadmap (Stage 6 before Stage 7) rather than jumping ahead.
-- `docs.sort_order` is still file-scan order, not the old site's intended sequence — Stage 7
-  fix, unchanged from before.
+### Also still open
+- Admin panel — see Session 14 below. Every screen built except Testimonials (never asked
+  for; Leads was asked for then explicitly dropped, D-36).
+- `docs.sort_order` is still file-scan order, not the old site's intended sequence.
+- Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
+  need adding in Settings → Secrets and variables → Actions before the daily backup
+  workflow (Session 14) can actually run on schedule.
+
+## 2026-07-27 — Session 14: R2 credentials, Stage 7 Phases 6–9 (admin panel essentially done), Leads/contact-form dropped
+
+**Done**
+
+- **Cloudflare R2 wired up** (resolves O-7, D-30) — user provided bucket screenshot +
+  credentials, added to `.env.local` and Vercel themselves. Verified full round-trip
+  (PutObject → HeadObject → public fetch → DeleteObject) with a throwaway script, deleted
+  after use. Found and fixed a real bug along the way: the `.env.local` parser regex
+  (`scripts/_test-r2.mjs`, `scripts/backfill-media.mjs`) didn't match variable names
+  containing digits — every `R2_*` var silently failed to load. Fixed the regex.
+- **Real content-loss bug found and fixed before building on top of it**: `callout`/
+  `video` blocks had no `case` in `block-renderer.tsx`, silently rendering nothing — 18
+  real callout blocks had been invisible on the live site since session 9. Fixed, verified
+  live (D-31).
+- **Phase 6** — remaining block editors: callout, video, and Try It Yourself (mode + per-
+  file tabs + live sandboxed-iframe preview, reusing `lib/tryit.ts` directly rather than
+  the public `TryIt` component). D-32.
+- **Phase 7** — Bengali translation editor (`/admin/docs/[id]/bn`), two columns aligned by
+  block id, "Copy from English" per translatable block, heading anchors forced to match
+  English rather than recomputed from Bengali text. D-33.
+- **Admin chrome rebuilt** per user feedback: persistent left sidebar (`AdminSidebar`,
+  disabled/grayed entries for unbuilt screens), `SiteChrome` added to the root layout so
+  the public header/footer no longer render above `/admin/*` (real layout bug — was
+  breaking the sidebar's `h-screen`), media library now filters by file type
+  (WordPress-style All/Images/Videos/Files tabs) and every thumbnail links to the actual
+  file. D-34.
+- **Phase 8** — Categories CRUD (FK-restrict delete blocked with a plain message), Site
+  Settings (homepage hero + about-band text only — icon overrides and footer text
+  deliberately skipped, see D-35 for why), `/about/` route + a real bug fix
+  (`getAllDocPaths`/`getTranslatedDocPaths` didn't handle slash-less standalone-page
+  paths). D-35.
+- **Phase 9** — Resources screen + public `/resources/` page (spelling fixed from Jekyll's
+  `/resourses/`), Dashboard rebuilt with real counts + usage panel + recently-edited list,
+  daily backup GitHub Action (pings DB to reset the 7-day inactivity pause, exports every
+  doc to `backup/` — **already ran once against real production data**, 150 `.mdx` files +
+  `docs.json` now in the repo). D-36.
+- **User feedback, acted on same session**: *"i don't want the leads functionlity here,
+  the contact page too won't have any contact form, just the basic info of our institute
+  and if someone want to contact they can visit the main website's contact form."* Removed
+  the `Leads` nav entry (never had a route — nothing else to delete) and built
+  `app/contact/page.tsx` as a static page (Habra/West Bengal wording reused from the
+  homepage about-band, outbound link to `learncomputer.in/contact`) — no form, no `leads`
+  table use, O-2 resolved by removal. D-36.
+- Twice this session, a native blocking dialog (`confirm()`, then `alert()`) froze Chrome
+  DevTools automation mid-verification — both replaced with the `setError()` inline-banner
+  pattern already used everywhere else in the admin panel.
+
+**Verified**: `tsc --noEmit` clean, `next build` clean (`/contact`/`/resources` static,
+`/admin/*` dynamic as expected, no accidental SSR regression on doc/category pages),
+`.next/static/` grepped for service-role/R2/Cloudinary secret names — no matches. Dashboard
+and Categories/Settings/Resources screens checked live against real production data.
+
+**Not done / still open**
+- Two GitHub repo secrets for the backup workflow still need adding by the user (see
+  "Also still open" above).
+- Testimonials screen (in `docs/ADMIN.md`'s original screen list) was never asked for and
+  wasn't built — no `testimonials` admin UI exists. Revisit only if asked.
+
+---
 
 ## 2026-07-27 — Session 13: first Vercel deploy, motion-based UI component pass
 

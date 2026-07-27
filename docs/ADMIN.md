@@ -11,14 +11,13 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 
 | Screen | Function |
 |---|---|
-| Dashboard | counts, recent leads, recently edited docs, **usage panel** (below) |
+| Dashboard | counts, recently edited docs, **usage panel** (below) |
 | Docs list | filter by category/status, drag to reorder, bulk publish |
 | Doc editor | title, slug, **path (locked after launch — see D-12)**, meta title/description, **block editor** → `docs/CONTENT-MODEL.md`, draft/publish, live preview |
 | Categories | CRUD + ordering |
 | Testimonials | CRUD + publish toggle |
 | Resources | CRUD, grouped |
-| Leads inbox | read, mark status, CSV export |
-| Settings | phone, email, address, social links |
+| Settings | homepage hero + about-band text |
 
 ### Two rules that matter more than they look
 

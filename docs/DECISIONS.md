@@ -1295,12 +1295,65 @@ Stage 7 now has every screen except Resources + the usage dashboard (Phase 9).
 
 ---
 
+## D-36 · Stage 7 Phase 9: resources, dashboard/usage panel, daily backup job — and Leads/contact form dropped entirely
+
+**Date:** 2026-07-27 · **Status:** Active
+
+**Resources** (`/admin/resources`, public `/resources/`) — CRUD grouped by `group_name`,
+public page groups the same way. Fixes the spelling the Jekyll site never did
+(`/resourses/` → `/resources/`, per `docs/URLS.md`).
+
+**Dashboard rebuild** (`/admin`) — counts (docs/published/draft/categories/translations),
+5 most-recently-edited docs, and a usage panel via `lib/admin/usage.ts`. Usage panel
+deliberately omits egress/file-storage/MAU — those need the Supabase Management API token,
+which isn't in `.env.local`; not fabricating numbers for what isn't actually measurable.
+Inactivity row is visually dominant/warned at ≥4 days per `docs/ADMIN.md`'s spec, since
+that's the number that actually threatens the free-tier project pause. Verified live: 150
+lessons, 150 published, 0 draft, 150 translations, 0 days since activity, 2.6% (12.8 MB /
+500 MB) DB size.
+
+**`lib/supabase/admin.ts`** was still typed `createClient<Database>(...)` — same `never`-
+inference bug as `public.ts`/`server.ts` earlier this session, tripped for the first time
+here because `usage.ts` is its first real consumer. Dropped the generic; no ripple, nothing
+else imports this client.
+
+**Daily backup job** (`.github/workflows/supabase-daily.yml` + `scripts/daily-backup.mjs`)
+— one cron does both jobs `docs/ADMIN.md` specs: pings the DB (resets the free tier's
+7-day inactivity pause) and exports every `docs`/`categories`/`doc_translations` row to
+`backup/` (per-doc `.mdx` with blocks as a fenced JSON block, plus `backup/docs.json` as
+the actual restore source), committing only if something changed. Ran once against the
+real production DB already — 150 `.mdx` files across 8 category folders + `docs.json` now
+sit in the repo as genuine first-backup data, not a spike. `backup/README.md` states the
+same "never source of truth, never edited, never built from" rule CLAUDE.md §4 already
+requires. **Needs `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY` added as
+repo secrets** (Settings → Secrets and variables → Actions) before the scheduled run will
+work — not yet done.
+
+**Leads dropped, not deferred.** User: *"i don't want the leads functionlity here, the
+contact page too won't have any contact form, just the basic info of our institute and if
+someone want to contact they can visit the main website's contact form."* This removes an
+entire planned screen (`docs/ADMIN.md`'s "Leads inbox" row, the Dashboard's "recent leads"
+line) and the Stage 8 contact-form work outright — not a "build later" trim like O-1/O-3.
+Removed the `Leads` entry from `AdminSidebar`'s `NAV_ITEMS` (it was disabled/unbuilt, so no
+route or `leads` table code existed yet to delete). `app/contact/page.tsx` is now a static
+server component: institute description reusing only already-established facts (Habra,
+West Bengal, same wording as the homepage's about-band) plus an outbound link to
+`https://learncomputer.in/contact/`. No form, no `leads` table use, no Resend dependency.
+O-2 is resolved by removal below, not answered.
+
+**Verified:** `tsc --noEmit` clean, `next build` clean (`/contact` and `/resources`
+prerender `○` static, `/admin/resources` `ƒ` dynamic as expected), grepped
+`.next/static/` for `SUPABASE_SERVICE_ROLE_KEY`/`R2_SECRET_ACCESS_KEY`/
+`CLOUDINARY_API_SECRET` — no matches.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
 | O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
-| O-2 | Contact form destination inbox + Resend account | Stage 8 |
+| ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
