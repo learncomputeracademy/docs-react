@@ -58,7 +58,7 @@ const NAV_ITEMS = [
   { href: '/admin/menu', label: 'Menu', icon: Menu, exact: false, adminOnly: true },
   { href: '/admin/categories', label: 'Categories', icon: FolderTree, exact: false, adminOnly: true },
   { href: '/admin/settings', label: 'Settings', icon: Settings, exact: false, adminOnly: true },
-  { href: '/admin/resources', label: 'Resources', icon: BookMarked, exact: false, adminOnly: true },
+  { href: '/admin/resources', label: 'Resources', icon: BookMarked, exact: false, adminOnly: false },
   { href: '/admin/users', label: 'Users', icon: Users, exact: false, adminOnly: true },
   { href: '/admin/activity', label: 'Activity', icon: History, exact: false, adminOnly: true },
   { href: '/admin/trash', label: 'Trash', icon: Trash2, exact: false, adminOnly: true },

@@ -17,7 +17,7 @@ import type { NextRequest } from 'next/server'
 // A blocked user's JWT stays technically valid for up to an hour, but this
 // query hits the live table every request — blocking takes effect on
 // their very next navigation, not on token refresh.
-const ADMIN_ONLY_PREFIXES = ['/admin/categories', '/admin/settings', '/admin/resources', '/admin/users', '/admin/activity', '/admin/trash', '/admin/menu']
+const ADMIN_ONLY_PREFIXES = ['/admin/categories', '/admin/settings', '/admin/users', '/admin/activity', '/admin/trash', '/admin/menu']
 
 export async function proxy(request: NextRequest) {
   let response = NextResponse.next({ request })

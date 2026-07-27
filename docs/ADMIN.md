@@ -19,7 +19,7 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 | Menu | header nav CRUD + reorder — **admin-only**, see D-40 |
 | Categories | CRUD + ordering — **admin-only** |
 | Testimonials | CRUD + publish toggle |
-| Resources | CRUD, grouped — **admin-only** |
+| Resources | CRUD, grouped — see D-42 (editor-accessible) |
 | Settings | **usage panel** (below) — **admin-only**, see D-38 |
 | Users | create/edit-role/block/delete accounts — **admin-only**, see D-37 |
 | Activity | who-did-what feed across the whole panel — **admin-only**, see D-37 |
@@ -105,9 +105,10 @@ before assuming the script broke.
 `app_metadata` — a JWT claim doesn't change until the token refreshes (up to an hour),
 which made "block this user" too slow to be real. `public.is_admin()` / `public.can_edit()`
 read `profiles`; `proxy.ts` and every RLS policy across all 9 tables key off those two
-functions. Two roles: **admin** (everything, incl. Users/Categories/Settings/Resources,
-can delete/restore) and **editor** (docs, media, translations — write and publish, cannot
-delete).
+functions. Two roles: **admin** (everything, incl. Users/Categories/Settings, can delete/
+restore) and **editor** (docs, media, translations, pages, SEO, and — since D-42 —
+resources: write and publish, cannot delete/restore lessons or manage users/categories/
+settings/menu).
 
 - New users are created from `/admin/users` (service-role `auth.admin.createUser`), not by
   hand in the dashboard — a `handle_new_user()` trigger gives every new `auth.users` row a
