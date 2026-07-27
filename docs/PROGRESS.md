@@ -217,16 +217,50 @@ writeup: D-26.
 **Not verified either time**: the actual authenticated `/admin/docs` screen — Claude
 doesn't have the admin password, same gap as Phase 1's login test.
 
+**Stage 7, Phase 3 — same session: the doc/block editor**
+
+"The project," per ADMIN-PLAN.md. Built `/admin/docs/[id]`: metadata pane (title, slug,
+category-or-standalone, path, meta fields, sort order, status) plus editors for the four
+block types the plan scoped to this phase — `richtext` (Tiptap, with a real toolbar this
+time — bold/italic/strike/lists/blockquote/link — headings disabled inside it since those
+are their own block type), `heading` (with a live anchor preview), `code`, `table`
+(add/remove row & column). The other five real block types in live content (`image`,
+`loop`, `callout`, `tryit`, `video`, `file`, `quiz`) render as a read-only placeholder that
+still round-trips through save untouched — Phases 4-6 add their editors, this phase must
+not corrupt what it can't yet edit.
+
+Richtext is sanitized server-side on every save (new `sanitize-html` dependency) since
+Tiptap's output lands in `dangerouslySetInnerHTML` on a public page. Heading anchors use a
+straight port of `scripts/extract-docs.mjs`'s dedup algorithm (`lib/admin/anchors.ts`),
+shared between the save action and the editor's live preview so they can never disagree.
+Publish = save current edits then flip status (reuses `setDocStatus` from the docs list —
+one code path that ever makes a doc live); plain Save alone revalidates automatically
+whenever the doc is already published.
+
+**Verified thoroughly** via a throwaway `/doc-editor-spike` route (one block of each
+supported type, plus an `image` block and two headings with identical text): real Tiptap
+editing worked, the duplicate heading correctly got `#what-is-html-2` live, the table's
+row/column controls worked, the unsupported block rendered its placeholder without
+breaking anything, block reordering worked, and Save called the real Server Action
+end-to-end (dev log confirmed the full payload reaching a real DB call, erroring only on
+the spike's fake id — same proof pattern as D-25/D-26). Errors now surface inline in the
+UI instead of crashing the page. `next build` clean, public route tree unchanged, and
+grepped `.next/static/` for leaked secrets per ADMIN-PLAN.md §7 — clean. Full writeup:
+D-27.
+
+**Not verified**: the actual authenticated screen against a real lesson — same gap as
+every screen so far, Claude doesn't have the admin password.
+
 **Next session — start here**
 
-1. User: click through `/admin/docs` once deployed — filters, checkbox selection,
-   drag-and-drop *and* arrow-button reordering both within a category and of the
-   categories themselves, publish/unpublish toggle, and (carefully, it's real data) New
-   doc + Delete on a throwaway row. Report anything that doesn't work as described.
-2. Stage 7, Phase 3: the doc/block editor (`/admin/docs/[id]`) — "the project," per
-   ADMIN-PLAN.md. Everything built so far (Tiptap spike, docs list) exists to support it.
-3. `generateMetadata` staleness (O-5) still open — worth checking before Phase 3's publish
-   flow makes it user-visible.
+1. User: open a real lesson in `/admin/docs/[id]` once deployed and confirm it edits and
+   saves correctly — this is the first time real content (not spike mock data) will pass
+   through this editor. Try a `richtext` edit, a `heading` rename, and Save; separately
+   confirm a doc containing `image`/`tryit`/other unsupported blocks still saves cleanly
+   without losing those blocks.
+2. Stage 7, Phase 4: preview route + draft/publish rules (§4.4/§4.9 in ADMIN-PLAN.md).
+3. `generateMetadata` staleness (O-5) still open — now genuinely user-visible once real
+   publishing starts happening through this editor.
 
 ---
 

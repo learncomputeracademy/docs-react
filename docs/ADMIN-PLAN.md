@@ -394,7 +394,7 @@ separate commits (`CLAUDE.md` §5).
 | **0** | ✅ Tiptap spike in isolation (§4.5) — **done, D-22: it works.** No textarea fallback needed |
 | **1** | Migration 003 · `proxy.ts` guard · login · `/admin` shell + noindex | A non-admin cannot reach `/admin/docs`; `next build` still shows `●`/`○` on all public routes |
 | **2** | Docs list + `sort_order` fix | The sidebar order across all 8 categories is finally correct on the live site |
-| **3** | ⭐ Doc editor: metadata + `richtext`/`heading`/`code`/`table` blocks · save · publish + revalidate | Edit a real lesson, publish, see it change on the public URL with no redeploy |
+| **3** | ✅ ⭐ Doc editor: metadata + `richtext`/`heading`/`code`/`table` blocks · save · publish + revalidate — **built, D-27** | Edit a real lesson, publish, see it change on the public URL with no redeploy — code-verified, not yet user-verified against real content |
 | **4** | Preview route · draft/publish rules (§4.9) | A draft is viewable by an admin and invisible to anon (verify with a logged-out request) |
 | **5** | Media library + backfill · `image`/`loop`/`file` block editors | An image can be uploaded and placed in a lesson end-to-end |
 | **6** | Remaining block editors: `callout`, `tryit`, `video` | Every block type present in the 150 live lessons is editable |

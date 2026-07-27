@@ -905,6 +905,61 @@ mechanism.
 
 ---
 
+## D-27 · Stage 7 Phase 3: the doc/block editor — "the project," per ADMIN-PLAN.md
+**Date:** 2026-07-27 · **Status:** Active
+
+Built `/admin/docs/[id]`: metadata pane (title, slug, category-or-standalone, path,
+meta title/description, sort order, status) plus editors for the four block types the
+plan scoped to this phase — `richtext`, `heading`, `code`, `table`. The other five real
+block types in live content (`image`, `loop`, `callout`, `tryit`, `video`, `file`, `quiz`)
+render as a read-only placeholder (`UnsupportedBlock`) that still supports move/duplicate/
+delete and round-trips through save byte-for-byte — Phases 4-6 add their editors later,
+this phase must not corrupt what it can't yet edit.
+
+**Architecture, per ADMIN-PLAN.md §4:**
+- `lib/admin/doc.ts` — `getDocForAdmin`/`saveDoc`, cookie-aware SSR client (RLS enforces
+  admin-ness, not just the route guard). `saveDoc` never touches `status`/`published_at` —
+  that stays the dedicated `setDocStatus` (reused from the docs list), so there's exactly
+  one code path that flips a doc live, called by the editor's own Publish button.
+- `lib/admin/anchors.ts` — `slugify`/`computeAnchorsAndToc`, a straight port of
+  `scripts/extract-docs.mjs`'s anchor-dedup algorithm, shared (not `'use server'`) between
+  the save action and the editor's live anchor preview — same algorithm, same output,
+  server and client agree on what a heading's anchor will be before it's even saved.
+- Richtext sanitized server-side on every save (`sanitize-html`, allowlist of inline tags
+  only) — required by §4.5, since Tiptap's `getHTML()` output lands in
+  `dangerouslySetInnerHTML` on a public page and a paste can carry more than the toolbar
+  exposes.
+- `RichTextBlockEditor` disables Tiptap's `heading` node (`StarterKit.configure({heading:
+  false})`) — headings are already their own block type with anchor-dedup; allowing `<h2>`
+  inside richtext would let an admin create a heading that bypasses that system entirely.
+- No "make runnable" toggle on the code block editor, no drag-and-drop on the block list
+  (arrows only, matching the plan's literal spec) — both deliberately deferred, the first
+  to Phase 6 (converts to a `tryit` block, whose editor doesn't exist yet), the second
+  because the plan only asked for ↑/↓ here and this phase is large enough already.
+- Publish = save current edits, then `setDocStatus('published')` — publishing never
+  reflects stale pre-session content. Plain Save revalidates automatically whenever the
+  doc is already published (checks the post-update row's `status`), so editing live
+  content and hitting Save alone is enough to update the public page.
+
+**Verified thoroughly** via a throwaway `/doc-editor-spike` route (mock doc with one of
+each of the 4 supported types plus an `image` block and two headings with identical text,
+deleted after): real Tiptap typing worked and merged correctly at cursor position; the
+duplicate heading correctly got `#what-is-html-2` (live, matching the extraction script's
+algorithm exactly); the table's add/remove row/column controls worked; the `image` block
+rendered its placeholder without breaking the page; block reordering (↑/↓) worked; and
+clicking Save called the real `saveDoc` action end-to-end — confirmed via the dev server
+log showing the full payload reaching the real DB update, erroring only on the spike's
+fake non-UUID id (`invalid input syntax for type uuid: "doc-1"`), the same proof pattern
+used for D-25/D-26. Error surfaced inline in the UI (try/catch around the save calls)
+rather than crashing the page, unlike the earlier reorder spikes which had no such
+handling. `next build` — public route tree unchanged, `/admin/docs/[id]` correctly `ƒ`.
+Grepped `.next/static/` for service-role/API-secret strings per ADMIN-PLAN.md §7 — clean.
+
+**Not verified**: the actual authenticated screen against a real lesson — same gap as
+every other Phase 1/2 screen, Claude doesn't have the admin password.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
