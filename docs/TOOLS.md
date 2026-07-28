@@ -58,6 +58,7 @@ ever shipped two — see *Outstanding promises*. Closing that gap is table stake
 |---|---|---|---|
 | Interactive Box Model | `/tools/box-model` | `/box-model` → 301 | D-43 · Session 21 |
 | Box Shadow Generator | `/tools/box-shadow-generator` | `/box-shadow-generator` → 301 | D-44 · Session 22 |
+| Gradient Generator | `/tools/gradient` | `/gradient/` → 301 | D-45 · Session 23 |
 
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
@@ -74,29 +75,26 @@ smooth-shadow generator (easing-curve stack), A/B compare, 12 presets, three mod
 (`box-shadow` / `text-shadow` / `filter: drop-shadow()` — the last demonstrates
 silhouette-following vs bounding-box), four output formats, undo/redo, shareable URL state.
 
+**Gradient Generator** — linear/radial/conic, unlimited colour stops (click the bar to
+insert one with an interpolated colour, drag a handle to move it, per-stop hex+alpha with
+eyedropper), drag directly on the preview to set angle (linear) or center (radial/conic).
+**sRGB vs OKLCH shown side by side by default, not behind a toggle** — both renders use the
+browser's own `in oklch` CSS Color 4 interpolation syntax, not a simulation; verified live
+that the two visibly differ (a vivid mid-purple in OKLCH vs a duller one in sRGB for the
+same indigo→pink stops). Paste-to-import (linear/radial/conic, angle or `to <side>`, shape
++ size keywords, `at X% Y%`, an `in oklch` hint, named/hex/rgba colours). 8 presets
+(sunset, ocean, forest, candy, subtle UI background, glass, mesh-ish, mono conic). Same
+four output formats, undo/redo, shareable URL state as the shadow tool.
+
 ---
 
 ## Outstanding promises ⚠️
 
-The old Jekyll nav (`_includes/nav.html`) advertised these two. Both **404 on the live
-site today** — they were linked but never built. `docs/URLS.md` R4 already reserves their
-`/tools/` slots.
+The old Jekyll nav (`_includes/nav.html`) advertised these two tools. The Scrollbar App
+**still 404s on the live site today** — it was linked but never built. `docs/URLS.md` R4
+already reserves its `/tools/` slot.
 
-### 1. Gradient Generator — `/tools/gradient` *(old link: `/gradient/`)*
-
-Cheapest thing on this entire document now that `lib/color.ts` exists.
-
-- Linear / radial / conic
-- Unlimited colour stops — drag to reposition, dnd-kit reorder, per-stop colour + alpha
-- Angle dial for linear; position + shape controls for radial/conic
-- **sRGB vs OKLCH interpolation side by side** — the modern differentiator. sRGB
-  interpolation between two saturated colours dips through a muddy grey mid-point; OKLCH
-  doesn't. Showing both is the teaching moment.
-- Paste-to-import an existing `background-image` value
-- Same four output formats as the shadow tool (CSS / Tailwind / CSS variable / React)
-- Presets: subtle UI backgrounds, sunset, glass, mesh-ish
-
-### 2. Scrollbar App — `/tools/scrollbar` *(old link: `/scrollbar/`)*
+### Scrollbar App — `/tools/scrollbar` *(old link: `/scrollbar/`)*
 
 - `::-webkit-scrollbar` parts: track, thumb, corner, buttons — width, colour, radius, border
 - The standard properties too: `scrollbar-width`, `scrollbar-color`

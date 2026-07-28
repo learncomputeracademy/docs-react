@@ -1913,12 +1913,96 @@ confirmed working, clean console.
 
 ---
 
+## D-45 · Gradient Generator (`/tools/gradient`)
+
+Next tool off `docs/TOOLS.md`'s roadmap after the user asked what else would help students
+and developers — the two "Outstanding promises" were flagged as the highest-value/lowest-
+cost items (advertised by the old Jekyll nav, both 404 on the live site), and the user
+picked the gradient generator first.
+
+**Shared code reused, not duplicated.** Before writing anything new: `splitTopLevel()` (the
+paren-aware comma splitter) moved from `lib/box-shadow.ts` into `lib/color.ts` since the
+gradient parser needs the identical logic; `uid()` moved from `lib/box-shadow.ts` into
+`lib/utils.ts` (now used by both layer and gradient-stop factories). `lib/box-shadow.ts`
+updated to import both rather than keep its own copies. No behaviour change, confirmed by
+`tsc --noEmit` clean before touching anything gradient-specific.
+
+**`NAMED_COLORS` in `lib/color.ts` expanded from 8 keywords to the full CSS1 basic set (16)
+plus a handful of commonly-pasted extras (orange, pink, brown, gold, indigo, violet) — 25
+total.** The box-shadow parser rarely meets a named colour, but gradient examples reach for
+`red, yellow, green` constantly (it's the canonical test string), and the old table was
+missing `yellow` entirely — any pasted gradient using it would have silently resolved to
+black. Caught before shipping by writing a real paste-import test case with named colours,
+not by inspecting the table.
+
+**`lib/gradient.ts`** — `GradientSpec`/`Stop` types, `gradientValue()` (generates real CSS
+Color 4 syntax: `linear-gradient(<angle>deg [in oklch]?, ...)`, `radial-gradient(<shape>
+<size> at X% Y% [in oklch]?, ...)`, `conic-gradient(from <angle>deg at X% Y% [in oklch]?,
+...)` — the interpolation hint is genuine browser syntax, never simulated), `colorAtPosition()`
+(sRGB lerp between neighbouring stops, used to give a newly-inserted stop a sensible
+starting colour), the paste-import parser (same pragmatic-not-full-CSS-grammar approach as
+the shadow parser — handles angle/`to <side>`/shape+size keywords/`at X% Y%`/an `in oklch`
+hint/named+hex+rgba colours with or without explicit positions, degrades to even
+auto-distribution otherwise), and 8 presets (sunset, ocean, forest, candy, subtle UI
+background, glass, mesh-ish — one off-centre radial rather than true stacked-layer mesh,
+documented as the deliberate simplification it is — and a mono conic).
+
+**`lib/gradient-i18n.ts`** — full EN/BN, same convention.
+
+**`components/tools/gradient-demo.tsx`** — three columns (type + stops / comparison canvas
+/ presets + output). Notable pieces:
+- **`GradientBar`** — the standard gradient-editor UX (Figma/Photoshop pattern): a
+  horizontal strip rendering the current stops as a flat left-to-right gradient regardless
+  of the actual type/angle (built by reusing `gradientValue()` with `{ kind: 'linear',
+  angle: 90 }` rather than a second code path), click empty space to insert a stop at that
+  position, drag a handle to reposition. A compact list below duplicates select/delete for
+  keyboard access, same reasoning as the box-shadow layer list.
+- **sRGB vs OKLCH shown side by side unconditionally**, not behind a toggle — that
+  comparison *is* the tool's reason for existing over any generic gradient generator, so it
+  isn't optional. A separate "which one goes into the copied CSS" selector is genuinely
+  optional and is a toggle.
+- **Drag directly on either preview swatch**: for linear, drag angle from the pointer's
+  angle relative to the swatch center (`atan2`, matches the angle math already established
+  in the box-shadow generator's light-source mode); for radial/conic, drag sets the center
+  position. Verified live: dragging on a radial swatch recomputed `at 19% 14%` in the same
+  frame the slider values updated.
+- Output formats: CSS block (`.gradient { background-image: ...; }` — the correct property
+  for a gradient, not the `background` shorthand, which would misleadingly imply resetting
+  other background-* properties), Tailwind arbitrary (`bg-[...]`), CSS variable, React
+  style.
+- Undo/redo scoped to structural edits (add/delete/move-stop-per-drag/preset/import), same
+  drag-gesture-batching as the shadow tool's `onDragStart` pattern.
+- Share link + localStorage, same post-mount-hydration pattern (avoids the SSR/client
+  mismatch class of bug).
+
+**No real bugs found in the tool logic itself this session** — the `NAMED_COLORS` gap above
+was caught and fixed *before* it ever reached the live tool, not after. One test-harness
+false alarm during the live pass: a paste-import test appeared to fail with a stray leading
+character in the textarea; turned out to be a keystroke-simulation artifact (Ctrl+A racing
+the typed text), not a parser bug — confirmed by setting the textarea value directly via JS
+and re-running the same input successfully.
+
+**Nav entry**: not yet added — same as box-shadow generator, needs Admin → Menu, no
+migration.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean, both routes
+`○` static; `.next/static/` grepped for secret names — no matches. Live browser pass: all
+three gradient types, click-to-insert and drag-to-move on the stop bar, drag-on-canvas for
+both angle (linear) and center (radial), a real visible sRGB-vs-OKLCH difference confirmed
+by zooming into the two swatches, paste-import with named colours + an `in oklch` hint
+(correctly auto-selected the OKLCH output tab), reset, and the fully-translated Bengali
+page — all confirmed working, clean console (verified via `read_console_messages`, not just
+visual inspection).
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
 | ~~O-12~~ | ~~Run `supabase/migrations/008-nav-submenu.sql`~~ — **resolved.** User ran it; the sub-menu still didn't show due to a stale `nav` cache tag (direct-SQL write bypassed `revalidateTag`) — fixed via the `/api/revalidate` webhook, see D-44 | — |
 | O-13 | Add "Box Shadow Generator" as a second child of Resources in Admin → Menu (D-44) — no migration, just the existing nesting UI | Box Shadow Generator page works standalone regardless; just won't appear in the header nav until added |
+| O-14 | Add "Gradient Generator" as a third child of Resources in Admin → Menu (D-45) — no migration | Same as O-13: page works standalone, just missing from the header nav until added |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

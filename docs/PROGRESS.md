@@ -19,12 +19,13 @@ Bengali translation of all 8 pre-existing categories COMPLETE.
 ### ⚠️ Blocking next step
 
 Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the user
-(008 confirmed this session — Box Model Demo now shows correctly under Resources; the
-stale-cache gap this exposed is documented in Session 22 below).
+(008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
+stale-cache gap this exposed is documented there).
 
-**One manual step left**: add "Box Shadow Generator" (`/tools/box-shadow-generator`) as a
-second child of Resources in Admin → Menu — no migration needed, `parent_id` nesting
-already exists from D-43/Session 21. Two clicks in the admin UI, deliberately not scripted.
+**Two manual steps left**: add "Box Shadow Generator" (`/tools/box-shadow-generator`, user
+confirmed pushed and working) and "Gradient Generator" (`/tools/gradient`, Session 23) as
+children of Resources in Admin → Menu — no migration needed, `parent_id` nesting already
+exists from D-43/Session 21. A few clicks in the admin UI, deliberately not scripted.
 
 ### ⚡ Next action
 
@@ -105,6 +106,34 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 23: gradient generator (D-45)
+
+**Done**
+
+- User confirmed the box-shadow generator was pushed and works live.
+- Asked for tool ideas for students/developers; answered from `docs/TOOLS.md`'s roadmap
+  (built as a register the previous session specifically so this question would have a
+  place to live) plus a check against the live site confirming Scrollbar App and Gradient
+  Generator both still 404. Saved the full answer into `docs/TOOLS.md`.
+- User picked the gradient generator to build next.
+- **D-45: gradient generator built** (`/tools/gradient`) — linear/radial/conic, unlimited
+  stops via a Figma-style gradient bar (click to insert, drag to move), drag-on-canvas for
+  angle/center, sRGB vs OKLCH shown side by side by default using real `in oklch` CSS
+  syntax (not simulated — verified the two visibly differ), paste-import, 8 presets, 4
+  output formats, undo/redo, share link. Full detail in `docs/DECISIONS.md` D-45.
+- Refactored two small duplicated helpers (`splitTopLevel`, `uid`) out of
+  `lib/box-shadow.ts` into `lib/color.ts`/`lib/utils.ts` before writing anything new, since
+  the gradient parser needed identical logic.
+- Expanded `NAMED_COLORS` in `lib/color.ts` from 8 to 25 keywords — caught via a paste-
+  import test using `red, yellow, green` (a common real-world example string) before it
+  ever reached the live tool.
+
+**Not done**
+
+- Gradient Generator not yet in the header nav — same as box-shadow generator, needs adding
+  via Admin → Menu (no migration, no script).
+- Not deployed. Local commits only, pending explicit push authorization.
 
 ## 2026-07-28 — Session 22: box-shadow generator (D-44) + a stale-cache fix + a dropdown polish
 
