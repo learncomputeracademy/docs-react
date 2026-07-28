@@ -16,8 +16,8 @@ generator is not a differentiator. **What is:** ours are linked from the lesson 
 they explain themselves, and they work in Bengali. That combination is the moat, and it's
 why the three rules in *House rules* are requirements rather than polish.
 
-The secondary reason is that the old Jekyll site advertised four tools in its nav and only
-ever shipped two — see *Outstanding promises*. Closing that gap is table stakes.
+The secondary reason: the old Jekyll site advertised four tools in its nav and only ever
+shipped two. All four now exist here (D-48) — closing that gap was table stakes.
 
 ---
 
@@ -81,6 +81,7 @@ or a broken hydration pass reads as a clean console.
 | Box Shadow Generator | `/tools/box-shadow-generator` | `/box-shadow-generator` → 301 | D-44 · Session 22 |
 | Gradient Generator | `/tools/gradient` | `/gradient/` → 301 | D-45 · Session 23 |
 | Flexbox Playground | `/tools/flexbox` | *(none — new)* | D-46 · Session 24 |
+| Scrollbar App | `/tools/scrollbar` | `/scrollbar/` → 301 | D-48 · Session 25 |
 
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
@@ -123,22 +124,23 @@ inherently multi-rule, not a single value. **No lesson to link to** — the old 
 has zero flexbox coverage (confirmed by grepping the source), so the CTA points at the CSS
 category listing and the tool's own explanation panel carries the full teaching load.
 
----
+**Scrollbar App** — every part of both scrollbar systems: the standard `scrollbar-width`
+(auto/thin/none) and `scrollbar-color`, and every `::-webkit-scrollbar` part (track, thumb
++ hover colour, corner, buttons) with colour/radius/border on each. Both are generated
+together, driven by the same underlying colour choices, and rendered live via real
+`::-webkit-scrollbar` CSS on the actual preview element (through CSS custom properties, not
+a mocked-up image) — verified in a Chromium browser that the live scrollbar visibly changes
+with every control, including a genuine arrow glyph Chrome draws automatically on a sized
+`::-webkit-scrollbar-button`. An **honest support note** up top: `scrollbar-width`/
+`scrollbar-color` are Firefox-and-newer-Chromium; `::-webkit-scrollbar` is WebKit/Blink-only
+and Firefox ignores it outright — generate both if you want it to look intentional
+everywhere. 5 presets. Two output tabs (CSS, React) — no Tailwind tab, since core Tailwind
+has no scrollbar utilities and generating classes for a plugin this project doesn't use
+would produce copy that doesn't work. **Links to a real lesson** —
+`css/pseudo-elements` — the only tool so far that has one.
 
-## Outstanding promises ⚠️
-
-The old Jekyll nav (`_includes/nav.html`) advertised these two tools. The Scrollbar App
-**still 404s on the live site today** — it was linked but never built. `docs/URLS.md` R4
-already reserves its `/tools/` slot.
-
-### Scrollbar App — `/tools/scrollbar` *(old link: `/scrollbar/`)*
-
-- `::-webkit-scrollbar` parts: track, thumb, corner, buttons — width, colour, radius, border
-- The standard properties too: `scrollbar-width`, `scrollbar-color`
-- Live preview in a genuinely overflowing box, both axes
-- **Honest browser-support note** showing which declaration each engine actually honours —
-  the useful part, and something most scrollbar generators skip
-- Teaching hook: pseudo-elements (`css-pseudo-elements` is an existing lesson)
+Closes the old Jekyll nav's last unfulfilled promise (see D-48 in `docs/DECISIONS.md`) — no
+tool the old site advertised and never built remains 404ing.
 
 ---
 

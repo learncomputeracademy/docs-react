@@ -2117,6 +2117,79 @@ attributes directly on flexbox and confirmed they render as the new fixed
 
 ---
 
+## D-48 · Scrollbar App (`/tools/scrollbar`) — the last old-nav promise, closed
+
+User asked to build the Scrollbar App specifically, the fourth and final tool the old
+Jekyll nav advertised (`_includes/nav.html`) that had never actually been built — confirmed
+404ing on the live site back in the original tool-ideas research. With this, every tool the
+old site promised now exists.
+
+**Real content this tool has that the others don't**: a genuine paired lesson.
+`css/pseudo-elements` exists and is published (confirmed live — clicked through from the
+tool and landed on real rendered content, not a 404), unlike the box-shadow/gradient/
+flexbox tools which all fall back to a category-listing CTA. **Caught and fixed a wrong
+lesson URL before shipping**: first wrote `/css/css-pseudo-elements` (the old Jekyll
+permalink), but `scripts/url-map.json` shows the actual current slug is `/css/pseudo-
+elements` — the "css-" prefix was dropped in the URL redesign, same pattern as the box
+model demo's `/css/boxmodel`. Checked the map file instead of assuming from memory of the
+box-model precedent, and it caught a real mistake.
+
+**Two systems, generated together, both real**: the standard `scrollbar-width`/
+`scrollbar-color` and every `::-webkit-scrollbar` part, both driven from the same
+underlying colour choices (one thumb colour, one track colour — a real developer wants
+cross-browser consistency, not two independent palettes to keep in sync by hand). Rendered
+via CSS custom properties on the actual previewed element, read by a static stylesheet
+(`PREVIEW_STYLESHEET` in `lib/scrollbar.ts`) — the preview and the copyable CSS output can
+never disagree because they're generated from the same state by construction, not two
+independent code paths that happen to currently produce the same numbers.
+
+**Honest support note, not just decoration**: `scrollbar-width`/`scrollbar-color` are
+Firefox-and-newer-Chromium; `::-webkit-scrollbar` is WebKit/Blink-only and Firefox drops
+every rule silently. Deliberately avoided citing specific version numbers for the more
+recent Chromium support (can't verify precise cutoffs without live browser access) — stated
+the relative truth (engine family, "added more recently") instead of a number that could be
+stale or wrong.
+
+**No Tailwind output tab** — core Tailwind ships no scrollbar utilities; the plugin that
+adds them isn't part of this project, so generating classes assuming its presence would
+produce copy that silently doesn't work. Documented as a deliberate omission in the UI
+itself (`s.noTailwindNote`), not just left unexplained.
+
+**Real bug found and fixed during the live pass — and a second, smaller one after that.**
+1. Hover-hint text was silently broken for four of six field groups (track, thumb, corner,
+   buttons): `{...hintProps(key)}` was spread directly onto the `<Section>` component, which
+   only destructures `title`/`children`/`action` and drops everything else — the mouse
+   handlers never reached any actual DOM element, so hover would have done nothing, with no
+   type error to catch it (JSX spread attributes bypass TypeScript's excess-property
+   checking). Caught by reading through the file structurally against the two field groups
+   that *did* wrap a `<div>` correctly, not by testing — the bug wouldn't have thrown, just
+   silently done nothing. Fixed by moving every `hintProps()` spread onto a wrapping `<div>`
+   inside each `<Section>`.
+2. The "no arrow glyph is drawn" claim in the buttons-field description turned out to be
+   wrong: verified live in Chrome that `::-webkit-scrollbar-button` renders Chrome's own
+   native arrow icon automatically once given a size, no drawing required — visible via a
+   zoomed screenshot of the horizontal scrollbar's left button cap. The tool's own teaching
+   copy was making a factual claim about browser behaviour that turned out false; fixed the
+   EN/BN description before shipping rather than leaving a plausible-sounding but incorrect
+   explanation in a *teaching* tool, which would have been worse than most bugs.
+
+**Unrelated finding, not fixed (out of scope)**: doc lesson pages' browser tab title is
+duplicated — `"CSS Pseudo Elements | Learn Computer Academy | Learn Computer Academy"`,
+site name appended twice. Confirmed pre-existing (reproduces on `/css/pseudo-elements`,
+a route untouched by this session) and unrelated to anything built here. Not investigated
+further or fixed — flagged for a future session. New Open item O-16.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean, both routes
+`○` static; `.next/static/` grepped for secret names — no matches; `/scrollbar` redirects to
+`/tools/scrollbar`. Live browser pass, listener attached before navigating throughout (per
+the corrected process from D-47): zero console output on a fresh load; a genuinely styled
+`::-webkit-scrollbar` visibly different from the browser default (zoomed screenshot); the
+Neon preset applied correctly with live re-render; horizontal axis switching real overflow
+content; the buttons toggle producing a real native arrow glyph; both output tabs; the
+Bengali page including a working click-through to the real, published linked lesson.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2125,6 +2198,8 @@ attributes directly on flexbox and confirmed they render as the new fixed
 | O-13 | Add "Box Shadow Generator" as a second child of Resources in Admin → Menu (D-44) — no migration, just the existing nesting UI | Box Shadow Generator page works standalone regardless; just won't appear in the header nav until added |
 | O-14 | Add "Gradient Generator" as a third child of Resources in Admin → Menu (D-45) — no migration | Same as O-13: page works standalone, just missing from the header nav until added |
 | O-15 | Add "Flexbox Playground" to the header nav via Admin → Menu (D-46) — no migration. **Note**: live browser pass this session showed a top-level "Tools" dropdown in the header (English) / "টুলস" (Bengali), not the "Resources" sub-menu D-43/D-44/D-45 described — the user appears to have restructured the nav in the admin panel between sessions. Confirm actual current structure before adding | Same as O-13/O-14: page works standalone regardless |
+| O-16 | Doc lesson pages' browser tab title is duplicated — `"<Title> \| Learn Computer Academy \| Learn Computer Academy"`, confirmed on `/css/pseudo-elements` (D-48), pre-existing and unrelated to any /tools work. Not investigated | Cosmetic (browser tab / bookmark title only) — does not affect page content, SEO `<title>` may or may not share the bug, unconfirmed |
+| O-17 | Add "Scrollbar App" to the header nav via Admin → Menu (D-48) — no migration | Page works standalone regardless; just missing from the header nav until added |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

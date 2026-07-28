@@ -22,12 +22,17 @@ Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the
 (008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
 stale-cache gap this exposed is documented there).
 
-**Three tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
-working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24) — no
-migration needed, done via Admin → Menu. **Note**: a live browser pass in Session 24 showed
-a top-level "Tools" dropdown in the header, not the "Resources" sub-menu earlier sessions
-described — the nav appears to have been restructured in the admin panel since D-43/D-44.
-Confirm the actual current structure before adding new entries (see O-15).
+**Four tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
+working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24), "Scrollbar
+App" (Session 25) — no migration needed, done via Admin → Menu. **Note**: a live browser
+pass in Session 24 showed a top-level "Tools" dropdown in the header, not the "Resources"
+sub-menu earlier sessions described — the nav appears to have been restructured in the
+admin panel since D-43/D-44. Confirm the actual current structure before adding new entries
+(see O-15/O-17).
+
+**All four tools the old Jekyll nav ever advertised now exist** (D-48) — Box Model, Box
+Shadow Generator, Gradient Generator, and Scrollbar App. Nothing from the old site is
+promised-and-missing anymore.
 
 ### ⚡ Next action
 
@@ -108,6 +113,48 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 25: a real hydration bugfix (D-47) + the scrollbar app (D-48)
+
+**Done**
+
+- User spotted a Next.js hydration console error on the flexbox page mid-session (via
+  screenshot) while the scrollbar app was already in progress. **D-47**: root-caused it to
+  `useState(defaultState)` calling `uid()`/`crypto.randomUUID()` inside `defaultState()` —
+  runs once on the server, once again independently on the client during hydration, two
+  different random ids. This affected **all three** previously-shipped tools (box-shadow,
+  gradient, flexbox), not just flexbox — it just happened to surface visibly there. Fixed
+  by giving each `makeX()` factory an optional id override and having `defaultState()` pass
+  fixed literal ids for the initial set. Also root-caused *why testing missed it three
+  times*: `read_console_messages`' listener attaches lazily on first call, so "navigate,
+  then check console" — this project's verification pattern up to this point — structurally
+  can't catch a hydration warning, which fires within milliseconds of navigation. Corrected
+  process: attach the listener before navigating, from now on. Both gotchas documented in
+  `docs/TOOLS.md`.
+- **D-48: Scrollbar App built** (`/tools/scrollbar`) — the fourth and final tool the old
+  Jekyll nav advertised and never shipped. Both scrollbar systems (`scrollbar-width`/
+  `scrollbar-color` and every `::-webkit-scrollbar` part) generated together from one set of
+  colour choices, rendered live via CSS custom properties, an honest cross-browser support
+  note, 5 presets, CSS/React output (no Tailwind — core Tailwind has no scrollbar
+  utilities). Links to a real lesson (`css/pseudo-elements`) — the first tool that has one.
+  Full detail in `docs/DECISIONS.md` D-48.
+- Two real bugs caught and fixed before shipping: hover-hint text silently dead on 4 of 6
+  field groups (`hintProps()` spread onto `<Section>` instead of a wrapping `<div>` —
+  `Section` only destructures `title`/`children`/`action` and silently drops the rest, no
+  type error since JSX spread bypasses excess-property checking); and the tool's own
+  teaching copy claiming "no arrow glyph is drawn" on scrollbar buttons, which turned out
+  false — Chrome draws one automatically, caught by actually looking at a zoomed screenshot.
+- Caught a wrong lesson URL before shipping by checking `scripts/url-map.json` instead of
+  assuming from the old Jekyll permalink: `/css/pseudo-elements`, not `/css/css-pseudo-
+  elements`.
+- Noticed (not fixed, out of scope) that doc lesson pages have a duplicated browser tab
+  title — logged as O-16.
+
+**Not done**
+
+- Scrollbar App not yet in the header nav (O-17).
+- Not deployed. Local commits only, pending explicit push authorization.
+- O-16 (title duplication) not investigated further.
 
 ## 2026-07-28 — Session 24: flexbox playground (D-46)
 
