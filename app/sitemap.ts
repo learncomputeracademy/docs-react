@@ -20,6 +20,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/bn`, changeFrequency: 'weekly', priority: 0.9 },
     { url: `${SITE_URL}/contact`, changeFrequency: 'yearly', priority: 0.3 },
     { url: `${SITE_URL}/resources`, changeFrequency: 'monthly', priority: 0.5 },
+    { url: `${SITE_URL}/tools`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/box-model`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/box-model`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/box-shadow-generator`, changeFrequency: 'monthly', priority: 0.7 },
@@ -30,6 +32,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/bn/tools/flexbox`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/scrollbar`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/scrollbar`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/tools/specificity`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools/specificity`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/tools/colour`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools/colour`, changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   for (const c of categories) {
