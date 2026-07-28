@@ -4,7 +4,7 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { logActivity } from '@/lib/admin/activity'
 
-export async function getSettingsForAdmin(key: 'home' | 'footer' | 'contact' | 'seo'): Promise<Record<string, unknown>> {
+export async function getSettingsForAdmin(key: 'home' | 'footer' | 'contact' | 'seo' | 'branding'): Promise<Record<string, unknown>> {
   const supabase = await createClient()
   const { data, error } = await supabase.from('site_settings').select('value').eq('key', key).maybeSingle()
   if (error) throw new Error(error.message)
@@ -16,15 +16,15 @@ export async function getSettingsForAdmin(key: 'home' | 'footer' | 'contact' | '
 // upsert anyway so this doesn't break if a key is ever missing. 'seo' key
 // added without a migration — site_settings.key has no fixed set, and
 // saveSettings' own upsert creates the row on first save.
-export async function saveSettings(key: 'home' | 'footer' | 'contact' | 'seo', value: Record<string, unknown>) {
+export async function saveSettings(key: 'home' | 'footer' | 'contact' | 'seo' | 'branding', value: Record<string, unknown>) {
   const supabase = await createClient()
   const { error } = await supabase.from('site_settings').upsert({ key, value })
   if (error) throw new Error(error.message)
   await logActivity('updated', 'settings', key, key)
 
   revalidateTag('settings', { expire: 0 })
-  if (key === 'seo') {
-    // Verification meta tags live in the root layout's generateMetadata,
+  if (key === 'seo' || key === 'branding') {
+    // Verification meta tags and the logo both live in the root layout,
     // shared by every route — 'layout' busts it everywhere at once,
     // unlike revalidatePath('/', 'page') which only covers the homepage.
     revalidatePath('/', 'layout')

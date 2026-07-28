@@ -13,7 +13,7 @@ import type { NavNode } from '@/lib/content'
 // Radix Dialog off the critical-path JS for a page someone's just reading.
 const CommandMenu = dynamic(() => import('./command-menu').then(m => m.CommandMenu), { ssr: false })
 
-export function SiteHeader({ navItems }: { navItems: NavNode[] }) {
+export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: NavNode[]; logoLightUrl: string; logoDarkUrl: string }) {
   const [dark, setDark] = useState(false)
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
@@ -35,13 +35,19 @@ export function SiteHeader({ navItems }: { navItems: NavNode[] }) {
 
   return (
     <header className="sticky top-0 z-10 flex items-center justify-between border-b bg-background/80 backdrop-blur px-6 py-3">
-      <Link href={locale === 'bn' ? '/bn' : '/'} className="flex items-center gap-2.5">
+      <Link href={locale === 'bn' ? '/bn' : '/'} className="flex items-center">
         {/* Plain <img>, not next/image: the global custom loader is wired for
-            Cloudinary delivery URLs, not local /public files. Icon only, not
-            the full wordmark PNG — its text is baked in black and would be
-            invisible in dark mode. Real text below adapts via text-foreground. */}
-        <img src="/logo-icon.png" alt="" width={64} height={64} className="size-8" />
-        <span className="font-semibold tracking-tight">{strings.siteName}</span>
+            Cloudinary delivery URLs specifically, and these already come
+            from Cloudinary pre-sized via cldUrl (app/layout.tsx) — a second
+            resize layer on top would just add a loader hop for nothing.
+            Two full wordmarks (text baked into the artwork, light = black
+            text, dark = white text), swapped with Tailwind's dark: variant
+            rather than the `dark` state below — the theme class on <html>
+            is already set before paint by app/layout.tsx's inline script,
+            so a state-driven swap would flash the wrong logo on first
+            render; a CSS-only swap can't. */}
+        <img src={logoLightUrl} alt={strings.siteName} width={8588} height={1498} className="block h-8 w-auto dark:hidden" />
+        <img src={logoDarkUrl} alt={strings.siteName} width={8723} height={1850} className="hidden h-8 w-auto dark:block" />
       </Link>
       {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm since the
           command menu/language/theme controls already crowd narrow

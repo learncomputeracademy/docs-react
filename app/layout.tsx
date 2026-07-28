@@ -4,6 +4,8 @@ import { SiteChrome } from "@/components/site-chrome";
 import { RouteProgressBar } from "@/components/magic/route-progress";
 import { SITE_URL, SITE_NAME, organizationJsonLd, websiteJsonLd, jsonLdScript } from "@/lib/seo";
 import { getSiteSettings, getNavItems } from "@/lib/content";
+import { cldUrl, DEFAULT_LOGO_LIGHT_PUBLIC_ID, DEFAULT_LOGO_DARK_PUBLIC_ID } from "@/lib/cloudinary";
+import type { BrandingSettings } from "@/lib/admin/branding";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -83,7 +85,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const navItems = await getNavItems();
+  const [navItems, branding] = await Promise.all([
+    getNavItems(),
+    getSiteSettings("branding") as Promise<Partial<BrandingSettings>>,
+  ]);
+  // f_auto,q_auto,c_limit,w_480 — the header displays this at ~32px tall
+  // (~180px wide); 480 leaves headroom for retina without shipping
+  // anywhere near the multi-thousand-px master the upload script keeps.
+  const logoLightUrl = cldUrl(branding.logoLightPublicId || DEFAULT_LOGO_LIGHT_PUBLIC_ID, "f_auto,q_auto,c_limit,w_480");
+  const logoDarkUrl = cldUrl(branding.logoDarkPublicId || DEFAULT_LOGO_DARK_PUBLIC_ID, "f_auto,q_auto,c_limit,w_480");
 
   return (
     <html
@@ -100,7 +110,7 @@ export default async function RootLayout({
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(organizationJsonLd()) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(websiteJsonLd()) }} />
         <RouteProgressBar />
-        <SiteChrome navItems={navItems}>{children}</SiteChrome>
+        <SiteChrome navItems={navItems} logoLightUrl={logoLightUrl} logoDarkUrl={logoDarkUrl}>{children}</SiteChrome>
       </body>
     </html>
   );

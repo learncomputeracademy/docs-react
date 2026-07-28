@@ -1,5 +1,10 @@
 const CLOUD = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
 
+// Uploaded by scripts/upload-logo.mjs; overridable per variant from
+// /admin/settings (branding section) — see lib/admin/branding.ts.
+export const DEFAULT_LOGO_LIGHT_PUBLIC_ID = 'docs/img/site/logo-light'
+export const DEFAULT_LOGO_DARK_PUBLIC_ID = 'docs/img/site/logo-dark'
+
 export function cldUrl(publicId: string, transform = 'f_auto,q_auto') {
   return `https://res.cloudinary.com/${CLOUD}/image/upload/${transform}/${publicId}`
 }

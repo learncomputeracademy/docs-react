@@ -19,7 +19,8 @@ around that on this plan, so the split is load-bearing, not a preference. See D-
 | PDFs, ZIPs <10MB — worksheets, cheat sheets, syllabi | **Cloudinary** `raw/upload` | same account, same CDN, one place to look |
 | **Any file ≥10MB, any type** | **Cloudflare R2** (`lca-docs-files` bucket) | Cloudinary free tier hard-rejects it; R2 free tier is 10 GB storage, **$0 egress forever** — right fit for repeatedly-downloaded course handouts |
 | Audio (`claps.mp3`, 436 KB) | **Cloudinary** `video/upload` | Cloudinary treats audio as video |
-| Logo, favicons, OG image | **`public/`** in this repo | needed at build time; a few KB |
+| Favicons, OG image | **`public/`** in this repo | needed at build time; a few KB |
+| Header logo (light/dark variants) | **Cloudinary** `docs/img/site/logo-{light,dark}` | swapped from `public/logo-icon.png` — admin-replaceable without a redeploy (`/admin/settings`, D-52), which a build-time file can't be |
 
 **`public/` stays under 5 MB.** If it grows past that, something is in the wrong place.
 
