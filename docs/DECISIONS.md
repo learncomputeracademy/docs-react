@@ -2510,6 +2510,61 @@ wrong the moment this shipped, so left uncorrected it would have misled the next
 
 ---
 
+## D-53 · Computer Basics rebuild, pilot lesson (D-52's content pipeline in real use)
+
+First real run of `docs/CONTENT-PIPELINE.md` (D-... the pipeline doc itself, written this
+session before this run). The existing `basics` category held exactly one doc,
+`basics/computer-fundamentals`, 104 blocks stacking 16 chapters via headings inside a single
+page — not 16 real lessons. User asked to delete it and rebuild as real separate lessons.
+
+**Outline approved before writing anything** (pipeline §0's own rule): 16 lessons, same
+topic breadth as the old page, sequenced intro → history → hardware/I-O/memory/storage →
+number systems → software/OS → networking/internet/security → applications → quantum/AI.
+Old URL `/basics/computer-fundamentals` gets a 301 to the new `/basics/what-is-a-computer`
+once the full rebuild is done — deferred, not part of this run, since the old page stays
+live and useful until every replacement lesson actually exists.
+
+**Given a 30-minute time budget, built one pilot lesson end-to-end** rather than rushing
+all 16 — `basics/what-is-a-computer`, EN + BN, one image, published, fully verified — as a
+calibration checkpoint on voice, translation quality, and image style before committing to
+doing it 15 more times. The old doc was deliberately left untouched; the pilot coexists
+alongside it (`Computer Basics` sidebar temporarily shows both). The full 16-lesson rebuild,
+the soft-delete of the old doc, and the redirect are explicitly not done yet.
+
+**Two real, non-obvious things this run found, both fed back into `docs/CONTENT-PIPELINE.md`
+immediately rather than left for the next run to rediscover:**
+
+1. **`docs.path` has no unique constraint in the live database.**
+   `.upsert(row, { onConflict: 'path' })` — the exact pattern
+   `scripts/create-programming-section.mjs` used — fails outright: "no unique or exclusion
+   constraint matching the ON CONFLICT specification." `scripts/create-basics-content.mjs`
+   uses select-then-insert/update instead, which works regardless of what constraints do or
+   don't exist, and is now the corrected reference pattern in the pipeline doc.
+2. **Bengali heading anchors must be passed explicitly, not derived from Bengali text.** The
+   `h()` block builder's anchor auto-derivation lowercases and slugifies the *text* — running
+   that over Bengali text produces a Bengali-Unicode slug that would never match the English
+   anchor, breaking every same-page TOC deep link and any future cross-locale link. Added an
+   optional third `anchor` param to `h()`; every BN heading in the pilot passes the literal
+   English anchor string, verified live by clicking a Bengali TOC entry and confirming the
+   URL fragment (`#the-four-basic-operations`) matches the English page exactly.
+
+**Image**: Magnific `gpt-2`, 1k/medium (130 credits), a labelled Input→Process→Output→Storage
+cycle diagram in the house flat-vector/orange-accent style. Visually checked before upload
+(no garbled text, correct labels, on-brand) — this is not skippable, `gpt-2` can occasionally
+mis-render label text and the pipeline has no automated check for that, only a human look.
+Uploaded to `docs/img/basics/what-is-a-computer-1`, real dimensions (1024×768) read from the
+Cloudinary response and used in both locales' image blocks.
+
+**Verified**: `--dry-run` read before the real run; both `docs` and `doc_translations` rows
+written and confirmed via the live Vercel deployment (no local rebuild needed — ISR +
+the Supabase Database Webhook picked it up automatically); view-source contains the lesson
+text in both locales (SEO gate, CLAUDE.md §3.3); the Cloudinary image renders with correct
+`f_auto,q_auto` + responsive `2x` srcset; sidebar shows the new lesson before the old one
+(`sort_order`); no console errors on either locale; the BN TOC anchor-matching link tested
+live and confirmed.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2523,6 +2578,7 @@ wrong the moment this shipped, so left uncorrected it would have misled the next
 | ~~O-18~~ | ~~Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav~~ — **resolved**, see O-13 | — |
 | ~~O-19a~~ | ~~Add "Grid Generator" to the header nav~~ — **resolved**, see O-13 | — |
 | O-19b | Confirm live multi-cell drag-to-place on the Grid Generator works with a real mouse — this session's browser-automation harness couldn't exercise it (see D-50's Verified note) | Single-cell placement is confirmed working; multi-cell drag is unconfirmed rather than known-broken |
+| O-20 | Finish the Computer Basics rebuild (D-53) — 15 more lessons (`generations-of-computers` through `artificial-intelligence-basics`, full list in the approved outline), then soft-delete `basics/computer-fundamentals` and add its 301 to `/basics/what-is-a-computer` in `next.config.ts` | The category is in a deliberate half-done state: pilot lesson live, old 16-chapter page still live too, both showing in the sidebar simultaneously until this is finished |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

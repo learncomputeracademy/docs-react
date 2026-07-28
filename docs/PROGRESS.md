@@ -33,12 +33,18 @@ promised-and-missing anymore. **Eight tools total now**, and with Session 27's G
 Generator, **one of Tier 1's two roadmap tools is built** — CSS Units Playground is the
 other, still unbuilt.
 
+**Computer Basics rebuild is IN PROGRESS, half-done on purpose** (D-53, Session 30) — the
+old single 16-chapter page (`basics/computer-fundamentals`) is being replaced with 16 real
+lessons. Only lesson 1 (`what-is-a-computer`) exists so far, live in both locales; the old
+page is deliberately still live too until the other 15 are written — see O-20.
+
 ### ⚡ Next action
 
 **Bengali translation effort is done.** Status per category (`doc_translations` rows,
 locale `bn`), all verified against the DB:
 - `programming` (19/19) — ✅ done.
-- `basics` (1/1) — ✅ done.
+- `basics` (2/2) — ✅ done, but the category is mid-rebuild (D-53/O-20) — this count moves
+  as new lessons are added, unlike every other row here which is a finished category.
 - `html` (36/36) — ✅ done, all verified rendering at `/bn/html/*`.
 - `css` (35/35) — ✅ done.
 - `javascript` (28/28) — ✅ done.
@@ -112,6 +118,37 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 30: content pipeline written + first real run (D-52, D-53)
+
+**Done**
+
+- Wrote `docs/CONTENT-PIPELINE.md` — the standing runbook for adding lesson content, settled
+  with the user: always bilingual, published immediately, images generated in the same run
+  via Magnific `gpt-2`, flat-vector brand-orange house style. Registered in CLAUDE.md's
+  record table. Saved two memory files (`magnific-image-model`, `lca-content-pipeline`).
+- User asked to delete the old `basics` category's single 16-chapter page and rebuild it as
+  16 real lessons. Proposed and got approval on the full outline before writing anything
+  (pipeline's own §0 rule). Given a stated 30-minute time budget, built **one pilot lesson**
+  end-to-end instead of rushing all 16 — `basics/what-is-a-computer`, EN + BN, one Magnific
+  image, published, fully verified live on the Vercel deployment.
+- Found and fixed two real bugs in the pipeline doc itself before they could repeat across
+  15 more lessons: `docs.path` has no unique DB constraint (`.upsert(...,{onConflict:'path'})`
+  fails — switched to select-then-insert/update), and Bengali heading anchors must be passed
+  explicitly rather than derived from Bengali text (added an `anchor` override param to the
+  `h()` block builder) — verified live by clicking a BN TOC link and confirming the URL
+  fragment matches the English anchor.
+- Full build notes in `docs/DECISIONS.md` D-53.
+
+**Not done**
+
+- 15 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
+  message from earlier in the session). Old `basics/computer-fundamentals` deliberately left
+  live and un-redirected until the full rebuild is done — see O-20.
+- Not deployed via a manual step — this one went live automatically through the existing
+  Supabase Database Webhook + ISR, no local build/push needed for content changes. The
+  *pipeline doc and scripts themselves* are still local commits only, pending push
+  authorization same as every other code change this project makes.
 
 ## 2026-07-28 — Session 29: real wordmark logo, light/dark, admin-replaceable (D-52)
 
