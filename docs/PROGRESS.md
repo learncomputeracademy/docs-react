@@ -22,14 +22,10 @@ Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the
 (008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
 stale-cache gap this exposed is documented there).
 
-**Seven tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
-working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24), "Scrollbar
-App" (Session 25), "CSS Specificity Calculator" and "Colour & Contrast Studio" (both Session
-26), "Grid Generator" (Session 27) — no migration needed, done via Admin → Menu. All are
-reachable from `/tools` regardless. **Note**: a live browser pass in Session 24 showed a
-top-level "Tools" dropdown in the header, not the "Resources" sub-menu earlier sessions
-described — the nav appears to have been restructured in the admin panel since D-43/D-44.
-Confirm the actual current structure before adding new entries (see O-15/O-17/O-18/O-19).
+**All eight tools are in the header nav** — confirmed live in the admin Menu screen in
+Session 28: a top-level "Tools" (টুলস) dropdown holds Box Model, Box Shadow, Gradient,
+Flexbox, Grid, Colour & Contrast, Scrollbar, Specificity. The user added these by hand
+between sessions; O-13 through O-19a in `docs/DECISIONS.md` are closed.
 
 **All four tools the old Jekyll nav ever advertised now exist** (D-48) — Box Model, Box
 Shadow Generator, Gradient Generator, and Scrollbar App. Nothing from the old site is
@@ -116,6 +112,35 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 28: optimistic UI for admin reordering (D-51)
+
+**Done**
+
+- User reported the admin Menu screen (reorder/indent/outdent) and doc-within-category
+  reordering both visibly waited on the server round trip before the list updated. An
+  inventory of every admin drag/reorder screen found exactly two gaps (category reordering
+  in the docs list was already optimistic, and became the reference pattern):
+  - `components/admin/nav-manager.tsx` — rewired every mutation (move, indent/outdent,
+    create, update, delete) through React 19's `useOptimistic`, dispatched synchronously
+    before the server `await`. Indent/outdent's optimistic `sort_order` prediction is
+    checked against `setNavParent`'s actual sibling-count logic in `lib/admin/nav.ts` so
+    the optimistic position matches what the server will assign.
+  - `components/admin/docs-list.tsx` — added `docOrderByCategory` (one order array per
+    category, matching the existing `categoryOrder` pattern) so doc-within-category drag
+    and up/down-arrow reordering update the row list immediately too.
+- Discovered while testing: all eight tools are already in the live header nav (a top-level
+  "Tools" dropdown) — the user added them by hand between sessions. Closed O-13 through
+  O-19a in `docs/DECISIONS.md`, which still listed them as open.
+- Full build notes in `docs/DECISIONS.md` D-51.
+
+**Not done**
+
+- Did not click-test the reorder buttons live — that would be a real write to the
+  production `nav_items` table (the live site's actual header nav), so it wasn't done
+  without asking first. Verified via `tsc --noEmit`, a full clean rebuild, and line-by-line
+  review against the server actions' actual behavior instead.
+- Not deployed. Local commit only, pending explicit push authorization.
 
 ## 2026-07-28 — Session 27: Grid Generator (D-50)
 

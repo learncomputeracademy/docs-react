@@ -2369,18 +2369,86 @@ exactly what the verified single-cell case already exercises end to end, just wi
 
 ---
 
+## D-51 · Optimistic UI for admin reordering (nav Menu + docs-within-category)
+
+User complaint: reordering/nesting items in the admin Menu screen, and reordering docs
+within a category, both visibly waited a few seconds — the row snapped back to its old
+position until the mutation resolved and `router.refresh()` re-rendered with fresh server
+data. An inventory (background Explore agent) of every drag/reorder/position-change UI
+under `app/admin/**` found exactly two places with this gap:
+
+- **`components/admin/nav-manager.tsx`** — every mutation (move up/down, indent/outdent,
+  create, update, delete) went through a shared `run()` that awaited the server action and
+  then called `router.refresh()`, with no local list state at all — the flattened `roots`/
+  `childrenOf`/render list was derived straight from the `items` prop every time. Nothing
+  moved until the full round trip landed.
+- **`components/admin/docs-list.tsx`** — category-level reordering was *already* optimistic
+  (a `categoryOrder` local-state array, set immediately before the transition, with a
+  comment explaining exactly why: "so a reorder doesn't need to wait on `router.refresh()`
+  to feel instant"). Doc-within-category reordering (`persistOrder`/`onDragEnd`/
+  `moveByOne`) had no equivalent — it derived order straight from `docs[].sort_order`,
+  same gap as the nav manager.
+
+**Fix, nav manager:** React 19's `useOptimistic(items, navReducer)` — the exact tool for
+this shape of problem. Every action (`move`, `setParent`, `update`, `delete`, `create`) is
+dispatched via `applyOptimistic()` synchronously at the top of the existing `startTransition`
+block, before `await`ing the server call. `move` recomputes `sort_order` from the reordered
+id list; `setParent` (indent/outdent) predicts the new `sort_order` the server will assign
+(`existing sibling count + 1` — mirrors `setNavParent`'s own `count`-then-`insert-at-end`
+logic exactly, so the optimistic position matches the eventual real one); `delete`
+mirrors the DB's on-delete cascade (migration 008) by also dropping optimistic children;
+`create` shows a `temp-${Date.now()}`-id placeholder that's invisibly swapped for the real
+row once `router.refresh()` lands. On success, the transition's `router.refresh()` delivers
+a new `items` prop that already matches the optimistic state, so there's no revert-then-
+reapply flicker — React only clears the optimistic overlay once the new base state commits,
+same render. On failure (the `catch` branch — no `router.refresh()` call), the transition
+ends without a new `items` prop ever arriving, so React reverts to the pre-action list
+automatically — no manual rollback code needed. `onCreate`/`onUpdate` also close their forms
+(`setCreating(false)`/`setEditingId(null)`) synchronously rather than after the `await`, so
+the form UI itself doesn't lag either.
+
+**Fix, docs list:** copied the already-working `categoryOrder` pattern one level down —
+`docOrderByCategory: Map<categoryId, string[]>`, one order array per category (`sort_order`
+is scoped per category server-side, not global, so a flat single array would've been wrong).
+`persistOrder` now takes a `categoryId` and calls `setDocOrderByCategory` immediately, before
+the transition. The `groups` memo overlays this order onto the server-sorted list, falling
+back to server order for any doc id not yet in the map (a doc created or moved into the
+category since the map was initialized) — a small robustness addition beyond what
+`categoryOrder` itself does, since docs churn (create/delete/move) far more often than
+categories do.
+
+**Scope decision:** the user's complaint was specifically about position/reorder actions.
+Publish/unpublish, delete, and bulk-publish in the same file already show their effect only
+after `router.refresh()` too, but weren't flagged and aren't "position" changes — left as-is
+rather than expanding scope unrequested. The Explore agent's inventory also confirmed no
+other admin screen (categories, resources, media, pages) has any reorder UI at all.
+
+**Verified:** `tsc --noEmit` clean; full `rm -rf .next` rebuild clean, `/admin/menu` and
+`/admin/docs` both still render (`ƒ` dynamic, as before — no route-type regression). **Not
+live-clicked**: reordering in the admin Menu screen writes directly to the production
+Supabase `nav_items` table and changes the real site's live header nav — clicking move/
+indent/delete buttons to test would be a real, if reversible, production mutation, so it
+wasn't done without asking first. Verification here is the type check, the clean build, and
+line-by-line review of the `useOptimistic` reducer against each server action's actual
+behavior (`setNavParent`'s sibling-count logic in particular, checked in `lib/admin/nav.ts`
+to make sure the optimistic `sort_order` prediction matches what the server will actually
+assign).
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
 | ~~O-12~~ | ~~Run `supabase/migrations/008-nav-submenu.sql`~~ — **resolved.** User ran it; the sub-menu still didn't show due to a stale `nav` cache tag (direct-SQL write bypassed `revalidateTag`) — fixed via the `/api/revalidate` webhook, see D-44 | — |
-| O-13 | Add "Box Shadow Generator" as a second child of Resources in Admin → Menu (D-44) — no migration, just the existing nesting UI | Box Shadow Generator page works standalone regardless; just won't appear in the header nav until added |
-| O-14 | Add "Gradient Generator" as a third child of Resources in Admin → Menu (D-45) — no migration | Same as O-13: page works standalone, just missing from the header nav until added |
-| O-15 | Add "Flexbox Playground" to the header nav via Admin → Menu (D-46) — no migration. **Note**: live browser pass this session showed a top-level "Tools" dropdown in the header (English) / "টুলস" (Bengali), not the "Resources" sub-menu D-43/D-44/D-45 described — the user appears to have restructured the nav in the admin panel between sessions. Confirm actual current structure before adding | Same as O-13/O-14: page works standalone regardless |
+| ~~O-13~~ | ~~Add "Box Shadow Generator" to the header nav~~ — **resolved.** Confirmed live in the admin Menu screen (Session 28): all eight tools now sit under a top-level "Tools" (টুলস) dropdown — Box Model, Box Shadow, Gradient, Flexbox, Grid, Colour & Contrast, Scrollbar, Specificity. User added these by hand between sessions, not tracked here as it happened | — |
+| ~~O-14~~ | ~~Add "Gradient Generator" to the header nav~~ — **resolved**, see O-13 | — |
+| ~~O-15~~ | ~~Add "Flexbox Playground" to the header nav~~ — **resolved**, see O-13. The "Tools" dropdown structure this entry flagged as unconfirmed is exactly the live structure | — |
 | O-16 | Doc lesson pages' browser tab title is duplicated — `"<Title> \| Learn Computer Academy \| Learn Computer Academy"`, confirmed on `/css/pseudo-elements` (D-48), pre-existing and unrelated to any /tools work. Not investigated | Cosmetic (browser tab / bookmark title only) — does not affect page content, SEO `<title>` may or may not share the bug, unconfirmed |
-| O-17 | Add "Scrollbar App" to the header nav via Admin → Menu (D-48) — no migration | Page works standalone regardless; just missing from the header nav until added |
-| O-18 | Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav via Admin → Menu (D-49) — no migration | Same as O-13/O-14/O-15/O-17: both pages work standalone, and are now discoverable via `/tools` regardless, but still missing from the header nav dropdown itself |
-| O-19 | Add "Grid Generator" to the header nav via Admin → Menu (D-50) — no migration. Also confirm live multi-cell drag-to-place works with a real mouse — the browser-automation harness this session couldn't exercise it (see D-50's Verified note) | Page works standalone and is discoverable via `/tools` regardless; single-cell placement is confirmed working, multi-cell drag is unconfirmed rather than known-broken |
+| ~~O-17~~ | ~~Add "Scrollbar App" to the header nav~~ — **resolved**, see O-13 | — |
+| ~~O-18~~ | ~~Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav~~ — **resolved**, see O-13 | — |
+| ~~O-19a~~ | ~~Add "Grid Generator" to the header nav~~ — **resolved**, see O-13 | — |
+| O-19b | Confirm live multi-cell drag-to-place on the Grid Generator works with a real mouse — this session's browser-automation harness couldn't exercise it (see D-50's Verified note) | Single-cell placement is confirmed working; multi-cell drag is unconfirmed rather than known-broken |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
