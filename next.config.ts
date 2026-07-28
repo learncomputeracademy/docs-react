@@ -8,6 +8,10 @@ const nextConfig: NextConfig = {
     return [
       { source: '/box-model', destination: '/tools/box-model', permanent: true },
       { source: '/box-shadow-generator', destination: '/tools/box-shadow-generator', permanent: true },
+      // Old link had a trailing slash (/gradient/); trailingSlash:false
+      // (docs/URLS.md R5) makes Next redirect that to /gradient first, so
+      // this one entry catches it.
+      { source: '/gradient', destination: '/tools/gradient', permanent: true },
     ]
   },
   images: {

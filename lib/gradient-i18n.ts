@@ -1,0 +1,221 @@
+import type { Locale } from './types'
+
+// Same convention as box-model-i18n.ts / box-shadow-i18n.ts: West Bengal /
+// Indian Bengali, CSS property and function names stay English inside
+// Bengali sentences.
+export const GRADIENT_STRINGS = {
+  en: {
+    title: 'CSS Gradient Generator',
+    subtitle:
+      'Build linear, radial and conic gradients with unlimited colour stops, and see the difference real colour-space interpolation makes — most tools only offer the muddy default.',
+    lessonCta: 'Browse the CSS lessons',
+
+    type: 'Gradient type',
+    typeLinear: 'Linear',
+    typeRadial: 'Radial',
+    typeConic: 'Conic',
+
+    angle: 'Angle',
+    angleLinearHint: 'Direction the gradient travels toward. 180° is top-to-bottom, 90° is left-to-right.',
+    angleConicHint: 'Where the colour wheel starts from.',
+
+    shape: 'Shape',
+    shapeCircle: 'Circle',
+    shapeEllipse: 'Ellipse',
+    size: 'Size',
+    sizeClosestSide: 'Closest side',
+    sizeClosestCorner: 'Closest corner',
+    sizeFarthestSide: 'Farthest side',
+    sizeFarthestCorner: 'Farthest corner',
+    position: 'Position',
+    positionX: 'Center X',
+    positionY: 'Center Y',
+    dragPositionHint: 'Drag the crosshair on the canvas to move the center.',
+
+    stops: 'Colour stops',
+    addStop: 'Add stop',
+    deleteStop: 'Delete',
+    stop: 'Stop',
+    stopPosition: 'Position',
+    clickBarHint: 'Click the bar to add a stop. Drag a handle to move one.',
+    minStopsHint: 'A gradient needs at least two stops.',
+
+    color: 'Colour',
+    colorDesc: 'This stop’s colour and opacity. A transparent stop lets whatever is behind the gradient show through at that point.',
+    opacity: 'Opacity',
+    eyedropper: 'Pick from screen',
+    colorFormat: 'Colour format',
+    hex8: 'Hex',
+    rgba: 'rgba()',
+    hsl: 'hsl()',
+    oklch: 'oklch()',
+
+    interpolation: 'Interpolation used in the copied CSS',
+    interpolationHint:
+      'Both previews below always show sRGB and OKLCH side by side — this only picks which one goes into the code you copy.',
+    srgb: 'sRGB (default)',
+    oklchOption: 'OKLCH',
+    comparisonTitle: 'sRGB vs OKLCH — same stops, real browser rendering',
+    comparisonHint:
+      'sRGB is what every gradient tool defaults to: colours blend in a straight line through RGB space, which between two saturated, very different hues (say orange and blue) passes through a dull, muddy grey. OKLCH blends through a perceptual colour space instead — the same two colours pass through vivid, in-between hues rather than grey. Both renders here are the browser doing the actual interpolation via the CSS `in oklch` syntax, not a simulation.',
+    oklchUnsupportedNote: 'If the OKLCH preview looks identical to the sRGB one, this browser may not support the `in oklch` interpolation syntax yet — it falls back silently.',
+
+    canvas: 'Preview',
+    canvasSize: 'Preview size',
+    canvasBackground: 'Canvas background',
+    canvasBgChecker: 'Checkerboard',
+    canvasBgSolid: 'Solid',
+    canvasDark: 'Dark preview',
+    zoom: 'Zoom',
+    radius: 'Corner radius',
+
+    generatedCss: 'Generated CSS',
+    formatCss: 'CSS',
+    formatTailwind: 'Tailwind',
+    formatCssVar: 'CSS variable',
+    formatReact: 'React style',
+    copy: 'Copy',
+    copied: 'Copied',
+
+    pasteImport: 'Paste a gradient to import it',
+    pasteImportPlaceholder: 'linear-gradient(45deg, #ff7e5f 0%, #6a3093 100%)',
+    pasteImportButton: 'Import',
+    pasteImportError: 'Could not parse that as a linear/radial/conic gradient.',
+
+    undo: 'Undo',
+    redo: 'Redo',
+    reset: 'Reset',
+    copyShareLink: 'Copy share link',
+    shareLinkCopied: 'Link copied — it reproduces this exact gradient',
+
+    presets: 'Presets',
+    presetSunset: 'Sunset',
+    presetSunsetNote: 'Three stops, not two — the middle colour is what keeps a sunset from looking like a flat blend.',
+    presetOcean: 'Ocean',
+    presetOceanNote: 'Two-stop linear gradient — the simplest gradient there is, and still enough for most UI backgrounds.',
+    presetForest: 'Forest',
+    presetForestNote: 'A darker start and lighter end reads as depth, not just a colour change.',
+    presetCandy: 'Candy',
+    presetCandyNote: 'Three saturated stops on a 45° diagonal — try switching this one to OKLCH interpolation and compare.',
+    presetUiSubtle: 'Subtle UI background',
+    presetUiSubtleNote: 'Almost the same colour at both ends. This is the gradient most production UIs actually ship — barely visible, adds depth without calling attention to itself.',
+    presetGlass: 'Glass',
+    presetGlassNote: 'White at low opacity, fading to nearly transparent — pair this with a `backdrop-filter: blur()` over a photo for the frosted-glass look.',
+    presetMesh: 'Mesh-ish',
+    presetMeshNote: 'A real CSS mesh gradient needs several gradients stacked in one background-image. This is one off-centre radial gradient with semi-transparent stops — cheaper, and close enough for most cards.',
+    presetMono: 'Mono conic',
+    presetMonoNote: 'Conic gradients sweep around a center point instead of across a line — this is what a loading-spinner gradient is built from.',
+
+    hoverHint: 'Hover or tap a field to see what it does.',
+    perfNote: 'Radial and conic gradients with many stops cost more paint time than a two-stop linear one — fine for one card, worth checking at scale.',
+  },
+  bn: {
+    title: 'CSS গ্রেডিয়েন্ট জেনারেটর',
+    subtitle:
+      'অসীম সংখ্যক কালার স্টপ দিয়ে linear, radial আর conic গ্রেডিয়েন্ট তৈরি করুন, আর দেখুন real color-space interpolation কতটা পার্থক্য তৈরি করে — বেশিরভাগ টুল শুধু ঘোলাটে ডিফল্টটাই দেয়।',
+    lessonCta: 'CSS পাঠগুলো দেখুন',
+
+    type: 'গ্রেডিয়েন্টের ধরন',
+    typeLinear: 'Linear',
+    typeRadial: 'Radial',
+    typeConic: 'Conic',
+
+    angle: 'অ্যাঙ্গেল',
+    angleLinearHint: 'যে দিকে গ্রেডিয়েন্ট এগোয়। ১৮০° মানে উপর-থেকে-নিচ, ৯০° মানে বাঁ-থেকে-ডান।',
+    angleConicHint: 'কালার হুইল কোথা থেকে শুরু হবে।',
+
+    shape: 'আকার',
+    shapeCircle: 'বৃত্ত',
+    shapeEllipse: 'উপবৃত্ত',
+    size: 'মাপ',
+    sizeClosestSide: 'নিকটতম পাশ',
+    sizeClosestCorner: 'নিকটতম কোণ',
+    sizeFarthestSide: 'দূরতম পাশ',
+    sizeFarthestCorner: 'দূরতম কোণ',
+    position: 'অবস্থান',
+    positionX: 'কেন্দ্র X',
+    positionY: 'কেন্দ্র Y',
+    dragPositionHint: 'কেন্দ্র সরাতে ক্যানভাসের ক্রসহেয়ারটি টেনে আনুন।',
+
+    stops: 'কালার স্টপ',
+    addStop: 'স্টপ যোগ করুন',
+    deleteStop: 'মুছুন',
+    stop: 'স্টপ',
+    stopPosition: 'অবস্থান',
+    clickBarHint: 'নতুন স্টপ যোগ করতে বারে ক্লিক করুন। সরাতে হ্যান্ডেল টেনে আনুন।',
+    minStopsHint: 'একটি গ্রেডিয়েন্টে অন্তত দুটি স্টপ লাগবে।',
+
+    color: 'রং',
+    colorDesc: 'এই স্টপের রং আর অপাসিটি। কোনো স্টপ স্বচ্ছ হলে সেই বিন্দুতে গ্রেডিয়েন্টের পেছনে যা আছে তা দেখা যাবে।',
+    opacity: 'অপাসিটি',
+    eyedropper: 'স্ক্রিন থেকে তুলুন',
+    colorFormat: 'রঙের ফরম্যাট',
+    hex8: 'Hex',
+    rgba: 'rgba()',
+    hsl: 'hsl()',
+    oklch: 'oklch()',
+
+    interpolation: 'কপি করা CSS-এ যে interpolation ব্যবহার হবে',
+    interpolationHint:
+      'নিচের দুটো প্রিভিউ সবসময় sRGB আর OKLCH পাশাপাশি দেখায় — এটি শুধু ঠিক করে কোনটি আপনার কপি করা কোডে যাবে।',
+    srgb: 'sRGB (ডিফল্ট)',
+    oklchOption: 'OKLCH',
+    comparisonTitle: 'sRGB বনাম OKLCH — একই স্টপ, আসল ব্রাউজার রেন্ডারিং',
+    comparisonHint:
+      'প্রতিটি গ্রেডিয়েন্ট টুল ডিফল্টভাবে sRGB ব্যবহার করে: রং RGB স্পেসের মধ্য দিয়ে সরলরেখায় মিশে যায়, যা দুটি গাঢ়, খুব আলাদা hue-এর (যেমন কমলা আর নীল) মাঝে একটি নিষ্প্রাণ, ঘোলাটে ধূসর রঙের মধ্য দিয়ে যায়। OKLCH তার বদলে একটি perceptual color space দিয়ে মেশে — একই দুটি রং ধূসরের বদলে উজ্জ্বল, মাঝামাঝি hue-এর মধ্য দিয়ে যায়। এখানকার দুটো রেন্ডারই ব্রাউজার আসলেই CSS-এর `in oklch` সিনট্যাক্স দিয়ে interpolate করছে, কোনো সিমুলেশন নয়।',
+    oklchUnsupportedNote: 'OKLCH প্রিভিউ যদি sRGB-র মতোই দেখায়, তাহলে হয়তো এই ব্রাউজার এখনও `in oklch` সিনট্যাক্স সাপোর্ট করে না — এটি নিঃশব্দে ফলব্যাক করে।',
+
+    canvas: 'প্রিভিউ',
+    canvasSize: 'প্রিভিউর মাপ',
+    canvasBackground: 'ক্যানভাস ব্যাকগ্রাউন্ড',
+    canvasBgChecker: 'চেকারবোর্ড',
+    canvasBgSolid: 'সলিড',
+    canvasDark: 'ডার্ক প্রিভিউ',
+    zoom: 'জুম',
+    radius: 'কোণের বাঁক',
+
+    generatedCss: 'তৈরি হওয়া CSS',
+    formatCss: 'CSS',
+    formatTailwind: 'Tailwind',
+    formatCssVar: 'CSS ভেরিয়েবল',
+    formatReact: 'React style',
+    copy: 'কপি',
+    copied: 'কপি হয়েছে',
+
+    pasteImport: 'একটি গ্রেডিয়েন্ট পেস্ট করে ইমপোর্ট করুন',
+    pasteImportPlaceholder: 'linear-gradient(45deg, #ff7e5f 0%, #6a3093 100%)',
+    pasteImportButton: 'ইমপোর্ট',
+    pasteImportError: 'এটিকে linear/radial/conic গ্রেডিয়েন্ট হিসেবে বোঝা যায়নি।',
+
+    undo: 'আনডু',
+    redo: 'রিডু',
+    reset: 'রিসেট',
+    copyShareLink: 'শেয়ার লিংক কপি করুন',
+    shareLinkCopied: 'লিংক কপি হয়েছে — এটি ঠিক এই গ্রেডিয়েন্টটিই আবার তৈরি করবে',
+
+    presets: 'প্রিসেট',
+    presetSunset: 'সূর্যাস্ত',
+    presetSunsetNote: 'দুটো নয়, তিনটে স্টপ — মাঝের রংটাই সূর্যাস্তকে একটা সমতল ব্লেন্ডের মতো দেখানো থেকে আটকায়।',
+    presetOcean: 'সমুদ্র',
+    presetOceanNote: 'দুই-স্টপের linear গ্রেডিয়েন্ট — সবচেয়ে সহজ গ্রেডিয়েন্ট, তবু বেশিরভাগ UI ব্যাকগ্রাউন্ডের জন্য যথেষ্ট।',
+    presetForest: 'বন',
+    presetForestNote: 'গাঢ় শুরু আর হালকা শেষ গভীরতার মতো লাগে, শুধু রং বদল নয়।',
+    presetCandy: 'ক্যান্ডি',
+    presetCandyNote: '৪৫° তির্যক রেখায় তিনটি গাঢ় স্টপ — এটি OKLCH interpolation-এ বদলে তুলনা করে দেখুন।',
+    presetUiSubtle: 'হালকা UI ব্যাকগ্রাউন্ড',
+    presetUiSubtleNote: 'দুই প্রান্তে প্রায় একই রং। বেশিরভাগ প্রোডাকশন UI আসলে এই গ্রেডিয়েন্টটিই ব্যবহার করে — প্রায় অদৃশ্য, নজর না কেড়েও গভীরতা যোগ করে।',
+    presetGlass: 'কাচ',
+    presetGlassNote: 'কম অপাসিটির সাদা, প্রায় স্বচ্ছতার দিকে মিলিয়ে যাচ্ছে — কোনো ছবির উপর `backdrop-filter: blur()`-এর সাথে মিলিয়ে ফ্রস্টেড-গ্লাস লুকের জন্য ব্যবহার করুন।',
+    presetMesh: 'মেশ-সদৃশ',
+    presetMeshNote: 'সত্যিকারের CSS mesh গ্রেডিয়েন্টে একটি background-image-এ একাধিক গ্রেডিয়েন্ট স্তরে সাজাতে হয়। এটি অর্ধ-স্বচ্ছ স্টপসহ একটি কেন্দ্র-সরানো radial গ্রেডিয়েন্ট — সস্তা, আর বেশিরভাগ কার্ডের জন্য যথেষ্ট কাছাকাছি।',
+    presetMono: 'মনো Conic',
+    presetMonoNote: 'Conic গ্রেডিয়েন্ট একটি রেখা বরাবর নয়, কেন্দ্রবিন্দুর চারপাশে ঘোরে — লোডিং-স্পিনারের গ্রেডিয়েন্ট এভাবেই তৈরি হয়।',
+
+    hoverHint: 'কোন ফিল্ড কী করে দেখতে তার উপর মাউস রাখুন বা ট্যাপ করুন।',
+    perfNote: 'অনেক স্টপসহ radial আর conic গ্রেডিয়েন্ট দুই-স্টপের linear-এর চেয়ে বেশি পেইন্ট-টাইম খরচ করে — একটি কার্ডের জন্য ঠিক আছে, বড় স্কেলে যাচাই করে নেওয়া ভালো।',
+  },
+} as const
+
+export function gs(locale: Locale) {
+  return GRADIENT_STRINGS[locale]
+}
