@@ -86,16 +86,18 @@ or a broken hydration pass reads as a clean console.
 | Scrollbar App | `/tools/scrollbar` | `/scrollbar/` → 301 | D-48 · Session 25 |
 | CSS Specificity Calculator | `/tools/specificity` | *(none — new)* | D-49 · Session 26 |
 | Colour & Contrast Studio | `/tools/colour` | *(none — new)* | D-49 · Session 26 |
+| Grid Generator | `/tools/grid` | *(none — new)* | D-50 · Session 27 |
 
-⚠️ **Not pushed yet.** The two Session 26 rows above are committed locally only (see D-49) —
-they don't exist on the live site until pushed. Once they are, add both to the header nav
-via Admin → Menu (O-18); every earlier tool has already had its nav entry added by hand
-through the live admin backend, so this note only concerns these two.
+⚠️ **Not pushed yet.** The three rows above (Sessions 26–27) are committed locally only (see
+D-49, D-50) — they don't exist on the live site until pushed. Once they are, add all three
+to the header nav via Admin → Menu (O-18, O-19); every earlier tool has already had its nav
+entry added by hand through the live admin backend, so this note only concerns these three.
 
 | Tool | Live link (once pushed) |
 |---|---|
 | CSS Specificity Calculator | `https://lca-docs.vercel.app/tools/specificity` · `https://lca-docs.vercel.app/bn/tools/specificity` |
 | Colour & Contrast Studio | `https://lca-docs.vercel.app/tools/colour` · `https://lca-docs.vercel.app/bn/tools/colour` |
+| Grid Generator | `https://lca-docs.vercel.app/tools/grid` · `https://lca-docs.vercel.app/bn/tools/grid` |
 
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
@@ -188,6 +190,26 @@ Both close out Tier 1 of the original roadmap. Full build notes — including th
 luminance formula's deliberate 0.03928 threshold (not the "true" sRGB 0.04045 lib/color.ts
 uses for OKLCH) and the colour-blind simulation's documented approximation — in D-49.
 
+**Grid Generator** — the first of Tier 1's two roadmap tools; CSS Units Playground is the
+other, still unbuilt. Track model (`fr`/`px`/`auto`/`minmax()`) for both columns and rows,
+explicit 1-indexed grid-line item placement. **Real drag-to-place, not typed line numbers
+first** — the canvas is one actual `display: grid`, items and empty-cell drag markers as
+siblings in it, so dragging across empty cells previews and creates an item on release; a
+drag that crosses an already-placed item is rejected with an explanatory note rather than
+silently clipped. Existing items are click-to-select and edited with numeric line sliders,
+never drag-resized — same simplification the flexbox playground already made for `order`.
+**`grid-template-areas` is derived one-way from the layout**, never the reverse — reverse-
+parsing arbitrary typed ASCII art into a valid placement is a real constraint-solving
+problem the tool deliberately doesn't take on; duplicate names or overlapping placements
+show an explanatory note instead of a broken string. Verified against known cases (holy
+grail, an overlap, a duplicate name) in a standalone script before any UI existed. 5
+presets: Holy grail layout (the one Flexbox's flat model couldn't do), Bootstrap-style
+12-column (explicit replacement for the dropped Bootstrap grid), Dashboard, Named areas
+demo, Photo grid (documents `repeat(auto-fill, …)` dynamic track counts are out of scope).
+Three output formats — CSS, Tailwind, React style. Links to a real lesson —
+`css/display-visibility`. Full build notes, including an honest note on what the live
+browser pass could and couldn't verify for the drag interaction, in D-50.
+
 ---
 
 ## Roadmap
@@ -196,11 +218,7 @@ Ordered by value. Curriculum links are to lessons that already exist in `_docs/`
 
 ### Tier 1 — highest value, tied to existing lessons
 
-**Grid Generator** — `/tools/grid`
-Visual row/column builder with `fr`/`px`/`auto`/`minmax()`, drag items across cells, named
-areas via a text grid, `gap`. Exports real `grid-template-areas`. Together with Flexbox this
-closes the layout gap the old CSS syllabus never modernised.
-*Lessons:* `css-align`, `css-display-visibility`
+Grid Generator shipped — see the **Built** section above (D-50).
 
 **CSS Units Playground** — `/tools/units`
 One box; switch `px`/`em`/`rem`/`%`/`vw`/`vh`/`ch`. Parent-size slider **and** root-font-size

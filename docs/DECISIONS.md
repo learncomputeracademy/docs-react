@@ -2296,6 +2296,79 @@ indistinguishable pair under deuteranopia; both new lesson links (`css/colors`,
 
 ---
 
+## D-50 · Grid Generator
+
+`/tools/grid`, the first of Tier 1's two tools from `docs/TOOLS.md`'s roadmap (CSS Units
+Playground is the other, still unbuilt) and the item explicitly promised there: "drag items
+across cells."
+
+**Model** (`lib/grid.ts`): `Track = {mode: 'fr'|'px'|'auto'|'minmax', ...}`, one array each
+for `columns`/`rows`; `GridItem = {colStart, colEnd, rowStart, rowEnd, ...}`, explicit
+1-indexed exclusive-end grid lines, same convention CSS Grid itself uses. `minmax()` is
+hardcoded to px-min/fr-max — `minmax(150px, 1fr)` is overwhelmingly the common real case,
+matching the box-shadow/gradient/flexbox tools' own documented simplifications. CSS/
+Tailwind/React generators mirror `lib/flexbox.ts` line for line: only non-default
+declarations get emitted, Tailwind uses arbitrary-value brackets throughout since named
+utilities can't express arbitrary track mixes or line placement.
+
+**`grid-template-areas` is derived, one-way only** — items rasterize into a name matrix,
+never the reverse. Reverse-parsing typed ASCII art back into a valid non-overlapping
+placement is a real constraint-solving problem; deriving the string from an already-valid
+rectangle layout is filling a matrix. The pedagogical value is seeing your dragged layout
+*as* an area string, not typing one by hand. Duplicate item names and overlapping
+placements both surface as an explanatory note instead of a broken string — verified with a
+standalone Node script before any UI existed (holy-grail layout → correct 3-row area
+string; a deliberately overlapping pair → `overlap`; two items same name → `duplicate-name`
+— all three cases matched by hand).
+
+**Canvas: one grid, not two overlaid layers.** Every cell is either covered by an item or
+isn't — never both — so items and "empty cell" drag-target markers render as siblings in
+the same real `display: grid` container, using each cell's own `gridColumn`/`gridRow`
+rather than absolute-position overlays. Dragging across empty-cell markers (pointerdown
+sets an anchor, pointerenter on further markers updates the live selection while dragging,
+a window-level `pointerup` commits) previews the rectangle and creates a new item on
+release; a rectangle that crosses an already-occupied cell is rejected with an explanatory
+note rather than silently clipped. Existing items are click-to-select and edited with
+numeric line-number sliders — never drag-resized, the same simplification the flexbox
+playground already made for `order` (explicit inputs over implying positional dragging that
+isn't really what's happening).
+
+**Presets** (5, matching `docs/TOOLS.md`'s pitch): Holy grail layout (the one Flexbox's flat
+single-container model explicitly couldn't do — D-46 noted its absence there), Bootstrap-
+style 12-column (explicit callback to CLAUDE.md's note that the old site's Bootstrap grid
+was dropped entirely — this is what replaces it), Dashboard, Named areas demo (a simple 2×2
+chosen specifically to make the derived area string easy to read at a glance), Photo grid
+(documents that `repeat(auto-fill, minmax(...))` dynamic track counts are out of scope —
+fixed explicit track counts only, same "worth naming the ceiling" pattern as the minmax
+simplification above).
+
+Lesson link: `/css/display-visibility` (`/bn/css/display-visibility`) — checked against
+`scripts/url-map.json` before writing it in, not assumed from the old Jekyll permalink form
+(`css-display-visibility`). `/css/align` was also verified as a real, correct slug during
+planning but isn't used as the single CTA link — kept in mind for a future cross-reference
+if one of the alignment-property description panels ever needs one, not added speculatively
+this round.
+
+**Verified:** `tsc --noEmit` clean; full `rm -rf .next` rebuild clean, `/tools/grid` and
+`/bn/tools/grid` both `○` static; `.next/static/` grepped for secret names — no matches.
+Live browser pass, console listener attached before navigating: zero console output on
+every page touched. Single-cell drag-to-place confirmed working end-to-end (anchor → commit
+→ new item appears → area string and CSS regenerate correctly). Deleting an item correctly
+frees its cell as a drag target and the derived area string correctly shows `.` for it.
+Holy-grail preset applied and hand-checked against expected output in all three export
+formats (CSS/Tailwind/React) plus the derived `grid-template-areas` block — all matched.
+Both locales checked; `/tools` index card renders with its new icon. **Not** independently
+verified live: a true multi-cell drag crossing more than one cell, and the mid-drag overlap
+rejection path — the browser-automation harness available this session sends a drag as a
+bare press+release with no intermediate move events, so `pointerenter` never fires on
+interior cells; a real mouse fires continuous enter/leave transitions per the DOM spec as it
+crosses each cell, so this is a tooling gap rather than a known defect, but it's flagged
+here rather than silently claimed as tested. The anchor/current/commit code path itself is
+exactly what the verified single-cell case already exercises end to end, just with `anchor
+=== current`.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2307,6 +2380,7 @@ indistinguishable pair under deuteranopia; both new lesson links (`css/colors`,
 | O-16 | Doc lesson pages' browser tab title is duplicated — `"<Title> \| Learn Computer Academy \| Learn Computer Academy"`, confirmed on `/css/pseudo-elements` (D-48), pre-existing and unrelated to any /tools work. Not investigated | Cosmetic (browser tab / bookmark title only) — does not affect page content, SEO `<title>` may or may not share the bug, unconfirmed |
 | O-17 | Add "Scrollbar App" to the header nav via Admin → Menu (D-48) — no migration | Page works standalone regardless; just missing from the header nav until added |
 | O-18 | Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav via Admin → Menu (D-49) — no migration | Same as O-13/O-14/O-15/O-17: both pages work standalone, and are now discoverable via `/tools` regardless, but still missing from the header nav dropdown itself |
+| O-19 | Add "Grid Generator" to the header nav via Admin → Menu (D-50) — no migration. Also confirm live multi-cell drag-to-place works with a real mouse — the browser-automation harness this session couldn't exercise it (see D-50's Verified note) | Page works standalone and is discoverable via `/tools` regardless; single-cell placement is confirmed working, multi-cell drag is unconfirmed rather than known-broken |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

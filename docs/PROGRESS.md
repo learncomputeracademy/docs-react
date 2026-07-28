@@ -22,19 +22,20 @@ Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the
 (008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
 stale-cache gap this exposed is documented there).
 
-**Six tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
+**Seven tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
 working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24), "Scrollbar
 App" (Session 25), "CSS Specificity Calculator" and "Colour & Contrast Studio" (both Session
-26) — no migration needed, done via Admin → Menu. All are reachable from `/tools` regardless
-(Session 26). **Note**: a live browser pass in Session 24 showed a top-level "Tools"
-dropdown in the header, not the "Resources" sub-menu earlier sessions described — the nav
-appears to have been restructured in the admin panel since D-43/D-44. Confirm the actual
-current structure before adding new entries (see O-15/O-17/O-18).
+26), "Grid Generator" (Session 27) — no migration needed, done via Admin → Menu. All are
+reachable from `/tools` regardless. **Note**: a live browser pass in Session 24 showed a
+top-level "Tools" dropdown in the header, not the "Resources" sub-menu earlier sessions
+described — the nav appears to have been restructured in the admin panel since D-43/D-44.
+Confirm the actual current structure before adding new entries (see O-15/O-17/O-18/O-19).
 
 **All four tools the old Jekyll nav ever advertised now exist** (D-48) — Box Model, Box
 Shadow Generator, Gradient Generator, and Scrollbar App. Nothing from the old site is
-promised-and-missing anymore. **Seven tools total now** (Session 26 added two more beyond
-the old site's original four).
+promised-and-missing anymore. **Eight tools total now**, and with Session 27's Grid
+Generator, **one of Tier 1's two roadmap tools is built** — CSS Units Playground is the
+other, still unbuilt.
 
 ### ⚡ Next action
 
@@ -115,6 +116,43 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 27: Grid Generator (D-50)
+
+**Done**
+
+- **Built the Grid Generator** (`/tools/grid`, `/bn/tools/grid`) — the first of Tier 1's two
+  roadmap tools in `docs/TOOLS.md` (CSS Units Playground is the other, still unbuilt), and
+  the one that explicitly promised "drag items across cells."
+- `lib/grid.ts`: track model (`fr`/`px`/`auto`/`minmax`), 1-indexed exclusive-end item
+  placement, CSS/Tailwind/React generators mirroring `lib/flexbox.ts`'s conventions, and a
+  one-way `grid-template-areas` deriver (items → area string, never the reverse) — verified
+  against a holy-grail layout, an overlap case, and a duplicate-name case in a standalone
+  Node script before any UI existed.
+- Canvas is one real CSS Grid, not two overlaid layers — items and empty-cell drag markers
+  are siblings, each placed with its own `gridColumn`/`gridRow`. Drag-to-place: pointerdown
+  anchors, pointerenter on further cells updates the live selection, a window-level
+  `pointerup` commits; a rectangle crossing an occupied cell is rejected with an
+  explanatory note instead of silently clipping.
+- Five presets: Holy grail layout (the one Flexbox's flat model couldn't do — D-46), a
+  Bootstrap-style 12-column layout (explicit replacement for the old site's dropped
+  Bootstrap grid), Dashboard, Named areas demo, Photo grid.
+- Lesson link `/css/display-visibility` checked against `scripts/url-map.json` before
+  writing it in — the old Jekyll form (`css-display-visibility`) would have been wrong.
+- Full build notes in `docs/DECISIONS.md` D-50, including an honest note on what the live
+  browser pass could and couldn't verify (see below).
+
+**Not done / flagged**
+
+- Not in the header nav yet (O-19) — reachable via `/tools` regardless.
+- Live-verified: single-cell drag-to-place end to end, item delete freeing its cell, all
+  three export formats, the derived area string, both locales, the `/tools` index card.
+  **Not** independently live-verified: a true multi-cell drag and the mid-drag overlap
+  rejection path — this session's browser-automation tool sends a drag as a bare
+  press+release with no intermediate move events, so `pointerenter` never fires on
+  interior cells. That's a tooling gap (a real mouse fires continuous enter/leave
+  transitions per spec), not a known defect — flagged rather than silently claimed tested.
+- Not deployed. Local commits only, pending explicit push authorization.
 
 ## 2026-07-28 — Session 26: tools index, site-wide scrollbar CSS, two more tools (D-49)
 
