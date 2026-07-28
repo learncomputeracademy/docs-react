@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Copy, Check, RotateCcw, ArrowRight, Lightbulb } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { Slider, Section, SegmentedControl } from '@/components/tools/tool-controls'
 import { cn } from '@/lib/utils'
 import { bm } from '@/lib/box-model-i18n'
 import type { Locale } from '@/lib/types'
@@ -157,79 +158,8 @@ function generateCss(s: State) {
 }
 
 // ── Small controls ───────────────────────────────────────────────────────
-
-function Slider({
-  label,
-  value,
-  min,
-  max,
-  step = 1,
-  suffix,
-  onChange,
-}: {
-  label: string
-  value: number
-  min: number
-  max: number
-  step?: number
-  suffix?: string
-  onChange: (n: number) => void
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1 flex items-baseline justify-between gap-2 text-xs">
-        <span className="text-muted-foreground">{label}</span>
-        <span className="font-mono tabular-nums font-medium">{value}{suffix}</span>
-      </span>
-      <input
-        type="range"
-        min={min}
-        max={max}
-        step={step}
-        value={value}
-        onChange={(e) => onChange(Number(e.target.value))}
-        className="w-full accent-primary"
-      />
-    </label>
-  )
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="space-y-2.5 rounded-lg border p-3">
-      <h3 className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{title}</h3>
-      {children}
-    </section>
-  )
-}
-
-function SegmentedControl<T extends string>({
-  value,
-  options,
-  onChange,
-}: {
-  value: T
-  options: { value: T; label: string }[]
-  onChange: (v: T) => void
-}) {
-  return (
-    <div className="flex flex-wrap gap-1 rounded-md bg-muted p-0.5">
-      {options.map((o) => (
-        <button
-          key={o.value}
-          type="button"
-          onClick={() => onChange(o.value)}
-          className={cn(
-            'flex-1 whitespace-nowrap rounded px-2 py-1 text-xs transition-colors',
-            value === o.value ? 'bg-background font-medium shadow-sm' : 'text-muted-foreground hover:text-foreground'
-          )}
-        >
-          {o.label}
-        </button>
-      ))}
-    </div>
-  )
-}
+// Slider / Section / SegmentedControl now live in tool-controls.tsx, shared
+// with the box-shadow generator.
 
 // Padding/margin/border all share the same "link the sides together" idea
 // the old demo had — it stays because typing four identical numbers is the
@@ -379,8 +309,13 @@ export function BoxModelDemo({ locale }: { locale: Locale }) {
     margin: s.margin,
   }
 
+  // w-full is load-bearing, not decorative: this div is a flex item of
+  // <body class="flex flex-col">, and align-items:stretch alone doesn't
+  // reliably resolve to a content-independent width here — the grid below
+  // would visibly resize whenever a descendant's intrinsic size changed
+  // (e.g. the hover ring on the canvas box). w-full pins it.
   return (
-    <div className="mx-auto max-w-[110rem] px-4 py-8 sm:px-6">
+    <div className="mx-auto w-full max-w-[110rem] px-4 py-8 sm:px-6">
       <header className="mx-auto max-w-3xl text-center">
         <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{s.title}</h1>
         <p className="mt-3 text-muted-foreground">{s.subtitle}</p>
