@@ -138,17 +138,29 @@ the English version. Verified spot-checks in browser after each major batch.
   explicitly rather than derived from Bengali text (added an `anchor` override param to the
   `h()` block builder) — verified live by clicking a BN TOC link and confirming the URL
   fragment matches the English anchor.
+- **Lesson 2, `basics/generations-of-computers`, built the same way** — EN + BN, one Magnific
+  image. Caught a real accuracy problem before it shipped: the first generated image invented
+  its own date ranges ("1970s–1990s" for microprocessors, "2000s–Present" for AI) that
+  directly contradicted the lesson's own callout explaining generation boundaries are
+  approximate and generation 5 has no fixed start — image generation can introduce factual
+  claims the prompt never asked for, not just get details visually wrong. Regenerated with an
+  explicit "no dates" instruction instead of shipping the mismatch.
+- Also fixed a real, now-visible sidebar bug: the old doc and lesson 1 shared `sort_order: 1`,
+  so the old doc sorted itself between lesson 1 and lesson 2 instead of staying at the bottom.
+  Bumped the old doc to `sort_order: 99` — confirmed live that lessons now sort correctly
+  ahead of it as each one is added.
 - Full build notes in `docs/DECISIONS.md` D-53.
 
 **Not done**
 
-- 15 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
-  message from earlier in the session). Old `basics/computer-fundamentals` deliberately left
-  live and un-redirected until the full rebuild is done — see O-20.
-- Not deployed via a manual step — this one went live automatically through the existing
-  Supabase Database Webhook + ISR, no local build/push needed for content changes. The
-  *pipeline doc and scripts themselves* are still local commits only, pending push
-  authorization same as every other code change this project makes.
+- 14 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
+  message from earlier in the session) — building one at a time per the user's instruction,
+  not all at once. Old `basics/computer-fundamentals` deliberately left live and
+  un-redirected until the full rebuild is done — see O-20.
+- Not deployed via a manual step — these go live automatically through the existing Supabase
+  Database Webhook + ISR, no local build/push needed for content changes. The *pipeline doc
+  and scripts themselves* are still local commits only, pending push authorization same as
+  every other code change this project makes.
 
 ## 2026-07-28 — Session 29: real wordmark logo, light/dark, admin-replaceable (D-52)
 

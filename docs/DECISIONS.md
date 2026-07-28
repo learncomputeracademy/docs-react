@@ -2563,6 +2563,31 @@ text in both locales (SEO gate, CLAUDE.md §3.3); the Cloudinary image renders w
 (`sort_order`); no console errors on either locale; the BN TOC anchor-matching link tested
 live and confirmed.
 
+**Lesson 2, `basics/generations-of-computers`** — built one at a time per the user's
+instruction ("just one at a time"), not the remaining 14 in one batch. Same shape: EN + BN,
+one Magnific `gpt-2` image (a five-stage timeline, vacuum tube → transistor → integrated
+circuit → microprocessor → AI), published, verified live the same way as the pilot.
+
+**A third real finding, this one caught by comparing the image against the text rather than
+by looking at the image alone:** the first generated timeline image invented its own date
+ranges for stages 4 and 5 ("1970s–1990s", "2000s–Present") that the prompt never specified
+and that directly contradict the lesson's own text — the fourth generation is written as
+"1970s–present" (still ongoing) and the fifth deliberately has no fixed start year, with a
+callout explaining exactly why generation boundaries are approximate. An AI-generated image
+can introduce confidently-wrong *factual claims*, not just render text badly — a different
+failure mode than the "garbled text" check the pipeline doc already called out, and one a
+visual glance alone won't catch if you don't also check it against what the lesson actually
+says. Regenerated with an explicit "no dates or years anywhere in the image" instruction
+instead of shipping the contradiction. Not yet written into `docs/CONTENT-PIPELINE.md` as a
+standing rule — worth adding once this pattern repeats, rather than over-fitting the pipeline
+doc to a single incident.
+
+Also fixed: the old doc and lesson 1 shared `sort_order: 1`, so the old doc was sorting
+itself between lesson 1 and lesson 2 in the sidebar instead of staying out of the way.
+Bumped `basics/computer-fundamentals` to `sort_order: 99` directly (a one-off DB update, not
+part of `create-basics-content.mjs` — it only ever touches the *new* lessons) — confirmed
+live that new lessons now sort correctly ahead of it.
+
 ---
 
 ## Open
