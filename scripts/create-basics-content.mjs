@@ -138,6 +138,103 @@ lessons.push({
   },
 })
 
+lessons.push({
+  slug: 'generations-of-computers',
+  sortOrder: 2,
+  en: {
+    title: 'Generations of Computers',
+    metaTitle: 'Generations of Computers | Learn Computer Academy',
+    metaDescription: 'How computers evolved through five generations — from room-sized vacuum-tube machines to today\'s AI-capable systems — and what defined each one.',
+    blocks: [
+      p('<p>Computers have not always looked or worked the way they do today. Historians and engineers group the evolution of computers into five broad "generations," each defined by the core technology used to build the machine\'s circuitry. Understanding these generations explains why a phone in your pocket today is more powerful than a machine that once filled an entire room.</p>'),
+
+      h(2, 'First Generation (1940s-1950s): Vacuum Tubes'),
+      p('<p>The earliest electronic computers used <b>vacuum tubes</b> to store and process information. A vacuum tube worked like an early electronic switch, but each one was roughly the size of a light bulb, generated a large amount of heat, and burned out often. As a result, first-generation computers were enormous — often filling an entire room — extremely expensive to build and run, and prone to breaking down.</p><p>Programs were entered using <b>punch cards</b>, and results came out on printouts; there were no keyboards or screens as we know them. <b>ENIAC</b>, completed in 1945, is one of the best-known examples, and used thousands of vacuum tubes.</p>'),
+
+      h(2, 'Second Generation (1950s-1960s): Transistors'),
+      p('<p>The invention of the <b>transistor</b> replaced the bulky vacuum tube with a much smaller, more reliable electronic switch. Transistors used far less power, produced far less heat, and rarely failed compared to vacuum tubes — which meant computers could shrink significantly while becoming faster and more dependable at the same time.</p><p>This generation also introduced early <b>programming languages</b> that were closer to English than raw machine instructions, making it easier for people to write software without working directly with a machine\'s internal wiring.</p>'),
+
+      h(2, 'Third Generation (1960s-1970s): Integrated Circuits'),
+      p('<p>Engineers found a way to place many transistors onto a single small chip of silicon, called an <b>integrated circuit</b>. Instead of wiring together thousands of individual transistors by hand, a single chip could now do the work of many — shrinking computers further, dropping their cost, and improving their reliability at the same time.</p><p>This is also the generation where computers first became something an operator could interact with directly, using a <b>keyboard</b> and a <b>monitor</b>, rather than only punch cards and printouts.</p>'),
+
+      h(2, 'Fourth Generation (1970s-Present): Microprocessors'),
+      p('<p>The fourth generation arrived when engineers managed to fit an entire <b>processor</b> — the "brain" of a computer — onto one single chip, called a <b>microprocessor</b>. This was the breakthrough that made the <b>personal computer</b> possible: a computer small and affordable enough to sit on a desk, or eventually a lap, instead of filling a room.</p><p>Nearly every computer you interact with today — desktops, laptops, smartphones, tablets, and even smart appliances — is a product of this generation, which is still ongoing. What has changed since the 1970s is not the basic idea of a microprocessor, but how much smaller, faster, and more power-efficient each new chip becomes.</p>'),
+
+      h(2, 'Fifth Generation (Present and Beyond): Artificial Intelligence'),
+      p('<p>The fifth generation does not have a single, agreed starting point the way earlier generations do, because it is defined less by a specific physical part and more by a shift in what computers are being built to do: understand natural language, recognize images and speech, and make decisions using techniques from <b>artificial intelligence</b>. You will look at this generation\'s ideas in much more depth later in this section.</p>'),
+
+      h(2, 'At a Glance'),
+      p('<p>Here\'s the same story, compressed into one table:</p>'),
+      table(
+        ['Generation', 'Approximate Period', 'Core Technology', 'Example'],
+        [
+          ['First', '1940s – 1950s', 'Vacuum tubes', 'ENIAC'],
+          ['Second', '1950s – 1960s', 'Transistors', 'IBM 1401'],
+          ['Third', '1960s – 1970s', 'Integrated circuits', 'IBM System/360'],
+          ['Fourth', '1970s – present', 'Microprocessors', 'Personal computers, smartphones'],
+          ['Fifth', 'Present and beyond', 'Artificial intelligence', 'Voice assistants, AI systems'],
+        ]
+      ),
+      img(
+        'docs/img/basics/generations-of-computers-1',
+        'Timeline diagram showing the five generations of computers, from vacuum tubes through transistors, integrated circuits, and microprocessors, to artificial intelligence',
+        1344, 752,
+        'Each generation is defined by the core technology used to build it, not by a hard cutoff date.'
+      ),
+
+      callout('note', '<p>Different textbooks give slightly different start and end years for each generation, and there was never a single day the world switched from one to the next — the technologies overlapped for years while older machines were phased out. Treat the years above as a rough guide to the order things happened, not an exact boundary.</p>', 'The years are approximate, not exact cutoffs'),
+
+      p('<p>Each generation\'s story is really the same idea repeated: fit more computing power into less space, using less electricity, at a lower cost. The next lesson looks at what a computer is actually made of today — the physical hardware inside the machines this history produced.</p>'),
+    ],
+  },
+  bn: {
+    title: 'কম্পিউটারের প্রজন্মসমূহ',
+    metaTitle: 'কম্পিউটারের প্রজন্মসমূহ | Learn Computer Academy',
+    metaDescription: 'ভ্যাকুয়াম টিউব দিয়ে তৈরি ঘর-ভর্তি যন্ত্র থেকে শুরু করে আজকের AI-সক্ষম সিস্টেম পর্যন্ত — কম্পিউটার কীভাবে পাঁচটি প্রজন্মের মধ্য দিয়ে বিবর্তিত হয়েছে, আর প্রতিটি প্রজন্মকে কী আলাদা করে তার পরিচিতি।',
+    blocks: [
+      p('<p>কম্পিউটার সবসময় আজকের মতো দেখতে বা কাজ করত না। ইতিহাসবিদ আর ইঞ্জিনিয়াররা কম্পিউটারের বিবর্তনকে পাঁচটি বড় "প্রজন্মে" ভাগ করেন, প্রতিটি প্রজন্ম নির্ধারিত হয় যন্ত্রের সার্কিট তৈরিতে ব্যবহৃত মূল প্রযুক্তি দিয়ে। এই প্রজন্মগুলো বুঝলে বোঝা যায় কেন আপনার পকেটের ফোনটি একসময় পুরো একটি ঘর জুড়ে থাকা যন্ত্রের চেয়েও বেশি শক্তিশালী।</p>'),
+
+      h(2, 'প্রথম প্রজন্ম (1940-এর দশক-1950-এর দশক): ভ্যাকুয়াম টিউব', 'first-generation-1940s-1950s-vacuum-tubes'),
+      p('<p>প্রথম দিকের ইলেকট্রনিক কম্পিউটারগুলো তথ্য জমা রাখতে আর প্রসেস করতে <b>ভ্যাকুয়াম টিউব</b> ব্যবহার করত। একটি ভ্যাকুয়াম টিউব একটি প্রাথমিক ইলেকট্রনিক সুইচের মতো কাজ করত, কিন্তু প্রতিটির আকার প্রায় একটি বাল্বের সমান ছিল, প্রচুর তাপ তৈরি করত, আর প্রায়ই নষ্ট হয়ে যেত। ফলে প্রথম-প্রজন্মের কম্পিউটার ছিল বিশাল আকারের — প্রায়ই একটি সম্পূর্ণ ঘর জুড়ে থাকত — তৈরি ও চালাতে অত্যন্ত ব্যয়বহুল, আর ঘনঘন খারাপ হয়ে যেত।</p><p>প্রোগ্রাম ইনপুট দেওয়া হতো <b>পাঞ্চ কার্ড</b> দিয়ে, আর ফলাফল বের হতো প্রিন্টআউটে — আজকের মতো কীবোর্ড বা স্ক্রিন তখন ছিল না। <b>ENIAC</b>, যা 1945 সালে সম্পন্ন হয়, এর অন্যতম সুপরিচিত উদাহরণ, যাতে হাজার হাজার ভ্যাকুয়াম টিউব ব্যবহার করা হয়েছিল।</p>'),
+
+      h(2, 'দ্বিতীয় প্রজন্ম (1950-এর দশক-1960-এর দশক): ট্রানজিস্টর', 'second-generation-1950s-1960s-transistors'),
+      p('<p><b>ট্রানজিস্টর</b>-এর আবিষ্কার ভারী ভ্যাকুয়াম টিউবের জায়গায় নিয়ে এলো অনেক ছোট আর অনেক বেশি নির্ভরযোগ্য একটি ইলেকট্রনিক সুইচ। ট্রানজিস্টর অনেক কম পাওয়ার খরচ করত, অনেক কম তাপ তৈরি করত, আর ভ্যাকুয়াম টিউবের তুলনায় খুব কমই নষ্ট হতো — যার মানে কম্পিউটার একই সাথে অনেক ছোট, দ্রুত, আর নির্ভরযোগ্য হয়ে উঠতে পারল।</p><p>এই প্রজন্মেই এলো প্রাথমিক প্রোগ্রামিং ভাষা, যা যন্ত্রের সরাসরি নির্দেশাবলীর চেয়ে ইংরেজির অনেক কাছাকাছি ছিল, ফলে মানুষের পক্ষে যন্ত্রের ভেতরের ওয়্যারিং নিয়ে সরাসরি কাজ না করেই সফটওয়্যার লেখা সহজ হয়ে গেল।</p>'),
+
+      h(2, 'তৃতীয় প্রজন্ম (1960-এর দশক-1970-এর দশক): ইন্টিগ্রেটেড সার্কিট', 'third-generation-1960s-1970s-integrated-circuits'),
+      p('<p>ইঞ্জিনিয়াররা এমন একটি উপায় খুঁজে বের করলেন যাতে অনেকগুলো ট্রানজিস্টর সিলিকনের একটি ছোট চিপের উপর বসানো যায়, যাকে বলা হয় <b>ইন্টিগ্রেটেড সার্কিট</b>। হাজার হাজার আলাদা ট্রানজিস্টর হাতে জোড়া লাগানোর বদলে, এখন একটি মাত্র চিপ অনেকগুলোর কাজ করতে পারত — এতে কম্পিউটার আরও ছোট হলো, খরচ কমল, আর নির্ভরযোগ্যতাও একই সাথে বাড়ল।</p><p>এই প্রজন্মেই কম্পিউটার প্রথমবারের মতো এমন কিছু হয়ে উঠল যার সাথে একজন অপারেটর সরাসরি মিথস্ক্রিয়া করতে পারতেন — <b>কীবোর্ড</b> আর <b>মনিটর</b> ব্যবহার করে, শুধু পাঞ্চ কার্ড আর প্রিন্টআউটের বদলে।</p>'),
+
+      h(2, 'চতুর্থ প্রজন্ম (1970-এর দশক-বর্তমান): মাইক্রোপ্রসেসর', 'fourth-generation-1970s-present-microprocessors'),
+      p('<p>চতুর্থ প্রজন্ম এলো যখন ইঞ্জিনিয়াররা একটি সম্পূর্ণ <b>প্রসেসর</b> — কম্পিউটারের "মস্তিষ্ক" — একটি মাত্র চিপে বসাতে সক্ষম হলেন, যাকে বলা হয় <b>মাইক্রোপ্রসেসর</b>। এটাই ছিল সেই যুগান্তকারী আবিষ্কার যা <b>পার্সোনাল কম্পিউটার</b>-কে সম্ভব করে তুলল — এমন একটি কম্পিউটার যা একটি ঘর জুড়ে না থেকে একটি ডেস্কে, এমনকি পরবর্তীতে একটি কোলে বসার মতো ছোট আর সাশ্রয়ী হয়ে উঠল।</p><p>আজ আপনি যে প্রায় প্রতিটি কম্পিউটারের সাথে কাজ করেন — ডেস্কটপ, ল্যাপটপ, স্মার্টফোন, ট্যাবলেট, এমনকি স্মার্ট যন্ত্রপাতি — সবই এই এখনও-চলমান প্রজন্মের ফসল। 1970-এর দশক থেকে যা বদলেছে তা মাইক্রোপ্রসেসরের মূল ধারণা নয়, বরং প্রতিটি নতুন চিপ কতটা ছোট, দ্রুত, আর কম বিদ্যুৎ খরচ করে তৈরি হচ্ছে, সেটাই।</p>'),
+
+      h(2, 'পঞ্চম প্রজন্ম (বর্তমান আর ভবিষ্যৎ): কৃত্রিম বুদ্ধিমত্তা', 'fifth-generation-present-and-beyond-artificial-intelligence'),
+      p('<p>পঞ্চম প্রজন্মের কোনো একক, সর্বসম্মত শুরুর সময় নেই, যেভাবে আগের প্রজন্মগুলোর ছিল, কারণ এটি নির্দিষ্ট কোনো শারীরিক অংশ দিয়ে নয়, বরং কম্পিউটার আসলে কী করার জন্য তৈরি হচ্ছে তার একটি পরিবর্তন দিয়ে সংজ্ঞায়িত — স্বাভাবিক ভাষা বোঝা, ছবি আর কণ্ঠস্বর চেনা, আর <b>কৃত্রিম বুদ্ধিমত্তা (AI)</b>-র কৌশল ব্যবহার করে সিদ্ধান্ত নেওয়া। এই প্রজন্মের ধারণাগুলো নিয়ে এই অংশের পরের দিকে আরও গভীরে যাওয়া হবে।</p>'),
+
+      h(2, 'এক নজরে', 'at-a-glance'),
+      p('<p>একই গল্প, একটি টেবিলে সংক্ষিপ্ত আকারে:</p>'),
+      table(
+        ['প্রজন্ম', 'আনুমানিক সময়কাল', 'মূল প্রযুক্তি', 'উদাহরণ'],
+        [
+          ['প্রথম', '1940-এর দশক – 1950-এর দশক', 'ভ্যাকুয়াম টিউব', 'ENIAC'],
+          ['দ্বিতীয়', '1950-এর দশক – 1960-এর দশক', 'ট্রানজিস্টর', 'IBM 1401'],
+          ['তৃতীয়', '1960-এর দশক – 1970-এর দশক', 'ইন্টিগ্রেটেড সার্কিট', 'IBM System/360'],
+          ['চতুর্থ', '1970-এর দশক – বর্তমান', 'মাইক্রোপ্রসেসর', 'পার্সোনাল কম্পিউটার, স্মার্টফোন'],
+          ['পঞ্চম', 'বর্তমান আর ভবিষ্যৎ', 'কৃত্রিম বুদ্ধিমত্তা', 'ভয়েস অ্যাসিস্ট্যান্ট, AI সিস্টেম'],
+        ]
+      ),
+      img(
+        'docs/img/basics/generations-of-computers-1',
+        'ভ্যাকুয়াম টিউব থেকে শুরু করে ট্রানজিস্টর, ইন্টিগ্রেটেড সার্কিট, মাইক্রোপ্রসেসর, আর কৃত্রিম বুদ্ধিমত্তা পর্যন্ত কম্পিউটারের পাঁচটি প্রজন্ম দেখানো টাইমলাইন ডায়াগ্রাম',
+        1344, 752,
+        'প্রতিটি প্রজন্ম নির্ধারিত হয় তৈরিতে ব্যবহৃত মূল প্রযুক্তি দিয়ে, কোনো নির্দিষ্ট সীমা-তারিখ দিয়ে নয়।'
+      ),
+
+      callout('note', '<p>বিভিন্ন পাঠ্যবই প্রতিটি প্রজন্মের জন্য কিছুটা ভিন্ন শুরু আর শেষের বছর উল্লেখ করে, আর এমন কোনো একক দিন কখনো ছিল না যেদিন পুরো বিশ্ব এক প্রজন্ম থেকে পরের প্রজন্মে বদলে গিয়েছিল — পুরনো যন্ত্র বাদ দেওয়ার সময় প্রযুক্তিগুলো বছরের পর বছর একসাথে চলত। উপরের বছরগুলোকে জিনিসগুলো কোন ক্রমে ঘটেছিল তার একটি মোটামুটি নির্দেশিকা হিসেবে দেখুন, কোনো নির্দিষ্ট সীমারেখা হিসেবে নয়।</p>', 'বছরগুলো আনুমানিক, নির্দিষ্ট সীমা নয়'),
+
+      p('<p>প্রতিটি প্রজন্মের গল্প আসলে একই ধারণার পুনরাবৃত্তি: কম জায়গায়, কম বিদ্যুৎ খরচ করে, কম খরচে আরও বেশি কম্পিউটিং শক্তি ভরে দেওয়া। পরের পাঠে দেখা হবে আজকের কম্পিউটার আসলে কী দিয়ে তৈরি — এই ইতিহাস যে যন্ত্রগুলো তৈরি করেছে তার ভেতরের শারীরিক হার্ডওয়্যার।</p>'),
+    ],
+  },
+})
+
 // ── Insert ────────────────────────────────────────────────────────────────
 
 async function main() {
