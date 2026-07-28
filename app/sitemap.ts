@@ -26,6 +26,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/bn/tools/box-shadow-generator`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/gradient`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/gradient`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/tools/flexbox`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools/flexbox`, changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   for (const c of categories) {
