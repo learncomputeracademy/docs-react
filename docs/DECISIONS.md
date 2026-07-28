@@ -1996,6 +1996,81 @@ visual inspection).
 
 ---
 
+## D-46 · Flexbox Playground (`/tools/flexbox`)
+
+Third tool off `docs/TOOLS.md`'s roadmap. Per the recommended build order from the original
+tool-ideas answer (gradient → flexbox → scrollbar → specificity → contrast studio), this is
+next — Tier 1, "most-wanted CSS tool that exists."
+
+**Real content gap found before writing any code.** Grepped `docs-master/docs-master/
+_docs/css` for `display:\s*flex|flexbox` — zero real hits (`css-float.md`'s one match is
+footer-nav chrome, not lesson content). **The old curriculum has no flexbox lesson at all.**
+Worth surfacing on its own, separate from this tool: `css-align.md` teaches `margin: auto`
+centering, i.e. the pre-flexbox technique. The playground's CTA points at the CSS category
+listing instead of a specific lesson (same fallback as the shadow/gradient tools), and its
+own explanation panel carries the full teaching load since there's nothing to link to.
+
+**No drag-to-reorder — a deliberate design decision, not a missing feature.** Every other
+tool in this project uses direct-manipulation dragging (box-shadow's offset, gradient's
+stops/angle/center) because dragging maps naturally to a *position*. `order` is not a
+position — it's an independent property whose entire teaching point is that visual order
+and DOM/HTML order can diverge. Implementing drag-to-reorder here would have meant either
+(a) silently reassigning `order` values to match the new visual sequence on every drag,
+which collapses `order` back into "just array position" and teaches nothing, or (b)
+reordering the underlying item array, which changes what `order` is even a demo of. Instead:
+the item array order is permanently fixed (it *is* the HTML/DOM order), each item carries a
+persistent number badge showing that fixed position, and `order` is edited as an ordinary
+slider (-5 to 5) in the per-item panel. The "Wrap & reorder" preset is built specifically to
+make this visible: item 2 gets `order: -1` and visibly jumps to the front of the layout
+while its badge still reads "2" — verified live, exactly as designed.
+
+**Presets: "holy grail" and "sticky footer" (as originally scoped in the roadmap) dropped
+in favour of ones that actually fit the tool's model.** Both need something this tool
+doesn't represent — holy grail needs nested containers (header / 3-column middle / footer),
+sticky footer needs `margin-top: auto` on one item, a property outside the grow/shrink/
+basis/order/align-self set the per-item editor exposes. Building either would have meant
+either lying about what's being demonstrated or quietly extending the item model for one
+preset. Replaced with Navbar, Sidebar layout, Centered, Equal columns, and Wrap & reorder —
+all five genuinely single-flat-container demos, same honesty-over-completeness call as
+gradient.ts's "mesh-ish" preset in D-45.
+
+**`lib/flexbox.ts`** — `Container`/`FlexItem` types, `containerStyle()`/`itemStyle()` (real
+inline styles the canvas actually renders — not a separate representation that could drift
+from what CSS generation describes), `generateCss()`/`generateTailwind()`/`generateReact()`
+(each only emits declarations that differ from the flex default, matching how a person
+would actually write it — a container with default `align-items: stretch` never gets an
+explicit line for it), and the 5 presets.
+
+**`components/tools/flexbox-demo.tsx`** — three columns (container + items / live canvas /
+presets + output). The canvas *is* the primary editing surface as much as a preview: click
+an item to select it, and every item shows its real `ResizeObserver`-measured size (not
+computed from the flex values, which could drift from what's actually rendered — same
+house rule as every other tool here). `align-content` is visibly dimmed when `flex-wrap` is
+`nowrap`, since it has no effect until wrapping produces multiple lines. Output is 3 formats
+(CSS/Tailwind/React), not the 4-format convention from the shadow/gradient tools — no
+CSS-variable tab, since a flex layout is inherently several rules across several elements,
+not a single value a custom property could hold.
+
+**No real product bugs found this session.** One authoring mistake caught and fixed before
+verification: the closing teaching-note panel originally concatenated two unrelated i18n
+strings (`s.measured` + `s.domOrderNote`) into a nonsensical sentence — caught on a read-
+through of the JSX, not by testing, since it would have rendered fine, just meaninglessly.
+Fixed by dropping the unused `measured` string entirely and keeping just the DOM-order note.
+
+**Nav entry**: not yet added — same as the other two /tools additions, needs Admin → Menu,
+no migration.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean, both routes
+`○` static; `.next/static/` grepped for secret names — no matches. Live browser pass: all
+five presets (including a direct visual confirmation of the order-vs-DOM-position split via
+Wrap & reorder), real measured item sizes updating live, all three output formats, and the
+fully-translated Bengali page — all confirmed working, clean console (`read_console_messages`
+after a fresh navigation, not just a visual check). One CDP screenshot timeout mid-session
+was a transient tooling hiccup, not a hang — confirmed by an immediate successful retry
+showing correct, fully-settled state.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2003,6 +2078,7 @@ visual inspection).
 | ~~O-12~~ | ~~Run `supabase/migrations/008-nav-submenu.sql`~~ — **resolved.** User ran it; the sub-menu still didn't show due to a stale `nav` cache tag (direct-SQL write bypassed `revalidateTag`) — fixed via the `/api/revalidate` webhook, see D-44 | — |
 | O-13 | Add "Box Shadow Generator" as a second child of Resources in Admin → Menu (D-44) — no migration, just the existing nesting UI | Box Shadow Generator page works standalone regardless; just won't appear in the header nav until added |
 | O-14 | Add "Gradient Generator" as a third child of Resources in Admin → Menu (D-45) — no migration | Same as O-13: page works standalone, just missing from the header nav until added |
+| O-15 | Add "Flexbox Playground" to the header nav via Admin → Menu (D-46) — no migration. **Note**: live browser pass this session showed a top-level "Tools" dropdown in the header (English) / "টুলস" (Bengali), not the "Resources" sub-menu D-43/D-44/D-45 described — the user appears to have restructured the nav in the admin panel between sessions. Confirm actual current structure before adding | Same as O-13/O-14: page works standalone regardless |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

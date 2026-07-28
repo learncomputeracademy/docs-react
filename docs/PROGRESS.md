@@ -22,10 +22,12 @@ Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the
 (008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
 stale-cache gap this exposed is documented there).
 
-**Two manual steps left**: add "Box Shadow Generator" (`/tools/box-shadow-generator`, user
-confirmed pushed and working) and "Gradient Generator" (`/tools/gradient`, Session 23) as
-children of Resources in Admin → Menu — no migration needed, `parent_id` nesting already
-exists from D-43/Session 21. A few clicks in the admin UI, deliberately not scripted.
+**Three tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
+working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24) — no
+migration needed, done via Admin → Menu. **Note**: a live browser pass in Session 24 showed
+a top-level "Tools" dropdown in the header, not the "Resources" sub-menu earlier sessions
+described — the nav appears to have been restructured in the admin panel since D-43/D-44.
+Confirm the actual current structure before adding new entries (see O-15).
 
 ### ⚡ Next action
 
@@ -106,6 +108,32 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 24: flexbox playground (D-46)
+
+**Done**
+
+- User asked for "the next tool" — built off the recommended order from the original
+  tool-ideas answer (gradient → flexbox → scrollbar → specificity → contrast studio).
+- **D-46: Flexbox Playground built** (`/tools/flexbox`) — every container and per-item
+  flex property, live canvas that's also the selection surface, real `ResizeObserver`
+  measurements per item, 5 presets, 3 output formats (CSS/Tailwind/React). Full detail in
+  `docs/DECISIONS.md` D-46.
+- Grepped the old Jekyll `_docs/css` source for real flexbox content before building
+  anything — confirmed there's no flexbox lesson at all in the curriculum (worth flagging
+  as a content gap separate from this tool).
+- Deliberately built the item-reorder mechanic WITHOUT drag — `order` is edited as a
+  slider, item badges show fixed DOM position, so the split between visual position and
+  HTML order (the actual point of the `order` property) stays visible instead of getting
+  collapsed into "just reordering a list."
+- Noticed during the live pass that the header nav now shows a top-level "Tools" dropdown,
+  not the "Resources" sub-menu structure D-43–D-45 described — logged as O-15, needs
+  confirming before the next tool gets added to the nav.
+
+**Not done**
+
+- Flexbox Playground not yet in the header nav.
+- Not deployed. Local commits only, pending explicit push authorization.
 
 ## 2026-07-28 — Session 23: gradient generator (D-45)
 

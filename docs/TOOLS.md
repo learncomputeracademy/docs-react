@@ -59,6 +59,7 @@ ever shipped two — see *Outstanding promises*. Closing that gap is table stake
 | Interactive Box Model | `/tools/box-model` | `/box-model` → 301 | D-43 · Session 21 |
 | Box Shadow Generator | `/tools/box-shadow-generator` | `/box-shadow-generator` → 301 | D-44 · Session 22 |
 | Gradient Generator | `/tools/gradient` | `/gradient/` → 301 | D-45 · Session 23 |
+| Flexbox Playground | `/tools/flexbox` | *(none — new)* | D-46 · Session 24 |
 
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
@@ -86,6 +87,21 @@ same indigo→pink stops). Paste-to-import (linear/radial/conic, angle or `to <s
 (sunset, ocean, forest, candy, subtle UI background, glass, mesh-ish, mono conic). Same
 four output formats, undo/redo, shareable URL state as the shadow tool.
 
+**Flexbox Playground** — every container property (`flex-direction`, `flex-wrap`,
+`justify-content`, `align-items`, `align-content`, `gap`) and every per-item property
+(`flex-grow`, `flex-shrink`, `flex-basis`, `order`, `align-self`). **No drag-to-reorder —
+deliberately.** The item number badge is fixed HTML/DOM order and never moves; only `order`
+(an editable slider, -5 to 5) changes visual position. Dragging would have implied direct
+positional control, which is exactly the thing `order` isn't — the point is that visual
+position and source order can diverge, and the fixed badges next to a real live layout are
+what make that visible. Each item shows its real measured size (`ResizeObserver`, never
+computed). 5 presets — swapped "holy grail" and "sticky footer" for presets that actually
+fit a flat single-container model (see the D-46 note in `docs/DECISIONS.md` for why). Three
+output formats — CSS, Tailwind, React style; no CSS-variable tab, since flexbox output is
+inherently multi-rule, not a single value. **No lesson to link to** — the old curriculum
+has zero flexbox coverage (confirmed by grepping the source), so the CTA points at the CSS
+category listing and the tool's own explanation panel carries the full teaching load.
+
 ---
 
 ## Outstanding promises ⚠️
@@ -110,13 +126,6 @@ already reserves its `/tools/` slot.
 Ordered by value. Curriculum links are to lessons that already exist in `_docs/`.
 
 ### Tier 1 — highest value, tied to existing lessons
-
-**Flexbox Playground** — `/tools/flexbox`
-Most-wanted CSS tool that exists. Container props (`justify-content`, `align-items`,
-`align-content`, `flex-direction`, `wrap`, `gap`) + per-item `flex-grow`/`shrink`/`basis`,
-`order`, `align-self`. Add/remove/drag items. Presets for the classic layouts (holy grail,
-centred card, sticky footer, navbar).
-*Lessons:* `css-align`, `css-display-visibility`, `css-inline-block`, `css-float`
 
 **Grid Generator** — `/tools/grid`
 Visual row/column builder with `fr`/`px`/`auto`/`minmax()`, drag items across cells, named
