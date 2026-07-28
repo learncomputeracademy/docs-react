@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: '/box-model', destination: '/tools/box-model', permanent: true },
+      { source: '/box-shadow-generator', destination: '/tools/box-shadow-generator', permanent: true },
     ]
   },
   images: {
