@@ -2436,6 +2436,80 @@ assign).
 
 ---
 
+## D-52 · Real wordmark logo (light/dark), Cloudinary-hosted, admin-replaceable
+
+User supplied two new logo files from the source design folder (not this repo) — `16.png`
+(black text, for the light-theme header) and `17.png` (white text, for the dark-theme
+header), both with "Learn Computer Academy" already baked into the artwork as a single
+wordmark image, not an icon-plus-separate-text lockup.
+
+**Uploaded via `scripts/upload-logo.mjs`** (new, one-off) to Cloudinary at
+`docs/img/site/logo-light` / `docs/img/site/logo-dark` — `docs/ASSETS.md`'s existing
+"anything not lesson-specific" folder — with `overwrite: true`, so the delivery URL (and
+hence the public_id stored in settings) never has to change on a re-upload, only the bytes
+behind it do. `f_auto,q_auto,c_limit,w_480` at request time (same convention as every other
+image on this site) — the header displays these at ~32px tall / ~180px wide, so 480 leaves
+2–3x retina headroom while shipping nowhere near the ~350–370 KB, several-thousand-px
+originals.
+
+**Header change** (`components/site-header.tsx`): replaced the old `<img
+src="/logo-icon.png">` (icon only) + a separate `<span>{siteName}</span>` text lockup with
+two full-wordmark `<img>` tags, swapped via Tailwind's `dark:` variant
+(`dark:hidden`/`hidden dark:block`), not the component's own `dark` React state. That state
+starts `false` on every render until a `useEffect` corrects it client-side — swapping the
+logo on it would flash the light-mode (black-text) logo for one frame on every dark-mode
+page load. The `dark` class on `<html>` is already set before paint by `app/layout.tsx`'s
+inline script (D-... theme flash prevention), so a pure-CSS swap keyed off that same class
+is correct from the very first paint, no flash possible. The visible text span is gone
+entirely — the artwork *is* the text now — replaced by real `alt` text on both images for
+accessibility/SEO, sourced from `strings.siteName` same as before.
+
+**Admin-replaceable, not hardcoded** — the actual ask, not just a one-time asset swap.
+Added a `'branding'` `site_settings` key (no migration — same no-fixed-enum upsert pattern
+`'seo'` used, see `lib/admin/settings.ts`'s existing comment) holding
+`{ logoLightPublicId, logoDarkPublicId }`, `null`/absent meaning "use the just-uploaded
+defaults" (`DEFAULT_LOGO_LIGHT_PUBLIC_ID`/`DEFAULT_LOGO_DARK_PUBLIC_ID`, `lib/cloudinary.ts`).
+New `lib/admin/branding.ts` → `uploadLogo(variant, formData)`: always uploads to the *same*
+fixed key per variant (`docs/img/site/logo-light.png` / `-dark.png`), not a
+timestamped `media/...` key like the general media library — every future re-upload
+overwrites the same asset rather than accumulating orphaned Cloudinary uploads or needing a
+new URL written back into settings each time. New `/admin/settings` "Branding" section
+(`components/admin/branding-manager.tsx`) — two upload cards with light/dark-background
+swatches so the preview actually shows contrast the way the real header will, using the
+exact same `cldUrl(...,'f_auto,q_auto,c_limit,w_480')` transform the live header requests,
+not a separate admin-only rendering that could drift from reality.
+
+**Plumbing**: `app/layout.tsx` fetches `getSiteSettings('branding')` alongside the existing
+`getNavItems()` (same `Promise.all`, same pattern), resolves both logo URLs once via
+`cldUrl`, and passes them down through `SiteChrome` → `SiteHeader` as props — server-
+resolved, not fetched client-side, so no extra request or loading state in the header
+itself. `saveSettings`'s `'branding'` case revalidates `revalidatePath('/', 'layout')`
+(header renders on every route, same reasoning as `'seo'`), not the homepage-only path the
+other settings keys use.
+
+**Scope, respected**: user said these logos are for the header only. Did not touch the
+favicon or the `openGraph.images` OG-image reference — both still point at the old
+`public/logo-icon.png`, untouched, since that's a different use case the user didn't ask to
+change.
+
+**Verified**: `tsc --noEmit` clean; full `rm -rf .next` rebuild clean, `/` stays `○` static
+(branding fetch uses the same tagged `unstable_cache` as every other `getSiteSettings` read,
+no new dynamic API); `.next/static/` grepped for secret names — no matches. Live browser
+pass: light-mode header shows the black-text wordmark, toggling dark mode swaps to the
+white-text wordmark with no flash and no console output either time; `/admin/settings`
+renders both upload cards with live Cloudinary previews on correct light/dark swatches, no
+console errors. **Not done**: did not click "Upload" to test a live re-upload end-to-end —
+the code path is the same `uploadFile`/Cloudinary flow already proven by both the upload
+script (this session) and the existing media library (prior sessions), so re-testing it live
+would only re-verify already-proven plumbing, not the new part (the fixed-key/settings
+wiring), which was verified by type-checking and reading the code path instead.
+
+`docs/ASSETS.md` updated: the "Logo → `public/`" row split into favicons/OG (still
+`public/`) and the header logo (now Cloudinary, admin-replaceable) — the old row was flatly
+wrong the moment this shipped, so left uncorrected it would have misled the next session.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

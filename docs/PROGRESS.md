@@ -113,6 +113,35 @@ the English version. Verified spot-checks in browser after each major batch.
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
 
+## 2026-07-28 — Session 29: real wordmark logo, light/dark, admin-replaceable (D-52)
+
+**Done**
+
+- User supplied two new logo files from outside the repo (source design folder) — black-text
+  (light mode) and white-text (dark mode) wordmarks, text baked into the artwork rather than
+  a separate icon+text lockup. Uploaded both to Cloudinary via new `scripts/upload-logo.mjs`
+  (`docs/img/site/logo-light` / `logo-dark`, `overwrite: true`).
+- Replaced the header's old icon-only PNG + separate `<span>` text with the two full
+  wordmark images, swapped via Tailwind `dark:` classes (not the header's own `dark` React
+  state, which would flash the wrong logo for one frame — the CSS class is already correct
+  before first paint).
+- Added a `'branding'` settings key (no migration, same pattern `'seo'` used) and a new
+  Branding section on `/admin/settings` — upload a replacement light or dark logo any time,
+  no redeploy needed. Every re-upload overwrites the same fixed Cloudinary key rather than
+  creating a new one, so nothing needs updating elsewhere when it changes.
+- Corrected `docs/ASSETS.md`'s "Logo → `public/`" row, which this change made flatly wrong.
+- Full build notes in `docs/DECISIONS.md` D-52.
+
+**Not done**
+
+- Did not click-test a live re-upload through the new admin UI — verified via type-check,
+  build, and reading the code path instead (the upload mechanics themselves were already
+  proven by the upload script and the existing media library; only the new fixed-key/
+  settings wiring needed checking).
+- Favicon and OG image still point at the old `public/logo-icon.png` — the user scoped this
+  to the header only, so both were left untouched.
+- Not deployed. Local commit only, pending explicit push authorization.
+
 ## 2026-07-28 — Session 28: optimistic UI for admin reordering (D-51)
 
 **Done**
