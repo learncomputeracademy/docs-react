@@ -184,3 +184,40 @@
   border-radius: 0.3em;
   font-weight: 500;
 }
+
+/* Site-wide minimal scrollbar — same shape the /tools/scrollbar app teaches
+   (thin, transparent track, one thumb colour, darker on hover), applied
+   everywhere via `*` rather than a per-element opt-in class, so it covers
+   the page scroll, the doc sidebar, code blocks, and any overflow-auto
+   panel without hunting down each one. */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+html.dark {
+  scrollbar-color: #475569 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 8px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+*::-webkit-scrollbar-corner {
+  background: transparent;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}
