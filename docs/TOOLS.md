@@ -137,7 +137,9 @@ and Firefox ignores it outright — generate both if you want it to look intenti
 everywhere. 5 presets. Two output tabs (CSS, React) — no Tailwind tab, since core Tailwind
 has no scrollbar utilities and generating classes for a plugin this project doesn't use
 would produce copy that doesn't work. **Links to a real lesson** —
-`css/pseudo-elements` — the only tool so far that has one.
+`css/pseudo-elements` — one of only two tools that has one (the box model demo links to
+`css/boxmodel`; the shadow, gradient and flexbox tools all fall back to the CSS category
+listing because no matching lesson exists).
 
 Closes the old Jekyll nav's last unfulfilled promise (see D-48 in `docs/DECISIONS.md`) — no
 tool the old site advertised and never built remains 404ing.
