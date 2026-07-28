@@ -1,6 +1,8 @@
-// Colour math for the box-shadow generator's format switcher (hex8 / rgba /
-// hsl / oklch). Pure functions, no DOM — usable from both the client demo
-// and (if a future SSR preset ever needs it) the server.
+// Colour math shared by the /tools demos (box-shadow generator, gradient
+// generator, …) — conversions for the hex8/rgba/hsl/oklch format switcher,
+// plus small parsing helpers their paste-to-import parsers both need. Pure
+// functions, no DOM — usable from both the client demo and (if a future
+// SSR preset ever needs it) the server.
 
 export type RGBA = { r: number; g: number; b: number; a: number }
 export type ColorFormat = 'hex8' | 'rgba' | 'hsl' | 'oklch'
@@ -77,11 +79,17 @@ export function formatColor(rgba: RGBA, format: ColorFormat): string {
   }
 }
 
-// A handful of named colours a pasted box-shadow might use — enough to not
-// silently drop them, not a full CSS colour keyword table.
+// The CSS1 basic keyword set plus a few extras example gradients reach for
+// constantly ("red, yellow, green" is the canonical test string) — enough
+// to not silently drop them on paste-import, not the full 147-name CSS3
+// table.
 const NAMED_COLORS: Record<string, string> = {
-  black: '#000000', white: '#ffffff', red: '#ff0000', green: '#008000',
-  blue: '#0000ff', gray: '#808080', grey: '#808080', transparent: '#000000',
+  black: '#000000', silver: '#c0c0c0', gray: '#808080', grey: '#808080', white: '#ffffff',
+  maroon: '#800000', red: '#ff0000', purple: '#800080', fuchsia: '#ff00ff', magenta: '#ff00ff',
+  green: '#008000', lime: '#00ff00', olive: '#808000', yellow: '#ffff00', navy: '#000080',
+  blue: '#0000ff', teal: '#008080', aqua: '#00ffff', cyan: '#00ffff', orange: '#ffa500',
+  pink: '#ffc0cb', brown: '#a52a2a', gold: '#ffd700', indigo: '#4b0082', violet: '#ee82ee',
+  transparent: '#000000',
 }
 
 // Pulls a colour (hex / rgb() / rgba() / a few keywords) out of a shadow
@@ -104,4 +112,25 @@ export function extractColor(input: string): { rgba: RGBA; rest: string } {
     if (re.test(input)) return { rgba: hexToRgba(NAMED_COLORS[name]), rest: input.replace(re, ' ') }
   }
   return { rgba: { r: 0, g: 0, b: 0, a: 1 }, rest: input }
+}
+
+// Splits on top-level occurrences of `sep` only — not ones nested inside
+// `rgba(...)`/`hsl(...)`/etc. Shared by every paste-to-import parser in the
+// /tools demos (box-shadow, gradient).
+export function splitTopLevel(str: string, sep: string): string[] {
+  const out: string[] = []
+  let depth = 0
+  let current = ''
+  for (const ch of str) {
+    if (ch === '(') depth++
+    if (ch === ')') depth--
+    if (ch === sep && depth === 0) {
+      out.push(current)
+      current = ''
+    } else {
+      current += ch
+    }
+  }
+  out.push(current)
+  return out.map((s) => s.trim()).filter(Boolean)
 }

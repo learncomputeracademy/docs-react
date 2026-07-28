@@ -1,4 +1,5 @@
-import { hexToRgba, rgbaToHex, extractColor, formatColor, type ColorFormat } from '@/lib/color'
+import { hexToRgba, rgbaToHex, extractColor, formatColor, splitTopLevel, type ColorFormat } from '@/lib/color'
+import { uid } from '@/lib/utils'
 
 // Shadow math + CSS generation for the box-shadow generator. Pure functions
 // only (no DOM) so they're usable from the component and, if it's ever
@@ -20,10 +21,6 @@ export type ShadowLayer = {
   alpha: number // 0-1
   inset: boolean
   visible: boolean
-}
-
-function uid() {
-  return typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2)
 }
 
 function round1(n: number) {
@@ -86,25 +83,6 @@ export function toTailwindArbitrary(singleLineValue: string): string {
 }
 
 // ── Paste-to-import ─────────────────────────────────────────────────────
-// Splits on top-level commas only (not commas inside rgba()/hsl()/etc).
-
-function splitTopLevel(str: string, sep: string): string[] {
-  const out: string[] = []
-  let depth = 0
-  let current = ''
-  for (const ch of str) {
-    if (ch === '(') depth++
-    if (ch === ')') depth--
-    if (ch === sep && depth === 0) {
-      out.push(current)
-      current = ''
-    } else {
-      current += ch
-    }
-  }
-  out.push(current)
-  return out.map((s) => s.trim()).filter(Boolean)
-}
 
 function parseLayerSegment(raw: string, kind: 'box' | 'text'): ShadowLayer | null {
   let seg = raw.trim()
