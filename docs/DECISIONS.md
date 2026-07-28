@@ -2588,6 +2588,16 @@ Bumped `basics/computer-fundamentals` to `sort_order: 99` directly (a one-off DB
 part of `create-basics-content.mjs` — it only ever touches the *new* lessons) — confirmed
 live that new lessons now sort correctly ahead of it.
 
+**Lesson 3, `basics/computer-hardware`** — motherboard, CPU, RAM vs. storage (deliberately
+paired as one section rather than two, since "what's the difference" is the actual question
+beginners have, not two unrelated facts), power supply, one labelled diagram of a case
+interior (motherboard, CPU, RAM, storage, PSU, cables between them). The image came back
+clean and accurate on the first generation — correct labels, no invented facts, no repeat of
+lesson 2's date-range problem — so no regeneration needed this time. `sort_order: 4`. EN +
+BN, published, verified live the same way as the previous two: server HTML contains the
+lesson text in both locales, image renders at its real 1024×768 with no layout shift, no
+console errors, sidebar orders correctly ahead of the old doc.
+
 ---
 
 ## Open

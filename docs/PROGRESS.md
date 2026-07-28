@@ -149,11 +149,15 @@ the English version. Verified spot-checks in browser after each major batch.
   so the old doc sorted itself between lesson 1 and lesson 2 instead of staying at the bottom.
   Bumped the old doc to `sort_order: 99` — confirmed live that lessons now sort correctly
   ahead of it as each one is added.
+- **Lesson 3, `basics/computer-hardware`** — motherboard, CPU, RAM vs. storage (tackled as
+  the classic beginner mix-up head-on rather than two disconnected sections), power supply,
+  one labelled diagram of a case interior. Image was clean and accurate on the first try —
+  no repeat of lesson 2's invented-facts problem. EN + BN, published, verified live.
 - Full build notes in `docs/DECISIONS.md` D-53.
 
 **Not done**
 
-- 14 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
+- 13 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
   message from earlier in the session) — building one at a time per the user's instruction,
   not all at once. Old `basics/computer-fundamentals` deliberately left live and
   un-redirected until the full rebuild is done — see O-20.
