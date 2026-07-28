@@ -1,9 +1,9 @@
 import Link from 'next/link'
-import { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, ArrowRight } from 'lucide-react'
+import { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3, ArrowRight } from 'lucide-react'
 import { tis, type ToolEntry } from '@/lib/tools-index-i18n'
 import type { Locale } from '@/lib/types'
 
-const ICONS = { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast }
+const ICONS = { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3 }
 
 function ToolCard({ tool, locale, openLabel }: { tool: ToolEntry; locale: Locale; openLabel: string }) {
   const Icon = ICONS[tool.icon]

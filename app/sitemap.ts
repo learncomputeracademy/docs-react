@@ -36,6 +36,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/bn/tools/specificity`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/colour`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/colour`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/tools/grid`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools/grid`, changeFrequency: 'monthly', priority: 0.6 },
   ]
 
   for (const c of categories) {

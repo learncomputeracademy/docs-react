@@ -8,7 +8,7 @@ import type { Locale } from './types'
 // framework-agnostic (plain data).
 export type ToolEntry = {
   slug: string
-  icon: 'Box' | 'Layers' | 'Palette' | 'LayoutGrid' | 'MousePointer2' | 'Ruler' | 'Contrast'
+  icon: 'Box' | 'Layers' | 'Palette' | 'LayoutGrid' | 'MousePointer2' | 'Ruler' | 'Contrast' | 'Grid3x3'
   name: string
   description: string
   lessonHref: string | null
@@ -70,6 +70,13 @@ export const TOOLS_INDEX_STRINGS = {
         description: 'Build a palette from one colour, check WCAG AA/AAA contrast, preview how it looks under colour blindness.',
         lessonHref: '/css/colors',
       },
+      {
+        slug: 'grid',
+        icon: 'Grid3x3',
+        name: 'Grid Generator',
+        description: 'Drag across cells to place items on a real CSS Grid — mix fr, px, auto and minmax() tracks, export the derived grid-template-areas.',
+        lessonHref: '/css/display-visibility',
+      },
     ] as ToolEntry[],
   },
   bn: {
@@ -126,6 +133,13 @@ export const TOOLS_INDEX_STRINGS = {
         name: 'কালার ও কনট্রাস্ট স্টুডিও',
         description: 'একটি রং থেকে প্যালেট তৈরি করুন, WCAG AA/AAA কনট্রাস্ট যাচাই করুন, colour blindness-এ কেমন দেখায় তা প্রিভিউ করুন।',
         lessonHref: '/css/colors',
+      },
+      {
+        slug: 'grid',
+        icon: 'Grid3x3',
+        name: 'গ্রিড জেনারেটর',
+        description: 'সেলের উপর টেনে আইটেম বসিয়ে আসল CSS Grid তৈরি করুন — fr, px, auto আর minmax() ট্র্যাক মিশিয়ে ব্যবহার করুন, তৈরি হওয়া grid-template-areas এক্সপোর্ট করুন।',
+        lessonHref: '/css/display-visibility',
       },
     ] as ToolEntry[],
   },
