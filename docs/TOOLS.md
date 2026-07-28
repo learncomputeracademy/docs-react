@@ -87,6 +87,16 @@ or a broken hydration pass reads as a clean console.
 | CSS Specificity Calculator | `/tools/specificity` | *(none — new)* | D-49 · Session 26 |
 | Colour & Contrast Studio | `/tools/colour` | *(none — new)* | D-49 · Session 26 |
 
+⚠️ **Not pushed yet.** The two Session 26 rows above are committed locally only (see D-49) —
+they don't exist on the live site until pushed. Once they are, add both to the header nav
+via Admin → Menu (O-18); every earlier tool has already had its nav entry added by hand
+through the live admin backend, so this note only concerns these two.
+
+| Tool | Live link (once pushed) |
+|---|---|
+| CSS Specificity Calculator | `https://lca-docs.vercel.app/tools/specificity` · `https://lca-docs.vercel.app/bn/tools/specificity` |
+| Colour & Contrast Studio | `https://lca-docs.vercel.app/tools/colour` · `https://lca-docs.vercel.app/bn/tools/colour` |
+
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
 per-corner radius, editable content text and font size. Hover/click any layer for an
