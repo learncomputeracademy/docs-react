@@ -220,6 +220,19 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
   // kept separate from `categories` itself so a reorder doesn't need to
   // wait on router.refresh() to feel instant.
   const [categoryOrder, setCategoryOrder] = useState(() => categories.map((c) => c.id))
+  // Same idea, one order array per category, for reordering docs within a
+  // category — keyed by category id since sort_order is scoped per category
+  // (saveSortOrder), not global.
+  const [docOrderByCategory, setDocOrderByCategory] = useState<Map<string, string[]>>(() => {
+    const map = new Map<string, string[]>()
+    for (const cat of categories) {
+      map.set(
+        cat.id,
+        docs.filter((d) => d.category?.id === cat.id).sort((a, b) => a.sort_order - b.sort_order).map((d) => d.id)
+      )
+    }
+    return map
+  })
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }))
 
@@ -244,6 +257,20 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
     }
     for (const list of byCategory.values()) list.sort((a, b) => a.sort_order - b.sort_order)
 
+    // Apply the optimistic per-category order on top of the server-sorted
+    // list. Any doc not yet in docOrderByCategory (created or moved into
+    // this category since the last full load) falls back to its
+    // server sort_order position, appended after the known ones.
+    for (const [categoryId, serverSorted] of byCategory) {
+      const order = docOrderByCategory.get(categoryId)
+      if (!order) continue
+      const byId = new Map(serverSorted.map((d) => [d.id, d]))
+      const known = order.map((id) => byId.get(id)).filter((d): d is AdminDocRow => Boolean(d))
+      const knownIds = new Set(known.map((d) => d.id))
+      const unknown = serverSorted.filter((d) => !knownIds.has(d.id))
+      byCategory.set(categoryId, [...known, ...unknown])
+    }
+
     return orderedCategories
       .filter((c) => !categoryFilter || c.id === categoryFilter)
       .map((c) => {
@@ -255,7 +282,7 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
         })
         return { category: c, allDocs, visibleDocs }
       })
-  }, [docs, categories, orderedCategories, categoryFilter, statusFilter, titleFilter])
+  }, [docs, categories, orderedCategories, docOrderByCategory, categoryFilter, statusFilter, titleFilter])
 
   const totalVisible = groups.reduce((sum, g) => sum + g.visibleDocs.length, 0)
 
@@ -277,7 +304,12 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
     })
   }
 
-  function persistOrder(orderedIds: string[]) {
+  function persistOrder(categoryId: string, orderedIds: string[]) {
+    setDocOrderByCategory((prev) => {
+      const next = new Map(prev)
+      next.set(categoryId, orderedIds)
+      return next
+    })
     const updates = orderedIds.map((id, i) => ({ id, sort_order: i + 1 }))
     startTransition(async () => {
       await saveSortOrder(updates)
@@ -285,22 +317,22 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
     })
   }
 
-  function onDragEnd(allDocs: AdminDocRow[]) {
+  function onDragEnd(categoryId: string, allDocs: AdminDocRow[]) {
     return (event: DragEndEvent) => {
       const { active, over } = event
       if (!over || active.id === over.id) return
       const oldIndex = allDocs.findIndex((d) => d.id === active.id)
       const newIndex = allDocs.findIndex((d) => d.id === over.id)
       if (oldIndex === -1 || newIndex === -1) return
-      persistOrder(arrayMove(allDocs, oldIndex, newIndex).map((d) => d.id))
+      persistOrder(categoryId, arrayMove(allDocs, oldIndex, newIndex).map((d) => d.id))
     }
   }
 
-  function moveByOne(allDocs: AdminDocRow[], docId: string, direction: -1 | 1) {
+  function moveByOne(categoryId: string, allDocs: AdminDocRow[], docId: string, direction: -1 | 1) {
     const index = allDocs.findIndex((d) => d.id === docId)
     const target = index + direction
     if (index === -1 || target < 0 || target >= allDocs.length) return
-    persistOrder(arrayMove(allDocs, index, target).map((d) => d.id))
+    persistOrder(categoryId, arrayMove(allDocs, index, target).map((d) => d.id))
   }
 
   function persistCategoryOrder(orderedIds: string[]) {
@@ -475,7 +507,7 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
                       />
                     ))
                   ) : (
-                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd(allDocs)}>
+                    <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd(category.id, allDocs)}>
                       <SortableContext items={allDocs.map((d) => d.id)} strategy={verticalListSortingStrategy}>
                         {allDocs.map((doc, i) => (
                           <SortableDocRow
@@ -485,8 +517,8 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
                             onToggleSelected={() => toggleSelected(doc.id)}
                             onToggleStatus={() => toggleStatus(doc)}
                             onDelete={() => onDelete(doc)}
-                            onMoveUp={() => moveByOne(allDocs, doc.id, -1)}
-                            onMoveDown={() => moveByOne(allDocs, doc.id, 1)}
+                            onMoveUp={() => moveByOne(category.id, allDocs, doc.id, -1)}
+                            onMoveDown={() => moveByOne(category.id, allDocs, doc.id, 1)}
                             isFirst={i === 0}
                             isLast={i === allDocs.length - 1}
                             pending={pending}

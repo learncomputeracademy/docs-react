@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState, useTransition } from 'react'
+import { useMemo, useOptimistic, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Pencil, Trash2, ArrowUp, ArrowDown, IndentIncrease, IndentDecrease, CornerDownRight, ExternalLink } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -16,6 +16,43 @@ import {
 
 function emptyInput(): NavItemInput {
   return { label: '', labelBn: null, url: '', parentId: null }
+}
+
+// Every mutation is expressed as one of these and applied to `items` via
+// useOptimistic before the server call resolves — the list reorders/nests/
+// updates instantly, then silently reconciles with the real row once
+// router.refresh() lands. If the server call throws, the transition ends
+// without new `items` ever arriving, so React reverts to the pre-action
+// list on its own — no manual rollback needed.
+type NavAction =
+  | { type: 'move'; ids: string[] }
+  | { type: 'setParent'; id: string; parentId: string | null; newSortOrder: number }
+  | { type: 'update'; id: string; input: NavItemInput }
+  | { type: 'delete'; id: string }
+  | { type: 'create'; tempItem: NavItemRow }
+
+function navReducer(state: NavItemRow[], action: NavAction): NavItemRow[] {
+  switch (action.type) {
+    case 'move': {
+      const order = new Map(action.ids.map((id, i) => [id, i + 1]))
+      return state.map((it) => (order.has(it.id) ? { ...it, sort_order: order.get(it.id)! } : it))
+    }
+    case 'setParent':
+      return state.map((it) => (it.id === action.id ? { ...it, parent_id: action.parentId, sort_order: action.newSortOrder } : it))
+    case 'update':
+      return state.map((it) =>
+        it.id === action.id ? { ...it, label: action.input.label, label_bn: action.input.labelBn, url: action.input.url, parent_id: action.input.parentId } : it
+      )
+    case 'delete': {
+      // Mirrors the DB's on-delete cascade (migration 008): dropping a
+      // parent optimistically drops its children too, same as the real write.
+      const removed = new Set([action.id])
+      for (const it of state) if (it.parent_id === action.id) removed.add(it.id)
+      return state.filter((it) => !removed.has(it.id))
+    }
+    case 'create':
+      return [...state, action.tempItem]
+  }
 }
 
 function NavItemForm({
@@ -88,24 +125,25 @@ function NavItemForm({
 export function NavManager({ items }: { items: NavItemRow[] }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
+  const [optimisticItems, applyOptimistic] = useOptimistic(items, navReducer)
   const [error, setError] = useState<string | null>(null)
   const [editingId, setEditingId] = useState<string | null>(null)
   const [creating, setCreating] = useState(false)
 
   const roots = useMemo(
-    () => items.filter((i) => !i.parent_id).sort((a, b) => a.sort_order - b.sort_order),
-    [items]
+    () => optimisticItems.filter((i) => !i.parent_id).sort((a, b) => a.sort_order - b.sort_order),
+    [optimisticItems]
   )
   const childrenOf = useMemo(() => {
     const map = new Map<string, NavItemRow[]>()
-    for (const item of items) {
+    for (const item of optimisticItems) {
       if (!item.parent_id) continue
       if (!map.has(item.parent_id)) map.set(item.parent_id, [])
       map.get(item.parent_id)!.push(item)
     }
     for (const list of map.values()) list.sort((a, b) => a.sort_order - b.sort_order)
     return map
-  }, [items])
+  }, [optimisticItems])
 
   // Flattened render order with depth, so the list reads top-to-bottom the
   // way it renders in the header — same mental model as WordPress's editor.
@@ -119,9 +157,10 @@ export function NavManager({ items }: { items: NavItemRow[] }) {
     return out
   }, [roots, childrenOf])
 
-  function run(fn: () => Promise<void>, failMessage: string) {
+  function run(action: NavAction, fn: () => Promise<void>, failMessage: string) {
     setError(null)
     startTransition(async () => {
+      applyOptimistic(action)
       try {
         await fn()
         router.refresh()
@@ -132,17 +171,22 @@ export function NavManager({ items }: { items: NavItemRow[] }) {
   }
 
   function onCreate(input: NavItemInput) {
-    run(async () => {
-      await createNavItem(input)
-      setCreating(false)
-    }, 'Create failed')
+    const siblingCount = input.parentId ? (childrenOf.get(input.parentId)?.length ?? 0) : roots.length
+    const tempItem: NavItemRow = {
+      id: `temp-${Date.now()}`,
+      label: input.label,
+      label_bn: input.labelBn,
+      url: input.url,
+      parent_id: input.parentId,
+      sort_order: siblingCount + 1,
+    }
+    setCreating(false)
+    run({ type: 'create', tempItem }, () => createNavItem(input), 'Create failed')
   }
 
   function onUpdate(id: string, input: NavItemInput) {
-    run(async () => {
-      await updateNavItem(id, input)
-      setEditingId(null)
-    }, 'Update failed')
+    setEditingId(null)
+    run({ type: 'update', id, input }, () => updateNavItem(id, input), 'Update failed')
   }
 
   function onDelete(item: NavItemRow) {
@@ -151,7 +195,7 @@ export function NavManager({ items }: { items: NavItemRow[] }) {
       ? `Delete "${item.label}" and its ${kids.length} sub-item${kids.length === 1 ? '' : 's'}? This removes them from the header too.`
       : `Delete "${item.label}" from the header nav?`
     if (!confirm(warning)) return
-    run(() => deleteNavItem(item.id), 'Delete failed')
+    run({ type: 'delete', id: item.id }, () => deleteNavItem(item.id), 'Delete failed')
   }
 
   function onMove(siblings: NavItemRow[], index: number, direction: -1 | 1) {
@@ -160,18 +204,22 @@ export function NavManager({ items }: { items: NavItemRow[] }) {
     const reordered = [...siblings]
     const [moved] = reordered.splice(index, 1)
     reordered.splice(target, 0, moved)
-    run(() => saveNavOrder(reordered.map((s, i) => ({ id: s.id, sort_order: i + 1 }))), 'Reorder failed')
+    const ids = reordered.map((s) => s.id)
+    run({ type: 'move', ids }, () => saveNavOrder(ids.map((id, i) => ({ id, sort_order: i + 1 }))), 'Reorder failed')
   }
 
   // Indent = nest under the sibling directly above (WordPress's rule).
   function onIndent(index: number) {
     if (index === 0) return
     const above = roots[index - 1]
-    run(() => setNavParent(roots[index].id, above.id), 'Could not nest this item')
+    const item = roots[index]
+    const newSortOrder = (childrenOf.get(above.id)?.length ?? 0) + 1
+    run({ type: 'setParent', id: item.id, parentId: above.id, newSortOrder }, () => setNavParent(item.id, above.id), 'Could not nest this item')
   }
 
   function onOutdent(item: NavItemRow) {
-    run(() => setNavParent(item.id, null), 'Could not un-nest this item')
+    const newSortOrder = roots.length + 1
+    run({ type: 'setParent', id: item.id, parentId: null, newSortOrder }, () => setNavParent(item.id, null), 'Could not un-nest this item')
   }
 
   return (
@@ -258,7 +306,7 @@ export function NavManager({ items }: { items: NavItemRow[] }) {
             </div>
           )
         )}
-        {items.length === 0 && <p className="text-sm text-muted-foreground">No nav items yet — the header shows just the logo.</p>}
+        {optimisticItems.length === 0 && <p className="text-sm text-muted-foreground">No nav items yet — the header shows just the logo.</p>}
       </div>
     </div>
   )
