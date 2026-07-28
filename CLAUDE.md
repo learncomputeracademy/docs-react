@@ -154,6 +154,7 @@ in a chat transcript. Keeping these current is part of the work, not overhead.
 | `docs/ASSETS.md` | Cloudinary conventions, where each file type goes | asset handling changes |
 | `docs/ADMIN.md` | admin panel spec, usage panel, keep-alive/backup job | admin scope changes |
 | `docs/CONTENT-MODEL.md` | the block schema + widget catalog | a block type is added |
+| `docs/TOOLS.md` | the `/tools/` apps — built, promised, and the roadmap | a tool ships or an idea is added/killed |
 | `docs/URLS.md` | new URL scheme + rewrite rules | ⚠️ frozen at launch |
 | `docs/UI.md` | design system, library stack, performance budget | a dependency is added |
 | **`docs/RESEARCH.md`** | **measured facts** — extraction difficulty, asset truth, version checks | new measurement is taken |
