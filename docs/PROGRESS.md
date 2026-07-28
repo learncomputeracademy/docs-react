@@ -18,12 +18,13 @@ Bengali translation of all 8 pre-existing categories COMPLETE.
 
 ### ⚠️ Blocking next step
 
-**`supabase/migrations/008-nav-submenu.sql` needs to be run in the Supabase SQL editor** —
-Session 21 (below) added nav sub-menus. Skipping it is harmless: the header falls back to
-a flat nav (verified live), and the box model demo page works regardless since it has no
-database dependency. It just means Box Model Demo won't appear under Resources.
+Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the user
+(008 confirmed this session — Box Model Demo now shows correctly under Resources; the
+stale-cache gap this exposed is documented in Session 22 below).
 
-Migrations 004–007 are all confirmed run by the user.
+**One manual step left**: add "Box Shadow Generator" (`/tools/box-shadow-generator`) as a
+second child of Resources in Admin → Menu — no migration needed, `parent_id` nesting
+already exists from D-43/Session 21. Two clicks in the admin UI, deliberately not scripted.
 
 ### ⚡ Next action
 
@@ -104,6 +105,43 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 22: box-shadow generator (D-44) + a stale-cache fix + a dropdown polish
+
+**Done**
+
+- User ran `008-nav-submenu.sql` — confirmed live, then found the Box Model Demo sub-menu
+  still wasn't showing. Root cause: `getNavItems()` is correctly wrapped in
+  `unstable_cache(['nav-items'], { tags: ['nav'] })`, but the row was inserted by direct
+  SQL (bypassing `lib/admin/nav.ts`'s write path, the only place that calls
+  `revalidateTag('nav')`) — so Vercel's Data Cache kept serving the pre-migration flat nav
+  indefinitely. Same bug *class* as D-40's `getResources()` issue, but this time the code
+  was already correct; the gap was purely "a write happened outside the app". Fixed without
+  a redeploy by POSTing `{ tag: 'nav', path: '/' }` to the existing `/api/revalidate`
+  webhook route with the shared secret. Confirmed via `curl` before/after — sub-menu present
+  after.
+- Nav dropdown restyled with a subtle open animation (`animate-dropdown-in`: fade + scale
+  0.96→1 + translateY -4px→0, `app/globals.css`) after the user asked for something closer
+  to a smoothui.dev dropdown example. Scoped to "add animation, keep current a11y behaviour"
+  per the user's own choice among three options offered — enter-only (no exit animation,
+  no item stagger), respects `prefers-reduced-motion`.
+- **D-44: box-shadow generator built in full** (all four tiers from the proposal — user's
+  words: "Build it in full"). New: `lib/color.ts`, `lib/box-shadow.ts`,
+  `lib/box-shadow-i18n.ts`, `components/tools/box-shadow-demo.tsx`,
+  `components/tools/tool-controls.tsx` (extracted shared `Slider`/`Section`/
+  `SegmentedControl` out of `box-model-demo.tsx`), both `/tools/box-shadow-generator`
+  routes, the `/box-shadow-generator` → new-path redirect, sitemap entries. Full detail
+  (feature list, both real bugs found, math verification) in `docs/DECISIONS.md` D-44.
+
+**Not done**
+
+- Box Shadow Generator not yet in the header nav — needs adding as a second child of
+  Resources via Admin → Menu (no migration, no script; two clicks in the UI already built
+  for this in D-43).
+- Not deployed. Everything this session is local-only pending explicit push authorization.
+- Saved/recent colour swatches skipped (Tier 2 idea, low value for the added state).
+- `smoothShadowLayers()`'s easing curve is a reasonable approximation, not tuned against a
+  reference implementation pixel-for-pixel.
 
 ## 2026-07-27 — Session 21: nav sub-menus + the interactive box model demo (D-43)
 

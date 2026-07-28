@@ -1780,11 +1780,145 @@ Bengali page all confirmed working, with a clean console (no hydration warnings)
 
 ---
 
+## D-44 · Box Shadow Generator (`/tools/box-shadow-generator`) — full tier 1-4 build
+
+User asked for the old `/box-shadow-generator` tool rebuilt "with all the features currently
+available, and also any new modern and more feature rich as possible... make it as feature
+rich as possible" for designers, developers and students, explicitly "in full" after I
+proposed a tiered feature list (Tier 1 core, Tier 2 designer power, Tier 3 teaching, Tier 4
+adjacent modes) and asked which tiers to build.
+
+**The old tool** (`box-shadow-generator.html` in the Jekyll source) was one shadow only:
+h/v-offset, blur, spread, colour, a separate opacity field, inset, plus box/canvas
+background colour and a copy button. `box-shadow` is a comma-separated list and the single
+biggest gap was that the old tool could never produce more than one layer — every
+realistic-looking shadow stacks several.
+
+**Shared code extracted first.** `Slider`/`Section`/`SegmentedControl` were private to
+`box-model-demo.tsx`; moved to `components/tools/tool-controls.tsx` and both demos now
+import from there rather than duplicating ~80 lines. `Slider` gained an optional
+`onDragStart` prop (fires once per drag gesture, before the first `onChange`) — used to
+snapshot undo history once per drag instead of once per pixel.
+
+**New lib modules** (pure functions, no DOM, so they're independently reasoned about):
+- `lib/color.ts` — hex↔rgba, and sRGB → OKLCH via Björn Ottosson's published matrices
+  (verified against the reference values: red `#ff0000` → `oklch(62.8% 0.258 29.2)`,
+  matches oklch.com to 3 decimal places). `extractColor()` pulls a colour (hex/rgba/hsl
+  function or a small named-colour table) out of a shadow-layer string, used by the parser.
+- `lib/box-shadow.ts` — `ShadowLayer` type, CSS generation for all three modes
+  (`box-shadow`/`text-shadow`/`filter: drop-shadow()`), the paste-to-import parser
+  (`parseShadowInput`, top-level-comma splitting that respects `rgba(...)` parens),
+  `smoothShadowLayers()` (the shadows.brumm.af technique — N layers on an easing curve,
+  offset/blur growing, opacity falling), `angleDistanceToOffset()` for light-source mode,
+  and `SHADOW_PRESETS` (12 presets: flat, 3 Material elevations, 2 Tailwind shadow scales,
+  neumorphism raised/pressed, glow, 20-layer retro long-shadow, hard offset, pressed
+  button).
+- `lib/box-shadow-i18n.ts` — same convention as `box-model-i18n.ts`: full EN/BN, CSS
+  property/function names stay English in Bengali text.
+
+**`components/tools/box-shadow-demo.tsx`** — three columns (layers+controls / canvas /
+presets+output), same architecture principle as the box model demo: real CSS on a real
+element, nothing simulated in JS. What's in:
+- **Multi-layer stack**: add/duplicate/delete/reorder (`@dnd-kit`, same sortable pattern as
+  `docs-list.tsx`'s category/doc reordering), per-layer hide and solo, drag handle.
+- **Drag-on-canvas**: pointer-drag the shape itself to set the active layer's x/y directly,
+  1:1 pixel mapping, snapshots history on drag start.
+- **Colour**: hex + alpha slider (no browser ships a native alpha colour input, so this is
+  the practical version of "one picker with alpha") plus an eyedropper button, feature-
+  detected against `window.EyeDropper` (Chromium-only, hidden elsewhere) — swatch previews
+  the actual composited rgba against a checkerboard.
+- **Output format switch**: hex8 / `rgba()` / `hsl()` / `oklch()` for the generated CSS,
+  independent of how layers are edited (always hex+alpha internally, for precision).
+- **Paste-to-import**: parses a pasted `box-shadow`/`text-shadow` value (bare or as a full
+  declaration) back into editable layers — verified live against
+  `box-shadow: 0 20px 40px -10px rgba(16, 24, 40, 0.4), inset 0 -2px 0 #ffffff33;`, which
+  correctly split into two layers, resolved the 8-digit hex alpha to `rgba(255, 255, 255,
+  0.2)`, and preserved the negative spread and the `inset` flag.
+- **Light-source mode**: one angle+distance+elevation panel recomputes x/y/blur for every
+  layer coherently (deterministic function of the three inputs, not path-dependent), so a
+  multi-layer stack can't end up with physically inconsistent per-layer offsets. Verified
+  live: 315° (light from upper-left, the default) puts the shadow lower-right; dragging to
+  123° recomputed both layers to `x:-16.8 y:-10.9` in the same frame.
+- **Smooth-shadow generator**: one elevation slider replaces the current stack with a
+  5-layer easing-curve shadow (the technique behind most modern soft shadows).
+- **Compare A/B**: snapshot the current stack as A, keep editing as B, two boxes side by
+  side, swap.
+- **Three modes** share one UI: `box-shadow`, `text-shadow` (spread/inset hidden — the
+  syntax doesn't have them), `filter: drop-shadow()` (same, plus paste-import is disabled
+  since the parser only targets box/text syntax). The "image" shape is an inline `Star`
+  icon (`lucide-react`), not a binary asset — CLAUDE.md keeps `public/` asset-free, and an
+  SVG icon demonstrates the drop-shadow-vs-box-shadow contrast better than a raster PNG
+  would (crisp at any size, themeable fill). **Verified live**: switching shape to the star
+  in `drop-shadow` mode hugs the star's points; switching the same star to `box-shadow`
+  mode shows the shadow as a rectangle around the star's bounding box — the exact
+  pedagogical contrast this shape option exists for.
+- **Output formats**: plain CSS block, Tailwind arbitrary value (`shadow-[...]` or
+  `[filter:...]`/`[text-shadow:...]`), CSS custom property, React style object.
+- **Undo/redo**: scoped to layer mutations (add/delete/reorder/preset/import, and one
+  snapshot per slider *drag*, not per tick) — a full-state-per-onChange history would fill
+  up with hundreds of no-op steps for one drag and make undo useless.
+- **Share link + persistence**: state round-trips through a base64 URL param (`?s=...`) and
+  `localStorage`, hydrated in a post-mount `useEffect` (not the initial render) so the
+  server-rendered default state and the client's first paint always match — avoids a
+  hydration mismatch, same reasoning as every other `window`-dependent read in this
+  codebase (theme toggle, etc.).
+- **Teaching**: hover/focus-scoped explanation panel per field (offset/blur/spread/colour/
+  inset), a contrast note (shadow-as-hint-not-border), and a perf note that only appears
+  once 3+ visible layers have blur > 30px.
+
+**Two real bugs caught during the live pass, both fixed:**
+1. **Box-shadow silently no-op'd on the "image" (star) shape.** `shapeStyle()` — the
+   function that applied `boxShadow`/`filter` — was only ever called for the generic shape
+   `<div>`; the `Star` icon and the text `<span>` each had their own ad-hoc inline
+   conditional, and the Star's never set `boxShadow` at all (only `filter`, for drop mode).
+   Switching to the star shape while in `box-shadow` mode rendered nothing. Fixed by
+   extracting one `activeShadowStyle` computed once from `state.mode` and spreading it into
+   all three render targets — the exact "three call sites redefining the same logic
+   slightly differently" shape a bug like this comes from. Re-verified: the star now shows
+   a rectangular box-shadow around its bounding box, confirmed against the drop-shadow
+   version which correctly hugs the star's silhouette.
+2. **The "Opacity" slider label and four layer-row button titles (drag/solo/hide-show/
+   duplicate/delete) were hardcoded English inside two module-level subcomponents**
+   (`ColorField`, `LayerRowContent`) that didn't have access to the `s` strings object in
+   scope. Caught by actually loading the Bengali page and reading it, not by inspecting the
+   i18n file in isolation — the i18n file itself was already complete;  the bug was call
+   sites never threading the translated strings through. Fixed by adding `opacityLabel`/
+   `eyedropperLabel`/`labels` props to both subcomponents.
+
+**Local-server gotcha hit twice this session, noted for next time**: killing a backgrounded
+`npm run start` with `pkill` inside Git Bash on Windows doesn't reliably kill the actual
+Windows node process — `next start` kept reporting `EADDRINUSE` and the *old, pre-fix*
+build kept serving on the port while the new one silently failed to bind. Verified via the
+server's own log file, not assumption. Fixed by killing the port's actual owning PID via
+`Get-NetTCPConnection -LocalPort ... | Stop-Process` (PowerShell) instead of `pkill`.
+
+**Nav entry**: no migration needed — `parent_id` and the admin Menu screen's nesting UI
+already exist from D-43. Deliberately not scripted (the admin UI already does this in two
+clicks); user needs to add "Box Shadow Generator" as a child of Resources themselves.
+
+**Skipped, deliberately** (ponytail: ship the lazy version, name what was cut): zoom got
+included (5 lines, cheap) but saved/recent colour swatches did not (real state + UI for
+low marginal value); Material elevations 2 and 4 are skipped in favour of 1/3/5 as a
+representative ramp; the smooth-shadow curve is a reasonable approximation, not pixel-tuned
+against a reference implementation — the shape of the curve is the point, not exact
+matching.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean, both routes
+`○` static; `.next/static/` grepped for secret names — no matches; `/box-shadow-generator`
+redirects to `/tools/box-shadow-generator`. Live browser pass: multi-layer stack, drag-to-
+set-offset, undo, all three modes, the star shape's box-shadow-vs-drop-shadow contrast, a
+real preset (Glow), light-source mode's coherent recompute, paste-import with a realistic
+multi-layer/inset/8-digit-hex input, and the fully-translated Bengali page (post-fix) — all
+confirmed working, clean console.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
 |---|---|---|
-| O-12 | **Run `supabase/migrations/008-nav-submenu.sql`** in the Supabase SQL editor — see D-43 | Box Model Demo won't appear as a sub-menu (header falls back to a flat nav; the demo page itself works regardless) |
+| ~~O-12~~ | ~~Run `supabase/migrations/008-nav-submenu.sql`~~ — **resolved.** User ran it; the sub-menu still didn't show due to a stale `nav` cache tag (direct-SQL write bypassed `revalidateTag`) — fixed via the `/api/revalidate` webhook, see D-44 | — |
+| O-13 | Add "Box Shadow Generator" as a second child of Resources in Admin → Menu (D-44) — no migration, just the existing nesting UI | Box Shadow Generator page works standalone regardless; just won't appear in the header nav until added |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
