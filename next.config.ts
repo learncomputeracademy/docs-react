@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       // (docs/URLS.md R5) makes Next redirect that to /gradient first, so
       // this one entry catches it.
       { source: '/gradient', destination: '/tools/gradient', permanent: true },
+      { source: '/scrollbar', destination: '/tools/scrollbar', permanent: true },
     ]
   },
   images: {
