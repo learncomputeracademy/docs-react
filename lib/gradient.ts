@@ -32,8 +32,10 @@ function round1(n: number) {
   return Math.round(n * 10) / 10
 }
 
-export function makeStop(partial: Partial<Omit<Stop, 'id'>> = {}): Stop {
-  return { id: uid(), color: '#6366f1', alpha: 1, position: 50, ...partial }
+// id override exists for defaultState()'s initial stops — see the same
+// note on lib/box-shadow.ts's makeLayer().
+export function makeStop(partial: Partial<Omit<Stop, 'id'>> = {}, id?: string): Stop {
+  return { id: id ?? uid(), color: '#6366f1', alpha: 1, position: 50, ...partial }
 }
 
 function sortedStops(stops: Stop[]) {

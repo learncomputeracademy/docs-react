@@ -34,9 +34,9 @@ type State = {
 
 function defaultState(): State {
   const items = [
-    makeItem({ grow: 1 }),
-    makeItem({ grow: 1 }),
-    makeItem({ grow: 1 }),
+    makeItem({ grow: 1 }, 'default-1'),
+    makeItem({ grow: 1 }, 'default-2'),
+    makeItem({ grow: 1 }, 'default-3'),
   ]
   return {
     container: { direction: 'row', wrap: 'nowrap', justify: 'space-between', alignItems: 'stretch', alignContent: 'stretch', gap: 12 },

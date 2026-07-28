@@ -50,6 +50,27 @@ ever shipped two — see *Outstanding promises*. Closing that gap is table stake
 | Canonical + hreflang metadata | `buildAlternates()` in `lib/seo.ts` |
 | Undo/redo, share-link state, localStorage persistence | pattern in `box-shadow-demo.tsx` |
 
+### ⚠️ Gotcha: `useState(defaultState)` must never generate ids at call time
+
+If `defaultState()` builds its initial items/layers/stops via a `makeX()` factory that calls
+`uid()`/`crypto.randomUUID()` for the id, **every one of these tools' first render will
+hydration-mismatch** — `useState`'s lazy initializer runs once during SSR and again,
+independently, during the client's hydration render, producing two different random ids
+for what's supposed to be the same initial state (D-47, caught live on the flexbox
+playground after shipping on all three earlier tools without ever noticing in testing).
+
+**The fix, and the pattern to follow from the start**: give every `makeX()` factory an
+optional `id?: string` second parameter that overrides the default `uid()` call, and have
+`defaultState()` pass fixed literal ids (`'default-1'`, `'default-2'`, …) for its initial
+set. Every *other* call site — an "Add layer" button, a click-to-insert-stop handler — is a
+client-only event handler that never runs during SSR, so it's safe to keep calling `uid()`
+there unchanged.
+
+**Also worth knowing**: `read_console_messages` attaches its listener lazily on first call
+— messages emitted before that first call (including a hydration warning, which fires
+within milliseconds of navigation) are gone. Call it once *before* navigating, not after,
+or a broken hydration pass reads as a clean console.
+
 ---
 
 ## Built

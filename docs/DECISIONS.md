@@ -2071,6 +2071,52 @@ showing correct, fully-settled state.
 
 ---
 
+## D-47 · Fix a real hydration bug across all three /tools demos (box-shadow, gradient, flexbox)
+
+User spotted a Next.js dev-overlay hydration error on the flexbox page (`data-item-id`
+mismatch between server and client) and reported it with a screenshot mid-session, while
+work on the Scrollbar App had already started.
+
+**Root cause**: `useState<State>(defaultState)` in all three components passes the
+`defaultState` function itself as React's lazy-initializer, and `defaultState()` builds its
+initial layers/stops/items via `makeLayer()`/`makeStop()`/`makeItem()`, each of which calls
+`uid()` (`crypto.randomUUID()`) to generate an id. React's lazy initializer runs once on
+the **server** during SSR and *independently again* on the **client** during hydration's
+first render — two separate calls to `uid()`, two different ids, and the id ends up in the
+DOM as `data-item-id`/`data-layer-id`-equivalent attributes and `key` props. Every
+`/tools/box-shadow-generator`, `/tools/gradient`, and `/tools/flexbox` page load has been
+doing this since each tool shipped (D-44, D-45, D-46) — it just never surfaced in a Console
+Error overlay the way the flexbox one visibly did.
+
+**Why my own testing missed it three times in a row.** Every verification pass this project
+has done used `mcp__claude-in-chrome__read_console_messages` *after* navigating, but that
+tool's listener attaches lazily on first call — per its own returned note, messages emitted
+before the first call are simply gone. A hydration warning fires within the first commit,
+milliseconds after navigation completes, so "navigate, then check console" was structurally
+incapable of catching this. Corrected going forward: attach the listener (one
+`read_console_messages` call, any pattern) **before** navigating, so it's live for the
+actual page load.
+
+**Fix**: `makeLayer()`, `makeStop()`, and `makeItem()` each gained an optional second `id?:
+string` parameter (falls back to `uid()` when omitted). Each tool's `defaultState()` now
+passes fixed literal ids (`'default-1'`, `'default-2'`, …) for its initial set instead of
+letting them default to a fresh random uuid. Every *other* call site — `addLayer`,
+`duplicateLayer`, `addStop`, `insertStopAt`, `addItem` — is a client-only event handler that
+never runs during SSR, so those keep using real `uid()` unchanged; they were never part of
+the bug. Grepped all three component files for any other `uid()`/`randomUUID`/`Math.random`/
+`Date.now` call outside the lib factories to confirm this was the only source of
+render-time non-determinism — none found.
+
+**Verified properly this time**: for each of the three tools, attached the console listener
+*before* navigating (not after), did a fresh full-page navigation, and confirmed zero
+console output — genuinely zero messages, not just zero errors. Additionally cleared
+`localStorage` and re-verified on the gradient and flexbox pages specifically to rule out a
+stale saved-state effect masking the check, then read the live DOM's `data-item-id`
+attributes directly on flexbox and confirmed they render as the new fixed
+`default-1`/`default-2`/`default-3` values, not random ids.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

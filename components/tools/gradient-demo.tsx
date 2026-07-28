@@ -39,8 +39,8 @@ type State = {
 
 function defaultState(): State {
   const stops: Stop[] = [
-    makeStop({ color: '#6366f1', alpha: 1, position: 0 }),
-    makeStop({ color: '#ec4899', alpha: 1, position: 100 }),
+    makeStop({ color: '#6366f1', alpha: 1, position: 0 }, 'default-1'),
+    makeStop({ color: '#ec4899', alpha: 1, position: 100 }, 'default-2'),
   ]
   return {
     spec: { kind: 'linear', angle: 135, radialShape: 'circle', radialSize: 'farthest-corner', posX: 50, posY: 50, stops },

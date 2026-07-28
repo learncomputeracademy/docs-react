@@ -36,8 +36,10 @@ export type Container = {
 // added or removed.
 export const ITEM_COLORS = ['#60a5fa', '#34d399', '#fbbf24', '#f472b6', '#a78bfa', '#fb923c', '#22d3ee', '#f87171']
 
-export function makeItem(partial: Partial<Omit<FlexItem, 'id'>> = {}): FlexItem {
-  return { id: uid(), grow: 0, shrink: 1, basisMode: 'auto', basisPx: 100, order: 0, alignSelf: 'auto', ...partial }
+// id override exists for defaultState()'s initial items — see the same
+// note on lib/box-shadow.ts's makeLayer().
+export function makeItem(partial: Partial<Omit<FlexItem, 'id'>> = {}, id?: string): FlexItem {
+  return { id: id ?? uid(), grow: 0, shrink: 1, basisMode: 'auto', basisPx: 100, order: 0, alignSelf: 'auto', ...partial }
 }
 
 // ── CSS generation ──────────────────────────────────────────────────────

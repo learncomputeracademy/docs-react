@@ -33,9 +33,15 @@ function clamp(n: number, min: number, max: number) {
   return Math.min(max, Math.max(min, n))
 }
 
-export function makeLayer(partial: Partial<Omit<ShadowLayer, 'id'>> = {}): ShadowLayer {
+// id defaults to a fresh uid(), but accepts an explicit override — used by
+// defaultState() for the initial layers so their ids are deterministic
+// between the server render and the client's hydration render. A random
+// id there would produce a real hydration mismatch (server and client
+// each call the useState lazy initializer independently and would get
+// different uid() results).
+export function makeLayer(partial: Partial<Omit<ShadowLayer, 'id'>> = {}, id?: string): ShadowLayer {
   return {
-    id: uid(),
+    id: id ?? uid(),
     x: 0,
     y: 4,
     blur: 8,

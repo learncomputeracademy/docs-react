@@ -67,8 +67,8 @@ const SHAPE_DEFAULTS: Record<Shape, Partial<BoxSettings>> = {
 
 function defaultState(): State {
   const layers = [
-    makeLayer({ x: 0, y: 10, blur: 20, spread: 0, color: '#000000', alpha: 0.25 }),
-    makeLayer({ x: 0, y: 4, blur: 6, spread: -2, color: '#000000', alpha: 0.15 }),
+    makeLayer({ x: 0, y: 10, blur: 20, spread: 0, color: '#000000', alpha: 0.25 }, 'default-1'),
+    makeLayer({ x: 0, y: 4, blur: 6, spread: -2, color: '#000000', alpha: 0.15 }, 'default-2'),
   ]
   return {
     mode: 'box',
