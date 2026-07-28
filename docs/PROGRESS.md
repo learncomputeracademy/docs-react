@@ -22,17 +22,19 @@ Nothing DB-blocking right now. Migrations 004–008 are all confirmed run by the
 (008 confirmed in Session 22 — Box Model Demo now shows correctly under Resources; the
 stale-cache gap this exposed is documented there).
 
-**Four tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
+**Six tools need adding to the header nav**: "Box Shadow Generator" (pushed and confirmed
 working), "Gradient Generator" (Session 23), "Flexbox Playground" (Session 24), "Scrollbar
-App" (Session 25) — no migration needed, done via Admin → Menu. **Note**: a live browser
-pass in Session 24 showed a top-level "Tools" dropdown in the header, not the "Resources"
-sub-menu earlier sessions described — the nav appears to have been restructured in the
-admin panel since D-43/D-44. Confirm the actual current structure before adding new entries
-(see O-15/O-17).
+App" (Session 25), "CSS Specificity Calculator" and "Colour & Contrast Studio" (both Session
+26) — no migration needed, done via Admin → Menu. All are reachable from `/tools` regardless
+(Session 26). **Note**: a live browser pass in Session 24 showed a top-level "Tools"
+dropdown in the header, not the "Resources" sub-menu earlier sessions described — the nav
+appears to have been restructured in the admin panel since D-43/D-44. Confirm the actual
+current structure before adding new entries (see O-15/O-17/O-18).
 
 **All four tools the old Jekyll nav ever advertised now exist** (D-48) — Box Model, Box
 Shadow Generator, Gradient Generator, and Scrollbar App. Nothing from the old site is
-promised-and-missing anymore.
+promised-and-missing anymore. **Seven tools total now** (Session 26 added two more beyond
+the old site's original four).
 
 ### ⚡ Next action
 
@@ -113,6 +115,35 @@ the English version. Verified spot-checks in browser after each major batch.
 - Two GitHub repo secrets (`NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`) still
   need adding in Settings → Secrets and variables → Actions before the daily backup
   workflow (Session 14) can actually run on schedule.
+
+## 2026-07-28 — Session 26: tools index, site-wide scrollbar CSS, two more tools (D-49)
+
+**Done**
+
+- Built `/tools` index page (`/tools`, `/bn/tools`) — the thing `docs/TOOLS.md` had flagged
+  as necessary past four tools. Card grid, both locales, in `sitemap.ts`.
+- Applied the user's exact minimal scrollbar CSS site-wide via `app/globals.css`
+  (`html`/`*::-webkit-scrollbar`, not an opt-in class), light + dark variants. Checked
+  `app/layout.tsx` first to confirm `.dark` actually sits on `<html>` itself before writing
+  the dark selector — guessing wrong there would have silently never matched.
+- **Built the CSS Specificity Calculator** (`/tools/specificity`) — a real spec-correct
+  tokenizer (not regex), verified against 14 test cases including `:not()`/`:is()`/`:has()`'s
+  max-branch rule and `:where()`'s always-zero rule, all passing before any UI was written.
+  Calculate and Compare modes.
+- **Built Colour & Contrast Studio** (`/tools/colour`) — palette generation, a real WCAG
+  contrast checker (verified against the canonical `#767676` 4.54:1 boundary case),
+  colour-blindness simulation, CSS-variable/Tailwind-`@theme` export.
+- Full build notes, including two real bugs caught before shipping (a half-broken hover-hint
+  mechanism, and repeating the exact `Section`-prop-spread bug from D-48 within the same
+  session before catching it), are in `docs/DECISIONS.md` D-49.
+- Caught two wrong lesson URLs by checking `scripts/url-map.json` before shipping —
+  `/css/specificity` not `/css/css-specificity` (got this wrong on the first attempt, then
+  caught it), `/css/colors` confirmed correct.
+
+**Not done**
+
+- Neither new tool is in the header nav yet (O-18) — both reachable via `/tools` regardless.
+- Not deployed. Local commits only, pending explicit push authorization.
 
 ## 2026-07-28 — Session 25: a real hydration bugfix (D-47) + the scrollbar app (D-48)
 

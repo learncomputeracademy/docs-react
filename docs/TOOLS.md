@@ -44,7 +44,9 @@ shipped two. All four now exist here (D-48) — closing that gap was table stake
 | Need | Use |
 |---|---|
 | Sliders, section cards, segmented toggles | `components/tools/tool-controls.tsx` |
-| Colour conversion — hex/rgba/hsl/**oklch**, colour extraction from a CSS string | `lib/color.ts` |
+| Colour conversion — hex/rgba/hsl/**oklch**, colour extraction from a CSS string, HSL↔RGB round-trip | `lib/color.ts` |
+| WCAG contrast ratio + AA/AAA thresholds, hue-rotation palette generation, colour-blindness simulation | `lib/contrast.ts` |
+| CSS selector parsing — a real tokenizer against the Selectors spec, not regex | `lib/specificity.ts` |
 | Drag-to-reorder lists | `@dnd-kit` — pattern in `components/tools/box-shadow-demo.tsx` and `components/admin/docs-list.tsx` |
 | Runnable code sandbox (HTML/CSS/JS + React via Sucrase) | `lib/tryit.ts`, `components/blocks/try-it.tsx` |
 | Canonical + hreflang metadata | `buildAlternates()` in `lib/seo.ts` |
@@ -82,6 +84,8 @@ or a broken hydration pass reads as a clean console.
 | Gradient Generator | `/tools/gradient` | `/gradient/` → 301 | D-45 · Session 23 |
 | Flexbox Playground | `/tools/flexbox` | *(none — new)* | D-46 · Session 24 |
 | Scrollbar App | `/tools/scrollbar` | `/scrollbar/` → 301 | D-48 · Session 25 |
+| CSS Specificity Calculator | `/tools/specificity` | *(none — new)* | D-49 · Session 26 |
+| Colour & Contrast Studio | `/tools/colour` | *(none — new)* | D-49 · Session 26 |
 
 **Box Model** — box-sizing toggle, width/height in px/%/em/rem, per-side padding/margin/
 border with link modes (All / Top-Bottom / Left-Right / Each), border style + colour,
@@ -141,8 +145,38 @@ would produce copy that doesn't work. **Links to a real lesson** —
 `css/boxmodel`; the shadow, gradient and flexbox tools all fall back to the CSS category
 listing because no matching lesson exists).
 
+**The site itself now uses the pattern this tool teaches.** `app/globals.css` has a
+site-wide minimal scrollbar (thin, transparent track, one thumb colour that darkens on
+hover, light/dark variants) applied via `*::-webkit-scrollbar` and `html`'s
+`scrollbar-color` — not the tool's own generated output, but the same shape of rule, on
+every scrollable element on the site rather than one opted-in class (D-49).
+
 Closes the old Jekyll nav's last unfulfilled promise (see D-48 in `docs/DECISIONS.md`) — no
 tool the old site advertised and never built remains 404ing.
+
+**CSS Specificity Calculator** — a real tokenizer against the CSS Selectors spec, not a
+regex shortcut, verified against 14 test cases before any UI was written — including the
+parts most calculators get wrong: `:not()`/`:is()`/`:has()` score as their *most specific*
+argument, never summed; `:where()` always contributes zero, even with an ID inside;
+combinators contribute nothing. Two modes: Calculate (paste a selector or comma-list, get a
+colour-coded `(a, b, c)` breakdown) and Compare (two selectors side by side, a clear winner
+call-out naming which column decided it). 5 clickable examples. Links to a real lesson —
+`css/specificity`.
+
+**Colour & Contrast Studio** — a palette from one base colour via hue rotation
+(complementary / triadic / analogous / split-complementary) plus a tint/shade ramp, a real
+WCAG contrast checker (normal text, large text, UI components, each with its own AA/AAA
+threshold — verified against the well-known `#767676`-on-white 4.54:1 boundary case), a live
+text preview at the sizes that actually matter, and a colour-blindness simulation
+(protanopia/deuteranopia/tritanopia) that makes the point WCAG numbers alone can miss — the
+red-on-green preset passes no threshold at all *and* collapses to a muddy, indistinguishable
+pair under deuteranopia, verified live. Export as CSS variables or a Tailwind `@theme` block
+(this project's own Tailwind v4 convention, not the legacy JS config format). Links to a
+real lesson — `css/colors`.
+
+Both close out Tier 1 of the original roadmap. Full build notes — including the WCAG
+luminance formula's deliberate 0.03928 threshold (not the "true" sRGB 0.04045 lib/color.ts
+uses for OKLCH) and the colour-blind simulation's documented approximation — in D-49.
 
 ---
 
@@ -157,18 +191,6 @@ Visual row/column builder with `fr`/`px`/`auto`/`minmax()`, drag items across ce
 areas via a text grid, `gap`. Exports real `grid-template-areas`. Together with Flexbox this
 closes the layout gap the old CSS syllabus never modernised.
 *Lessons:* `css-align`, `css-display-visibility`
-
-**CSS Specificity Calculator** — `/tools/specificity`
-Paste a selector → (a,b,c) breakdown, each part colour-coded to what produced it. Compare
-two selectors, say which wins and why. Tiny build, high clarity-per-line.
-*Lesson:* `css-specificity`
-
-**Colour & Contrast Studio** — `/tools/colour`
-Palette from one base (complementary / triadic / analogous / split-complementary), WCAG
-AA/AAA contrast checker with per-text-size pass-fail, colourblind simulation, export as CSS
-variables or Tailwind config. Serves the design curriculum *and* accessibility. `lib/color.ts`
-already does most of the maths.
-*Lessons:* `css-colors`, `design/color-theory`, `design/color-in-design`
 
 **CSS Units Playground** — `/tools/units`
 One box; switch `px`/`em`/`rem`/`%`/`vw`/`vh`/`ch`. Parent-size slider **and** root-font-size
@@ -249,14 +271,17 @@ it turns the bilingual identity into a feature rather than an obligation.
 
 ## Nav & discovery
 
-Tools live under Resources in the header nav as sub-menu items (two-level nesting, D-43).
-Adding one is an admin-panel action, not a migration: **Admin → Menu → add child of
-Resources**. No `nav_items` SQL needed.
+Tools live under Resources in the header nav as sub-menu items (two-level nesting, D-43) —
+**note**: O-15 flagged that a live pass showed a top-level "Tools" dropdown instead, so
+confirm the actual current structure in Admin → Menu before adding a new entry. Adding one
+is an admin-panel action either way, not a migration: no `nav_items` SQL needed.
 
-⚠️ **Build a `/tools` index page once there are more than four.** Right now they're only
-reachable through the nav dropdown, which doesn't scale and gives search engines nothing to
-land on. The index should be a card grid with each tool's name, one-line description, and
-the lesson it pairs with — and it belongs in `sitemap.ts` too.
+**`/tools` index page built** (D-49) — a card grid at `/tools` and `/bn/tools`
+(`components/tools-index.tsx`, data in `lib/tools-index-i18n.ts`), each card showing the
+tool's name, one-line description, and linking straight to it. Both routes are in
+`sitemap.ts`. **Update `lib/tools-index-i18n.ts` whenever a tool ships or its description
+changes** — it's a plain hand-maintained array, not derived from `docs/TOOLS.md`'s "Built"
+table, so the two can drift if only one gets updated.
 
 ---
 

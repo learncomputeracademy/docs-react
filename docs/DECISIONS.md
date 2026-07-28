@@ -2190,6 +2190,112 @@ Bengali page including a working click-through to the real, published linked les
 
 ---
 
+## D-49 · Tools index page, site-wide scrollbar CSS, Specificity Calculator, Colour & Contrast Studio
+
+Four related pieces of work in one session, in the order the user asked for them.
+
+### `/tools` index page
+
+The thing `docs/TOOLS.md` flagged as necessary "once there are more than four" — seven now.
+`components/tools-index.tsx` + `lib/tools-index-i18n.ts` (a plain hand-maintained array —
+deliberately not derived from `docs/TOOLS.md`'s own table, so the two can drift if only one
+gets updated; flagged in TOOLS.md itself as a thing to remember). `/tools` and `/bn/tools`,
+both in `sitemap.ts`.
+
+**Caught two wrong lesson URLs before they ever shipped**, both by checking
+`scripts/url-map.json` rather than guessing from the old Jekyll permalinks (same discipline
+as D-48's `pseudo-elements` catch): the specificity lesson is `/css/specificity`, not
+`/css/css-specificity` — got this one wrong on the *first* attempt in this exact file
+before checking the map, exactly the mistake the map-check exists to catch. `/css/colors`
+was correct on the first guess.
+
+### Site-wide minimal scrollbar
+
+User supplied exact CSS (thin, transparent track, `#cbd5e1` thumb → `#94a3b8` on hover,
+8px, 8px radius) and asked for it applied "throughout the website," not as an opt-in class.
+Added to `app/globals.css` via `html { scrollbar-width; scrollbar-color }` (inherited,
+covers the standard system) and `*::-webkit-scrollbar` (universal selector, covers every
+scrollable element without hunting each one down individually). Dark variant
+(`#475569` → `#64748b`) keyed off `html.dark`, matching where the existing theme-toggle
+script actually applies the class (`document.documentElement`, confirmed in
+`app/layout.tsx` before writing the selector — guessing `.dark *::-webkit-scrollbar-thumb`
+without checking would have silently never matched, since `:is(.dark *)` requires a
+descendant and the class sits on `<html>` itself, not an ancestor of it). Verified live in
+both themes via zoomed screenshots on a real doc page's scrollbar — not just visual
+inspection, an actual zoom crop confirming the exact rendered thumb colour in each theme.
+
+### CSS Specificity Calculator (`/tools/specificity`)
+
+A real tokenizer against the CSS Selectors spec — not the common regex-count shortcut most
+"specificity calculators" use, which gets `:not()`/`:is()`/`:has()`/`:where()` wrong.
+**Verified against 14 test cases before any UI existed**, covering exactly the cases a
+shortcut fails: `:is(#a, .b)` scores as `#a` alone (the max-specificity-branch rule, not a
+sum); `:where(#a)` scores `(0,0,0)` even with an ID inside; combinators and `*` contribute
+nothing; legacy single-colon pseudo-elements (`:before` etc.) count as pseudo-elements, not
+pseudo-classes. All 14 passed on the first run.
+
+Two modes: Calculate (paste one selector or a comma-list, get a colour-coded `(a, b, c)`
+breakdown per selector) and Compare (two selectors, a plain-English "decided by the {tier}
+column: X vs Y" call-out — not just a winner, the reason). The colour-coded token rendering
+is a *second*, deliberately separate tokenizer (`tokenizeForDisplay`) from the scoring one —
+documented in the code as an intentional non-DRY choice: unifying "produce a correct number"
+and "produce display segments including a dimmed `:where()` branch that must never reach the
+score" into one function would have made the already-verified scoring logic harder to trust,
+for no real benefit.
+
+### Colour & Contrast Studio (`/tools/colour`)
+
+`lib/contrast.ts`: WCAG relative luminance and contrast ratio, hue-rotation palette
+generation (complementary/triadic/analogous/split-complementary — same saturation/lightness
+as the base, only hue rotates) plus a tint/shade ramp, and a colour-blindness simulation
+(protanopia/deuteranopia/tritanopia).
+
+**The WCAG luminance formula is deliberately its own function, not a reuse of
+`lib/color.ts`'s existing `srgbToLinear`.** That function serves the OKLCH conversion used
+by the shadow/gradient tools and uses the true sRGB EOTF threshold (0.04045). WCAG 2.x's
+own published formula uses a *different* threshold (0.03928) — a well-known discrepancy in
+the spec text that every real-world contrast checker (axe-core, Lighthouse, browser
+devtools) replicates literally rather than "fixing," because matching their number is the
+entire point of building a WCAG checker. Verified against the well-known reference values
+before writing any UI: black/white = 21:1 exactly, and the canonical `#767676`-on-white
+boundary case = 4.54:1 (the one-hex-step-darker `#777777` = 4.48:1, correctly on the other
+side of AA).
+
+**Colour-blindness simulation is an explicit, documented approximation** — matrices applied
+directly to gamma-corrected sRGB rather than linearised LMS cone-response space, which is
+what a rigorous simulation does. This is the same approach most browser-extension
+simulators use; the UI says so explicitly ("good enough to show a real problem, not a
+clinical diagnostic tool") rather than implying more precision than it has.
+
+**Real bug caught and fixed before shipping, not after**: the hover-hint mechanism
+(`hintField`/`hintProps`, copied from the pattern in earlier tools) was wired onto 4 field
+groups but only 1 ever rendered its hint text — the other 3 set state that nothing read.
+Worse, one of the three spread `hintProps()` directly onto a `<Section>` component, the
+*exact* bug from D-48 (`Section` only destructures `title`/`children`/`action` and silently
+drops anything else — no type error, since JSX spread bypasses excess-property checking).
+Caught this time before it ever reached a browser, by re-reading the file structurally
+rather than waiting to notice broken hover behaviour live. Removed the whole
+half-working mechanism rather than patching it — the tool already had unconditionally
+-visible description text for the two fields that mattered most, which is simpler and was
+already proven better UX than hover-gated text for this particular tool.
+
+Export as CSS variables or a Tailwind `@theme` block — the latter matches this project's
+own Tailwind v4 CSS-first config (`app/globals.css`'s own `@theme inline { ... }`), not the
+legacy JS `tailwind.config.js` colours-object convention many older tools would generate.
+
+**Verified:** `tsc --noEmit` clean; fully clean rebuild (`rm -rf .next`) clean, all four new
+routes (`/tools`, `/tools/specificity`, `/tools/colour`, plus their `/bn/` pairs) `○`
+static; `.next/static/` grepped for secret names — no matches. Live browser pass, listener
+attached before navigating throughout: zero console output on every page; the tools index
+card grid; the specificity calculator's default selector computing exactly `(0, 3, 5)` as
+hand-verified, Compare mode correctly identifying which column decided a real `:is()` case;
+the contrast studio's complementary palette, live WCAG badges recolouring correctly, the
+colour-blind trap preset (1.27:1, fails everything) visibly collapsing to a muddy
+indistinguishable pair under deuteranopia; both new lesson links (`css/colors`,
+`css/specificity`) resolving to real published content, not 404s; both Bengali pages.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2200,6 +2306,7 @@ Bengali page including a working click-through to the real, published linked les
 | O-15 | Add "Flexbox Playground" to the header nav via Admin → Menu (D-46) — no migration. **Note**: live browser pass this session showed a top-level "Tools" dropdown in the header (English) / "টুলস" (Bengali), not the "Resources" sub-menu D-43/D-44/D-45 described — the user appears to have restructured the nav in the admin panel between sessions. Confirm actual current structure before adding | Same as O-13/O-14: page works standalone regardless |
 | O-16 | Doc lesson pages' browser tab title is duplicated — `"<Title> \| Learn Computer Academy \| Learn Computer Academy"`, confirmed on `/css/pseudo-elements` (D-48), pre-existing and unrelated to any /tools work. Not investigated | Cosmetic (browser tab / bookmark title only) — does not affect page content, SEO `<title>` may or may not share the bug, unconfirmed |
 | O-17 | Add "Scrollbar App" to the header nav via Admin → Menu (D-48) — no migration | Page works standalone regardless; just missing from the header nav until added |
+| O-18 | Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav via Admin → Menu (D-49) — no migration | Same as O-13/O-14/O-15/O-17: both pages work standalone, and are now discoverable via `/tools` regardless, but still missing from the header nav dropdown itself |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
