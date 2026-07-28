@@ -235,6 +235,103 @@ lessons.push({
   },
 })
 
+lessons.push({
+  slug: 'computer-hardware',
+  sortOrder: 3,
+  en: {
+    title: 'Computer Hardware',
+    metaTitle: 'Computer Hardware | Learn Computer Academy',
+    metaDescription: 'A tour of the physical parts inside a computer — the motherboard, CPU, RAM, storage, and power supply — and how they work together.',
+    blocks: [
+      p('<p><b>Hardware</b> is every physical part of a computer you could actually pick up and hold — as opposed to <b>software</b>, the programs and instructions that tell that hardware what to do. This lesson opens up the case and looks at the core physical components almost every computer shares, from a budget laptop to a powerful desktop.</p>'),
+
+      h(2, 'What Hardware Actually Means'),
+      p('<p>If you removed every program from a computer — the operating system, every app, everything — you would still be left with a working collection of physical parts. That collection is the hardware. It is completely useless without software to give it instructions, and software is completely useless without hardware to actually run on — the two only do anything when paired together.</p>'),
+
+      h(2, 'The Motherboard: Where Everything Connects'),
+      p('<p>The <b>motherboard</b> is the main circuit board inside a computer, and it is best thought of as the foundation everything else plugs into. The processor, memory, storage drives, and power supply all connect to the motherboard, which contains the wiring that lets them communicate with each other. If a computer were a city, the motherboard would be its road network — every other part depends on it to reach every other part.</p>'),
+
+      h(2, 'The CPU: The Computer\'s Brain'),
+      p('<p>The <b>CPU</b> (Central Processing Unit), or <b>processor</b>, is the component that actually carries out instructions — it is what does the "processing" step you read about in the first lesson of this section. A CPU\'s speed is often measured in <b>gigahertz (GHz)</b>, roughly how many basic operations it can perform per second, and modern CPUs contain multiple <b>cores</b>, letting them work on more than one task at the same time rather than doing everything one step at a time.</p>'),
+
+      h(2, 'RAM vs. Storage: Two Different Kinds of Memory'),
+      p('<p>These two terms confuse almost every beginner, because both are places a computer keeps data — but they serve completely different jobs.</p><p><b>RAM</b> (Random Access Memory) is short-term working space. When you open an app, the computer loads what it needs into RAM so the CPU can access it instantly. RAM is extremely fast, but it is also <b>temporary</b> — everything in it disappears the moment the power turns off, which is exactly why an unsaved document vanishes if the computer crashes.</p><p><b>Storage</b> (a hard drive or solid-state drive) is where files live permanently, whether the computer is on or off — your photos, documents, and installed programs all sit in storage until you delete them. Storage is much slower than RAM, but nothing in it disappears when you turn the computer off. You will look at storage devices in detail in an upcoming lesson.</p>'),
+
+      h(2, 'The Power Supply Unit (PSU)'),
+      p('<p>The <b>power supply unit</b> takes the electricity from a wall outlet and converts it into the specific, steady voltages every other component actually needs to run. Without it, nothing else in the case would receive any power at all — it is easy to overlook because it rarely fails, but every other component depends on it working correctly.</p>'),
+
+      h(2, 'At a Glance'),
+      p('<p>Here\'s how the core components relate:</p>'),
+      table(
+        ['Component', 'Role'],
+        [
+          ['Motherboard', 'Connects every other component so they can communicate'],
+          ['CPU', 'Carries out instructions — the "processing" step'],
+          ['RAM', 'Fast, temporary working space for whatever is currently in use'],
+          ['Storage', 'Slower, permanent home for files, even when the power is off'],
+          ['Power Supply', 'Converts wall power into what every component actually needs'],
+        ]
+      ),
+      img(
+        'docs/img/basics/computer-hardware-1',
+        'Labelled diagram of the inside of a desktop computer case showing the motherboard, CPU, RAM, storage drive, and power supply',
+        1024, 768,
+        'The core components inside almost every computer, from a budget laptop to a powerful desktop.'
+      ),
+
+      callout('note', '<p>A laptop or smartphone contains the exact same core components — a processor, memory, storage, and a way to manage power — just built smaller, often combined onto fewer chips, and permanently sealed inside a case you are not meant to open. The parts are the same idea at a different scale, not a different kind of machine.</p>', 'Your Laptop and Phone Have These Too'),
+
+      p('<p>Now that you know what a computer is physically made of, the next two lessons look at how you actually get information into it and back out of it — starting with input devices.</p>'),
+    ],
+  },
+  bn: {
+    title: 'কম্পিউটার হার্ডওয়্যার',
+    metaTitle: 'কম্পিউটার হার্ডওয়্যার | Learn Computer Academy',
+    metaDescription: 'কম্পিউটারের ভেতরের শারীরিক অংশগুলোর একটি ভ্রমণ — মাদারবোর্ড, CPU, RAM, স্টোরেজ, আর পাওয়ার সাপ্লাই — আর তারা একসাথে কীভাবে কাজ করে।',
+    blocks: [
+      p('<p><b>হার্ডওয়্যার</b> হলো কম্পিউটারের প্রতিটি শারীরিক অংশ যা আপনি সত্যিই হাতে ধরতে পারবেন — এর বিপরীতে থাকে <b>সফটওয়্যার</b>, যে প্রোগ্রাম আর নির্দেশাবলী সেই হার্ডওয়্যারকে বলে দেয় কী করতে হবে। এই পাঠে আমরা কেসিং খুলে দেখব প্রায় প্রতিটি কম্পিউটারে থাকা মূল শারীরিক অংশগুলো — একটি সাশ্রয়ী ল্যাপটপ থেকে শুরু করে একটি শক্তিশালী ডেস্কটপ পর্যন্ত।</p>'),
+
+      h(2, 'হার্ডওয়্যার আসলে কী বোঝায়', 'what-hardware-actually-means'),
+      p('<p>যদি একটি কম্পিউটার থেকে প্রতিটি প্রোগ্রাম সরিয়ে ফেলা হয় — অপারেটিং সিস্টেম, প্রতিটি অ্যাপ, সবকিছু — তাহলেও আপনার হাতে থাকবে শারীরিক অংশগুলোর একটি কার্যকর সংগ্রহ। সেটাই হার্ডওয়্যার। নির্দেশাবলী দেওয়ার জন্য সফটওয়্যার ছাড়া এটি সম্পূর্ণ অকেজো, আবার সফটওয়্যারও অকেজো যদি তা চালানোর জন্য কোনো হার্ডওয়্যার না থাকে — এই দুটো একসাথে থাকলেই তবে কিছু করতে পারে।</p>'),
+
+      h(2, 'মাদারবোর্ড: যেখানে সবকিছু সংযুক্ত হয়', 'the-motherboard-where-everything-connects'),
+      p('<p><b>মাদারবোর্ড</b> হলো কম্পিউটারের ভেতরের প্রধান সার্কিট বোর্ড, আর এটাকে সবচেয়ে ভালোভাবে বোঝা যায় এমন একটি ভিত্তি হিসেবে যার সাথে বাকি সবকিছু যুক্ত হয়। প্রসেসর, মেমরি, স্টোরেজ ড্রাইভ, আর পাওয়ার সাপ্লাই — সবই মাদারবোর্ডের সাথে সংযুক্ত হয়, যাতে থাকে সেই ওয়্যারিং যা তাদের একে অপরের সাথে যোগাযোগ করতে দেয়। কম্পিউটারকে যদি একটি শহর ধরা হয়, মাদারবোর্ড হবে তার রাস্তার নেটওয়ার্ক — বাকি প্রতিটি অংশ একে অপরের কাছে পৌঁছাতে এর উপরেই নির্ভর করে।</p>'),
+
+      h(2, 'CPU: কম্পিউটারের মস্তিষ্ক', 'the-cpu-the-computers-brain'),
+      p('<p><b>CPU</b> (সেন্ট্রাল প্রসেসিং ইউনিট), বা <b>প্রসেসর</b>, হলো সেই অংশ যা প্রকৃতপক্ষে নির্দেশাবলী কার্যকর করে — এটাই সেই "প্রসেস" ধাপ যা আপনি এই অংশের প্রথম পাঠে পড়েছিলেন। একটি CPU-এর গতি প্রায়ই মাপা হয় <b>গিগাহার্টজ (GHz)</b>-এ, অর্থাৎ এটি প্রতি সেকেন্ডে মোটামুটি কতগুলো মৌলিক কাজ করতে পারে; আর আধুনিক CPU-তে একাধিক <b>কোর</b> থাকে, যার ফলে সেগুলো একবারে একটি কাজ না করে একই সময়ে একাধিক কাজ করতে পারে।</p>'),
+
+      h(2, 'RAM বনাম স্টোরেজ: দুই ধরনের ভিন্ন মেমরি', 'ram-vs-storage-two-different-kinds-of-memory'),
+      p('<p>এই দুটো শব্দ প্রায় প্রতিটি নতুন শিক্ষার্থীকে বিভ্রান্ত করে, কারণ দুটোই কম্পিউটারের তথ্য রাখার জায়গা — কিন্তু তাদের কাজ সম্পূর্ণ আলাদা।</p><p><b>RAM</b> (Random Access Memory) হলো স্বল্পমেয়াদী কাজের জায়গা। আপনি যখন কোনো অ্যাপ খোলেন, কম্পিউটার তার প্রয়োজনীয় জিনিসগুলো RAM-এ লোড করে যাতে CPU সেগুলোতে সাথে সাথে পৌঁছাতে পারে। RAM অত্যন্ত দ্রুত, কিন্তু এটি <b>সাময়িক</b> — পাওয়ার বন্ধ হয়ে গেলেই এতে থাকা সবকিছু মুছে যায়, ঠিক এই কারণেই কম্পিউটার ক্র্যাশ করলে সেভ না করা একটি ডকুমেন্ট হারিয়ে যায়।</p><p><b>স্টোরেজ</b> (একটি হার্ড ড্রাইভ বা সলিড-স্টেট ড্রাইভ) হলো যেখানে ফাইল স্থায়ীভাবে থাকে, কম্পিউটার চালু বা বন্ধ যাই থাকুক না কেন — আপনার ছবি, ডকুমেন্ট, আর ইনস্টল করা প্রোগ্রাম, সবই স্টোরেজে থাকে যতক্ষণ না আপনি সেগুলো মুছে ফেলেন। স্টোরেজ RAM-এর চেয়ে অনেক ধীর, কিন্তু কম্পিউটার বন্ধ করলে এতে থাকা কিছুই হারায় না। স্টোরেজ ডিভাইস নিয়ে বিস্তারিত জানবেন আসন্ন একটি পাঠে।</p>'),
+
+      h(2, 'পাওয়ার সাপ্লাই ইউনিট (PSU)', 'the-power-supply-unit-psu'),
+      p('<p><b>পাওয়ার সাপ্লাই ইউনিট</b> দেয়ালের সকেট থেকে বিদ্যুৎ নিয়ে সেটিকে নির্দিষ্ট, স্থিতিশীল ভোল্টেজে রূপান্তর করে যা বাকি প্রতিটি অংশের আসলে প্রয়োজন হয়। এটি ছাড়া কেসিং-এর ভেতরের আর কোনো অংশই কোনো পাওয়ার পেত না — এটি প্রায়ই খেয়াল করা হয় না কারণ এটি খুব কমই নষ্ট হয়, কিন্তু বাকি প্রতিটি অংশ এটি ঠিকভাবে কাজ করার উপরই নির্ভরশীল।</p>'),
+
+      h(2, 'এক নজরে', 'at-a-glance'),
+      p('<p>মূল অংশগুলো কীভাবে সম্পর্কিত, দেখে নিন:</p>'),
+      table(
+        ['অংশ', 'ভূমিকা'],
+        [
+          ['মাদারবোর্ড', 'বাকি প্রতিটি অংশকে সংযুক্ত করে যাতে তারা একে অপরের সাথে যোগাযোগ করতে পারে'],
+          ['CPU', 'নির্দেশাবলী কার্যকর করে — "প্রসেস" ধাপটি'],
+          ['RAM', 'বর্তমানে যা ব্যবহার হচ্ছে তার জন্য দ্রুত, সাময়িক কাজের জায়গা'],
+          ['স্টোরেজ', 'ধীরগতির, স্থায়ী ফাইলের ঠিকানা, পাওয়ার বন্ধ থাকলেও'],
+          ['পাওয়ার সাপ্লাই', 'দেয়ালের বিদ্যুৎকে রূপান্তর করে যা প্রতিটি অংশের আসলে প্রয়োজন'],
+        ]
+      ),
+      img(
+        'docs/img/basics/computer-hardware-1',
+        'ডেস্কটপ কম্পিউটার কেসিং-এর ভেতরের একটি লেবেলযুক্ত ডায়াগ্রাম, যেখানে মাদারবোর্ড, CPU, RAM, স্টোরেজ ড্রাইভ, আর পাওয়ার সাপ্লাই দেখানো হয়েছে',
+        1024, 768,
+        'প্রায় প্রতিটি কম্পিউটারের ভেতরের মূল অংশগুলো, একটি সাশ্রয়ী ল্যাপটপ থেকে শুরু করে একটি শক্তিশালী ডেস্কটপ পর্যন্ত।'
+      ),
+
+      callout('note', '<p>একটি ল্যাপটপ বা স্মার্টফোনেও একই মূল অংশগুলো থাকে — একটি প্রসেসর, মেমরি, স্টোরেজ, আর পাওয়ার ব্যবস্থাপনার একটি উপায় — শুধু সেগুলো ছোট আকারে তৈরি, প্রায়ই কম সংখ্যক চিপে একত্রিত, আর এমন একটি কেসিং-এর ভেতরে স্থায়ীভাবে সিল করা যা খোলার কথা নয়। অংশগুলো একই ধারণা, শুধু ভিন্ন মাপে — সম্পূর্ণ আলাদা কোনো ধরনের যন্ত্র নয়।</p>', 'আপনার ল্যাপটপ আর ফোনেও এগুলো আছে'),
+
+      p('<p>কম্পিউটার শারীরিকভাবে কী দিয়ে তৈরি তা জানার পর, পরের দুটো পাঠে দেখা হবে আপনি আসলে কীভাবে এতে তথ্য প্রবেশ করান আর বের করেন — শুরু হবে ইনপুট ডিভাইস দিয়ে।</p>'),
+    ],
+  },
+})
+
 // ── Insert ────────────────────────────────────────────────────────────────
 
 async function main() {
