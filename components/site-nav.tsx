@@ -62,7 +62,7 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
       {open && (
         <div
           role="menu"
-          className="absolute left-0 top-full z-50 mt-1 min-w-48 overflow-hidden rounded-lg border bg-background shadow-lg"
+          className="animate-dropdown-in absolute left-0 top-full z-50 mt-1 min-w-48 origin-top-left overflow-hidden rounded-lg border bg-background shadow-lg"
         >
           {/* The parent's own page first — nesting a child under it must
               never make the parent itself unreachable. */}
