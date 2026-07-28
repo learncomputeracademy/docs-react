@@ -57,15 +57,17 @@ Two tables. No files, no MDX — `backup/` is an export, never a source (CLAUDE.
 | `sort_order` | 1-based position within the category |
 | `published_at` | `new Date().toISOString()` |
 
-Upsert with `{ onConflict: 'path' }` — makes re-running the script safe and idempotent.
+**⚠️ `docs.path` has no unique constraint in the live DB** (confirmed 2026-07-28 — `.upsert(row,
+{ onConflict: 'path' })` fails with "no unique or exclusion constraint matching the ON CONFLICT
+specification"). Use select-then-insert/update instead — `scripts/create-basics-content.mjs` is
+the working reference. Same for `doc_translations`: select on `(doc_id, locale)` first, then
+insert or update, not a blind `.upsert()`.
 
 **`doc_translations`** — one row per lesson per locale, Bengali:
 
 ```
 { doc_id, locale: 'bn', title, meta_title, meta_description, blocks, toc }
 ```
-
-Upsert with `{ onConflict: 'doc_id,locale' }`.
 
 ---
 
@@ -211,8 +213,12 @@ One re-runnable script per content run, in `scripts/`, named
 `create-<topic>-content.mjs`. This is CLAUDE.md §5's "scripts over hands" rule: content
 written straight into the admin panel is unreviewable and unrepeatable.
 
-Copy the structure of **`scripts/create-programming-section.mjs`** — it is the proven
-reference: env loading, block builders, `--dry-run`, per-lesson upsert, a written summary.
+Copy the structure of **`scripts/create-basics-content.mjs`** — env loading, block builders
+(now with an `h(level, text, anchor?)` optional-anchor-override param, needed for §5's Bengali
+anchor rule), `--dry-run`, select-then-insert/update per lesson (not `.upsert()` — see §1's
+warning), a written summary. `scripts/create-programming-section.mjs` is the older reference
+this was modelled on, still fine for the block-builder shapes, but its `.upsert(...,
+{ onConflict: 'path' })` calls are the broken pattern §1 warns about.
 
 Required properties:
 - **`--dry-run` flag** that prints what would be written and touches nothing. Always run
