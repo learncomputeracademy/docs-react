@@ -2651,6 +2651,24 @@ see O-20 (updated). The 301 redirect half of the closeout — `/basics/computer-
 in this run; it is harmless to have live even before the old doc is deleted, since Next only
 serves the redirect for the literal old path and does not touch the still-live doc row.
 
+## D-54 · Image style is asked every content run, never a fixed default
+
+**Reversed from D-52's original setting.** The pipeline previously locked image style to one
+fixed house style (flat vector, brand-orange accent) so every category stayed visually
+consistent without a question each run. The site owner reversed this after the Computer
+Basics rebuild (D-53): different runs may genuinely want different looks (a playful category
+vs. a technical one), so **`docs/CONTENT-PIPELINE.md` §0 and §4 now require asking the image
+style at the start of every run**, with concrete options offered rather than an open
+"what style?" — flat vector, isometric, hand-drawn/sketch, photoreal, line-art/monochrome, or
+"same as the last run in this category."
+
+**Why this is a real reversal, not an addition:** the whole point of D-52's fixed style was
+*never asking again*. Making it a per-run question means every future run must stop and ask
+before generating images — slower per-run, deliberately, in exchange for visual range across
+categories. `docs/CONTENT-PIPELINE.md`'s settled-defaults table and §4 updated accordingly;
+the Session 30 house style (flat vector / `#f97316` orange) is kept in the doc as a *worked
+example* to show the owner when asking, not as the answer to assume.
+
 ---
 
 ## Open

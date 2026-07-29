@@ -4,15 +4,16 @@
 *"write content for `<topic>`, follow `docs/CONTENT-PIPELINE.md`"* and this file is the
 whole spec — no re-deciding any of it per run.
 
-**Settled 2026-07-28** with the site owner. The four defaults below are decisions, not
-suggestions; change them here rather than per-run, so behaviour stays predictable.
+**Settled 2026-07-28** with the site owner, image-style rule revised **2026-07-29**. The
+defaults below are decisions, not suggestions; change them here rather than per-run, so
+behaviour stays predictable — **except image style, which is deliberately never fixed.**
 
 | Decision | Setting |
 |---|---|
 | **Language** | **Always both.** Every lesson ships EN + BN in the same run. Never EN-only. |
 | **Publish state** | **Published immediately** (`status: 'published'`). |
 | **Images** | **Generated in the same run** — no placeholder pass. |
-| **Image style** | **Flat vector, brand-orange accent.** See §4. |
+| **Image style** | **Ask every run — never assume, never reuse the last answer.** See §0 and §4. |
 
 ---
 
@@ -23,7 +24,15 @@ approved lessons because the outline was wrong is the single most expensive mist
 pipeline can make, and it is entirely avoidable with one question.
 
 Propose: category, the ordered lesson list with one-line scope each, and roughly how many
-images. Then stop and wait.
+images. **Also ask what image style to use for this run** — see below. Then stop and wait.
+
+**Image style is asked every single run, never assumed or carried over from the last
+run** (site owner instruction, 2026-07-29 — different runs may want visibly different
+looks, e.g. a playful category vs. a technical one). Ask with concrete options, not an open
+"what style?" — e.g. flat vector / brand-orange accent, isometric, hand-drawn/sketch,
+photoreal, line-art/monochrome, or "same as the last run in this category." Record the
+chosen style in the run's `docs/DECISIONS.md` entry so it's traceable later. See §4 for how
+the answer plugs into the prompt.
 
 **Existing categories** (`categories.slug`): `basics`, `programming`, `html`, `css`,
 `javascript`, `react`, `design`, `photoshop`. New category = a `categories` row first;
@@ -154,18 +163,25 @@ rank: 1` for infographics, diagrams, typography and non-photorealistic design.
 Run `simulate_cost` before any batch of more than ~5 images and report the total before
 spending. Reserve 2k/high for hero or OG images only.
 
-### House style (fixed)
+### House style (asked per run, not fixed)
 
-Append this to every prompt so the category stays visually coherent:
+**As of 2026-07-29, image style is no longer a standing default — ask the site owner at the
+start of every run (§0) and use their answer for every image in that run,** so a category
+generated in one sitting stays visually coherent internally, without locking every future
+category into the same look forever.
 
-> Flat vector illustration, clean and minimal, generous whitespace, white background,
-> single accent colour bright orange #f97316 with neutral grays, no gradients, no 3D,
-> no photorealism, no drop shadows, simple bold shapes, readable at small size,
-> educational diagram style.
+Whatever style is chosen, append a consistent style clause to every prompt in the run —
+consistency *within* a run matters even though the style itself now changes *between* runs.
+The style used for the Computer Basics rebuild (Session 30, all 16 lessons) — flat vector,
+clean and minimal, generous whitespace, white background, single accent colour bright orange
+`#f97316` with neutral grays, no gradients, no 3D, no photorealism, no drop shadows, simple
+bold shapes, educational diagram style — is a good example clause to show the owner when
+asking, not a default to reach for silently.
 
 Label text inside an image only when the diagram genuinely needs it — `gpt-2` renders text
 well, but any text baked into an image is **untranslatable** and invisible to search. Prefer
-a caption or surrounding prose. Never bake a whole paragraph into an image.
+a caption or surrounding prose. Never bake a whole paragraph into an image. This rule holds
+regardless of which visual style is chosen for the run.
 
 ### Getting the image into Cloudinary
 
