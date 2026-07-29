@@ -7,7 +7,10 @@ import { cn } from '@/lib/utils'
 import type { NavNode, NavItem } from '@/lib/content'
 import type { Locale } from '@/lib/types'
 
-function labelFor(item: NavItem, locale: Locale) {
+// Exported for MobileMenuDrawer, which renders the same nav items as a
+// vertical list inside the drawer rather than SiteNav's horizontal/dropdown
+// layout — same data, same link semantics, different presentation.
+export function labelFor(item: NavItem, locale: Locale) {
   return locale === 'bn' ? (item.label_bn ?? item.label) : item.label
 }
 
@@ -15,7 +18,7 @@ function isExternal(url: string) {
   return url.startsWith('http')
 }
 
-function itemLinkProps(url: string) {
+export function itemLinkProps(url: string) {
   return isExternal(url) ? { target: '_blank', rel: 'noopener noreferrer' as const } : {}
 }
 

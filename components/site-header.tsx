@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { Sun, Moon, Languages } from 'lucide-react'
 import { t, localizedPath, localeFromPathname } from '@/lib/i18n'
 import { SiteNav } from './site-nav'
+import { MobileMenuDrawer } from './mobile-menu-drawer'
 import type { NavNode } from '@/lib/content'
 
 // Not loaded until the header itself hydrates and this runs — keeps cmdk +
@@ -56,20 +57,27 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
       <SiteNav navItems={navItems} locale={locale} />
       <div className="flex items-center gap-2">
         <CommandMenu />
-        <Link
-          href={switchHref}
-          className="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-        >
-          <Languages className="size-4" />
-          {strings.languageSwitchTo}
-        </Link>
-        <button
-          onClick={toggle}
-          aria-label={strings.toggleTheme}
-          className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
-        >
-          {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-        </button>
+        {/* Language + theme: desktop-only here — on mobile they move into
+            MobileMenuDrawer (set-once preferences, not worth header space
+            next to search, which is the control people actually reach for
+            repeatedly). */}
+        <div className="hidden items-center gap-2 sm:flex">
+          <Link
+            href={switchHref}
+            className="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          >
+            <Languages className="size-4" />
+            {strings.languageSwitchTo}
+          </Link>
+          <button
+            onClick={toggle}
+            aria-label={strings.toggleTheme}
+            className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+          >
+            {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+          </button>
+        </div>
+        <MobileMenuDrawer navItems={navItems} locale={locale} dark={dark} onToggleTheme={toggle} switchHref={switchHref} />
       </div>
     </header>
   )

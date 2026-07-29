@@ -30,6 +30,7 @@
   --animate-accordion-down:       accordion-down 0.2s ease-out;
   --animate-accordion-up:         accordion-up 0.2s ease-out;
   --animate-drawer-in:            drawer-in 0.2s ease-out;
+  --animate-drawer-in-right:      drawer-in-right 0.2s ease-out;
   --animate-fade-in:              fade-in 0.15s ease-out;
   --animate-dropdown-in:          dropdown-in 0.15s ease-out;
 }
@@ -44,6 +45,10 @@
 }
 @keyframes drawer-in {
   from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+@keyframes drawer-in-right {
+  from { transform: translateX(100%); }
   to   { transform: translateX(0); }
 }
 @keyframes fade-in {
