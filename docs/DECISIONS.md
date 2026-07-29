@@ -2866,6 +2866,51 @@ sidebar shows all 23 in outline order, `/ai` category page resolves, cross-link 
 
 ---
 
+## D-58 · AI category — 8 more images added, direct user feedback ("haven't added much images")
+
+**Date:** 2026-07-29 · **Status:** Active · **Decided by:** user
+
+User reviewed the live AI category after D-57 shipped and flagged it as too text-only:
+**"I feel you haven't added much images, can you add some more please at appropriate
+places."** Identified the 8 lessons in the 23 that had gone out with zero images, and added
+exactly one image to each, at a point in the lesson chosen to reinforce that lesson's own
+central claim rather than appended at the end:
+
+- `comparing-ai-models` — five generic model-family strengths, placed right before the
+  Open Source vs. Closed Source breakdown.
+- `ai-coding-assistants` — the six things assistants are genuinely good at, plus a "still
+  needs human review" banner, placed right after that lesson's own bullet list.
+- `building-an-ai-chatbot-for-a-website` — insecure (key exposed in the browser) vs. secure
+  (key hidden behind a server proxy) two-panel diagram, placed directly after the
+  `callout('danger', …)` warning it visually restates.
+- `introduction-to-machine-learning-concepts` — supervised / unsupervised / reinforcement
+  three-panel comparison, placed right after the Reinforcement Learning section closes out
+  all three categories.
+- `llms-and-rag-in-depth` — the 4-step RAG pipeline (ingest → embed → retrieve → generate),
+  placed right after the lesson's own step-by-step table, reinforcing rather than repeating it.
+- `ai-across-industries` — a 7-icon grid of every industry the lesson covers, placed as a
+  visual overview right after the intro paragraph, before the per-industry sections begin.
+- `ai-careers-and-freelancing` — the five new AI job roles as icon cards, placed right after
+  the lesson's own roles table.
+- `ai-security-and-responsible-development` — a prompt-injection attack-vs-defense diagram
+  (the three real defenses: sanitise input, validate output, rate limit), placed right after
+  the attack example code block, before the defenses are listed in prose.
+
+**Same discipline as every prior image run**: `gpt-2`, generic abstract icons only (no real
+brand logos — Copilot/Cursor/ChatGPT are named in lesson prose but never drawn), every image
+visually verified against the lesson's own claims before upload. Three of the eight needed a
+placeholder-dimension correction after the real Cloudinary response came back
+1024×768 instead of the guessed 1344×768 — same routine fix pattern as D-57.
+
+**Verified**: all 8 images live in both `/ai/<slug>` and `/bn/ai/<slug>` — HTTP 200 plus a
+content-grep for each image's Cloudinary public ID, confirmed for every lesson.
+
+**Not pushed** — user said "I will push it later on" (re: the SQL icon commit, but the same
+stated preference applies here); committed locally only, per this session's standing
+instruction to never push without being asked.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

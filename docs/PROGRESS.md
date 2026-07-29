@@ -9,6 +9,33 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-29 — Session 34: AI category, 8 more images added on user feedback (D-58)
+
+**Done**
+
+- User reviewed the live AI category and said directly: "I feel you haven't added much
+  images, can you add some more please at appropriate places." Identified the 8 of 23
+  lessons that had shipped with zero images in D-57 and added exactly one image to each,
+  inserted at a point that reinforces that lesson's own central claim (e.g. the chatbot
+  security lesson's insecure-vs-secure diagram placed right after its `danger` callout, the
+  RAG pipeline diagram placed right after the lesson's own step table) rather than appended
+  at the end.
+- Lessons covered: `comparing-ai-models`, `ai-coding-assistants`,
+  `building-an-ai-chatbot-for-a-website`, `introduction-to-machine-learning-concepts`,
+  `llms-and-rag-in-depth`, `ai-across-industries`, `ai-careers-and-freelancing`,
+  `ai-security-and-responsible-development`. All 8 verified live in both `/ai/<slug>` and
+  `/bn/ai/<slug>` (HTTP 200 + content-grep for each image's Cloudinary public ID).
+- Same discipline as every prior image run: `gpt-2`, generic icons only (no real product
+  logos even though tools like Copilot/Cursor are named in the prose), every image visually
+  verified against the lesson's own claims before upload. Full reasoning and per-lesson
+  placement notes in `docs/DECISIONS.md` D-58.
+
+**Not done**
+
+- Not pushed — local commit only, same standing rule as every prior session.
+
+---
+
 ## 2026-07-29 — Session 33: new "Artificial Intelligence" category, 23 lessons (D-57)
 
 **Done**
