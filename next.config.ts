@@ -13,6 +13,9 @@ const nextConfig: NextConfig = {
       // this one entry catches it.
       { source: '/gradient', destination: '/tools/gradient', permanent: true },
       { source: '/scrollbar', destination: '/tools/scrollbar', permanent: true },
+      // D-53/O-20: Computer Basics rebuilt as 16 separate lessons; the old
+      // single-page doc is soft-deleted and its traffic sent to lesson 1.
+      { source: '/basics/computer-fundamentals', destination: '/basics/what-is-a-computer', permanent: true },
     ]
   },
   images: {
