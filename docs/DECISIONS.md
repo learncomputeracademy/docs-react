@@ -2598,6 +2598,59 @@ BN, published, verified live the same way as the previous two: server HTML conta
 lesson text in both locales, image renders at its real 1024×768 with no layout shift, no
 console errors, sidebar orders correctly ahead of the old doc.
 
+**Lessons 4–16, remainder of the outline** — built in one continuous run after the user said
+"Build all the next lessons" (superseding the earlier "just one at a time" pacing instruction
+for this run only). Same per-lesson loop each time: write EN + BN blocks in
+`scripts/create-basics-content.mjs`, generate one Magnific `gpt-2` image (1k/medium),
+download and visually check it against the lesson's own text before upload (not just for
+garbled labels — the lesson-2 date-invention failure mode was checked for on every image this
+run), upload to Cloudinary via a throwaway `scripts/_upload-lesson-image.mjs` (written, used,
+deleted each time — never committed), correct the image block's width/height to the real
+Cloudinary response if it differs from the placeholder, run the script, then verify both
+locales live via `curl | grep` for a distinctive phrase plus an HTTP 200 check. All 13 images
+came back clean on the first generation this run — no repeats of the date-invention or
+mismatched-dimension issues from lessons 1–2.
+
+Lessons, in order: `input-devices` (5), `output-devices` (5), `computer-memory` (6, explicitly
+cross-links back to lesson 3 rather than repeating the RAM explanation, goes deeper on
+ROM/PROM/EPROM/EEPROM and L1/L2/L3 cache), `storage-devices` (7, same cross-link pattern,
+HDD/SSD/pen drive/cloud), `number-systems` (8, decimal/binary/hex with a worked 13 → 1101 → D
+conversion — checked by hand before writing and re-checked against the generated image, which
+rendered the bulb states, digits, and base labels correctly), `computer-software` (9,
+system vs. application, explicit "what breaks if you remove this" test for telling the two
+apart), `operating-systems` (10, Windows/macOS/Linux/Android/iOS + an apps→OS→hardware layer
+diagram — image prompt explicitly said "no real trademarked logos," came back with generic
+shape icons, not actual brand marks), `computer-networking` (11, LAN/WAN/router/IP address),
+`internet-basics` (12, internet vs. the Web, ISP/browser/URL/DNS, a 4-step "how a page loads"
+flow diagram), `cybersecurity-basics` (13, passwords/malware/phishing/updates, framed as
+habits over expertise), `computer-applications` (14, education/business/healthcare/
+entertainment/retail — retail added beyond the original 4-field outline to match a 5-icon
+image layout that came back with an extra field; content was written to match rather than
+discarded), `quantum-computing-intro` (15, bit vs. qubit, superposition described as "0 and 1
+at the same time" with an explicit callout that this is a beginner-safe simplification of the
+real physics, no invented dates/capability claims about real quantum computers), and
+`artificial-intelligence-basics` (16, what AI is, machine learning in one paragraph, five
+everyday touchpoints, an honest "what AI cannot do" section plus a short ethics note —
+closing lesson for the whole Computer Basics section).
+
+`docs/img/basics/computer-applications-1` is a 5-field diagram (added "Retail" beyond the
+original 4-field `docs/CONTENT-PIPELINE.md`-outline wording) — noted here since it's the one
+place this run's content diverged from the originally approved outline, and it did so to
+match what the image actually rendered rather than the other way around.
+
+**Rebuild closeout**: attempted to soft-delete `basics/computer-fundamentals` via a
+service-role script (the same pattern used all session for content writes) — blocked by the
+`docs_delete_restore_guard` trigger ("Only an admin can delete or restore a lesson"), which
+requires the authenticated admin session `lib/admin/docs.ts`'s `deleteDoc` runs under, not
+just RLS bypass. This is a deliberate safety gate (the 150+ migrated lessons are the one
+genuinely irreplaceable asset in this project) and was correctly left in place rather than
+routed around. The Chrome browser extension was not connected this session, so the actual
+soft-delete via `/admin` couldn't be completed here either — **left for the next session**,
+see O-20 (updated). The 301 redirect half of the closeout — `/basics/computer-fundamentals` →
+`/basics/what-is-a-computer` in `next.config.ts` — does not require admin auth and was added
+in this run; it is harmless to have live even before the old doc is deleted, since Next only
+serves the redirect for the literal old path and does not touch the still-live doc row.
+
 ---
 
 ## Open
@@ -2613,7 +2666,7 @@ console errors, sidebar orders correctly ahead of the old doc.
 | ~~O-18~~ | ~~Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav~~ — **resolved**, see O-13 | — |
 | ~~O-19a~~ | ~~Add "Grid Generator" to the header nav~~ — **resolved**, see O-13 | — |
 | O-19b | Confirm live multi-cell drag-to-place on the Grid Generator works with a real mouse — this session's browser-automation harness couldn't exercise it (see D-50's Verified note) | Single-cell placement is confirmed working; multi-cell drag is unconfirmed rather than known-broken |
-| O-20 | Finish the Computer Basics rebuild (D-53) — 15 more lessons (`generations-of-computers` through `artificial-intelligence-basics`, full list in the approved outline), then soft-delete `basics/computer-fundamentals` and add its 301 to `/basics/what-is-a-computer` in `next.config.ts` | The category is in a deliberate half-done state: pilot lesson live, old 16-chapter page still live too, both showing in the sidebar simultaneously until this is finished |
+| O-20 | All 16 Computer Basics lessons are now live (D-53) and the 301 redirect is in `next.config.ts`. **Only remaining step:** soft-delete `basics/computer-fundamentals` via the `/admin` panel (Chrome extension wasn't connected this session; a service-role script is correctly blocked by `docs_delete_restore_guard`) | Old 16-chapter page still shows in the sidebar alongside all 16 new lessons until this one delete happens |
 | ~~O-11~~ | ~~Run `supabase/migrations/007-resources-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |

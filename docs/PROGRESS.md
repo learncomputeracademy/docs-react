@@ -33,18 +33,22 @@ promised-and-missing anymore. **Eight tools total now**, and with Session 27's G
 Generator, **one of Tier 1's two roadmap tools is built** — CSS Units Playground is the
 other, still unbuilt.
 
-**Computer Basics rebuild is IN PROGRESS, half-done on purpose** (D-53, Session 30) — the
-old single 16-chapter page (`basics/computer-fundamentals`) is being replaced with 16 real
-lessons. Only lesson 1 (`what-is-a-computer`) exists so far, live in both locales; the old
-page is deliberately still live too until the other 15 are written — see O-20.
+**Computer Basics rebuild content is DONE — one cleanup step remains** (D-53, Session 30). All
+16 new lessons are live in both locales, and the 301 redirect
+(`/basics/computer-fundamentals` → `/basics/what-is-a-computer`) is in `next.config.ts`. The
+only thing left is soft-deleting the old `basics/computer-fundamentals` doc via `/admin` —
+blocked this session because the Chrome extension wasn't connected, and a service-role script
+is correctly refused by the `docs_delete_restore_guard` DB trigger (admin-session-only, by
+design). Until that one delete happens, the old 16-chapter page still shows in the sidebar
+alongside all 16 new lessons. See O-20.
 
 ### ⚡ Next action
 
 **Bengali translation effort is done.** Status per category (`doc_translations` rows,
 locale `bn`), all verified against the DB:
 - `programming` (19/19) — ✅ done.
-- `basics` (2/2) — ✅ done, but the category is mid-rebuild (D-53/O-20) — this count moves
-  as new lessons are added, unlike every other row here which is a finished category.
+- `basics` (16/16) — ✅ done. Full rebuild content is complete (D-53/O-20); only the old
+  doc's soft-delete is still pending, not a translation gap.
 - `html` (36/36) — ✅ done, all verified rendering at `/bn/html/*`.
 - `css` (35/35) — ✅ done.
 - `javascript` (28/28) — ✅ done.
@@ -153,14 +157,29 @@ the English version. Verified spot-checks in browser after each major batch.
   the classic beginner mix-up head-on rather than two disconnected sections), power supply,
   one labelled diagram of a case interior. Image was clean and accurate on the first try —
   no repeat of lesson 2's invented-facts problem. EN + BN, published, verified live.
+- **Lessons 4–16 (rest of the outline), built in one continuous run** after the user said
+  "Build all the next lessons," superseding the earlier one-at-a-time pacing for this run:
+  `input-devices`, `output-devices`, `computer-memory`, `storage-devices`, `number-systems`,
+  `computer-software`, `operating-systems`, `computer-networking`, `internet-basics`,
+  `cybersecurity-basics`, `computer-applications`, `quantum-computing-intro`,
+  `artificial-intelligence-basics` — all EN + BN, all with one Magnific `gpt-2` image each,
+  all published and verified live (server HTML content-check + HTTP 200, both locales, every
+  lesson). All 13 images came back clean on the first generation — no repeats of lesson 2's
+  invented-facts problem or the dimension-mismatch bug.
+- Added the O-20 redirect: `/basics/computer-fundamentals` → `/basics/what-is-a-computer` in
+  `next.config.ts`. Does not require admin auth, safe to ship even before the old doc is
+  deleted.
 - Full build notes in `docs/DECISIONS.md` D-53.
 
 **Not done**
 
-- 13 more lessons, in the approved outline order (`docs/DECISIONS.md` D-53 / the outline
-  message from earlier in the session) — building one at a time per the user's instruction,
-  not all at once. Old `basics/computer-fundamentals` deliberately left live and
-  un-redirected until the full rebuild is done — see O-20.
+- **Soft-deleting the old `basics/computer-fundamentals` doc** — the one remaining piece of
+  O-20. A service-role script was correctly refused by the `docs_delete_restore_guard` DB
+  trigger ("Only an admin can delete or restore a lesson"), which requires the authenticated
+  admin session `lib/admin/docs.ts`'s `deleteDoc` runs under. The Chrome browser extension
+  wasn't connected this session, so the `/admin` UI path couldn't be used either. Next
+  session: open `/admin`, find `basics/computer-fundamentals` in the docs list, delete it
+  (soft delete, reversible via Trash) — that's the entire remaining task.
 - Not deployed via a manual step — these go live automatically through the existing Supabase
   Database Webhook + ISR, no local build/push needed for content changes. The *pipeline doc
   and scripts themselves* are still local commits only, pending push authorization same as
