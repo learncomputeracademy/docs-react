@@ -2669,6 +2669,52 @@ categories. `docs/CONTENT-PIPELINE.md`'s settled-defaults table and §4 updated 
 the Session 30 house style (flat vector / `#f97316` orange) is kept in the doc as a *worked
 example* to show the owner when asking, not as the answer to assume.
 
+## D-55 · Sidebar reorder: css, html, javascript + a real content bug found and fixed
+
+**Reorder.** User reported the CSS sidebar was in the wrong order (screenshot: Bootstrap and
+"Introduction of CSS" buried alphabetically instead of at natural teaching positions).
+Confirmed all three of `css` (35), `html` (36), and `javascript` (28) had `sort_order` set to
+raw alphabetical-by-slug — never a real teaching order — and reordered all three directly via
+one-off scripts (dry-run first, then applied, then deleted; matches the throwaway-script
+pattern used all through Session 30). No code changes needed — the sidebar already reads
+`sort_order`, so this was pure data.
+
+- **css**: intro → syntax → colors/backgrounds/borders/spacing → box model → typography →
+  content elements (links/lists/tables) → display & positioning → layout & selectors →
+  real-world components (navbar/dropdowns/forms) → units/how-to → Bootstrap + syllabus as
+  trailing extras.
+- **html**: syllabus → intro → basic/attributes/structure → content elements → forms → misc
+  (iframes/filepaths/responsive) → HTML5/semantic intro → individual semantic tag pages
+  (page-structure tags first, then content, then media).
+- **javascript**: syllabus → intro → fundamentals (basics/control-flow/functions/scope) →
+  data types → DOM/events → closures/this/OOP → error handling → async → modern JS/modules →
+  storage → debugging/performance/tooling → jQuery.
+
+**Syllabus placement.** Discovered every category with a `syllabus`-slugged doc uses it as a
+category overview/roadmap page (content opens with a heading like "HTML - Hyper Text Markup
+Language"). Placed it **first** in html and javascript — read the roadmap before the lessons
+— a placement call made without asking since it's low-stakes and trivially reversible.
+`css/syllabus` was deliberately left at its existing (last) position rather than moved to
+match, because of the bug below.
+
+**Real bug found while checking, not part of the ask, fixed after explicit approval
+("fix both of them"):** `css/syllabus`'s `title` was **"Color in Design"** (BN: "ডিজাইনে রঙ")
+despite its content being the exact same generic category-overview stub as the other two
+syllabus docs (`"CSS - Cascading Style Sheets"` heading + a one-line "click here to learn
+more" note) — a migration/data mismatch, not a legitimate title. Its content also linked to
+`/css/css-intro`, a stale Jekyll-style path; `scripts/url-map.json` confirms the correct
+current path is `/css/intro` (pipeline §3's link-check rule, applied retroactively). Fixed
+both EN and BN rows: `title` → "CSS Syllabus" / "CSS সিলেবাস" (matching the html/javascript
+naming pattern exactly), `meta_title` updated to match, and the stale link corrected in both
+locales' `richtext` block. Verified live: both `/css/syllabus` and `/bn/css/syllabus` render
+the corrected title and a working `/css/intro` link. (The doubled "| Learn Computer Academy"
+visible in the browser tab title is the pre-existing O-16 bug, unrelated to this fix — not
+touched.)
+
+**Not done**: `programming`, `react`, `design`, `photoshop` haven't been checked for the same
+alphabetical-order issue — only the three categories the user named this session were
+touched.
+
 ---
 
 ## Open

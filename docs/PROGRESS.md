@@ -51,13 +51,17 @@ for picking up work weeks later.
   doesn't match this site's current URL scheme (`/css/intro`) — likely a stale internal link,
   also flagged and not fixed.
 
+- User approved fixing the `css/syllabus` title/link bug ("fix both of them"). Fixed both EN
+  and BN rows: `title`/`meta_title` "Color in Design" → "CSS Syllabus" / "CSS সিলেবাস"
+  (matching the html/javascript syllabus naming), and the stale `/css/css-intro` link in the
+  body corrected to `/css/intro` per `scripts/url-map.json`. Verified live in both locales.
+  Full writeup: `docs/DECISIONS.md` D-55.
+
 **Not done**
 
 - Same-day reorder pass not run for the remaining categories — user only asked about `css`,
   `html`, `javascript` this session. `programming`, `react`, `design`, `photoshop` may have
   the same alphabetical-order issue, unconfirmed either way.
-- `css/syllabus`'s wrong title ("Color in Design") and its stale `/css/css-intro` internal
-  link — flagged to the user, not fixed. Needs a content-edit decision, not a reorder.
 - Old `basics/computer-fundamentals` soft-delete — user said they'd do it themselves via
   `/admin`; not verified done from this session.
 
