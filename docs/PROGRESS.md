@@ -9,6 +9,47 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-29 — Session 33: new "Artificial Intelligence" category, 23 lessons (D-57)
+
+**Done**
+
+- User supplied their own two prior AI courses (Beginners, 7 modules; Professionals, 10
+  modules — curriculum pages + two large teacher guides with real theory/code/demos) and
+  asked for them merged into **one** category ("the docs should be one," not two tracks).
+  Proposed a merged 23-lesson simple→advanced outline deduplicating the real overlap, plus
+  three explicit per-run choices via `AskUserQuestion`: approve outline as-is, keep full
+  topic-card depth, and (per the owner's explicit ask to be given concrete image-style
+  options rather than deciding unprompted) **bold flat multi-color infographic** — the first
+  category whose house style deliberately isn't a single muted accent colour.
+- Built and published all 23 lessons, same loop as D-56: Foundations (what AI is, how it
+  learns, comparing models) → Everyday AI (productivity, Office) → Prompting (basics,
+  advanced) → Creative AI (image gen for everyone, professional image gen, video/audio/
+  presentations) → Dev AI (coding assistants, building a chatbot, web dev workflows) →
+  Python & ML (Python for AI, LangChain/RAG automation, ML concepts, LLMs/RAG in depth) →
+  Applying it (agents, industries, careers) → Safety (ethics/bias, deepfakes/privacy,
+  security). EN + BN, every lesson verified live via server-HTML content check + HTTP 200.
+- 9 of 23 lessons got an image (selective, same as D-56): AI history timeline, next-token
+  prediction, Office AI features, weak-vs-strong prompt, 3 prompting techniques, image prompt
+  formula, diffusion process, ReAct loop, deepfake warning signs. All verified accurate on
+  first generation, including two with real numbers/percentages that got extra scrutiny.
+- **Real editorial calls made against the source, not just extraction**: stripped all pinned
+  $/₹ pricing and salary figures (would go stale in months) in favour of durable comparison
+  dimensions; restructured the chatbot-building lesson to teach the *secure* server-proxy
+  pattern as the primary code example instead of the source's insecure-then-corrected
+  structure. Full reasoning in `docs/DECISIONS.md` D-57.
+- Added a cross-link from the existing short `basics/artificial-intelligence-basics` lesson
+  (inside the Computer Basics rebuild) pointing to this new category as the deep-dive version.
+- Added an `ai` category icon (`BrainCircuit`, lucide, generic) to the same
+  `CATEGORY_ICONS` map used for `sql` — one entry, covers sidebar/homepage/search/category
+  page.
+
+**Not done**
+
+- Same as every prior category-build session: nothing pushed to git yet, all commits local
+  only, pending explicit push approval.
+
+---
+
 ## 2026-07-29 — Session 32: new "SQL" category, 16 lessons (D-56)
 
 **Done**
@@ -150,6 +191,8 @@ wasn't available — not confirmed done as of this entry, check `/admin` Trash o
 **Bengali translation effort is done.** Status per category (`doc_translations` rows,
 locale `bn`), all verified against the DB:
 - `programming` (19/19) — ✅ done.
+- `ai` (23/23) — ✅ done. New category, built Session 33 merging the owner's two prior AI
+  courses into one — see D-57.
 - `sql` (16/16) — ✅ done. New category, built Session 32 from the owner's own prior
   handbook — see D-56.
 - `basics` (16/16) — ✅ done. Full rebuild content is complete (D-53/O-20); only the old

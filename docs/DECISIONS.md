@@ -2787,6 +2787,83 @@ deleted each time), correct width/height to the real Cloudinary response, run
 sidebar shows all 16 in the approved outline order, `/sql` category page resolves once lesson 1
 existed.
 
+## D-57 · New "Artificial Intelligence" category — 23 lessons merging two prior courses into one
+
+User supplied four files from their own prior AI teaching material — two curriculum pages
+("AI for Beginners," 7 modules; "AI for Creative & Tech Professionals," 10 modules) and two
+much larger teacher guides (85 KB, 90 KB) holding the actual theory, code examples, and demo
+scripts. Explicit instruction: **"We have 2 courses for it but the docs should be one"** — a
+single merged category, not two parallel tracks.
+
+**Merged outline, approved before writing anything** (pipeline §0), proposed as one
+simple→advanced progression deduplicating the real overlap between the two courses (both
+opened with "what is AI," both closed with ethics): Foundations (3) → Everyday AI (2) →
+Prompting (2) → Creative AI (3) → Dev AI (3) → Python & ML (4) → Applying it (3) → Safety (3)
+= 23 lessons. Approved unchanged.
+
+**Three explicit per-run choices, same pattern as D-56, via `AskUserQuestion`:**
+1. **Outline** — approved as proposed (all 23, no restructuring).
+2. **Content depth** — full topic-card depth kept, matching D-56's SQL precedent, since the
+   teacher guides\' theory sections were themselves substantive, not filler.
+3. **Image style** (D-54 in action again) — owner explicitly said images "will be using GPT2
+   and will be awesome like infographics style as much as possible, doesn't have to be
+   related to our brand" and asked to be given concrete options rather than deciding
+   unprompted. Offered vibrant tech/futuristic, bold flat multi-color, isometric 3D, and
+   abstract gradient mesh; **bold flat infographic, multi-color** was chosen. This is the
+   first category whose house style deliberately breaks from a single muted accent colour —
+   correct per D-54's whole premise, and distinctly punchier than Computer Basics' orange or
+   SQL's teal-green.
+
+**What got cut from the source, deliberately:** class numbers, assessment rubrics, homework
+assignments, teacher-only "how to teach this" framing, and all enrollment/pricing/marketing
+copy (₹/$ figures, "Enroll Now," batch timings). This is a public teaching site, not the
+academy's internal classroom manual (CLAUDE.md §1) — the theory, code, and worked examples
+were the genuinely reusable part, and were kept in full depth.
+
+**Real editorial calls made against the source, not just extracted from it:**
+- **No pinned prices or salary figures anywhere** — the source\'s "$150–$500 per chatbot,"
+  "₹10–50 lakh/year," and "mid-2025" model-comparison pricing table would all be stale within
+  months. Rewrote the model-comparison and freelancing lessons around durable *dimensions*
+  (what each model family is generally known for, what a service type involves) with an
+  explicit callout telling readers to check current pricing themselves — the same discipline
+  D-56 already established for SQL\'s tooling/pricing content.
+- **The chatbot-building lesson's main code example was restructured, not copied.** The
+  source teaches the insecure "API key directly in frontend JS" version first as the primary
+  working example, with the security warning bolted on afterward as a separate box. This
+  lesson leads with the safe server-proxy-calling frontend code as the primary example
+  instead, with the danger callout explaining *why* immediately after — teaching the correct
+  pattern as the default, not as a correction to an already-absorbed bad one.
+- Real, verifiable facts used carefully: AlphaFold2\'s protein-folding result, the Amazon
+  hiring-AI bias case, the IT Act / cybercrime.gov.in reference — all things with lasting,
+  checkable accuracy — while unverifiable or fast-moving specifics (exact company user
+  counts, precise salary bands) were paraphrased into durable claims or dropped.
+
+**New category setup**: `slug: 'ai', title: 'Artificial Intelligence', title_bn:
+'কৃত্রিম বুদ্ধিমত্তা'`, `sort_order: 10` (after SQL). Icon added to `lib/category-icons.tsx`
+(`BrainCircuit` from lucide — generic, not a brand mark, same reasoning as `programming` /
+`basics` / `sql`) covering all four icon surfaces (sidebar, homepage, search, category page)
+through the single shared `CATEGORY_ICONS` map.
+
+**Cross-link added**: `basics/artificial-intelligence-basics` (the short intro lesson inside
+the Computer Basics rebuild, D-53) got a new callout pointing to this category as the
+deep-dive version — added directly via a one-off script (not through
+`create-basics-content.mjs`, which only ever touches Computer Basics\' own 16 lessons) since
+it\'s a cross-category edit, done once, not part of any lesson-authoring loop.
+
+**Every image visually verified before upload, same as every prior run** — six of the
+category\'s images carried real numeric or factual content and got the extra scrutiny
+established after the Computer Basics date-invention incident and reused for SQL\'s
+ranking-table/Venn-diagram images: the AI history timeline (all 7 years and labels exact),
+the next-token-prediction probabilities (92%/5%/3%, correct winner), the deepfake warning
+signs (five signs matching the lesson\'s own list, generic non-real face), and the ReAct loop
+diagram. All came back correct on the first generation.
+
+**Verified**: all 23 EN + 23 BN docs live, server HTML contains lesson text in both locales,
+images render at real dimensions (two needed a placeholder-dimension correction after the
+real Cloudinary response came back different, same routine fix pattern as every prior run),
+sidebar shows all 23 in outline order, `/ai` category page resolves, cross-link from
+`basics/artificial-intelligence-basics` confirmed live.
+
 ---
 
 ## Open
