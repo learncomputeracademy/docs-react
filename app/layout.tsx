@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SiteChrome } from "@/components/site-chrome";
 import { RouteProgressBar } from "@/components/magic/route-progress";
 import { SITE_URL, SITE_NAME, organizationJsonLd, websiteJsonLd, jsonLdScript } from "@/lib/seo";
@@ -113,6 +114,7 @@ export default async function RootLayout({
         <RouteProgressBar />
         <SiteChrome navItems={navItems} logoLightUrl={logoLightUrl} logoDarkUrl={logoDarkUrl}>{children}</SiteChrome>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
