@@ -82,6 +82,16 @@
   initial-value: 0deg;
 }
 
+/* Theme toggle's circular reveal (lib/theme-transition.ts) animates
+   ::view-transition-new(root) itself via a clip-path — without this, the
+   browser's default cross-fade on both pseudo-elements runs at the same
+   time and the two fight each other. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 .animate-marquee {
   animation: marquee var(--marquee-duration, 30s) linear infinite;
 }

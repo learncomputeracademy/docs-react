@@ -26,7 +26,7 @@ export function MobileMenuDrawer({
   navItems: NavNode[]
   locale: Locale
   dark: boolean
-  onToggleTheme: () => void
+  onToggleTheme: (e: React.MouseEvent<HTMLButtonElement>) => void
   switchHref: string
 }) {
   const [open, setOpen] = useState(false)

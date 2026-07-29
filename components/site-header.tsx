@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { Sun, Moon, Languages } from 'lucide-react'
 import { t, localizedPath, localeFromPathname } from '@/lib/i18n'
+import { animateThemeChange } from '@/lib/theme-transition'
 import { SiteNav } from './site-nav'
 import { MobileMenuDrawer } from './mobile-menu-drawer'
 import type { NavNode } from '@/lib/content'
@@ -24,11 +25,18 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
     setDark(document.documentElement.classList.contains('dark'))
   }, [])
 
-  function toggle() {
+  // Origin comes from e.currentTarget, not a ref, since this same handler
+  // fires from two different buttons (the desktop one below, and the one
+  // inside MobileMenuDrawer) — the circular reveal should expand from
+  // whichever one was actually clicked.
+  function toggle(e: React.MouseEvent<HTMLButtonElement>) {
     const next = !dark
-    setDark(next)
-    document.documentElement.classList.toggle('dark', next)
-    localStorage.setItem('theme', next ? 'dark' : 'light')
+    const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
+    animateThemeChange(left + width / 2, top + height / 2, () => {
+      setDark(next)
+      document.documentElement.classList.toggle('dark', next)
+      localStorage.setItem('theme', next ? 'dark' : 'light')
+    })
   }
 
   const otherLocale = locale === 'en' ? 'bn' : 'en'
@@ -50,10 +58,8 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
         <img src={logoLightUrl} alt={strings.siteName} width={8588} height={1498} className="block h-8 w-auto dark:hidden" />
         <img src={logoDarkUrl} alt={strings.siteName} width={8723} height={1850} className="hidden h-8 w-auto dark:block" />
       </Link>
-      {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm since the
-          command menu/language/theme controls already crowd narrow
-          viewports; a dedicated mobile nav drawer is a real gap once this
-          list grows past a couple of entries. */}
+      {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm; the same
+          items render again inside MobileMenuDrawer for narrow viewports. */}
       <SiteNav navItems={navItems} locale={locale} />
       <div className="flex items-center gap-2">
         <CommandMenu />
