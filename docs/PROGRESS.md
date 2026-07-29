@@ -9,6 +9,44 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-29 — Session 32: new "SQL" category, 16 lessons (D-56)
+
+**Done**
+
+- User supplied their own prior SQL student handbook (a custom HTML file, 16 chapters, ~64
+  detailed topic cards) and asked for it rebuilt as a new site category, per
+  `docs/CONTENT-PIPELINE.md`. Proposed the outline plus three explicit choices via
+  `AskUserQuestion` before writing anything (pipeline §0): build all 16 chapters as-is, keep
+  full topic-card depth rather than condense, and use selective images (first real use of
+  D-54's per-run image-style question) rather than one-per-lesson or none. All three answered
+  with the recommended option.
+- Created the `sql` category (`title: 'SQL'`, `title_bn: 'এসকিউএল'`, `sort_order: 9`) via a
+  service-role script — confirmed empirically this isn't gated the way doc deletion is.
+- Built and published all 16 lessons, one at a time, same loop as D-53's Computer Basics run:
+  Introduction, Databases & Tables, Data Types & Memory Sizing, DDL, DML, DCL, TCL, Filtering
+  (WHERE & Operators), Sorting (ORDER BY), Grouping (GROUP BY & HAVING), Joins, Functions,
+  Window Functions, Subqueries, CTEs, Beyond the Basics. EN + BN, every lesson verified live
+  via server-HTML content check plus HTTP 200 in both locales.
+- 6 of 16 lessons got a Magnific `gpt-2` image (selective, per the owner's choice): the four
+  SQL families, SQL data type families, JOIN Venn diagram, window-function ranking table,
+  and an index-lookup-vs-full-scan diagram. New house style for this category: teal-green
+  `#5fc9a8` accent, not Computer Basics' orange — different look per category is the point of
+  D-54. Two images got extra scrutiny beyond the usual visual check, since they were higher
+  accuracy-risk than typical (real numbers, region shading): the ranking table's actual digits
+  (ROW_NUMBER/RANK/DENSE_RANK) and the JOIN diagram's shaded regions were both checked against
+  correct semantics, not just glanced at — both came back correct on the first generation.
+- First real use of the `code` block type in a while — confirmed `'sql'` is already a
+  supported Shiki language in `lib/shiki.ts`. SQL code blocks are plain `code`, never
+  `runnable` — this site's Try-It has no SQL execution engine.
+- Full build notes in `docs/DECISIONS.md` D-56.
+
+**Not done**
+
+- Mid-session, the user asked for SQL icons in the sidebar, homepage, and search — picked up
+  immediately after the 16th lesson shipped, see below/next entry for outcome.
+
+---
+
 ## 2026-07-29 — Session 31: image-style question made per-run (D-54), CSS category reordered
 
 **Done**
@@ -104,6 +142,8 @@ wasn't available — not confirmed done as of this entry, check `/admin` Trash o
 **Bengali translation effort is done.** Status per category (`doc_translations` rows,
 locale `bn`), all verified against the DB:
 - `programming` (19/19) — ✅ done.
+- `sql` (16/16) — ✅ done. New category, built Session 32 from the owner's own prior
+  handbook — see D-56.
 - `basics` (16/16) — ✅ done. Full rebuild content is complete (D-53/O-20); only the old
   doc's soft-delete is still pending, not a translation gap.
 - `html` (36/36) — ✅ done, all verified rendering at `/bn/html/*`.

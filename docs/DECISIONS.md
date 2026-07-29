@@ -2715,6 +2715,78 @@ touched.)
 alphabetical-order issue — only the three categories the user named this session were
 touched.
 
+## D-56 · New "SQL" category — 16 lessons from the site owner's own prior handbook
+
+User supplied `c:\Users\Raptor\Downloads\index (17).html`, a custom-built SQL reference they'd
+already made for students (dark-themed, JS-data-driven, 16 chapters, ~64 "topic cards" each
+with what/syntax/example/output/explanations/uses/mistakes/related fields) and asked for it
+rebuilt as a new site category, following `docs/CONTENT-PIPELINE.md`.
+
+**Source is the owner's own material, not scraped** — pipeline §3's originality rule is about
+never copying *another site's* prose; reusing your own prior work is exactly what the rule
+permits. English prose was adapted directly from the source (restructured into blocks, light
+editing for site voice); Bengali was written fresh.
+
+**Outline approved before writing anything** (pipeline §0), plus three explicit choices asked
+alongside it via `AskUserQuestion` since the source didn't map cleanly onto existing site
+conventions:
+1. **Outline** — build all 16 chapters as-is (intro → databases/tables → data types → the four
+   families DDL/DML/DCL/TCL → filtering/sorting/grouping → joins → functions → window
+   functions → subqueries → CTEs → beyond the basics). Approved unchanged — the source was
+   already well-organized and vetted for students.
+2. **Content depth** — the source's per-topic "card" format (what/syntax/example/output/
+   explanations/uses/mistakes) is far denser than a typical lesson elsewhere on the site.
+   Owner chose to **keep full depth** rather than condense, since none of it was filler.
+3. **Images** (first real use of D-54's per-run question) — the source has zero images, all
+   code/tables. Owner chose **selective**: only lessons with a genuinely visual concept get
+   one, not one per lesson. Ended up as 6 of 16 lessons: the four SQL families (moved here
+   from a planned DDL-lesson placement — better fits where the concept is *introduced*), SQL
+   data type families, JOIN types (Venn diagram), window-function ranking (a literal
+   ROW_NUMBER/RANK/DENSE_RANK numbers table), and why an index helps (scan vs. lookup). House
+   style: flat vector, but **teal-green `#5fc9a8` accent instead of Computer Basics' orange**
+   — deliberately different per-category look (that's the entire point of D-54), and a nod to
+   the source file's own accent color.
+
+**New category creation confirmed low-risk before building**: `createCategory` in
+`lib/admin/categories.ts` is a plain `categories` row insert with no `docs_delete_restore_guard`-
+style trigger gating it (unlike doc deletion, D-53's closeout) — a service-role script insert
+worked cleanly. Verified this empirically before relying on it: `slug: 'sql', title: 'SQL',
+title_bn: 'এসকিউএল'` (matching the existing transliteration pattern — HTML→এইচটিএমএল,
+CSS→সিএসএস, JavaScript→জাভাস্ক্রিপ্ট), `sort_order: 9` (after React). Confirmed live, though
+`/sql` itself correctly 404s until the category has ≥1 doc — `loadCategory` in
+`components/category-content.tsx` calls `notFound()` on an empty category by design, not a bug.
+
+**New block type used for the first time in a while**: `code(language, codeText)`, per
+`docs/CONTENT-MODEL.md`'s schema — confirmed `'sql'` is already in `lib/shiki.ts`'s supported
+`LANGS` list. SQL code blocks are plain `code`, never `runnable`/`tryit` — this site's Try-It
+only supports HTML/CSS/JS/React (CLAUDE.md §4 decisions table), there's no SQL execution
+engine to back a runnable SQL block.
+
+**Every image visually verified against its own claim before upload — not just for garbled
+text, per the lesson-2-Computer-Basics precedent.** Two were higher-risk than typical (numbers
+and region-shading an AI can render subtly wrong) and got extra scrutiny:
+- **Window-function ranking table** — checked the actual rendered digits, not just labels:
+  salaries 90/80/80/70/60 → ROW_NUMBER 1,2,3,4,5 (correct, always unique) → RANK 1,2,2,4,5
+  (correct, ties share a rank and the next number skips) → DENSE_RANK 1,2,2,3,4 (correct, ties
+  share a rank, nothing skipped). All three columns came back numerically correct on the first
+  generation.
+- **JOIN Venn diagram** — checked shading region by region against join semantics: INNER only
+  the overlap, LEFT all of A + overlap, RIGHT all of B + overlap, FULL both entirely. All four
+  correct on the first generation.
+
+All 16 lessons published one at a time (not batched inserts) — same per-lesson loop as D-53's
+Computer Basics run: write EN+BN blocks, generate image where planned, download and visually
+verify, upload to Cloudinary via a throwaway `scripts/_upload-lesson-image.mjs` (written, used,
+deleted each time), correct width/height to the real Cloudinary response, run
+`scripts/create-sql-content.mjs` (dry-run first every time), verify both locales live via
+`curl | grep` for a distinctive phrase plus an HTTP 200 check. Final check confirmed the full
+16-lesson sidebar order live via `curl` against `/sql/intro`.
+
+**Verified**: all 16 EN + all 16 BN docs live, server HTML contains lesson text in both locales
+(SEO gate, CLAUDE.md §3.3), all 6 images render at their real dimensions with no layout shift,
+sidebar shows all 16 in the approved outline order, `/sql` category page resolves once lesson 1
+existed.
+
 ---
 
 ## Open
