@@ -40,10 +40,18 @@ for picking up work weeks later.
   `runnable` — this site's Try-It has no SQL execution engine.
 - Full build notes in `docs/DECISIONS.md` D-56.
 
+- Mid-session (right after the 16th lesson shipped), user asked for a SQL icon in the
+  sidebar, homepage, and search. One entry in `lib/category-icons.tsx`'s `CATEGORY_ICONS` map
+  covers all four surfaces (sidebar-nav.tsx, home-content.tsx, command-menu.tsx,
+  category-content.tsx all read from the same map) — added a generic lucide `Database` icon,
+  not a brand logo, matching how `programming`/`basics` (also non-brand categories) are
+  handled. `tsc --noEmit` clean. Committed.
+
 **Not done**
 
-- Mid-session, the user asked for SQL icons in the sidebar, homepage, and search — picked up
-  immediately after the 16th lesson shipped, see below/next entry for outcome.
+- The icon change is a **code** change, not content — unlike the SQL lessons (live
+  automatically via the Supabase webhook), this needs an actual `git push` + Vercel deploy to
+  show up live. Committed locally only; asked the user whether to push.
 
 ---
 
