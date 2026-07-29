@@ -9,6 +9,42 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-29 — Session 35: domain-cutover readiness check, 404 status bug parked (D-59, O-21)
+
+**Done**
+
+- User asked whether `docs.learncomputer.in` (DNS on Cloudflare) could point at Vercel now.
+  Tested the live preview directly rather than trusting the roadmap doc: found old
+  Jekyll-style URLs (`css/css-boxmodel`, `html/html-intro`, etc.) all soft-404 since
+  `url-map.json` was never wired into real redirects — only 4 tools + 1 basics slug exist in
+  `next.config.ts`. Also found the two PDFs CLAUDE.md flags as indexed had no redirect either.
+- User ran `site:docs.learncomputer.in`, confirmed a few old pages are indexed, but says this
+  was accidental — every old HTML page already carried noindex, so nothing was intentionally
+  submitted for indexing. **Formally waived** the old-URL-redirect requirement (D-59) — not
+  deferred, decided. CLAUDE.md non-negotiables #2 and #7 updated to reflect the waiver.
+- Along the way, found and root-caused a real bug: `[category]/[slug]` (+ `/bn` twin) serves
+  correct "not found" content for a nonexistent slug, but with **HTTP 200, not 404** —
+  reproduced locally (`next build && next start`), so not Vercel-specific. Ruled out our own
+  `unstable_cache` layer and a `revalidate` config change as fixes (both tested, neither
+  worked, both reverted — clean diff). This is a known Next.js App Router limitation with no
+  fix available that doesn't cost a hard project requirement either way. Parked as O-21 —
+  low impact today since old/mistyped URLs aren't an indexing concern per D-59; real fix
+  belongs with Stage 9 (SEO foundation).
+- Separately, user flagged the homepage metadata naming "W3Schools" by name (shouldn't
+  promote another company) and using "Free" as a selling point (shouldn't need to). Fixed in
+  `app/layout.tsx` (title + description), `lib/i18n.ts` (hero subtitle + stat line, EN + BN),
+  and `app/resources/page.tsx` (metadata + on-page copy). Verified via local build.
+
+**Not done**
+
+- The 404-status bug (O-21) is unresolved — parked, not fixed, see D-59/O-21 for why.
+- DNS itself not touched — that's the user's own Cloudflare action, not something done from
+  here. Reminded them: set the record to DNS-only (grey cloud), not proxied, when pointing at
+  Vercel, or Vercel's cert issuance can fail.
+- Not pushed — local commits only, same standing rule as every prior session.
+
+---
+
 ## 2026-07-29 — Session 34: AI category, 8 more images added on user feedback (D-58)
 
 **Done**

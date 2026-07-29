@@ -2911,6 +2911,39 @@ instruction to never push without being asked.
 
 ---
 
+## D-59 · Domain cutover cleared — old-site URL preservation formally waived
+
+**Date:** 2026-07-29 · **Status:** Active · **Decided by:** user
+
+User asked whether `docs.learncomputer.in` (DNS on Cloudflare) could point at Vercel now.
+Investigation before answering found the real blockers weren't content-completeness (all
+9 categories resolve, 450 sitemap URLs, all lesson pages verified live) but two things:
+
+1. **No redirect layer for ~130 old Jekyll-style URLs** (`css/css-boxmodel`,
+   `html/html-intro`, etc.) — `scripts/url-map.json` only rewrites internal `<a href>`s at
+   extraction time, it was never wired into `next.config.ts` or middleware as live 301s.
+   Only the 4 tools + 1 basics-slug redirects actually exist.
+2. Two PDFs (`graphics-design/Color-Theory.pdf`, `ui/ui-theory-3.pdf`) flagged in CLAUDE.md
+   §3.7 as specifically Google-indexed, unlike the rest of the old site.
+
+User ran `site:docs.learncomputer.in` and confirmed a small number of old pages are
+genuinely indexed — but says this was **accidental**: every HTML page on the old Jekyll
+site already carried noindex, so whatever Google picked up (the PDFs, presumably, since
+`<a href>` links to files aren't covered by an HTML page's noindex meta tag) was never an
+intentional index the user is trying to protect. **Formally waived**: no redirect layer
+needed for the old URL scheme, `url-map.json` stays extraction-time-only, this closes the
+"custom domain" half of CLAUDE.md's non-negotiable #2/#7 for good — not deferred, decided.
+
+**Still true and unaffected by this waiver**: non-negotiable #1's "all 140 pages must exist
+somewhere" (content completeness) was never in question — that's about not losing content
+during migration, separate from whether the *old URLs* specifically redirect.
+
+**Remaining pre-cutover note, not a blocker**: Cloudflare DNS record should be set to
+**DNS-only (grey cloud)**, not proxied, when pointed at Vercel — Vercel issues its own TLS
+cert and needs to see the real target directly, or cert issuance/handshake can fail.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2933,6 +2966,7 @@ instruction to never push without being asked.
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
+| O-21 | **`[category]/[slug]` (and its `/bn` twin) serve a real "not found" page but with HTTP 200, not 404**, for any slug outside `generateStaticParams`'s list. Reproduced locally with `next build && next start` — not Vercel-only. Root-caused to a known Next.js App Router limitation (matching open framework GitHub issues, e.g. #63483): `generateStaticParams` + no explicit `dynamic`/`revalidate` config implicitly runs the route in force-static mode, and an on-demand `notFound()` render for an unlisted param gets served/cached as 200. Ruled out as the cause: our own `unstable_cache` layer (tested removing it entirely — bug persisted), and `revalidate = 86400` (tested, no effect — reverted, not committed). The two documented real fixes both cost a hard requirement: `dynamicParams = false` guarantees correct 404s but breaks "a newly-published lesson appears without a full rebuild" (the whole point of on-demand tag revalidation); `dynamic = 'force-dynamic'` guarantees correct status codes but forces a DB hit on every request including bots, exactly what the free-tier guardrail (CLAUDE.md §4) says never to do. **Parked, not fixed** — user confirmed old/mistyped URLs aren't an indexing concern (D-59), so the practical impact today is near zero; the right real fix is probably a lightweight edge-cached valid-slug check in `proxy.ts` that avoids a per-request DB hit, worth building alongside Stage 9 (SEO foundation) rather than as a one-off patch now | Cosmetic today (soft-404, real users/crawlers see correct "not found" content) — would matter for SEO health once the site is actually being indexed and crawled at volume |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |

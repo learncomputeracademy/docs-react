@@ -81,10 +81,14 @@ good the new site looks.
    given a way to discover this site. URLs are redesigned once, now, per `docs/URLS.md`,
    then **frozen at launch**. `urls-before.txt` survives as a **content completeness
    checklist**: all 140 pages must still exist somewhere.
-2. **All 140 pages must have a destination**, and every moved path gets a **301**. Bookmarks
-   and links from learncomputer.in are real even with zero Google presence.
-   ⚠️ **526 internal `<a href>` links** across the lessons must be rewritten from
-   `url-map.json`, or the site ships full of broken links.
+2. **All 140 pages must have a destination.** Content completeness only — every page's
+   *content* must exist somewhere in the new site. ~~Every moved path gets a 301~~ **waived,
+   D-59**: the old Jekyll URL scheme itself does not need to redirect. User confirmed every
+   old HTML page already carried noindex, so the site was never intentionally indexed under
+   its old paths; losing that is acceptable. `url-map.json` stays what it always was —
+   internal `<a href>` rewriting at extraction time only, never a live redirect layer.
+   **526 internal `<a href>` links** across the lessons must still be rewritten from
+   `url-map.json`, or the site ships full of broken links — that part is unaffected.
 3. **Content ships in the server HTML.** View-source on a doc page must show the lesson
    text. **Never SSR a doc page** — ISR only. Not indexed *yet* is not the same as never
    indexed; this gate is what makes indexing work when it happens.
@@ -94,9 +98,11 @@ good the new site looks.
 5. **Old site stays live for 30 days post-cutover.** GitHub Pages is the rollback.
 6. **The 216 MB of assets never enters this repo.** They go to Cloudinary. `public/` stays
    under 5 MB.
-7. ⚠️ **Two indexed PDF URLs must redirect.** `graphics-design/Color-Theory.pdf` and
-   `ui/ui-theory-3.pdf` are in Google's index. When assets move to Cloudinary they 404
-   unless 301'd — the migration's only real chance to *create* an indexing error.
+7. ~~Two indexed PDF URLs must redirect.~~ **Waived, D-59** — same reasoning as #2. User ran
+   `site:docs.learncomputer.in`, confirmed a small number of old pages (these PDFs, almost
+   certainly, since file links aren't covered by an HTML page's noindex meta tag) are
+   genuinely indexed, and is fine losing that: it was never an intentional index. No redirect
+   built for `graphics-design/Color-Theory.pdf` or `ui/ui-theory-3.pdf`.
 
 ---
 
