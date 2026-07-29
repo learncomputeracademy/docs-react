@@ -30,12 +30,34 @@ for picking up work weeks later.
   intended order. Throwaway script deleted after running (matches the pattern used all
   through Session 30 — one-off DB scripts are never committed).
 
+- User then asked to check and fix `html` and `javascript` too — both had the same
+  alphabetical-by-slug problem. Reordered both: fundamentals → data types/DOM/events →
+  closures/this/OOP → error handling/async → modern JS/modules → storage →
+  debugging/performance/tooling → jQuery for JavaScript (28 docs); intro → structure/text →
+  content elements → forms → misc (iframes/filepaths/responsive) → HTML5/semantic intro →
+  individual semantic tags (page-structure tags first, then content, then media tags) for
+  HTML (36 docs). Verified live via `curl` on both categories' sidebars.
+- **Found while checking order:** every category with a `syllabus`-slugged doc (`html`,
+  `javascript`, confirmed also present in `css`) uses it as a category overview/roadmap page
+  — content starts with a heading like "HTML - Hyper Text Markup Language". Placed `syllabus`
+  **first** in both html and javascript (read the roadmap before the lessons), a placement
+  decision made without asking since it's low-stakes and reversible via another reorder.
+  **`css/syllabus` was left at its previous position (last)** — not moved to match, because a
+  real bug was found there: its `title` column says "Color in Design" even though its content
+  is the same generic CSS-overview text as the other syllabus docs. This looks like a
+  migration/data mismatch, not a legitimate title choice — **flagged to the user, not fixed**,
+  since correcting the title is a content edit outside this session's reordering scope. Also
+  noticed `css/syllabus`'s content links to `/css/css-intro`, an old Jekyll-style path that
+  doesn't match this site's current URL scheme (`/css/intro`) — likely a stale internal link,
+  also flagged and not fixed.
+
 **Not done**
 
-- Same-day reorder pass not (yet) run for any other category — user only flagged `css`.
-  `programming`, `html`, `javascript`, `react`, `design`, `photoshop` may have the same
-  alphabetical-order issue, unconfirmed either way. Worth a quick check next time one of
-  those categories comes up, not assumed broken.
+- Same-day reorder pass not run for the remaining categories — user only asked about `css`,
+  `html`, `javascript` this session. `programming`, `react`, `design`, `photoshop` may have
+  the same alphabetical-order issue, unconfirmed either way.
+- `css/syllabus`'s wrong title ("Color in Design") and its stale `/css/css-intro` internal
+  link — flagged to the user, not fixed. Needs a content-edit decision, not a reorder.
 - Old `basics/computer-fundamentals` soft-delete — user said they'd do it themselves via
   `/admin`; not verified done from this session.
 
