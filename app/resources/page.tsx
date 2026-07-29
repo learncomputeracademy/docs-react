@@ -3,7 +3,7 @@ import { buildAlternates } from '@/lib/seo'
 
 export const metadata = {
   title: 'Resources',
-  description: 'Free tools and resources for web design and development.',
+  description: 'Tools and resources for web design and development.',
   alternates: buildAlternates('/resources', '/resources'),
 }
 
@@ -18,7 +18,7 @@ export default async function ResourcesPage() {
   return (
     <main className="mx-auto max-w-4xl px-6 py-12">
       <h1 className="text-3xl font-bold tracking-tight">Resources</h1>
-      <p className="mt-2 text-muted-foreground">Free tools and resources, grouped by category.</p>
+      <p className="mt-2 text-muted-foreground">Tools and resources, grouped by category.</p>
 
       {resources.length === 0 && <p className="mt-8 text-muted-foreground">Nothing here yet — check back soon.</p>}
 

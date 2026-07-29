@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const DEFAULT_DESCRIPTION = "Free, W3Schools-style lessons on HTML, CSS, JavaScript, React, and graphic design.";
+const DEFAULT_DESCRIPTION = "Lessons on HTML, CSS, JavaScript, React, and graphic design, from Learn Computer Academy.";
 
 type SeoSettings = { googleVerification?: string; bingVerification?: string }
 
@@ -36,7 +36,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: new URL(SITE_URL),
     title: {
-      default: "Learn Computer Academy — Free Web Design & Development Docs",
+      default: "Learn Computer Academy — Web Design & Development Docs",
       template: "%s | Learn Computer Academy",
     },
     description: DEFAULT_DESCRIPTION,
