@@ -9,6 +9,38 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-29 — Session 31: image-style question made per-run (D-54), CSS category reordered
+
+**Done**
+
+- User asked that image style be asked fresh every content run instead of staying fixed to
+  the Computer Basics house style. Updated `docs/CONTENT-PIPELINE.md` §0 and §4 accordingly,
+  logged as `docs/DECISIONS.md` D-54, and saved a standing memory
+  (`lca-image-style-ask-per-run`) so this survives even if the pipeline doc isn't the first
+  thing read in a future session.
+- User reported the CSS category's sidebar order was wrong (screenshot: Bootstrap and
+  "Introduction of CSS" buried in the middle alphabetically, not first). Queried all 35
+  `css` docs' `sort_order` via a throwaway script — confirmed they were in raw alphabetical-
+  by-slug order, not a teaching order. Reordered into a real learning progression: intro →
+  syntax → colors/backgrounds/borders/spacing → box model → typography → content elements
+  (links, lists, tables) → display & positioning → layout techniques & selectors
+  (inline-block, align, combinators, pseudo-classes/elements, specificity) → real-world
+  components (navbar, dropdowns, forms) → units/how-to → Bootstrap and "Color in Design" as
+  trailing extras. Verified live via `curl` against `/css/intro` — sidebar now renders in the
+  intended order. Throwaway script deleted after running (matches the pattern used all
+  through Session 30 — one-off DB scripts are never committed).
+
+**Not done**
+
+- Same-day reorder pass not (yet) run for any other category — user only flagged `css`.
+  `programming`, `html`, `javascript`, `react`, `design`, `photoshop` may have the same
+  alphabetical-order issue, unconfirmed either way. Worth a quick check next time one of
+  those categories comes up, not assumed broken.
+- Old `basics/computer-fundamentals` soft-delete — user said they'd do it themselves via
+  `/admin`; not verified done from this session.
+
+---
+
 ## Current state — 2026-07-27
 
 **Phase:** Stage 1–7 ✅ (admin panel — every screen built except Testimonials, never asked
@@ -33,14 +65,13 @@ promised-and-missing anymore. **Eight tools total now**, and with Session 27's G
 Generator, **one of Tier 1's two roadmap tools is built** — CSS Units Playground is the
 other, still unbuilt.
 
-**Computer Basics rebuild content is DONE — one cleanup step remains** (D-53, Session 30). All
-16 new lessons are live in both locales, and the 301 redirect
-(`/basics/computer-fundamentals` → `/basics/what-is-a-computer`) is in `next.config.ts`. The
-only thing left is soft-deleting the old `basics/computer-fundamentals` doc via `/admin` —
-blocked this session because the Chrome extension wasn't connected, and a service-role script
-is correctly refused by the `docs_delete_restore_guard` DB trigger (admin-session-only, by
-design). Until that one delete happens, the old 16-chapter page still shows in the sidebar
-alongside all 16 new lessons. See O-20.
+**Computer Basics rebuild content is DONE** (D-53, Session 30). All 16 new lessons are live
+in both locales, and the 301 redirect (`/basics/computer-fundamentals` →
+`/basics/what-is-a-computer`) is in `next.config.ts`. The old doc's soft-delete was handed
+off to the site owner to do themselves via `/admin` (Session 31) after a service-role script
+was correctly refused by the `docs_delete_restore_guard` trigger and the Chrome extension
+wasn't available — not confirmed done as of this entry, check `/admin` Trash or re-query
+`basics/computer-fundamentals`'s `deleted_at` before assuming O-20 is fully closed.
 
 ### ⚡ Next action
 
