@@ -11,7 +11,7 @@ export default function CategoryLayout({ children }: { children: React.ReactNode
       <DocSidebar locale="en" />
       <MobileSidebarTrigger locale="en" />
       <SidebarInset>
-        <div className="mx-auto w-full px-6 lg:px-10">{children}</div>
+        <div className="mx-auto flex w-full gap-8 px-6 lg:px-10">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )

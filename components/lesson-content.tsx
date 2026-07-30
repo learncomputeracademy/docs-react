@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { getDoc, getAdjacentDocs } from '@/lib/content'
 import { BlockRenderer } from '@/components/blocks/block-renderer'
+import { Toc } from '@/components/toc'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 
@@ -58,18 +59,7 @@ export async function LessonContent({ category, slug, locale }: { category: stri
 
       {doc.toc.length > 0 && (
         <aside className="hidden w-56 shrink-0 py-8 xl:block">
-          <div className="sticky top-20 text-sm">
-            <p className="mb-2 font-semibold">{s.onThisPage}</p>
-            <ul className="space-y-1 border-l">
-              {doc.toc.map((item) => (
-                <li key={item.id} style={{ paddingLeft: `${(item.level - 2) * 0.75 + 0.75}rem` }}>
-                  <a href={`#${item.id}`} className="block text-muted-foreground hover:text-foreground py-0.5">
-                    {item.text}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <Toc items={doc.toc} title={s.onThisPage} />
         </aside>
       )}
     </>

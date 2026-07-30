@@ -422,7 +422,7 @@ function SidebarMenuSubButton({ asChild = false, size = 'md', isActive = false, 
       data-size={size}
       data-active={isActive}
       className={cn(
-        'text-muted-foreground ring-ring hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground flex h-7 min-w-0 -translate-x-px items-center gap-2 overflow-hidden rounded-md px-2 outline-hidden transition-colors focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&>span:last-child]:truncate [&>svg]:size-4 [&>svg]:shrink-0',
+        'text-muted-foreground ring-ring hover:bg-accent hover:text-accent-foreground active:bg-accent active:text-accent-foreground flex min-h-7 min-w-0 -translate-x-px items-center gap-2 rounded-md px-2 py-1.5 leading-snug outline-hidden transition-colors focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&>svg]:size-4 [&>svg]:shrink-0',
         'data-[active=true]:bg-accent data-[active=true]:font-medium data-[active=true]:text-accent-foreground',
         size === 'sm' && 'text-xs',
         size === 'md' && 'text-sm',

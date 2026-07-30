@@ -8,7 +8,7 @@ export default function CategoryLayoutBn({ children }: { children: React.ReactNo
       <DocSidebar locale="bn" />
       <MobileSidebarTrigger locale="bn" />
       <SidebarInset>
-        <div className="mx-auto w-full px-6 lg:px-10">{children}</div>
+        <div className="mx-auto flex w-full gap-8 px-6 lg:px-10">{children}</div>
       </SidebarInset>
     </SidebarProvider>
   )
