@@ -10,6 +10,7 @@ import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { HeroReveal } from '@/components/magic/hero-reveal'
+import { KineticText } from '@/components/magic/kinetic-text'
 import { ShimmerButton } from '@/components/magic/shimmer-button'
 import { BorderBeam } from '@/components/magic/border-beam'
 import { MagicCard } from '@/components/magic/magic-card'
@@ -94,8 +95,9 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               <span className="size-1.5 rounded-full bg-primary" />
               {s.freeLessonsSubjects(totalLessons, categories.length)}
             </div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-              {heroTitle1}<span className="text-primary">{heroTitle2}</span>
+            <h1 className="flex flex-wrap text-4xl font-bold tracking-tight sm:text-6xl">
+              <KineticText as="span" text={heroTitle1} />
+              <KineticText as="span" text={heroTitle2} className="text-primary" />
             </h1>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">{heroSub}</p>
             {firstLesson && (
