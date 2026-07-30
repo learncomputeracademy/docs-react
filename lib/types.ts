@@ -4,7 +4,7 @@
 // Phase 3: quiz
 
 export type Lang = 'html' | 'css' | 'javascript' | 'jsx' | 'tsx' | 'typescript'
-  | 'bash' | 'json' | 'sql' | 'python' | 'text'
+  | 'bash' | 'json' | 'sql' | 'python' | 'php' | 'text'
 
 export type Block =
   | { id: string; type: 'richtext'; html: string }

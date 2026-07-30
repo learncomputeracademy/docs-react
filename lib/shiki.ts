@@ -2,7 +2,7 @@ import { createHighlighter, type Highlighter } from 'shiki'
 
 let highlighter: Promise<Highlighter> | null = null
 
-const LANGS = ['html', 'css', 'javascript', 'jsx', 'tsx', 'typescript', 'bash', 'json', 'sql', 'python', 'text']
+const LANGS = ['html', 'css', 'javascript', 'jsx', 'tsx', 'typescript', 'bash', 'json', 'sql', 'python', 'php', 'text']
 
 function getHighlighter() {
   highlighter ??= createHighlighter({ themes: ['ayu-light', 'dracula'], langs: LANGS })
