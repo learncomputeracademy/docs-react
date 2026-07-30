@@ -20,6 +20,7 @@ Governed by **[D-10](DECISIONS.md)**. Read that first for why content is in Post
 | Categories | CRUD + ordering — **admin-only** |
 | Testimonials | CRUD + publish toggle |
 | Resources | CRUD, grouped — see D-42 (editor-accessible) |
+| Notes | Freeform rich-text notes/todos (Tiptap, incl. task-list checkboxes) with private file attachments — **admin-only**, shared across all admin accounts, see D-60 |
 | Settings | **usage panel** (below) — **admin-only**, see D-38 |
 | Users | create/edit-role/block/delete accounts — **admin-only**, see D-37 |
 | Activity | who-did-what feed across the whole panel — **admin-only**, see D-37 |

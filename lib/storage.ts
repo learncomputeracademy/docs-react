@@ -13,6 +13,13 @@ import { v2 as cloudinary } from 'cloudinary'
 
 export const CLOUDINARY_SIZE_LIMIT = 10 * 1024 * 1024 // 10 MB, free-tier cap
 
+export function slugifyFilename(name: string) {
+  const dot = name.lastIndexOf('.')
+  const base = dot === -1 ? name : name.slice(0, dot)
+  const ext = dot === -1 ? '' : name.slice(dot)
+  return base.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + ext
+}
+
 export function pickBackend(sizeBytes: number): 'cloudinary' | 'r2' {
   return sizeBytes >= CLOUDINARY_SIZE_LIMIT ? 'r2' : 'cloudinary'
 }

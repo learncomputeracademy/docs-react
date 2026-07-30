@@ -2,7 +2,7 @@
 
 import * as cheerio from 'cheerio'
 import { createClient } from '@/lib/supabase/server'
-import { uploadFile } from '@/lib/storage'
+import { uploadFile, slugifyFilename } from '@/lib/storage'
 import { logActivity } from '@/lib/admin/activity'
 
 export type MediaRow = {
@@ -29,13 +29,6 @@ function kindFromMimeType(mime: string): 'image' | 'video' | 'file' {
   if (mime.startsWith('image/')) return 'image'
   if (mime.startsWith('video/')) return 'video'
   return 'file'
-}
-
-function slugifyFilename(name: string) {
-  const dot = name.lastIndexOf('.')
-  const base = dot === -1 ? name : name.slice(0, dot)
-  const ext = dot === -1 ? '' : name.slice(dot)
-  return base.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '') + ext
 }
 
 export async function uploadMedia(formData: FormData): Promise<MediaRow> {

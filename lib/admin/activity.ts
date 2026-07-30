@@ -6,7 +6,7 @@ export type ActivityAction =
   | 'created' | 'updated' | 'published' | 'unpublished' | 'deleted' | 'restored'
   | 'uploaded' | 'translated' | 'invited' | 'role_changed' | 'blocked' | 'unblocked'
 
-export type EntityType = 'doc' | 'translation' | 'media' | 'category' | 'settings' | 'resource' | 'user' | 'nav_item'
+export type EntityType = 'doc' | 'translation' | 'media' | 'category' | 'settings' | 'resource' | 'user' | 'nav_item' | 'note'
 
 // Never throws — a logging failure (e.g. this migration not run yet)
 // must not take down the save/publish/delete it's recording. Same

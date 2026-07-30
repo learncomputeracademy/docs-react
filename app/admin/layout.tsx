@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 // planned item, but only these are actually linkable today.
 const BUILT_HREFS = [
   '/admin', '/admin/docs', '/admin/media', '/admin/pages', '/admin/seo', '/admin/menu',
-  '/admin/categories', '/admin/settings', '/admin/resources', '/admin/users', '/admin/activity', '/admin/trash',
+  '/admin/categories', '/admin/settings', '/admin/resources', '/admin/notes', '/admin/users', '/admin/activity', '/admin/trash',
 ]
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
