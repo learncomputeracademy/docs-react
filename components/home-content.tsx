@@ -176,7 +176,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               <MagicCard key={cat.id} className="rounded-xl" glow>
                 <Link
                   href={`${prefix}/${cat.slug}`}
-                  className="group relative flex items-start gap-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_32px_-8px_var(--primary)]"
+                  className="group relative flex items-start gap-4 rounded-xl border bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-[0_0_20px_-10px_color-mix(in_oklch,var(--primary)_60%,transparent)]"
                 >
                   <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent">
                     {Icon && <Icon className="size-6" />}
