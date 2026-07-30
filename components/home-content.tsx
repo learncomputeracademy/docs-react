@@ -11,6 +11,7 @@ import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { HeroReveal } from '@/components/magic/hero-reveal'
 import { KineticText } from '@/components/magic/kinetic-text'
+import { AnimatedCode } from '@/components/magic/animated-code'
 import { ShimmerButton } from '@/components/magic/shimmer-button'
 import { BorderBeam } from '@/components/magic/border-beam'
 import { MagicCard } from '@/components/magic/magic-card'
@@ -126,24 +127,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             </dl>
           </HeroReveal>
 
-          {/* Decorative code mockup — static, not interactive. Code itself
-              stays in English/CSS syntax in both locales, on purpose. */}
+          {/* Decorative code mockup — cycles HTML/CSS/JS/React/PHP/SQL
+              snippets forever (AnimatedCode). Code itself stays in
+              English/CSS syntax in both locales, on purpose. */}
           <div className="hidden lg:block">
-            <div className="relative overflow-hidden rounded-xl border bg-card shadow-lg">
-              <BorderBeam duration={10} />
-              <div className="flex items-center gap-1.5 border-b bg-muted/50 px-4 py-2.5">
-                <span className="size-2.5 rounded-full bg-destructive/60" />
-                <span className="size-2.5 rounded-full bg-primary/60" />
-                <span className="size-2.5 rounded-full bg-emerald-500/60" />
-                <span className="ml-3 text-xs text-muted-foreground">style.css</span>
-              </div>
-              <pre className="overflow-x-auto p-5 text-sm leading-relaxed"><code>{`.center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid `}<span className="text-primary">orange</span>{`;
-  padding: 10px;
-}`}</code></pre>
-            </div>
+            <AnimatedCode />
           </div>
         </div>
       </section>
