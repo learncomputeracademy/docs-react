@@ -3175,6 +3175,79 @@ sitemap. No changes needed there.
 
 ---
 
+## D-65 · New "WordPress" category — 26 lessons, custom theme development (no Gutenberg, no page builders)
+
+First entirely new *kind* of category on the site — not a programming language, but a CMS-specific
+skill: custom WordPress theme development. Scope came directly from the site owner: they teach
+custom theme building with SCF (Secure Custom Fields) and CPT UI, explicitly **not** Gutenberg and
+**not** page builders (Elementor/Divi are shown to students separately, but aren't what this
+category covers).
+
+**Grounded in a real reference, not a generic tutorial.** Before writing anything, read the site
+owner's own theme repo (`github.com/amartadey/wordpress`) — a daily-built "clean WordPress" zip via
+GitHub Actions. Confirmed directly from it: Classic Editor + Secure Custom Fields are auto-installed
+and auto-activated on every build (the no-Gutenberg policy is literally baked into their own
+pipeline, not just stated preference), the `wgh-starter` reference theme is deliberately minimal
+(`header.php`/`footer.php`/`index.php`/`page.php`/`single.php`/`functions.php`, `add_theme_support`,
+`register_nav_menus`), and an older "wp master" theme in the same repo showed real-world patterns
+worth teaching — ACF/SCF options pages (`acf_add_options_page`), a `wp_head` cleanup snippet
+(removing `wp_generator`/RSD/WLW), a breadcrumb helper, a tel/mailto link-validation helper. Lessons
+are original prose inspired by these patterns, never copied — same rule as every other content run.
+
+**Outline** (26 lessons, approved before writing):
+- Foundations (13): intro/toolkit, local environment, theme anatomy, `functions.php` setup,
+  header/footer, the Loop, **the template hierarchy**, core templates (index/page/single/404), custom
+  page templates, enqueuing assets, nav menus, the Customizer, disabling Gutenberg
+- CPT UI (4): intro to custom post types, registering with CPT UI, custom taxonomies with CPT UI,
+  template files for CPTs
+- SCF (5): intro to custom fields/SCF, building field groups, displaying fields, repeater/group
+  fields, options pages
+- Finishing a theme (4): featured images/custom sizes, escaping & sanitizing output, useful
+  `functions.php` utilities, a launch checklist
+
+**The linked template-hierarchy image**: the user pointed at the official
+`developer.wordpress.org` template-hierarchy diagram as a reference for that lesson. Declined to
+hotlink it — copyrighted WordPress.org material, and this project's pipeline requires every image
+to go through Cloudinary, never an external hotlink (docs/CONTENT-PIPELINE.md §4). Generated an
+original equivalent (an isometric flowchart of the same decision-tree concept) instead.
+
+**Image style**: isometric (site owner's choice, asked fresh per docs/CONTENT-PIPELINE.md §0 — not
+reused from the PHP/Python/React run without asking). Same warm-orange `#f97316` + neutral
+grays/blues clause. **6 images** (780 credits) — introduction, theme anatomy, template hierarchy
+(the flagship diagram), custom post types intro, custom fields intro, repeater fields — a bit above
+the ~5-per-run precedent set by PHP/Python/React, since this category leans more conceptual/
+diagram-friendly (file structure, decision trees, field relationships) than pure syntax lessons.
+
+**Plugin scope**: asked whether WooCommerce theming and an SEO-plugin integration lesson belonged
+in this run. Site owner's answer, read carefully rather than taken as a checkbox tally: open to
+covering "as much plugins as we need" in general, but the one hard exclusion is page builders
+(Elementor/Divi) — shown to students elsewhere, not part of custom theme building. Kept this run to
+the 26 core lessons; WooCommerce/SEO-plugin integration deferred to a follow-up run rather than
+bundled in, per the "Keep this run to the 26 above" answer to the explicit scoping question.
+
+**New category**: slug `wordpress`, title "WordPress" / `ওয়ার্ডপ্রেস` (phonetic transliteration,
+matching the PHP/Python/React precedent for product names rather than translating), sort_order 13
+(after `ai`). Icon added to `lib/category-icons.tsx` — `~icons/logos/wordpress-icon` (the compact
+mark, not the full text wordmark, matching how `php`/`python`/etc. use mark-only icons at sidebar
+size).
+
+**Verified**: `--dry-run` output read (26 lessons, correct sort order, sensible block counts per
+lesson, 7–16 blocks). Ran for real, all 52 rows (26 × EN/BN) wrote cleanly. `rm -rf .next && npm run
+build` — clean, zero errors, `/wordpress` and `/bn/wordpress` both appear with the expected route
+markers, no regression to any other route. `npm run start` + curl: category index lists all 26
+lessons; a lesson's real prose appears in raw server HTML (CLAUDE.md §3.3's SEO gate); the Cloudinary
+image URL resolves; homepage sidebar shows the new category. Also re-checked O-21 (D-64, this
+session) against the brand-new category specifically — an invalid slug under `/wordpress/` still
+correctly 404s, confirming that fix generalizes to categories created after it shipped, not just the
+ones that existed when it was written.
+
+**Not done**: not pushed (script + category/icon changes are local commits only, same standing rule
+as every prior content run — never push without asking). Browser-based console-error check (part of
+CONTENT-PIPELINE.md §7's checklist) not done — no browser tool available this session, same
+limitation noted in every prior content run.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

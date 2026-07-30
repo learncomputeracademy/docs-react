@@ -9,6 +9,63 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 41: new "WordPress" category, 26 lessons — custom theme dev, no Gutenberg (D-65)
+
+**Done**
+
+- User confirmed the O-21 fix (previous session) works as expected on the live site after pushing
+  it themselves, and reported the hero-text/code-panel loading-delay fixes (also previous session)
+  are working. No further action needed on either.
+- Built a brand-new category from scratch: **WordPress**, 26 lessons, scoped specifically to
+  **custom theme development** — no Gutenberg/block editor, no page builders (Elementor/Divi), built
+  around Classic Editor + CPT UI + Secure Custom Fields (SCF, the actively-maintained ACF fork).
+  This is the first category on the site that isn't a programming language — a CMS-specific skill.
+- Grounded the entire outline in the site owner's own real theme repo
+  (`github.com/amartadey/wordpress`) rather than writing a generic tutorial — read their daily-built
+  "clean WordPress" GitHub Actions pipeline (Classic Editor + SCF auto-installed on every build,
+  confirming the no-Gutenberg policy is a real practice, not just stated preference), their minimal
+  `wgh-starter` reference theme, and an older production theme in the same repo for real-world
+  patterns (ACF/SCF options pages, a `wp_head` cleanup snippet, a breadcrumb helper, a tel/mailto
+  link helper) — all rewritten as original lessons, never copied.
+- Outline: 13 foundational lessons (theme anatomy through disabling Gutenberg, including the
+  template hierarchy as its own flagship lesson), 4 on CPT UI (custom post types + taxonomies), 5 on
+  SCF (field groups through options pages), 4 on finishing a theme (images, escaping, utilities, a
+  launch checklist). Approved before writing, per the pipeline's standing rule.
+- The user linked the official `developer.wordpress.org` template-hierarchy diagram as a reference
+  — declined to hotlink it (copyrighted, and the pipeline requires every image through Cloudinary)
+  and generated an original isometric-style equivalent instead, same concept, no copyright issue.
+- Image style asked fresh (isometric, per the pipeline's "never assume, never reuse" rule) — 6
+  images, 780 credits, slightly above the ~5-per-run precedent from the PHP/Python/React run since
+  this category is more diagram-friendly (file structure, decision trees, field relationships) than
+  pure syntax lessons.
+- Asked about WooCommerce/SEO-plugin scope explicitly; user's answer read as "open to more plugins
+  in general, but page builders are the one hard exclusion" rather than a literal green light on
+  WooCommerce specifically — kept this run to the 26 core lessons, deferred WooCommerce/SEO-plugin
+  coverage to a follow-up run per the direct scoping question's answer.
+- New category: slug `wordpress`, sort_order 13, title_bn `ওয়ার্ডপ্রেস` (phonetic, matching the
+  PHP/Python/React precedent). Icon added (`~icons/logos/wordpress-icon`, the compact mark).
+- Verified: `--dry-run` read and correct, ran for real (52/52 rows written), clean `rm -rf .next &&
+  npm run build`, `/wordpress` and `/bn/wordpress` both render with real prose in raw server HTML,
+  images resolve via Cloudinary, sidebar shows the new category. Also specifically re-checked O-21
+  against this brand-new category — an invalid slug under `/wordpress/` still 404s correctly,
+  confirming that fix generalizes to categories created after it shipped.
+
+**Not done**
+
+- Not pushed — local commits only, same standing rule as every content run.
+- No browser-based console-error check — no browser tool available this session, same limitation
+  as every prior content run.
+- WooCommerce theming and SEO-plugin integration lessons — deliberately deferred, not forgotten;
+  see D-65 for the reasoning.
+
+**Next session — start here**
+
+1. If the user wants to continue the WordPress category, WooCommerce theming is the natural next
+   run (they were asked and chose to defer it, not decline it).
+2. SEO discussion is still queued from the previous session, once content work has a natural pause.
+
+---
+
 ## 2026-07-30 — Session 40: sidebar/TOC UX fixes, domain cutover confirmed, O-21 fixed (D-64)
 
 **Done**
