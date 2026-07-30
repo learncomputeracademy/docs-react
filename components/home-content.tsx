@@ -13,7 +13,6 @@ import { AnimatedCode } from '@/components/magic/animated-code'
 import { ShimmerButton } from '@/components/magic/shimmer-button'
 import { BorderBeam } from '@/components/magic/border-beam'
 import { MagicCard } from '@/components/magic/magic-card'
-import { NumberTicker } from '@/components/magic/number-ticker'
 import { Marquee } from '@/components/magic/marquee'
 
 const FEATURES = {
@@ -51,7 +50,7 @@ type HomeOverrides = Partial<{
 
 export async function HomeContent({ locale }: { locale: Locale }) {
   const [categories, settings] = await Promise.all([getSidebarTree(locale), getSiteSettings('home')])
-  const firstLesson = categories.find(c => c.slug === 'html')?.docs[0] ?? categories[0]?.docs[0]
+  const firstLesson = categories.find(c => c.slug === 'basics')?.docs[0] ?? categories[0]?.docs[0]
   const totalLessons = categories.reduce((sum, c) => sum + c.docs.length, 0)
   const s = t(locale)
   const override = (settings[locale] ?? {}) as HomeOverrides
@@ -64,12 +63,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   const aboutBandBody = override.aboutBandBody || s.aboutBandBody
   const prefix = locale === 'bn' ? '/bn' : ''
   const features = FEATURES[locale]
-
-  const stats = [
-    { value: totalLessons, label: s.lessons },
-    { value: categories.length, label: s.statSubjects },
-    { value: 2, label: s.statLanguages },
-  ]
 
   return (
     <main className="flex-1">
@@ -109,18 +102,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
                 </Button>
               </div>
             )}
-
-            <dl className="mt-10 flex max-w-sm gap-8 border-t pt-6">
-              {stats.map((stat) => (
-                <div key={stat.label}>
-                  <dt className="sr-only">{stat.label}</dt>
-                  <dd className="text-2xl font-bold tracking-tight text-foreground">
-                    <NumberTicker value={stat.value} />
-                  </dd>
-                  <dd className="text-sm text-muted-foreground">{stat.label}</dd>
-                </div>
-              ))}
-            </dl>
           </HeroReveal>
 
           {/* Decorative code mockup — cycles HTML/CSS/JS/React/PHP/SQL
