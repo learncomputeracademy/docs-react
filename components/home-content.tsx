@@ -1,6 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, Zap, GraduationCap, Languages, Sparkles, MapPin } from 'lucide-react'
-import IconNodejs from '~icons/logos/nodejs-icon'
+import { ArrowRight, Zap, GraduationCap, Languages, MapPin } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -11,7 +10,6 @@ import { AnimatedCode } from '@/components/magic/animated-code'
 import { ShimmerButton } from '@/components/magic/shimmer-button'
 import { BorderBeam } from '@/components/magic/border-beam'
 import { MagicCard } from '@/components/magic/magic-card'
-import { Marquee } from '@/components/magic/marquee'
 
 const FEATURES = {
   en: [
@@ -25,10 +23,6 @@ const FEATURES = {
     { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
   ],
 } as const
-
-const COMING_SOON = [
-  { icon: IconNodejs, en: 'Node.js', bn: 'Node.js' },
-] as const
 
 // Optional per-locale text overrides from /admin/settings, layered on top
 // of lib/i18n.ts's defaults — an empty/missing site_settings row (true
@@ -153,35 +147,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               </MagicCard>
             )
           })}
-        </div>
-      </section>
-
-      {/* Coming soon */}
-      <section className="border-t bg-muted/30">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="inline-flex items-center gap-1.5 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">
-            <Sparkles className="size-3.5" />
-            {s.comingSoonEyebrow}
-          </div>
-          <h2 className="mt-3 text-2xl font-bold tracking-tight">{s.comingSoonTitle}</h2>
-          <p className="mt-1 text-muted-foreground">{s.comingSoonSub}</p>
-
-          <Marquee duration={22} className="mt-8 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-            {COMING_SOON.map((item) => (
-              <div
-                key={item.en}
-                className="flex w-40 shrink-0 flex-col items-center gap-3 rounded-xl border border-dashed bg-card/50 p-6 text-center opacity-80"
-              >
-                {/* White backing, deliberately theme-independent: WordPress
-                    and OpenAI's marks are dark-on-transparent by brand
-                    guideline and disappear on a dark card otherwise. */}
-                <div className="flex size-14 items-center justify-center rounded-full bg-white shadow-sm">
-                  <item.icon className="size-8" />
-                </div>
-                <span className="text-sm font-medium">{locale === 'bn' ? item.bn : item.en}</span>
-              </div>
-            ))}
-          </Marquee>
         </div>
       </section>
 
