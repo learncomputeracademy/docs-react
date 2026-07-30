@@ -1,10 +1,13 @@
-import { getSidebarTree } from '@/lib/content'
 import { SidebarNav } from '@/components/sidebar-nav'
 import { Sidebar, SidebarHeader, SidebarContent, SidebarRail, SidebarTrigger } from '@/components/magic/sidebar'
+import type { SidebarCategory } from '@/lib/content'
 import type { Locale } from '@/lib/types'
 
-export async function DocSidebar({ locale = 'en' }: { locale?: Locale }) {
-  const categories = await getSidebarTree(locale)
+// Takes categories as a prop (fetched once by the layout) instead of
+// fetching its own — MobileSidebarTrigger needs the same tree to compute
+// its chapter-position badge, and a server layout is the natural place to
+// fetch it once for both rather than each doing it separately.
+export function DocSidebar({ categories, locale = 'en' }: { categories: SidebarCategory[]; locale?: Locale }) {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="flex-row items-center justify-end">
