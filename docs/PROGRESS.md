@@ -9,6 +9,52 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 36: homepage motion pass + admin Notes tab (D-60)
+
+**Done**
+
+- Vercel Analytics + Speed Insights added (`app/layout.tsx`), Bing verification file added
+  (`public/BingSiteAuth.xml`).
+- Mobile nav rebuilt: hamburger → right-side drawer (site nav + language + theme, the
+  latter two moved up top into a segmented-control card per user feedback), left-edge tab
+  → lesson sidebar drawer with a position indicator, replacing a "Browse lessons" bar that
+  scrolled out of reach mid-lesson.
+- Desktop nav restyled toward shadcnblocks' navbar12 (compact pill links, tidier dropdown
+  panels, a divider before language/theme) — mega-menu icons and a full-viewport mobile
+  sheet were deliberately not built, out of scope for what was asked.
+- Theme toggle got a circular-reveal animation (View Transition API + clip-path), adapted
+  from magicui's Animated Theme Toggler onto this project's plain localStorage/classList
+  toggle (no next-themes here, see `app/layout.tsx`'s own comment on why).
+- Homepage hero: title got magicui's Kinetic Text (per-letter hover weight), and the static
+  `style.css` code mockup became `components/magic/animated-code.tsx` — loops CSS → HTML →
+  JS → JSX → PHP → Python → SQL forever, typing effect + live Shiki highlighting, adapted
+  from animate-ui's animate/code. Hit and fixed a real dark-mode bug here: passing a
+  dynamic `defaultColor` to `codeToHtml` broke the site-wide `.dark .shiki` CSS override
+  (which expects a `--shiki-dark` var that stops being emitted once dark becomes the
+  *default* color) — fixed by matching `lib/shiki.ts`'s convention exactly instead
+  (always highlight light, let the existing CSS rule do the theme switch).
+- "Pick a subject" cards, category-page lesson lists, and the Resources page cards all got
+  `MagicCard`'s cursor-glow (extended with an opt-in `glow` prop for a softer radial fill).
+  Dropped the static border + hover box-shadow on all three — they fought the glow visually.
+- **Admin Notes tab (D-60)**: new `/admin/notes`, admin-only. Shared across all admin
+  accounts (not private per-user), Tiptap rich text (this project has no markdown
+  renderer, and Tiptap's already the lesson-content editor), todos are just Tiptap
+  task-list checkboxes inside a note (no separate todo table), attachments are multi-file
+  and private to the note (not added to the shared Media Library). New table
+  `supabase/migrations/009-notes.sql` — **not run yet, see O-22**. New editor component
+  (`components/admin/note-editor.tsx`, separate from the lesson-content `RichTextBlockEditor`
+  since notes need headings + a task-list button that one deliberately excludes). Added
+  `@tiptap/extension-task-list` + `-task-item` (pinned to 3.29.0 to match the installed
+  `@tiptap/extension-list` peer version — the latest task-item wanted 3.29.2 and conflicted).
+
+**Not done**
+
+- `supabase/migrations/009-notes.sql` needs running by hand in the Supabase SQL editor
+  before `/admin/notes` works at all (O-22) — same manual-migration pattern as 002-008.
+- Not pushed — local commits only, same standing rule as every prior session.
+
+---
+
 ## 2026-07-29 — Session 35: domain-cutover readiness check, 404 status bug parked (D-59, O-21)
 
 **Done**

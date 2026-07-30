@@ -2944,6 +2944,44 @@ cert and needs to see the real target directly, or cert issuance/handshake can f
 
 ---
 
+## D-60 · Admin Notes tab — shared, Tiptap rich text, checklist todos, private attachments
+
+**Date:** 2026-07-30 · **Status:** Active · **Decided by:** user (asked directly, 4
+clarifying questions before building — see chat)
+
+New `/admin/notes` screen, admin-only (same tier as Categories/Settings/Users/Trash/Menu —
+enforced in both `proxy.ts` and RLS via `public.is_admin()`). Four forks resolved before
+writing any code:
+
+1. **Shared across all admin accounts**, not private per-admin. Simplest option, matches
+   how every other admin screen (Resources, Media, Settings) already has no per-user
+   scoping. No `created_by`/`user_id` column.
+2. **Tiptap rich-text (WYSIWYG)**, not raw markdown source. This project has no markdown
+   renderer installed anywhere (content is stored as structured HTML blocks, not .md), and
+   Tiptap is already the editor used for lesson richtext blocks — reusing it means zero new
+   parsing/rendering dependencies. Notes are stored as `body_html`, same shape as
+   `docs.blocks`' richtext entries, not literal markdown text.
+3. **Todos are markdown-style checklists inside a note**, not a separate structured todo
+   table. `- [ ] task` syntax doesn't apply literally since storage is HTML, but the same
+   idea via Tiptap's task-list node (`@tiptap/extension-task-list` + `-task-item`, both
+   newly added — StarterKit doesn't bundle them). No new schema for todos.
+4. **Attachments are multi-file and private to the note** — not one-file-only, and not
+   added to the shared `media` table/Admin → Media screen. They're working files for a
+   note, not content assets meant to be reused elsewhere. Stored as a jsonb array on the
+   note row itself (`attachments: [{url, filename, bytes, backend}]`), uploaded through the
+   same `lib/storage.ts` `uploadFile` router Media already uses (Cloudinary under 10 MB, R2
+   at/above it — R2 still not configured, same caveat as Media's upload form).
+
+Built a separate `NoteEditor` component rather than reusing `RichTextBlockEditor` — that
+one deliberately disables headings (extract-docs.mjs's anchor system owns them for lesson
+content) and has no task-list button. Neither restriction makes sense for a personal
+notes/todos scratchpad.
+
+Manual "Save" button, no autosave — matches every other admin editor in this codebase
+(Resources, Categories, Menu), none of which autosave either.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -2970,3 +3008,4 @@ cert and needs to see the real target directly, or cert issuance/handshake can f
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |
+| O-22 | Run `supabase/migrations/009-notes.sql` (D-60) — the `notes` table doesn't exist in the live DB yet | `/admin/notes` will 500 on every query until this runs |
