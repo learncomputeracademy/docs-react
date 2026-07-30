@@ -9,6 +9,51 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 37: new PHP category, 29 lessons (D-61) — first of 3
+
+**Done**
+
+- User asked for PHP, Python, and React documentation (acknowledging the site can't fully
+  track the official docs, and explicitly OK with linking to php.net/docs.python.org/react.dev
+  where a full reference beats reproducing one). Read `docs/CONTENT-PIPELINE.md` per their
+  instruction, then pulled live category/doc data before proposing anything: `react` exists
+  but only has 2 stub docs (Jekyll-era leftovers, one a "syllabus" outline with mostly no real
+  content behind its chapter headings); `php`/`python` don't exist yet; `programming` (19
+  lessons) already covers language-agnostic fundamentals to build on top of.
+- Confirmed scope via 4 questions, then a concrete 28-lesson PHP outline, before writing
+  anything — per pipeline §0. User approved as-is, added: link to the existing `sql` category
+  wherever PHP's own content touches it (the PDO/MySQL lessons).
+- Wrote `scripts/create-php-content.mjs` — ended up **29 lessons** (added "Type Casting" as
+  its own lesson, a scope drift from an earlier draft outline, flagged in D-61 rather than
+  silently shipped or discarded). Mid-write, user asked to cut images to only where a diagram
+  is genuinely needed — shipped **5 images across 29 lessons** (650 credits), not a 2/lesson
+  default (~7,000+ credits).
+- Created the `php` category (sort_order 9, after `react`), added its `logos:php` icon.
+- `--dry-run` first (per the pipeline's own required step), then real write — every lesson
+  reported success, both locales.
+- **Caught two real bugs via `next build` failing loudly, before anything shipped broken**:
+  the `code()` block builder used field name `source` instead of the actual `Block` type's
+  `code`, crashing Shiki at build time; and `php` wasn't in `lib/types.ts`'s `Lang` union or
+  `lib/shiki.ts`'s `LANGS` allowlist. Fixed both, re-ran the content script (idempotent,
+  corrected the already-written rows in place), rebuilt clean.
+- Hit a build-cache red herring along the way: after the fix, `next build` failed on the
+  *same* page with the *same* error again — turned out to be `.next/cache` serving the
+  broken pre-fix `getDoc()` result from the first failed build. `rm -rf .next` before
+  rebuilding fixed it; noted in D-61 as a gotcha worth trying first next time this happens.
+- Verified: all 29+29 pages 200, view-source shows real lesson text (EN + BN), all 5 images
+  resolve to real Cloudinary URLs at their correct 1024×768 dimensions, category index lists
+  all 29 lessons, internal cross-links (`/programming/...`, `/sql/...`, `/html/intro/`) all
+  point at real existing pages.
+
+**Not done**
+
+- No console-error check — no browser tool available this session, only curl-based
+  verification of server-rendered HTML.
+- Python and React are next, one at a time per the confirmed build order — not started yet.
+- Not pushed — local commits only, same standing rule as every prior session.
+
+---
+
 ## 2026-07-30 — Session 36: homepage motion pass + admin Notes tab (D-60)
 
 **Done**

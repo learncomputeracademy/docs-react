@@ -2982,6 +2982,64 @@ Manual "Save" button, no autosave — matches every other admin editor in this c
 
 ---
 
+## D-61 · New PHP category — 29 lessons, first of a 3-language build (PHP → Python → React)
+
+**Date:** 2026-07-30 · **Status:** Active · **Decided by:** user
+
+User asked for new PHP, Python, and React documentation, explicitly acknowledging the site
+can never fully keep pace with the official docs and authorizing linking out to them where a
+full reference beats reproducing one. Confirmed up front (CONTENT-PIPELINE.md §0):
+
+- **Order:** one language at a time — PHP first (as listed), then Python, then React.
+- **React specifically**: the 2 existing docs (`react/introduction`, a `react/syllabus` that
+  was mostly an unfilled chapter outline — Jekyll-era leftovers) will be **rebuilt from
+  scratch**, not kept alongside new lessons — same treatment as the Computer Basics rebuild.
+- **Image style**: one shared style across all three languages — **isometric**, warm-orange
+  `#f97316` accent + neutral grays/blues, clean geometric shapes, soft shadows, no baked-in
+  text. Reuse this exact clause for the Python and React runs too, per the site owner's
+  choice of "same style across all three."
+- **Target size**: comprehensive, ~25-30 lessons each, matching `javascript`'s depth rather
+  than `sql`/`ai`'s leaner ~16-23.
+- Mid-run, user asked to cut images to only where a diagram genuinely helps beyond what a
+  code block already shows — not one-per-lesson. PHP shipped with **5 images across 29
+  lessons** (650 credits total, not the ~7,000+ a "2 per lesson" default would have cost).
+
+**New category**: slug `php`, title "PHP" / `পিএইচপি`, sort_order 9 (after `react`, before
+`sql`/`ai`, which shifted to 10/11). Icon `logos:php` added to `lib/category-icons.tsx`.
+
+**Scope note**: shipped 29 lessons, not the 28 originally approved — added "Type Casting"
+as its own lesson between Data Types and Constants (it was in an earlier draft outline,
+got dropped when trimming to 28 for approval, and I didn't notice it was still in the
+script until sort_order review). Flagged to the user rather than deleting already-written,
+correct content. Sort order shifts everything after Data Types by +1 versus the originally
+posted numbering.
+
+**Builds on existing content, doesn't repeat it**: assumes `programming` (19 lessons —
+variables, loops, functions, etc.) and `html` are already known; the PHP-and-MySQL lessons
+(28-29) assume `sql/intro` and `sql/dml`, and link to them rather than re-explaining SQL.
+
+**Two real bugs caught by the build, not shipped**:
+1. My `code()` block builder used field name `source`; the actual `Block` type
+   (`lib/types.ts`) and renderer (`components/blocks/block-renderer.tsx`) expect `code`.
+   Every code block had `b.code === undefined`, which crashed Shiki's highlighter
+   (`Cannot read properties of undefined (reading 'length')`) at build time on the first
+   PHP page it tried to prerender. `next build` failing loudly here is exactly the design
+   working — this could otherwise have shipped as a broken page.
+2. `php` wasn't in `lib/types.ts`'s `Lang` union or `lib/shiki.ts`'s `LANGS` allowlist
+   (only html/css/js/jsx/tsx/ts/bash/json/sql/python/text). Both extended to add `php` —
+   same pattern presumably followed when `sql` and `python` were added for their own
+   categories.
+3. **Not a code bug, a build-cache gotcha worth remembering**: after fixing #1 and
+   re-running the content script, `next build` kept failing on the *exact same* page with
+   the *exact same* error, even though the DB row was already fixed. Root cause:
+   `.next/cache`'s persistent fetch cache had cached the broken `getDoc('php/loops')`
+   result from the *first* (failed) build attempt, and a second `next build` reused it
+   without re-fetching. `rm -rf .next` before rebuilding resolved it. Worth trying first,
+   before assuming a fix didn't work, any time a build error persists identically across
+   consecutive `next build` runs in the same content-authoring session.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
