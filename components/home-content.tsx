@@ -9,6 +9,7 @@ import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { HeroReveal } from '@/components/magic/hero-reveal'
 import { TextAnimate } from '@/components/magic/text-animate'
+import { HillsBackground } from '@/components/magic/hills-background'
 import { AnimatedCode } from '@/components/magic/animated-code'
 import { ShimmerButton } from '@/components/magic/shimmer-button'
 import { BorderBeam } from '@/components/magic/border-beam'
@@ -68,17 +69,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
     <main className="flex-1">
       {/* Hero */}
       <section className="relative overflow-hidden border-b">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-        <div
-          className="pointer-events-none absolute -top-24 right-0 -z-10 size-[32rem] rounded-full bg-primary/10 blur-3xl"
-          aria-hidden
-        />
+        <HillsBackground className="pointer-events-none absolute inset-0 -z-10" />
         <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
           <HeroReveal>
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">

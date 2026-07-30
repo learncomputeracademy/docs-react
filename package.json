@@ -38,7 +38,8 @@
     "sanitize-html": "^2.17.6",
     "shiki": "^4.3.1",
     "sucrase": "^3.35.1",
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "three": "^0.185.1"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.352",
@@ -50,6 +51,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/sanitize-html": "^2.16.1",
+    "@types/three": "^0.185.1",
     "cheerio": "^1.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.11",
