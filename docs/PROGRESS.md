@@ -43,6 +43,56 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 39: new React category, 25 lessons, full rebuild (D-63) — closes the 3-language run
+
+**Done**
+
+- Proposed the React outline (25 lessons) immediately — image style and build order already
+  settled. User approved as-is.
+- Wrote `scripts/create-react-content.mjs` — no scope drift this time either (25 shipped, 25
+  approved). `react/introduction`\'s path is reused by lesson 1, so the script\'s normal
+  update logic overwrote it in place with no special handling needed.
+- **`react/syllabus` (the old Jekyll-era stub) couldn\'t be soft-deleted by the script** —
+  `docs_delete_restore_guard` needs a real authenticated admin session
+  (`public.is_admin()` reads `auth.uid()`, which is null for a service-role script), the
+  same wall a past session hit trying to soft-delete the old Basics monolith (O-20).
+  Unpublished it instead (`status: 'draft'`) — not blocked by that trigger, and has the same
+  practical effect since public reads already require `status = 'published'`. Logged as
+  O-23: hard-delete via `/admin` is still the right final step, just cosmetic (admin's own
+  docs list only) since it's already invisible everywhere on the live site.
+- Mid-session, also handled two things the user raised outside the content-authoring flow:
+  swapped the homepage hero's KineticText animation (which had a real nested-flex-wrap bug —
+  reported with a screenshot showing per-letter line wrapping) for a trimmed port of
+  magicui's Text Animate ("Blur In by Text"); adopted animate-ui's full Radix Sidebar for
+  the doc-browsing sidebar (icon-collapse, keyboard shortcut, cookie-persisted state,
+  animated mobile sheet), superseding the edge-tab drawer built earlier this session.
+- Also fixed a real deploy gap the user caught via screenshot: PHP code blocks weren't
+  syntax-highlighting on the live site because the `lib/shiki.ts`/`lib/types.ts` fix from
+  D-61 (adding `php` to the language allowlist) was sitting unpushed locally — user pushed
+  it themselves once diagnosed.
+- 5 images again (introduction, fetching data, lifting state up, context vs. prop drilling,
+  React Router) — 650 credits, same restrained approach as PHP and Python.
+- Verified: all 25+25 pages 200, `react/syllabus` confirmed absent from the category index
+  and sidebar (serves the site's not-found content instead — wrapped in the already-parked
+  O-21 soft-404-status quirk, not a new bug), all 5 images resolve at correct 1024×768,
+  internal cross-links to `javascript`/`html`/`css` all point at real pages.
+
+**This closes the 3-language run started this session**: PHP (29 lessons, D-61) → Python
+(28 lessons, D-62) → React (25 lessons, rebuild, D-63) — 82 lessons total, 15 images, one
+shared isometric style across all three.
+
+**Not done**
+
+- O-23 (hard-delete `react/syllabus`) needs the site owner via `/admin` — cosmetic, not
+  blocking.
+- No console-error check on any of the three categories — no browser tool available this
+  session, only curl-based verification of server-rendered HTML.
+- Not pushed — the content/sidebar/hero commits from this session are local only, same
+  standing rule as every prior session (the one exception: the user pushed the PHP
+  highlighting fix themselves, mid-session, once it was diagnosed).
+
+---
+
 ## 2026-07-30 — Session 37: new PHP category, 29 lessons (D-61) — first of 3
 
 **Done**

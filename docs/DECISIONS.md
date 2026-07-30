@@ -3071,6 +3071,52 @@ clean build, zero prerender errors, first attempt.
 
 ---
 
+## D-63 · New React category — 25 lessons, full rebuild, closes the PHP/Python/React run
+
+**Date:** 2026-07-30 · **Status:** Active · **Decided by:** user
+
+Third and last of the PHP → Python → React run (D-61/D-62). Outline (25 lessons) approved
+as-is. Rebuilt `react` from scratch per the earlier decision (D-61): `react/introduction`
+overwritten in place (same path, so the script's normal update path handled it — no special
+case needed); `react/syllabus` (the old "Chapter 1, Chapter 2..." stub with no real content
+behind most chapters) superseded by the 25 real lessons.
+
+**`react/syllabus` is unpublished (`status: 'draft'`), not soft-deleted** — the
+`docs_delete_restore_guard` trigger (D-37) requires `public.is_admin()`, which reads
+`auth.uid()`; a service-role script has no `auth.uid()`, so the trigger blocks it exactly
+the way it blocked a past session's attempt to soft-delete the old Basics monolith (see
+O-20). Unpublishing isn't blocked by that trigger and has the same practical effect —
+`"public reads published docs"` already requires `status = 'published'`, so a draft doc is
+invisible on the live site — but it isn't gone from the admin's docs list. **Hard-delete via
+`/admin` is still the correct final step, just not something this script could do itself.**
+Confirmed live: `/react/syllabus` now serves the site's not-found content (wrapped in the
+already-parked O-21 soft-404-status quirk — a pre-existing, unrelated bug, not new here),
+and it doesn't appear anywhere in the `/react` category index or sidebar.
+
+**No scope drift** — 25 lessons shipped, 25 approved, sort_order 1–25 exactly as proposed.
+Same isometric image style, 5 images (introduction, fetching data, lifting state up,
+context vs. prop drilling, React Router) — 650 credits, same restrained approach as PHP
+and Python.
+
+**Structurally different from PHP/Python on purpose**: React is frontend-only, so instead
+of an "and Databases" lesson, it gets Fetching Data + a dedicated React Router lesson —
+the realistic frontend equivalent of "how this talks to a backend." Links throughout point
+at the existing `javascript`, `html`, and `css` categories rather than re-teaching JS
+fundamentals — React assumes real JS fluency, unlike `programming`, which PHP/Python could
+build on for raw fundamentals.
+
+**Same two PHP lessons applied again, cleanly**: `code()` used the correct `code` field
+name from the first line; `jsx`/`tsx` were already in `lib/types.ts`'s `Lang` union and
+`lib/shiki.ts`'s `LANGS` (added when the site itself needed JSX highlighting) — no
+site-code changes needed this run either. `rm -rf .next` before the verification build,
+per D-61 — clean build, zero prerender errors, first attempt.
+
+**This closes the 3-language run** (D-61 PHP, D-62 Python, D-63 React) — 82 lessons total
+(29 + 28 + 25) across three new/rebuilt categories, 15 images (650 × 3 = 1,950 credits),
+in one shared isometric style.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3098,3 +3144,4 @@ clean build, zero prerender errors, first attempt.
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |
 | O-22 | Run `supabase/migrations/009-notes.sql` (D-60) — the `notes` table doesn't exist in the live DB yet | `/admin/notes` will 500 on every query until this runs |
+| O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
