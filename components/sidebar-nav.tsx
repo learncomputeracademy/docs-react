@@ -13,11 +13,13 @@ import {
   SidebarMenuSub,
   SidebarMenuSubItem,
   SidebarMenuSubButton,
+  useSidebar,
 } from '@/components/magic/sidebar'
 import type { SidebarCategory } from '@/lib/content'
 import type { Locale } from '@/lib/types'
 
 export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarCategory[]; locale?: Locale }) {
+  const { state, isMobile } = useSidebar()
   const pathname = usePathname()
   const activePath = pathname.replace(/^\/bn(\/|$)/, '/').replace(/^\//, '')
   const activeCategory = categories.find((c) => c.slug === activePath || c.docs.some((d) => d.path === activePath))?.slug
@@ -40,14 +42,29 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
       {categories.map((cat) => {
         const Icon = CATEGORY_ICONS[cat.slug]
         const isOpen = openItems.includes(cat.slug)
+        // Icon-rail mode has no room for a sub-list, and clicking a toggle
+        // that visibly does nothing is a dead end — the icon becomes a
+        // real link to the category's own index page instead. Mobile's
+        // Sheet is always full-width, so it never hits this collapsed state.
+        const iconOnly = state === 'collapsed' && !isMobile
+
         return (
           <SidebarMenuItem key={cat.id}>
-            <SidebarMenuButton value={cat.slug} tooltip={cat.title} onClick={() => toggle(cat.slug)}>
-              {Icon && <Icon className="size-4 shrink-0" />}
-              <span className="truncate">{cat.title}</span>
-              <span className="ml-auto shrink-0 text-xs font-normal text-muted-foreground group-data-[collapsible=icon]:hidden">{cat.docs.length}</span>
-              <ChevronRight className={cn('size-3.5 shrink-0 transition-transform group-data-[collapsible=icon]:hidden', isOpen && 'rotate-90')} />
-            </SidebarMenuButton>
+            {iconOnly ? (
+              <SidebarMenuButton value={cat.slug} tooltip={cat.title} asChild isActive={activeCategory === cat.slug}>
+                <Link href={`${prefix}/${cat.slug}`}>
+                  {Icon && <Icon className="size-4 shrink-0" />}
+                  <span className="truncate">{cat.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            ) : (
+              <SidebarMenuButton value={cat.slug} tooltip={cat.title} onClick={() => toggle(cat.slug)}>
+                {Icon && <Icon className="size-4 shrink-0" />}
+                <span className="truncate">{cat.title}</span>
+                <span className="ml-auto shrink-0 text-xs font-normal text-muted-foreground group-data-[collapsible=icon]:hidden">{cat.docs.length}</span>
+                <ChevronRight className={cn('size-3.5 shrink-0 transition-transform group-data-[collapsible=icon]:hidden', isOpen && 'rotate-90')} />
+              </SidebarMenuButton>
+            )}
             {isOpen && (
               <SidebarMenuSub>
                 {cat.docs.map((doc) => (
