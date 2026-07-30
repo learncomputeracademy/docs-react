@@ -7,9 +7,18 @@ import { BorderBeam } from '@/components/magic/border-beam'
 // live Shiki highlighting) — https://animate-ui.com/docs/components/animate/code
 // That component types out one fixed snippet once; this loops through
 // several languages forever, since it's decorative chrome for the homepage
-// hero, not a one-shot demo. No next-themes here (this project doesn't use
-// it — see app/layout.tsx), so theme comes from the same classList the
-// header's own toggle already sets.
+// hero, not a one-shot demo.
+//
+// Theme: same ayu-light/dracula pair as lib/shiki.ts (lesson content), and
+// deliberately *not* re-highlighting per theme toggle. codeToHtml's
+// defaultColor defaults to 'light', which bakes light colors directly and
+// exposes dark as a --shiki-dark/-bg custom property — exactly what
+// app/globals.css's `.dark .shiki` rule expects to override via var().
+// Passing defaultColor: 'dark' here would make that global rule reference
+// a --shiki-dark var that no longer exists on the element, breaking
+// highlighting in dark mode — so this always highlights as light and lets
+// that existing site-wide CSS rule do the theme switch, same as every
+// lesson code block already does.
 const SNIPPETS = [
   {
     lang: 'css',
@@ -80,22 +89,7 @@ LIMIT 5;`,
 const TYPE_DURATION = 2800
 const HOLD_DURATION = 1400
 
-function useIsDark() {
-  const [dark, setDark] = useState(false)
-
-  useEffect(() => {
-    const root = document.documentElement
-    setDark(root.classList.contains('dark'))
-    const observer = new MutationObserver(() => setDark(root.classList.contains('dark')))
-    observer.observe(root, { attributes: true, attributeFilter: ['class'] })
-    return () => observer.disconnect()
-  }, [])
-
-  return dark
-}
-
 export function AnimatedCode() {
-  const dark = useIsDark()
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState('')
   const [typing, setTyping] = useState(true)
@@ -133,8 +127,7 @@ export function AnimatedCode() {
     import('shiki').then(({ codeToHtml }) =>
       codeToHtml(visible || ' ', {
         lang: snippet.lang,
-        themes: { light: 'github-light', dark: 'github-dark' },
-        defaultColor: dark ? 'dark' : 'light',
+        themes: { light: 'ayu-light', dark: 'dracula' },
       }).then((out) => {
         if (!cancelled) setHtml(out)
       })
@@ -142,7 +135,7 @@ export function AnimatedCode() {
     return () => {
       cancelled = true
     }
-  }, [visible, snippet.lang, dark])
+  }, [visible, snippet.lang])
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
@@ -160,7 +153,7 @@ export function AnimatedCode() {
       <div
         ref={scrollRef}
         data-typing={typing}
-        className="animated-code h-56 overflow-auto p-5 text-sm leading-relaxed [&_code]:text-[13px] [&_code_.line]:px-0 [&>pre,_&_code]:!bg-transparent"
+        className="animated-code h-56 overflow-auto text-sm leading-relaxed [&_code]:text-[13px] [&_code_.line]:px-0 [&>pre]:!m-0 [&>pre]:h-full [&>pre]:p-5"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>
