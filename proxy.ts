@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import type { NextRequest } from 'next/server'
+import { getSidebarTree } from '@/lib/content'
 
 // Re-added for Stage 7 (deleted in session 11 — its only job then was an
 // x-locale header, replaced by client-side lang correction). This time
@@ -20,6 +21,9 @@ import type { NextRequest } from 'next/server'
 const ADMIN_ONLY_PREFIXES = ['/admin/categories', '/admin/settings', '/admin/users', '/admin/activity', '/admin/trash', '/admin/menu', '/admin/notes']
 
 export async function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl
+  if (!pathname.startsWith('/admin')) return checkDocPath(request, pathname)
+
   let response = NextResponse.next({ request })
 
   const supabase = createServerClient(
@@ -66,6 +70,40 @@ export async function proxy(request: NextRequest) {
   return response
 }
 
+// O-21: [category]/[slug] uses generateStaticParams without dynamicParams
+// = false, so an unlisted slug's on-demand render gets cached as a real
+// 200 instead of 404 (known Next.js App Router limitation, matches
+// vercel/next.js#63483 — reproduced locally and on the live deploy).
+// dynamicParams=false would fix the status but 404 a lesson published
+// after the last build; force-dynamic would fix it but hits Supabase on
+// every request, including bots, which is exactly what the free-tier
+// "never SSR a doc page" guardrail (CLAUDE.md §4) forbids. This instead
+// rides the same getSidebarTree() cache every category layout already
+// reads — tag 'sidebar', busted by the existing revalidateTag('sidebar')
+// call on every publish/unpublish — so a genuinely invalid slug gets
+// rewritten to a path with no matching route, which forces Next's normal
+// (correctly-statused) not-found flow instead of the static-fallback one.
+async function checkDocPath(request: NextRequest, pathname: string): Promise<NextResponse> {
+  if (pathname.startsWith('/api/') || pathname.startsWith('/_next/')) return NextResponse.next()
+
+  const isBn = pathname === '/bn' || pathname.startsWith('/bn/')
+  const segments = (isBn ? pathname.slice(3) : pathname).split('/').filter(Boolean)
+  // 'tools' is the one other literal route with real 2-segment children
+  // (/tools/grid, etc.) — Next resolves it before ever reaching
+  // [category]/[slug], so it never needs the lookup below. Everything
+  // else 2-segment funnels through that dynamic route, real category or
+  // not, which is exactly the shape this bug affects.
+  if (segments.length === 2 && segments[0] !== 'tools') {
+    const [category, slug] = segments
+    const categories = await getSidebarTree(isBn ? 'bn' : 'en')
+    const cat = categories.find((c) => c.slug === category)
+    if (!cat?.docs.some((d) => d.path === `${category}/${slug}`)) {
+      return NextResponse.rewrite(new URL('/__404__', request.url))
+    }
+  }
+  return NextResponse.next()
+}
+
 export const config = {
-  matcher: '/admin/:path*',
+  matcher: ['/admin/:path*', '/:category/:slug', '/bn/:category/:slug'],
 }

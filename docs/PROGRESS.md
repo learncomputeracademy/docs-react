@@ -9,6 +9,65 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 40: sidebar/TOC UX fixes, domain cutover confirmed, O-21 fixed (D-64)
+
+**Done**
+
+- Backfilling a journaling gap from the tail end of the animate-ui Sidebar port (sessions
+  36–39, not written up as it happened): restored `flex` on the category layout wrapper
+  (`app/[category]/layout.tsx` + `bn` twin), which had silently regressed to a non-flex
+  `<div>` during the port and broken the right-hand TOC's side-by-side layout — rebuilt the
+  TOC while there with fumadocs-style scroll-spy + an animated sliding active indicator
+  (`components/toc.tsx`, new). Restored the mobile edge-tab trigger's "N/total" chapter
+  badge, dropped during the same port (`components/mobile-sidebar-trigger.tsx`, now takes
+  `categories` as a prop shared from the layout instead of fetching its own). Fixed the
+  collapsed icon-rail sidebar: clicking a category icon now navigates to that category's
+  index page (`components/sidebar-nav.tsx`) instead of silently toggling a hidden sub-list.
+  Removed the hero's lessons/subjects/languages stat row and pointed "Start Learning" at
+  `/basics/` instead of `/html/` (`components/home-content.tsx`). Built, then fully reverted
+  on "I don't like it": a Three.js WebGL hills background and a Text Animate hero-title
+  swap — both deleted along with the now-unused `three`/`@types/three` deps, net zero diff
+  on `main` for that detour.
+- User confirmed: notes migration (`009-notes.sql`) run — **closes O-22**. All local commits
+  pushed. Domain cutover to Vercel done, live and serving at docs.learncomputer.in. Told to
+  skip `/about` copy (O-1) — main learncomputer.in site already has one, not needed here.
+- **Fixed O-21** (the soft-404 status bug parked in Session 35/D-59): re-verified against the
+  live deploy first rather than trusting the old write-up — still reproduced (`200` +
+  `X-Vercel-Cache: HIT` on an invalid slug). The previously-parked idea, "an edge-cached
+  valid-slug check in `proxy.ts`," turned out to need zero new infrastructure:
+  `getSidebarTree()` was already the right cached+tagged data (tag `'sidebar'`, busted by
+  the `revalidateTag('sidebar')` call every publish/unpublish action already makes).
+  `proxy.ts`'s matcher now also covers `/:category/:slug` and `/bn/:category/:slug`; a
+  genuinely invalid one gets `NextResponse.rewrite()`d to a path with no matching route, so
+  Next's normal (correctly-statused) not-found flow runs instead of the buggy static-fallback
+  one. `tools` (the one other real 2-segment route) is excluded by name — never affected,
+  Next resolves it as a literal route first. Full writeup: D-64.
+- Verified locally (`next build && next start`, `.next` cache cleared first per the
+  standing lesson from the PHP session): invalid slug under a real category → `404` (was
+  `200`); entirely made-up category → `404` (was `200`, a wider gap than O-21's original
+  scope — closed it too, same root cause); same two cases under `/bn/` → `404`; real lesson
+  pages both locales, `/tools/*`, category index pages, `/admin` redirect, `/api/revalidate`
+  all unchanged. `next build`'s route table (●/○/ƒ markers) identical before and after.
+- Checked `app/sitemap.ts` / `app/robots.ts` on the live deploy while here (asked directly):
+  both correct, no changes needed — 612 URLs, fully data-driven, includes `php`/`python`,
+  correctly excludes unpublished `/about` and `react/syllabus` (O-23).
+
+**Not done**
+
+- The O-21 fix is verified locally only — not yet re-checked against the live Vercel deploy
+  post-push (this session didn't push; see below).
+- Not pushed — local commits only. Diff is `proxy.ts` (the fix) + `docs/DECISIONS.md` +
+  this file.
+- O-23 (hard-delete `react/syllabus` via `/admin`) still open — cosmetic only.
+
+**Next session — start here**
+
+1. After this ships, re-check `curl -I` on an invalid slug against docs.learncomputer.in —
+   confirm the fix behaves the same on Vercel's actual edge/CDN as it did locally.
+2. SEO discussion — explicitly queued next by the user, right after this fix.
+
+---
+
 ## 2026-07-30 — Session 38: new Python category, 28 lessons (D-62) — second of 3
 
 **Done**

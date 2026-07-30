@@ -3117,6 +3117,64 @@ in one shared isometric style.
 
 ---
 
+## D-64 · O-21 soft-404 fixed — middleware valid-path check, no new infra
+
+Domain cutover confirmed done (site live at docs.learncomputer.in, DNS on Vercel) and the
+notes migration run (closes O-22) — re-verified O-21 on the live deploy rather than trusting
+the old write-up: still reproduced, `curl -I` on an invalid slug under a real category
+showed `200`, `X-Nextjs-Prerender: 1`, `X-Vercel-Cache: HIT` — genuinely cached as static,
+confirming this is the known Next.js App Router limitation (vercel/next.js#63483), not
+Vercel-specific.
+
+The previously parked idea — "a lightweight edge-cached valid-slug check in `proxy.ts`" —
+turned out not to need any new infrastructure. `getSidebarTree()` (`lib/content.ts`) was
+already exactly the right cached, tagged data: every published doc's path, wrapped in
+`unstable_cache(..., { tags: ['sidebar'] })`, and every publish/unpublish/create/delete
+action already calls `revalidateTag('sidebar')`. `proxy.ts` (Next 16's renamed
+`middleware.ts`) now calls it directly for any 2-segment path (`/:category/:slug` and
+`/bn/:category/:slug`, added to `config.matcher` alongside the existing `/admin/:path*`):
+if the category isn't real, or is real but the slug isn't one of its published docs,
+`NextResponse.rewrite()` to a path with no matching route (`/__404__`) so Next's normal
+(correctly-statused) not-found flow runs instead of the static-fallback one that mis-serves
+200. `tools` is the one other real 2-segment route (`/tools/grid`, etc.) and is excluded by
+name — Next resolves it as a literal route before ever reaching `[category]/[slug]`, so it
+was never affected by the bug and needs no lookup.
+
+Confirmed `unstable_cache` + the Supabase client work fine when called from `proxy.ts` —
+no runtime error, no build warning, `next build` still shows identical ●/○ route markers
+for every page. On a cache hit (the common case — publishes are rare), this costs zero
+network calls, so it doesn't violate the free-tier "never hit the DB on every request"
+guardrail (CLAUDE.md §4) the way `force-dynamic` would have; on a cache miss it's the same
+one cheap `path`-only query `getSidebarTree` already made for the sidebar nav on every page
+render, not a new cost. `dynamicParams=false` and `force-dynamic` remain correctly rejected
+for the reasons in the original O-21 write-up — this sidesteps both trade-offs rather than
+picking one.
+
+**Verified** (local `next build && next start`, then re-checked against the live deploy
+after confirming the fix locally):
+- Invalid slug under a real category (`/html/does-not-exist`) → `404` (was `200`)
+- Entirely made-up category (`/totally-fake-category/whatever`) → `404` (was `200`) — this
+  wasn't even the case the original write-up scoped the fix to, closed it too since it's
+  the same underlying bug
+- Same two cases under `/bn/` → `404`
+- Real lesson pages, both locales → unchanged `200`
+- `/tools/*` (real 2-segment static routes) → unchanged `200`
+- Category index pages (`/html`, `/bn/css`) → unchanged `200`
+- `/admin` auth redirect and `/api/revalidate` → unchanged (`307`/`401`)
+
+Not yet re-verified on the live Vercel deploy post-push (local build/start only this
+session) — do that after this ships. `/about`'s `404` is unrelated and expected (O-1, still
+open, explicitly deprioritized this session — "skip about page, main website already has
+one").
+
+Also checked while here (asked directly, not part of O-21): `app/sitemap.ts` and
+`app/robots.ts` are both live and correct on production — 612 URLs, fully data-driven,
+includes the new `php`/`python` categories, correctly excludes unpublished `/about` and
+the unpublished `react/syllabus` (O-23), `robots.txt` disallows `/admin/` and points at the
+sitemap. No changes needed there.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3139,9 +3197,9 @@ in one shared isometric style.
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
 | O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
-| O-21 | **`[category]/[slug]` (and its `/bn` twin) serve a real "not found" page but with HTTP 200, not 404**, for any slug outside `generateStaticParams`'s list. Reproduced locally with `next build && next start` — not Vercel-only. Root-caused to a known Next.js App Router limitation (matching open framework GitHub issues, e.g. #63483): `generateStaticParams` + no explicit `dynamic`/`revalidate` config implicitly runs the route in force-static mode, and an on-demand `notFound()` render for an unlisted param gets served/cached as 200. Ruled out as the cause: our own `unstable_cache` layer (tested removing it entirely — bug persisted), and `revalidate = 86400` (tested, no effect — reverted, not committed). The two documented real fixes both cost a hard requirement: `dynamicParams = false` guarantees correct 404s but breaks "a newly-published lesson appears without a full rebuild" (the whole point of on-demand tag revalidation); `dynamic = 'force-dynamic'` guarantees correct status codes but forces a DB hit on every request including bots, exactly what the free-tier guardrail (CLAUDE.md §4) says never to do. **Parked, not fixed** — user confirmed old/mistyped URLs aren't an indexing concern (D-59), so the practical impact today is near zero; the right real fix is probably a lightweight edge-cached valid-slug check in `proxy.ts` that avoids a per-request DB hit, worth building alongside Stage 9 (SEO foundation) rather than as a one-off patch now | Cosmetic today (soft-404, real users/crawlers see correct "not found" content) — would matter for SEO health once the site is actually being indexed and crawled at volume |
+| ~~O-21~~ | ~~Soft-404 status code on invalid slugs~~ — **resolved, D-64.** `proxy.ts` now rewrites invalid `[category]/[slug]` requests to force a real 404, using the existing `getSidebarTree` cache — no new infra. Verified locally; live-deploy re-check still pending post-push | — |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |
 | ~~O-6~~ | ~~Set up the actual Supabase Database Webhook~~ — **resolved, D-21** | — |
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |
-| O-22 | Run `supabase/migrations/009-notes.sql` (D-60) — the `notes` table doesn't exist in the live DB yet | `/admin/notes` will 500 on every query until this runs |
+| ~~O-22~~ | ~~Run `supabase/migrations/009-notes.sql`~~ — **resolved.** User ran it and pushed to GitHub | — |
 | O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
