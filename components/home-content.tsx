@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import { ArrowRight, Zap, GraduationCap, Languages, Sparkles, MapPin } from 'lucide-react'
-import IconWordpress from '~icons/logos/wordpress-icon'
 import IconNodejs from '~icons/logos/nodejs-icon'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'
@@ -28,7 +27,6 @@ const FEATURES = {
 } as const
 
 const COMING_SOON = [
-  { icon: IconWordpress, en: 'WordPress', bn: 'ওয়ার্ডপ্রেস' },
   { icon: IconNodejs, en: 'Node.js', bn: 'Node.js' },
 ] as const
 
