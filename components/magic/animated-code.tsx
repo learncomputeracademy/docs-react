@@ -98,6 +98,8 @@ LIMIT 5;`,
 const TYPE_DURATION = 2800
 const HOLD_DURATION = 1400
 
+const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
 export function AnimatedCode() {
   const [index, setIndex] = useState(0)
   const [visible, setVisible] = useState('')
@@ -131,8 +133,14 @@ export function AnimatedCode() {
   }, [typing])
 
   // Re-highlight as the visible text grows, same as the upstream primitive.
+  // shiki is a dynamically-imported chunk — on a cold load it can take a
+  // moment to download, and until it resolves this used to leave the panel
+  // blank even though `visible` already has typed characters. Render the
+  // plain typed text immediately as a fallback so something always shows,
+  // then swap in the highlighted version once shiki catches up.
   useEffect(() => {
     let cancelled = false
+    setHtml(`<pre class="!m-0 h-full p-5"><code>${escapeHtml(visible)}</code></pre>`)
     import('shiki').then(({ codeToHtml }) =>
       codeToHtml(visible || ' ', {
         lang: snippet.lang,
