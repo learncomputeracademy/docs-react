@@ -9,6 +9,40 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 38: new Python category, 28 lessons (D-62) — second of 3
+
+**Done**
+
+- Proposed the Python outline immediately (image style and build order already settled from
+  the PHP run, D-61) — approved as-is, no changes requested.
+- Wrote `scripts/create-python-content.mjs`, applying both PHP lessons directly: used the
+  correct `code` field name in the block builder from the first line, and confirmed `python`
+  was already in `lib/types.ts`'s `Lang` union / `lib/shiki.ts`'s `LANGS` (added for the
+  existing `programming`/`sql` categories) — no site-code fixes needed this run, unlike PHP's.
+- Deliberately diverged from PHP's lesson shape where the language itself differs: no
+  superglobals/sessions/forms lessons (that's a web framework's job, not core Python's), no
+  dedicated Constants lesson (Python has no `const`, just a naming convention) — replaced
+  with list comprehensions, iterators/generators, and modules/pip instead.
+- Created the `python` category (sort_order 10, after `php`), added its `logos:python` icon.
+- `--dry-run` first, then real write — 28/28 lessons succeeded, both locales, sort_order
+  1–28 exactly as approved (no drift this time, unlike PHP's D-61 Type Casting incident).
+- 5 images again (introduction, modules, OOP intro, iterators/generators, databases) — 650
+  credits, same restrained approach as PHP.
+- `rm -rf .next` before the verification build this time, per D-61's lesson — clean build,
+  zero prerender errors, first attempt. Verified all 28+28 pages 200, view-source shows real
+  lesson text (EN + BN), all 5 images resolve at correct 1024×768, category index lists all
+  28 lessons, internal cross-links (`/programming/...`, `/sql/...`) all point at real pages.
+
+**Not done**
+
+- No console-error check — no browser tool available this session, only curl-based
+  verification of server-rendered HTML (same caveat as PHP, D-61).
+- React is next and last of the three — not started yet. Per D-61, it's a rebuild (the 2
+  existing stub docs get replaced, not kept alongside new lessons).
+- Not pushed — local commits only, same standing rule as every prior session.
+
+---
+
 ## 2026-07-30 — Session 37: new PHP category, 29 lessons (D-61) — first of 3
 
 **Done**

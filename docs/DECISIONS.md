@@ -3040,6 +3040,37 @@ variables, loops, functions, etc.) and `html` are already known; the PHP-and-MyS
 
 ---
 
+## D-62 · New Python category — 28 lessons, second of the 3-language build
+
+**Date:** 2026-07-30 · **Status:** Active · **Decided by:** user
+
+Second of the PHP → Python → React run (D-61). Outline (28 lessons) approved as-is, no
+changes requested. New category: slug `python`, title "Python" / `পাইথন`, sort_order 10
+(after `php`, `sql`/`ai` shifted to 11/12). Icon `logos:python`.
+
+**Structurally different from PHP on purpose, not by omission**: core Python has no
+web-request machinery (no superglobals/sessions/forms — that's a framework's job, not the
+language's), so those PHP lessons were replaced with genuinely Python-specific topics
+instead: list comprehensions, iterators/generators, and modules/pip. Also dropped a
+dedicated "Constants" lesson — Python has no `const` keyword, just an `UPPER_CASE` naming
+convention — folded into Variables instead of padding out a thin topic into its own lesson.
+
+Same isometric style clause as PHP (D-61), reused verbatim per the "one shared style
+across all three" decision. 5 images again (introduction, modules, OOP intro, iterators/
+generators, databases) — 650 credits, same restrained approach as PHP.
+
+**No scope drift this time** — 28 lessons shipped, 28 approved, sort_order 1–28 exactly
+as proposed. (PHP shipped 29 against an approved 28; see D-61.)
+
+**The two PHP bugs, avoided from the start**: `code()`'s builder used the field name `code`
+(not PHP script's original `source` mistake) from the first line written, and `python` was
+already in `lib/types.ts`'s `Lang` union / `lib/shiki.ts`'s `LANGS` (added when the existing
+`programming`/`sql` categories were built) — no site-code changes needed this run, only
+content. `rm -rf .next` before the verification build, per D-61's build-cache lesson —
+clean build, zero prerender errors, first attempt.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
