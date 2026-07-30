@@ -5,6 +5,7 @@ import IconJs from '~icons/logos/javascript'
 import IconReact from '~icons/logos/react'
 import IconPhotoshop from '~icons/logos/adobe-photoshop'
 import IconPhp from '~icons/logos/php'
+import IconPython from '~icons/logos/python'
 
 export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   programming: Code2,
@@ -14,6 +15,7 @@ export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: st
   javascript: IconJs,
   react: IconReact,
   php: IconPhp,
+  python: IconPython,
   design: PenTool,
   photoshop: IconPhotoshop,
   // Generic icon, not a brand logo — SQL is a language, not a single product
