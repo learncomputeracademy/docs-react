@@ -1,5 +1,6 @@
 import { getResources } from '@/lib/content'
 import { buildAlternates } from '@/lib/seo'
+import { MagicCard } from '@/components/magic/magic-card'
 
 export const metadata = {
   title: 'Resources',
@@ -28,19 +29,20 @@ export default async function ResourcesPage() {
             <h2 className="text-xl font-semibold">{groupName}</h2>
             <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((r) => (
-                <a
-                  key={r.id}
-                  href={r.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 rounded-lg border bg-card p-4 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
-                >
-                  {r.thumbnail_url && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={r.thumbnail_url} alt="" className="size-10 shrink-0 rounded-md object-cover" />
-                  )}
-                  <span className="min-w-0 truncate font-medium">{r.name}</span>
-                </a>
+                <MagicCard key={r.id} className="rounded-lg" glow>
+                  <a
+                    href={r.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-3 rounded-lg bg-card p-4 shadow-sm transition-all hover:-translate-y-0.5"
+                  >
+                    {r.thumbnail_url && (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={r.thumbnail_url} alt="" className="size-10 shrink-0 rounded-md object-cover" />
+                    )}
+                    <span className="min-w-0 truncate font-medium">{r.name}</span>
+                  </a>
+                </MagicCard>
               ))}
             </div>
           </section>

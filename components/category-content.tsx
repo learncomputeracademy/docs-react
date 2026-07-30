@@ -38,10 +38,10 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
 
       <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {category.docs.map((doc, i) => (
-          <MagicCard key={doc.path} className="rounded-xl">
+          <MagicCard key={doc.path} className="rounded-xl" glow>
             <Link
               href={`${prefix}/${doc.path}`}
-              className="group flex items-center gap-4 rounded-xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+              className="group flex items-center gap-4 rounded-xl bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5"
             >
               <span className="flex size-9 shrink-0 items-center justify-center rounded-full bg-muted text-sm font-medium text-muted-foreground transition-colors group-hover:bg-primary/10 group-hover:text-primary">
                 {i + 1}

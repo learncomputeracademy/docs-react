@@ -76,6 +76,15 @@ document
 ?>`,
   },
   {
+    lang: 'python',
+    filename: 'app.py',
+    code: `def greet(name):
+    return f"Hello, {name}!"
+
+for student in ["Amit", "Priya"]:
+    print(greet(student))`,
+  },
+  {
     lang: 'sql',
     filename: 'query.sql',
     code: `SELECT title, category
