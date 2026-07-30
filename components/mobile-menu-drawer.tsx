@@ -61,8 +61,29 @@ export function MobileMenuDrawer({
             </Dialog.Close>
           </div>
 
+          {/* Language + theme up top, in a segmented-control card so they
+              read as settings rather than more nav rows — the plain nav
+              rows below are the differentiator. */}
+          <div className="mb-4 flex items-center gap-1 rounded-xl border bg-muted/40 p-1">
+            <Link
+              href={switchHref}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-muted-foreground hover:bg-background hover:text-foreground hover:shadow-sm"
+            >
+              <Languages className="size-4" />
+              {s.languageSwitchTo}
+            </Link>
+            <div className="h-5 w-px bg-border" aria-hidden />
+            <button
+              onClick={onToggleTheme}
+              className="flex flex-1 items-center justify-center gap-1.5 rounded-lg py-2 text-xs font-medium text-muted-foreground hover:bg-background hover:text-foreground hover:shadow-sm"
+            >
+              {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+              {s.toggleTheme}
+            </button>
+          </div>
+
           {navItems.length > 0 && (
-            <nav className="mb-4 flex flex-col gap-0.5 border-b pb-4 text-sm">
+            <nav className="flex flex-col gap-0.5 text-sm">
               {navItems.map((node) => (
                 <div key={node.id}>
                   <Link href={node.url} {...itemLinkProps(node.url)} className="block rounded-md px-2 py-2 font-medium hover:bg-muted">
@@ -86,20 +107,6 @@ export function MobileMenuDrawer({
               ))}
             </nav>
           )}
-
-          <div className="flex flex-col gap-0.5 text-sm">
-            <Link href={switchHref} className="flex items-center gap-2 rounded-md px-2 py-2 text-muted-foreground hover:bg-muted hover:text-foreground">
-              <Languages className="size-4" />
-              {s.languageSwitchTo}
-            </Link>
-            <button
-              onClick={onToggleTheme}
-              className="flex items-center gap-2 rounded-md px-2 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
-            >
-              {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
-              {s.toggleTheme}
-            </button>
-          </div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

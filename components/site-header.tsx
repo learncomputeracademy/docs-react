@@ -67,10 +67,11 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
             MobileMenuDrawer (set-once preferences, not worth header space
             next to search, which is the control people actually reach for
             repeatedly). */}
-        <div className="hidden items-center gap-2 sm:flex">
+        <div className="hidden items-center gap-1 sm:flex">
+          <div className="mx-1 h-5 w-px bg-border" aria-hidden />
           <Link
             href={switchHref}
-            className="flex items-center gap-1.5 rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[15px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >
             <Languages className="size-4" />
             {strings.languageSwitchTo}
@@ -78,7 +79,7 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
           <button
             onClick={toggle}
             aria-label={strings.toggleTheme}
-            className="rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+            className="rounded-full p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
           >
             {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>

@@ -22,8 +22,10 @@ export function itemLinkProps(url: string) {
   return isExternal(url) ? { target: '_blank', rel: 'noopener noreferrer' as const } : {}
 }
 
+// Compact pill sizing (~30px tall, 15px medium text), per shadcnblocks'
+// navbar12 — https://www.shadcnblocks.com/block/navbar12
 const LINK_CLASS =
-  'rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors'
+  'rounded-full px-3 py-1.5 text-[15px] font-medium text-muted-foreground hover:bg-muted hover:text-foreground transition-colors'
 
 // Click-to-open, not hover: a hover dropdown is unreachable on touch and
 // hostile to keyboard users. Escape closes, click-outside closes, and the
@@ -65,7 +67,7 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
       {open && (
         <div
           role="menu"
-          className="animate-dropdown-in absolute left-0 top-full z-50 mt-1 min-w-48 origin-top-left overflow-hidden rounded-lg border bg-background shadow-lg"
+          className="animate-dropdown-in absolute left-0 top-full z-50 mt-1.5 min-w-48 origin-top-left rounded-xl border bg-background p-1.5 shadow-lg"
         >
           {/* The parent's own page first — nesting a child under it must
               never make the parent itself unreachable. */}
@@ -74,11 +76,11 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
             role="menuitem"
             onClick={() => setOpen(false)}
             {...itemLinkProps(node.url)}
-            className="block px-3 py-2 text-sm hover:bg-muted"
+            className="block rounded-md px-2.5 py-2 text-sm font-medium hover:bg-muted"
           >
             {labelFor(node, locale)}
           </Link>
-          <div className="border-t" />
+          <div className="my-1 border-t" />
           {node.children.map((child) => (
             <Link
               key={child.id}
@@ -86,7 +88,7 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
               role="menuitem"
               onClick={() => setOpen(false)}
               {...itemLinkProps(child.url)}
-              className="block px-3 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
+              className="block rounded-md px-2.5 py-2 text-sm text-muted-foreground hover:bg-muted hover:text-foreground"
             >
               {labelFor(child, locale)}
             </Link>
