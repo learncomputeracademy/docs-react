@@ -22,40 +22,28 @@ const geistMono = Geist_Mono({
 
 const DEFAULT_DESCRIPTION = "Lessons on HTML, CSS, JavaScript, React, and graphic design, from Learn Computer Academy.";
 
-type SeoSettings = { googleVerification?: string; bingVerification?: string }
-
 // metadataBase makes every relative URL in every page's `metadata` (OG
 // images, etc.) resolve against the real domain instead of whatever host
 // served the request — needed once, here, for it to apply everywhere.
-// async (generateMetadata, not a static `metadata` const) so Search
-// Console/Bing verification codes can be pasted into /admin/seo and take
-// effect without a code deploy — getSiteSettings is the same cached,
-// graceful-on-failure read every other admin-editable copy already uses
-// (home-content.tsx), so this stays safe for static generation.
-export async function generateMetadata(): Promise<Metadata> {
-  const seo = (await getSiteSettings('seo')) as SeoSettings
-
-  return {
-    metadataBase: new URL(SITE_URL),
-    title: {
-      default: "Learn Computer Academy — Web Design & Development Docs",
-      template: "%s | Learn Computer Academy",
-    },
-    description: DEFAULT_DESCRIPTION,
-    openGraph: {
-      siteName: SITE_NAME,
-      type: "website",
-      locale: "en_US",
-      images: ["/logo-icon.png"],
-    },
-    twitter: {
-      card: "summary",
-    },
-    verification: {
-      google: seo.googleVerification || undefined,
-      other: seo.bingVerification ? { "msvalidate.01": seo.bingVerification } : undefined,
-    },
-  };
+// No `verification` field: Google Search Console and Bing Webmaster Tools
+// are already verified outside this app (not via the HTML-tag method), so
+// there's no meta tag for this site to emit.
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: "Learn Computer Academy — Web Design & Development Docs",
+    template: "%s | Learn Computer Academy",
+  },
+  description: DEFAULT_DESCRIPTION,
+  openGraph: {
+    siteName: SITE_NAME,
+    type: "website",
+    locale: "en_US",
+    images: ["/logo-icon.png"],
+  },
+  twitter: {
+    card: "summary",
+  },
 }
 
 // Applies saved/system theme, and corrects <html lang> for /bn/*, before

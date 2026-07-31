@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslatedDocPaths } from '@/lib/content'
 import { LessonContent, loadLocalizedDoc } from '@/components/lesson-content'
-import { buildAlternates, articleJsonLd, jsonLdScript } from '@/lib/seo'
+import { buildAlternates, articleJsonLd, jsonLdScript, docMetaTitle } from '@/lib/seo'
 
 // Only pre-render /bn pages that actually have a translation yet — the rest
 // resolve on demand (LessonContent falls back to English + a banner) rather
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const doc = await loadLocalizedDoc(category, slug, 'bn')
   const path = `${category}/${slug}`
   return {
-    title: doc.meta_title ?? doc.title,
+    title: docMetaTitle(doc),
     description: doc.meta_description ?? undefined,
     alternates: buildAlternates(`/bn/${path}`, `/${path}`, `/bn/${path}`),
   }

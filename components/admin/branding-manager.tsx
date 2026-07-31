@@ -63,7 +63,7 @@ function LogoUploader({
 // The logo itself is the text — both PNGs have "Learn Computer Academy"
 // baked into the artwork, one in black (light mode), one in white (dark
 // mode) — so this only ever needs the file, never a text field, unlike
-// SeoManager/other settings sections in this admin.
+// other settings sections in this admin.
 export function BrandingManager({ initial }: { initial: Partial<BrandingSettings> }) {
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

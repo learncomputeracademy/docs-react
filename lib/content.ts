@@ -13,7 +13,7 @@ import type { Category, Doc, Locale } from './types'
 // revalidate the (static) homepage on publish.
 export type SiteSettingsValue = Record<string, unknown>
 
-export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'footer' | 'contact' | 'seo' | 'branding'): Promise<SiteSettingsValue> {
+export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'footer' | 'contact' | 'branding'): Promise<SiteSettingsValue> {
   return unstable_cache(
     async () => {
       try {

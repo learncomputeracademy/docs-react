@@ -3248,6 +3248,57 @@ limitation noted in every prior content run.
 
 ---
 
+## D-66 · O-16 fixed (duplicated lesson-page title), `/about/` waived, admin SEO screen removed
+
+**O-16 fixed — root cause, not the one page it was noticed on.** The bug was never CSS-specific:
+`app/[category]/[slug]/page.tsx` (and its `bn` twin, and `app/about/page.tsx`) all built
+`generateMetadata`'s `title` as `doc.meta_title ?? doc.title`, and every content-creation script
+(`create-react-content.mjs`, `create-wordpress-content.mjs`, `create-php-content.mjs`, etc. — 7 of 10
+`create-*` scripts, plus several `translate-*` scripts) wrote `metaTitle` with `" | Learn Computer
+Academy"` already baked into the string, matching the old Jekyll front matter's style. The root
+layout's `title.template: "%s | Learn Computer Academy"` then appended the same suffix a second time
+on top of every one of those, doubling it site-wide — not a one-off, a pattern that shipped in every
+content run since the site's first category. Fixed with one shared helper, `docMetaTitle()` in
+`lib/seo.ts`, that strips a trailing `" | Learn Computer Academy"` from `meta_title` before it's
+returned (so the layout's template supplies it exactly once regardless of whether the stored value
+already has it, doesn't have it, or is absent entirely) — wired into all three call sites
+(`[category]/[slug]/page.tsx`, `bn/[category]/[slug]/page.tsx`, `about/page.tsx`). No content rows
+touched; this is a render-layer fix, not a re-run of every content script. Verified: `/css/pseudo-
+elements` (the originally-confirmed instance) and `/react/jsx` (EN + BN) each now render a single-
+suffix `<title>`.
+
+**`/about/` waived — O-1 closed, not deferred.** User confirmed the page isn't needed: the main
+learncomputer.in site already has an About page, and this docs site doesn't need its own. This is
+the same call made verbally back in Session 40 ("Told to skip /about copy — main learncomputer.in
+site already has one") — that session just never updated the Open table to match, so O-1 sat listed
+as outstanding for two more sessions. Closing it properly here. No page will be built;
+`app/about/page.tsx` stays as-is (returns a clean 404 until/unless a doc row named `about` is ever
+created — an honest interim state, not fake placeholder content, unchanged from its original
+design).
+
+**Admin SEO verification screen removed.** `/admin/seo` existed to store Google Search Console /
+Bing Webmaster HTML-tag verification codes (`googleVerification`/`bingVerification` in
+`site_settings`, emitted as `<meta>` tags from the root layout's `verification` field). User confirmed
+both properties are already verified — active, just not through this admin screen (a different
+verification method, outside this app's scope) — and the `site_settings` row for key `'seo'`
+confirmed empty (`[]`), meaning the fields were never actually used. Removed entirely rather than
+left as dead UI: `app/admin/seo/page.tsx`, `components/admin/seo-manager.tsx`, the sidebar nav entry
+and `BUILT_HREFS` listing (`app/admin/layout.tsx`), the `'seo'` branch of `saveSettings()`'s
+layout-revalidate special-case (`lib/admin/settings.ts`), the `'seo'` member of the settings-key
+union type (`lib/content.ts`, `lib/admin/settings.ts`), and the `verification` field + `SeoSettings`
+type from the root layout's metadata (`app/layout.tsx`) — which also let `generateMetadata` collapse
+from an async function back to a plain `export const metadata` object, since nothing dynamic was left
+in it.
+
+**Verified**: `rm -rf .next && npm run build` clean. `npm run dev` + curl: `/css/pseudo-elements` →
+`CSS Pseudo Elements | Learn Computer Academy` (was duplicated); `/react/jsx` and `/bn/react/jsx` →
+single-suffix titles, both locales; `/admin/seo` no longer serves the removed page (307, same
+auth-gate redirect as any other undefined `/admin/*` path — not a 200).
+
+**Not done**: not pushed — local commits only, same standing rule as every session.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3256,7 +3307,7 @@ limitation noted in every prior content run.
 | ~~O-13~~ | ~~Add "Box Shadow Generator" to the header nav~~ — **resolved.** Confirmed live in the admin Menu screen (Session 28): all eight tools now sit under a top-level "Tools" (টুলস) dropdown — Box Model, Box Shadow, Gradient, Flexbox, Grid, Colour & Contrast, Scrollbar, Specificity. User added these by hand between sessions, not tracked here as it happened | — |
 | ~~O-14~~ | ~~Add "Gradient Generator" to the header nav~~ — **resolved**, see O-13 | — |
 | ~~O-15~~ | ~~Add "Flexbox Playground" to the header nav~~ — **resolved**, see O-13. The "Tools" dropdown structure this entry flagged as unconfirmed is exactly the live structure | — |
-| O-16 | Doc lesson pages' browser tab title is duplicated — `"<Title> \| Learn Computer Academy \| Learn Computer Academy"`, confirmed on `/css/pseudo-elements` (D-48), pre-existing and unrelated to any /tools work. Not investigated | Cosmetic (browser tab / bookmark title only) — does not affect page content, SEO `<title>` may or may not share the bug, unconfirmed |
+| ~~O-16~~ | ~~Doc lesson pages' browser tab title is duplicated~~ — **resolved, D-66.** Root cause: content scripts baked `" | Learn Computer Academy"` into `meta_title` directly, and the root layout's title template appended it again. Fixed with a shared `docMetaTitle()` helper in `lib/seo.ts`, no content rows touched | — |
 | ~~O-17~~ | ~~Add "Scrollbar App" to the header nav~~ — **resolved**, see O-13 | — |
 | ~~O-18~~ | ~~Add "CSS Specificity Calculator" and "Colour & Contrast Studio" to the header nav~~ — **resolved**, see O-13 | — |
 | ~~O-19a~~ | ~~Add "Grid Generator" to the header nav~~ — **resolved**, see O-13 | — |
@@ -3266,9 +3317,9 @@ limitation noted in every prior content run.
 | ~~O-10~~ | ~~Run `supabase/migrations/006-nav-items.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-9~~ | ~~Run `supabase/migrations/005-pages-editable.sql`~~ — **resolved.** User ran it. | — |
 | ~~O-8~~ | ~~Run `supabase/migrations/004-users.sql`~~ — **resolved.** User ran it, confirmed `role='admin'`, deployed at `2413296` | — |
-| O-1 | Real copy for `/about/` | Stage 5 (the page ships empty otherwise) |
+| ~~O-1~~ | ~~Real copy for `/about/`~~ — **waived, D-66.** User confirmed no page is needed; the main learncomputer.in site already has one | — |
 | ~~O-2~~ | ~~Contact form destination inbox + Resend account~~ — **resolved, D-36: dropped entirely, no form built** | — |
-| O-3 | Search Console export — top 100 pages by clicks/impressions | nothing; makes Stage 9 targeted rather than uniform |
+| O-3 | Search Console export — top 100 pages by clicks/impressions. **Update, D-66:** Search Console and Bing Webmaster Tools are both confirmed already set up and verified for this site (outside this app, not via `/admin/seo` which has been removed) — the export itself just hasn't been pulled yet | nothing; makes Stage 9 targeted rather than uniform |
 | O-4 | Higher-resolution logo source (current: `assets/img/logo.png`) | nothing; existing PNG is usable |
 | ~~O-21~~ | ~~Soft-404 status code on invalid slugs~~ — **resolved, D-64.** `proxy.ts` now rewrites invalid `[category]/[slug]` requests to force a real 404, using the existing `getSidebarTree` cache — no new infra. Verified locally; live-deploy re-check still pending post-push | — |
 | O-5 | `generateMetadata` output doesn't pick up `revalidateTag`/`revalidatePath` the same request cycle the page body does (D-18) — worth a Next.js version check or upstream issue search before Stage 7, since the admin panel's "publish" flow will make this user-visible (stale tab title/search snippet after an edit) | nothing yet; page content itself is unaffected |

@@ -13,6 +13,19 @@ export function absoluteUrl(path: string): string {
 // BN versions of the same content each get their OWN canonical, never each
 // other's). `bnPath` is optional: standalone pages (about/contact/
 // resources) have no Bengali URL yet, so only self-canonical applies there.
+// Most lesson `meta_title` values were written by content scripts that baked
+// " | Learn Computer Academy" into the string directly (matching the old
+// Jekyll front matter's style). The root layout's title.template appends the
+// same suffix again, so the raw value would double up in the tab (O-16).
+// Strip a trailing site-name suffix here, once, so it flows through the
+// template exactly once regardless of whether the stored title already has
+// it, doesn't have it, or (via the admin panel) never gets it added at all.
+export function docMetaTitle(doc: { meta_title: string | null; title: string }): string {
+  const raw = doc.meta_title ?? doc.title
+  const suffix = ` | ${SITE_NAME}`
+  return raw.endsWith(suffix) ? raw.slice(0, -suffix.length) : raw
+}
+
 export function buildAlternates(currentPath: string, enPath: string, bnPath?: string) {
   if (!bnPath) return { canonical: absoluteUrl(currentPath) }
   return {

@@ -3,7 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Users, History, Trash2, Sun, Moon, Layers, Search, Menu, StickyNote } from 'lucide-react'
+import { LayoutDashboard, FileText, Images, FolderTree, Settings, BookMarked, Users, History, Trash2, Sun, Moon, Layers, Menu, StickyNote } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { SignOutButton } from './sign-out-button'
 
@@ -54,7 +54,6 @@ const NAV_ITEMS = [
   { href: '/admin/docs', label: 'Docs', icon: FileText, exact: false, adminOnly: false },
   { href: '/admin/media', label: 'Media', icon: Images, exact: false, adminOnly: false },
   { href: '/admin/pages', label: 'Pages', icon: Layers, exact: false, adminOnly: false },
-  { href: '/admin/seo', label: 'SEO', icon: Search, exact: false, adminOnly: false },
   { href: '/admin/menu', label: 'Menu', icon: Menu, exact: false, adminOnly: true },
   { href: '/admin/categories', label: 'Categories', icon: FolderTree, exact: false, adminOnly: true },
   { href: '/admin/settings', label: 'Settings', icon: Settings, exact: false, adminOnly: true },

@@ -257,11 +257,16 @@ Nothing is blocking. Live list with dates: **`docs/DECISIONS.md` → Open**.
 
 - ✅ **Cloudinary credentials** — received 2026-07-24, account `docslca`. In `.env.local`,
   verified git-ignored. See `docs/ASSETS.md`.
-- ⬜ **Real copy for `/about/`** — the current page is unmodified Jekyll theme text. The
-  URL is live, so the page must exist. Needed by Stage 5.
-- ⬜ **Contact form inbox + Resend account** — needed by Stage 8.
-- ⬜ **Search Console export**, top 100 pages by clicks/impressions — not blocking; makes
-  Stage 9 targeted rather than protecting all 140 URLs uniformly.
+- ✅ **`/about/`** — waived, not built. User confirmed (2026-07-31, D-66) the page isn't
+  needed; the main learncomputer.in site already has one. `app/about/page.tsx` stays as a
+  clean 404 rather than shipping placeholder copy.
+- ✅ **Contact form** — resolved, D-36: dropped entirely, no form built. `/contact` is
+  static info linking out to the main site's own contact form instead.
+- ✅ **Search Console & Bing Webmaster Tools** — confirmed active and verified (2026-07-31),
+  outside this app (not via the now-removed `/admin/seo` HTML-tag verification screen — see
+  D-66). The one thing not yet done: pulling the **Search Console export**, top 100 pages by
+  clicks/impressions, which would make an eventual SEO pass targeted rather than uniform —
+  not blocking anything.
 - ⬜ **Higher-resolution logo** — not blocking; the existing PNG works.
 
 Content decisions I took unilaterally (all reversible — see `docs/DECISIONS.md` D-08):

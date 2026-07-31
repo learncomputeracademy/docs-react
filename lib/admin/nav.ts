@@ -21,7 +21,7 @@ export async function listNavItemsForAdmin(): Promise<NavItemRow[]> {
 }
 
 // The header renders on every route (root layout), so a write here busts
-// the layout everywhere — same pattern as saveSettings('seo', ...).
+// the layout everywhere — same pattern as saveSettings('branding', ...).
 function revalidateNav() {
   revalidateTag('nav', { expire: 0 })
   revalidatePath('/', 'layout')

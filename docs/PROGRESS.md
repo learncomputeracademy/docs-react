@@ -9,6 +9,76 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-31 — Session 43: icon swaps, hero copy rewrite, JSX table-cell bug, O-16 fixed, admin SEO removed (D-66)
+
+**Done**
+
+- Swapped six category icons on user-supplied Iconify links, verifying each collection/slug
+  against `node_modules/@iconify/json` before wiring it in (`lib/category-icons.tsx`):
+  WordPress → `selfhst/wordpress`, basics → `twemoji/laptop` (site's URL slug
+  `laptop-computer` doesn't match the actual icon name — caught before it broke the build),
+  design → `fluent-color/design-ideas-48`, programming → `streamline-stickies-color/
+  programming-duo`, AI → `streamline-color/artificial-intelligence-spark`, SQL →
+  `streamline-plump-color/database`. All six replaced the lucide-react generic fallbacks.
+- Built a 3D "orbiting icons" ring around the hero's `AnimatedCode` panel (perspective +
+  static X-tilt + the existing flat 2D orbit keyframes riding inside that tilted plane, so
+  far-side icons shrink via real browser perspective projection, no JS) — user tried it
+  locally and asked to remove it entirely ("doesn't look good"). Fully reverted:
+  `components/magic/orbiting-icons.tsx` deleted, `home-content.tsx` back to plain
+  `AnimatedCode`, all the orbit CSS pulled from `globals.css`. Net zero diff on `main` for
+  this detour, same pattern as the Session 40 Three.js/Text-Animate revert.
+- Rewrote the homepage hero copy after a few rounds of brainstorming (idea-generation only
+  at each step, nothing written until the user picked one): H1 "Design, code, build your
+  future." (was "Learn to build for the web"), and the sub-line now names all 13 live
+  categories instead of the original five, which had gone stale as categories shipped
+  (`lib/i18n.ts`, EN + BN).
+- **Fixed a real content bug**: the `/react/jsx` lesson's "JSX Isn't Quite HTML" table had
+  two broken-looking cells (screenshot showed broken-image icons). Root cause was never
+  image-specific — `components/blocks/block-renderer.tsx` renders every table cell via
+  `dangerouslySetInnerHTML`, and the lesson's own table data literally contained
+  `<img src="...">` and `<label for="name">` as cell text, so the browser parsed them as
+  real (broken) tags instead of displaying them as text. Fixed both rows (not just the one
+  the user flagged — the `<label>` row was equally broken, just blank instead of a visible
+  broken-image icon, easy to miss) by HTML-escaping the angle brackets in
+  `scripts/create-react-content.mjs` (EN + BN) and re-running the script for real (update
+  path, all 25 react lessons re-written idempotently). Verified via curl against a live dev
+  server that the escaped text now renders correctly.
+- **Fixed O-16** (duplicated lesson-page title, open since Session 27/D-48) — investigated
+  properly instead of treating it as CSS-specific: 7 of 10 `create-*` content scripts (plus
+  several `translate-*` scripts) bake `" | Learn Computer Academy"` into `metaTitle`
+  directly, and the root layout's `title.template` appends the same suffix again on top —
+  a site-wide bug, not a one-off. Fixed at the render layer with one shared helper,
+  `docMetaTitle()` in `lib/seo.ts`, wired into all three consumers (`[category]/[slug]`,
+  `bn/[category]/[slug]`, `about`) — no content rows touched. Verified fixed on the
+  originally-flagged `/css/pseudo-elements` and on `/react/jsx` (both locales).
+- **Closed O-1** — user confirmed `/about/` isn't needed (main learncomputer.in site already
+  has one). This was actually already decided verbally in Session 40 but never reflected in
+  the Open table; closed properly this time.
+- **Removed the admin SEO verification screen** — user confirmed Google Search Console and
+  Bing Webmaster Tools are both already active and verified, just not through this app's
+  `/admin/seo` screen (a different verification method). Confirmed the `site_settings` row
+  for key `'seo'` was empty (never actually used) before removing: the admin page, its
+  component, the sidebar nav entry, the `'seo'` settings-key union member in two files, and
+  the `verification` field in the root layout's metadata — which let `generateMetadata`
+  there collapse back to a plain `export const metadata` object since nothing dynamic was
+  left in it. Full writeup: D-66.
+- Verified everything with a clean `rm -rf .next && npm run build`, then `npm run dev` +
+  curl spot-checks (titles, `/admin/seo` no longer serving, icon imports resolving).
+
+**Not done**
+
+- Not pushed — local commits only, same standing rule as every session.
+- The O-3 Search Console export (top 100 pages) still hasn't actually been pulled — GSC
+  being active just means it's now genuinely possible, not that it happened this session.
+
+**Next session — start here**
+
+1. Nothing blocking. If there's a natural next step, it's finally pulling the O-3 Search
+   Console export now that the property is confirmed active, or picking one of the
+   still-undecided homepage-expansion ideas from Session 42.
+
+---
+
 ## 2026-07-30 — Session 42: removed the homepage "Coming soon" section
 
 **Done**

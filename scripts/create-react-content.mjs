@@ -219,8 +219,8 @@ lessons.push({
         ['HTML', 'JSX', 'Why'],
         [
           ['class="box"', 'className="box"', '`class` is a reserved word in JavaScript'],
-          ['<label for="name">', '<label htmlFor="name">', '`for` is also reserved'],
-          ['<img src="...">', '<img src="..." />', 'Every tag must be closed, even ones HTML allows to stay open'],
+          ['&lt;label for="name"&gt;', '&lt;label htmlFor="name"&gt;', '`for` is also reserved'],
+          ['&lt;img src="..."&gt;', '&lt;img src="..." /&gt;', 'Every tag must be closed, even ones HTML allows to stay open'],
           ['onclick="..."', 'onClick={...}', 'Event names are camelCase, and take a real function, not a string'],
         ]
       ),
@@ -253,8 +253,8 @@ lessons.push({
         ['HTML', 'JSX', 'কেন'],
         [
           ['class="box"', 'className="box"', '`class` JavaScript-এ একটি সংরক্ষিত শব্দ'],
-          ['<label for="name">', '<label htmlFor="name">', '`for`-ও সংরক্ষিত'],
-          ['<img src="...">', '<img src="..." />', 'প্রতিটি ট্যাগ বন্ধ করতে হয়, এমনকি যেগুলো HTML খোলা থাকতে দেয়'],
+          ['&lt;label for="name"&gt;', '&lt;label htmlFor="name"&gt;', '`for`-ও সংরক্ষিত'],
+          ['&lt;img src="..."&gt;', '&lt;img src="..." /&gt;', 'প্রতিটি ট্যাগ বন্ধ করতে হয়, এমনকি যেগুলো HTML খোলা থাকতে দেয়'],
           ['onclick="..."', 'onClick={...}', 'ইভেন্টের নাম camelCase, আর একটি স্ট্রিং নয়, একটি প্রকৃত ফাংশন নেয়'],
         ]
       ),

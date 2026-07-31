@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getDoc } from '@/lib/content'
 import { BlockRenderer } from '@/components/blocks/block-renderer'
-import { buildAlternates } from '@/lib/seo'
+import { buildAlternates, docMetaTitle } from '@/lib/seo'
 
 // Standalone page (ADMIN-PLAN.md §1c) — a docs row with category_id IS
 // NULL and path='about', not a dedicated table. Returns 404 until that
@@ -14,7 +14,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const doc = await getDoc('about')
   if (!doc) return {}
   return {
-    title: doc.meta_title ?? doc.title,
+    title: docMetaTitle(doc),
     description: doc.meta_description ?? undefined,
     alternates: buildAlternates('/about', '/about'),
   }

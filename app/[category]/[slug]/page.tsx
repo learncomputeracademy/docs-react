@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { getAllDocPaths } from '@/lib/content'
 import { LessonContent, loadLocalizedDoc } from '@/components/lesson-content'
-import { buildAlternates, articleJsonLd, jsonLdScript } from '@/lib/seo'
+import { buildAlternates, articleJsonLd, jsonLdScript, docMetaTitle } from '@/lib/seo'
 
 export async function generateStaticParams() {
   const paths = await getAllDocPaths()
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ category:
   const doc = await loadLocalizedDoc(category, slug, 'en')
   const path = `${category}/${slug}`
   return {
-    title: doc.meta_title ?? doc.title,
+    title: docMetaTitle(doc),
     description: doc.meta_description ?? undefined,
     alternates: buildAlternates(`/${path}`, `/${path}`, `/bn/${path}`),
   }

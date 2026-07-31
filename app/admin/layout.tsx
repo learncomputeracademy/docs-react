@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 // Kept in sync by hand as new screens ship — the sidebar shows every
 // planned item, but only these are actually linkable today.
 const BUILT_HREFS = [
-  '/admin', '/admin/docs', '/admin/media', '/admin/pages', '/admin/seo', '/admin/menu',
+  '/admin', '/admin/docs', '/admin/media', '/admin/pages', '/admin/menu',
   '/admin/categories', '/admin/settings', '/admin/resources', '/admin/notes', '/admin/users', '/admin/activity', '/admin/trash',
 ]
 
