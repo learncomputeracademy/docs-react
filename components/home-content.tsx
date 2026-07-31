@@ -111,7 +111,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <f.icon className="size-5" />
               </div>
-              <h3 className="font-semibold">{f.title}</h3>
+              <h2 className="font-semibold">{f.title}</h2>
               <p className="text-sm text-muted-foreground">{f.body}</p>
             </div>
           ))}

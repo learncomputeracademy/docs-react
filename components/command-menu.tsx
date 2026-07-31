@@ -63,6 +63,7 @@ export function CommandMenu() {
     <>
       <button
         onClick={() => setOpen(true)}
+        aria-label="Search"
         className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-sm text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
       >
         <Search className="size-4" />
