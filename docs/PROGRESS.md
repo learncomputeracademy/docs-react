@@ -9,6 +9,31 @@ for picking up work weeks later.
 
 ---
 
+## 2026-07-30 — Session 42: removed the homepage "Coming soon" section
+
+**Done**
+
+- User confirmed the WordPress category (Session 41) is live and working.
+- Homepage had a "Coming soon" marquee listing WordPress and Node.js as upcoming subjects. Since
+  WordPress shipped, first pass removed just the WordPress entry — but the user then asked to
+  remove the whole section outright rather than keep it around for Node.js alone. Removed the
+  section, the `COMING_SOON` data array, the now-dead `IconNodejs`/`Sparkles`/`Marquee` imports in
+  `components/home-content.tsx`, and the orphaned `comingSoonEyebrow`/`comingSoonTitle`/
+  `comingSoonSub` keys (EN + BN) from `lib/i18n.ts`. Verified with a clean build — no dead-import
+  or type errors.
+- Separately asked for homepage-expansion ideas (recently-added lessons, FAQ section, a lower CTA
+  band, grouping categories into tracks, surfacing the tools, testimonials) — ideas only, nothing
+  built yet. Revisit if the user picks one to act on.
+- User pushed both this session's change and the prior session's WordPress-category commit
+  themselves.
+
+**Not done**
+
+- None of the homepage-expansion ideas were implemented — brainstorm only, no decision made yet on
+  which (if any) to build.
+
+---
+
 ## 2026-07-30 — Session 41: new "WordPress" category, 26 lessons — custom theme dev, no Gutenberg (D-65)
 
 **Done**

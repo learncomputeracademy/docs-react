@@ -1,4 +1,3 @@
-import { Cpu, PenTool, Code2, Database, BrainCircuit } from 'lucide-react'
 import IconCss from '~icons/logos/css-3'
 import IconHtml from '~icons/logos/html-5'
 import IconJs from '~icons/logos/javascript'
@@ -6,11 +5,16 @@ import IconReact from '~icons/logos/react'
 import IconPhotoshop from '~icons/logos/adobe-photoshop'
 import IconPhp from '~icons/logos/php'
 import IconPython from '~icons/logos/python'
-import IconWordpress from '~icons/logos/wordpress-icon'
+import IconWordpress from '~icons/selfhst/wordpress'
+import IconBasics from '~icons/twemoji/laptop'
+import IconDesign from '~icons/fluent-color/design-ideas-48'
+import IconProgramming from '~icons/streamline-stickies-color/programming-duo'
+import IconAi from '~icons/streamline-color/artificial-intelligence-spark'
+import IconSql from '~icons/streamline-plump-color/database'
 
 export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
-  programming: Code2,
-  basics: Cpu,
+  programming: IconProgramming,
+  basics: IconBasics,
   html: IconHtml,
   css: IconCss,
   javascript: IconJs,
@@ -18,10 +22,8 @@ export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: st
   php: IconPhp,
   python: IconPython,
   wordpress: IconWordpress,
-  design: PenTool,
+  design: IconDesign,
   photoshop: IconPhotoshop,
-  // Generic icon, not a brand logo — SQL is a language, not a single product
-  // (same reasoning as programming/basics above).
-  sql: Database,
-  ai: BrainCircuit,
+  sql: IconSql,
+  ai: IconAi,
 }
