@@ -1,9 +1,8 @@
-import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { getDoc, getAdjacentDocs } from '@/lib/content'
 import { BlockRenderer } from '@/components/blocks/block-renderer'
 import { Toc } from '@/components/toc'
+import { LessonPagination } from '@/components/lesson-pagination'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 
@@ -36,24 +35,7 @@ export async function LessonContent({ category, slug, locale }: { category: stri
         </div>
 
         {(prev || next) && (
-          <div className="mt-12 grid grid-cols-2 gap-4 border-t pt-6">
-            {prev ? (
-              <Link href={`${prefix}/${prev.path}`} className="group flex flex-col gap-1 rounded-lg border p-4 transition-colors hover:border-primary/40 hover:bg-accent/50">
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  <ArrowLeft className="size-3.5" /> {s.previous}
-                </span>
-                <span className="font-medium group-hover:text-primary">{prev.title}</span>
-              </Link>
-            ) : <div />}
-            {next ? (
-              <Link href={`${prefix}/${next.path}`} className="group flex flex-col items-end gap-1 rounded-lg border p-4 text-right transition-colors hover:border-primary/40 hover:bg-accent/50">
-                <span className="flex items-center gap-1 text-xs text-muted-foreground">
-                  {s.next} <ArrowRight className="size-3.5" />
-                </span>
-                <span className="font-medium group-hover:text-primary">{next.title}</span>
-              </Link>
-            ) : <div />}
-          </div>
+          <LessonPagination prev={prev} next={next} prefix={prefix} previousLabel={s.previous} nextLabel={s.next} />
         )}
       </main>
 
