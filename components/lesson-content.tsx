@@ -17,13 +17,13 @@ export async function loadLocalizedDoc(category: string, slug: string, locale: L
 // it's the only piece loading.tsx needs to suspend on.
 export async function LessonContent({ category, slug, locale }: { category: string; slug: string; locale: Locale }) {
   const doc = await loadLocalizedDoc(category, slug, locale)
-  const { prev, next } = await getAdjacentDocs(doc.path, locale)
+  const { prev, next, position } = await getAdjacentDocs(doc.path, locale)
   const s = t(locale)
   const prefix = locale === 'bn' ? '/bn' : ''
 
   return (
     <>
-      <main className="min-w-0 flex-1 pb-24 pt-8 md:pb-8">
+      <main id="lesson-article" className="min-w-0 flex-1 pb-24 pt-8 md:pb-8">
         {locale === 'bn' && !doc.isTranslated && (
           <div className="mb-6 rounded-lg border border-primary/30 bg-accent/50 px-4 py-3 text-sm text-accent-foreground">
             {s.notTranslatedBanner}
@@ -41,7 +41,7 @@ export async function LessonContent({ category, slug, locale }: { category: stri
             prefix={prefix}
             previousLabel={s.previous}
             nextLabel={s.next}
-            menuLabel={s.menu}
+            position={position}
             browseLessonsLabel={s.browseLessons}
           />
         )}

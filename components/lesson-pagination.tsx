@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, PanelLeft } from 'lucide-react'
@@ -8,6 +8,7 @@ import { startRouteProgress } from '@/components/magic/route-progress'
 import { useSidebar } from '@/components/magic/sidebar'
 
 type Adjacent = { path: string; title: string } | null
+type Position = { index: number; total: number } | null
 
 export function LessonPagination({
   prev,
@@ -15,7 +16,7 @@ export function LessonPagination({
   prefix,
   previousLabel,
   nextLabel,
-  menuLabel,
+  position,
   browseLessonsLabel,
 }: {
   prev: Adjacent
@@ -23,11 +24,46 @@ export function LessonPagination({
   prefix: string
   previousLabel: string
   nextLabel: string
-  menuLabel: string
+  position: Position
   browseLessonsLabel: string
 }) {
   const router = useRouter()
   const { toggleSidebar } = useSidebar()
+
+  // Reading progress — how far down THIS lesson you are, not the whole
+  // page (header/footer chrome above and below the article shouldn't
+  // count). Drawn as a hairline along the top edge of the bottom bar.
+  const [progress, setProgress] = useState(0)
+  const articleRef = useRef<HTMLElement | null>(null)
+  useEffect(() => {
+    // Two nested <main> elements exist on a lesson page — SidebarInset's
+    // outer layout shell, and this lesson's own — so an id is used instead
+    // of the tag name to avoid grabbing the wrong (outer) one.
+    articleRef.current = document.getElementById('lesson-article')
+    let ticking = false
+    function measure() {
+      ticking = false
+      const el = articleRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const total = rect.height - window.innerHeight
+      const scrolled = -rect.top
+      setProgress(total > 0 ? Math.min(1, Math.max(0, scrolled / total)) : 0)
+    }
+    function onScroll() {
+      if (!ticking) {
+        ticking = true
+        requestAnimationFrame(measure)
+      }
+    }
+    measure()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onScroll)
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -77,19 +113,25 @@ export function LessonPagination({
 
       {/* Mobile — fixed bottom bar: sidebar + prev + next in one thin,
           glassy strip, so getting to the next lesson or the syllabus never
-          needs a scroll to the bottom of a long page. */}
+          needs a scroll to the bottom of a long page. A hairline along the
+          top edge doubles as a reading-progress indicator for this lesson. */}
       <nav
         aria-label={browseLessonsLabel}
         className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-border/60 bg-background/75 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_-15px_rgba(0,0,0,0.3)] backdrop-blur-xl backdrop-saturate-150 md:hidden"
       >
+        <div className="absolute inset-x-0 -top-px h-0.5 bg-border/40" aria-hidden>
+          <div className="h-full bg-primary transition-[width] duration-150 ease-out" style={{ width: `${progress * 100}%` }} />
+        </div>
         <button
           type="button"
           onClick={toggleSidebar}
-          aria-label={browseLessonsLabel}
+          aria-label={position ? `${browseLessonsLabel} — ${position.index}/${position.total}` : browseLessonsLabel}
           className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground transition-colors active:bg-accent/60"
         >
           <PanelLeft className="size-4" />
-          <span className="text-[10px] font-medium leading-none">{menuLabel}</span>
+          <span className="text-[10px] font-semibold leading-none tabular-nums">
+            {position ? `${position.index}/${position.total}` : browseLessonsLabel}
+          </span>
         </button>
         <div className="w-px shrink-0 bg-border/60" aria-hidden />
         {prev ? (

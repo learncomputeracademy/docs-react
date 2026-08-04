@@ -161,18 +161,29 @@ export const getSidebarTree = cache(function getSidebarTree(locale: Locale = 'en
 
 export type AdjacentDoc = { path: string; title: string }
 
+export type DocPosition = { index: number; total: number }
+
 // Flattens the sidebar tree (already locale-aware and correctly ordered) and
 // looks up the doc before/after the given path in that same order — mirrors
 // VitePress's prev/next, which follows sidebar order rather than a
-// category-only sequence.
-export async function getAdjacentDocs(path: string, locale: Locale = 'en'): Promise<{ prev: AdjacentDoc | null; next: AdjacentDoc | null }> {
+// category-only sequence. `position` is deliberately different: it's the
+// doc's 1-based spot within its own category ("7/16"), not the global flat
+// index — a chapter-position hint reads as "chapter 7 of 16", not "lesson
+// 245 of 687 sitewide".
+export async function getAdjacentDocs(path: string, locale: Locale = 'en'): Promise<{ prev: AdjacentDoc | null; next: AdjacentDoc | null; position: DocPosition | null }> {
   const categories = await getSidebarTree(locale)
   const flat = categories.flatMap(c => c.docs)
   const i = flat.findIndex(d => d.path === path)
-  if (i === -1) return { prev: null, next: null }
+
+  const category = categories.find(c => c.docs.some(d => d.path === path))
+  const indexInCategory = category ? category.docs.findIndex(d => d.path === path) : -1
+  const position = category && indexInCategory >= 0 ? { index: indexInCategory + 1, total: category.docs.length } : null
+
+  if (i === -1) return { prev: null, next: null, position }
   return {
     prev: i > 0 ? { path: flat[i - 1].path, title: flat[i - 1].title } : null,
     next: i < flat.length - 1 ? { path: flat[i + 1].path, title: flat[i + 1].title } : null,
+    position,
   }
 }
 
