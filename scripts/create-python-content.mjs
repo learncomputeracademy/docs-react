@@ -93,6 +93,11 @@ lessons.push({
 
       callout('note', '<p>This category assumes you\'re already comfortable with general programming ideas — variables, loops, functions — from the <a href="/programming/intro/">Intro to Programming</a> section. If any of that feels shaky, it\'s worth a detour there first; this section moves straight into Python\'s own syntax.</p>', 'Coming from Intro to Programming'),
 
+      h(2, 'A Taste of Python\'s Philosophy'),
+      p('<p>Python has an unusually explicit set of design principles, half-jokingly called <b>"the Zen of Python."</b> Type this into any Python prompt and it prints all nineteen of them:</p>'),
+      code('python', 'import this'),
+      p('<p>Two lines from it show up constantly in real Python code and discussions: <i>"Simple is better than complex"</i> and <i>"There should be one — and preferably only one — obvious way to do it."</i> Keep an eye out for both as this section goes on; they explain a lot of Python\'s specific design choices.</p>'),
+
       p('<p>The next lesson gets Python actually running on your machine, so every example from here on is something you can try yourself.</p>'),
     ],
   },
@@ -131,6 +136,11 @@ lessons.push({
 
       callout('note', '<p>এই অংশটি ধরে নেয় আপনি ইতিমধ্যেই সাধারণ প্রোগ্রামিং ধারণাগুলোতে — ভ্যারিয়েবল, লুপ, ফাংশন — <a href="/bn/programming/intro/">প্রোগ্রামিং পরিচিতি</a> অংশ থেকে স্বাচ্ছন্দ্য বোধ করছেন। এর কোনোটা নিয়ে অনিশ্চিত থাকলে, আগে সেখানে একবার ঘুরে আসা ভালো; এই অংশটি সরাসরি Python-এর নিজস্ব সিনট্যাক্সে চলে যাবে।</p>', 'Intro to Programming থেকে আসছেন'),
 
+      h(2, 'Python-এর দর্শনের একটি ঝলক', 'a-taste-of-pythons-philosophy'),
+      p('<p>Python-এর একটি অস্বাভাবিকভাবে স্পষ্ট ডিজাইন নীতির সেট আছে, অর্ধেক-রসিকতা করে বলা হয় <b>"Python-এর Zen."</b> যেকোনো Python প্রম্পটে এটি টাইপ করলে এর সবগুলো ঊনিশটি নীতি প্রিন্ট হয়:</p>'),
+      code('python', 'import this'),
+      p('<p>এর থেকে দুটো লাইন বাস্তব Python কোড আর আলোচনায় ক্রমাগত দেখা যায়: <i>"Simple is better than complex"</i> (সরল জটিলের চেয়ে ভালো) আর <i>"There should be one — and preferably only one — obvious way to do it"</i> (এটা করার একটি — আর বিশেষত শুধু একটি — স্পষ্ট উপায় থাকা উচিত)। এই অংশ যত এগোবে দুটোর দিকেই নজর রাখুন; এগুলো Python-এর অনেক নির্দিষ্ট ডিজাইন পছন্দ ব্যাখ্যা করে।</p>'),
+
       p('<p>পরের পাঠে আপনার নিজের মেশিনে Python আসলেই চালু করা হবে, যাতে এখান থেকে প্রতিটি উদাহরণ আপনি নিজে চেষ্টা করে দেখতে পারেন।</p>'),
     ],
   },
@@ -162,6 +172,11 @@ lessons.push({
       code('bash', 'python3 hello.py'),
       p('<p>Unlike PHP, there\'s no special opening tag needed — a <code>.py</code> file is Python from the very first line.</p>'),
 
+      h(2, 'Checking pip Is Installed Too'),
+      p('<p><b>pip</b> — Python\'s package installer, covered properly in the Modules and Imports lesson — ships with Python 3.4 and later, so it\'s almost always already there. Confirm it the same way:</p>'),
+      code('bash', 'pip3 --version'),
+      p('<p>If that command isn\'t found, reinstalling Python from python.org (making sure the "Add to PATH" / "install pip" option is checked during setup) fixes it on nearly every system.</p>'),
+
       callout('tip', '<p>Most real Python development happens in a code editor with Python support (VS Code\'s Python extension is the most common choice) rather than a plain text editor — it catches obvious mistakes as you type instead of only when you run the file.</p>', 'A proper editor helps early'),
     ],
   },
@@ -187,6 +202,11 @@ lessons.push({
       p('<p>এরপর একই ফোল্ডার থেকে টার্মিনালে এটি চালান:</p>'),
       code('bash', 'python3 hello.py'),
       p('<p>PHP-এর থেকে আলাদা, কোনো বিশেষ ওপেনিং ট্যাগের দরকার নেই — একটি <code>.py</code> ফাইল প্রথম লাইন থেকেই Python।</p>'),
+
+      h(2, 'pip-ও ইনস্টল আছে কিনা চেক করা', 'checking-pip-is-installed-too'),
+      p('<p><b>pip</b> — Python-এর প্যাকেজ ইনস্টলার, Modules and Imports পাঠে ভালোভাবে দেখানো হবে — Python 3.4 আর তার পরের ভার্সনের সাথেই আসে, তাই এটি প্রায় সবসময় আগে থেকেই থাকে। একইভাবে নিশ্চিত করুন:</p>'),
+      code('bash', 'pip3 --version'),
+      p('<p>কমান্ডটি না পাওয়া গেলে, python.org থেকে Python পুনরায় ইনস্টল করলে (সেটআপের সময় "Add to PATH" / "install pip" অপশনটি চেক করা আছে তা নিশ্চিত করে) প্রায় প্রতিটি সিস্টেমে এটি ঠিক হয়ে যায়।</p>'),
 
       callout('tip', '<p>বেশিরভাগ বাস্তব Python ডেভেলপমেন্ট একটি সাধারণ টেক্সট এডিটরের বদলে Python সাপোর্টসহ একটি কোড এডিটরে হয় (VS Code-এর Python এক্সটেনশন সবচেয়ে সাধারণ পছন্দ) — এটি ফাইল চালানোর সময়ের বদলে টাইপ করার সময়েই সুস্পষ্ট ভুল ধরে ফেলে।</p>', 'একটি ঠিকঠাক এডিটর শুরুতেই সাহায্য করে'),
     ],
@@ -220,6 +240,11 @@ lessons.push({
       p('<p><code>print()</code> is Python\'s equivalent of PHP\'s <code>echo</code> — the standard way to output text. Unlike <code>echo</code>, it\'s a real function, always called with parentheses:</p>'),
       code('python', 'print("Hello, world!")\nprint("Multiple", "values", "get", "joined", "with spaces")'),
 
+      h(2, 'Splitting a Long Line'),
+      p('<p>A line inside unclosed parentheses, brackets, or braces can continue onto the next line with no extra syntax — this is the normal way to keep a long function call or collection readable:</p>'),
+      code('python', 'total = (\n    1 + 2 + 3\n    + 4 + 5\n)\n\nnames = [\n    "Priya",\n    "Amit",\n    "Sara",\n]'),
+      p('<p>A backslash (<code>\\</code>) at the end of a line does the same thing outside of brackets, but it\'s rarely used in real code — restructuring the line to use parentheses instead is almost always considered cleaner.</p>'),
+
       p('<p>With the ground rules out of the way, the next lesson looks at how Python stores data — starting with variables.</p>'),
     ],
   },
@@ -246,6 +271,11 @@ lessons.push({
       h(2, 'print()', 'print'),
       p('<p><code>print()</code> হলো PHP-এর <code>echo</code>-এর সমতুল্য — টেক্সট আউটপুট করার প্রচলিত উপায়। <code>echo</code>-এর থেকে আলাদা, এটি একটি প্রকৃত ফাংশন, সবসময় বন্ধনী দিয়ে কল করা হয়:</p>'),
       code('python', 'print("Hello, world!")\nprint("Multiple", "values", "get", "joined", "with spaces")'),
+
+      h(2, 'একটি লম্বা লাইন ভাগ করা', 'splitting-a-long-line'),
+      p('<p>বন্ধনী, ব্র্যাকেট, বা ব্রেসের ভেতরে না-বন্ধ হওয়া একটি লাইন কোনো অতিরিক্ত সিনট্যাক্স ছাড়াই পরের লাইনে চলতে পারে — একটি লম্বা ফাংশন কল বা কালেকশনকে পঠনযোগ্য রাখার এটাই প্রচলিত উপায়:</p>'),
+      code('python', 'total = (\n    1 + 2 + 3\n    + 4 + 5\n)\n\nnames = [\n    "Priya",\n    "Amit",\n    "Sara",\n]'),
+      p('<p>একটি লাইনের শেষে একটি ব্যাকস্ল্যাশ (<code>\\</code>) ব্র্যাকেটের বাইরে একই কাজ করে, কিন্তু বাস্তব কোডে এটি কমই ব্যবহৃত হয় — বন্ধনী ব্যবহার করে লাইনটি পুনর্গঠন করা প্রায় সবসময় বেশি পরিষ্কার মনে করা হয়।</p>'),
 
       p('<p>মূল নিয়মগুলো জানা হয়ে যাওয়ার পর, পরের পাঠে দেখা হবে Python কীভাবে ডেটা সংরক্ষণ করে — শুরু হবে ভ্যারিয়েবল দিয়ে।</p>'),
     ],
@@ -287,6 +317,12 @@ lessons.push({
       h(2, 'Constants, by Convention Only'),
       p('<p>Python has no <code>const</code> keyword or <code>define()</code> the way PHP does — there\'s no way to make a variable truly unchangeable. Instead, the convention is to name a value that shouldn\'t be changed in <code>UPPER_SNAKE_CASE</code>, as a signal to anyone reading the code:</p>'),
       code('python', 'MAX_UPLOAD_SIZE = 5242880  # 5 MB — nothing stops this from being reassigned,\n                            # but the ALL_CAPS name says "please don\'t"'),
+
+      h(2, 'Assigning Several Variables at Once'),
+      p('<p>Python can assign multiple variables in a single line, which has no direct PHP equivalent:</p>'),
+      code('python', 'x, y, z = 1, 2, 3\nprint(x, y, z)  # 1 2 3\n\n# Same value to several names at once:\na = b = c = 0\nprint(a, b, c)  # 0 0 0'),
+      p('<p>This also produces Python\'s well-known one-line variable swap, with no temporary third variable needed:</p>'),
+      code('python', 'a = 1\nb = 2\na, b = b, a\nprint(a, b)  # 2 1'),
     ],
   },
   bn: {
@@ -321,6 +357,12 @@ lessons.push({
       h(2, 'কনস্ট্যান্ট, শুধু প্রথা হিসেবে', 'constants-by-convention-only'),
       p('<p>PHP-এর মতো Python-এ কোনো <code>const</code> কীওয়ার্ড বা <code>define()</code> নেই — একটি ভ্যারিয়েবলকে সত্যিকারভাবে অপরিবর্তনীয় করার কোনো উপায় নেই। এর বদলে, প্রথা হলো এমন একটি মানকে যা বদলানো উচিত নয় তাকে <code>UPPER_SNAKE_CASE</code>-এ নামকরণ করা, কোড পড়া যে কাউকে একটি সংকেত হিসেবে:</p>'),
       code('python', 'MAX_UPLOAD_SIZE = 5242880  # 5 MB — nothing stops this from being reassigned,\n                            # but the ALL_CAPS name says "please don\'t"'),
+
+      h(2, 'একসাথে একাধিক ভ্যারিয়েবল Assign করা', 'assigning-several-variables-at-once'),
+      p('<p>Python একটি একক লাইনে একাধিক ভ্যারিয়েবল assign করতে পারে, যার PHP-তে কোনো সরাসরি সমতুল্য নেই:</p>'),
+      code('python', 'x, y, z = 1, 2, 3\nprint(x, y, z)  # 1 2 3\n\n# Same value to several names at once:\na = b = c = 0\nprint(a, b, c)  # 0 0 0'),
+      p('<p>এটি Python-এর সুপরিচিত এক-লাইনের ভ্যারিয়েবল swap-ও তৈরি করে, কোনো অস্থায়ী তৃতীয় ভ্যারিয়েবল ছাড়াই:</p>'),
+      code('python', 'a = 1\nb = 2\na, b = b, a\nprint(a, b)  # 2 1'),
     ],
   },
 })
@@ -367,6 +409,8 @@ lessons.push({
       p('<p>This is a real, important difference from PHP\'s type juggling: Python raises an error rather than silently guessing when types don\'t match:</p>'),
       code('python', 'result = "5" + 3\n# TypeError: can only concatenate str (not "int") to str'),
       p('<p>The next lesson, Type Conversion, covers converting between types deliberately — which is required here, not optional the way it often is in PHP.</p>'),
+
+      callout('note', '<p><code>None</code>, <code>False</code>, and <code>0</code> are three different values, even though all three are falsy in an <code>if</code> check. <code>None</code> means "no value was ever set," <code>False</code> means "a boolean, specifically false," and <code>0</code> means "the number zero." Mixing them up — for example, using <code>0</code> as a placeholder for "not set yet" — makes bugs harder to track down later, since <code>0</code> is a perfectly valid, meaningful number in a lot of code.</p>', 'None, False, and 0 are not the same thing'),
     ],
   },
   bn: {
@@ -408,6 +452,8 @@ lessons.push({
       p('<p>PHP-এর টাইপ জাগলিং থেকে এটি একটি আসল, গুরুত্বপূর্ণ পার্থক্য: টাইপ না মিললে Python চুপচাপ অনুমান করার বদলে একটি এরর তোলে:</p>'),
       code('python', 'result = "5" + 3\n# TypeError: can only concatenate str (not "int") to str'),
       p('<p>পরের পাঠ, Type Conversion, ইচ্ছাকৃতভাবে টাইপের মধ্যে রূপান্তর করা দেখাবে — যা এখানে বাধ্যতামূলক, PHP-তে প্রায়ই যেমন ঐচ্ছিক তেমন নয়।</p>'),
+
+      callout('note', '<p><code>None</code>, <code>False</code>, আর <code>0</code> তিনটি ভিন্ন মান, যদিও একটি <code>if</code> চেকে তিনটিই falsy। <code>None</code> মানে "কোনো মান কখনো সেট করা হয়নি," <code>False</code> মানে "একটি বুলিয়ান, নির্দিষ্টভাবে false," আর <code>0</code> মানে "সংখ্যা শূন্য।" এদের গুলিয়ে ফেলা — উদাহরণস্বরূপ, "এখনও সেট করা হয়নি"-র জন্য <code>0</code>-কে একটি placeholder হিসেবে ব্যবহার করা — পরে বাগ খুঁজে বের করা কঠিন করে তোলে, কারণ অনেক কোডে <code>0</code> একটি সম্পূর্ণ বৈধ, অর্থবহ সংখ্যা।</p>', 'None, False, আর 0 একই জিনিস নয়'),
     ],
   },
 })
@@ -443,6 +489,11 @@ lessons.push({
         ]
       ),
       p('<p>This table has the same shape as PHP\'s, with one difference worth flagging: in Python, the string <code>"0"</code> is <b>truthy</b> — it\'s a non-empty string, full stop, with no special-casing for what it contains. There\'s no "0" vs "0.0" trap here the way there was in PHP.</p>'),
+
+      h(2, 'Converting Between Collections'),
+      p('<p>The same <code>int()</code>/<code>str()</code> pattern works for collection types too — <code>list()</code>, <code>tuple()</code>, <code>set()</code>, and <code>dict()</code> each build one collection type from another:</p>'),
+      code('python', 'numbers = [1, 2, 2, 3]\nunique = set(numbers)      # {1, 2, 3} — a set, so duplicates disappear\nback_to_list = list(unique) # a list again, order not guaranteed to match the original'),
+      p('<p>Converting to a set and back is a fast, common trick for removing duplicates from a list.</p>'),
     ],
   },
   bn: {
@@ -473,6 +524,11 @@ lessons.push({
         ]
       ),
       p('<p>এই টেবিলটির আকৃতি PHP-এর মতোই, একটি পার্থক্য উল্লেখ করার মতো: Python-এ, স্ট্রিং <code>"0"</code> <b>truthy</b> — এটি একটি অ-খালি স্ট্রিং, ব্যাস, এতে কী আছে তার জন্য কোনো বিশেষ ব্যতিক্রম ছাড়াই। PHP-তে যেমন "0" বনাম "0.0" ফাঁদ ছিল তেমন কিছু এখানে নেই।</p>'),
+
+      h(2, 'কালেকশনের মধ্যে রূপান্তর', 'converting-between-collections'),
+      p('<p>একই <code>int()</code>/<code>str()</code> প্যাটার্ন কালেকশন টাইপের জন্যও কাজ করে — <code>list()</code>, <code>tuple()</code>, <code>set()</code>, আর <code>dict()</code> এক কালেকশন টাইপ থেকে আরেকটি তৈরি করে:</p>'),
+      code('python', 'numbers = [1, 2, 2, 3]\nunique = set(numbers)      # {1, 2, 3} — a set, so duplicates disappear\nback_to_list = list(unique) # a list again, order not guaranteed to match the original'),
+      p('<p>Set এ রূপান্তর করা একটি লিস্ট থেকে ডুপ্লিকেট বাদ দেওয়ার একটি দ্রুত, প্রচলিত কৌশল।</p>'),
     ],
   },
 })
@@ -514,6 +570,22 @@ lessons.push({
       h(2, 'Logical Operators'),
       p('<p>Python spells these out as words rather than symbols — there\'s no <code>&&</code>, <code>||</code>, or <code>!</code>:</p>'),
       code('python', 'age = 20\nhas_id = True\nif age >= 18 and has_id:\n    print("Entry allowed.")\n\nif not has_id:\n    print("ID required.")'),
+
+      h(2, 'Assignment Operators'),
+      p('<p>Every arithmetic operator has a compound form that updates a variable in place — the same idea as PHP\'s <code>+=</code> and friends:</p>'),
+      table(
+        ['Operator', 'Same as'],
+        [
+          ['x += 1', 'x = x + 1'],
+          ['x -= 1', 'x = x - 1'],
+          ['x *= 2', 'x = x * 2'],
+          ['x /= 2', 'x = x / 2'],
+          ['x //= 2', 'x = x // 2'],
+          ['x **= 2', 'x = x ** 2'],
+          ['x %= 2', 'x = x % 2'],
+        ]
+      ),
+      p('<p>You already saw <code>count += 1</code> used as the standard way to increment a counter, since Python has no <code>++</code> — the same shortcut works for every operator in the table above.</p>'),
     ],
   },
   bn: {
@@ -550,6 +622,22 @@ lessons.push({
       h(2, 'লজিক্যাল অপারেটর', 'logical-operators'),
       p('<p>Python এগুলো চিহ্নের বদলে শব্দ দিয়ে লেখে — কোনো <code>&&</code>, <code>||</code>, বা <code>!</code> নেই:</p>'),
       code('python', 'age = 20\nhas_id = True\nif age >= 18 and has_id:\n    print("Entry allowed.")\n\nif not has_id:\n    print("ID required.")'),
+
+      h(2, 'অ্যাসাইনমেন্ট অপারেটর', 'assignment-operators'),
+      p('<p>প্রতিটি অ্যারিথমেটিক অপারেটরের একটি compound রূপ আছে যা একটি ভ্যারিয়েবলকে in place আপডেট করে — PHP-এর <code>+=</code> আর তার মতোই একই ধারণা:</p>'),
+      table(
+        ['অপারেটর', 'যার সমান'],
+        [
+          ['x += 1', 'x = x + 1'],
+          ['x -= 1', 'x = x - 1'],
+          ['x *= 2', 'x = x * 2'],
+          ['x /= 2', 'x = x / 2'],
+          ['x //= 2', 'x = x // 2'],
+          ['x **= 2', 'x = x ** 2'],
+          ['x %= 2', 'x = x % 2'],
+        ]
+      ),
+      p('<p>একটি কাউন্টার increment করার প্রচলিত উপায় হিসেবে আপনি ইতিমধ্যে <code>count += 1</code> ব্যবহার হতে দেখেছেন, কারণ Python-এ <code>++</code> নেই — উপরের টেবিলের প্রতিটি অপারেটরের জন্য একই শর্টকাট কাজ করে।</p>'),
     ],
   },
 })
@@ -568,6 +656,18 @@ lessons.push({
       p('<p>An <b>f-string</b> — a string literal prefixed with <code>f</code> — lets you embed any expression directly inside <code>{ }</code>:</p>'),
       code('python', 'name = "Priya"\nage = 21\nprint(f"{name} is {age} years old.")\nprint(f"Next year: {age + 1}")  # expressions work too, not just variables'),
       p('<p>This is Python\'s equivalent of PHP\'s double-quote interpolation, but more powerful — PHP can\'t embed an expression like <code>age + 1</code> directly inside a string the way this can.</p>'),
+
+      h(2, 'Format Specifiers'),
+      p('<p>Inside the <code>{ }</code>, a colon introduces a <b>format specifier</b> — controlling decimal places, padding, and alignment without a separate formatting function:</p>'),
+      code('python', 'price = 3.14159\nprint(f"{price:.2f}")   # "3.14" — 2 decimal places\n\nname = "Amit"\nprint(f"{name:>10}|")   # "      Amit|" — right-align in a 10-character field\nprint(f"{name:<10}|")   # "Amit      |" — left-align\nprint(f"{name:^10}|")   # "   Amit   |" — center'),
+      p('<p>You already saw a variant of this in the Numbers lesson — <code>f"{value:,.2f}"</code> combines a thousands separator with 2 decimal places in a single specifier.</p>'),
+      callout('tip', '<p>Python 3.8 added a debugging shortcut — adding <code>=</code> right after a variable inside <code>{ }</code> prints both the variable\'s name and its value, saving you from typing it out by hand while tracking down a bug.</p>', 'The = debug specifier'),
+      code('python', 'age = 21\nprint(f"{age=}")  # "age=21"'),
+
+      h(2, 'Multi-Line Strings'),
+      p('<p>Triple quotes (<code>"""</code> or <code>\'\'\'</code>) create a string that can span multiple lines, keeping every line break and space inside it exactly as written — useful for a paragraph of text or a block of formatted output:</p>'),
+      code('python', 'message = """Dear Priya,\n\nYour course starts on Monday.\n\nRegards,\nLCA"""\nprint(message)'),
+      p('<p>This is the same triple-quote syntax used for multi-line comments in the Syntax Basics lesson — the only difference is whether the result is assigned to something.</p>'),
 
       h(2, 'String Slicing'),
       p('<p>Python lets you pull out a range of characters using <code>[start:end]</code> — no separate function needed like PHP\'s <code>substr()</code>:</p>'),
@@ -589,6 +689,22 @@ lessons.push({
       p('<p>Python has a large standard string method set — see the <a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank" rel="noopener noreferrer">full string methods reference on python.org</a> for anything not covered here.</p>'),
 
       callout('warning', '<p>Python strings are <b>immutable</b> — <code>s.upper()</code> returns a new string, it doesn\'t change <code>s</code> itself. <code>s.upper()</code> alone, with the result thrown away, is a common beginner mistake; you need <code>s = s.upper()</code> to actually keep the change.</p>', 'String methods return a new string'),
+
+      h(2, 'More String Methods'),
+      p('<p>A few more that come up constantly, beyond the table above:</p>'),
+      table(
+        ['Method', 'What it does', 'Example'],
+        [
+          ['s.startswith(x) / s.endswith(x)', 'Checks the start/end of a string', '"file.pdf".endswith(".pdf") → True'],
+          ['s.find(x)', 'Index of the first match, or -1 if not found', '"hello".find("l") → 2'],
+          ['s.count(x)', 'How many times x appears', '"banana".count("a") → 3'],
+          ['s.isdigit()', 'True if every character is a digit', '"123".isdigit() → True'],
+          ['s.isalpha()', 'True if every character is a letter', '"abc".isalpha() → True'],
+          ['s.title()', 'Capitalizes the first letter of each word', '"hello world".title() → "Hello World"'],
+          ['s.zfill(n)', 'Pads with leading zeros to length n', '"7".zfill(3) → "007"'],
+        ]
+      ),
+      p('<p>Between this table and the one above, most everyday string work is covered — anything else is in the full reference linked above.</p>'),
     ],
   },
   bn: {
@@ -602,6 +718,18 @@ lessons.push({
       p('<p>একটি <b>f-string</b> — <code>f</code>-প্রিফিক্সযুক্ত একটি স্ট্রিং লিটারেল — আপনাকে সরাসরি <code>{ }</code>-এর ভেতরে যেকোনো এক্সপ্রেশন বসাতে দেয়:</p>'),
       code('python', 'name = "Priya"\nage = 21\nprint(f"{name} is {age} years old.")\nprint(f"Next year: {age + 1}")  # expressions work too, not just variables'),
       p('<p>এটি PHP-এর ডাবল-কোট ইন্টারপোলেশনের Python সমতুল্য, কিন্তু বেশি শক্তিশালী — PHP এটির মতো সরাসরি একটি স্ট্রিংয়ের ভেতরে <code>age + 1</code>-এর মতো একটি এক্সপ্রেশন বসাতে পারে না।</p>'),
+
+      h(2, 'ফরম্যাট স্পেসিফায়ার', 'format-specifiers'),
+      p('<p><code>{ }</code>-এর ভেতরে, একটি কোলন একটি <b>format specifier</b> শুরু করে — আলাদা কোনো ফরম্যাটিং ফাংশন ছাড়াই দশমিক স্থান, প্যাডিং, আর অ্যালাইনমেন্ট নিয়ন্ত্রণ করা যায়:</p>'),
+      code('python', 'price = 3.14159\nprint(f"{price:.2f}")   # "3.14" — 2 decimal places\n\nname = "Amit"\nprint(f"{name:>10}|")   # "      Amit|" — right-align in a 10-character field\nprint(f"{name:<10}|")   # "Amit      |" — left-align\nprint(f"{name:^10}|")   # "   Amit   |" — center'),
+      p('<p>Numbers পাঠে আপনি ইতিমধ্যে এর একটি ভ্যারিয়েন্ট দেখেছেন — <code>f"{value:,.2f}"</code> একটি একক specifier-এ হাজার-বিভাজক আর 2টি দশমিক স্থান একত্রিত করে।</p>'),
+      callout('tip', '<p>Python 3.8 একটি ডিবাগিং শর্টকাট যোগ করেছে — <code>{ }</code>-এর ভেতরে একটি ভ্যারিয়েবলের ঠিক পরে <code>=</code> যোগ করলে ভ্যারিয়েবলের নাম আর মান দুটোই প্রিন্ট হয়, একটি বাগ খুঁজে বের করার সময় হাতে টাইপ করা থেকে বাঁচায়।</p>', '= ডিবাগ স্পেসিফায়ার'),
+      code('python', 'age = 21\nprint(f"{age=}")  # "age=21"'),
+
+      h(2, 'মাল্টি-লাইন স্ট্রিং', 'multi-line-strings'),
+      p('<p>ট্রিপল কোট (<code>"""</code> বা <code>\'\'\'</code>) একটি স্ট্রিং তৈরি করে যা একাধিক লাইন জুড়ে থাকতে পারে, এর ভেতরের প্রতিটি লাইন ব্রেক আর স্পেস ঠিক যেভাবে লেখা হয়েছে সেভাবেই রেখে — একটি প্যারাগ্রাফ টেক্সট বা একটি ফরম্যাট করা আউটপুট ব্লকের জন্য দরকারি:</p>'),
+      code('python', 'message = """Dear Priya,\n\nYour course starts on Monday.\n\nRegards,\nLCA"""\nprint(message)'),
+      p('<p>এটি Syntax Basics পাঠে মাল্টি-লাইন কমেন্টের জন্য ব্যবহৃত একই ট্রিপল-কোট সিনট্যাক্স — একমাত্র পার্থক্য হলো ফলাফলটি কোনো কিছুতে assign করা হয়েছে কিনা।</p>'),
 
       h(2, 'স্ট্রিং স্লাইসিং', 'string-slicing'),
       p('<p>Python <code>[start:end]</code> ব্যবহার করে অক্ষরের একটি রেঞ্জ বের করতে দেয় — PHP-এর <code>substr()</code>-এর মতো আলাদা কোনো ফাংশনের দরকার নেই:</p>'),
@@ -623,6 +751,22 @@ lessons.push({
       p('<p>Python-এর একটি বড় স্ট্যান্ডার্ড স্ট্রিং মেথড সেট আছে — এখানে যা নেই তার জন্য দেখুন <a href="https://docs.python.org/3/library/stdtypes.html#string-methods" target="_blank" rel="noopener noreferrer">python.org-এ সম্পূর্ণ স্ট্রিং মেথড রেফারেন্স</a>।</p>'),
 
       callout('warning', '<p>Python স্ট্রিং <b>immutable</b> — <code>s.upper()</code> একটি নতুন স্ট্রিং রিটার্ন করে, এটি <code>s</code>-কে নিজে বদলায় না। শুধু <code>s.upper()</code>, ফলাফল ফেলে দিয়ে, নতুনদের একটি সাধারণ ভুল; পরিবর্তনটা আসলে রাখতে আপনার <code>s = s.upper()</code> দরকার।</p>', 'স্ট্রিং মেথড একটি নতুন স্ট্রিং রিটার্ন করে'),
+
+      h(2, 'আরও স্ট্রিং মেথড', 'more-string-methods'),
+      p('<p>উপরের টেবিলের বাইরে, আরও কিছু যা ক্রমাগত দেখা যায়:</p>'),
+      table(
+        ['মেথড', 'কী করে', 'উদাহরণ'],
+        [
+          ['s.startswith(x) / s.endswith(x)', 'একটি স্ট্রিংয়ের শুরু/শেষ চেক করে', '"file.pdf".endswith(".pdf") → True'],
+          ['s.find(x)', 'প্রথম মিলের index, বা না পেলে -1', '"hello".find("l") → 2'],
+          ['s.count(x)', 'x কতবার আছে', '"banana".count("a") → 3'],
+          ['s.isdigit()', 'প্রতিটি অক্ষর সংখ্যা হলে True', '"123".isdigit() → True'],
+          ['s.isalpha()', 'প্রতিটি অক্ষর বর্ণ হলে True', '"abc".isalpha() → True'],
+          ['s.title()', 'প্রতিটি শব্দের প্রথম অক্ষর বড় করে', '"hello world".title() → "Hello World"'],
+          ['s.zfill(n)', 'দৈর্ঘ্য n পর্যন্ত শুরুতে শূন্য দিয়ে প্যাড করে', '"7".zfill(3) → "007"'],
+        ]
+      ),
+      p('<p>এই টেবিল আর উপরের টেবিলের মধ্যে, বেশিরভাগ প্রতিদিনের স্ট্রিং কাজ কভার হয়ে যায় — বাকি যা কিছু উপরে লিংক করা সম্পূর্ণ রেফারেন্সে আছে।</p>'),
     ],
   },
 })
@@ -657,8 +801,13 @@ lessons.push({
       code('python', 'print(abs(-7))        # 7 — absolute value\nprint(max(3, 9, 2))   # 9 — largest of the arguments\nprint(min(3, 9, 2))   # 2 — smallest of the arguments\nprint(pow(2, 10))     # 1024 — same as 2 ** 10'),
 
       h(2, 'Formatting Numbers for Display'),
-      p('<p>An f-string with a format specifier is the standard way to control decimal places and add thousands separators:</p>'),
+      p('<p>An f-string with a format specifier is the standard way to control decimal places and add thousands separators — the Strings lesson covers format specifiers in full:</p>'),
       code('python', 'value = 1234567.891\nprint(f"{value:,.2f}")  # "1,234,567.89"'),
+
+      h(2, 'Random Numbers'),
+      p('<p>The <code>random</code> module — another standard library module, like <code>math</code> — generates random numbers and makes random choices, similar to PHP\'s <code>rand()</code>/<code>random_int()</code>:</p>'),
+      code('python', 'import random\n\nprint(random.randint(1, 6))          # a random integer from 1 to 6, both included\nprint(random.random())               # a random float from 0.0 up to (not including) 1.0\nprint(random.choice(["red", "green", "blue"]))  # picks one item at random'),
+      callout('note', '<p><code>random</code> is fine for games, quizzes, and sampling — it is not secure enough for anything like a password reset token or an API key. For that, the standard library\'s <code>secrets</code> module exists specifically to generate values safe for security purposes.</p>', 'Not for security-sensitive values'),
     ],
   },
   bn: {
@@ -688,8 +837,13 @@ lessons.push({
       code('python', 'print(abs(-7))        # 7 — absolute value\nprint(max(3, 9, 2))   # 9 — largest of the arguments\nprint(min(3, 9, 2))   # 2 — smallest of the arguments\nprint(pow(2, 10))     # 1024 — same as 2 ** 10'),
 
       h(2, 'ডিসপ্লের জন্য সংখ্যা ফরম্যাট করা', 'formatting-numbers-for-display'),
-      p('<p>একটি format specifier-সহ f-string দশমিক স্থান নিয়ন্ত্রণ করার আর হাজার-বিভাজক যোগ করার প্রচলিত উপায়:</p>'),
+      p('<p>একটি format specifier-সহ f-string দশমিক স্থান নিয়ন্ত্রণ করার আর হাজার-বিভাজক যোগ করার প্রচলিত উপায় — Strings পাঠে format specifier সম্পূর্ণভাবে দেখানো হয়েছে:</p>'),
       code('python', 'value = 1234567.891\nprint(f"{value:,.2f}")  # "1,234,567.89"'),
+
+      h(2, 'র‍্যান্ডম সংখ্যা', 'random-numbers'),
+      p('<p><code>random</code> মডিউল — <code>math</code>-এর মতো আরেকটি স্ট্যান্ডার্ড লাইব্রেরি মডিউল — র‍্যান্ডম সংখ্যা তৈরি করে আর র‍্যান্ডম পছন্দ করে, PHP-এর <code>rand()</code>/<code>random_int()</code>-এর কাছাকাছি:</p>'),
+      code('python', 'import random\n\nprint(random.randint(1, 6))          # a random integer from 1 to 6, both included\nprint(random.random())               # a random float from 0.0 up to (not including) 1.0\nprint(random.choice(["red", "green", "blue"]))  # picks one item at random'),
+      callout('note', '<p>গেম, কুইজ, আর স্যাম্পলিংয়ের জন্য <code>random</code> ঠিক আছে — এটি পাসওয়ার্ড রিসেট টোকেন বা একটি API key-এর মতো কিছুর জন্য যথেষ্ট নিরাপদ নয়। সেজন্য, স্ট্যান্ডার্ড লাইব্রেরির <code>secrets</code> মডিউল নির্দিষ্টভাবে সিকিউরিটি উদ্দেশ্যে নিরাপদ মান তৈরি করতে আছে।</p>', 'সিকিউরিটি-সংবেদনশীল মানের জন্য নয়'),
     ],
   },
 })
@@ -716,8 +870,13 @@ lessons.push({
         [
           ['list.append(x)', 'Adds x to the end'],
           ['list.insert(i, x)', 'Inserts x at a specific index'],
+          ['list.pop(i)', 'Removes and returns the item at index i (last item if i is omitted)'],
+          ['list.extend(other)', 'Appends every item from another list'],
+          ['list.index(x)', 'Index of the first x found (raises an error if missing)'],
+          ['list.count(x)', 'How many times x appears'],
           ['list.sort()', 'Sorts the list in place'],
           ['list.reverse()', 'Reverses the list in place'],
+          ['list.clear()', 'Removes every item, leaving an empty list'],
           ['len(list)', 'Number of items (a function, like with strings)'],
         ]
       ),
@@ -729,6 +888,12 @@ lessons.push({
       h(2, 'Slicing'),
       p('<p>The same <code>[start:end]</code> slicing from the Strings lesson works on lists too — this is a general Python pattern, not something specific to strings:</p>'),
       code('python', 'numbers = [10, 20, 30, 40, 50]\nprint(numbers[1:3])  # [20, 30]\nprint(numbers[:2])   # [10, 20]\nprint(numbers[-2:])  # [40, 50]'),
+
+      h(2, 'Copying a List Safely'),
+      p('<p>Assigning a list to a new name doesn\'t copy it — both names point at the exact same list, so changing one changes the other:</p>'),
+      code('python', 'original = [1, 2, 3]\nalias = original\nalias.append(4)\nprint(original)  # [1, 2, 3, 4] — original changed too, since it\'s the same list'),
+      p('<p><code>.copy()</code>, or the equivalent <code>list(original)</code>, creates a genuinely separate list:</p>'),
+      code('python', 'original = [1, 2, 3]\ncopy = original.copy()\ncopy.append(4)\nprint(original)  # [1, 2, 3] — unaffected\nprint(copy)      # [1, 2, 3, 4]'),
     ],
   },
   bn: {
@@ -750,8 +915,13 @@ lessons.push({
         [
           ['list.append(x)', 'শেষে x যোগ করে'],
           ['list.insert(i, x)', 'একটি নির্দিষ্ট index-এ x insert করে'],
+          ['list.pop(i)', 'index i-তে থাকা আইটেম সরায় আর রিটার্ন করে (i বাদ দিলে শেষ আইটেম)'],
+          ['list.extend(other)', 'অন্য একটি লিস্টের প্রতিটি আইটেম যোগ করে'],
+          ['list.index(x)', 'পাওয়া প্রথম x-এর index (না পেলে এরর তোলে)'],
+          ['list.count(x)', 'x কতবার আছে'],
           ['list.sort()', 'লিস্টকে in place সর্ট করে'],
           ['list.reverse()', 'লিস্টকে in place উল্টে দেয়'],
+          ['list.clear()', 'সব আইটেম সরিয়ে একটি খালি লিস্ট রাখে'],
           ['len(list)', 'আইটেমের সংখ্যা (স্ট্রিংয়ের মতো একটি ফাংশন)'],
         ]
       ),
@@ -763,6 +933,12 @@ lessons.push({
       h(2, 'স্লাইসিং', 'slicing'),
       p('<p>Strings পাঠের একই <code>[start:end]</code> স্লাইসিং লিস্টেও কাজ করে — এটি একটি সাধারণ Python প্যাটার্ন, শুধু স্ট্রিং-নির্দিষ্ট কিছু নয়:</p>'),
       code('python', 'numbers = [10, 20, 30, 40, 50]\nprint(numbers[1:3])  # [20, 30]\nprint(numbers[:2])   # [10, 20]\nprint(numbers[-2:])  # [40, 50]'),
+
+      h(2, 'একটি লিস্ট নিরাপদে কপি করা', 'copying-a-list-safely'),
+      p('<p>একটি লিস্টকে একটি নতুন নামে assign করলে সেটা কপি হয় না — দুটো নামই একদম একই লিস্টের দিকে নির্দেশ করে, তাই একটা বদলালে আরেকটাও বদলায়:</p>'),
+      code('python', 'original = [1, 2, 3]\nalias = original\nalias.append(4)\nprint(original)  # [1, 2, 3, 4] — original changed too, since it\'s the same list'),
+      p('<p><code>.copy()</code>, বা এর সমতুল্য <code>list(original)</code>, একটি সত্যিকারের আলাদা লিস্ট তৈরি করে:</p>'),
+      code('python', 'original = [1, 2, 3]\ncopy = original.copy()\ncopy.append(4)\nprint(original)  # [1, 2, 3] — unaffected\nprint(copy)      # [1, 2, 3, 4]'),
     ],
   },
 })
@@ -790,6 +966,10 @@ lessons.push({
       h(2, 'Set Operations'),
       p('<p>Sets support the same operations as sets in mathematics — genuinely useful for comparing two collections:</p>'),
       code('python', 'a = {1, 2, 3}\nb = {2, 3, 4}\n\nprint(a | b)  # {1, 2, 3, 4} — union: everything in either\nprint(a & b)  # {2, 3} — intersection: in both\nprint(a - b)  # {1} — difference: in a but not b'),
+
+      h(2, 'Modifying a Set'),
+      code('python', 'colors = {"red", "green"}\ncolors.add("blue")       # adds one item\ncolors.remove("red")     # removes it — raises an error if it isn\'t there\ncolors.discard("purple") # also removes it, but does nothing if it isn\'t there'),
+      p('<p><code>.discard()</code> is the safer default when you\'re not sure the item exists — <code>.remove()</code> is for when its absence would itself be a bug worth knowing about.</p>'),
 
       h(2, 'Choosing Between Them'),
       table(
@@ -822,6 +1002,10 @@ lessons.push({
       h(2, 'সেট অপারেশন', 'set-operations'),
       p('<p>Set গণিতের সেটের মতো একই অপারেশন সাপোর্ট করে — দুটো কালেকশন তুলনা করার জন্য সত্যিকারভাবে দরকারি:</p>'),
       code('python', 'a = {1, 2, 3}\nb = {2, 3, 4}\n\nprint(a | b)  # {1, 2, 3, 4} — union: everything in either\nprint(a & b)  # {2, 3} — intersection: in both\nprint(a - b)  # {1} — difference: in a but not b'),
+
+      h(2, 'একটি সেট পরিবর্তন করা', 'modifying-a-set'),
+      code('python', 'colors = {"red", "green"}\ncolors.add("blue")       # adds one item\ncolors.remove("red")     # removes it — raises an error if it isn\'t there\ncolors.discard("purple") # also removes it, but does nothing if it isn\'t there'),
+      p('<p>আইটেমটি আছে কিনা নিশ্চিত না থাকলে <code>.discard()</code> বেশি নিরাপদ ডিফল্ট — <code>.remove()</code> তখনকার জন্য যখন এর অনুপস্থিতি নিজেই জানার মতো একটি বাগ হবে।</p>'),
 
       h(2, 'এদের মধ্যে বেছে নেওয়া', 'choosing-between-them'),
       table(
@@ -862,6 +1046,18 @@ lessons.push({
       h(2, 'Nested Dictionaries'),
       p('<p>Combining lists and dictionaries models real-world data naturally — this shape will look familiar once you reach the Python-and-Databases lesson, since a database row often lands in Python exactly this way:</p>'),
       code('python', 'students = [\n    {"name": "Priya", "age": 21},\n    {"name": "Amit", "age": 23},\n]\nprint(students[0]["name"])  # "Priya"'),
+
+      h(2, 'More Dictionary Methods'),
+      table(
+        ['Method', 'What it does'],
+        [
+          ['d.keys()', 'All the keys'],
+          ['d.values()', 'All the values'],
+          ['d.pop(key)', 'Removes a key and returns its value'],
+          ['d.update(other)', 'Merges another dictionary in, overwriting any matching keys'],
+        ]
+      ),
+      code('python', 'a = {"name": "Priya", "age": 21}\nb = {"age": 22, "course": "Web Development"}\na.update(b)\nprint(a)  # {\'name\': \'Priya\', \'age\': 22, \'course\': \'Web Development\'}'),
     ],
   },
   bn: {
@@ -887,6 +1083,18 @@ lessons.push({
       h(2, 'নেস্টেড ডিকশনারি', 'nested-dictionaries'),
       p('<p>লিস্ট আর ডিকশনারি একত্রিত করলে বাস্তব-জগতের ডেটা স্বাভাবিকভাবে মডেল করা যায় — এই আকৃতিটি Python-এবং-ডেটাবেস পাঠে গিয়ে পরিচিত মনে হবে, কারণ একটি ডেটাবেস সারি প্রায়ই ঠিক এভাবেই Python-এ আসে:</p>'),
       code('python', 'students = [\n    {"name": "Priya", "age": 21},\n    {"name": "Amit", "age": 23},\n]\nprint(students[0]["name"])  # "Priya"'),
+
+      h(2, 'আরও ডিকশনারি মেথড', 'more-dictionary-methods'),
+      table(
+        ['মেথড', 'কী করে'],
+        [
+          ['d.keys()', 'সব key'],
+          ['d.values()', 'সব value'],
+          ['d.pop(key)', 'একটি key সরায় আর তার value রিটার্ন করে'],
+          ['d.update(other)', 'আরেকটি ডিকশনারি মার্জ করে, মিলে যাওয়া যেকোনো key ওভাররাইট করে'],
+        ]
+      ),
+      code('python', 'a = {"name": "Priya", "age": 21}\nb = {"age": 22, "course": "Web Development"}\na.update(b)\nprint(a)  # {\'name\': \'Priya\', \'age\': 22, \'course\': \'Web Development\'}'),
     ],
   },
 })
@@ -914,6 +1122,11 @@ lessons.push({
       p('<p>The same idea works for building a dictionary, using <code>{ }</code> and a <code>key: value</code> pair instead:</p>'),
       code('python', 'names = ["priya", "amit", "sara"]\ncapitalized = {name: name.capitalize() for name in names}\nprint(capitalized)  # {\'priya\': \'Priya\', \'amit\': \'Amit\', \'sara\': \'Sara\'}'),
 
+      h(2, 'Transforming Instead of Filtering'),
+      p('<p>The <code>if</code> covered above filters — it decides whether an item is included at all. Putting <code>if/else</code> <i>before</i> the expression instead changes what value gets used, keeping every item:</p>'),
+      code('python', 'numbers = [1, 2, 3, 4, 5, 6]\nlabels = ["even" if n % 2 == 0 else "odd" for n in numbers]\nprint(labels)  # [\'odd\', \'even\', \'odd\', \'even\', \'odd\', \'even\'] — one label per number, none dropped'),
+      p('<p>Position is what tells them apart: <code>if</code> after the loop filters, <code>if/else</code> before the expression transforms. Mixing the two up is an easy mistake when skimming someone else\'s code.</p>'),
+
       callout('tip', '<p>A comprehension is a readability win for a short, simple transformation. Once the logic inside it gets complicated — several conditions, nested loops, a multi-line transformation — a regular <code>for</code> loop is usually clearer. There\'s no rule for exactly where that line is; if you find yourself squinting at a comprehension to understand it, that\'s the signal to write it as a loop instead.</p>', 'When not to use one'),
     ],
   },
@@ -936,6 +1149,11 @@ lessons.push({
       h(2, 'ডিকশনারি কম্প্রিহেনশন', 'dictionary-comprehensions'),
       p('<p>একই ধারণা একটি ডিকশনারি তৈরির জন্যও কাজ করে, এর বদলে <code>{ }</code> আর একটি <code>key: value</code> জোড়া ব্যবহার করে:</p>'),
       code('python', 'names = ["priya", "amit", "sara"]\ncapitalized = {name: name.capitalize() for name in names}\nprint(capitalized)  # {\'priya\': \'Priya\', \'amit\': \'Amit\', \'sara\': \'Sara\'}'),
+
+      h(2, 'ফিল্টার করার বদলে রূপান্তর করা', 'transforming-instead-of-filtering'),
+      p('<p>উপরে দেখানো <code>if</code> ফিল্টার করে — এটা সিদ্ধান্ত নেয় একটি আইটেম আদৌ অন্তর্ভুক্ত হবে কিনা। এক্সপ্রেশনের <i>আগে</i> <code>if/else</code> বসালে এর বদলে কোন মান ব্যবহৃত হবে তা বদলায়, প্রতিটি আইটেম রেখে দিয়ে:</p>'),
+      code('python', 'numbers = [1, 2, 3, 4, 5, 6]\nlabels = ["even" if n % 2 == 0 else "odd" for n in numbers]\nprint(labels)  # [\'odd\', \'even\', \'odd\', \'even\', \'odd\', \'even\'] — one label per number, none dropped'),
+      p('<p>অবস্থানই এদের আলাদা করে চেনায়: লুপের পরে <code>if</code> ফিল্টার করে, এক্সপ্রেশনের আগে <code>if/else</code> রূপান্তর করে। কারো কোড দ্রুত দেখার সময় এই দুটো গুলিয়ে ফেলা একটি সহজ ভুল।</p>'),
 
       callout('tip', '<p>একটি ছোট, সহজ রূপান্তরের জন্য একটি কম্প্রিহেনশন পাঠযোগ্যতার একটি জয়। একবার এর ভেতরের লজিক জটিল হয়ে গেলে — বেশ কয়েকটি কন্ডিশন, নেস্টেড লুপ, একটি মাল্টি-লাইন রূপান্তর — একটি সাধারণ <code>for</code> লুপ সাধারণত বেশি পরিষ্কার। ঠিক কোথায় সেই সীমা তার কোনো নিয়ম নেই; একটি কম্প্রিহেনশন বুঝতে যদি আপনাকে চোখ কুঁচকে তাকাতে হয়, তাহলে এটাই সংকেত যে এর বদলে একটি লুপ হিসেবে লেখা উচিত।</p>', 'কখন একটি ব্যবহার করবেন না'),
     ],
@@ -968,6 +1186,11 @@ lessons.push({
       h(2, 'Truthiness in Practice'),
       p('<p>Because of Python\'s truthy/falsy rules (from the Type Conversion lesson), checking whether a list or string is empty rarely needs a length check:</p>'),
       code('python', 'items = []\nif items:\n    print("Has items")\nelse:\n    print("Empty")  # this runs — an empty list is falsy'),
+
+      h(2, 'The Walrus Operator'),
+      p('<p><code>:=</code> — nicknamed the <b>walrus operator</b> for its resemblance to a pair of eyes and tusks — assigns a value <i>and</i> returns it in the same expression, added in Python 3.8. It has no PHP equivalent. Its most common use is avoiding calling the same thing twice:</p>'),
+      code('python', '# Without the walrus — calling len() twice:\nnames = ["Priya", "Amit", "Sara"]\nif len(names) > 2:\n    print(f"{len(names)} names")\n\n# With the walrus — computed once, used twice:\nif (count := len(names)) > 2:\n    print(f"{count} names")'),
+      p('<p>It\'s a small convenience, not a feature you\'ll need constantly — reach for it when the same value would otherwise be computed twice in an <code>if</code> condition and its body.</p>'),
     ],
   },
   bn: {
@@ -993,6 +1216,11 @@ lessons.push({
       h(2, 'ব্যবহারিকভাবে Truthiness', 'truthiness-in-practice'),
       p('<p>Python-এর truthy/falsy নিয়মের কারণে (Type Conversion পাঠ থেকে), একটি লিস্ট বা স্ট্রিং খালি কিনা চেক করতে খুব কমই একটি length চেকের দরকার হয়:</p>'),
       code('python', 'items = []\nif items:\n    print("Has items")\nelse:\n    print("Empty")  # this runs — an empty list is falsy'),
+
+      h(2, 'Walrus অপারেটর', 'the-walrus-operator'),
+      p('<p><code>:=</code> — একজোড়া চোখ আর দাঁতের সাথে মিল থাকার কারণে <b>walrus operator</b> নামে ডাকা হয় — একই এক্সপ্রেশনে একটি মান assign করে <i>আর</i> সেটা রিটার্ন করে, Python 3.8-এ যোগ হয়েছে। এর কোনো PHP সমতুল্য নেই। এর সবচেয়ে সাধারণ ব্যবহার হলো একই জিনিস দুইবার কল করা এড়ানো:</p>'),
+      code('python', '# Without the walrus — calling len() twice:\nnames = ["Priya", "Amit", "Sara"]\nif len(names) > 2:\n    print(f"{len(names)} names")\n\n# With the walrus — computed once, used twice:\nif (count := len(names)) > 2:\n    print(f"{count} names")'),
+      p('<p>এটি একটি ছোট সুবিধা, ক্রমাগত দরকার হওয়া কোনো ফিচার নয় — একটি <code>if</code> কন্ডিশন আর তার body-তে একই মান নাহলে দুইবার হিসাব হতো এমন ক্ষেত্রে এটার দিকে যান।</p>'),
     ],
   },
 })
@@ -1023,6 +1251,11 @@ lessons.push({
 
       h(2, 'break and continue'),
       code('python', 'for i in range(1, 11):\n    if i == 6:\n        break       # stops the loop entirely\n    if i % 2 == 0:\n        continue    # skips this iteration, keeps looping\n    print(i, end=" ")\n# Output: 1 3 5'),
+
+      h(2, 'The else Clause on a Loop'),
+      p('<p>This one is genuinely Python-specific, with no PHP equivalent: a loop can have its own <code>else</code>, which runs if the loop finished normally — that is, only if <code>break</code> was <b>never</b> hit:</p>'),
+      code('python', 'numbers = [2, 4, 6, 8]\nfor n in numbers:\n    if n % 2 != 0:\n        print("Found an odd number.")\n        break\nelse:\n    print("All numbers are even.")  # runs, since break never fired'),
+      p('<p>It reads oddly at first, but it\'s a clean way to express "search for something, and do X only if it wasn\'t found" without a separate flag variable to track whether <code>break</code> happened.</p>'),
     ],
   },
   bn: {
@@ -1048,6 +1281,11 @@ lessons.push({
 
       h(2, 'break আর continue', 'break-and-continue'),
       code('python', 'for i in range(1, 11):\n    if i == 6:\n        break       # stops the loop entirely\n    if i % 2 == 0:\n        continue    # skips this iteration, keeps looping\n    print(i, end=" ")\n# Output: 1 3 5'),
+
+      h(2, 'একটি লুপের উপর else ব্লক', 'the-else-clause-on-a-loop'),
+      p('<p>এটি সত্যিকারভাবে Python-নির্দিষ্ট, কোনো PHP সমতুল্য ছাড়াই: একটি লুপের নিজের <code>else</code> থাকতে পারে, যা চলে যদি লুপটি স্বাভাবিকভাবে শেষ হয় — অর্থাৎ, শুধু যদি <code>break</code> <b>কখনো</b> না ঘটে:</p>'),
+      code('python', 'numbers = [2, 4, 6, 8]\nfor n in numbers:\n    if n % 2 != 0:\n        print("Found an odd number.")\n        break\nelse:\n    print("All numbers are even.")  # runs, since break never fired'),
+      p('<p>প্রথমে এটা অদ্ভুত মনে হয়, কিন্তু <code>break</code> ঘটেছিল কিনা ট্র্যাক করার জন্য একটি আলাদা flag ভ্যারিয়েবল ছাড়াই "কিছু খোঁজা, আর সেটা না পাওয়া গেলে X করা" প্রকাশ করার এটি একটি পরিষ্কার উপায়।</p>'),
     ],
   },
 })
@@ -1079,6 +1317,11 @@ lessons.push({
       h(2, '*args and **kwargs'),
       p('<p>These let a function accept any number of arguments — <code>*args</code> collects extra positional arguments into a tuple, <code>**kwargs</code> collects extra named arguments into a dict:</p>'),
       code('python', 'def total(*numbers):\n    return sum(numbers)\n\nprint(total(1, 2, 3))       # 6\nprint(total(1, 2, 3, 4, 5)) # 15 — works with any number of arguments\n\ndef describe(**details):\n    for key, value in details.items():\n        print(f"{key}: {value}")\n\ndescribe(name="Priya", course="Web Development")'),
+
+      h(2, 'Docstrings'),
+      p('<p>A string literal placed as the very first line inside a function becomes its <b>docstring</b> — Python\'s built-in way to document what a function does, retrievable at runtime instead of just sitting in a comment:</p>'),
+      code('python', 'def greet(name):\n    """Return a friendly greeting for the given name."""\n    return f"Hello, {name}!"\n\nprint(greet.__doc__)  # "Return a friendly greeting for the given name."\nhelp(greet)            # shows the same text, formatted nicely'),
+      p('<p>Real Python projects write one on every function that isn\'t completely obvious — this is closer to a formal expectation than a nice-to-have, and tools like Sphinx can generate full documentation pages straight from docstrings.</p>'),
     ],
   },
   bn: {
@@ -1105,6 +1348,11 @@ lessons.push({
       h(2, '*args আর **kwargs', 'args-and-kwargs'),
       p('<p>এগুলো একটি ফাংশনকে যেকোনো সংখ্যক আর্গুমেন্ট গ্রহণ করতে দেয় — <code>*args</code> অতিরিক্ত positional আর্গুমেন্ট একটি tuple-এ জড়ো করে, <code>**kwargs</code> অতিরিক্ত named আর্গুমেন্ট একটি dict-এ জড়ো করে:</p>'),
       code('python', 'def total(*numbers):\n    return sum(numbers)\n\nprint(total(1, 2, 3))       # 6\nprint(total(1, 2, 3, 4, 5)) # 15 — works with any number of arguments\n\ndef describe(**details):\n    for key, value in details.items():\n        print(f"{key}: {value}")\n\ndescribe(name="Priya", course="Web Development")'),
+
+      h(2, 'Docstring', 'docstrings'),
+      p('<p>একটি ফাংশনের ভেতরে একদম প্রথম লাইন হিসেবে বসানো একটি স্ট্রিং লিটারেল এর <b>docstring</b> হয়ে যায় — একটি ফাংশন কী করে তা ডকুমেন্ট করার Python-এর বিল্ট-ইন উপায়, শুধু একটি কমেন্টে বসে থাকার বদলে রানটাইমে পাওয়া যায়:</p>'),
+      code('python', 'def greet(name):\n    """Return a friendly greeting for the given name."""\n    return f"Hello, {name}!"\n\nprint(greet.__doc__)  # "Return a friendly greeting for the given name."\nhelp(greet)            # shows the same text, formatted nicely'),
+      p('<p>বাস্তব Python প্রজেক্ট প্রতিটি ফাংশনে একটি করে লেখে যা সম্পূর্ণভাবে স্পষ্ট নয় — এটা একটি ভালো-থাকলে-হয়-এর চেয়ে বেশি একটি আনুষ্ঠানিক প্রত্যাশার কাছাকাছি, আর Sphinx-এর মতো টুল docstring থেকে সরাসরি সম্পূর্ণ ডকুমেন্টেশন পেজ তৈরি করতে পারে।</p>'),
     ],
   },
 })
@@ -1131,6 +1379,9 @@ lessons.push({
       h(2, 'map() and filter()'),
       p('<p>PHP\'s <code>array_map()</code> and <code>array_filter()</code> have direct Python equivalents, often paired with a lambda — though a list comprehension (from the earlier lesson) does the same job and is usually considered more readable in modern Python:</p>'),
       code('python', 'numbers = [1, 2, 3, 4, 5]\n\ndoubled = list(map(lambda n: n * 2, numbers))\nprint(doubled)  # [2, 4, 6, 8, 10]\n\n# The more idiomatic Python way to write the same thing:\ndoubled = [n * 2 for n in numbers]'),
+      p('<p><code>filter()</code> is the other half — it keeps only the items where the lambda returns something truthy, the same role as PHP\'s <code>array_filter()</code>:</p>'),
+      code('python', 'numbers = [1, 2, 3, 4, 5, 6]\n\neven = list(filter(lambda n: n % 2 == 0, numbers))\nprint(even)  # [2, 4, 6]\n\n# The more idiomatic Python way to write the same thing:\neven = [n for n in numbers if n % 2 == 0]'),
+      p('<p>Both <code>map()</code> and <code>filter()</code> return a lazy iterator, not a list directly — which is why <code>list(...)</code> wraps them above to actually see the results.</p>'),
     ],
   },
   bn: {
@@ -1152,6 +1403,9 @@ lessons.push({
       h(2, 'map() আর filter()', 'map-and-filter'),
       p('<p>PHP-এর <code>array_map()</code> আর <code>array_filter()</code>-এর সরাসরি Python সমতুল্য আছে, প্রায়ই একটি lambda-এর সাথে জোড়া — যদিও একটি list comprehension (আগের পাঠ থেকে) একই কাজ করে আর আধুনিক Python-এ সাধারণত বেশি পঠনযোগ্য মনে করা হয়:</p>'),
       code('python', 'numbers = [1, 2, 3, 4, 5]\n\ndoubled = list(map(lambda n: n * 2, numbers))\nprint(doubled)  # [2, 4, 6, 8, 10]\n\n# The more idiomatic Python way to write the same thing:\ndoubled = [n * 2 for n in numbers]'),
+      p('<p><code>filter()</code> হলো বাকি অর্ধেক — এটি শুধু সেই আইটেমগুলো রাখে যেখানে lambda truthy কিছু রিটার্ন করে, PHP-এর <code>array_filter()</code>-এর একই ভূমিকা:</p>'),
+      code('python', 'numbers = [1, 2, 3, 4, 5, 6]\n\neven = list(filter(lambda n: n % 2 == 0, numbers))\nprint(even)  # [2, 4, 6]\n\n# The more idiomatic Python way to write the same thing:\neven = [n for n in numbers if n % 2 == 0]'),
+      p('<p><code>map()</code> আর <code>filter()</code> দুটোই সরাসরি একটি লিস্ট নয়, একটি lazy iterator রিটার্ন করে — যে কারণে ফলাফল আসলে দেখতে উপরে <code>list(...)</code> দিয়ে এদের মুড়িয়ে দেওয়া হয়েছে।</p>'),
     ],
   },
 })
@@ -1182,6 +1436,11 @@ lessons.push({
       h(2, 'Function-Level Scope, Not Block-Level'),
       p('<p>One more real difference from some languages: a variable created inside an <code>if</code> or <code>for</code> block in Python is <b>not</b> limited to that block — it\'s visible for the rest of the enclosing function:</p>'),
       code('python', 'def check(n):\n    if n > 0:\n        result = "positive"\n    print(result)  # this works even outside the if block, as long as n > 0 ran\n\ncheck(5)  # "positive"'),
+
+      h(2, 'nonlocal for a Function Inside a Function'),
+      p('<p>A function defined inside another function can read its enclosing function\'s variables automatically — same rule as reading a global. To reassign one, <code>nonlocal</code> is the equivalent of <code>global</code> one level up, rather than jumping all the way to global scope:</p>'),
+      code('python', 'def make_counter():\n    count = 0\n\n    def increment():\n        nonlocal count\n        count += 1\n        return count\n\n    return increment\n\ncounter = make_counter()\nprint(counter())  # 1\nprint(counter())  # 2 — count is remembered between calls'),
+      p('<p>This pattern — a function returning another function that remembers state — is called a <b>closure</b>. It\'s a genuinely useful trick, but a niche one; don\'t worry if it takes a re-read to click.</p>'),
     ],
   },
   bn: {
@@ -1207,6 +1466,11 @@ lessons.push({
       h(2, 'ফাংশন-লেভেল স্কোপ, ব্লক-লেভেল নয়', 'function-level-scope-not-block-level'),
       p('<p>কিছু ভাষা থেকে আরেকটি আসল পার্থক্য: Python-এ একটি <code>if</code> বা <code>for</code> ব্লকের ভেতরে তৈরি হওয়া একটি ভ্যারিয়েবল সেই ব্লকে সীমাবদ্ধ <b>নয়</b> — এটি ঘিরে থাকা ফাংশনের বাকি অংশের জন্য দৃশ্যমান:</p>'),
       code('python', 'def check(n):\n    if n > 0:\n        result = "positive"\n    print(result)  # this works even outside the if block, as long as n > 0 ran\n\ncheck(5)  # "positive"'),
+
+      h(2, 'একটি ফাংশনের ভেতরে একটি ফাংশনের জন্য nonlocal', 'nonlocal-for-a-function-inside-a-function'),
+      p('<p>আরেকটি ফাংশনের ভেতরে সংজ্ঞায়িত একটি ফাংশন স্বয়ংক্রিয়ভাবে তার ঘিরে থাকা ফাংশনের ভ্যারিয়েবল পড়তে পারে — একটি গ্লোবাল পড়ার একই নিয়ম। একটিতে পুনরায় assign করতে, <code>nonlocal</code> সরাসরি গ্লোবাল স্কোপে না গিয়ে এক লেভেল উপরে <code>global</code>-এর সমতুল্য:</p>'),
+      code('python', 'def make_counter():\n    count = 0\n\n    def increment():\n        nonlocal count\n        count += 1\n        return count\n\n    return increment\n\ncounter = make_counter()\nprint(counter())  # 1\nprint(counter())  # 2 — count is remembered between calls'),
+      p('<p>এই প্যাটার্ন — একটি ফাংশন আরেকটি ফাংশন রিটার্ন করছে যা state মনে রাখে — একে বলা হয় একটি <b>closure</b>। এটি সত্যিকারভাবে দরকারি একটি কৌশল, কিন্তু একটি নিশ কৌশল; বুঝতে আরেকবার পড়তে হলে চিন্তা করবেন না।</p>'),
     ],
   },
 })
@@ -1232,6 +1496,10 @@ lessons.push({
         1024, 768,
         'A script can pull in code from the built-in standard library, or from packages installed separately.'
       ),
+
+      h(2, 'Aliasing an Import'),
+      p('<p><code>as</code> renames an import — useful for a long module name you\'ll type repeatedly. It\'s so standard for a few libraries that the alias is effectively part of how everyone writes them:</p>'),
+      code('python', 'import math as m\nprint(m.sqrt(64))  # 8.0 — same module, shorter name\n\n# You\'ll see these exact aliases constantly once you reach data/AI libraries:\n# import pandas as pd\n# import numpy as np'),
 
       h(2, 'Third-Party Packages with pip'),
       p('<p>Anything not in the standard library — a web framework, a data analysis library, an HTTP client — is installed with <b>pip</b>, Python\'s package manager, roughly equivalent to what npm is for JavaScript:</p>'),
@@ -1264,6 +1532,10 @@ lessons.push({
         1024, 768,
         'একটি স্ক্রিপ্ট বিল্ট-ইন স্ট্যান্ডার্ড লাইব্রেরি থেকে, অথবা আলাদাভাবে ইনস্টল করা প্যাকেজ থেকে কোড টেনে আনতে পারে।'
       ),
+
+      h(2, 'একটি ইম্পোর্ট Alias করা', 'aliasing-an-import'),
+      p('<p><code>as</code> একটি ইম্পোর্টের নাম বদলায় — একটি লম্বা মডিউল নামের জন্য দরকারি যা আপনি বারবার টাইপ করবেন। কয়েকটি লাইব্রেরির জন্য এটা এতটাই প্রচলিত যে alias-টাই কার্যকরভাবে সবাই এগুলো লেখার একটি অংশ হয়ে গেছে:</p>'),
+      code('python', 'import math as m\nprint(m.sqrt(64))  # 8.0 — same module, shorter name\n\n# You\'ll see these exact aliases constantly once you reach data/AI libraries:\n# import pandas as pd\n# import numpy as np'),
 
       h(2, 'pip দিয়ে থার্ড-পার্টি প্যাকেজ', 'third-party-packages-with-pip'),
       p('<p>স্ট্যান্ডার্ড লাইব্রেরিতে নেই এমন যেকোনো কিছু — একটি ওয়েব ফ্রেমওয়ার্ক, একটি ডেটা বিশ্লেষণ লাইব্রেরি, একটি HTTP ক্লায়েন্ট — <b>pip</b> দিয়ে ইনস্টল করা হয়, Python-এর প্যাকেজ ম্যানেজার, মোটামুটি JavaScript-এর জন্য npm যা তার সমতুল্য:</p>'),
@@ -1305,6 +1577,11 @@ lessons.push({
       h(2, 'Catching Multiple Types at Once'),
       code('python', 'try:\n    value = int("not a number")\nexcept (ValueError, TypeError) as e:\n    print(f"Bad input: {e}")'),
 
+      h(2, 'Avoid a Bare except'),
+      p('<p>Writing <code>except:</code> with no type at all catches literally everything, including mistakes you\'d actually want to see — a typo\'d variable name, a missing import. It silently hides bugs instead of surfacing them:</p>'),
+      code('python', '# Avoid this — catches every possible error, including your own bugs:\ntry:\n    risky_operation()\nexcept:\n    pass\n\n# Prefer this — catches runtime problems, but a real code bug still surfaces:\ntry:\n    risky_operation()\nexcept Exception as e:\n    print(f"Something went wrong: {e}")'),
+      p('<p><code>except Exception</code> is about as broad as you should normally go — it still lets Python\'s own internal signals (like the one used by <code>Ctrl+C</code>) through, which a bare <code>except:</code> would swallow too.</p>'),
+
       callout('warning', '<p>An uncaught exception on a real, deployed Python program prints a full traceback — file paths, line numbers, sometimes variable values — which is invaluable for you while developing, but should never be shown directly to an end user. Wrapping risky operations (file access, network requests, user input parsing) in <code>try</code>/<code>except</code> is what turns that into a clean, controlled message instead.</p>', 'Tracebacks are for developers, not users'),
     ],
   },
@@ -1329,6 +1606,11 @@ lessons.push({
 
       h(2, 'একসাথে একাধিক টাইপ ধরা', 'catching-multiple-types-at-once'),
       code('python', 'try:\n    value = int("not a number")\nexcept (ValueError, TypeError) as e:\n    print(f"Bad input: {e}")'),
+
+      h(2, 'একটি Bare except এড়িয়ে চলুন', 'avoid-a-bare-except'),
+      p('<p>কোনো টাইপ ছাড়াই <code>except:</code> লেখা আক্ষরিক অর্থে সবকিছু ধরে, এমনকি এমন ভুলও যা আপনি আসলে দেখতে চাইতেন — একটি টাইপো হওয়া ভ্যারিয়েবল নাম, একটি অনুপস্থিত import। এটা বাগগুলো সামনে আনার বদলে চুপচাপ লুকিয়ে ফেলে:</p>'),
+      code('python', '# Avoid this — catches every possible error, including your own bugs:\ntry:\n    risky_operation()\nexcept:\n    pass\n\n# Prefer this — catches runtime problems, but a real code bug still surfaces:\ntry:\n    risky_operation()\nexcept Exception as e:\n    print(f"Something went wrong: {e}")'),
+      p('<p><code>except Exception</code> সাধারণত যতটা প্রশস্ত হওয়া উচিত ততটাই — এটি এখনও Python-এর নিজস্ব অভ্যন্তরীণ সংকেত (যেমন <code>Ctrl+C</code>-এর জন্য ব্যবহৃত একটি) দিয়ে যেতে দেয়, যা একটি bare <code>except:</code> সেটাও গিলে ফেলত।</p>'),
 
       callout('warning', '<p>একটি বাস্তব, ডিপ্লয় করা Python প্রোগ্রামে একটি না-ধরা exception একটি সম্পূর্ণ traceback প্রিন্ট করে — ফাইল পাথ, লাইন নাম্বার, কখনো কখনো ভ্যারিয়েবলের মান — যা ডেভেলপ করার সময় আপনার জন্য অমূল্য, কিন্তু কখনো সরাসরি একজন end user-কে দেখানো উচিত নয়। ঝুঁকিপূর্ণ অপারেশন (ফাইল অ্যাক্সেস, নেটওয়ার্ক রিকোয়েস্ট, user input পার্স করা) <code>try</code>/<code>except</code>-এ মুড়িয়ে দেওয়াই এটাকে একটি পরিষ্কার, নিয়ন্ত্রিত মেসেজে বদলে দেয়।</p>', 'Traceback ডেভেলপারদের জন্য, ব্যবহারকারীদের জন্য নয়'),
     ],
@@ -1367,6 +1649,11 @@ lessons.push({
         ]
       ),
 
+      h(2, 'Checking Whether a File Exists'),
+      p('<p>Opening a missing file with <code>"r"</code> raises a <code>FileNotFoundError</code> — checking first with the standard library\'s <code>pathlib</code> avoids that, and is the modern, recommended way to work with file paths in Python:</p>'),
+      code('python', 'from pathlib import Path\n\nfile = Path("notes.txt")\nif file.exists():\n    print(file.read_text())\nelse:\n    print("File not found.")'),
+      p('<p><code>pathlib</code> can fully replace <code>open()</code> for reading and writing too (<code>file.read_text()</code>, <code>file.write_text(...)</code>) — worth knowing it exists, even though this lesson sticks with <code>open()</code> since it maps most directly onto PHP\'s own file functions.</p>'),
+
       callout('warning', '<p>Just like PHP, any file path used with these functions should never come directly from user input without careful validation — a user-controlled path is a real security risk. This matters even more once file uploads are involved.</p>', 'Never trust a user-supplied file path'),
     ],
   },
@@ -1398,6 +1685,11 @@ lessons.push({
           ['"a"', 'যোগ করা — না থাকলে ফাইল তৈরি করে, থাকলে শেষে যোগ করে'],
         ]
       ),
+
+      h(2, 'একটি ফাইল আছে কিনা চেক করা', 'checking-whether-a-file-exists'),
+      p('<p><code>"r"</code> দিয়ে একটি অনুপস্থিত ফাইল খুললে একটি <code>FileNotFoundError</code> ওঠে — স্ট্যান্ডার্ড লাইব্রেরির <code>pathlib</code> দিয়ে আগে চেক করলে সেটা এড়ানো যায়, আর Python-এ ফাইল path নিয়ে কাজ করার এটাই আধুনিক, প্রস্তাবিত উপায়:</p>'),
+      code('python', 'from pathlib import Path\n\nfile = Path("notes.txt")\nif file.exists():\n    print(file.read_text())\nelse:\n    print("File not found.")'),
+      p('<p><code>pathlib</code> পড়া আর লেখার জন্যও <code>open()</code>-কে পুরোপুরি প্রতিস্থাপন করতে পারে (<code>file.read_text()</code>, <code>file.write_text(...)</code>) — এটা যে আছে জানা মূল্যবান, যদিও এই পাঠ <code>open()</code>-এ থাকছে কারণ এটা সরাসরি PHP-এর নিজস্ব ফাইল ফাংশনের সাথে মেলে।</p>'),
 
       callout('warning', '<p>PHP-এর মতোই, এই ফাংশনগুলোর সাথে ব্যবহৃত যেকোনো ফাইল path কখনো সতর্ক ভ্যালিডেশন ছাড়া সরাসরি user input থেকে আসা উচিত নয় — একটি user-নিয়ন্ত্রিত path একটি বাস্তব সিকিউরিটি ঝুঁকি। ফাইল আপলোড জড়িত হলে এটি আরও বেশি গুরুত্বপূর্ণ।</p>', 'user-সরবরাহকৃত ফাইল path কখনো বিশ্বাস করবেন না'),
     ],
@@ -1435,6 +1727,11 @@ lessons.push({
       p('<p>Unlike PHP\'s <code>-&gt;</code> arrow, Python uses a plain dot for both properties and methods — there\'s only one access syntax to remember, not a different one for objects vs. everything else:</p>'),
       code('python', 'print(student1.name)         # property access\nprint(student1.introduce())  # method call'),
 
+      h(2, 'Class Variables vs. Instance Variables'),
+      p('<p>Everything so far — <code>self.name</code>, <code>self.course</code> — is an <b>instance variable</b>: its own separate copy per object. A <b>class variable</b>, defined directly inside the class body instead of inside <code>__init__</code>, is shared by every instance:</p>'),
+      code('python', 'class Student:\n    school = "Learn Computer Academy"  # class variable — one copy, shared by all\n\n    def __init__(self, name):\n        self.name = name  # instance variable — separate per object\n\ns1 = Student("Priya")\ns2 = Student("Amit")\nprint(s1.school, s2.school)  # both "Learn Computer Academy" — same shared value'),
+      p('<p>Use a class variable for something genuinely shared by every instance (a constant, a shared counter) and an instance variable for anything that varies per object — which, in practice, is most of what a class holds.</p>'),
+
       callout('note', '<p>The next lesson builds directly on this one, covering <b>inheritance</b> (one class building on another) and <b>polymorphism</b> (different classes responding to the same method call in their own way).</p>', 'More is coming immediately'),
     ],
   },
@@ -1466,6 +1763,11 @@ lessons.push({
       p('<p>PHP-এর <code>-&gt;</code> অ্যারো থেকে আলাদা, Python প্রপার্টি আর মেথড দুটোর জন্যই একটি সাধারণ ডট ব্যবহার করে — মনে রাখার জন্য শুধু একটি অ্যাক্সেস সিনট্যাক্স আছে, অবজেক্ট বনাম বাকি সবকিছুর জন্য আলাদা আলাদা নয়:</p>'),
       code('python', 'print(student1.name)         # property access\nprint(student1.introduce())  # method call'),
 
+      h(2, 'ক্লাস ভ্যারিয়েবল বনাম ইনস্ট্যান্স ভ্যারিয়েবল', 'class-variables-vs-instance-variables'),
+      p('<p>এখন পর্যন্ত সবকিছু — <code>self.name</code>, <code>self.course</code> — একটি <b>instance variable</b>: প্রতিটি অবজেক্টের নিজস্ব আলাদা কপি। একটি <b>class variable</b>, <code>__init__</code>-এর ভেতরে না দিয়ে সরাসরি ক্লাস body-তে সংজ্ঞায়িত, প্রতিটি instance শেয়ার করে:</p>'),
+      code('python', 'class Student:\n    school = "Learn Computer Academy"  # class variable — one copy, shared by all\n\n    def __init__(self, name):\n        self.name = name  # instance variable — separate per object\n\ns1 = Student("Priya")\ns2 = Student("Amit")\nprint(s1.school, s2.school)  # both "Learn Computer Academy" — same shared value'),
+      p('<p>প্রতিটি instance দ্বারা সত্যিকারভাবে শেয়ার করা কিছুর জন্য (একটি ধ্রুবক, একটি শেয়ার করা কাউন্টার) একটি class variable ব্যবহার করুন আর প্রতি অবজেক্টে ভিন্ন হওয়া যেকোনো কিছুর জন্য একটি instance variable — যা, বাস্তবে, একটি ক্লাস যা ধরে রাখে তার বেশিরভাগ।</p>'),
+
       callout('note', '<p>পরের পাঠ সরাসরি এটার উপর ভিত্তি করে তৈরি, কভার করবে <b>inheritance</b> (একটি ক্লাস আরেকটির উপর ভিত্তি করে তৈরি) আর <b>polymorphism</b> (ভিন্ন ভিন্ন ক্লাস একই মেথড কলে নিজেদের মতো করে সাড়া দেওয়া)।</p>', 'আরও কিছু সাথে সাথেই আসছে'),
     ],
   },
@@ -1485,6 +1787,11 @@ lessons.push({
       p('<p><b>Inheritance</b> lets one class build on another, reusing its properties and methods instead of rewriting them — Python\'s syntax for this is putting the parent class name in parentheses:</p>'),
       code('python', 'class Person:\n    def __init__(self, name):\n        self.name = name\n\n    def greet(self):\n        return f"Hi, I\'m {self.name}."\n\nclass Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)  # reuse Person\'s constructor\n        self.course = course\n\ns = Student("Amit", "Graphic Design")\nprint(s.greet())  # "Hi, I\'m Amit." — inherited from Person, unchanged'),
       p('<p><code>super()</code> is Python\'s equivalent of PHP\'s <code>parent::</code> — it gives access to the parent class\'s own version of a method, most commonly used to reuse its <code>__init__</code>.</p>'),
+
+      h(2, 'Overriding a Method'),
+      p('<p>A subclass can also replace a parent\'s method entirely by defining one with the same name — no special keyword needed, unlike PHP, which sometimes wants an explicit marker for this:</p>'),
+      code('python', 'class Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)\n        self.course = course\n\n    def greet(self):  # overrides Person.greet completely\n        return f"Hi, I\'m {self.name}, studying {self.course}."\n\ns = Student("Amit", "Graphic Design")\nprint(s.greet())  # "Hi, I\'m Amit, studying Graphic Design." — Student\'s version runs, not Person\'s'),
+      p('<p><code>super().greet()</code> would still be available inside the override if you wanted to build on the parent\'s version rather than fully replace it — the same <code>super()</code> used above for <code>__init__</code>.</p>'),
 
       h(2, 'Polymorphism'),
       p('<p><b>Polymorphism</b> means different classes can implement the same method name in their own way, and calling code doesn\'t need to know which exact class it\'s working with:</p>'),
@@ -1506,6 +1813,11 @@ lessons.push({
       p('<p><b>ইনহেরিটেন্স</b> একটি ক্লাসকে আরেকটির উপর ভিত্তি করে তৈরি করতে দেয়, তার প্রপার্টি আর মেথড আবার না লিখে পুনঃব্যবহার করে — এর জন্য Python-এর সিনট্যাক্স হলো বন্ধনীতে parent ক্লাসের নাম বসানো:</p>'),
       code('python', 'class Person:\n    def __init__(self, name):\n        self.name = name\n\n    def greet(self):\n        return f"Hi, I\'m {self.name}."\n\nclass Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)  # reuse Person\'s constructor\n        self.course = course\n\ns = Student("Amit", "Graphic Design")\nprint(s.greet())  # "Hi, I\'m Amit." — inherited from Person, unchanged'),
       p('<p><code>super()</code> হলো PHP-এর <code>parent::</code>-এর Python সমতুল্য — এটি একটি মেথডের parent ক্লাসের নিজস্ব ভার্সনে অ্যাক্সেস দেয়, সবচেয়ে বেশি এর <code>__init__</code> পুনঃব্যবহার করতে ব্যবহৃত হয়।</p>'),
+
+      h(2, 'একটি মেথড Override করা', 'overriding-a-method'),
+      p('<p>একটি subclass একই নামের একটি মেথড সংজ্ঞায়িত করে parent-এর মেথডকে সম্পূর্ণভাবে প্রতিস্থাপনও করতে পারে — কোনো বিশেষ কীওয়ার্ডের দরকার নেই, PHP-এর থেকে আলাদা, যা কখনো কখনো এর জন্য একটি স্পষ্ট মার্কার চায়:</p>'),
+      code('python', 'class Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)\n        self.course = course\n\n    def greet(self):  # overrides Person.greet completely\n        return f"Hi, I\'m {self.name}, studying {self.course}."\n\ns = Student("Amit", "Graphic Design")\nprint(s.greet())  # "Hi, I\'m Amit, studying Graphic Design." — Student\'s version runs, not Person\'s'),
+      p('<p>Parent-এর ভার্সনটা সম্পূর্ণ প্রতিস্থাপন না করে তার উপর ভিত্তি করে তৈরি করতে চাইলে override-এর ভেতরে <code>super().greet()</code>-ও এখনও ব্যবহার করা যেত — <code>__init__</code>-এর জন্য উপরে ব্যবহৃত একই <code>super()</code>।</p>'),
 
       h(2, 'পলিমরফিজম', 'polymorphism'),
       p('<p><b>পলিমরফিজম</b> মানে ভিন্ন ভিন্ন ক্লাস একই মেথড নাম নিজেদের মতো করে কার্যকর করতে পারে, আর কল করা কোডকে জানতে হয় না ঠিক কোন ক্লাসের সাথে এটি কাজ করছে:</p>'),
@@ -1548,6 +1860,11 @@ lessons.push({
         ]
       ),
       p('<p>This section has covered the ones you\'ll hit constantly. The <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names" target="_blank" rel="noopener noreferrer">full list of special methods is on python.org</a> for anything more advanced.</p>'),
+
+      h(2, 'Controlled Access with @property'),
+      p('<p><code>@property</code> lets a method be accessed like a plain attribute, with no parentheses — this is how Python builds a getter that can also run validation logic, without callers needing to know it\'s a method underneath:</p>'),
+      code('python', 'class BankAccount:\n    def __init__(self):\n        self._balance = 0\n\n    @property\n    def balance(self):\n        return self._balance\n\n    @balance.setter\n    def balance(self, value):\n        if value < 0:\n            raise ValueError("Balance cannot be negative.")\n        self._balance = value\n\naccount = BankAccount()\naccount.balance = 500   # looks like a plain attribute, actually calls the setter\nprint(account.balance)  # 500 — looks like a plain attribute, actually calls the getter\n# account.balance = -10 # ValueError — the setter blocks this'),
+      p('<p>This is Python\'s answer to PHP\'s explicit getter/setter methods (<code>getBalance()</code>/<code>setBalance()</code>) — the calling code stays as simple as a direct attribute, while the class still gets to enforce its own rules.</p>'),
     ],
   },
   bn: {
@@ -1577,6 +1894,11 @@ lessons.push({
         ]
       ),
       p('<p>এই অংশে সেগুলো দেখানো হয়েছে যা আপনি ক্রমাগত ব্যবহার করবেন। আরও উন্নত যেকোনো কিছুর জন্য <a href="https://docs.python.org/3/reference/datamodel.html#special-method-names" target="_blank" rel="noopener noreferrer">বিশেষ মেথডের সম্পূর্ণ তালিকা python.org-এ</a> আছে।</p>'),
+
+      h(2, '@property দিয়ে নিয়ন্ত্রিত অ্যাক্সেস', 'controlled-access-with-property'),
+      p('<p><code>@property</code> একটি মেথডকে কোনো বন্ধনী ছাড়াই একটি সাধারণ attribute-এর মতো অ্যাক্সেস করতে দেয় — এভাবেই Python একটি getter তৈরি করে যা validation লজিকও চালাতে পারে, কলিং কোডকে না জানিয়েই যে এটা ভেতরে একটি মেথড:</p>'),
+      code('python', 'class BankAccount:\n    def __init__(self):\n        self._balance = 0\n\n    @property\n    def balance(self):\n        return self._balance\n\n    @balance.setter\n    def balance(self, value):\n        if value < 0:\n            raise ValueError("Balance cannot be negative.")\n        self._balance = value\n\naccount = BankAccount()\naccount.balance = 500   # looks like a plain attribute, actually calls the setter\nprint(account.balance)  # 500 — looks like a plain attribute, actually calls the getter\n# account.balance = -10 # ValueError — the setter blocks this'),
+      p('<p>এটি PHP-এর স্পষ্ট getter/setter মেথডের (<code>getBalance()</code>/<code>setBalance()</code>) Python উত্তর — কলিং কোড একটি সরাসরি attribute-এর মতোই সহজ থাকে, আর ক্লাসটি তখনও নিজের নিয়ম প্রয়োগ করতে পারে।</p>'),
     ],
   },
 })
@@ -1612,6 +1934,11 @@ lessons.push({
       code('python', 'squares_list = [n ** 2 for n in range(1000000)]   # builds all million values right now\nsquares_gen  = (n ** 2 for n in range(1000000))   # builds nothing yet — values come one at a time'),
 
       callout('tip', '<p>Use a list when you need to loop over the data more than once, check its length, or index into it. Reach for a generator when you\'re processing a large or open-ended sequence just once, in order — reading a huge file line by line is a classic real-world case.</p>', 'List vs. generator — when each makes sense'),
+
+      h(2, 'A Generator Only Runs Once'),
+      p('<p>This is the gotcha that catches almost everyone the first time: once a generator has been fully looped over, it\'s exhausted — looping over it again produces nothing, silently, with no error:</p>'),
+      code('python', 'squares = (n ** 2 for n in range(3))\n\nprint(list(squares))  # [0, 1, 4]\nprint(list(squares))  # [] — already exhausted, nothing left to produce'),
+      p('<p>A list can be looped over as many times as you like; a generator is single-use by design. If you need the data more than once, either convert it to a list (<code>list(...)</code>) or build a fresh generator each time you need it.</p>'),
     ],
   },
   bn: {
@@ -1642,6 +1969,11 @@ lessons.push({
       code('python', 'squares_list = [n ** 2 for n in range(1000000)]   # builds all million values right now\nsquares_gen  = (n ** 2 for n in range(1000000))   # builds nothing yet — values come one at a time'),
 
       callout('tip', '<p>ডেটার উপর একাধিকবার লুপ করতে হলে, দৈর্ঘ্য চেক করতে হলে, বা এতে ইনডেক্স করতে হলে একটি লিস্ট ব্যবহার করুন। একটি বড় বা open-ended ক্রম একবারে, ক্রম অনুযায়ী প্রসেস করার সময় একটি জেনারেটরের দিকে যান — একটি বিশাল ফাইল লাইন বাই লাইন পড়া একটি ধ্রুপদী বাস্তব-জগতের উদাহরণ।</p>', 'লিস্ট বনাম জেনারেটর — কখন কোনটা যুক্তিসঙ্গত'),
+
+      h(2, 'একটি জেনারেটর শুধু একবারই চলে', 'a-generator-only-runs-once'),
+      p('<p>এটাই সেই ফাঁদ যা প্রথমবার প্রায় সবাইকে ধরে ফেলে: একটি জেনারেটরের উপর একবার সম্পূর্ণভাবে লুপ হয়ে গেলে, এটা exhausted — আবার এর উপর লুপ করলে চুপচাপ কিছুই তৈরি হয় না, কোনো এরর ছাড়াই:</p>'),
+      code('python', 'squares = (n ** 2 for n in range(3))\n\nprint(list(squares))  # [0, 1, 4]\nprint(list(squares))  # [] — already exhausted, nothing left to produce'),
+      p('<p>একটি লিস্ট আপনি যতবার ইচ্ছা ততবার লুপ করতে পারেন; একটি জেনারেটর ডিজাইন অনুযায়ী একবার-ব্যবহারযোগ্য। ডেটাটা একবারের বেশি দরকার হলে, হয় এটাকে একটি লিস্টে রূপান্তর করুন (<code>list(...)</code>) অথবা দরকার হলে প্রতিবার একটি নতুন জেনারেটর তৈরি করুন।</p>'),
     ],
   },
 })
@@ -1678,6 +2010,11 @@ lessons.push({
       code('python', 'from datetime import datetime, timedelta\n\nnow = datetime.now()\ndeadline = datetime(2026, 12, 31)\n\ndifference = deadline - now\nprint(f"{difference.days} days remaining")\n\nnext_week = now + timedelta(days=7)\nprint(next_week.strftime("%Y-%m-%d"))'),
       p('<p><code>timedelta</code> represents a span of time, and can be added to or subtracted from a <code>datetime</code> directly — there\'s no separate "modify" method the way PHP\'s <code>DateTime::modify()</code> works.</p>'),
 
+      h(2, 'Parsing a Date From Text'),
+      p('<p><code>strptime()</code> is the reverse of <code>strftime()</code> — it reads a date <i>out of</i> a string, using the same format codes to say what shape to expect:</p>'),
+      code('python', 'from datetime import datetime\n\ntext = "30/07/2026"\nparsed = datetime.strptime(text, "%d/%m/%Y")\nprint(parsed.year)   # 2026\nprint(parsed.month)  # 7'),
+      callout('warning', '<p>The format string must match the input exactly, or <code>strptime()</code> raises a <code>ValueError</code> — <code>"30/07/2026"</code> parsed with <code>"%Y-%m-%d"</code> fails outright rather than guessing. Wrap this in <code>try</code>/<code>except</code> whenever the text is coming from a user rather than a source you fully control.</p>', 'strptime() does not guess the format'),
+
       callout('note', '<p>Just like PHP, dates and times in Python default to "naive" — no time zone attached at all, rather than automatically using the server\'s configured zone. For anything where the difference matters (a scheduled event across regions), look at the <code>zoneinfo</code> module in the standard library.</p>', 'No time zone by default'),
     ],
   },
@@ -1709,6 +2046,11 @@ lessons.push({
       h(2, 'তারিখ তুলনা আর হিসাব করা', 'comparing-and-calculating-with-dates'),
       code('python', 'from datetime import datetime, timedelta\n\nnow = datetime.now()\ndeadline = datetime(2026, 12, 31)\n\ndifference = deadline - now\nprint(f"{difference.days} days remaining")\n\nnext_week = now + timedelta(days=7)\nprint(next_week.strftime("%Y-%m-%d"))'),
       p('<p><code>timedelta</code> একটি সময়ের ব্যাপ্তি বোঝায়, আর সরাসরি একটি <code>datetime</code>-এর সাথে যোগ বা বিয়োগ করা যায় — PHP-এর <code>DateTime::modify()</code>-এর মতো আলাদা কোনো "modify" মেথড নেই।</p>'),
+
+      h(2, 'টেক্সট থেকে একটি তারিখ পার্স করা', 'parsing-a-date-from-text'),
+      p('<p><code>strptime()</code> হলো <code>strftime()</code>-এর বিপরীত — এটি একটি স্ট্রিং <i>থেকে</i> একটি তারিখ পড়ে, কী আকৃতি প্রত্যাশিত তা বলতে একই ফরম্যাট কোড ব্যবহার করে:</p>'),
+      code('python', 'from datetime import datetime\n\ntext = "30/07/2026"\nparsed = datetime.strptime(text, "%d/%m/%Y")\nprint(parsed.year)   # 2026\nprint(parsed.month)  # 7'),
+      callout('warning', '<p>ফরম্যাট স্ট্রিং ইনপুটের সাথে ঠিক মিলতে হবে, নাহলে <code>strptime()</code> একটি <code>ValueError</code> তোলে — <code>"%Y-%m-%d"</code> দিয়ে পার্স করা <code>"30/07/2026"</code> অনুমান করার বদলে সরাসরি ব্যর্থ হয়। টেক্সটটা আপনার পুরোপুরি নিয়ন্ত্রণ করা কোনো উৎসের বদলে একজন ব্যবহারকারীর থেকে এলে এটাকে <code>try</code>/<code>except</code>-এ মুড়িয়ে দিন।</p>', 'strptime() ফরম্যাট অনুমান করে না'),
 
       callout('note', '<p>PHP-এর মতোই, Python-এ তারিখ আর সময় ডিফল্টভাবে "naive" — কোনো টাইম জোন যুক্ত নেই, সার্ভারের কনফিগার করা জোন স্বয়ংক্রিয়ভাবে ব্যবহার না করে। যেখানে পার্থক্যটা গুরুত্বপূর্ণ (বিভিন্ন অঞ্চল জুড়ে একটি নির্ধারিত ইভেন্ট), স্ট্যান্ডার্ড লাইব্রেরির <code>zoneinfo</code> মডিউল দেখুন।</p>', 'ডিফল্টভাবে কোনো টাইম জোন নেই'),
     ],
@@ -1750,6 +2092,18 @@ lessons.push({
       h(2, 'INSERT, UPDATE, and DELETE'),
       code('python', '# INSERT\ncursor.execute("INSERT INTO students (name, course) VALUES (%s, %s)", ("Priya", "Web Development"))\nconn.commit()  # writes are not saved until you commit\n\n# UPDATE\ncursor.execute("UPDATE students SET course = %s WHERE name = %s", ("Graphic Design", "Priya"))\nconn.commit()\n\n# DELETE\ncursor.execute("DELETE FROM students WHERE name = %s", ("Priya",))\nconn.commit()'),
       p('<p><code>conn.commit()</code> is a real difference from PHP\'s PDO, which commits automatically by default: Python\'s connectors require an explicit <code>commit()</code> after a write, or the change won\'t actually be saved.</p>'),
+
+      h(2, 'Fetching One Row vs. Many'),
+      p('<p>The sqlite3 example earlier used <code>fetchall()</code> — the cursor actually offers three ways to pull back results, and picking the right one avoids loading more into memory than you need:</p>'),
+      table(
+        ['Method', 'Returns'],
+        [
+          ['cursor.fetchone()', 'A single row (or None if there are no more) — use when you expect exactly one result'],
+          ['cursor.fetchmany(n)', 'Up to n rows at once — useful for paging through a large result set in chunks'],
+          ['cursor.fetchall()', 'Every remaining row, as a list — fine for small result sets, wasteful for huge ones'],
+        ]
+      ),
+      code('python', 'cursor.execute("SELECT * FROM students WHERE name = %s", ("Priya",))\nstudent = cursor.fetchone()  # a single row, since names should be unique here\nprint(student)'),
     ],
   },
   bn: {
@@ -1784,6 +2138,18 @@ lessons.push({
       h(2, 'INSERT, UPDATE, আর DELETE', 'insert-update-and-delete'),
       code('python', '# INSERT\ncursor.execute("INSERT INTO students (name, course) VALUES (%s, %s)", ("Priya", "Web Development"))\nconn.commit()  # writes are not saved until you commit\n\n# UPDATE\ncursor.execute("UPDATE students SET course = %s WHERE name = %s", ("Graphic Design", "Priya"))\nconn.commit()\n\n# DELETE\ncursor.execute("DELETE FROM students WHERE name = %s", ("Priya",))\nconn.commit()'),
       p('<p><code>conn.commit()</code> PHP-এর PDO থেকে একটি আসল পার্থক্য, যা ডিফল্টভাবে স্বয়ংক্রিয়ভাবে commit করে: Python-এর কানেক্টরে একটি লেখার পর একটি স্পষ্ট <code>commit()</code> দরকার, নাহলে পরিবর্তনটা আসলে সংরক্ষিত হবে না।</p>'),
+
+      h(2, 'একটি সারি আনা বনাম অনেকগুলো', 'fetching-one-row-vs-many'),
+      p('<p>আগের sqlite3 উদাহরণটি <code>fetchall()</code> ব্যবহার করেছিল — cursor আসলে ফলাফল ফেরত আনার তিনটি উপায় দেয়, আর সঠিকটা বেছে নিলে প্রয়োজনের চেয়ে বেশি মেমরিতে লোড হওয়া এড়ানো যায়:</p>'),
+      table(
+        ['মেথড', 'রিটার্ন করে'],
+        [
+          ['cursor.fetchone()', 'একটি একক সারি (বা আর না থাকলে None) — যখন আপনি ঠিক একটি ফলাফল প্রত্যাশা করেন তখন ব্যবহার করুন'],
+          ['cursor.fetchmany(n)', 'একবারে সর্বোচ্চ n সারি — খণ্ডে একটি বড় ফলাফল সেটের মধ্যে দিয়ে paging করার জন্য দরকারি'],
+          ['cursor.fetchall()', 'বাকি প্রতিটি সারি, একটি লিস্ট হিসেবে — ছোট ফলাফল সেটের জন্য ঠিক আছে, বিশাল সেটের জন্য অপচয়ী'],
+        ]
+      ),
+      code('python', 'cursor.execute("SELECT * FROM students WHERE name = %s", ("Priya",))\nstudent = cursor.fetchone()  # a single row, since names should be unique here\nprint(student)'),
     ],
   },
 })
@@ -1818,6 +2184,17 @@ lessons.push({
       h(2, 'Where the Official Docs Help'),
       p('<p>This section can\'t track every detail of a language that keeps evolving. The <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">official Python documentation</a> is the authoritative, always-current reference — worth bookmarking, and worth reaching for whenever you need something more exhaustive than a lesson here provides.</p>'),
 
+      h(2, 'A Few Habits Worth Building Early'),
+      table(
+        ['Tool', 'What it\'s for'],
+        [
+          ['pytest', 'Writing automated tests — catches a broken function before a user does'],
+          ['black', 'Automatic code formatting — one consistent style, no debate needed'],
+          ['ruff', 'Fast linting — flags unused imports, likely bugs, and style issues as you write'],
+        ]
+      ),
+      p('<p>None of these are required to write working Python, and none are covered elsewhere in this section — they\'re mentioned here because real, professional Python codebases use all three routinely, and picking them up early is far cheaper than retrofitting them onto a large project later.</p>'),
+
       p('<p>The fundamentals in this section — data types, control flow, functions, OOP, files, and databases — are the same whichever direction you take from here.</p>'),
     ],
   },
@@ -1847,6 +2224,17 @@ lessons.push({
 
       h(2, 'অফিসিয়াল ডকুমেন্টেশন যেখানে সাহায্য করে', 'where-the-official-docs-help'),
       p('<p>এই অংশটি একটি ক্রমাগত বিবর্তিত ভাষার প্রতিটি খুঁটিনাটি ট্র্যাক করতে পারে না। <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer">অফিসিয়াল Python ডকুমেন্টেশন</a> প্রামাণ্য, সবসময়-বর্তমান রেফারেন্স — বুকমার্ক করার মতো, আর এখানকার একটি পাঠ যা দেয় তার চেয়ে বেশি বিস্তারিত কিছু প্রয়োজন হলেই এটার দিকে যাওয়ার মতো।</p>'),
+
+      h(2, 'তাড়াতাড়ি গড়ে তোলার মতো কিছু অভ্যাস', 'a-few-habits-worth-building-early'),
+      table(
+        ['টুল', 'কীসের জন্য'],
+        [
+          ['pytest', 'স্বয়ংক্রিয় টেস্ট লেখা — একজন ব্যবহারকারীর আগেই একটি ভাঙা ফাংশন ধরে ফেলে'],
+          ['black', 'স্বয়ংক্রিয় কোড ফরম্যাটিং — একটি সামঞ্জস্যপূর্ণ স্টাইল, কোনো বিতর্কের দরকার নেই'],
+          ['ruff', 'দ্রুত linting — লেখার সময়ই ব্যবহার না হওয়া import, সম্ভাব্য বাগ, আর স্টাইল সমস্যা চিহ্নিত করে'],
+        ]
+      ),
+      p('<p>এদের কোনোটাই কার্যকর Python লেখার জন্য বাধ্যতামূলক নয়, আর এই অংশে অন্য কোথাও কভার করা হয়নি — এখানে উল্লেখ করা হয়েছে কারণ বাস্তব, পেশাদার Python কোডবেস নিয়মিতভাবে তিনটাই ব্যবহার করে, আর তাড়াতাড়ি এগুলো তুলে নেওয়া পরে একটি বড় প্রজেক্টে সেগুলো যোগ করার চেয়ে অনেক সস্তা।</p>'),
 
       p('<p>এই অংশের মূল বিষয়গুলো — ডেটা টাইপ, কন্ট্রোল ফ্লো, ফাংশন, OOP, ফাইল, আর ডেটাবেস — এখান থেকে আপনি যে দিকেই যান না কেন একই থাকে।</p>'),
     ],

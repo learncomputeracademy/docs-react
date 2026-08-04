@@ -9,7 +9,53 @@ for picking up work weeks later.
 
 ---
 
-## 2026-07-31 — Session 43: icon swaps, hero copy rewrite, JSX table-cell bug, O-16 fixed, admin SEO removed (D-66)
+## 2026-08-04 — Session 44: Python category deepened — all 28 lessons expanded (EN+BN)
+
+**Done**
+
+- User asked to lengthen the Python lessons with more depth, calling out f-strings and
+  string methods by name ("etc" for the rest). Scoped it first via `AskUserQuestion` —
+  user picked "all 28 Python lessons" over the smaller options.
+- Read every lesson in `scripts/create-python-content.mjs` (all 28, both locales) before
+  writing anything, then added **one genuinely new, non-redundant section per lesson** —
+  not padding, each addition fills an actual gap: two lessons had their own body missing
+  something their own heading/meta-description already promised (`lambda-functions`'
+  "map() and filter()" heading never showed `filter()`; `control-flow`'s meta description
+  promised the walrus operator, the body never covered it) — both fixed as part of this
+  pass, not left as debt.
+- `strings` got the most (3 new sections, matching what the user named explicitly):
+  f-string format specifiers (`:.2f`, alignment, the `=` debug specifier), multi-line
+  triple-quoted strings, and a second methods table (`startswith`/`endswith`, `find`,
+  `count`, `isdigit`/`isalpha`, `title`, `zfill`).
+- The other 27: Zen of Python, pip sanity check, line continuation, multi-assignment/swap,
+  `None`/`False`/`0` distinction, collection type conversion, compound assignment operators,
+  `random`, more list methods + safe copying, set `.add()`/`.discard()`, more dict methods,
+  comprehension `if/else` (transform) vs. trailing `if` (filter), walrus operator, `for`/
+  `while`...`else`, docstrings, `filter()`, `nonlocal`/closures, import aliasing (`as`),
+  bare-`except` pitfall, `pathlib` existence check, class vs. instance variables, explicit
+  method overriding, `@property`, "a generator only runs once", `strptime()`, `fetchone`/
+  `fetchmany`/`fetchall`, and a closing pytest/black/ruff pointer.
+- Every EN section mirrored into BN in the same edit pass (same anchors, same code blocks,
+  translated prose only, per `CONTENT-PIPELINE.md` §5) — verified before running for real
+  by checking `--dry-run` block counts: every EN/BN pair matched exactly, 26 pairs, no
+  lesson left with a mirrored-language gap.
+- Ran the script for real (idempotent update path — all 28 rows already existed). Verified
+  per the pipeline checklist: `curl -sL` against the live site (following the 308 redirect
+  the bare path needs) showed the new section headings in server-rendered HTML on both
+  `/python/strings/` and `/bn/python/strings/`, and spot-checked three more
+  (`control-flow`, `oop-encapsulation`, `where-to-go-next`) — all present.
+
+**Not done**
+
+- No new images generated this run — text-only expansion, so the image-style question from
+  `CONTENT-PIPELINE.md` §0 didn't apply.
+- Not pushed — local commit only, same standing rule as every session.
+
+**Next session — start here**
+
+1. Nothing blocking from this session. `docs/DECISIONS.md` — Open list is unchanged.
+
+---
 
 **Done**
 
