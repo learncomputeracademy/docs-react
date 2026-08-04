@@ -1,6 +1,8 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextResponse } from 'next/server'
 import { createPublicClient } from '@/lib/supabase/public'
+import { submitToIndexNow } from '@/lib/indexnow'
+import { absoluteUrl } from '@/lib/seo'
 
 // Publish → Supabase Database Webhook → this route → revalidateTag → that
 // ONE page regenerates on next request. See docs/DECISIONS.md's revalidation
@@ -37,6 +39,16 @@ export async function POST(req: Request) {
   // tag, but metadata resolution doesn't pick up the same invalidation).
   // revalidatePath forces the whole route, metadata included.
   paths.forEach((path) => revalidatePath(path, 'page'))
+
+  // Same trigger as the revalidation itself — a doc publish, edit, or
+  // delete. IndexNow doesn't distinguish "changed" from "removed": a ping
+  // just tells the engine to recrawl, and a deleted/unpublished page
+  // dropping out on its own is the correct outcome either way. Awaited
+  // (not fire-and-forget) so it actually happens before this function
+  // returns, given Vercel doesn't guarantee background work survives past
+  // the response — the cost is one external POST, not a page render.
+  await submitToIndexNow(paths.map((path) => absoluteUrl(path)))
+
   return NextResponse.json({ revalidated: tags.length > 0 || paths.length > 0, tags, paths })
 }
 

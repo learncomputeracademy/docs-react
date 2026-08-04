@@ -9,6 +9,82 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-04 — Session 45: mobile doc-page keyboard hints, glassmorphic bottom nav bar, IndexNow
+
+**Done**
+
+- **Prev/Next keyboard hints made visible.** The `←`/`→`/`N`/`P` shortcuts added in an earlier
+  session worked but weren't discoverable — added small `kbd` badges to the Previous/Next cards
+  matching the `⌘K` badge style already on the search button.
+- **Search "Pick a subject" delay fixed.** `CommandMenu`'s `categoriesAction` fetch was gated on
+  `open`, so the dialog appeared instantly but the category list visibly popped in a beat later.
+  Moved the fetch to run on mount instead — `CommandMenu` lives in the header and is always
+  mounted, so the data is normally ready well before Ctrl+K is ever pressed.
+- **Fixed glassmorphic bottom nav bar for docs pages on mobile** (user's idea, described in
+  detail: thin bar, sidebar + prev + next, liquid-glass effect). `LessonPagination`'s existing
+  full-title card row is now `md:`-only; added a fixed `md:hidden` bar below it with three
+  segments (sidebar toggle via the existing `useSidebar()` context, prev, next),
+  `backdrop-blur-xl` + `bg-background/75` matching the header's own glass recipe,
+  `safe-area-inset-bottom` padding for the iOS home indicator, disabled states with no adjacent
+  lesson. `lesson-content.tsx`'s `<main>` gained mobile-only bottom padding so the fixed bar
+  doesn't cover the last bit of content. The old left-edge floating sidebar tab
+  (`mobile-sidebar-trigger.tsx`) now hides itself on lesson pages (the new bar's own sidebar
+  button replaces it there) and stays for category-index pages, which have no bottom bar.
+- **User follow-up feedback, same feature:** the chapter-position hint ("7/16") the old left-edge
+  tab used to show was lost in the move, and the static word "Menu" wasn't useful either — fixed
+  both the same way. `getAdjacentDocs` (`lib/content.ts`) now also returns `position` (1-based
+  index + total *within the doc's own category*, computed from the same `getSidebarTree()` call
+  already being made, no extra query — deliberately not a sitewide count, "7/16" reads as chapter
+  position, "245/687" wouldn't). The sidebar segment of the bottom bar now shows that instead of
+  "Menu". Also added a thin (2px) reading-progress hairline along the bar's top edge, tracking
+  scroll through the lesson's own `<main id="lesson-article">` specifically (there are two nested
+  `<main>` elements on a lesson page — `SidebarInset`'s outer shell and the lesson's own — so an
+  id is used instead of `document.querySelector('main')`, which would silently grab the wrong
+  one) — offered as "anything else worth adding here" per the user's own question.
+  - **Verified live**, not just via `npm run build` — launched the dev server, drove Chrome via
+    the `claude-in-chrome` MCP tools (`resize_window` had no effect in this environment — the
+    actual browser viewport stayed at 1920px regardless of the requested size, confirmed via
+    `window.innerWidth`/`outerWidth`; worked around it by force-showing the `md:hidden` bar via a
+    direct style override for the screenshot, which exercises the same DOM/React logic real
+    mobile widths would). Screenshot confirmed the position badge correctly reads "8/28" on
+    `/python/strings` (8th lesson, sort_order 8, of 28) and the progress hairline visibly fills
+    as the page scrolls.
+- **IndexNow integration** — user asked "is this possible" and explicitly wanted the feasibility
+  answer *before* any code. Answered first (Bing/Yandex/Seznam/Naver participate; **Google does
+  not** — flagged clearly so expectations matched reality before building), got explicit
+  go-ahead, then built:
+  - Generated `INDEXNOW_KEY`, added to `.env.local`; verification file is a literal static
+    `public/<key>.txt` (not a dynamic route — `app/[category]/route.ts` already owns every
+    top-level dynamic segment, a second one would collide).
+  - `lib/indexnow.ts`: `submitToIndexNow(urls)` — fire-and-forget-safe (catches, logs, never
+    throws), so a ping failure can never break a real page revalidation.
+  - Wired into the existing `/api/revalidate` webhook (`app/api/revalidate/route.ts`) — same
+    Supabase Database Webhook that already drives `revalidateTag`/`revalidatePath` on every
+    `docs`/`doc_translations` publish, edit, or delete now also pings IndexNow with the same
+    resolved path(s). No new trigger. Delete needed no special-casing — IndexNow doesn't
+    distinguish "changed" from "removed," a ping just says "recrawl this."
+  - `scripts/indexnow-submit-all.mjs`: one-time backfill for pages that predate this webhook —
+    fetches the live `/sitemap.xml` (already the single source of truth for "every real page")
+    and submits every `<loc>` in it, rather than re-deriving the list from Supabase again.
+    `--dry-run` first, per the content-script conventions even though this isn't content.
+  - Full writeup, including what's verified and what's explicitly deferred: **D-67**.
+
+**Not done**
+
+- `INDEXNOW_KEY` not yet mirrored into Vercel's env vars (**O-24**) — pings silently no-op in
+  production until that's done; nothing breaks, they just don't submit yet.
+- The backfill script has only been `--dry-run`'d (666 URLs found and printed correctly), not run
+  for real — deliberately left for the user, since it's a live third-party API call on behalf of
+  the real domain and there's no urgency to do it same-session as the build.
+- Not pushed — local commits only, same standing rule as every session.
+
+**Next session — start here**
+
+1. Mirror `INDEXNOW_KEY` (O-24) into Vercel, deploy, then run `node scripts/indexnow-submit-all.mjs`
+   for real (drop `--dry-run`) to backfill the ~140 pages that predate the webhook.
+
+---
+
 ## 2026-08-04 — Session 44: Python category deepened — all 28 lessons expanded (EN+BN)
 
 **Done**

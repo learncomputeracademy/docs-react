@@ -3299,6 +3299,56 @@ auth-gate redirect as any other undefined `/admin/*` path — not a 200).
 
 ---
 
+## D-67 · IndexNow wired into the revalidation webhook (Bing/Yandex, not Google)
+
+**What it is.** IndexNow is a ping protocol — POST a URL (or batch) to `api.indexnow.org` and it
+fans out to every participating engine: Bing, Yandex, Seznam, Naver. **Google does not
+participate** — this has zero effect on Google indexing, only the others. User asked for
+feasibility first, then to build it once confirmed.
+
+**Verification.** A key (`c53c516524fb0d546c9df3a04eaf8a02`, `INDEXNOW_KEY` in `.env.local`) is
+proven by a plain-text file at the site root containing that key — chose a literal static file in
+`public/` over a dynamic route, since `app/[category]/route.ts` already owns every top-level
+dynamic segment and a second one would collide. `public/<key>.txt` needs zero routing code and is
+served before any dynamic route resolves.
+
+**Ongoing (new + changed + removed pages) — `lib/indexnow.ts` + `app/api/revalidate/route.ts`.**
+The existing Supabase Database Webhook → `/api/revalidate` → `revalidateTag`/`revalidatePath` flow
+(D-21 and friends) already computes the exact affected path(s) on every `docs`/`doc_translations`
+publish, edit, or delete (`old_record` covers delete). Added one line: after revalidating, also
+`submitToIndexNow()` those same URLs. No new trigger, no new webhook — same event, one more
+consumer. IndexNow doesn't distinguish "changed" from "removed" — a ping just says "recrawl this,"
+and a removed/unpublished page dropping out of the index on its own is the correct outcome either
+way, so delete needed no special-casing. `submitToIndexNow()` is fire-and-forget-safe (catches and
+logs, never throws) so a ping failure can never break the actual page revalidation — but the route
+`await`s it rather than firing truly async, since Vercel doesn't guarantee background work survives
+past the response.
+
+**Backfill (old pages that predate this webhook) — `scripts/indexnow-submit-all.mjs`.** The
+revalidate webhook only fires going forward; the ~140 already-published pages needed one manual
+submission. Rather than re-deriving the page list from Supabase again, the script fetches the
+live `/sitemap.xml` (already the single source of truth for "every real page," per its own
+comment) and submits every `<loc>` in it — one-time, re-runnable, `--dry-run` first per
+`CONTENT-PIPELINE.md`'s script conventions even though this isn't a content script.
+
+**Verified:** key file serves at `/<key>.txt` (200, exact byte match, no collision with
+`[category]`) · `--dry-run` found and printed all 666 sitemap URLs, exited cleanly · a real POST to
+`/api/revalidate` for `/python/strings` returned `{"revalidated":true}` with no IndexNow error
+logged (silent success is the only success signal — logging is error-only by design).
+
+**Not done:**
+- Not pushed — local commits only, same standing rule as every session.
+- `INDEXNOW_KEY` needs mirroring into Vercel's env vars before this does anything in production —
+  same as every other `.env.local` secret (see `docs/ASSETS.md`'s standing instruction). Added as
+  O-24.
+- The one-time backfill script (`indexnow-submit-all.mjs`) hasn't actually been run for real yet —
+  only `--dry-run`. Running it is a live, outward-facing action (pings a third-party API on behalf
+  of the real domain), left for the user to trigger once `INDEXNOW_KEY` is live on Vercel and this
+  is deployed — running it against `docs.learncomputer.in` before that only submits based on
+  whatever's already in the live sitemap, so no urgency to do it same-session as this build.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3327,3 +3377,4 @@ auth-gate redirect as any other undefined `/admin/*` path — not a 200).
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |
 | ~~O-22~~ | ~~Run `supabase/migrations/009-notes.sql`~~ — **resolved.** User ran it and pushed to GitHub | — |
 | O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
+| O-24 | Mirror `INDEXNOW_KEY` into Vercel's env vars (D-67) — set in `.env.local` only so far, same as any new secret before its first deploy | IndexNow pings silently no-op locally (`submitToIndexNow` returns early with no key) until this is done; nothing breaks, it just doesn't submit anything in production yet |
