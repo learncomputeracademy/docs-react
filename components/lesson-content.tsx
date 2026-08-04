@@ -23,7 +23,7 @@ export async function LessonContent({ category, slug, locale }: { category: stri
 
   return (
     <>
-      <main className="min-w-0 flex-1 py-8">
+      <main className="min-w-0 flex-1 pb-24 pt-8 md:pb-8">
         {locale === 'bn' && !doc.isTranslated && (
           <div className="mb-6 rounded-lg border border-primary/30 bg-accent/50 px-4 py-3 text-sm text-accent-foreground">
             {s.notTranslatedBanner}
@@ -35,7 +35,15 @@ export async function LessonContent({ category, slug, locale }: { category: stri
         </div>
 
         {(prev || next) && (
-          <LessonPagination prev={prev} next={next} prefix={prefix} previousLabel={s.previous} nextLabel={s.next} />
+          <LessonPagination
+            prev={prev}
+            next={next}
+            prefix={prefix}
+            previousLabel={s.previous}
+            nextLabel={s.next}
+            menuLabel={s.menu}
+            browseLessonsLabel={s.browseLessons}
+          />
         )}
       </main>
 
