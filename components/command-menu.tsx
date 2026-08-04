@@ -74,7 +74,7 @@ export function CommandMenu() {
       <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Portal>
           <Dialog.Overlay className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm" />
-          <Dialog.Content className="fixed left-1/2 top-[20%] z-50 w-full max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border bg-popover shadow-2xl">
+          <Dialog.Content className="fixed left-1/2 top-[20%] z-50 w-[calc(100%-2rem)] max-w-lg -translate-x-1/2 overflow-hidden rounded-xl border bg-popover shadow-2xl">
             <Dialog.Title className="sr-only">Search lessons</Dialog.Title>
             <Command shouldFilter={false} className="flex flex-col">
               <div className="flex items-center gap-2 border-b px-4">

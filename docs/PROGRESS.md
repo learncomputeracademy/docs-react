@@ -85,6 +85,55 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-04 — Session 46: Python category — PHP comparisons stripped from all 25 affected lessons
+
+**Done**
+
+- User feedback: the Python category leaned heavily on "unlike PHP" / "PHP's equivalent
+  of..." framing throughout (a deliberate choice from the original PHP→Python→React build
+  order, D-61/D-62), and beginners with no PHP background were getting confused by
+  explanations that assumed it. Asked to rewrite wherever required.
+- Grepped the whole script first: **156 PHP mentions across 25 of the 28 lessons**
+  (`tuples-and-sets`, `iterators-and-generators`, `where-to-go-next` were already clean).
+  Went lesson by lesson, EN then its BN mirror, rewriting each one so the Python concept
+  is explained on its own terms — not deleted outright, since several carried real
+  teaching value (e.g. "== compares value, is compares identity") that just needed to
+  stop leaning on PHP as the explanatory anchor. A few sentences were *entirely*
+  PHP-framed as their only content (`operators`' opening line, `scope`'s "Reading a
+  Global Is Automatic" section, `databases`' SQL-injection warning) and needed a full
+  rewrite rather than a phrase swap.
+- Two meta_description fields also had PHP comparisons (`dictionaries`) — fixed those
+  too, since they're what shows in a search snippet, not just body content.
+- Left the **dev-only script header comments** alone (lines 2-37: "PHP done, Python
+  here, React next", the D-61 crash note) — never rendered to a student, no reason to
+  touch them.
+- **Also fixed two small UI issues raised mid-session:**
+  - Mobile bottom nav bar's sidebar segment showed "Menu" as static text — user didn't
+    like the word and pointed out the chapter-position hint ("7/16") from the old
+    left-edge tab had been lost when that logic moved. Fixed both at once: added
+    `position` to `getAdjacentDocs()`'s return (`lib/content.ts`, computed within the
+    doc's own category from the same `getSidebarTree()` call already being made — no
+    extra query), swapped the static label for it in `lesson-pagination.tsx`, and added
+    a thin reading-progress hairline along the bar's top edge as an answer to "anything
+    else worth adding here" (tracks scroll through the lesson's own `<main
+    id="lesson-article">`, not the whole page — `SidebarInset` renders its own `<main>`
+    too, so `document.querySelector('main')` would have grabbed the wrong one).
+  - `CommandMenu`'s search dialog sat edge-to-edge on mobile with no side margin
+    (screenshot showed it flush against both edges). `w-full` → `w-[calc(100%-2rem)]` on
+    `Dialog.Content` — one line.
+- Verified: `--dry-run` showed all 26 EN/BN block-count pairs unchanged (edits only
+  touched text within existing blocks, never added/removed one), ran for real, then
+  `curl`'d several live pages scoped to just the `"blocks":[...]` JSON — zero PHP
+  mentions left in lesson body content. The one "PHP" string still appearing on every
+  Python page is the site's own real PHP course link in the sidebar nav, unrelated and
+  correct to leave alone.
+
+**Not done**
+
+- Not pushed — local commits only, same standing rule as every session.
+
+---
+
 ## 2026-08-04 — Session 44: Python category deepened — all 28 lessons expanded (EN+BN)
 
 **Done**

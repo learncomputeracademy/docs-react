@@ -3338,14 +3338,52 @@ logged (silent success is the only success signal — logging is error-only by d
 
 **Not done:**
 - Not pushed — local commits only, same standing rule as every session.
-- `INDEXNOW_KEY` needs mirroring into Vercel's env vars before this does anything in production —
-  same as every other `.env.local` secret (see `docs/ASSETS.md`'s standing instruction). Added as
-  O-24.
-- The one-time backfill script (`indexnow-submit-all.mjs`) hasn't actually been run for real yet —
-  only `--dry-run`. Running it is a live, outward-facing action (pings a third-party API on behalf
-  of the real domain), left for the user to trigger once `INDEXNOW_KEY` is live on Vercel and this
-  is deployed — running it against `docs.learncomputer.in` before that only submits based on
-  whatever's already in the live sitemap, so no urgency to do it same-session as this build.
+- **Update, same day:** user mirrored `INDEXNOW_KEY` into Vercel and deployed — confirmed via a
+  direct (unauthenticated) HTTP check that `/​<key>.txt` serves the correct key in production, the
+  only thing IndexNow itself actually needs. O-24 closed on that basis. Ran the backfill for real
+  (dropped `--dry-run`): IndexNow rejected all 666 URLs with `403 SiteVerificationNotCompleted` —
+  their side hadn't caught up to the key file yet (likely cached an earlier check from before the
+  deploy finished), not a bug here. Re-running `node scripts/indexnow-submit-all.mjs` after their
+  verification catches up (untimed — no documented SLA, tens of minutes is the working assumption)
+  is what's actually still outstanding, not the Vercel step.
+
+---
+
+## D-68 · Python category — PHP comparisons removed as the primary teaching device
+
+**What changed.** D-61/D-62 built the Python category as the second leg of a deliberate
+PHP→Python→React run, and leaned on "unlike PHP" / "Python's equivalent of PHP's X" framing
+throughout as the default way to explain a concept — reasonable when the audience is assumed to
+already know PHP, wrong when it isn't. User reported beginners with no PHP background were
+getting confused specifically because of this, and asked for a rewrite wherever it applied.
+
+**Scope.** 156 PHP mentions across 25 of the 28 lessons (`tuples-and-sets`,
+`iterators-and-generators`, `where-to-go-next` were already clean — never had any). Two
+`metaDescription` fields (`dictionaries`) were included too, since those are what show in a
+search snippet, not just body copy.
+
+**Approach — rewrite, not delete.** Most of these sentences carried a real teaching point
+(`==` compares value, `is` compares identity; `round()` uses banker's rounding; SQL injection is
+a real risk) that had nothing to do with PHP specifically — PHP was just the anchor used to
+explain it. Rewrote each to stand on its own, several with a milder, non-PHP-specific contrast
+("many other languages use `{ }`...", "some languages have real `private`/`protected`
+keywords...") where a contrast still genuinely helped, and a plain standalone statement where it
+didn't. A handful of sentences were *entirely* PHP-framed with no other content (`operators`'
+opening line, `scope`'s "Reading a Global Is Automatic" section, `lambda-functions`' opening
+definition) and needed a full rewrite rather than a phrase-level edit.
+
+**Left alone, deliberately.** The script's own dev-facing header comments (lines 2-37 of
+`scripts/create-python-content.mjs`: "PHP done, Python here, React next", the D-61 crash
+postmortem) — these document real build history for whoever reads the script next, never render
+to a student, and touching them wasn't part of the actual complaint.
+
+**Verified:** `--dry-run` showed all 26 EN/BN block-count pairs unchanged (text-only edits, no
+block added or removed anywhere) before running for real. After running, `curl`'d several live
+pages scoped to just the `"blocks":[...]` JSON payload (not the full page, which still
+legitimately mentions "PHP" once per page — the site's actual PHP course link in the sidebar
+nav) — zero PHP mentions left in any lesson body.
+
+**Not done:** not pushed — local commits only, same standing rule as every session.
 
 ---
 
@@ -3377,4 +3415,5 @@ logged (silent success is the only success signal — logging is error-only by d
 | ~~O-7~~ | ~~R2 credentials not in `.env.local`~~ — **resolved, D-30.** Still needs mirroring into Vercel's env vars before production uploads ≥10 MB will work | — |
 | ~~O-22~~ | ~~Run `supabase/migrations/009-notes.sql`~~ — **resolved.** User ran it and pushed to GitHub | — |
 | O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
-| O-24 | Mirror `INDEXNOW_KEY` into Vercel's env vars (D-67) — set in `.env.local` only so far, same as any new secret before its first deploy | IndexNow pings silently no-op locally (`submitToIndexNow` returns early with no key) until this is done; nothing breaks, it just doesn't submit anything in production yet |
+| ~~O-24~~ | ~~Mirror `INDEXNOW_KEY` into Vercel's env vars~~ — **resolved**, see D-67's update. Key file confirmed live in production | — |
+| O-25 | Re-run `node scripts/indexnow-submit-all.mjs` (D-67) — first real attempt hit `403 SiteVerificationNotCompleted`, IndexNow's side hadn't caught up to the newly-live key file yet | Nothing broken; the ~140 pre-webhook pages just aren't backfilled to IndexNow yet. New pages going forward are unaffected — they go through the `/api/revalidate` webhook, a separate path |
