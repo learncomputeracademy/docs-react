@@ -22,6 +22,7 @@ import { VideoBlockEditor } from './blocks/video-block-editor'
 import { TryItBlockEditor } from './blocks/tryit-block-editor'
 import { UnsupportedBlock } from './blocks/unsupported-block'
 import type { Block, Doc } from '@/lib/types'
+import { slugify } from '@/lib/utils'
 
 type Category = { id: string; slug: string; title: string }
 
@@ -30,10 +31,6 @@ type Category = { id: string; slug: string; title: string }
 // patch like { html: '...' } still type-checks as "a valid partial update
 // for whichever block this actually is."
 type BlockPatch = { [K in Block['type']]: Partial<Extract<Block, { type: K }>> }[Block['type']]
-
-function slugify(text: string) {
-  return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-}
 
 const ADDABLE_TYPES: { type: Block['type']; label: string }[] = [
   { type: 'richtext', label: 'Rich text' },

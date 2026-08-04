@@ -5,10 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { type CategoryRow, type CategoryInput, createCategory, updateCategory, deleteCategory } from '@/lib/admin/categories'
-
-function slugify(text: string) {
-  return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-}
+import { slugify } from '@/lib/utils'
 
 function emptyInput(): CategoryInput {
   return { slug: '', title: '', titleBn: null, description: null }

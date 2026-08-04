@@ -24,12 +24,9 @@ import {
   createDraftDoc,
 } from '@/lib/admin/docs'
 import { saveCategoryOrder } from '@/lib/admin/categories'
+import { slugify } from '@/lib/utils'
 
 type Category = { id: string; slug: string; title: string }
-
-function slugify(text: string) {
-  return text.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
-}
 
 type RowProps = {
   doc: AdminDocRow
