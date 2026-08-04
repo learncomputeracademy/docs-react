@@ -35,13 +35,13 @@ export function CommandMenu() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  // Fetched once per open, not on every keystroke — this list doesn't
-  // depend on the query, it's shown as quick navigation while it's empty.
+  // Fetched on mount, not on open — CommandMenu lives in the header and is
+  // always mounted, so by the time someone actually opens the dialog this
+  // has almost always already resolved. Fetching on open instead made the
+  // "Pick a subject" list visibly pop in after the dialog itself appeared.
   useEffect(() => {
-    if (open && categories.length === 0) {
-      categoriesAction(locale).then(setCategories)
-    }
-  }, [open, locale, categories.length])
+    categoriesAction(locale).then(setCategories)
+  }, [locale])
 
   const runSearch = useCallback((q: string) => {
     setQuery(q)

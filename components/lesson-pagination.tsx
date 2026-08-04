@@ -45,16 +45,22 @@ export function LessonPagination({
     <div className="mt-12 grid grid-cols-2 gap-4 border-t pt-6">
       {prev ? (
         <Link href={`${prefix}/${prev.path}`} className="group flex flex-col gap-1 rounded-lg border p-4 transition-colors hover:border-primary/40 hover:bg-accent/50">
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            <ArrowLeft className="size-3.5" /> {previousLabel}
+          <span className="flex items-center justify-between gap-1 text-xs text-muted-foreground">
+            <span className="flex items-center gap-1">
+              <ArrowLeft className="size-3.5" /> {previousLabel}
+            </span>
+            <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px] sm:inline">← P</kbd>
           </span>
           <span className="font-medium group-hover:text-primary">{prev.title}</span>
         </Link>
       ) : <div />}
       {next ? (
         <Link href={`${prefix}/${next.path}`} className="group flex flex-col items-end gap-1 rounded-lg border p-4 text-right transition-colors hover:border-primary/40 hover:bg-accent/50">
-          <span className="flex items-center gap-1 text-xs text-muted-foreground">
-            {nextLabel} <ArrowRight className="size-3.5" />
+          <span className="flex items-center justify-between gap-1 text-xs text-muted-foreground">
+            <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px] sm:inline">N →</kbd>
+            <span className="flex items-center gap-1">
+              {nextLabel} <ArrowRight className="size-3.5" />
+            </span>
           </span>
           <span className="font-medium group-hover:text-primary">{next.title}</span>
         </Link>
