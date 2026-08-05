@@ -3506,6 +3506,63 @@ outlined but not built. Not pushed — local commits only.
 
 ---
 
+## D-71 · Digital Marketing category shipped — paid advertising taught conceptually
+
+**What changed.** The second half of D-70's approved pair. `marketing` category, 32 lessons,
+EN+BN, `scripts/create-marketing-content.mjs`. Completes the SEO + Digital Marketing plan;
+nothing about the D-70 scoping was revisited.
+
+**Structure.** Foundations (channels, audience, funnel) → content (content marketing, calendar,
+blogging, copywriting, landing pages, CTAs) → email (fundamentals, list building, writing) →
+social (overview, platform choice, Facebook/Instagram, LinkedIn, YouTube, short-form, strategy,
+community) → **paid, 8 lessons** → brand, analytics, KPIs, wrap-up.
+
+**⚠️ The paid-advertising rule, restated here because it is the thing most likely to be
+undone by a future edit.** Site owner instruction: teach the types, not the dashboards. The
+8 paid lessons cover auction mechanics, pricing models (CPC/CPM/CPA/CPV), Google campaign type
+*categories*, match types, Meta objectives and placements, targeting and retargeting concepts,
+budget and bidding approaches, and performance measurement. They contain **no screenshots, no
+menu paths, no step-by-step click instructions, and no current pricing**. Lessons state
+explicitly that platform labels drift — Google renamed Discovery to Demand Gen, Meta has
+reshuffled objective names more than once — and tell the reader to match the purpose rather than
+a remembered name. This is what keeps the lessons true as interfaces change.
+
+**Accuracy rule carried over from the SEO run**, and it mattered more here: marketing writing is
+full of confident sourceless statistics ("email returns $42 per $1 spent", "users decide in 0.05
+seconds"). None appear. Where a figure would help but cannot be verified, the lesson describes
+the direction rather than fabricating a magnitude. The script header records both rules.
+
+**Things stated plainly that most marketing material soft-pedals**, deliberately, because the
+audience is beginners who cannot yet tell: organic social reach has declined and the trend is
+consistent; open rates are unreliable since email clients began pre-loading tracking pixels;
+retargeting is less precise than older advice assumes because of browser tracking restrictions;
+platform-reported conversions are systematically generous and should be sanity-checked against
+your own records; and the LinkedIn one-line-paragraph style is now widely recognised as parody.
+
+**Cross-links.** Marketing lesson 1 points at the SEO course rather than re-teaching search;
+`where-this-leaves-you` links to SEO, Design, and WordPress. The funnel lesson links to SEO's
+search-intent lesson, since the two are descriptions of the same underlying behaviour.
+
+**Icon.** `streamline-plump-color/announcement-megaphone` — same collection as SQL and SEO.
+Code change, deploy-gated, same as D-69 and D-70.
+
+**Images.** 5 at gpt-2/medium/1k, 650 credits — fewer than the 11 estimated in D-70, because
+this course is largely conceptual and diagrams were only added where one genuinely clarified
+(channel convergence, funnel, landing page anatomy, auction ranking, retargeting sequence). Not
+padded to hit the estimate. `retargeting-1` returned 1344×752 rather than 1024×768 — the same
+16:9 mismatch caught in D-69 and D-70, fixed before the real run. Three runs, three catches:
+reading Cloudinary's response rather than assuming is now clearly load-bearing.
+
+**Verified:** `node --check` after every batch (it caught two syntax errors mid-write in the SEO
+run, so it became routine) → `--dry-run` 32 lessons, EN/BN block counts equal → real run 32/32
+`OK` → six live URLs incl. `/bn/`, corrected dimensions in server HTML, all 5 Cloudinary images
+200, category index lists all 32.
+
+**Not done:** not pushed. Three icons now await a deploy (`nodejs` shipped, `seo` and
+`marketing` pending).
+
+---
+
 ## Open
 
 | # | Question | Blocks |

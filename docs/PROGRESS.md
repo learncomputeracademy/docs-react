@@ -9,6 +9,54 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-05 — Session 49: Digital Marketing category (32 lessons) — paid ads taught as concepts
+
+**Done**
+
+- **`marketing` category built and live**, 32 lessons EN+BN, `scripts/create-marketing-content.mjs`.
+  Completes the pair approved in D-70 alongside the SEO category from the previous session.
+- **Paid advertising, 8 lessons, concepts only** — the site owner's scoping call and the right
+  one. Auction mechanics, CPC/CPM/CPA/CPV, Google campaign *categories*, match types, Meta
+  objectives and placements, targeting/retargeting, budgets and bidding, measurement. No
+  screenshots, no menu paths, no click-throughs, no pricing. Lessons say outright that platform
+  labels drift (Discovery → Demand Gen; Meta's objective renames) and to match the purpose, not
+  the name. That is what keeps them true when the interfaces change again.
+- **Said plainly what most marketing material soft-pedals**, since the audience cannot yet tell:
+  organic social reach has declined and keeps declining; open rates are unreliable now that email
+  clients pre-load tracking pixels; retargeting is less precise than older advice assumes;
+  platform-reported conversions are systematically generous; the LinkedIn one-line-paragraph
+  style is now recognised as parody.
+- **5 images, 650 credits** — fewer than the 11 estimated in D-70. The course is conceptual and
+  diagrams were only added where one genuinely clarified. Deliberately not padded to hit the
+  estimate.
+- **`retargeting-1` came back 1344×752 instead of 1024×768** — third run in a row with this exact
+  16:9 mismatch. Caught the same way each time, by reading Cloudinary's upload response rather
+  than assuming. Worth treating as a standing check, not a coincidence.
+- **`node --check` after every 2-lesson batch.** Adopted after the SEO run, where a malformed
+  `p(` call and an unescaped apostrophe each hid ~1,500 lines into the file. Zero syntax
+  surprises this session as a result.
+- **Verified**: dry-run (32 lessons, EN/BN block counts equal) → 32/32 OK → six live URLs incl.
+  `/bn/`, corrected dimensions in server HTML, 5 Cloudinary images 200, category index lists all 32.
+
+**Where the site stands now**
+
+16 categories, ~400 English lessons, ~800 pages bilingual. The three added across sessions 47-49
+(Node.js, SEO, Digital Marketing) were all new ground rather than migrated content.
+
+**Not done**
+
+- Not pushed. **Three icons are deploy-gated** — `nodejs` shipped in session 47, `seo` and
+  `marketing` are waiting. None will appear in the sidebar/home/search until a deploy.
+- React's one remaining PHP/Python comparison line, still unactioned across three sessions.
+
+**Next session**
+
+- Push when ready; the icon changes are the only thing blocked on it.
+- Nothing else is queued. The "one-stop shop" discussion in session 48 flagged quizzes and
+  learning paths as the highest-value next moves if the user wants direction.
+
+---
+
 ## 2026-08-05 — Session 48: SEO category (26 lessons) — first non-code subject on the site
 
 **Done**

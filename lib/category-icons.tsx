@@ -13,6 +13,7 @@ import IconAi from '~icons/streamline-color/artificial-intelligence-spark'
 import IconSql from '~icons/streamline-plump-color/database'
 import IconNodejs from '~icons/logos/nodejs-icon'
 import IconSeo from '~icons/streamline-plump-color/file-search'
+import IconMarketing from '~icons/streamline-plump-color/announcement-megaphone'
 
 export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   programming: IconProgramming,
@@ -30,4 +31,5 @@ export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: st
   ai: IconAi,
   nodejs: IconNodejs,
   seo: IconSeo,
+  marketing: IconMarketing,
 }
