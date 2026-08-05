@@ -3563,6 +3563,36 @@ run, so it became routine) → `--dry-run` 32 lessons, EN/BN block counts equal 
 
 ---
 
+## D-72 · Career Skills category shipped — 34 lessons, prompted by an NCERT reference the user explicitly said not to follow
+
+**What changed.** User asked what could be done about students struggling to get hired after training. After a strategy discussion, they shared an NCERT/PSSCIVE "Employability Skills" Class XI textbook (208pp, 5 units: Communication, Self-management, ICT, Entrepreneurship, Green Skills) as a reference for the *kind* of thing they meant — explicitly stating it should **not** be followed: no CBSE syllabus alignment, no LibreOffice/grooming/hygiene/green-skills sessions, nothing copied. It served only to prompt the idea; the actual request was industry-specific and centred on two things existing career content generally skips: **tough interview questions the candidate is expected not to know**, and **rejection/resilience** as a real, substantial topic rather than an afterthought.
+
+**Title/slug decided via `AskUserQuestion`**: "Career Skills", slug `career` — picked over "Getting Hired" (too narrow — the category also covers freelancing and the first 90 days) and "Career & Interviews" (too literal).
+
+**Outline built collaboratively before writing anything**, per CONTENT-PIPELINE.md §0 — proposed 34 lessons in 7 sections, user reviewed and approved with "Build It": Where You Stand (4) → Proof of Work (5) → Applying (4) → **The Interview (10)** → **Rejection and Resilience (6)** → Other Routes In (2) → Once You Are In (3). The Interview and Rejection sections are deliberately the two largest, sized to match what the user specifically flagged as missing from existing material.
+
+**The two flagship lessons the user asked for directly:**
+- `career/when-you-dont-know` — reframes not-knowing an answer as a skill in itself (interviewers often probe past a candidate's level on purpose), with a concrete four-part structure: admit uncertainty → reason from what you do know → arrive at a partial/wrong answer out loud → state how you'd actually find out. Explicitly distinguishes this from bluffing (worse) and freezing (also damaging but less so).
+- The 6-lesson rejection section: rejection framed as the statistically normal outcome (not exception), what a rejection does/doesn't mean, getting and using feedback, a **diagnostic lesson** for when interviews consistently don't convert (stage-by-stage: application → screening → technical → live-coding → final-round, each with a different likely cause and fix), staying sharp during a long search, and confidence/self-doubt — including a note on when discouragement crosses into something needing support beyond a career course.
+
+**Image style decided via `AskUserQuestion`**: photoreal/human-centered, not the flat-vector/orange house style used by every prior category. Deliberate departure — this category is about people (interviews, rejection, confidence) rather than systems, and the user was offered the choice explicitly rather than defaulted into consistency. 8 images, all editorial-photo style, Indian context, no text overlays, all 4:3 at the declared 1024×768 (no dimension mismatches this run — the recurring 16:9 issue from D-69/70/71 didn't recur because none of this run's images used 16:9).
+
+**English-confidence barrier named directly**, per instruction to address "personality" and interview performance honestly. `communicating-clearly-under-pressure` treats reduced English fluency under pressure as a real, common, non-shameful situation for Indian candidates rather than avoiding the topic — states plainly that technical interviewers weigh reasoning clarity over grammar, and that asking for a question to be repeated is normal. This is the one lesson in the category where the Bengali translation isn't just a convenience version — it's written for readers where this is literally their situation.
+
+**Tone discipline, stated in the script's own header comment** so it survives future edits: honest about difficulty without being discouraging, diagnostic framing ("here's how to find out what's wrong") throughout rather than reassurance, no "believe in yourself" content anywhere.
+
+**Cross-links.** `freelancing-as-a-first-income` points to the Digital Marketing course for the client/business side; the closing lesson links to Digital Marketing and SEO. No content duplicated across categories — each covers its own angle.
+
+**Icon.** `streamline-color/business-handshake`. Fourth icon now deploy-gated alongside `nodejs`, `seo`, `marketing`.
+
+**A live-verification wrinkle worth recording.** Immediately after the real run, `/career/`'s server-rendered sidebar payload showed `"docs":[]` — looked like a stale-cache bug specific to this category. Re-fetching a few seconds later showed all 34 docs correctly. Not a real bug: the shared `unstable_cache`-tagged 'sidebar' data (one query for the whole tree, per `lib/content.ts`) needs one regeneration cycle after the tag-busting webhook fires per-doc across 34 inserts; the very first request can still hit the previous cached value before it settles. Worth remembering as expected behavior on large batch inserts, not something to "fix."
+
+**Verified:** `node --check` after every 2-lesson batch (now standing practice since the SEO run) → `--dry-run` 34 lessons, EN/BN block counts equal → real run 34/34 `OK` → live-checked EN + BN + category index (34/34 links, after the cache settled) + image dimensions + Cloudinary 200s.
+
+**Not done:** not pushed — the icon needs a deploy like the three before it.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

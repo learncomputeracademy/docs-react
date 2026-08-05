@@ -9,6 +9,67 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-05 — Session 50: Career Skills category (34 lessons) — interviews and rejection, in depth
+
+**Done**
+
+- **`career` category built and live**, 34 lessons EN+BN, `scripts/create-career-content.mjs`.
+  Prompted by the user sharing an NCERT "Employability Skills" Class XI textbook — explicitly
+  as inspiration only, explicitly **not** to be followed (no CBSE alignment, no LibreOffice/
+  grooming/green-skills content, nothing copied). The actual ask, refined over a short strategy
+  discussion first: help students who can't get hired after training, with real coverage of
+  tough interview questions and rejection — the two things most career content skips.
+- **Title/slug and image style both confirmed via `AskUserQuestion`** before writing, per
+  CONTENT-PIPELINE.md §0 — "Career Skills" / `career`, and **photoreal/human-centered** images
+  rather than the flat-vector house style every prior category used. Deliberate one-off: this
+  category is about people, not systems, and the user was given the choice rather than defaulted
+  into visual consistency.
+- **34 lessons in 7 sections**, outline agreed before any lesson body was written: Where You
+  Stand (4) → Proof of Work (5) → Applying (4) → **The Interview (10)** → **Rejection and
+  Resilience (6)** → Other Routes In (2) → Once You Are In (3). The two largest sections are the
+  two the user specifically flagged.
+- **The flagship lesson**: `when-you-dont-know` — a concrete four-part structure for handling a
+  question you genuinely can't answer (admit it → reason from what you know → arrive at a
+  partial answer out loud → say how you'd find out), explicitly distinguished from both bluffing
+  and freezing.
+- **The diagnostic lesson**: `diagnosing-why-you-keep-not-getting-through` — maps rejection
+  patterns to the actual failing stage (no replies → CV; screening fails → communication;
+  technical fails → fundamentals; live-coding fails → process under pressure; final-round losses
+  → often just needs more attempts) so "it's not working" turns into something actionable.
+- **English-confidence under pressure named directly** in `communicating-clearly-under-pressure`
+  — real, common, not shameful, and technical interviewers weigh reasoning over grammar. The one
+  lesson this session where the Bengali version isn't a convenience translation but the actual
+  situation for many readers.
+- **8 images, photoreal, Indian context, no text overlays** — all 4:3, all came back at the
+  declared 1024×768 with no dimension mismatch (the recurring 16:9 issue from the last three runs
+  didn't recur, since this run had no 16:9 images).
+- **Verified**: dry-run (34 lessons, EN/BN block counts equal) → 34/34 OK → live EN + BN +
+  category index + image dimensions + Cloudinary 200s.
+
+**Caught mid-verification**
+
+- Right after the real run, `/career/`'s sidebar payload showed `"docs":[]` — looked like a
+  caching bug specific to the new category. Re-fetching a few seconds later showed all 34 docs
+  correctly. Explanation: the shared sidebar cache (one query for the whole site tree) needs one
+  regeneration cycle after 34 tag-busting webhook calls land; the very first request after a
+  large batch insert can still catch the stale value. Not a bug — expected behavior on a
+  34-lesson batch, worth remembering next time a large run's index page looks empty right after
+  publishing.
+
+**Not done**
+
+- Not pushed. **Four icons are now deploy-gated** — `nodejs` shipped, `seo`/`marketing`/`career`
+  are waiting.
+- React's one remaining PHP/Python comparison line is still unactioned, five sessions running.
+
+**Next session**
+
+- Push when ready.
+- Nothing else queued for this thread. If the user wants to keep going on the "one-stop shop"
+  discussion from session 48, quizzes and learning paths are still the two flagged next moves.
+
+---
+
 ## 2026-08-05 — Session 49: Digital Marketing category (32 lessons) — paid ads taught as concepts
 
 **Done**
