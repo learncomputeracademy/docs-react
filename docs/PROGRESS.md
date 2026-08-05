@@ -9,6 +9,55 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-05 — Session 48: SEO category (26 lessons) — first non-code subject on the site
+
+**Done**
+
+- **SEO category built and live**, 26 lessons EN+BN, `scripts/create-seo-content.mjs`.
+  Scoped with the user first (per CONTENT-PIPELINE.md §0): two categories approved (`seo` now,
+  `marketing` next), organic + social, paid ads included in marketing but **conceptually only**
+  — their call, and the right one, since auction mechanics outlive dashboards. Flat-vector /
+  orange image style, asked not assumed.
+- **First non-code category on the site** — no runnable examples or Try-It blocks, because
+  there is no code to run. Every earlier category assumed otherwise.
+- **Accuracy discipline written into the script's header comment**, deliberately, because this
+  subject attracts folklore: no invented statistics, truncation described as pixel-width and
+  approximate rather than an exact character count, mechanisms over unpublished algorithm
+  specifics, and contested things stated as contested. Core Web Vitals thresholds are quoted
+  precisely only because Google publishes them. INP throughout; FID nowhere (replaced 2024).
+- **This site used as its own case study** in the Bing/IndexNow lesson — D-12's finding that it
+  ran for years with no Search Console property, no sitemap, and a `noindex` on every page, so
+  it was invisible for reasons unrelated to content quality. First-hand, verifiable from the
+  repo, and a better teaching example than anything invented.
+- **9 images** (1,170 credits). Only 6 were written into the content initially; added 3 more
+  where a diagram genuinely helped rather than to match the quoted number. `page-speed-1` came
+  back 1344×752 not 1024×768 — caught again by reading Cloudinary's response, same class of
+  error as the Node.js run.
+- **Icon** `streamline-plump-color/file-search` added — same collection as SQL's.
+- **Verified**: dry-run (26 lessons, EN/BN block counts equal) → real run 26/26 OK → six live
+  URLs incl. `/bn/`, corrected image dimensions in server HTML, all 9 Cloudinary images 200,
+  category index lists all 26.
+
+**Caught mid-run**
+
+- A malformed `p(` call (typed `p><p>` instead of `p('<p>`) and an unescaped apostrophe in
+  `Google's` both broke the file. `node --check` before every dry-run caught both — worth
+  keeping as a habit on these long content scripts, where a syntax error can hide 1,500 lines in.
+
+**Not done**
+
+- The `marketing` category (32 lessons, incl. 8 conceptual paid-ads lessons) is approved and
+  outlined but **not built** — that is the next job.
+- Not pushed. The SEO icon needs a deploy to appear in the sidebar/home/search, same as Node.js.
+- React's one remaining PHP/Python comparison line is still unactioned.
+
+**Next session**
+
+- Build the `marketing` category from the approved outline in D-70.
+- Push when the user is ready — two icon changes (nodejs shipped, seo pending) are deploy-gated.
+
+---
+
 ## 2026-08-05 — Session 47: new "nodejs" category — 26 lessons, first brand-new category post-migration
 
 **Done**

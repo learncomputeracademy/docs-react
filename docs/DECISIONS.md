@@ -3439,6 +3439,73 @@ action needed.
 
 ---
 
+## D-70 · SEO + Digital Marketing approved as two categories; SEO shipped
+
+**What changed.** User asked for an "SEO Digital marketing" guide. Confirmed via
+`AskUserQuestion` before writing anything: **two separate categories** (not one combined),
+**organic + social**, and — in a follow-up — **paid advertising included, but conceptually
+only**. Image style asked per CONTENT-PIPELINE.md §0: flat vector / orange accent.
+
+**Slugs.** `seo` (shipped this session) and `marketing` (not yet built). The user picked one
+slug from a list while choosing two categories; read as `seo` for the first and `marketing`
+for the second, and stated back to them explicitly rather than assumed silently.
+
+**The paid-ads scoping call was the user's, and it is the right one.** Their instruction:
+"no need to include how to since the dashboard changes but the types of it." Auction
+mechanics, match types, objective categories, pricing models and targeting concepts are
+stable for years; dashboards, menu paths and button labels are not. The marketing category's
+8 paid lessons will teach the former and explicitly note that platform labels drift — Google
+renamed Discovery to Demand Gen, Meta has reshuffled objective names more than once — so a
+renamed button never makes a lesson wrong. No screenshots, no step-by-steps, no current
+pricing.
+
+**SEO category — 26 lessons, EN+BN, shipped.** `scripts/create-seo-content.mjs`.
+Findability (how engines work, robots.txt, sitemaps, canonicals) → on-page (titles, meta
+descriptions, headings, URLs, content, internal links, images) → technical (structured data,
+Open Graph, mobile-first, Core Web Vitals, HTTPS) → tooling (Search Console, Bing/IndexNow,
+measurement) → off-page (local, link building) → mistakes and an audit checklist ordered so
+the things that block everything else get checked first.
+
+**The first non-code category on the site.** No runnable examples, no Try-It blocks — there
+is no code to run. Worth noting since every prior category assumed otherwise.
+
+**⚠️ Accuracy discipline, recorded because this subject needs it.** SEO writing is full of
+confidently-repeated folklore. The script carries a header comment stating the rules this run
+followed, so a future edit does not quietly undo them: no fabricated statistics or
+percentages; title/description truncation described as pixel-width and approximate, never an
+exact character count, because that is how it actually works; mechanisms taught rather than
+unpublished algorithm specifics; contested or unknowable things said to be so rather than
+resolved to sound authoritative. Core Web Vitals thresholds (LCP 2.5s, INP 200ms, CLS 0.1)
+are quoted precisely **because Google publishes them** — they are the exception, not the
+pattern. INP is used throughout; FID appears nowhere, since it was replaced in 2024.
+
+**This site used as a case study.** The Bing/IndexNow lesson uses the site's own history:
+D-12's finding that it ran for years with no Search Console property, no sitemap, no
+canonicals and a `noindex` on every page, and was therefore essentially absent from Google
+for reasons that had nothing to do with content or competition — plus D-67's IndexNow
+integration as the worked example of wiring notification into publishing. First-hand and
+verifiable from this repo, which is why it is worth using.
+
+**Icon.** `streamline-plump-color/file-search` added to `lib/category-icons.tsx` — same
+collection as the SQL category's icon, so the two sit together visually. Code change, needs a
+deploy, same as `nodejs` in D-69.
+
+**Images.** 9 at gpt-2/medium/1k, 1,170 credits. Initially only 6 were written into the
+content; 3 more were added (canonical consolidation, local map results, the audit's staged
+pyramid) where a diagram genuinely earned its place rather than to hit a quoted number.
+`page-speed-1` returned 1344×752 rather than the assumed 1024×768 — caught again by reading
+Cloudinary's upload response, the same class of error as D-69. Fixed before the real run.
+
+**Verified:** `--dry-run` (26 lessons, EN/BN block counts equal) → real run, 26/26 `OK` →
+live-checked six URLs including `/bn/`, confirmed lesson text and the corrected 1344×752
+dimensions in server-rendered HTML, all 9 Cloudinary images return 200, category index lists
+all 26 lessons.
+
+**Not done:** the `marketing` category (32 lessons incl. the 8 paid ones) is approved and
+outlined but not built. Not pushed — local commits only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
