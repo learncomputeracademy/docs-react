@@ -9,6 +9,61 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-05 — Session 51: Hosting & Deployment category (40 lessons) — closing the gap Career Skills opened
+
+**Done**
+
+- **`hosting` category built and live**, 40 lessons EN+BN, `scripts/create-hosting-content.mjs`.
+  Prompted directly by the user naming the recurring post-course question: how do you actually
+  make a website live — domains, hosting, DNS, FTP/SSH, email, and "what not." Sharpened by a
+  second message asking specifically for free-vs-paid detail and CDN/edge coverage.
+- **Image style confirmed via `AskUserQuestion`** before writing, per CONTENT-PIPELINE.md §0 —
+  **isometric**, a third deliberate departure from the flat-vector house default (after Career's
+  photoreal choice last session). 37 unique isometric diagrams, all generated `gpt-2`/medium/1k,
+  all came back at the declared 1024×768 with zero dimension mismatches — first category run
+  where every image matched on the first try.
+- **10 parts, 40 lessons**, outline agreed before writing: What Actually Happens (3) → Domains (4)
+  → DNS (2) → Hosting Types (6) → Cost (3) → Connecting & Deploying (9) → CDN & Edge (3) →
+  Security & Email (3) → Running It (5) → Wrap-up (1).
+- **Pricing discipline, held for all 40 lessons**: tiers/ratios instead of fixed prices, the
+  *shape* of free-tier limits (bandwidth caps, build minutes, sleep-on-idle, no custom domain)
+  instead of exact quotas, no "best provider" ranking anywhere — resolves the real tension between
+  the site's no-fixed-prices convention and the user's explicit ask for "detailed cheap to
+  expensive options." Every price-sensitive block carries an inline `// ⚠️ PRICE-SENSITIVE` code
+  comment (never in visible heading/body text — caught and fixed once mid-write, see below) for a
+  future yearly refresh pass.
+- **Closes a real gap Career Skills opened**: that category's `proof-of-work` lessons tell
+  students to deploy live projects with no supporting content on how — `going-live-where-this-
+  leaves-you` (the closing lesson) links back to `/career/proof-of-work/` explicitly, and several
+  deploy lessons link the other direction.
+- **Verified**: dry-run (40 lessons, EN/BN block counts equal for all 40) → 40/40 OK → live EN +
+  BN category index (40/40 links each) → spot-checked lesson content in server HTML (lesson 1,
+  lesson 40) → image dimensions correct in rendered `<img>` tags (1024×768, `f_auto,q_auto`
+  Cloudinary transforms present) → Cloudinary URLs 200.
+
+**Caught mid-write**
+
+- Lesson 7 (`registering-a-domain`) initially leaked an internal instruction directly into a
+  user-visible `h(2, ...)` heading string — `"What Registering Actually Costs — ⚠️ price-
+  sensitive, read the discipline note..."` — self-caught immediately, moved to a code comment
+  above the block instead. Same fix applied to the parallel Bengali heading. Established the
+  pattern used for the rest of the file: price-sensitivity is a comment for future editors, never
+  copy a reader sees.
+
+**Not done**
+
+- Not pushed. **`hosting` icon is now deploy-gated** alongside the still-waiting `seo`/
+  `marketing`/`career` icons from the last two sessions.
+- React's one remaining PHP/Python comparison line is still unactioned, six sessions running.
+
+**Next session**
+
+- Push when ready (five icons now queued behind one deploy: nodejs already shipped separately,
+  seo/marketing/career/hosting waiting).
+- Nothing else queued for this thread.
+
+---
+
 ## 2026-08-05 — Session 50: Career Skills category (34 lessons) — interviews and rejection, in depth
 
 **Done**

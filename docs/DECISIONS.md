@@ -3593,6 +3593,28 @@ run, so it became routine) → `--dry-run` 32 lessons, EN/BN block counts equal 
 
 ---
 
+## D-73 · Hosting & Deployment category shipped — 40 lessons, the gap Career Skills' proof-of-work advice opened
+
+**What changed.** User named a recurring post-course question directly: how do students actually make a website live — domains, hosting, DNS, hosting for PHP/WordPress/React, email servers, FTP, SSH, "and what not." A near-total content gap on the site, confirmed by a quick search before proposing anything. Made urgent by timing: the just-shipped Career Skills category (D-72) actively tells students to deploy live projects as proof of work, with nothing on the site teaching them how.
+
+**Scope refined by a follow-up message**: keep free-and-paid options with cheap-to-expensive detail, and cover CDNs/edge explicitly. This created a real tension with the site's established no-fixed-prices convention (used throughout every prior category) — resolved by teaching **tiers/ratios and the shape of free-tier limits** (bandwidth caps, build-minute quotas, sleep-on-idle, no custom domain, no email) instead of numbers, and by never ranking or recommending a "best" provider anywhere. Stated as a three-rule pricing-discipline note in the script's own header comment, and every price-sensitive block additionally carries an inline `// ⚠️ PRICE-SENSITIVE` code comment for a future yearly refresh pass — never in visible copy.
+
+**Outline built before writing anything**, per CONTENT-PIPELINE.md §0 — 40 lessons in 10 parts, no scope change from the user after proposal: What Actually Happens (3) → Domains (4) → DNS (2) → Hosting Types (6) → Cost (3) → Connecting & Deploying (9, one lesson per course stack: static/PHP/WordPress/React/Node.js) → CDN & Edge (3) → Security & Email (3) → Running It (5, staging, secrets, backups, migration, downtime diagnosis) → Wrap-up (1).
+
+**Image style decided via `AskUserQuestion`**: isometric — a third deliberate departure from the flat-vector house default, after Career's photoreal choice in D-72. 37 unique diagrams, `gpt-2`/medium/1k, 4,810 credits total (well inside the 45k available). All 37 came back at the declared 1024×768 with zero dimension mismatches — the first category run where every image matched on the first try, breaking the 16:9-mismatch pattern that recurred across D-69/70/71.
+
+**Cross-links, closing the loop deliberately.** The closing lesson (`going-live-where-this-leaves-you`) links directly to `/career/proof-of-work/`; several deploy lessons link back to Career Skills. This category exists specifically to support that one.
+
+**Icon.** `streamline-stickies-color/server-network`. Fifth icon now deploy-gated alongside `nodejs` (shipped), `seo`, `marketing`, `career`.
+
+**Caught mid-write, not by the user.** Lesson 7 (`registering-a-domain`) initially leaked the internal price-sensitivity marker directly into a user-facing `h(2, ...)` heading string in both languages — self-caught before the file was even syntax-checked, fixed by moving the marker to a code comment. Sets the pattern the rest of the file follows.
+
+**Verified:** `node --check` after every 2-lesson batch → `--dry-run` 40 lessons, EN/BN block counts equal for all 40 → real run 40/40 `OK` → live EN + BN category index (40/40 links each) → lesson content confirmed in server-rendered HTML (lesson 1, lesson 40) → a mid-category lesson's `<img>` tag spot-checked for correct 1024×768 dimensions and Cloudinary `f_auto,q_auto` transforms → Cloudinary URLs 200.
+
+**Not done:** not pushed — the icon needs a deploy like the four before it.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
