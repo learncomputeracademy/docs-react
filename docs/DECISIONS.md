@@ -3387,6 +3387,58 @@ nav) — zero PHP mentions left in any lesson body.
 
 ---
 
+## D-69 · New "nodejs" category — 26 lessons, first entirely new category since the migration
+
+**What changed.** User asked to "build the content for node JS" and explicitly required no
+cross-language comparisons (no "similar to PHP/Python" framing) — following straight from D-68.
+`node`/`nodejs` didn't exist as a category anywhere (13 live categories at the time: ai, basics,
+css, design, html, javascript, php, photoshop, programming, python, react, sql, wordpress), so
+this is the first genuinely new category added since the Jekyll migration itself, not a rewrite
+of migrated content.
+
+**Process followed** — CONTENT-PIPELINE.md §0's gate: proposed a 26-lesson outline, asked image
+style and category slug via `AskUserQuestion` before writing any lesson bodies. Owner picked:
+proceed with the full 26-lesson outline as proposed, **flat-vector/orange-accent** house style
+(same as the Computer Basics rebuild), slug **`nodejs`** (not `node`).
+
+**Scope.** 26 lessons, EN+BN, `scripts/create-nodejs-content.mjs`: runtime basics → CommonJS/ES
+modules → npm → core modules (fs/path/os) → http server → event loop → events/callbacks/
+promises/async-await → streams/buffers → process/env → error handling → Express (intro/routing/
+middleware/body-parsing) → REST API → database connection (driver-agnostic, links out to the
+existing SQL course for the query syntax itself) → debugging → wrap-up. Builds on the
+`javascript` category rather than re-teaching syntax; contrasts, where used, are against
+browser/client-side JavaScript (which the reader already knows from that course), never against
+another server-side language — the exact anti-pattern D-68 removed from Python was designed out
+from the start here rather than fixed after the fact.
+
+**Category setup, beyond the content script.** `categories` row created directly (one-off script,
+deleted after use — not meant to be re-run). Added a real brand icon: `lib/category-icons.tsx`
+now maps `nodejs` to Iconify's `logos:nodejs-icon` instead of falling back to the generic
+new-category icon — `lib/admin/categories.ts`'s own comment already documents that a real brand
+icon for a new category is a code change, not admin-editable.
+
+**Images.** 9 images (not 26 — one per major concept, not per lesson, matching the PHP run's
+ratio of ~1 image per 2-3 lessons): runtime diagram, module require/export, npm/package.json,
+http request-response cycle, event loop, streams, middleware chain, REST API methods, database
+connection. `gpt-2`, medium, 1k, flat-vector/orange-accent. Cost: 9 × 130 = 1,170 credits,
+reported before spending per the pipeline's guardrail. Two images (`http-server-1`, `rest-api-1`,
+both generated at `16:9`) came back `1344×752` rather than the assumed `1024×768` — caught by
+reading Cloudinary's actual upload response rather than assuming dimensions, per
+CONTENT-PIPELINE.md §4's explicit warning; fixed in the block data before the real run.
+
+**Verified:** `--dry-run` (26 lessons, correct block counts) → real run, all 26 `OK` → live
+`curl`'d EN (`/nodejs/introduction/`, `/nodejs/http-server/`, `/nodejs/middleware/`,
+`/nodejs/where-this-leaves-you/`) and BN (`/bn/nodejs/introduction/`) pages, category index page,
+confirmed lesson text and the corrected `1344×752` image dimensions present in the server-rendered
+HTML (CLAUDE.md §3.3's SSR-content gate).
+
+**Not done:** not pushed — local commits only. Node.js was not previously promised to Search
+Console/Bing in any sitemap submission beyond the standing IndexNow webhook wiring (D-67) — new
+lesson URLs will get picked up by that automatically on next publish/revalidate, no separate
+action needed.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

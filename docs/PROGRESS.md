@@ -9,6 +9,45 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-05 — Session 47: new "nodejs" category — 26 lessons, first brand-new category post-migration
+
+**Done**
+
+- **26-lesson Node.js course built from scratch**, EN+BN, per `docs/CONTENT-PIPELINE.md`.
+  `nodejs` didn't exist as a category (13 live categories before this run — no PHP/Node overlap
+  in the original Jekyll site). Followed the pipeline's §0 gate: proposed the full outline +
+  asked image style + asked category slug via `AskUserQuestion` before writing a single lesson
+  body. Owner approved the outline as-is, picked flat-vector/orange-accent (matches the Computer
+  Basics rebuild), and `nodejs` over `node` as the slug.
+- **User's explicit requirement — no cross-language comparisons.** Directly following D-68 (the
+  Python PHP-comparison cleanup), this run was written standalone from the start: contrasts, where
+  they help, are against *client-side* JavaScript (which the reader already knows from the JS
+  course), never against PHP or Python. Nothing to retrofit here, unlike Python.
+- **Category infra**: `categories` row (slug `nodejs`, title "Node.js"), a real Iconify brand icon
+  (`logos:nodejs-icon`) added to `lib/category-icons.tsx` instead of the generic fallback.
+- **9 images** (not 26 — one per major concept: runtime, modules, npm, http request/response,
+  event loop, streams, middleware chain, REST methods, database connection), `gpt-2`/medium/1k,
+  1,170 credits, cost reported before generating per the pipeline guardrail. Caught two images
+  (`http-server-1`, `rest-api-1`) that rendered `1344×752` instead of the assumed `1024×768` by
+  reading Cloudinary's actual upload response — fixed before the real write.
+- **Verified live**: `--dry-run` → real run (26/26 `OK`) → curl'd EN + BN pages, category index,
+  confirmed lesson text and correct image dimensions in server-rendered HTML.
+
+**Not done**
+
+- Not pushed — local commits only, standing rule every session.
+- React's one remaining PHP/Python comparison (`scripts/create-react-content.mjs` line 75 + BN
+  mirror, flagged back in Session 46) is still unactioned — user hasn't said yes/no on it yet.
+
+**Next session**
+
+- If the user wants a second wave here: testing frameworks, WebSockets/real-time, or auth are the
+  natural Node follow-ons flagged in this session's own wrap-up lesson, but nothing was promised —
+  don't start these unprompted.
+- Ask about the still-open React PHP-comparison line before touching it.
+
+---
+
 ## 2026-08-04 — Session 45: mobile doc-page keyboard hints, glassmorphic bottom nav bar, IndexNow
 
 **Done**

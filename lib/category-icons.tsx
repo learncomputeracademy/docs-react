@@ -11,6 +11,7 @@ import IconDesign from '~icons/fluent-color/design-ideas-48'
 import IconProgramming from '~icons/streamline-stickies-color/programming-duo'
 import IconAi from '~icons/streamline-color/artificial-intelligence-spark'
 import IconSql from '~icons/streamline-plump-color/database'
+import IconNodejs from '~icons/logos/nodejs-icon'
 
 export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   programming: IconProgramming,
@@ -26,4 +27,5 @@ export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: st
   photoshop: IconPhotoshop,
   sql: IconSql,
   ai: IconAi,
+  nodejs: IconNodejs,
 }
