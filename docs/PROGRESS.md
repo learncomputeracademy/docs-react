@@ -9,6 +9,66 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-06 — Session 53: live DX audit (gstack /devex-review) — 2 search bugs fixed, 2 real content bugs found via Try It gap, 1 new component bug found
+
+**Done**
+- Ran `/devex-review` (gstack skill) against production — reframed for a learning site with
+  no SDK/CLI (dropped the API/CLI/upgrade-path sections of the rubric). Browser-tested via
+  gstack's headless `browse` tool: getting-started flow, search, 404 page, mobile, and the
+  Try It feature. Screenshots, not guesses.
+- Search fixed (`lib/actions.ts`, `components/command-menu.tsx`): `searchDocs()` only ever
+  queried `docs`, so `/tools/*` pages were invisible to search (confirmed live: "flexbox" →
+  "No lessons found" despite a Flexbox Playground existing) — added a small static tools list
+  merged into results. Also added a 250ms debounce; every keystroke was firing its own
+  500ms-1s server round-trip with nothing to cancel the previous one.
+- Try It Yourself: confirmed via direct query that 0 of 469 published docs had ever used a
+  `tryit` block, despite the feature being fully built since Stage 6. Converted 3 of the
+  original 15 "needs a decision" candidates from `docs/RESEARCH.md` — `css/dropdowns`,
+  `css/navbar`, `html/tag-video` — into real, working, sandboxed Try It blocks. **2 of the 3
+  were live bugs, not just missing polish**: dropdowns/navbar's demo HTML had been rendering
+  completely unstyled since the original migration (the `<style>` block that made them work
+  was correctly stripped as chrome but the "convert to tryit" follow-up never happened), and
+  tag-video's embedded preview videos were 404ing against an old Jekyll asset path that never
+  existed on this site. Full details in D-75.
+- Found and reverted a 4th conversion (`css/icons`): its icon-font `@import` blocks surfaced
+  a genuine, separate bug in `components/blocks/try-it.tsx` (external cross-origin fonts load
+  successfully but never paint in the sandboxed preview iframe). Reverted to plain code
+  blocks rather than ship a broken preview; filed as O-28.
+
+**Findings worth remembering**
+- The gstack `/devex-review` skill assumes a developer-facing product (SDK/CLI/API) by
+  default — for a learning site, dropped those sections rather than force-fitting scores.
+- gstack's own first-run setup wants to install `bun` via a piped curl script and inject a
+  routing block into this project's `CLAUDE.md` — declined the auto-install (asked the user
+  to install bun themselves instead) and declined the CLAUDE.md routing injection (this
+  project's CLAUDE.md is a deliberately hand-maintained governance doc; a generic third-party
+  block didn't belong in it).
+- The `docs/RESEARCH.md` §1 "15 files need a decision" list is stale relative to today's
+  content — most of those 15 lessons have since been rewritten/expanded and now contain
+  dozens of tiny syntax snippets rather than one clean demo. Only reliable by actually reading
+  each file's current `blocks`, not by trusting the original 2026-07-24 list at face value.
+- `docs-master` (the read-only Jekyll source) was essential for recovering the original CSS
+  behind 2 of the 3 fixed demos — the extraction script correctly dropped `<style>` blocks as
+  chrome, but that meant the demo HTML that depended on them silently broke.
+
+**Failed / abandoned**
+- Could not root-cause the `try-it.tsx` external-font bug (O-28) despite: isolated
+  static-file harness testing (works), a two-simultaneous-iframe harness (works), checking
+  for a CSP header/meta tag (none exists), and testing in both gstack's headless browser and
+  real Chrome (`claude-in-chrome` — fails identically in both). Left as an open bug rather
+  than guessing at a fix.
+
+**Next session — start here**
+1. O-27: decide the approach for the remaining 11 "needs a decision" lessons — likely needs
+   the user's call on tiny-snippets-as-many-iframes vs. authoring new synthesized examples.
+2. O-28: the try-it.tsx external-font bug needs real devtools access into the sandboxed
+   iframe to root-cause (blocked from this session's tools — `sandbox="allow-scripts"` has no
+   `allow-same-origin`, so no JS inspection from outside).
+3. Everything from this session is committed locally, not pushed — same batch as Sessions
+   47-52's pending work.
+
+---
+
 ## 2026-08-06 — Session 52: hero copy refresh, Docs-dropdown data/layout bugs, ISR write budget investigation
 
 **Done**

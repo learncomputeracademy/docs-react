@@ -3702,6 +3702,76 @@ effect in the dashboard."
 
 ---
 
+## D-75 · Live DX audit (gstack /devex-review) found and fixed 2 real search bugs, converted 3 lessons to real Try It blocks, surfaced 2 new bugs
+
+**Date:** 2026-08-06 · **Status:** Active, DB writes live now, code not deployed · **Decided by:** Claude, user said "fix everything"
+
+**What triggered this.** User ran `/devex-review` — browser-tested the live site (production,
+not a guess) against the standard DX rubric, reframed for a learning site with no SDK/CLI.
+Found: search missed a natural query ("flexbox" → "No lessons found" despite a Flexbox
+Playground existing), search cost a full server round-trip per keystroke with no debounce,
+and the flagship "Try It Yourself" feature never actually appeared on any lesson checked.
+
+**Search, both fixed (`lib/actions.ts`, `components/command-menu.tsx`):**
+1. `searchDocs()` only ever queried the `docs` table — the `/tools/*` pages (Box Model,
+   Flexbox Playground, Grid Generator, etc.) aren't rows there, so they were structurally
+   invisible to search no matter what a learner typed. Added a small static tools list,
+   matched alongside docs, tools ranked first.
+2. `CommandMenu`'s `runSearch` fired `searchAction` on every keystroke, no debounce, nothing
+   to cancel the previous request — measured 500ms-1s per call typing "flexbox" live. Added a
+   250ms debounce.
+
+**Try It Yourself — the bigger finding.** Direct query before touching anything: 0 of 469
+published docs had a `tryit` block. The feature itself (D-18/D-19) has been fully built and
+wired since Stage 6, just never used. Traced back to `docs/RESEARCH.md` §1's original 15-file
+"needs a decision" list from the 2026-07-24 extraction — the follow-up to convert those into
+`tryit` blocks was never done.
+
+Converted the 3 clearest, lowest-risk candidates — and **2 of the 3 turned out to be live
+bugs, not just a missing enhancement**:
+- `css/dropdowns` and `css/navbar` had raw demo HTML sitting in a `richtext` block, styled by
+  classes (`.dropdown-content`, `ul.vertical`, etc.) whose `<style>` block the extraction
+  correctly stripped as chrome — the demo has been rendering completely unstyled in
+  production this whole time. Recovered the original CSS from `docs-master` (read-only Jekyll
+  source) and rebuilt both as real, working, sandboxed `tryit` blocks.
+- `html/tag-video`'s embedded preview videos pointed at `/assets/img/movie.mp4` — a path that
+  only ever existed on the old Jekyll site — broken 404s in production. Swapped for MDN's CC0
+  sample clip. Also converted the lesson's play/pause/resize demo (the corpus's only
+  `<script>`, per `docs/CONTENT-MODEL.md`) into a working `tryit` block, and removed a second
+  copy of the same non-functional buttons sitting in richtext right above it.
+
+**A 4th candidate, `css/icons`, converted then reverted — a new bug found, not fixed.** Its
+two code blocks each need an external icon-font stylesheet (Font Awesome / Google Material
+Icons via CSS `@import`). That surfaced a genuine, separate bug in
+`components/blocks/try-it.tsx`: the imported font loads successfully (confirmed via network
+log — 200, correct byte count) but never paints inside the sandboxed
+`iframe[sandbox="allow-scripts"]`. Reproduced in gstack's headless `browse` tool, in real
+Chrome (`claude-in-chrome`), and is NOT reproducible in an isolated static-file harness
+outside this app using the identical `srcdoc` string, including with two simultaneous
+cross-origin-font iframes side by side. No CSP header or meta tag exists on the page (ruled
+out explicitly). Root cause not found — reverted `css/icons` back to its original plain code
+blocks rather than ship a visibly blank preview box. See O-28.
+
+**Deliberately not touched:** the remaining 11 lessons from the original 15-file list
+(`css/font`, `css/form`, `css/pseudo-classes`, `css/pseudo-elements`, `css/image-transparency`,
+`css/inline-block`, `html/blocks`, `html/form-elements`, `html/form-input-types`,
+`html/forms`, `html/responsive`). Read all of them — they're now mostly dozens of small
+isolated syntax snippets each (the content has clearly been rewritten/expanded since the
+2026-07-24 list was made), not one clean self-contained demo. Converting them well means
+either an unwieldy number of tiny iframes per lesson or authoring new synthesized examples —
+a bigger content-authoring call than a bug-fix pass, needs its own decision. See O-27.
+
+**Verified:** `npx tsc --noEmit` clean on the search fix. All 3 tryit conversions screenshot-
+verified live in production (dropdowns hover-styled correctly, navbar shows all 3 variants
+correctly, tag-video plays + play/pause/resize buttons work) — before/after screenshots taken
+via gstack `browse`.
+
+**Not done:** the two search-fix files are committed locally, not pushed. The DB writes
+(dropdowns/navbar/tag-video content, css/icons revert) are already live — no deploy needed,
+same as every other content fix this project makes.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3733,3 +3803,5 @@ effect in the dashboard."
 | ~~O-24~~ | ~~Mirror `INDEXNOW_KEY` into Vercel's env vars~~ — **resolved**, see D-67's update. Key file confirmed live in production | — |
 | O-25 | Re-run `node scripts/indexnow-submit-all.mjs` (D-67) — first real attempt hit `403 SiteVerificationNotCompleted`, IndexNow's side hadn't caught up to the newly-live key file yet | Nothing broken; the ~140 pre-webhook pages just aren't backfilled to IndexNow yet. New pages going forward are unaffected — they go through the `/api/revalidate` webhook, a separate path |
 | O-26 | Vercel free-tier ISR Writes at 133K/200K (66%, 30-day window). **Update:** user pulled Observability → ISR (Production, last 12h) before D-74's fix deployed — confirmed on-demand row-trigger writes are the dominant driver (2-4 writes per single lesson path within 12h, matching the exact bug fixed), not build-time pre-rendering as first suspected. Two new leads surfaced there, neither investigated yet: (1) Next's segment cache (`.segments/_tree.segment` etc.) likely multiplies the cost of every `revalidatePath()` call beyond "1 write" — framework-level, unaffected by this fix; (2) `/[category]` alone showed 64 writes vs. 19 reads in 12h, disproportionate to traffic. **Next:** check the same dashboard page again a few days after this fix deploys to confirm per-lesson write counts actually dropped; if so, investigate the two new leads next | Nothing broken today; free-tier project auto-pauses if the quota is actually hit, which would take the whole site down until next month or an upgrade |
+| O-27 | Decide the approach for the remaining 11 lessons on `docs/RESEARCH.md`'s original 15-file "needs a decision" list (D-75) — `css/font`, `css/form`, `css/pseudo-classes`, `css/pseudo-elements`, `css/image-transparency`, `css/inline-block`, `html/blocks`, `html/form-elements`, `html/form-input-types`, `html/forms`, `html/responsive`. Each now has dozens of small isolated syntax snippets rather than one clean demo — needs a call on whether to convert every snippet to its own `tryit` (many small iframes per lesson) or author new synthesized "put it together" examples (real new content, not extraction) | Nothing broken — these render fine today as plain `code` blocks, just not interactive |
+| O-28 | New bug found in `components/blocks/try-it.tsx` (D-75): a `tryit` block whose CSS does `@import` on a cross-origin stylesheet (tested with both Font Awesome via cdnjs and Google Material Icons) never paints the resulting icons inside the preview iframe, even though the font file itself loads successfully (confirmed 200 status, correct byte count, via network log). Reproduced in gstack's headless browser AND real Chrome; does NOT reproduce in an isolated static-file harness with the identical `srcdoc` string outside the app, including with two such iframes side by side. No CSP present (checked both header and meta tag) to explain it. Root cause unknown — worth a focused debugging session with real devtools access into the sandboxed iframe (blocked from JS inspection here since `sandbox="allow-scripts"` has no `allow-same-origin`) | Blocks using external icon-font demos in Try It blocks (rare — most lessons use plain HTML/CSS/JS with no external font). `css/icons` reverted to plain code blocks rather than ship this broken |
