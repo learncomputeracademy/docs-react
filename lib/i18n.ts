@@ -27,6 +27,7 @@ export const STRINGS = {
     next: 'Next',
     browseLessons: 'Browse lessons',
     menu: 'Menu',
+    interactiveTool: 'Interactive tool',
   },
   bn: {
     siteName: 'লার্ন কম্পিউটার একাডেমি',
@@ -52,6 +53,7 @@ export const STRINGS = {
     next: 'পরবর্তী',
     browseLessons: 'পাঠ ব্রাউজ করুন',
     menu: 'মেনু',
+    interactiveTool: 'ইন্টারঅ্যাক্টিভ টুল',
   },
 } as const satisfies Record<Locale, Record<string, string | ((...args: number[]) => string)>>
 

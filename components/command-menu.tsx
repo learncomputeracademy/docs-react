@@ -1,17 +1,25 @@
 'use client'
 
-import { useState, useEffect, useCallback, useTransition } from 'react'
+import { useState, useEffect, useCallback, useRef, useTransition } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Command } from 'cmdk'
-import { Search, FileText, Loader2 } from 'lucide-react'
+import { Search, FileText, Wrench, Loader2 } from 'lucide-react'
 import { searchAction, categoriesAction } from '@/lib/actions'
 import { localeFromPathname, localizedPath, t } from '@/lib/i18n'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { startRouteProgress } from '@/components/magic/route-progress'
 
-type Result = { id: string; path: string; title: string; meta_description: string | null }
+type Result = { id: string; path: string; title: string; meta_description: string | null; kind: 'doc' | 'tool' }
 type CategoryItem = { slug: string; title: string; firstPath: string; count: number }
+
+// Every keystroke was firing its own server round-trip (500ms-1s each,
+// measured via a live search for "flexbox") with nothing to cancel the
+// previous request — typing felt laggy even though the underlying query is
+// fast. 250ms is short enough to still feel instant once someone pauses,
+// long enough to collapse a 7-character word into one request instead of
+// seven.
+const SEARCH_DEBOUNCE_MS = 250
 
 export function CommandMenu() {
   const [open, setOpen] = useState(false)
@@ -43,14 +51,21 @@ export function CommandMenu() {
     categoriesAction(locale).then(setCategories)
   }, [locale])
 
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
   const runSearch = useCallback((q: string) => {
     setQuery(q)
+    if (debounceRef.current) clearTimeout(debounceRef.current)
     if (q.trim().length < 2) { setResults([]); return }
-    startTransition(async () => {
-      const r = await searchAction(q)
-      setResults(r)
-    })
-  }, [])
+    debounceRef.current = setTimeout(() => {
+      startTransition(async () => {
+        const r = await searchAction(q, locale)
+        setResults(r)
+      })
+    }, SEARCH_DEBOUNCE_MS)
+  }, [locale])
+
+  useEffect(() => () => { if (debounceRef.current) clearTimeout(debounceRef.current) }, [])
 
   function select(path: string) {
     setOpen(false)
@@ -121,10 +136,18 @@ export function CommandMenu() {
                     onSelect={() => select(r.path)}
                     className="flex cursor-pointer items-start gap-3 rounded-lg px-3 py-2.5 text-sm data-[selected=true]:bg-accent"
                   >
-                    <FileText className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                    {r.kind === 'tool' ? (
+                      <Wrench className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                    ) : (
+                      <FileText className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                    )}
                     <div className="min-w-0">
                       <p className="font-medium">{r.title}</p>
-                      {r.meta_description && <p className="truncate text-xs text-muted-foreground">{r.meta_description}</p>}
+                      {r.kind === 'tool' ? (
+                        <p className="truncate text-xs text-muted-foreground">{strings.interactiveTool}</p>
+                      ) : (
+                        r.meta_description && <p className="truncate text-xs text-muted-foreground">{r.meta_description}</p>
+                      )}
                     </div>
                   </Command.Item>
                 ))}
