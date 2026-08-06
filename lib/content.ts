@@ -249,17 +249,51 @@ export async function getDoc(path: string, locale: Locale = 'en'): Promise<Local
   )()
 }
 
-export async function searchDocs(query: string): Promise<Pick<Doc, 'id' | 'path' | 'title' | 'meta_description'>[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase
-    .from('docs')
-    .select('id, path, title, meta_description')
-    .eq('status', 'published')
-    .textSearch('search_vector', query, { type: 'websearch' })
-    .limit(20)
-  if (error) throw error
-  return data ?? []
-}
+export type SearchIndexEntry = { path: string; title: string; description: string | null }
+
+// Feeds CommandMenu's client-side search — cmdk's own fuzzy filter runs
+// against this, fetched once per locale rather than queried per keystroke.
+// Replaced a Postgres textSearch('websearch') call: websearch_to_tsquery
+// only matches whole stemmed words ("outli" never matched "outline"), and
+// cost a network round trip on every keystroke besides. Same locale
+// fallback as getSidebarTree — bn falls back to English title/description
+// wherever no translation exists, never a blank entry.
+export const getSearchIndex = cache(function getSearchIndex(locale: Locale = 'en'): Promise<SearchIndexEntry[]> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase
+        .from('docs')
+        .select('id, path, title, meta_description')
+        .eq('status', 'published')
+      if (error) throw error
+      const rows = (data ?? []) as { id: string; path: string; title: string; meta_description: string | null }[]
+
+      if (locale !== 'bn') {
+        return rows.map((d) => ({ path: d.path, title: d.title, description: d.meta_description }))
+      }
+
+      let trById = new Map<string, { title: string; description: string | null }>()
+      try {
+        const { data: translations } = await supabase
+          .from('doc_translations')
+          .select('doc_id, title, meta_description')
+          .eq('locale', 'bn')
+        const rows2 = (translations ?? []) as { doc_id: string; title: string; meta_description: string | null }[]
+        trById = new Map(rows2.map((r) => [r.doc_id, { title: r.title, description: r.meta_description }]))
+      } catch {
+        // leave trById empty — falls back to English below
+      }
+
+      return rows.map((d) => {
+        const tr = trById.get(d.id)
+        return { path: d.path, title: tr?.title ?? d.title, description: tr?.description ?? d.meta_description }
+      })
+    },
+    ['search-index', locale],
+    { tags: ['sidebar'] }
+  )()
+})
 
 export async function getAllCategorySlugs(): Promise<{ slug: string }[]> {
   const supabase = createPublicClient()
