@@ -36,11 +36,25 @@ export async function listCategoriesForAdmin() {
   return data ?? []
 }
 
-function revalidateDoc(path: string) {
+// Shared by every action that touches an already-published doc's page
+// (this file, doc.ts, revisions.ts). revalidatePath eagerly writes to the
+// ISR cache regardless of whether anyone's about to visit. Whether the
+// /bn write is worth paying for depends on translation state: with NO bn
+// row, getDoc() falls back to this same English content under /bn/path,
+// so an English edit changes that page too and the write is real. WITH a
+// bn row, the translation overrides title/blocks/toc independently, so an
+// English-only edit doesn't touch what bn readers see and the write is
+// waste — that's the case this skips.
+export async function revalidateDoc(supabase: Awaited<ReturnType<typeof createClient>>, id: string, path: string) {
   revalidateTag(`doc:${path}`, { expire: 0 })
   revalidateTag('sidebar', { expire: 0 })
   revalidatePath(`/${path}`, 'page')
-  revalidatePath(`/bn/${path}`, 'page')
+  const { count } = await supabase
+    .from('doc_translations')
+    .select('id', { count: 'exact', head: true })
+    .eq('doc_id', id)
+    .eq('locale', 'bn')
+  if (!count) revalidatePath(`/bn/${path}`, 'page')
 }
 
 export async function setDocStatus(id: string, status: 'draft' | 'published') {
@@ -53,7 +67,7 @@ export async function setDocStatus(id: string, status: 'draft' | 'published') {
     .single()
   if (error) throw new Error(error.message)
   await logActivity(status === 'published' ? 'published' : 'unpublished', 'doc', id, data.path)
-  revalidateDoc(data.path)
+  await revalidateDoc(supabase, id, data.path)
 }
 
 export async function bulkPublish(ids: string[]) {
@@ -62,10 +76,10 @@ export async function bulkPublish(ids: string[]) {
     .from('docs')
     .update({ status: 'published', published_at: new Date().toISOString() })
     .in('id', ids)
-    .select('path')
+    .select('id, path')
   if (error) throw new Error(error.message)
   for (const d of data ?? []) await logActivity('published', 'doc', null, d.path)
-  data?.forEach((d) => revalidateDoc(d.path))
+  for (const d of data ?? []) await revalidateDoc(supabase, d.id, d.path)
 }
 
 // Soft delete, admin-only (enforced by the docs_delete_restore_guard
@@ -86,7 +100,7 @@ export async function deleteDoc(id: string) {
     .single()
   if (error) throw new Error(error.message)
   await logActivity('deleted', 'doc', id, data.path)
-  revalidateDoc(data.path)
+  await revalidateDoc(supabase, id, data.path)
 }
 
 export type TrashedDocRow = {
@@ -118,7 +132,7 @@ export async function restoreDoc(id: string) {
     .single()
   if (error) throw new Error(error.message)
   await logActivity('restored', 'doc', id, data.path)
-  revalidateDoc(data.path)
+  await revalidateDoc(supabase, id, data.path)
 }
 
 // One row per changed order number, not a single upsert — "Save order" is

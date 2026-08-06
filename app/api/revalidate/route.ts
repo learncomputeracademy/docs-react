@@ -65,17 +65,29 @@ async function resolveTargets(body: WebhookPayload): Promise<{ tags: string[]; p
   if (!row) return { tags: [], paths: [] }
 
   switch (body.table) {
+    // With no bn row, getDoc() falls back to this same English content
+    // under /bn/path, so an English edit changes that page too — the write
+    // is real. With a bn row, the translation overrides content
+    // independently, so /bn/path is untouched by this edit and revalidating
+    // it would be a wasted ISR write (this is the pg_net trigger from
+    // docs/DECISIONS.md D-21 — it fires on every row, including the
+    // hundreds of script-driven bulk inserts each category's content script
+    // does, not just admin-panel edits).
     case 'docs': {
       const path = row.path
-      return typeof path === 'string'
-        ? { tags: [`doc:${path}`, 'sidebar'], paths: [`/${path}`, `/bn/${path}`] }
-        : { tags: ['sidebar'], paths: [] }
+      const docId = row.id
+      if (typeof path !== 'string') return { tags: ['sidebar'], paths: [] }
+      const hasTranslation = typeof docId === 'string' ? await hasBnTranslation(docId) : false
+      const paths = hasTranslation ? [`/${path}`] : [`/${path}`, `/bn/${path}`]
+      return { tags: [`doc:${path}`, 'sidebar'], paths }
     }
+    // A translation edit never changes the English page — only /bn/path,
+    // never /path.
     case 'doc_translations': {
       const docId = row.doc_id
       const path = typeof docId === 'string' ? await pathForDocId(docId) : null
       return path
-        ? { tags: [`doc:${path}`, 'sidebar'], paths: [`/${path}`, `/bn/${path}`] }
+        ? { tags: [`doc:${path}`, 'sidebar'], paths: [`/bn/${path}`] }
         : { tags: ['sidebar'], paths: [] }
     }
     case 'categories':
@@ -89,4 +101,14 @@ async function pathForDocId(docId: string): Promise<string | null> {
   const supabase = createPublicClient()
   const { data } = await supabase.from('docs').select('path').eq('id', docId).maybeSingle()
   return (data as { path: string } | null)?.path ?? null
+}
+
+async function hasBnTranslation(docId: string): Promise<boolean> {
+  const supabase = createPublicClient()
+  const { count } = await supabase
+    .from('doc_translations')
+    .select('id', { count: 'exact', head: true })
+    .eq('doc_id', docId)
+    .eq('locale', 'bn')
+  return !!count
 }

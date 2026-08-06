@@ -4,7 +4,7 @@ import { createClient } from '@/lib/supabase/server'
 import { sanitizeBlock } from '@/lib/admin/sanitize'
 import { computeAnchorsAndToc } from '@/lib/admin/anchors'
 import { logActivity } from '@/lib/admin/activity'
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidateDoc } from '@/lib/admin/docs'
 import type { Block, TocItem } from '@/lib/types'
 
 const MAX_REVISIONS_PER_DOC = 20
@@ -109,9 +109,6 @@ export async function restoreRevision(docId: string, revisionId: string) {
   await logActivity('restored', 'doc', docId, updated.path)
 
   if (updated.status === 'published') {
-    revalidateTag(`doc:${updated.path}`, { expire: 0 })
-    revalidateTag('sidebar', { expire: 0 })
-    revalidatePath(`/${updated.path}`, 'page')
-    revalidatePath(`/bn/${updated.path}`, 'page')
+    await revalidateDoc(supabase, docId, updated.path)
   }
 }
