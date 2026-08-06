@@ -9,6 +9,64 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-06 — Session 52: hero copy refresh, Docs-dropdown data/layout bugs, ISR write budget investigation
+
+**Done**
+- Hero copy (`lib/i18n.ts`, EN+BN): replaced the hand-enumerated subject list ("HTML, CSS,
+  JavaScript, React, PHP, Python, SQL, WordPress, and AI") — stale again, missing Node.js/
+  SEO/Marketing/Career/Hosting — with copy describing the site's shape (learn → build →
+  deploy → get hired) instead, so it can't rot the next time a category ships. Committed
+  `b0bdcb6`.
+- Header "Docs" dropdown (`nav_items` table + `components/site-nav.tsx`): found and fixed a
+  genuine duplicate WordPress row (19 rows for 18 categories), reordered all 18 children to
+  the user's specified sequence, trimmed stray whitespace on 6 labels, normalized PHP's url
+  from `/php/introduction` to bare `/php`. Data changes are live now (revalidated the `nav`
+  tag directly against production). Also capped the dropdown panel's height
+  (`max-h-[min(28rem,calc(100vh-5rem))] overflow-y-auto`) so it no longer runs off-screen on
+  short viewports — code change, needs a deploy.
+- ISR write budget investigation (D-74, full writeup there): user flagged 133K/200K Vercel
+  free-tier ISR Writes used in 30 days. Found and fixed two real on-demand revalidation waste
+  bugs in `app/api/revalidate/route.ts` / `lib/admin/docs.ts` — a Bengali-translation edit was
+  always re-writing the English page too, and an English-doc edit was always re-writing the
+  Bengali page too even when a translation already existed independently. Also consolidated 4
+  copies of the same revalidation logic into one shared `revalidateDoc()` helper.
+
+**Findings worth remembering**
+- Translation coverage is actually 100% (470 `docs` rows, 470 `doc_translations` bn rows) —
+  `lib/i18n.ts`'s "growing number of lessons" copy is stale and should be revisited.
+- Nothing in this codebase uses time-based ISR revalidation (`export const revalidate`
+  anywhere, or a `revalidate` option on any `unstable_cache` call) — it's 100% on-demand/
+  tag-based. The user's first instinct (add `revalidate: 86400`) would not have addressed the
+  actual problem.
+- The real driver of on-demand writes is `docs/DECISIONS.md`'s D-21 `pg_net` trigger — it
+  fires on every `docs`/`doc_translations`/`categories` row write **regardless of source**,
+  so the bulk `scripts/create-*-content.mjs` content-creation scripts (which write straight to
+  Supabase, no admin panel involved) are just as much a source as manual admin edits. Confirmed
+  by reading `scripts/create-hosting-content.mjs`: exactly one `docs` write + one
+  `doc_translations` write per lesson, each a separate trigger fire.
+- Made a self-caught direction error while writing the fix (had the translation-existence
+  condition backwards on the first pass) — corrected before commit, worth re-reading D-74's
+  reasoning if touching this logic again.
+- Every doc/category page pre-renders at **build time** via `generateStaticParams` with no
+  path limiting — ~970 pages regenerated on every deploy, independent of the trigger above.
+  Not yet measured against the 133K figure; see O-26.
+
+**Failed / abandoned**
+- Tried `npx vercel whoami` to pull real per-route usage data from Vercel directly instead of
+  guessing — correctly abandoned when it blocked on an interactive login prompt this
+  environment can't complete. Logging into the user's Vercel account without being asked isn't
+  something to push through; left as O-26 for the user to check when they have dashboard
+  access.
+
+**Next session — start here**
+1. O-26: once the user has Vercel dashboard access, check the ISR Writes breakdown by route/
+   source to confirm whether the build-time pre-render volume (~970 pages/deploy) is
+   significant, before deciding whether to stop pre-rendering every doc at build.
+2. Everything from this session (hero copy, Docs dropdown/nav, ISR write fixes) is committed
+   locally but **not pushed** — same batch as the pending category icons from Sessions 47-51.
+
+---
+
 ## 2026-08-05 — Session 51: Hosting & Deployment category (40 lessons) — closing the gap Career Skills opened
 
 **Done**

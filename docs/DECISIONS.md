@@ -3615,6 +3615,76 @@ run, so it became routine) → `--dry-run` 32 lessons, EN/BN block counts equal 
 
 ---
 
+## D-74 · ISR write budget investigation — two confirmed waste bugs fixed, build-time volume still unmeasured
+
+**Date:** 2026-08-06 · **Status:** Active, partially resolves a real problem — see O-26 · **Decided by:** Claude, user flagged the usage number
+
+**What triggered this.** User showed a Vercel dashboard screenshot: 133K/200K ISR Writes used
+in the last 30 days on the free plan (66%), and asked for a time-based `revalidate` value to
+fix it. That specific fix would not have worked — nothing in this codebase uses time-based
+ISR (`export const revalidate`, or a `revalidate` option on `unstable_cache`); every cache
+here is on-demand/tag-based only, checked across `app/**/page.tsx` and every `lib/content.ts`
+call. Adding a timer would have added writes on top of the real problem, not replaced it.
+
+**First (wrong) theory:** assumed the admin panel's `saveDoc`/`setDocStatus`/`bulkPublish`/
+revision-restore actions were the source, since each unconditionally called `revalidatePath`
+for **both** `/path` and `/bn/path` on every save. User corrected this directly — the admin
+panel has been used maybe once; nearly all content came from one-off scripts
+(`scripts/create-*-content.mjs`) writing straight to Supabase with the service-role client.
+
+**Real mechanism (docs/DECISIONS.md D-21):** a hand-rolled `pg_net` Postgres trigger fires
+`AFTER INSERT OR UPDATE OR DELETE` on `docs`, `doc_translations`, and `categories` —
+**regardless of what wrote the row**, admin panel or script. Every one of the ~470 lessons
+these scripts created went through this trigger at least twice (one `docs` write, one
+`doc_translations` write per lesson, confirmed by reading `scripts/create-hosting-content.mjs`),
+each firing `POST /api/revalidate`, each doing up to two eager `revalidatePath('page')` calls.
+Confirmed via direct query: `docs` and `doc_translations` (locale `bn`) both count exactly
+470 rows — translation coverage is actually 100%, not "growing" as `lib/i18n.ts`'s copy still
+claims.
+
+**Two real bugs fixed, both in `app/api/revalidate/route.ts`'s `resolveTargets()` (the path
+the DB trigger actually calls) and mirrored in `lib/admin/docs.ts`'s `revalidateDoc()` helper
+(now shared by `doc.ts`, `docs.ts`, `revisions.ts` — was duplicated 4x before this):**
+1. A `doc_translations` write (editing/adding/removing a Bengali translation) was always
+   revalidating the **English** page too, even though a translation edit never changes what
+   an English reader sees. Now only `/bn/${path}` is revalidated for this table.
+2. A `docs` write (editing English content) was always revalidating `/bn/${path}` too, even
+   when that doc already has an independent Bengali translation (translated content overrides
+   `title`/`blocks`/`toc`, so an English-only edit doesn't touch it). Now `/bn/${path}` is
+   only revalidated when **no** bn translation row exists — correct because `getDoc()` in
+   `lib/content.ts` falls back to the English `docs` row's content under `/bn/path` when
+   untranslated, so in that specific case the write is genuinely needed.
+   **Caught and fixed a self-introduced bug**: the first pass of this had the condition
+   backwards (skipped the write when translation was *missing*, the one case where it's
+   actually necessary) — corrected before commit, see the `revalidateDoc()` doc comment.
+
+Since translation coverage is 100% today, bug #2's fix has zero effect *right now* (the
+"no translation" branch never runs) — but it's correct behavior for any future doc created
+without a same-day translation, and bug #1's fix has full effect immediately: every
+translation-table write from here on saves one wasted English-page write, every time.
+
+**What this does NOT explain, and is still open (O-26).** Every doc/category page uses
+`generateStaticParams` (`app/[category]/[slug]/page.tsx` + the `/bn` mirror,
+`app/[category]/page.tsx` + its mirror) with no path limiting — `getAllDocPaths()` /
+`getTranslatedDocPaths()` return every published doc. That means a full production build
+pre-renders on the order of **~970 pages** (470 docs × 2 locales + ~18 categories × 2) every
+single deploy, independent of the DB trigger entirely. 159 commits landed in the last 30 days.
+If Vercel counts build-time ISR generation the same as on-demand writes — which is its
+documented normal behavior — this is a second, plausibly larger contributor that neither fix
+above touches. **Not verified**: the actual per-source breakdown lives in Vercel's
+dashboard/logs, which needs the user's own login; `npx vercel whoami` was attempted and
+correctly abandoned rather than pushed through (it would have blocked on an interactive login
+prompt this environment can't complete, and logging into someone's Vercel account is not
+something to do unprompted).
+
+**Verified:** `npx tsc --noEmit` clean after both edits. Not verified: real-world write-count
+reduction (would require Vercel dashboard access over the following weeks).
+
+**Not done:** not pushed — same batch as the Docs-dropdown/nav fixes from earlier this
+session.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3645,3 +3715,4 @@ run, so it became routine) → `--dry-run` 32 lessons, EN/BN block counts equal 
 | O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
 | ~~O-24~~ | ~~Mirror `INDEXNOW_KEY` into Vercel's env vars~~ — **resolved**, see D-67's update. Key file confirmed live in production | — |
 | O-25 | Re-run `node scripts/indexnow-submit-all.mjs` (D-67) — first real attempt hit `403 SiteVerificationNotCompleted`, IndexNow's side hadn't caught up to the newly-live key file yet | Nothing broken; the ~140 pre-webhook pages just aren't backfilled to IndexNow yet. New pages going forward are unaffected — they go through the `/api/revalidate` webhook, a separate path |
+| O-26 | Vercel free-tier ISR Writes at 133K/200K (66%, 30-day window, per user screenshot 2026-08-06) — D-74 fixed two confirmed on-demand waste bugs, but ~970 pages get pre-rendered on **every deploy** via `generateStaticParams` (all docs × 2 locales + all categories × 2), unmeasured and possibly the larger contributor. Needs: (1) user to check Vercel dashboard's per-route usage breakdown once they have access, to confirm before changing build behavior; (2) then decide whether to stop pre-rendering every doc at build (let first-visit ISR fill in instead) — a real latency/build-time tradeoff, not a free fix, so needs the user's call, not a unilateral change | Nothing broken today; free-tier project auto-pauses if the quota is actually hit, which would take the whole site down until next month or an upgrade |
