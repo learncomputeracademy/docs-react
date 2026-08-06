@@ -3680,8 +3680,25 @@ something to do unprompted).
 **Verified:** `npx tsc --noEmit` clean after both edits. Not verified: real-world write-count
 reduction (would require Vercel dashboard access over the following weeks).
 
-**Not done:** not pushed — same batch as the Docs-dropdown/nav fixes from earlier this
-session.
+**Update, same day — confirmed against real Observability data before deploy.** User pulled
+Vercel's Observability → ISR page (Production, last 12 hours). Individual lesson routes
+showed 2-4 writes each on a single unique path within that half-day window — only explainable
+by repeated on-demand triggers, not build-time pre-rendering (a build writes each path once).
+The split matched the bug exactly: SEO-category lessons (which got both a `docs` and a
+`doc_translations` event in-window) showed 4 writes; career/hosting/marketing lessons (one
+event in-window) showed 2 — i.e. real production data showing the still-undeployed bug in
+action. **Time-based Revalidations: 0** confirmed the earlier code read. Two additional
+factors surfaced, neither yet acted on: (1) Next's partial-prerendering segment cache writes
+`.segments/_tree.segment` / `_head.segment` etc. as separate entries per route, so one
+`revalidatePath()` call likely costs more than "1 write" — a framework-level multiplier this
+fix doesn't reduce; (2) `/[category]` alone showed 64 writes against only 19 reads in the same
+12h window, disproportionate to actual traffic, not yet investigated. O-26 downgraded from
+"build-time pre-render, unmeasured" to "confirmed on-demand writes are the dominant driver,
+build-time volume still not isolated, plus two new leads (segment-cache multiplier,
+`/[category]` write:read ratio) worth a follow-up pass after this fix has had time to show its
+effect in the dashboard."
+
+**Not done → done:** pushed to `main` — this fix is now deploying.
 
 ---
 
@@ -3715,4 +3732,4 @@ session.
 | O-23 | Hard-delete `react/syllabus` via `/admin` (D-63) — a service-role script can't, `docs_delete_restore_guard` requires a real admin session (same constraint as O-20) | Cosmetic only — it's unpublished and already invisible on the live site and in all navigation; this just removes it from the admin's own docs list |
 | ~~O-24~~ | ~~Mirror `INDEXNOW_KEY` into Vercel's env vars~~ — **resolved**, see D-67's update. Key file confirmed live in production | — |
 | O-25 | Re-run `node scripts/indexnow-submit-all.mjs` (D-67) — first real attempt hit `403 SiteVerificationNotCompleted`, IndexNow's side hadn't caught up to the newly-live key file yet | Nothing broken; the ~140 pre-webhook pages just aren't backfilled to IndexNow yet. New pages going forward are unaffected — they go through the `/api/revalidate` webhook, a separate path |
-| O-26 | Vercel free-tier ISR Writes at 133K/200K (66%, 30-day window, per user screenshot 2026-08-06) — D-74 fixed two confirmed on-demand waste bugs, but ~970 pages get pre-rendered on **every deploy** via `generateStaticParams` (all docs × 2 locales + all categories × 2), unmeasured and possibly the larger contributor. Needs: (1) user to check Vercel dashboard's per-route usage breakdown once they have access, to confirm before changing build behavior; (2) then decide whether to stop pre-rendering every doc at build (let first-visit ISR fill in instead) — a real latency/build-time tradeoff, not a free fix, so needs the user's call, not a unilateral change | Nothing broken today; free-tier project auto-pauses if the quota is actually hit, which would take the whole site down until next month or an upgrade |
+| O-26 | Vercel free-tier ISR Writes at 133K/200K (66%, 30-day window). **Update:** user pulled Observability → ISR (Production, last 12h) before D-74's fix deployed — confirmed on-demand row-trigger writes are the dominant driver (2-4 writes per single lesson path within 12h, matching the exact bug fixed), not build-time pre-rendering as first suspected. Two new leads surfaced there, neither investigated yet: (1) Next's segment cache (`.segments/_tree.segment` etc.) likely multiplies the cost of every `revalidatePath()` call beyond "1 write" — framework-level, unaffected by this fix; (2) `/[category]` alone showed 64 writes vs. 19 reads in 12h, disproportionate to traffic. **Next:** check the same dashboard page again a few days after this fix deploys to confirm per-lesson write counts actually dropped; if so, investigate the two new leads next | Nothing broken today; free-tier project auto-pauses if the quota is actually hit, which would take the whole site down until next month or an upgrade |
