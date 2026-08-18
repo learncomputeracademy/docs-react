@@ -9,7 +9,10 @@ export type Lang = 'html' | 'css' | 'javascript' | 'jsx' | 'tsx' | 'typescript'
 export type Block =
   | { id: string; type: 'richtext'; html: string }
   | { id: string; type: 'heading'; level: 2 | 3 | 4 | 5 | 6; text: string; anchor: string }
-  | { id: string; type: 'code'; language: Lang; code: string; filename?: string; runnable?: boolean }
+  // variants: same example in other languages, shown as tabs alongside the
+  // primary language/code. Optional and additive — every existing code
+  // block (no variants) renders exactly as before.
+  | { id: string; type: 'code'; language: Lang; code: string; filename?: string; runnable?: boolean; variants?: { language: Lang; label?: string; code: string }[] }
   | { id: string; type: 'image'; publicId: string; alt: string; caption?: string; width: number; height: number }
   // Was a GIF in the Jekyll source. Renders as <video autoplay muted loop
   // playsinline> — same visual role as an inline animated image, but as an

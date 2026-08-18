@@ -4,6 +4,7 @@ import type { Block } from '@/lib/types'
 import { cldVideoUrl } from '@/lib/cloudinary'
 import { highlight } from '@/lib/shiki'
 import { CopyButton } from './copy-button'
+import { CodeTabs } from './code-tabs'
 import { TryItLazy } from './try-it-lazy'
 
 // note/tip/warning/danger — colors follow the same hardcoded-per-badge
@@ -15,6 +16,11 @@ const CALLOUT_STYLES = {
   warning: { icon: TriangleAlert, className: 'border-amber-500/40 bg-amber-500/10 text-amber-900 dark:text-amber-200' },
   danger: { icon: OctagonAlert, className: 'border-destructive/40 bg-destructive/10 text-destructive' },
 } as const
+
+const LANG_LABELS: Record<string, string> = {
+  javascript: 'JavaScript', typescript: 'TypeScript', python: 'Python', php: 'PHP',
+  html: 'HTML', css: 'CSS', jsx: 'JSX', tsx: 'TSX', bash: 'Bash', sql: 'SQL', json: 'JSON',
+}
 
 export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
   return (
@@ -28,6 +34,16 @@ export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
           case 'richtext':
             return <div key={b.id} dangerouslySetInnerHTML={{ __html: b.html }} />
           case 'code': {
+            if (b.variants?.length) {
+              const tabs = await Promise.all(
+                [{ language: b.language, label: b.filename, code: b.code }, ...b.variants].map(async (v) => ({
+                  label: v.label ?? LANG_LABELS[v.language] ?? v.language,
+                  code: v.code,
+                  html: await highlight(v.code, v.language),
+                }))
+              )
+              return <CodeTabs key={b.id} tabs={tabs} />
+            }
             const html = await highlight(b.code, b.language)
             return (
               <div key={b.id} className="not-prose relative group my-4">

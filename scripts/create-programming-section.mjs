@@ -22,7 +22,14 @@ function h(level, text) {
   return { id: nanoid(12), type: 'heading', level, text, anchor }
 }
 function p(html) { return { id: nanoid(12), type: 'richtext', html } }
-function code(language, codeText) { return { id: nanoid(12), type: 'code', language, code: codeText.trim() } }
+// variants: [[language, codeText], ...] — same example in PHP/Python
+// alongside the primary JS, rendered as tabs (D-100: intro-to-programming
+// serves students learning JS, PHP, or Python as a first language).
+function code(language, codeText, variants) {
+  const block = { id: nanoid(12), type: 'code', language, code: codeText.trim() }
+  if (variants) block.variants = variants.map(([lang, text]) => ({ language: lang, code: text.trim() }))
+  return block
+}
 function callout(variant, html, title) { return { id: nanoid(12), type: 'callout', variant, title, html } }
 function table(header, rows) { return { id: nanoid(12), type: 'table', header, rows } }
 
@@ -48,7 +55,24 @@ if (age >= 18) {
   console.log(name + " is an adult.");
 } else {
   console.log(name + " is a minor.");
-}`),
+}`, [
+      ['php', `<?php
+$name = "Ada";
+$age = 28;
+
+if ($age >= 18) {
+  echo "$name is an adult.";
+} else {
+  echo "$name is a minor.";
+}`],
+      ['python', `name = "Ada"
+age = 28
+
+if age >= 18:
+    print(name + " is an adult.")
+else:
+    print(name + " is a minor.")`],
+    ]),
     p('<p>This program stores two pieces of information (a name and an age), makes a decision based on the age, and prints a message. Storing information, making decisions, and repeating actions are the three ideas almost every program is built from.</p>'),
     h(2, 'How this section is organized'),
     p('<p>Each lesson covers one building block — variables, data types, loops, functions, and so on — with runnable examples in JavaScript. The concepts themselves are not specific to JavaScript; once you understand what a "loop" or a "function" is, you can recognize the same idea in any programming language.</p>'),
@@ -65,14 +89,38 @@ lessons.push({
 let playerName = "Alex";
 
 console.log(score);       // 0
-console.log(playerName);  // Alex`),
+console.log(playerName);  // Alex`, [
+      ['php', `<?php
+$score = 0;
+$playerName = "Alex";
+
+echo $score . "\\n";       // 0
+echo $playerName . "\\n";  // Alex`],
+      ['python', `score = 0
+player_name = "Alex"
+
+print(score)        # 0
+print(player_name)  # Alex`],
+    ]),
     h(2, 'Variables can change'),
     p('<p>The whole point of a variable is that its value can change while the program runs — that\'s where the name comes from.</p>'),
     code('javascript', `let score = 0;
 score = 10;
 score = score + 5;
 
-console.log(score); // 15`),
+console.log(score); // 15`, [
+      ['php', `<?php
+$score = 0;
+$score = 10;
+$score = $score + 5;
+
+echo $score; // 15`],
+      ['python', `score = 0
+score = 10
+score = score + 5
+
+print(score)  # 15`],
+    ]),
     h(2, 'Naming rules'),
     p('<p>A variable name must start with a letter, <code>_</code>, or <code>$</code> — not a digit — and can\'t contain spaces. Good names describe what the value is for.</p>'),
     table(
@@ -91,10 +139,27 @@ lessons.push({
     code('javascript', `const pi = 3.14159;
 const siteName = "Learn Computer Academy";
 
-console.log(pi); // 3.14159`),
-    p('<p>Trying to reassign a constant is an error — JavaScript stops you on purpose:</p>'),
+console.log(pi); // 3.14159`, [
+      ['php', `<?php
+define("PI", 3.14159);
+define("SITE_NAME", "Learn Computer Academy");
+
+echo PI; // 3.14159`],
+      ['python', `PI = 3.14159
+SITE_NAME = "Learn Computer Academy"
+
+print(PI)  # 3.14159`],
+    ]),
+    p('<p>Trying to reassign a constant is an error — JavaScript stops you on purpose (PHP and Python each handle this differently — see the other tabs):</p>'),
     code('javascript', `const pi = 3.14159;
-pi = 3.14; // ❌ TypeError: Assignment to constant variable.`),
+pi = 3.14; // ❌ TypeError: Assignment to constant variable.`, [
+      ['php', `<?php
+define("PI", 3.14159);
+define("PI", 3.14); // ❌ Warning: Constant PI already defined`],
+      ['python', `PI = 3.14159
+PI = 3.14  # ⚠️ Python has no real constants — ALL_CAPS is only a
+           #    naming convention, nothing stops the reassignment.`],
+    ]),
     h(2, 'When to use const vs. let'),
     p('<p>A common habit among experienced programmers: default to <code>const</code>, and only switch to <code>let</code> when you know a value genuinely needs to change later (like a counter or a score). It makes code easier to reason about — if you see <code>const</code>, you know that value is fixed for good.</p>'),
   ]
@@ -119,7 +184,17 @@ lessons.push({
     code('javascript', `console.log(typeof 42);        // "number"
 console.log(typeof "hello");   // "string"
 console.log(typeof true);      // "boolean"
-console.log(typeof undefined); // "undefined"`),
+console.log(typeof undefined); // "undefined"`, [
+      ['php', `<?php
+echo gettype(42);      // "integer"
+echo gettype("hello"); // "string"
+echo gettype(true);    // "boolean"
+echo gettype(null);    // "NULL"`],
+      ['python', `print(type(42))       # <class 'int'>
+print(type("hello"))  # <class 'str'>
+print(type(True))     # <class 'bool'>
+print(type(None))     # <class 'NoneType'>`],
+    ]),
     callout('note', '<p>Numbers and strings that look similar behave very differently: <code>"5" + "5"</code> joins two pieces of text into <code>"55"</code>, while <code>5 + 5</code> adds two numbers into <code>10</code>. Mixing up a number and a string that contains digits is one of the most common early bugs.</p>'),
   ]
 })
@@ -132,16 +207,48 @@ lessons.push({
 let age = Number(input);
 
 console.log(age);         // 25
-console.log(age + 5);     // 30 — real addition now, not text joining`),
+console.log(age + 5);     // 30 — real addition now, not text joining`, [
+      ['php', `<?php
+$input = "25";
+$age = (int) $input;
+
+echo $age;      // 25
+echo $age + 5;  // 30 — real addition now, not text joining`],
+      ['python', `input_value = "25"
+age = int(input_value)
+
+print(age)      # 25
+print(age + 5)  # 30 — real addition now, not text joining`],
+    ]),
     h(2, 'Converting a number to text'),
     code('javascript', `let count = 7;
 let message = "You have " + String(count) + " items.";
 
-console.log(message); // "You have 7 items."`),
+console.log(message); // "You have 7 items."`, [
+      ['php', `<?php
+$count = 7;
+$message = "You have " . strval($count) . " items.";
+
+echo $message; // "You have 7 items."`],
+      ['python', `count = 7
+message = "You have " + str(count) + " items."
+
+print(message)  # "You have 7 items."`],
+    ]),
     h(2, 'What happens if the conversion fails'),
     p('<p>Not every piece of text is a valid number. Converting something that isn\'t produces a special value called <code>NaN</code> ("Not a Number") rather than crashing the program.</p>'),
     code('javascript', `console.log(Number("hello")); // NaN
-console.log(Number("42"));   // 42`),
+console.log(Number("42"));   // 42`, [
+      ['php', `<?php
+echo (int) "hello"; // 0 — PHP doesn't error, it just returns 0
+echo (int) "42";    // 42`],
+      ['python', `try:
+    print(int("hello"))  # raises ValueError: invalid literal for int()
+except ValueError as e:
+    print(e)
+
+print(int("42"))  # 42`],
+    ]),
   ]
 })
 
@@ -158,7 +265,15 @@ lessons.push({
     p('<p>Used to give a variable a value, often combined with a calculation.</p>'),
     code('javascript', `let score = 10;
 score += 5;  // same as: score = score + 5
-console.log(score); // 15`),
+console.log(score); // 15`, [
+      ['php', `<?php
+$score = 10;
+$score += 5;  // same as: $score = $score + 5
+echo $score; // 15`],
+      ['python', `score = 10
+score += 5  # same as: score = score + 5
+print(score)  # 15`],
+    ]),
     h(2, 'Comparison Operators'),
     p('<p>Compare two values and produce <code>true</code> or <code>false</code>.</p>'),
     table(
@@ -167,7 +282,15 @@ console.log(score); // 15`),
     ),
     code('javascript', `console.log(5 === 5);   // true
 console.log(5 === "5"); // false — different types
-console.log(7 > 3);     // true`),
+console.log(7 > 3);     // true`, [
+      ['php', `<?php
+var_dump(5 === 5);   // true
+var_dump(5 === "5"); // false — different types
+var_dump(7 > 3);     // true`],
+      ['python', `print(5 == 5)    # True
+print(5 == "5")  # False — different types, Python never coerces here
+print(7 > 3)     # True`],
+    ]),
     h(2, 'Logical Operators'),
     p('<p>Combine or invert true/false values.</p>'),
     table(
@@ -177,7 +300,13 @@ console.log(7 > 3);     // true`),
     h(2, 'Bitwise Operators'),
     p('<p>Work directly on the binary representation of numbers, bit by bit. You will use these far less often than the operators above, but they show up in low-level code, graphics, and permission flags.</p>'),
     code('javascript', `console.log(5 & 1);  // 1  — AND on the underlying bits
-console.log(5 | 2);  // 7  — OR on the underlying bits`),
+console.log(5 | 2);  // 7  — OR on the underlying bits`, [
+      ['php', `<?php
+echo 5 & 1;  // 1  — AND on the underlying bits
+echo 5 | 2;  // 7  — OR on the underlying bits`],
+      ['python', `print(5 & 1)  # 1  — AND on the underlying bits
+print(5 | 2)  # 7  — OR on the underlying bits`],
+    ]),
     callout('tip', '<p>Bitwise operators make a lot more sense after the <a href="/programming/binary-numbers">Binary Numbers</a> lesson — it\'s fine to skim this section for now and come back to it.</p>'),
   ]
 })
@@ -187,7 +316,13 @@ lessons.push({
     p('<p>A comment is text in your code that the computer ignores completely — it\'s there for humans, not the machine. Comments explain *why* code does something, especially anything that isn\'t obvious from the code itself.</p>'),
     h(2, 'Single-line comments'),
     code('javascript', `// This calculates the total price including tax
-let total = price * 1.18;`),
+let total = price * 1.18;`, [
+      ['php', `<?php
+// This calculates the total price including tax
+$total = $price * 1.18;`],
+      ['python', `# This calculates the total price including tax
+total = price * 1.18`],
+    ]),
     h(2, 'Multi-line comments'),
     code('javascript', `/*
   This function validates a user's age.
@@ -195,7 +330,20 @@ let total = price * 1.18;`),
 */
 function isValidAge(age) {
   return age > 0 && age < 130;
-}`),
+}`, [
+      ['php', `<?php
+/*
+  This function validates a user's age.
+  It returns true only if the age is a realistic human age.
+*/
+function isValidAge($age) {
+  return $age > 0 && $age < 130;
+}`],
+      ['python', `# This function validates a user's age.
+# It returns true only if the age is a realistic human age.
+def is_valid_age(age):
+    return age > 0 and age < 130`],
+    ]),
     h(2, 'When to comment'),
     p('<p>Good code with clear variable and function names often needs very few comments — the code explains itself. Comment when the *why* isn\'t obvious: a workaround for a bug, a non-obvious business rule, or a warning about something easy to break.</p>'),
     callout('warning', '<p>A comment that just restates the code adds noise, not value: <code>// add 1 to x</code> above <code>x = x + 1;</code> tells you nothing you couldn\'t already see.</p>'),
@@ -210,7 +358,18 @@ lessons.push({
 
 if (temperature > 30) {
   console.log("It's hot today.");
-}`),
+}`, [
+      ['php', `<?php
+$temperature = 35;
+
+if ($temperature > 30) {
+  echo "It's hot today.";
+}`],
+      ['python', `temperature = 35
+
+if temperature > 30:
+    print("It's hot today.")`],
+    ]),
     h(2, 'if / else'),
     code('javascript', `let age = 15;
 
@@ -218,7 +377,22 @@ if (age >= 18) {
   console.log("You can vote.");
 } else {
   console.log("Not old enough to vote yet.");
-}`),
+}`, [
+      ['php', `<?php
+$age = 15;
+
+if ($age >= 18) {
+  echo "You can vote.";
+} else {
+  echo "Not old enough to vote yet.";
+}`],
+      ['python', `age = 15
+
+if age >= 18:
+    print("You can vote.")
+else:
+    print("Not old enough to vote yet.")`],
+    ]),
     h(2, 'if / else if / else'),
     p('<p>Chain multiple conditions when there are more than two possible outcomes.</p>'),
     code('javascript', `let score = 72;
@@ -232,7 +406,32 @@ if (score >= 90) {
 } else {
   console.log("Grade: F");
 }
-// Output: Grade: C`),
+// Output: Grade: C`, [
+      ['php', `<?php
+$score = 72;
+
+if ($score >= 90) {
+  echo "Grade: A";
+} elseif ($score >= 75) {
+  echo "Grade: B";
+} elseif ($score >= 60) {
+  echo "Grade: C";
+} else {
+  echo "Grade: F";
+}
+// Output: Grade: C`],
+      ['python', `score = 72
+
+if score >= 90:
+    print("Grade: A")
+elif score >= 75:
+    print("Grade: B")
+elif score >= 60:
+    print("Grade: C")
+else:
+    print("Grade: F")
+# Output: Grade: C`],
+    ]),
     callout('note', '<p>Only the first matching condition runs — once one branch is chosen, JavaScript skips the rest, even if a later condition would also have been true.</p>'),
   ]
 })
@@ -245,7 +444,16 @@ lessons.push({
     code('javascript', `for (let i = 1; i <= 5; i++) {
   console.log("Count: " + i);
 }
-// Prints Count: 1 through Count: 5`),
+// Prints Count: 1 through Count: 5`, [
+      ['php', `<?php
+for ($i = 1; $i <= 5; $i++) {
+  echo "Count: " . $i . "\\n";
+}
+// Prints Count: 1 through Count: 5`],
+      ['python', `for i in range(1, 6):
+    print("Count:", i)
+# Prints Count: 1 through Count: 5`],
+    ]),
     p('<p>A <code>for</code> loop has three parts, separated by semicolons: a starting point (<code>let i = 1</code>), a condition checked before every repeat (<code>i <= 5</code>), and a step that runs after every repeat (<code>i++</code>).</p>'),
     h(2, 'The while loop'),
     p('<p>Use a <code>while</code> loop when you don\'t know in advance how many repeats you need — it keeps going as long as a condition stays true.</p>'),
@@ -254,7 +462,20 @@ lessons.push({
 while (energy > 0) {
   console.log("Still going, energy: " + energy);
   energy = energy - 1;
-}`),
+}`, [
+      ['php', `<?php
+$energy = 3;
+
+while ($energy > 0) {
+  echo "Still going, energy: " . $energy . "\\n";
+  $energy = $energy - 1;
+}`],
+      ['python', `energy = 3
+
+while energy > 0:
+    print("Still going, energy:", energy)
+    energy = energy - 1`],
+    ]),
     callout('warning', '<p>If the condition in a <code>while</code> loop never becomes false, the loop runs forever — this is called an infinite loop, and it\'s one of the most common early mistakes. Always make sure something inside the loop moves it toward finishing.</p>'),
     h(2, 'Looping over an array'),
     p('<p><code>for...of</code> is the simplest way to visit every item in a list.</p>'),
@@ -262,7 +483,18 @@ while (energy > 0) {
 
 for (let fruit of fruits) {
   console.log(fruit);
-}`),
+}`, [
+      ['php', `<?php
+$fruits = ["apple", "banana", "mango"];
+
+foreach ($fruits as $fruit) {
+  echo $fruit . "\\n";
+}`],
+      ['python', `fruits = ["apple", "banana", "mango"]
+
+for fruit in fruits:
+    print(fruit)`],
+    ]),
   ]
 })
 
@@ -271,14 +503,32 @@ lessons.push({
     p('<p>An array is an ordered list of values, stored under a single variable name. Instead of creating <code>fruit1</code>, <code>fruit2</code>, <code>fruit3</code>, you create one array holding all of them.</p>'),
     h(2, 'Creating an array'),
     code('javascript', `let fruits = ["apple", "banana", "mango"];
-console.log(fruits); // ["apple", "banana", "mango"]`),
+console.log(fruits); // ["apple", "banana", "mango"]`, [
+      ['php', `<?php
+$fruits = ["apple", "banana", "mango"];
+print_r($fruits); // Array ( [0] => apple [1] => banana [2] => mango )`],
+      ['python', `fruits = ["apple", "banana", "mango"]
+print(fruits)  # ['apple', 'banana', 'mango']`],
+    ]),
     h(2, 'Accessing items by index'),
     p('<p>Each item has a position, called its index, starting from <strong>0</strong> — not 1.</p>'),
     code('javascript', `let fruits = ["apple", "banana", "mango"];
 
 console.log(fruits[0]); // "apple"  — first item
 console.log(fruits[1]); // "banana"
-console.log(fruits[2]); // "mango"  — last item`),
+console.log(fruits[2]); // "mango"  — last item`, [
+      ['php', `<?php
+$fruits = ["apple", "banana", "mango"];
+
+echo $fruits[0]; // "apple"  — first item
+echo $fruits[1]; // "banana"
+echo $fruits[2]; // "mango"  — last item`],
+      ['python', `fruits = ["apple", "banana", "mango"]
+
+print(fruits[0])  # "apple"  — first item
+print(fruits[1])  # "banana"
+print(fruits[2])  # "mango"  — last item`],
+    ]),
     h(2, 'Common array operations'),
     table(
       ['Method', 'What it does', 'Example'],
@@ -293,7 +543,19 @@ console.log(fruits[2]); // "mango"  — last item`),
 fruits.push("mango");
 
 console.log(fruits.length); // 3
-console.log(fruits);        // ["apple", "banana", "mango"]`),
+console.log(fruits);        // ["apple", "banana", "mango"]`, [
+      ['php', `<?php
+$fruits = ["apple", "banana"];
+$fruits[] = "mango"; // PHP's equivalent of push
+
+echo count($fruits); // 3
+print_r($fruits);    // Array ( [0] => apple [1] => banana [2] => mango )`],
+      ['python', `fruits = ["apple", "banana"]
+fruits.append("mango")
+
+print(len(fruits))  # 3
+print(fruits)        # ['apple', 'banana', 'mango']`],
+    ]),
   ]
 })
 
@@ -302,13 +564,31 @@ lessons.push({
     p('<p>A string is text — a sequence of characters wrapped in quotes. Strings are one of the most-used data types, since almost every program deals with text somewhere: names, messages, file paths, URLs.</p>'),
     h(2, 'Creating a string'),
     code('javascript', `let greeting = "Hello, world!";
-let single = 'Single quotes work too';`),
+let single = 'Single quotes work too';`, [
+      ['php', `<?php
+$greeting = "Hello, world!";
+$single = 'Single quotes work too';`],
+      ['python', `greeting = "Hello, world!"
+single = 'Single quotes work too'`],
+    ]),
     h(2, 'Joining strings'),
     code('javascript', `let first = "Ada";
 let last = "Lovelace";
 let fullName = first + " " + last;
 
-console.log(fullName); // "Ada Lovelace"`),
+console.log(fullName); // "Ada Lovelace"`, [
+      ['php', `<?php
+$first = "Ada";
+$last = "Lovelace";
+$fullName = $first . " " . $last;
+
+echo $fullName; // "Ada Lovelace"`],
+      ['python', `first = "Ada"
+last = "Lovelace"
+full_name = first + " " + last
+
+print(full_name)  # "Ada Lovelace"`],
+    ]),
     h(2, 'Useful string properties and methods'),
     table(
       ['Method', 'What it does', 'Example'],
@@ -325,7 +605,19 @@ console.log(fullName); // "Ada Lovelace"`),
 let age = 28;
 
 console.log(\`\${name} is \${age} years old.\`);
-// "Ada is 28 years old."`),
+// "Ada is 28 years old."`, [
+      ['php', `<?php
+$name = "Ada";
+$age = 28;
+
+echo "$name is $age years old.";
+// "Ada is 28 years old."`],
+      ['python', `name = "Ada"
+age = 28
+
+print(f"{name} is {age} years old.")
+# "Ada is 28 years old."`],
+    ]),
   ]
 })
 
@@ -338,7 +630,20 @@ lessons.push({
 }
 
 greet("Ada");   // "Hello, Ada!"
-greet("Alan");  // "Hello, Alan!"`),
+greet("Alan");  // "Hello, Alan!"`, [
+      ['php', `<?php
+function greet($name) {
+  echo "Hello, " . $name . "!\\n";
+}
+
+greet("Ada");   // "Hello, Ada!"
+greet("Alan");  // "Hello, Alan!"`],
+      ['python', `def greet(name):
+    print("Hello, " + name + "!")
+
+greet("Ada")   # "Hello, Ada!"
+greet("Alan")  # "Hello, Alan!"`],
+    ]),
     p('<p><code>name</code> here is called a parameter — a placeholder for the value the function will receive each time it\'s called.</p>'),
     h(2, 'Returning a value'),
     p('<p>A function can hand a value back to whatever called it, using <code>return</code>.</p>'),
@@ -347,7 +652,20 @@ greet("Alan");  // "Hello, Alan!"`),
 }
 
 let result = add(3, 4);
-console.log(result); // 7`),
+console.log(result); // 7`, [
+      ['php', `<?php
+function add($a, $b) {
+  return $a + $b;
+}
+
+$result = add(3, 4);
+echo $result; // 7`],
+      ['python', `def add(a, b):
+    return a + b
+
+result = add(3, 4)
+print(result)  # 7`],
+    ]),
     h(2, 'Why use functions'),
     p('<p>Functions make code reusable, easier to test in isolation, and easier to read — a well-named function like <code>calculateTotalPrice()</code> tells you what a block of code does without needing to read every line inside it.</p>'),
   ]
@@ -365,7 +683,23 @@ lessons.push({
   return n * factorial(n - 1); // recursive case
 }
 
-console.log(factorial(4)); // 24`),
+console.log(factorial(4)); // 24`, [
+      ['php', `<?php
+function factorial($n) {
+  if ($n <= 1) {
+    return 1; // base case — stops the recursion
+  }
+  return $n * factorial($n - 1); // recursive case
+}
+
+echo factorial(4); // 24`],
+      ['python', `def factorial(n):
+    if n <= 1:
+        return 1  # base case — stops the recursion
+    return n * factorial(n - 1)  # recursive case
+
+print(factorial(4))  # 24`],
+    ]),
     h(2, 'The two parts every recursive function needs'),
     table(
       ['Part', 'Purpose'],
@@ -386,7 +720,22 @@ lessons.push({
 }
 
 greet();
-console.log(message); // ❌ ReferenceError: message is not defined`),
+console.log(message); // ❌ ReferenceError: message is not defined`, [
+      ['php', `<?php
+function greet() {
+  $message = "Hello!";
+  echo $message; // works fine
+}
+
+greet();
+echo $message; // ❌ Warning: Undefined variable $message`],
+      ['python', `def greet():
+    message = "Hello!"
+    print(message)  # works fine
+
+greet()
+print(message)  # ❌ NameError: name 'message' is not defined`],
+    ]),
     h(2, 'Global scope'),
     p('<p>A variable declared outside any function is accessible everywhere in the file, including inside functions.</p>'),
     code('javascript', `let siteName = "Learn Computer Academy"; // global
@@ -395,7 +744,24 @@ function printName() {
   console.log(siteName); // can read the global variable
 }
 
-printName(); // "Learn Computer Academy"`),
+printName(); // "Learn Computer Academy"`, [
+      ['php', `<?php
+$siteName = "Learn Computer Academy"; // global
+
+function printName() {
+  global $siteName; // PHP needs this explicitly — unlike JS, a
+                     // function doesn't see outer variables on its own
+  echo $siteName;
+}
+
+printName(); // "Learn Computer Academy"`],
+      ['python', `site_name = "Learn Computer Academy"  # global
+
+def print_name():
+    print(site_name)  # can read the global variable
+
+print_name()  # "Learn Computer Academy"`],
+    ]),
     h(2, 'Why scope matters'),
     p('<p>Keeping variables local (rather than making everything global) prevents different parts of a program from stepping on each other\'s variables by accident — a common source of hard-to-find bugs in larger programs.</p>'),
   ]
@@ -406,11 +772,22 @@ lessons.push({
     p('<p>Input is data a program receives — from a user, a file, or another program. Output is what the program produces in response. Almost every useful program is, at its core, a cycle of input → processing → output.</p>'),
     h(2, 'Output'),
     p('<p>In examples throughout this site, <code>console.log()</code> is used to print output — in a real webpage, output usually means updating something on the screen instead.</p>'),
-    code('javascript', `console.log("This is program output.");`),
+    code('javascript', `console.log("This is program output.");`, [
+      ['php', `<?php
+echo "This is program output.";`],
+      ['python', `print("This is program output.")`],
+    ]),
     h(2, 'Input in the browser'),
     p('<p>A simple way to accept input from a person in the browser is <code>prompt()</code>, which pops up a small input box and returns whatever the user typed, as a string.</p>'),
     code('javascript', `let name = prompt("What is your name?");
-console.log("Hello, " + name + "!");`),
+console.log("Hello, " + name + "!");`, [
+      ['php', `<?php
+// PHP runs on the server, not in the browser — this is CLI input:
+$name = readline("What is your name? ");
+echo "Hello, " . $name . "!";`],
+      ['python', `name = input("What is your name? ")
+print("Hello, " + name + "!")`],
+    ]),
     callout('note', '<p><code>prompt()</code> always returns a string — if you ask for a number, remember to convert it with <code>Number()</code> before doing math with it (see the <a href="/programming/type-casting">Type Casting</a> lesson).</p>'),
     h(2, 'Real-world input/output'),
     p('<p>Beyond simple pop-ups, programs get input from web forms, files, databases, sensors, or other programs over the network — and send output to a screen, a file, a database, or across the network. The core idea is always the same: bring data in, process it, send results out.</p>'),
@@ -451,10 +828,22 @@ lessons.push({
     ),
     h(2, 'Converting binary to decimal in code'),
     code('javascript', `let decimal = parseInt("1010", 2);
-console.log(decimal); // 10`),
+console.log(decimal); // 10`, [
+      ['php', `<?php
+$decimal = bindec("1010");
+echo $decimal; // 10`],
+      ['python', `decimal = int("1010", 2)
+print(decimal)  # 10`],
+    ]),
     h(2, 'Converting decimal to binary in code'),
     code('javascript', `let binary = (10).toString(2);
-console.log(binary); // "1010"`),
+console.log(binary); // "1010"`, [
+      ['php', `<?php
+$binary = decbin(10);
+echo $binary; // "1010"`],
+      ['python', `binary = bin(10)[2:]  # bin() gives "0b1010" — slice off the prefix
+print(binary)  # "1010"`],
+    ]),
   ]
 })
 
@@ -473,7 +862,19 @@ lessons.push({
 console.log(decimal); // 255
 
 let hex = (255).toString(16);
-console.log(hex); // "ff"`),
+console.log(hex); // "ff"`, [
+      ['php', `<?php
+$decimal = hexdec("FF");
+echo $decimal; // 255
+
+$hex = dechex(255);
+echo $hex; // "ff"`],
+      ['python', `decimal = int("FF", 16)
+print(decimal)  # 255
+
+hex_value = hex(255)[2:]  # hex() gives "0xff" — slice off the prefix
+print(hex_value)  # "ff"`],
+    ]),
   ]
 })
 
@@ -530,7 +931,14 @@ async function main() {
       sort_order: i + 1,
       published_at: new Date().toISOString(),
     }
-    const { error } = await supabase.from('docs').upsert(row, { onConflict: 'path' })
+    // `docs.path` has no unique constraint (confirmed 2026-08-19 — upsert
+    // onConflict:'path' fails with "no unique or exclusion constraint"), so
+    // idempotency is done by hand: update the existing row by path if one
+    // exists, insert only if it doesn't.
+    const { data: existing } = await supabase.from('docs').select('id').eq('path', row.path).maybeSingle()
+    const { error } = existing
+      ? await supabase.from('docs').update(row).eq('id', existing.id)
+      : await supabase.from('docs').insert(row)
     if (error) { console.error(`Failed ${lesson.slug}:`, error.message); continue }
     console.log(`  ✓ ${lesson.slug}`)
     written++
