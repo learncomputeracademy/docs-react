@@ -9,6 +9,45 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-19 — Session 73: New "MongoDB" category — 22 lessons shipped (D-96)
+
+**Done**
+- User asked what more courses to build; surveyed the 22 existing categories, proposed several
+  gaps (Git & GitHub, TypeScript, Cybersecurity, MongoDB, others). User picked MongoDB. Outline
+  approved before writing, per CONTENT-PIPELINE.md §0.
+- Shipped **MongoDB**, a 22-lesson category (`scripts/create-mongodb-category.mjs` +
+  `scripts/create-mongodb-content.mjs`) — document-database fundamentals through CRUD, schema
+  design, indexes, the aggregation pipeline, and Node.js integration (raw driver + Mongoose).
+  Joins the "Backend, data & AI" homepage group after SQL. Real MongoDB brand icon
+  (`logos:mongodb-icon`). Full lesson list, cross-links, and image list in **D-96**.
+- 3 real hand-built Figma diagrams (DB→Collection→Document hierarchy, Embedding vs Referencing
+  two-panel comparison with a labeled reference arrow, Aggregation Pipeline 3-stage flow) + 19
+  AI-generated isometric illustrations (Magnific `gpt-2`), all uploaded to Cloudinary, one image
+  per lesson.
+- **Caught and fixed a real bug during verification**: the `code()` block builder used the wrong
+  field name (`source` instead of the schema's `code`), which silently broke server-rendering for
+  every code block on all 22 lessons — pages looked fine in a browser (client-side fallback) but
+  `view-source` briefly failed CLAUDE.md's content-in-HTML gate. Found by `curl`-ing the raw SSR
+  HTML during verification rather than trusting a rendered screenshot. One-line fix, re-ran the
+  idempotent script, re-verified all 22 paths clean. Full root-cause writeup in D-96 — worth a
+  read if a future content script's code blocks come out blank.
+- Verified locally: dry-run, real run (×2), local-only cache revalidation (does not touch the
+  Vercel ISR-quota constraint — this was `unstable_cache` on the dev process, a different thing),
+  category index lists all 22, homepage tile shows, both locales load, raw server HTML confirmed
+  clean post-fix.
+
+**Next session — start here**
+- Nothing outstanding from this session. MongoDB category is fully shipped and verified.
+- The `code()` field-name bug was specific to this one content script (freshly written, not
+  copied correctly from `create-basics-content.mjs` as CONTENT-PIPELINE.md §6 instructs) — no
+  other content script is known to share it, but if a future script's code blocks ever render
+  blank, check the field name first before assuming it's something else.
+- Still-open course ideas from the original survey (Git & GitHub, TypeScript, Cybersecurity
+  basics, testing/QA, accessibility, Docker, mobile dev, video editing) — not scheduled, just
+  logged in case the user wants another one next.
+
+---
+
 ## 2026-08-18 — Session 72: Beginner-eye content audit — deferred scope shipped, "do the rest" (D-95)
 
 **Done**

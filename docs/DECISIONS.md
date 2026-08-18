@@ -4984,6 +4984,71 @@ from Supabase, no cache) shows the images immediately if anyone needs to eyeball
 
 ---
 
+## D-96 · New "MongoDB" category — 22 lessons, 3 real Figma diagrams + 19 AI illustrations
+
+**Trigger.** User: "what more courses can we build?" — surveyed the 22 existing categories, proposed
+Git & GitHub / TypeScript / Cybersecurity / MongoDB / others; user picked MongoDB specifically
+("how about mongo DB, can that be built"). Outline (22-lesson list + category placement) proposed
+and approved per CONTENT-PIPELINE.md §0 before writing anything, followed by "also use figma design
+screenshots if required" for the structural diagrams.
+
+**Category.** Slug `mongodb`, sort_order 23, joins the existing "Backend, data & AI" homepage group
+right after SQL (`components/home-content.tsx`). Icon: real brand logo `logos:mongodb-icon` via
+`~icons/logos/mongodb-icon` (same real-brand-logo convention as PHP/Python/Node/WordPress/Figma —
+MongoDB is a specific product, not a discipline). `scripts/create-mongodb-category.mjs`.
+
+**22 lessons** (`scripts/create-mongodb-content.mjs`), original content, EN+BN, matching SQL/Node's
+scale: Introduction → Installing MongoDB & Atlas → Databases/Collections/Documents → mongosh →
+insert/find/query-operators/update/delete → sort/limit/skip → projections → **Schema Design —
+Embedding vs Referencing** → data types → indexes → **Aggregation Pipeline intro** → aggregation
+common stages ($lookup, $unwind) → schema validation → MongoDB with Node.js (official driver) →
+Mongoose schemas/models → Mongoose validation & `populate()` → backup & security (mongodump/
+mongorestore, roles) → Where This Leaves You. Cross-links to `/sql/intro`, `/sql/joins`,
+`/nodejs/introduction`, `/nodejs/rest-api`, `/nodejs/process-and-env`, `/nodejs/connecting-to-a-
+database` — all checked live against real paths before writing.
+
+**Images — 3 real hand-built Figma diagrams + 19 AI-generated (Magnific `gpt-2`, isometric style,
+teal/slate palette), one image per lesson:**
+
+- **`docs/img/mongodb/db-collection-document-hierarchy`** (774×432) — nested Database → Collection
+  → Document boxes, two example documents with *different* fields to make the flexible-schema point
+  visually, not just in prose. Used in `databases-collections-documents`.
+- **`docs/img/mongodb/embedding-vs-referencing`** (690×342) — two-panel comparison: left panel a
+  single document with a nested `address` sub-object (Embedding); right panel two separate documents
+  (`authors` / `posts` collections) joined by a labeled blue arrow from `authorId` back to `_id`
+  (Referencing). Used in `schema-design-embedding-vs-referencing`.
+- **`docs/img/mongodb/aggregation-pipeline-stages`** (500×115) — three connected stage boxes
+  (`$match` teal → `$group` blue → `$project` orange), each showing a real one-line code sample,
+  connected by arrows. Used in `aggregation-pipeline-introduction`.
+- 19 AI isometric illustrations, `docs/img/mongodb/<slug>-hero`, one per remaining lesson —
+  generated via `images_generate` (19 queued calls, `creations_wait` in batches of 8), uploaded to
+  Cloudinary directly by remote URL (no local download step needed), all 1024×768.
+
+**Real-bug caught by verification, not by inspection.** The pipeline's own `code()` block builder
+was written with the wrong field name — `{ type: 'code', language, source }` instead of the schema's
+actual `code` field (`lib/types.ts`'s `CodeBlock` type) — copied wrong from memory rather than from
+`scripts/create-basics-content.mjs` as instructed. Every code block on every one of the 22 lessons
+had `b.code === undefined`, and `BlockRenderer`'s `highlight(b.code, b.language)` threw `Cannot read
+properties of undefined (reading 'length')` server-side, which Next silently caught and **fell back
+to client-side rendering** — pages still returned 200 and looked fine in a real browser after
+hydration, but `view-source` briefly showed none of the lesson body, violating CLAUDE.md §3's hard
+SEO gate. Caught by literally reading the SSR HTML (`curl | grep`) during verification, not by
+eyeballing a rendered page — the failure mode is invisible in a browser. One-line fix
+(`code: source` instead of bare `source`), re-ran the idempotent script (updates in place, no
+duplicates), re-verified via `curl` against all 22 paths post-fix: zero errors, lesson text and
+images both present in raw server HTML.
+
+**Verified**: dry-run confirmed all 22 targets before writing; ran for real twice (bug fix in
+between); local dev revalidated via `doc:<path>` and `sidebar` tags (local-only —
+`unstable_cache` on my own dev process, not Vercel's ISR quota, so this does **not** touch the
+active ISR-quota constraint); category index lists all 22 lessons in order; homepage shows the new
+MongoDB tile with the real brand icon; both locales load; every lesson's raw server HTML (not just
+the rendered page) shows lesson text and its image with no server-render error.
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

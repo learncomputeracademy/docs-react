@@ -7,8 +7,6 @@ import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { HeroReveal } from '@/components/magic/hero-reveal'
 import { AnimatedCode } from '@/components/magic/animated-code'
-import { ShimmerButton } from '@/components/magic/shimmer-button'
-import { BorderBeam } from '@/components/magic/border-beam'
 import { MagicCard } from '@/components/magic/magic-card'
 
 const FEATURES = {
@@ -23,6 +21,23 @@ const FEATURES = {
     { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
   ],
 } as const
+
+// Presentation-only grouping for the subject index — independent of the
+// categories table's own `sort_order` (which drives the sidebar/admin and
+// stays untouched). The hero promises an arc ("design, development,
+// deployment, and the career skills that come after"); the old flat
+// 18-card grid didn't reflect it (design critique 2026-08-06, P1) — this
+// does. A category not listed in any group here still ships, appended as
+// its own trailing "More" panel by the `ungrouped` fallback below, rather
+// than silently vanishing the next time a category ships and this list
+// isn't updated.
+const SUBJECT_GROUPS = [
+  { key: 'start', slugs: ['basics', 'programming', 'office'], label: { en: 'Start here', bn: 'শুরু করুন' } },
+  { key: 'design', slugs: ['design', 'photoshop', 'figma', 'ui-ux'], label: { en: 'Design', bn: 'ডিজাইন' } },
+  { key: 'web', slugs: ['html', 'css', 'javascript', 'react'], label: { en: 'Build the web', bn: 'ওয়েব তৈরি' } },
+  { key: 'backend', slugs: ['php', 'python', 'sql', 'mongodb', 'nodejs', 'wordpress', 'ai'], label: { en: 'Backend, data & AI', bn: 'ব্যাকএন্ড, ডেটা ও এআই' } },
+  { key: 'launch', slugs: ['hosting', 'marketing', 'seo', 'career', 'freelancing'], label: { en: 'Launch & grow', bn: 'লঞ্চ ও ক্যারিয়ার' } },
+] as const
 
 // Optional per-locale text overrides from /admin/settings, layered on top
 // of lib/i18n.ts's defaults — an empty/missing site_settings row (true
@@ -55,105 +70,97 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   const prefix = locale === 'bn' ? '/bn' : ''
   const features = FEATURES[locale]
 
+  const byslug = new Map(categories.map(c => [c.slug, c]))
+  // Any category not accounted for by SUBJECT_GROUPS still ships — appended
+  // as its own trailing group — rather than silently vanishing from the
+  // homepage the next time a category is added and this list isn't updated.
+  const grouped = new Set<string>(SUBJECT_GROUPS.flatMap(g => g.slugs))
+  const ungrouped = categories.filter(c => !grouped.has(c.slug) && c.docs.length > 0)
+
   return (
     <main className="flex-1">
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b">
-        <div
-          className="pointer-events-none absolute inset-0 -z-10 opacity-[0.07]"
-          style={{
-            backgroundImage: 'radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)',
-            backgroundSize: '24px 24px',
-          }}
-        />
-        <div
-          className="pointer-events-none absolute -top-24 right-0 -z-10 size-[32rem] rounded-full bg-primary/10 blur-3xl"
-          aria-hidden
-        />
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:py-28">
+      {/* Hero — flat surface, no ambient decoration. Typography and the one
+          real product proof (AnimatedCode, live-typing) carry the page;
+          nothing else auto-plays. */}
+      <section className="border-b">
+        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
-            <div className="mb-5 inline-flex items-center gap-2 rounded-full border bg-accent/50 px-3 py-1 text-xs font-medium text-accent-foreground">
-              <span className="size-1.5 rounded-full bg-primary" />
-              {s.freeLessonsSubjects(totalLessons, categories.length)}
-            </div>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
+            <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               {heroTitle1}<span className="text-primary">{heroTitle2}</span>
             </h1>
             <p className="mt-5 max-w-lg text-lg text-muted-foreground">{heroSub}</p>
             {firstLesson && (
-              <div className="mt-8 flex flex-wrap gap-3">
-                <ShimmerButton asChild size="lg">
-                  <Link href={`${prefix}/${firstLesson.path}`}>
-                    {s.startLearning} <ArrowRight className="size-4" />
-                  </Link>
-                </ShimmerButton>
-                <Button asChild size="lg" variant="outline">
-                  <Link href="#subjects">{s.browseSubjects}</Link>
-                </Button>
+              <div className="mt-8">
+                <div className="flex flex-wrap items-center gap-3">
+                  <Button asChild size="lg" className="shadow-sm shadow-primary/20">
+                    <Link href={`${prefix}/${firstLesson.path}`}>
+                      {s.startLearning} <ArrowRight className="size-4" />
+                    </Link>
+                  </Button>
+                  <Button asChild size="lg" variant="outline">
+                    <Link href="#subjects">{s.browseSubjects}</Link>
+                  </Button>
+                </div>
+                <p className="mt-4 text-sm text-muted-foreground">{s.freeLessonsSubjects(totalLessons, categories.length)}</p>
               </div>
             )}
           </HeroReveal>
 
-          {/* Decorative code mockup — cycles HTML/CSS/JS/React/PHP/SQL
-              snippets forever (AnimatedCode). Code itself stays in
-              English/CSS syntax in both locales, on purpose. */}
-          <div className="hidden lg:block">
+          {/* Was `hidden lg:block` — mobile visitors never saw the one
+              element that demonstrates the product (design critique
+              2026-08-06, Casey persona). Visible at every width now. */}
+          <div>
             <AnimatedCode />
           </div>
         </div>
       </section>
 
-      {/* Features */}
+      {/* Features — a single inline strip, not the 3-up same-size
+          icon-over-heading-over-text scaffold the craft floor refuses by
+          name (finish review 2026-08-06). Icon and copy sit on one line
+          per item, divided by hairlines, wrapping on narrow widths — reads
+          as one dense row of facts, not three repeated card shapes. */}
       <section className="border-b bg-muted/30">
-        <div className="mx-auto grid max-w-6xl gap-8 px-6 py-14 sm:grid-cols-3">
+        <div className="mx-auto flex max-w-6xl flex-wrap divide-x divide-border px-6 py-8">
           {features.map((f) => (
-            <div key={f.title} className="flex flex-col items-start gap-3">
-              <div className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
-                <f.icon className="size-5" />
-              </div>
-              <h2 className="font-semibold">{f.title}</h2>
-              <p className="text-sm text-muted-foreground">{f.body}</p>
+            <div key={f.title} className="flex min-w-0 flex-1 basis-64 items-start gap-3 px-6 py-2 first:pl-0 last:pr-0">
+              <f.icon className="mt-0.5 size-4.5 shrink-0 text-primary" />
+              <p className="text-sm">
+                <span className="font-medium">{f.title}.</span> <span className="text-muted-foreground">{f.body}</span>
+              </p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Subjects */}
+      {/* Subjects — grouped card grid, matching the card language every
+          category page already uses (MagicCard glow + hover-lift), not the
+          bordered-panel/hairline-list scaffold this section used to have.
+          That mismatch — home read as a doc-index widget, category pages
+          read as a modern card grid — was the "old school" complaint
+          (2026-08-17). Group headers stay plain text labels, not another
+          boxed header bar. */}
       <section id="subjects" className="mx-auto max-w-6xl px-6 py-16">
         <h2 className="text-2xl font-bold tracking-tight">{s.pickASubject}</h2>
         <p className="mt-1 text-muted-foreground">{s.pickASubjectSub}</p>
 
-        <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {categories.map((cat) => {
-            const Icon = CATEGORY_ICONS[cat.slug]
-            if (cat.docs.length === 0) return null
+        <div className="mt-10 space-y-10">
+          {SUBJECT_GROUPS.map((group) => {
+            const items = group.slugs.map(slug => byslug.get(slug)).filter((c): c is NonNullable<typeof c> => !!c && c.docs.length > 0)
+            if (items.length === 0) return null
             return (
-              <MagicCard key={cat.id} className="rounded-xl" glow>
-                <Link
-                  href={`${prefix}/${cat.slug}`}
-                  className="group relative flex items-start gap-4 rounded-xl bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5"
-                >
-                  <div className="flex size-11 shrink-0 items-center justify-center rounded-lg bg-accent">
-                    {Icon && <Icon className="size-6" />}
-                  </div>
-                  <div className="min-w-0">
-                    <h3 className="font-semibold">{cat.title}</h3>
-                    <p className="mt-1 text-sm text-muted-foreground">
-                      {cat.docs.length} {cat.docs.length === 1 ? s.lesson : s.lessons}
-                    </p>
-                  </div>
-                  <ArrowRight className="ml-auto size-4 shrink-0 self-center text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
-                </Link>
-              </MagicCard>
+              <SubjectGroup key={group.key} label={group.label[locale]} items={items} prefix={prefix} locale={locale} s={s} />
             )
           })}
+          {ungrouped.length > 0 && (
+            <SubjectGroup label={locale === 'bn' ? 'আরও' : 'More'} items={ungrouped} prefix={prefix} locale={locale} s={s} />
+          )}
         </div>
       </section>
 
       {/* About band */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="relative flex flex-col items-start gap-6 overflow-hidden rounded-2xl border bg-card p-8 sm:flex-row sm:items-center sm:justify-between">
-          <BorderBeam duration={14} />
+        <div className="flex flex-col items-start gap-6 rounded-xl border bg-card p-8 shadow-sm sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="text-lg font-semibold">{aboutBandTitle}</h2>
             <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">
@@ -169,5 +176,50 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         </div>
       </section>
     </main>
+  )
+}
+
+type PanelItem = { id: string; slug: string; title: string; docs: { path: string }[] }
+
+function SubjectGroup({ label, items, prefix, locale, s }: {
+  label: string
+  items: PanelItem[]
+  prefix: string
+  locale: Locale
+  s: ReturnType<typeof t>
+}) {
+  return (
+    <div>
+      <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">{label}</h3>
+      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {items.map((cat) => {
+          const Icon = CATEGORY_ICONS[cat.slug]
+          return (
+            <MagicCard key={cat.id} className="rounded-xl" glow>
+              <Link
+                href={`${prefix}/${cat.slug}`}
+                className="group flex flex-col gap-3 rounded-xl bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5"
+              >
+                {/* text-primary, not text-foreground: Lucide's monochrome
+                    icons (conceptual categories) were reading as a colder,
+                    separate system from the brand-color tech logos in the
+                    same badge (finish review 2026-08-06) — tinting them
+                    brand-orange instead of neutral warms the whole grid
+                    toward one palette. Brand logos ignore this; they carry
+                    their own fill colors. */}
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+                  {Icon && <Icon className="size-5" />}
+                </span>
+                <span className="min-w-0 truncate text-sm font-medium group-hover:text-primary">{cat.title}</span>
+                <span className="flex items-center justify-between text-xs text-muted-foreground">
+                  {cat.docs.length} {cat.docs.length === 1 ? s.lesson : s.lessons}
+                  <ArrowRight className="size-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
+                </span>
+              </Link>
+            </MagicCard>
+          )
+        })}
+      </div>
+    </div>
   )
 }
