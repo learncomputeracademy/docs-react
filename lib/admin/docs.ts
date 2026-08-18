@@ -45,14 +45,14 @@ export async function listCategoriesForAdmin() {
 // bn row, the translation overrides title/blocks/toc independently, so an
 // English-only edit doesn't touch what bn readers see and the write is
 // waste — that's the case this skips.
-export async function revalidateDoc(supabase: Awaited<ReturnType<typeof createClient>>, id: string, path: string) {
-  // path is always <category>/<slug> — sidebar tag is per-category since
-  // 2026-08-19 (lib/content.ts), so this edit only busts its own
-  // category's cache entry, not all 23.
-  const categorySlug = path.split('/')[0]
+// doc:<path> + the page route are always genuinely per-doc — each is a
+// distinct cache entry no other doc shares. Split out from revalidateDoc so
+// bulkPublish can call this N times but the SHARED tags (sidebar:<category>,
+// search-index) only once each per batch, not once per doc (D-99 follow-up:
+// N docs published in one category were re-busting that same sidebar tag N
+// times for an identical result).
+async function revalidateDocPage(supabase: Awaited<ReturnType<typeof createClient>>, id: string, path: string) {
   revalidateTag(`doc:${path}`, { expire: 0 })
-  revalidateTag(`sidebar:${categorySlug}`, { expire: 0 })
-  revalidateTag('search-index', { expire: 0 })
   revalidatePath(`/${path}`, 'page')
   const { count } = await supabase
     .from('doc_translations')
@@ -60,6 +60,15 @@ export async function revalidateDoc(supabase: Awaited<ReturnType<typeof createCl
     .eq('doc_id', id)
     .eq('locale', 'bn')
   if (!count) revalidatePath(`/bn/${path}`, 'page')
+}
+
+export async function revalidateDoc(supabase: Awaited<ReturnType<typeof createClient>>, id: string, path: string) {
+  // path is always <category>/<slug> — sidebar tag is per-category since
+  // 2026-08-19 (lib/content.ts), so this edit only busts its own
+  // category's cache entry, not all 23.
+  await revalidateDocPage(supabase, id, path)
+  revalidateTag(`sidebar:${path.split('/')[0]}`, { expire: 0 })
+  revalidateTag('search-index', { expire: 0 })
 }
 
 export async function setDocStatus(id: string, status: 'draft' | 'published') {
@@ -84,7 +93,17 @@ export async function bulkPublish(ids: string[]) {
     .select('id, path')
   if (error) throw new Error(error.message)
   for (const d of data ?? []) await logActivity('published', 'doc', null, d.path)
-  for (const d of data ?? []) await revalidateDoc(supabase, d.id, d.path)
+
+  // Shared tags deduped across the whole batch — see revalidateDocPage's
+  // comment. categorySlugs is a Set so publishing 20 docs in one category
+  // still only fires that one sidebar tag once.
+  const categorySlugs = new Set<string>()
+  for (const d of data ?? []) {
+    await revalidateDocPage(supabase, d.id, d.path)
+    categorySlugs.add(d.path.split('/')[0])
+  }
+  for (const slug of categorySlugs) revalidateTag(`sidebar:${slug}`, { expire: 0 })
+  if (data?.length) revalidateTag('search-index', { expire: 0 })
 }
 
 // Soft delete, admin-only (enforced by the docs_delete_restore_guard
