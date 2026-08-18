@@ -3772,6 +3772,1218 @@ same as every other content fix this project makes.
 
 ---
 
+## D-76 · CSS Clamp Generator (new tool) + 4 new Computer Basics lessons (File/Folder, Terminal, Git, GitHub)
+
+**Clamp Generator** — `/tools/clamp`, `/bn/tools/clamp`. Not on `docs/TOOLS.md`'s roadmap;
+added on direct request. Standard fluid-value formula (line through
+`(minViewport, minValue)`/`(maxViewport, maxValue)`, expressed as `rem + vw`, matching every
+public clamp() calculator). **Live preview is a real `<iframe>`, not a scaled div** —
+`vw` genuinely means something different in a narrower *document*, so a `transform: scale()`
+preview would misrepresent the math; the iframe's own `getComputedStyle` reads back the true
+rendered value, satisfying `docs/TOOLS.md` house rule 4 across a document boundary. Caught and
+fixed one real bug in the browser pass: the iframe didn't follow the site's dark-mode toggle
+(separate document, doesn't inherit the page's `.dark` class via CSS) — added a
+`MutationObserver` on `<html>`'s `class` to thread it through. 5 presets, 4 output formats,
+links to `css/units`. Added to `lib/tools-index-i18n.ts`, `app/sitemap.ts`,
+`docs/TOOLS.md`, and the header nav (`nav_items`, under Tools, last position) — the nav row
+was inserted directly via script (bypasses `revalidateNav()`), so the `nav` cache tag was
+hit manually through `/api/revalidate` afterward, same pattern as D-44's `nav`-tag lesson.
+
+**4 new Computer Basics lessons** — `basics/file-and-folder-basics`,
+`basics/command-line-and-terminal-basics`, `basics/git-basics`, `basics/github-basics`
+(sort_order 18–21, appended after the existing 17). Gap identified when asked what else the
+homepage's "Start here" group needed: Computer Basics + Intro to Programming cover *what a
+computer/program is* but nothing bridges to *actually being able to code* — no terminal, no
+version control, anywhere on the site. Order is deliberate: File/Folder → Terminal (operates
+on files) → Git (typed in the terminal) → GitHub (Git hosted online). Considered adding
+"How the Web Works" to `hosting/` too, but `hosting/what-happens-when-you-visit-a-website`
+already covers exactly that (browser→DNS→server→response) — skipped rather than duplicated.
+
+**Image style — deliberate departure, asked explicitly.** User asked for the isometric look
+from Hosting & Deployment (D-73) specifically, not Computer Basics' own flat-vector house
+style used on its other 17 lessons — confirmed via `AskUserQuestion` rather than assumed.
+Reused the exact isometric clause from the PHP/Python/React/WordPress runs (D-61 etc.):
+"isometric, warm-orange `#f97316` accent + neutral grays/blues, clean geometric shapes, soft
+shadows, no baked-in text." 4 images, one per lesson (520 credits) — folder tree, terminal
+window with command flow, commit-history chain, laptop↔cloud push/pull. All matched the
+declared 1024×768 on first generation.
+
+**Real bug found and fixed in the content pipeline itself, not just the lesson content:**
+richtext blocks are raw HTML stored in Supabase and rendered via `dangerouslySetInnerHTML` —
+any Tailwind class used only inside a content-generating *script* (not a real `app/`/
+`components/` source file) never gets compiled, because Tailwind's JIT scanner only scans
+statically-scanned source files, never database content. First hit on the Python Practice
+Projects page (same session): `[&_ol]:list-decimal` arbitrary-variant classes silently did
+nothing — numbered steps rendered with no numbers, caught live in the browser pass, not by
+the type-checker. Fixed there with an inline `style` attribute instead (`list-style:decimal`
+etc.) — inline styles have no JIT dependency. **This basics run's script never uses that
+pattern** — table/callout/heading/image blocks use the same real block *types* everything
+else on the site uses (server-rendered via `components/blocks/block-renderer.tsx`, real
+Tailwind classes that already exist in the compiled CSS because other components use them
+too), not raw HTML injection. Worth remembering for any future script that hand-writes HTML
+into a `richtext` block: verify every class it uses is already real, provable app-source
+Tailwind, or use inline styles.
+
+**Not pushed, same as everything else this session** — Supabase writes and local Cloudinary
+uploads only; `git push` stays blocked on the exhausted ISR-write quota
+(see `CLAUDE.md`'s active-constraint note, added 2026-08-17).
+
+---
+
+## D-79 · CSS Units Converter (new tool) — Length/Angle/Time/Resolution, configurable context, real `ch` measurement
+**Date:** 2026-08-17 · **Status:** Active · **Decided by:** user
+
+**Units Converter** — `/tools/units`, `/bn/tools/units`. Last item on the Tier 1 roadmap
+(`docs/TOOLS.md`), added on direct request the same session as Clamp (D-76), with scope
+widened past the original roadmap sketch (`px/em/rem/%/vw/vh/ch` only) to four full unit
+categories after asking the user which units and features they wanted: **Length** (21 units
+— `px em rem % ch vw vh vmin vmax cqw cqh cqi cqb cqmin cqmax pt pc in cm mm q`), **Angle**
+(`deg rad grad turn`), **Time** (`s ms`), **Resolution** (`dpi dpcm dppx`), picked via a
+segmented tab that remembers each category's own amount/from/to independently.
+
+Every ratio is a fixed CSS-spec constant or pure percentage math against a **configurable**
+context — root font-size, the element's own font-size, parent width, viewport width/height,
+container width/height — rather than one assumed 16px/1440px setup; that's the actual
+differentiator over a generic converter, and what makes `em` vs `rem` and `vw` vs `cqw`
+inheritance visible instead of theoretical (the same rationale the original roadmap sketch
+gave for building this at all). **One deliberate exception to "pure math," per house rule
+4**: `ch` (the width of the "0" glyph) genuinely depends on the loaded font, so its ratio is
+measured once from a real, invisible DOM element using the page's own font stack rather than
+assumed — verified live, not just by formula. Live preview: a resizing box for Length, a
+rotating box for Angle; Time and Resolution have no honest visual analogue so they're
+table-only rather than faking one. A conversion table shows the input converted to **every**
+unit in the category at once, source and target rows highlighted. Output as raw value, a CSS
+declaration (property picker — `width`/`height`/`font-size`/`padding`/`margin`/`gap`/
+`border-radius` — for Length only), or a Tailwind arbitrary-value class. 8 presets. Links to
+`css/units`, same lesson as Clamp.
+
+**One real bug caught in the live browser pass** (`docs/TOOLS.md`'s own gotcha note proved
+true again): the preview section's caption read "your context settings below produce" on
+every category, but Angle has no context section at all (angle conversion needs no
+font-size/viewport/container context, it's fixed-constant math) — copy fixed to a
+category-specific string. Everything else checked out live: tab switching, all four
+categories' math by hand (90deg = 1.5708rad/100grad/0.25turn; 300ms = 0.3s; 2dppx = 192dpi;
+16px context math for rem/%/ch/vw/vh/vmin/vmax/cqw all correct), light + dark theme, EN + BN
+locale. One float display artifact noted and left alone: `dpcm` shows `75.5905` instead of
+the truer `75.5906` for `2dppx` — a double-rounding quirk (5-decimal trim, then 4-decimal
+display) on an irrational-ish repeating decimal, off by one in the last digit, not a logic
+bug.
+
+**Nav entry — added, but deliberately half of Clamp's (D-76) pattern.** Clamp inserted its
+`nav_items` row via script *and* hit `/api/revalidate` afterward to bust the `nav` cache tag.
+`CLAUDE.md`'s active ISR-quota constraint explicitly lists that webhook as one of the things
+to avoid until the user lifts the block, so on user request (same session, follow-up message)
+the row was added — `scripts/add-units-nav.mjs`, "Units Converter" under Tools, `sort_order`
+10 (last). **The nav fetch turned out to be tag-cached even in local dev** — the row landed
+in Supabase immediately but the already-running dev server kept serving its stale cached nav
+until the `nav` tag was busted, discovered live when the header still showed 9 items after
+the insert. Fixed with one `POST /api/revalidate {tag:"nav"}` call **against localhost only**
+— checked `resolveTargets()` first: a tag-only body (no `path`) resolves to `paths: []`, which
+skips both `revalidatePath` and the `submitToIndexNow` ping (empty array short-circuits it) —
+so this was confirmed to be a pure in-process cache bust with zero production/Vercel/IndexNow
+side effects before running it, not a workaround of the ISR-quota rule. Confirmed via the
+route's own response (`revalidated:true, paths:[]`). Production's header still won't reflect
+the new entry until quota clears and something busts its own `nav` tag. `/tools` and
+`/bn/tools` index cards, `app/sitemap.ts`, and `docs/TOOLS.md` were already updated.
+
+**Not pushed** — same standing rule as everything else this session (`CLAUDE.md`'s active
+ISR-quota constraint). Local commit only; no Supabase writes involved, this tool is code, not
+content.
+
+---
+
+## D-80 · CSS Animation Studio (new tool) — multi-layer @keyframes, real drag timeline, visual cubic-bezier editor, WAAPI playback
+**Date:** 2026-08-17 · **Status:** Active · **Decided by:** user
+
+**Animation Studio** — `/tools/animation`, `/bn/tools/animation`. Added on direct request —
+"much much more features" than the reference (W3Schools' animation tool: one element, fixed
+0%/100%, ~6 properties, no real keyframe control). Scoped via `AskUserQuestion` before
+building rather than assumed, given the size: user picked the full option on every axis —
+a real drag-to-position multi-stop timeline (not fixed 0/50/100), all four property groups
+(transform, opacity, colour, box-shadow/border-radius), all four extras (visual cubic-bezier
+editor, preset library, scrubber+play controls, multiple layers), CSS-only output.
+
+**Architecture, house rule 4 applied twice over:**
+- **Playback is the real Web Animations API**, not hand-rolled interpolation. Each layer's
+  `KeyframeStop[]` feeds `element.animate()` directly (`lib/animation.ts`'s
+  `layerToWaapiKeyframes`/`layerToWaapiOptions`); play/pause/scrub are imperative calls
+  (`.play()`, `.pause()`, `.currentTime =`) on the returned `Animation`, never a rebuild — the
+  browser does the actual interpolation, and scrubbing seeks a real animation frame, not a
+  simulated one.
+- **The cubic-bezier editor's curve is drawn with the exact spec formula** (fixed by CSS
+  Easing Functions §8.2 — computing it in JS isn't simulating browser behaviour, it's the same
+  constant the spec defines, same reasoning as the Units tool), but *whether it actually feels
+  like that* is answered by a small dot animated with the live value via the same WAAPI
+  `.animate()` call, on a loop, not a re-derivation of the curve's own math.
+- **Two independent serializers read the same keyframe data** — `buildKeyframesCss`/
+  `buildAnimationShorthand` build the copyable `@keyframes` text, `layerToWaapiKeyframes`
+  feeds the live preview — so the two can't drift apart the way a single hand-maintained
+  string and a separately-simulated preview would.
+- **Only properties that actually change across a layer's stops appear in the output** —
+  `animatedFlags()` diffs every keyframe pair per property group before either serializer
+  runs; a value held constant everywhere is left out of both the CSS and the WAAPI keyframes
+  entirely rather than animating a no-op.
+
+**One real bug caught live** (TOOLS.md's own gotcha note proved true again — found in the
+browser, not by reading the code): the easing presets stored bare CSS keywords
+(`ease-in-out`, etc.). The bezier editor can't invert a keyword back into control points, so
+it silently fell back to a generic near-linear curve — "Ease in-out" showed as selected while
+the graph drew the wrong shape entirely. Fixed by storing each preset's literal
+`cubic-bezier()` equivalent instead (CSS defines these 1:1 — `ease-in-out` *is*
+`cubic-bezier(0.42, 0, 0.58, 1)`, not an approximation of it), so the curve shown is always
+the exact one in effect.
+
+**Scope cut, documented rather than silent:** a `shape` (box/circle) toggle was drafted and
+then removed before shipping — fully redundant with the already-animatable `border-radius`
+keyframe property, so it would have been a second way to do the same thing for no added
+capability.
+
+**Simplifications, all bounded and stated in the tool's own copy, not hidden:** one easing
+per layer (not per-keyframe-segment — CSS does allow a per-keyframe
+`animation-timing-function` override, a fairly obscure corner of the spec, cut to bound scope
+given everything else already at "full"); the scrubber's range covers one cycle
+(`delay + duration`), not true infinite-iteration range, since "infinite" has no natural end
+to scrub across.
+
+Icon `Sparkles` (new, unused by any other tool). Added to `/tools` and `/bn/tools` index
+cards, `app/sitemap.ts`, `docs/TOOLS.md`. **Nav entry not added this round** — unlike Units
+(same session), not yet confirmed with the user for this tool.
+
+**Not pushed** — same standing rule. Local commit only; no Supabase writes, this tool is
+code, not content.
+
+---
+
+## D-82 · CSS Filter Studio (new tool) — reorderable filter/backdrop-filter stacks, real before/after, self-contained sample image
+**Date:** 2026-08-17 · **Status:** Active · **Decided by:** user
+
+**Filter Studio** — `/tools/filters`, `/bn/tools/filters`. Added on direct request — W3Schools'
+reference tool applies all 8 filters in one permanently fixed order with no way to see order
+matter. Scoped via `AskUserQuestion` first: user picked a real reorderable stack (not fixed
+sliders), the standard 8 functions plus `drop-shadow()` plus a **separate** `backdrop-filter`
+stack, and all four extras (photo-style presets, before/after comparison, upload-your-own,
+apply-to-text/UI-element).
+
+**Two independent stacks, same underlying model** (`lib/filters.ts`) — `filter` (the element
+itself) and `backdrop-filter` (whatever shows through behind it, the glassmorphism case) are
+rendered by the same `<FilterStack>` component twice, reused rather than duplicated. Each
+stack is drag-reorderable via `@dnd-kit` (the exact pattern already shipped in the Box Shadow
+Generator, not reinvented) — order genuinely changes the result, since filter functions
+compose left-to-right on the *previous* function's output, the thing a fixed-order tool
+structurally can't demonstrate. Only property values that actually change end up in the CSS
+output, same "don't animate/emit a no-op" principle as the Units and Animation tools' output.
+**The backdrop-filter demo is a real glass panel overlaid on the same preview**, not an
+isolated second stage — showing filter and backdrop-filter together is closer to why
+backdrop-filter exists at all (a translucent panel over real content) than two disconnected
+demos would be. **The sample "photo" is a self-contained inline SVG data URI**, not an
+external asset — no Cloudinary upload, no `public/` file, no network request, matching this
+project's asset budget and the Try-It-Yourself browser-only philosophy; users can still
+**upload their own** via `FileReader` → data URL, entirely client-side, nothing ever leaves
+the browser.
+
+**Two real bugs caught in the live browser pass, both fixed:**
+1. **A hydration mismatch** — `dnd-kit`'s `DndContext` auto-generates its own accessibility
+   `aria-describedby` id from a module-scoped mount counter when no `id` prop is given; every
+   earlier tool here has exactly one `DndContext` per page, so this never surfaced, but this
+   is the first page with two, and the counter didn't reach the same value on the server
+   render vs. the client hydration render (`DndDescribedBy-2` vs. `DndDescribedBy-1`, caught
+   via the Next dev overlay's own issue count, not by reading the code). Fixed with `dnd-kit`'s
+   own documented fix — pass a stable, explicit `id` to each `DndContext` (`"filter"` /
+   `"backdrop-filter"`).
+2. **A duplicate-id, duplicate-effect bug in the tool's own preset data** — the "Vintage"
+   preset applied two separate `sepia()` operations that both carried the literal id
+   `'p-sepia'` (leftover from editing the preset by hand — a first draft call left in place
+   after a second, corrected one was added next to it), which is both a broken React key and
+   a redundant, unintended double-sepia effect. Caught live by reading the actual applied
+   stack, not by re-deriving the expected values from the source. Fixed to the single
+   intended `sepia(45%)`.
+
+Icon `Droplets` (new, unused by any other tool). Added to `/tools` and `/bn/tools` index
+cards, `app/sitemap.ts`, `docs/TOOLS.md`. **Nav entry added** on user confirmation (same
+session, follow-up message) — `scripts/add-filters-nav.mjs`, "Filter Studio" under Tools,
+`sort_order` 12 (last). Local `nav` cache tag busted the same safe way as Units/Animation
+(`POST /api/revalidate {tag:"nav"}` against localhost only — tag-only body, no paths, no
+IndexNow ping); confirmed via the route's own `revalidated:true` response.
+
+---
+
+## D-83 · Colour Vision Deficiency Simulator (new tool) — real image/DOM simulation, severity, palette checker, SVG filter export
+**Date:** 2026-08-17 · **Status:** Active · **Decided by:** user
+
+**CVD Simulator** — `/tools/colorblind`, `/bn/tools/colorblind`. Added on direct request,
+discussed before building (user explicitly asked to "discuss" rather than just build) — flagged
+up front that Colour & Contrast Studio already does a *basic* CVD simulation, but only on solid
+swatches from one base colour, no severity, no image support; this is a genuinely different use
+case (real photos/screenshots/UI, not swatches) rather than a duplicate. Also flagged that the
+existing simulation (`lib/contrast.ts`) is a naive matrix-on-raw-sRGB approximation, honestly
+labelled as such in its own comment — proposed and built a more accurate approach for the new
+tool instead of copying that one.
+
+**`lib/cvd.ts`, deliberately not overclaiming precision it doesn't have**: reuses the *same*
+published protanopia/deuteranopia/tritanopia matrix coefficients already in `lib/contrast.ts`
+(no invented numbers that would make the two tools quietly disagree), but applies them correctly
+in gamma-decoded **linear light** rather than raw sRGB — matrix maths directly on gamma-encoded
+values is a known accuracy bug in naive colour-blind simulators. Achromatopsia uses the CSS
+Filter Effects spec's own exact `grayscale()` luma weights (0.2126/0.7152/0.0722) — provably
+exact, not an approximation. Severity (the anomalous/"weak" forms — protanomaly etc. — the far
+more common case than the "blind" forms most simulators only show) is linear interpolation
+toward identity in linear light; the code comment is explicit that this is a documented
+simplification of true continuous anomalous trichromacy, not literally re-derived per-severity
+coefficients, rather than silently presenting it as more rigorous than it is.
+
+**Three distinct implementation paths, each earning its place rather than one mode faking
+the others:**
+- **Image mode** — real per-pixel canvas simulation (`simulateImageData`) of an uploaded photo
+  or the bundled self-contained inline-SVG sample (a traffic light + bar chart, deliberately
+  red/green/orange so the classic confusion cases are obvious), shown as a 5-cell grid (normal
+  + all 4 conditions) at once, not one-at-a-time behind a toggle.
+- **Palette checker** — paste/add hex colours, pairwise Euclidean-distance-under-simulation
+  check against a heuristic confusability threshold (explicitly labelled a heuristic, not a
+  certified perceptual-difference metric like CIEDE2000). Default seed palette was deliberately
+  *not* fire-engine-red/pure-green — verified by hand those survive deuteranopia simulation
+  intact (>120 units apart) because they differ enough in luminance; swapped to a muted
+  terracotta/sage pair (~25 units apart) that genuinely collapses, so the tool demonstrates
+  finding a real confusable pair on first load instead of an all-clear that undersells the point.
+- **Live UI sample** — a real DOM dashboard mockup (status badges, chart legend) with the
+  **same SVG `feColorMatrix` filter** the "copy filter" buttons export applied live via CSS
+  `filter: url(#id)`, not a static image — literally proving the copied filter is the filter
+  shown, and doubling as the demo for "this is the same technique Chrome DevTools' own
+  'Emulate vision deficiencies' uses."
+
+The exported SVG filter is deliberately built as a *separate, less accurate* matrix — direct on
+sRGB, no gamma step — because that's genuinely what a real browser `<feColorMatrix>` does; for
+that one output, matching the actual delivery mechanism matters more than matching the more
+accurate canvas simulation, and the tool's own "How this works" panel says so explicitly rather
+than leaving the discrepancy unexplained.
+
+**Prevalence figures are widely-cited, deliberately hedged approximations** ("roughly", "about")
+from colour-vision-research/public-health literature, not fabricated precision.
+
+Icon `Eye` (new, unused by any other tool). Added to `/tools`/`/bn/tools` index cards,
+`app/sitemap.ts`, `docs/TOOLS.md`. **Nav entry added** on user confirmation (same session,
+follow-up message) — `scripts/add-colorblind-nav.mjs`, "CVD Simulator" under Tools,
+`sort_order` 13 (last). Local `nav` cache tag busted the same safe way as the last three tools
+(`POST /api/revalidate {tag:"nav"}` against localhost only); confirmed via `revalidated:true`.
+
+---
+
+## D-85 · Shade Scale Generator (new tool) — configurable-length scale, OKLCH/HSL/naive-RGB comparison, multi-colour, multi-format export
+**Date:** 2026-08-17 · **Status:** Active · **Decided by:** user
+
+**Shade Scale Generator** — `/tools/shades`, `/bn/tools/shades`. Added on direct request,
+discussed before building (same "ask me anything" pattern as D-83) — flagged a real overlap up
+front: Colour & Contrast Studio already generates "a tint/shade ramp" as one of its features, so
+a bare tint/shade generator would have mostly duplicated something shipped. Proposed what would
+actually justify a separate tool — Tailwind-convention numbered scales, perceptually-uniform
+OKLCH generation compared against cheaper approaches, multi-colour design-system scales, WCAG
+badges on the scale itself — then locked scope via `AskUserQuestion`. User picked full scope:
+Tailwind-style 50–950 naming, all three algorithms, and all four extras (multi-colour, WCAG
+badges, live preview, multi-format export).
+
+**Reversed mid-build, same session**: user changed their mind on the naming convention only —
+"I don't want it to be Tailwind specific." Clarified scope of the reversal before reworking
+(the "Tailwind @theme" *export format* is a separate concern from the *step-naming* convention,
+and the user confirmed only the naming needed to change, format stays). Reworked
+`lib/shades.ts` from a fixed 11-step `50/100/…/950`-keyed `Record` to a configurable step count
+(3–15, default 9) with plain 1-based numeric indices and a simple even-lightness-spacing curve
+(no framework's per-colour hand-tuned values implied) — a genuine architecture change, not a
+label swap: the scale type went from `Record<Step, string>` to `string[]`, every consumer
+(component, WCAG check, export functions) updated to match. Verified live that the Steps slider
+actually regenerates every scale, table layout, and the "your colour" nearest-index marker
+correctly at an arbitrary count (checked at 13).
+
+**Same OKLCH math as D-83's CVD tool, applied in the other direction**: `lib/color.ts`'s
+existing `rgbToOklch` (forward, sRGB → OKLCH) already had no inverse; this tool needed one, so
+`lib/shades.ts` implements the exact published inverse of Björn Ottosson's OKLab matrices —
+`lib/color.ts`'s own comment already cites the same public source for the forward direction, no
+new/independently-derived coefficients. **Three algorithms shown stacked for direct
+comparison**, not a single-select toggle, deliberately targeting the *same* nominal lightness
+at each step so the difference is purely "different maths for the same intended target": OKLCH
+sweep (recommended, perceptually uniform), HSL sweep (what most quick tools do), naive RGB
+blend toward white/black (what the W3Schools reference tool this was built from actually does —
+included specifically to show, side by side, why it looks worse: it visibly desaturates and
+shifts hue as it goes). WCAG AA pass/fail dots (against white and near-black) shown directly on
+every swatch, reusing `lib/contrast.ts`'s existing `contrastRatio` rather than re-deriving it.
+Multi-colour scales (add/remove/rename), one "focused" colour showing the full 3-algorithm
+comparison, others shown collapsed to their OKLCH scale only — bounds the UI instead of showing
+every colour's full comparison at once. Live preview (button + badge, auto-picked white/near-
+black text via the same WCAG check) and four export formats (CSS custom properties, Tailwind
+`@theme`, SCSS, JSON) covering every colour at once.
+
+Icon `SwatchBook` (new, unused by any other tool). Added to `/tools`/`/bn/tools` index cards,
+`app/sitemap.ts`, `docs/TOOLS.md`, and the header nav — `scripts/add-shades-nav.mjs`, "Shade
+Scale Generator" under Tools, `sort_order` 14 (last), on user confirmation same session. Local
+`nav` cache tag busted the same safe way as the prior four tools; confirmed via
+`revalidated:true`.
+
+**Not pushed** — same standing rule. Local commit only; no Supabase writes, this tool is code,
+not content.
+
+**Not pushed** — same standing rule. Local commit only; no Supabase writes, this tool is code,
+not content.
+
+**Verification note**: a shared dev server was live on :3000 for part of this session (see
+Session 57's incident in `docs/PROGRESS.md` — a `next build` run against the same directory
+corrupted its `.next/dev` cache). Learned from that: this tool was verified by navigating the
+*already-running* server rather than starting or rebuilding anything against the shared
+directory — reading a live dev server is safe, running `build`/`rm -rf .next`/a second
+`next dev` against the same working directory is not (the second one shares `.next/dev` too,
+port doesn't isolate it — caught and killed before it could do damage). `tsc --noEmit` clean;
+a full production `next build` was deliberately skipped this round rather than risk a repeat.
+
+**Not pushed** — same standing rule. Local commit only; no Supabase writes, this tool is
+code, not content.
+
+---
+
+## D-77 · New "Office Skills" category — 36 lessons (Paint/Word/Excel/PowerPoint + alternatives), realistic labeled dashboard mockups
+
+**What shipped.** New category `office` (slug), title "Office Skills" / "অফিস স্কিলস", sort_order 19,
+appended to the homepage's subject index as its own new group "Office & Productivity" (previously
+only Design/Build the web/etc. existed as groups). 36 lessons: MS Paint (5), MS Word (10),
+MS Excel (12), MS PowerPoint (8), one closing "Free and Open-Source Alternatives" lesson covering
+LibreOffice/OpenOffice and Google Docs/Sheets/Slides. EN + BN both, `scripts/create-office-category.mjs`
++ `scripts/create-office-skills-content.mjs`. Icon: `FileSpreadsheet` (Lucide, conceptual — no
+single-brand icon fits a 4-app bundle; checked `@iconify/json`'s logos collection for a dedicated
+Microsoft Office mark, none exists).
+
+**Image style went through two real iterations, both driven by direct user feedback on the shipped
+result — not decided up front:**
+1. First pass: isometric icon illustrations (matching the recent Basics/Hosting runs) — one
+   diagram per app plus one for the alternatives lesson, 5 images, 650 credits.
+2. **User rejected these as too abstract** — "doesn't give justice to a realistic software
+   dashboard." Regenerated as flat, front-on, **labeled UI dashboard mockups** — a ribbon with
+   real button-name text baked in (Bold, Italic, Insert Table, AutoSum, New Slide, …), so a
+   student can identify a control from the image itself. **Deliberate, user-directed exception**
+   to the site's own "no baked-in text" house rule (CONTENT-MODEL.md) — justified here because
+   the whole point of the image is literal button identification, not a translatable diagram.
+   Neutral gray/white color scheme, not the site's brand orange (user explicitly said the brand
+   accent wasn't required for these) and not Microsoft's actual brand blue either — generic
+   window titles ("Word Processor," "Spreadsheet - Book1," "Presentation Editor," "Untitled -
+   Paint") rather than real product names, avoiding a literal trade-dress copy while still
+   reading as obviously Office-like. 4 images, 520 credits.
+
+**Real bug, caught and fixed live: Cloudinary CDN invalidation on an overwritten `public_id` did
+not propagate for already-cached derived (width-specific) transforms**, even with
+`invalidate: true` on the upload. Confirmed by direct `curl -I` against the exact Cloudinary URL:
+the *base* `f_auto,q_auto` transform served fresh bytes immediately (cache miss, since that exact
+param combination had never been requested before), but the specific `w_2048`/`w_1024` variant
+`next/image`'s custom Cloudinary loader (`lib/cloudinary.ts`) actually requests kept serving the
+pre-overwrite image well after the upload. **Fix: never overwrite a `public_id` expecting an
+instant CDN-wide update — upload to a new `public_id` instead** (here, suffixed `-r2`) and update
+the referencing content. Sidesteps the whole propagation-timing question; the new URL has no prior
+cache anywhere. Worth remembering for any future image swap on an existing lesson.
+
+**Content depth — also a live correction.** First pass shipped each of the 36 lessons at ~5-9
+blocks (brief but real). **User called this "too shallow"** immediately after seeing it; every
+lesson was then expanded with one additional genuine sub-topic each (Word: Find and Replace,
+Styles, Indentation, Columns, SmartArt, AutoCorrect, AutoSave; Excel: the Name Box, AutoFill,
+order of operations, mixed references, Conditional Formatting, multi-level sort, a first VLOOKUP,
+editing a chart, grouping sheets, repeating print header rows, workbook protection, circular
+references; PowerPoint: Outline View, AutoFit, cropping, the Slide Master, animation
+order/triggers, SmartArt, rehearsing/recording, compressing media; Paint: canvas resize vs zoom,
+outline/fill shape styles, flip/rotate, the color picker, image size for the web) — 72 targeted
+edits (36 lessons × EN/BN), landing every lesson between 7-11 blocks.
+
+**Not pushed** — same standing rule as everything else this session (`CLAUDE.md`'s active ISR-quota
+constraint). Supabase content writes and Cloudinary uploads only.
+
+---
+
+## D-78 · New "Figma" category — 9 lessons, real Figma-app screenshots instead of AI mockups
+
+**What shipped.** New category `figma` (slug), title "Figma" / "Figma", sort_order 20, added to the
+homepage's existing "Design" group (`design`, `photoshop`, `figma`). Icon: `logos/figma`
+(`~icons/logos/figma`, real brand mark — exists in `@iconify/json`'s `logos.json`, unlike the
+Office Skills bundle). 9 lessons, EN + BN: Introduction, Interface Tour, Frames & Presets,
+Shapes/Boolean Ops/Pen Tool, Text & Type Scale, Auto Layout, Components & Variants, Color & Effect
+Styles, Prototyping & Handoff. `scripts/create-figma-category.mjs` + `scripts/create-figma-content.mjs`.
+
+**Image sourcing is a genuine first for this site: real screenshots of the actual Figma app, not
+AI-generated mockups.** User has a real connected Figma account; confirmed via `whoami` and explicitly
+authorized "as many images as possible" since real screenshots don't cost Magnific credits (unlike
+every other category on this site, which uses ~1 restrained AI-generated image per lesson).
+Two capture tracks were used:
+1. **`use_figma` (Figma's own MCP)** — built real canvas content in a new reference file ("LCA Figma
+   Course — Reference File") via the Plugin API: shape/Boolean-op/Pen-tool demos, a type scale, an
+   Auto Layout button row. Hit the **Figma MCP's Starter-plan rate limit** (200 calls/day) partway
+   through Components & Variants — the call failed cleanly with no partial state, but blocked all
+   further scripted canvas edits for the rest of the session.
+2. **`claude-in-chrome` browser automation** — the user's explicit fallback instruction after the
+   rate limit hit ("switch remaining work to real Figma-app screenshots via claude-in-chrome instead
+   of use_figma"). Logged into the real Figma account (user completed the Google OAuth step
+   themselves — credential entry is off-limits), then did the rest of the canvas work — the
+   Components & Variants set, Color/Effect styles — by literally clicking through the real Figma UI
+   like a person would, screenshotting each result, and also captured genuine UI-chrome shots
+   (toolbar, layers panel, design panel, Prototype tab) that `use_figma`'s headless `node.screenshot()`
+   can't produce. 12 screenshots total, uploaded to Cloudinary under `docs/img/figma/*`.
+
+**Two real bugs hit and fixed live, both browser-automation quirks rather than content bugs:**
+- **Small text at zoom-to-fit renders invisible in a screenshot** (not a data bug — confirmed the
+  underlying node positions were always correct via the Design panel's Position fields; 14px text at
+  ~35-40% canvas zoom compresses to a few px and gets lost to JPEG/anti-aliasing). Fixed by
+  multi-selecting the text layers and using "zoom to fit selection" (`Shift+2`) instead of fitting the
+  whole page.
+- **The right panel's icon strip is genuinely ambiguous between operations** — clicking what looked
+  like a "combine as variants" icon on a (component set + loose component) selection actually ran a
+  **Boolean Union**, destroying both source objects into one merged vector. Caught immediately via
+  screenshot, undone with `Ctrl+Z`, and the real Variant workflow turned out to be the "Add variant"
+  `+` button on an existing single-variant set (which safely duplicates the current variant) rather
+  than trying to combine two independently-created components after the fact.
+
+**Sidebar didn't update after the direct-script content write — same class of bug as D-44/O-12**:
+content written via service-role script bypasses the Supabase Database Webhook that normally drives
+`/api/revalidate`, leaving the cached `sidebar` tag stale (`/figma` 404'd locally until fixed). Fixed
+by hitting the local revalidate endpoint directly (`curl -X POST /api/revalidate -H
+"x-revalidate-secret: ..." -d '{"tag":"sidebar"}'`) — payload shape is `{tag, path}` singular, not
+`{tags, paths}` arrays; the array shape silently no-ops (`revalidated:false`, empty arrays returned,
+no error). Worth remembering: this is a local-dev-only fix for this session — the equivalent live-site
+step is already tracked in the standing "content written directly needs a sidebar revalidate" pattern
+noted for Office Skills, not a new item.
+
+**Second bug, unrelated to the above: the Figma logo icon rendered as a solid blank color swatch**
+(no glyph) on both the homepage card and the category page, even though `~icons/logos/figma` was
+correctly imported in `lib/category-icons.tsx` and the icon genuinely exists in
+`@iconify/json`'s `logos.json`. Root cause: `unplugin-icons`/webpack compiles icon imports at build
+time, and the dev server had been running since before this icon import was added — a live dev server
+doesn't pick up a brand-new icon dependency without a restart. Fixed with the same `.next`-cache
+gotcha fix used earlier this session for the homepage subject grid: kill the port-holding process,
+`rm -rf .next`, restart `next dev`. Confirmed fixed — the real Figma brand mark now renders correctly
+in both places.
+
+**Verified end-to-end locally**: `/figma` category page lists all 9 lessons with correct titles and
+lesson counts; `/figma/figma-interface-tour` renders real screenshots inline (toolbar, layers panel,
+design panel all crisp, not broken image links); homepage's Design group shows the Figma card with
+the working icon.
+
+**Not pushed** — same standing rule as everything else this session (`CLAUDE.md`'s active ISR-quota
+constraint). Supabase content writes and Cloudinary uploads only.
+
+---
+
+## D-81 · Figma category expanded 9 → 17 lessons — user feedback "too shallow," added app/web design + Smart Animate
+
+**Trigger.** User feedback after D-78 shipped: "The figma tutorial seems too small and shallow
+compared to other courses, can you add a few more lessons and also how to make app design and web
+design and animations in figma." Explicit ask: more lessons, app design, web design, animation.
+
+**What shipped.** 8 new lessons (sort_order 10-17) appended to `scripts/create-figma-content.mjs`,
+bringing the category to 17 lessons total — same scale as Graphic Design (17). New lessons: Layout
+Grids and Guides, Constraints and Responsive Resizing, Designing a Mobile App Screen, Designing a
+Website Layout, Smart Animate and Micro-interactions, Overlays and Interactive Components, Design
+Systems and Team Libraries, and a capstone "Putting It Together: A Small Real Project." Same
+real-screenshot convention as D-78 — 6 new images captured via `claude-in-chrome` against the real
+reference file (`docs/img/figma/layout-grid-demo`, `constraints-demo`, `app-screen-demo`,
+`website-landing-page`, `smart-animate-cards`, `assets-panel-libraries`), not AI mockups.
+
+**Built two full practical mockups by hand-clicking the real Figma UI** — a mobile sign-in screen
+(rounded phone frame, heading, two input placeholders, orange CTA button) and a desktop landing
+page (nav bar, hero heading, CTA button) — directly answering the "app design and web design" half
+of the ask. Both built with plain shapes/text rather than nested inside working Auto Layout/
+Components, since the goal was a correct-looking static screenshot, not a functional file.
+
+**Real bug hit and fixed: a Frame got stuck locked mid-session**, silently rejecting every draw/drag
+into it (new shapes landed as top-level siblings instead of nesting, no error shown). The Layers
+panel's own lock icon toggle was unreliable via automated clicks — icon position shifts slightly on
+selection-state re-render, so repeated clicks landed inconsistently. Fixed reliably via right-click →
+**Lock/Unlock** in the context menu instead of the small icon. Worth remembering: prefer the context
+menu over small toolbar/panel icons for any toggle state when clicking via automation.
+
+**Second real bug: a rename attempt silently became tool-shortcut keystrokes.** Double-clicking a
+layer name in the Layers panel to enter rename mode didn't reliably enter edit mode before the next
+`Ctrl+A` + `type` sequence fired — when it failed silently, the typed string ("Card - Small") got
+interpreted key-by-key as tool shortcuts instead (`r` = Rectangle tool, `l` = Line tool), leaving
+stray unwanted shapes on the canvas. Confirmed and fixed by using the Design panel's own name field
+(top of the panel, next to the layer-type icon) instead of the Layers-panel double-click, which
+proved reliable earlier in this same session for the same purpose.
+
+**Smart Animate: no live prototype connection attempted this time** — two prior attempts earlier in
+D-78's session both failed (misclicked connector node, one accidentally ran a Boolean Union instead).
+Rather than retry a third time, shipped a static "before/after" two-Frame setup (same-named layer,
+different size) that teaches the real mechanic (name-matching) without needing a working drag
+connection — a deliberate scope cut given repeated automation fragility around that specific
+interaction, not a missing capability. Documented as explicitly not-done in `PROGRESS.md`.
+
+**Verified end-to-end locally**: `/figma` category page lists all 17 lessons; spot-checked
+`designing-a-mobile-app-screen` (renders the real sign-in mockup inline) and
+`smart-animate-and-micro-interactions` (renders the two-card before/after image inline); sidebar
+count updated to 17 after the same `sidebar` tag revalidation pattern used throughout this project.
+
+**Not pushed** — same standing rule as everything else this session.
+
+---
+
+## D-84 · New "Freelancing & Client Work" category — Phase 1-4 shipped (17 of 29 lessons), Phase 5-7 pending
+
+**Update 2026-08-18 (D-86): Phase 5-7 shipped, course complete at 29/29.** See D-86 below.
+
+**Trigger.** User-requested new course, scoped via discussion before writing (per CONTENT-PIPELINE.md's
+topic → discuss → write flow): "create in depth course materials for the topic - Freelancing & Client
+Work." Full 29-lesson, 7-phase outline (Foundations, Getting Set Up, Landing & Scoping Work, Contracts
+& Getting Paid, Running the Work, Growing, Mindset) proposed and discussed first, not written blind.
+
+**Scoping decisions, confirmed by the user before writing:**
+- Weighted toward the major, easy-to-enter platforms (Fiverr, Upwork, Freelancer.com) rather than
+  platform-agnostic generic advice.
+- Audience is **India-based, not Bangladesh** (a wrong assumption on my part going in, corrected by
+  the user) — the payments lesson covers PayPal (usable from India, unlike Bangladesh, with real
+  restrictions: no holding balance, must withdraw within days), Payoneer, Wise, and direct bank
+  transfer, plus a plain-language note on presumptive taxation (Section 44ADA) and GST on exported
+  services, without leaning into any one country's specifics too hard.
+- 29 lessons confirmed as the right scope (matches Career Skills' 34-lesson scale).
+- Explicitly split across two sessions by the user's own choice ("I will start today stop it somewhere
+  and continue generating tomorrow too") — Phase 1-4 (17 lessons) shipped this session, Phase 5-7 (12
+  lessons: Running the Work, Growing, Mindset) deliberately left for a follow-up session, not an
+  oversight.
+- Homepage placement: folded into the existing "Launch & grow" group (Hosting, Marketing, SEO,
+  Career Skills) — no new homepage group, matching the same instruction pattern as folding Office
+  Skills into "Start here" earlier this session.
+
+**Images: isometric concepts + generic marketplace/dashboard mockups, both AI-generated.** The user
+has no post-login access to real Fiverr/Upwork dashboards to screenshot (unlike the Figma category's
+real-app-screenshot approach, which needed a live, loggable-into web app). Explicitly authorized to
+"make them up." 10 images generated total (130 credits each, gpt-2/medium/1k):
+5 isometric concept illustrations (hero, client communication, managing deadlines, avoiding burnout,
+freelancer-to-agency growth) in the site's standard style, plus 5 realistic browser-chrome UI mockups
+(marketplace profile page, proposal submission, contract document, payments dashboard, reviews page)
+— all **deliberately generic-branded** ("Freelance Marketplace," "Payments Dashboard," fictional
+browser URLs), same trade-dress-avoidance approach as the Office Skills category's software mockups.
+No real Fiverr/Upwork/Payoneer logos or trade dress anywhere. Visually inspected 2 of the 5 mockups
+before upload to confirm no accidental trademark leakage — both clean.
+
+**New category infrastructure**: `freelancing` slug, sort_order 21 (next after Figma's 20),
+`Handshake` icon from lucide-react (career already uses `Briefcase`, needed a distinct conceptual
+icon). `scripts/create-freelancing-category.mjs` + `scripts/create-freelancing-content.mjs` (the
+latter explicitly documented in its own header comment as a two-session file — Phase 5-7 gets
+appended to the same `lessons.push()` array in a follow-up session, same idempotent
+select-then-insert/update pattern as every other content script).
+
+**Verified end-to-end locally**: `/freelancing` category page lists all 17 Phase 1-4 lessons with the
+Handshake icon; spot-checked `getting-paid-internationally` — renders the real payments-dashboard
+mockup inline, cleanly; sidebar count and homepage "Launch & grow" group both updated via the same
+`sidebar` tag revalidation pattern used throughout this project.
+
+**Not pushed** — same standing rule as everything else this session.
+
+---
+
+## D-86 · "Freelancing & Client Work" course completed — Phase 5-7 shipped, 29/29 lessons live
+
+**Trigger.** Follow-up session, exactly as planned in D-84: user's own stated split ("start today,
+continue generating tomorrow") — resumed with "resume the tasks that you were doing yesterday."
+
+**What shipped.** The 12 remaining lessons, appended to the same `lessons.push()` array in
+`scripts/create-freelancing-content.mjs` (sort_order 18-29), same select-then-insert/update pattern:
+
+- **Running the Work** (5): Scope Creep, Managing Multiple Clients and Deadlines, Tools of the Trade,
+  Handling Revisions Professionally, Delivering and Closing a Project.
+- **Growing** (4): Getting Reviews That Actually Help, Repeat Clients and Retainers, Raising Your
+  Rates, From Freelancer to Agency.
+- **Mindset** (3): Avoiding Burnout, Feast-or-Famine Income, Common Freelancer Mistakes to Avoid (a
+  closing capstone lesson that table-references every earlier lesson by name).
+
+The 4 images generated but unused in Phase 1-4 (`managing-deadlines`, `avoiding-burnout`,
+`freelancer-to-agency`, `reviews-mockup`) are now all referenced — no leftover unused assets from the
+original 10-image batch.
+
+**Verified**: dry-run confirmed all 29 lessons (sort_order 1-29, no gaps/dupes) before writing for
+real; ran for real, all 29×2 (en+bn) upserts succeeded; `sidebar` cache tag revalidated; live-checked
+`/freelancing` (lists all 29 in order) and `/freelancing/avoiding-burnout` (renders correctly,
+27/29 prev/next nav working).
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
+## D-87 · Lorem Ipsum Generator (new tool) — four text engines, folds in the unbuilt Bengali lorem idea
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Lorem Ipsum Generator** — `/tools/lorem-text`, `/bn/tools/lorem-text`. Requested as a contrast-checker
+replacement mid-conversation (user changed their mind before the contrast-checker's scoping
+questions were answered) — no overlap to flag this time: `docs/TOOLS.md` had zero built lorem
+tools, only one unbuilt Tier-4/roadmap idea, "Bengali Lorem Ipsum Generator" (words/sentences/
+paragraphs, optional Latin mix, copy button — nobody else builds one). Rather than leave that
+idea stranded as a separate future tool, folded it in as this tool's fourth text mode. Scoped
+via `AskUserQuestion`: all four modes (Classic, Gibberish, Realistic, Bengali) and all four
+output controls (unit+count, HTML tag wrapping, character-count target, classic-opener toggle).
+
+**Four engines, one assembly shape** (`lib/lorem.ts`): Classic and Gibberish are word salad —
+words picked at random with no grammar, which is what placeholder text is supposed to be.
+Classic draws from the standard pseudo-Latin word pool every lorem generator uses (the same
+one the W3Schools reference tool draws from — placeholder filler by convention, not a quoted
+work); Gibberish is syllable-built nonsense words, no real vocabulary at all. Realistic and
+Bengali instead pick from small subject/verb/object word banks and slot them into sentence
+templates — Bengali in its own subject-object-verb order, not English's subject-verb-object —
+so they read as plausible sentences without ever being real, meaningful content. Four output
+units (words/sentences/paragraphs/list items), optional HTML tag wrapping (`<p>`/`<li>`/`<h1-
+3>`), an exact character-count target that regenerates content until it crosses the target then
+trims at the nearest word boundary (documented as approximate, not exact — a real, stated
+limitation), and the classic mode's canonical "Lorem ipsum dolor sit amet…" opener as a toggle.
+
+**Real hydration bug found and fixed during verification**: this is the first `/tools` demo
+whose content is genuinely randomised (`Math.random()`-based) rather than user-driven state —
+generating it during the shared render pass meant the static prerender and the client's first
+render each drew different random words, so React's hydration diff failed (`words: 138 vs 165`)
+visible live via the dev overlay. Same shape as the documented `useState(defaultState)` random-
+id gotcha, different mechanism: fixed by starting from an empty `blocks` array and generating
+the real content only inside a client-only `useEffect`, so the very first client render matches
+the server's (both empty) and the real content fills in post-mount. Confirmed fixed live —
+overlay's error count dropped from 2 to 0 on reload, output still updates correctly on every
+control change and on the new "Regenerate" button (which exists solely to force a re-roll
+without changing any option — bumps a `seed` dependency the effect watches).
+
+Icon `Type` (new, unused by any other tool). No paired lesson exists for lorem ipsum text, so
+falls back to the Design category listing per the house convention (`/design`, `/bn/design`).
+Added to `/tools`/`/bn/tools` index cards, `app/sitemap.ts`, `docs/TOOLS.md`, and the header
+nav — `scripts/add-lorem-nav.mjs`, "Lorem Ipsum Generator" under Tools, `sort_order` 15 (last),
+on user confirmation same session. Local `nav` cache tag busted the same safe tag-only way as
+the prior six tools; confirmed via `revalidated:true, paths:[]` and a live click-through of the
+Tools dropdown on the shared dev server.
+
+**Verified**: `npx tsc --noEmit` clean before and after the hydration fix. Live browser pass on
+the already-running shared :3000 dev server (no build/rm -rf .next/second dev server run against
+the shared directory) — exercised all four modes, all four units, HTML-tag wrapping, the
+character-count target (280 ch target landed at 393 characters incl. `<li>` tag overhead,
+consistent with the documented "close, not exact" behaviour), and the `/bn/tools/lorem-text` route.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-88 · New "UI/UX Design Principles" category — 22 lessons, real Figma wireframe + prototype screenshots
+
+**Trigger.** User asked for more course suggestions after Freelancing shipped; I proposed TypeScript,
+Git & GitHub, Canva, MongoDB, REST APIs, Docker, UI/UX, Video Editing, Excel. User picked UI/UX Design
+Principles. Scoped via discussion (5-phase, 22-lesson outline) before writing, per
+CONTENT-PIPELINE.md — confirmed via AskUserQuestion: 22 lessons, slug `ui-ux` joining the "Design"
+homepage group, isometric images + real Figma screenshots (not text-only, not isometric-only).
+
+**Distinct from the existing `design` category** — checked its 17 lessons first (color theory,
+typography, vector/raster, brochure/flyer/poster exercises, print-leaning) to avoid duplication. This
+course is the digital *product* design process instead: usability, interaction design, research,
+wireframing/prototyping, design systems, accessibility. Cross-references the Figma course (for the
+tool) and the Graphic Design course (for visual fundamentals) rather than re-teaching either.
+
+**5 phases, 22 lessons:**
+- Foundations (4): UI vs UX, the Double Diamond process, user-centered design, good/bad UX examples
+- Usability & Interaction (5): Nielsen's 10 heuristics, affordances/signifiers, feedback/states/
+  micro-interactions, navigation patterns, forms & input design
+- Visual Hierarchy for Product UI (4): grid systems, hierarchy & contrast, consistency & patterns,
+  whitespace & density — deliberately product-specific, not a color-theory repeat
+- UX Research & Structure (5): personas, journey mapping, information architecture & sitemaps,
+  low-fi wireframing, hi-fi prototyping & usability testing basics
+- Practice & Systems (4): responsive/mobile-first, accessibility (WCAG essentials), design systems &
+  component libraries, building a UX case study for a portfolio
+
+**Images: 6 isometric concepts (AI-generated, same house style) + 2 REAL Figma screenshots.** The
+wireframing and prototyping lessons needed to show an actual Figma artifact, not a mockup — built by
+hand in the real Figma web app via `claude-in-chrome` browser automation, same approach as the Figma
+category's real-app screenshots:
+- A hand-built low-fidelity wireframe (grey boxes, an X-crossed image placeholder, text lines, an
+  orange CTA button) on an iPhone-16-sized frame.
+- A two-screen prototype flow (a second wireframe frame connected via a hand-drawn orange arrow,
+  since Figma's live drag-to-connect prototype tool proved too fragile to drive reliably through
+  coordinate-based automation — the visual result communicates the same "screens link together"
+  concept without fighting the connector UI).
+
+Both screenshots captured via the `zoom`/`save_to_disk` screenshot tool, cropped to just the canvas
+region, uploaded to Cloudinary as `docs/img/ui-ux/wireframe-figma-screenshot` and
+`docs/img/ui-ux/prototype-figma-screenshot`.
+
+**New category infrastructure**: `ui-ux` slug, sort_order 22, `LayoutTemplate` icon from
+lucide-react (distinct from `design`'s `Palette` and `figma`'s brand logo). Joined the existing
+"Design" homepage group (`design`, `photoshop`, `figma`) — no new homepage group.
+`scripts/create-ui-ux-category.mjs` + `scripts/create-ui-ux-content.mjs`, same
+select-then-insert/update pattern as every other content script in this repo.
+
+**Verified end-to-end**: dry-run confirmed 22/22 lessons, sort_order 1-22, no gaps; ran for real, all
+44 en+bn upserts succeeded; `sidebar` tag revalidated; live-checked `/ui-ux` (22 lessons in order),
+`/ui-ux/prototyping-and-usability-testing-basics` (renders the real Figma screenshot inline,
+cleanly), and the homepage (UI/UX Design Principles card sits correctly under DESIGN next to Figma).
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
+## D-89 · Placeholder Image Generator (new tool) — real Lorem Picsum + placehold.co, first tool with a live external dependency
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Placeholder Image Generator** — `/tools/lorem-image`, `/bn/tools/lorem-image`. Requested by
+name against two real services (Lorem Picsum for photos, placehold.co for solid/text boxes),
+scoped via `AskUserQuestion` before building: confirmed the full feature set (aspect-ratio
+lock, common-size presets, a real photo browser with photographer credit, grayscale/blur,
+responsive srcset generator) and all five requested output snippet formats (raw URL, `<img>`,
+CSS `background-image`, Next.js `<Image>`, Markdown). No overlap with anything shipped —
+`docs/TOOLS.md` had no placeholder-image tool at all. Verified both services' actual current
+API surface via `WebFetch` before writing any code rather than trusting recalled knowledge —
+worth doing here specifically because the user said "placeholder dot com," which is a dead API;
+the live successor is placehold.co, confirmed from its own docs page (format, colour syntax,
+the documented 12-font list, size limits 10–4000px, six output formats SVG/PNG/JPEG/GIF/WebP/
+AVIF) before it went into `lib/placeholder.ts`.
+
+**First tool on this site that isn't fully self-contained** — every prior `/tools` demo computes
+or renders everything client-side with no network dependency; this one's whole point is
+generating URLs to two external services, so every preview is a live fetch to `picsum.photos`
+or `placehold.co`. Flagged this plainly in the tool's own UI (a note under the header, not
+buried) rather than let it read as a silent surprise the first time a slow network shows a
+broken image. No personal data ever enters a generated URL.
+
+**Real photo browser, not blind IDs**: Lorem Picsum's `/v2/list` endpoint returns real
+photographer names alongside each photo — fetched client-side (the first genuine JSON `fetch()`
+any `/tools` demo has made, distinct from an `<img src>` the browser fetches to display) into a
+scrollable thumbnail grid; picking one sets the tool to "specific photo" mode and shows real
+attribution ("Photo by Paul Jarvis"), confirmed live. Loading and error states built and
+verified (a failed fetch shows a retry button, not a silent blank panel).
+
+**Aspect-ratio lock is a real constraint, not just a label**: locking to a named ratio (1:1,
+4:3, 3:2, 16:9, 21:9, or Free) makes editing either the width or height slider recompute the
+other to hold that exact ratio; a size preset button (Avatar, Thumbnail, Card, Hero banner, OG
+image 1200×630, Favicon) sets both dimensions directly and drops the lock to "Free" first, since
+a preset's own ratio (e.g. OG image's ~1.9:1) generally isn't one of the six named options and
+silently fighting the lock would be worse than just clearing it. The responsive srcset generator
+reuses whatever the current width/height ratio is (locked or not) across every breakpoint, so
+the same photo or the same solid colours scale coherently — verified live at the default 3:2
+ratio across all six default breakpoints (320–1920px).
+
+**No hydration risk by construction, worth noting given D-87's bug two tools ago**: this tool
+never calls `Math.random()` during render — the "random" Picsum source is just a URL with no
+seed/id, and the actual randomness happens server-side at picsum.photos when the browser
+requests it, not in this component's render output. A "shuffle" button appends a `?random=N`
+cache-buster to force a fresh image, but `N` starts at the literal `0` and only increments from
+a client click handler — same discipline as the documented `useState(defaultState)` gotcha,
+applied preemptively rather than found as a bug this time.
+
+Icon `ImageIcon` (lucide-react's `Image`, aliased to avoid shadowing `next/image`/the DOM
+`Image` constructor — new, unused by any other tool). No paired lesson exists, falls back to
+the Design category listing. Added to `/tools`/`/bn/tools` index cards, `app/sitemap.ts`,
+`docs/TOOLS.md`, and the header nav (`scripts/add-lorem-image-nav.mjs`, `sort_order` 16/last,
+`url: '/tools/lorem-image'` — written correctly the first time since the route rename above
+already happened before this script was created) — confirmed live in the Tools dropdown on the
+shared dev server via a direct DOM query (`href="/tools/lorem-image"`).
+
+**Verified**: `npx tsc --noEmit` clean. Live browser pass on the already-running shared :3000
+dev server — both modes, the photo browser (real fetch, real credit, real thumbnails), grayscale
+(visibly applied to a real photo), custom text on a real placehold.co SVG, the Next.js `<Image>`
+snippet, the responsive srcset output (verified aspect-ratio-correct at every breakpoint), and
+`/bn/tools/lorem-image`.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+**Amendment, same day**: user asked to rename both tools' routes to read as a matched pair —
+`/tools/lorem` → `/tools/lorem-text`, `/tools/placeholder` → `/tools/lorem-image`. Renamed both
+route folders (`app/tools/`, `app/bn/tools/`), updated every internal reference (`buildAlternates`
+calls, `lib/tools-index-i18n.ts` slugs, `app/sitemap.ts`, this file, `docs/PROGRESS.md`,
+`docs/TOOLS.md`) — the underlying `lib/lorem.ts`/`lib/placeholder.ts`/`components/tools/lorem-
+demo.tsx`/`components/tools/placeholder-demo.tsx` filenames are unchanged, only the URL slug
+moved. The Lorem Ipsum Generator's nav row was already live (`sort_order` 15) with the old
+`/tools/lorem` URL — fixed in place via a new one-off `scripts/fix-lorem-nav-url.mjs` (a direct
+`update`, not a fresh insert) rather than left stale; local `nav` cache tag busted again after.
+Placeholder Image Generator's nav entry was never added yet, so nothing there needed fixing — it
+will get `/tools/lorem-image` correctly whenever that script runs. **Caught this session's own
+mistake mid-fix**: the first rename pass used a `\b`-bounded `sed` across the doc files, which
+also matched the substring `tools/lorem`/`tools/placeholder` inside unrelated file paths
+(`components/tools/lorem-demo.tsx`, `components/tools/placeholder-demo.tsx`), corrupting two
+lines in `docs/PROGRESS.md` to reference nonexistent files (`lorem-text-demo.tsx`,
+`lorem-image-demo.tsx`). Caught by grep before finishing, reverted just those two lines back to
+the real filenames.
+
+---
+
+## D-90 · Beginner-eye audit found ~500+ image-less lessons — Tier 1 fix shipped: 3 real Figma diagrams across 12 lessons
+
+**Trigger.** User: "Think like a new beginner student and read through all the old contents... Are
+there any places where you can add Figma designs for students to better understand the concepts?"
+— then, after I reported findings and proposed a start, "build it also add more figma images if
+possible wherever required."
+
+**Audit method.** Queried every doc's `blocks` array across all 22 categories (~580 lessons),
+counted `type === 'image'` per lesson. Finding: the site's old Jekyll-migrated content is almost
+entirely text-only — HTML (2/36 with images), CSS (6/35), Graphic Design (**0/17**), Career Skills
+(6/34), Marketing (5/32), SEO (9/26), WordPress (6/26). Only content built fresh this year (Figma,
+Freelancing, UI/UX, some AI lessons) carries real visuals.
+
+**Scoped where Figma specifically is the right medium** — not "add any image everywhere," only
+where the concept IS a visual/spatial interface, distinguishing from lessons that need diagrams or
+real software screenshots instead (PHP/Python/Node/SQL/React logic, Hosting/DNS, most Career
+interview-psychology lessons — explicitly NOT touched). Proposed 2-tier priority list; user approved
+building it, starting with Tier 1.
+
+**Shipped — Tier 1, 3 diagrams, hand-built in the real Figma web app via `claude-in-chrome`** (not
+AI-generated — exact text labels like `<figcaption>` matter, and AI text rendering is unreliable):
+
+1. **`docs/img/html/page-anatomy`** — one annotated "page anatomy" diagram: 9 correctly-nested,
+   labeled regions (header/nav/main/article/figure/figcaption/section/aside/footer). Reused across
+   **10 HTML lessons** (`semantic-elements` + all 9 individual tag lessons) — the single highest-
+   leverage fix on the site, since beginners consistently can't visualize where these regions sit on
+   a real page from prose alone.
+2. **`docs/img/css/box-model-diagram`** — classic devtools-color-convention nested
+   margin/border/padding/content diagram, for `css/boxmodel` (previously zero diagram, didn't even
+   link to the site's own `/box-model` interactive tool).
+3. **`docs/img/css/position-values`** — 5 labeled comparison panels
+   (static/relative/absolute/fixed/sticky), for `css/positioning`.
+
+All 3 inserted via `scripts/add-figma-diagrams.mjs` at block index 1 (right after each lesson's
+existing intro paragraph) — no other content touched, safe to re-run (skips if the image is already
+present).
+
+**Build notes — Figma automation proved fragile.** Drawing rectangles via coordinate-based browser
+automation repeatedly broke when a fill-hex-field click missed by a few pixels: focus stayed on the
+canvas instead of the input, and the typed hex characters (e.g. `DCFCE7`, `FFEDD5`) fired as tool
+shortcuts instead (`C` = Comment tool, `F` = Frame, `R` = Rectangle), corrupting the canvas (stray
+frames, comment-mode desaturation, multi-select chaos) — happened twice, each requiring a full
+undo/redo or fresh-file restart. Fix: click an empty canvas area before every `r` keypress to
+guarantee focus returns to canvas, and add a 1-second wait before the fill-hex click on the 3rd+
+shape in a batch (the panel needs a moment to settle) — reliable after that.
+
+**Verified**: all 12 lessons' `doc:<path>` tags revalidated individually; live-checked
+`/html/tag-header` — image renders correctly inline (confirmed by scrolling past the code block
+above it, since the image sits below an existing "Try it" example).
+
+**Deferred to a follow-up session** (per the same discuss-then-build pattern as Freelancing/UI-UX):
+Tier 2 — Graphic Design exercise examples (0 images across all 17 lessons, worst gap on the site),
+Career Skills (CV/LinkedIn/portfolio mockups), Marketing (landing page/email/social mockups), SEO
+(SERP + Open Graph card mockups), HTML/CSS forms & navbar/dropdown states.
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
+## D-91 · Placeholder Video Generator (new tool) — lorem.video + 2 fallbacks + one verified archived file
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Placeholder Video Generator** — `/tools/lorem-video`, `/bn/tools/lorem-video`. User asked
+directly: "is a placeholder video tool worth building, are these even used, are there free
+APIs like for placeholder image." Answered honestly rather than assuming yes: image
+placeholders (Picsum, placehold.co) are proven, decade-old, heavily used infrastructure; video
+placeholders are a real but much smaller niche with no equivalent track record. Researched
+before recommending anything — `WebSearch` + `WebFetch` against the actual candidate services'
+own docs, not assumed from memory:
+
+- **lorem.video** — real, MIT-licensed, GitHub repo, most feature-complete (resolution presets
+  or custom WxH, duration, video/audio codec, container, four content sources). No proven
+  longevity.
+- **placeholdervideo.dev** — real, one-person project ("Gianito"), fixed 10s/30fps, no track
+  record, "reasonable rate limiting" left undefined.
+- **imgsrc.pub** — real, WxH + duration/fps/colour/overlay-text params, similarly unproven.
+- **Google's classic `gtv-videos-bucket` sample videos** (the widely-assumed "always reliable"
+  fallback) — **checked and found dead**, `curl` returns `403 Forbidden` on every file tried.
+  Caught before it was recommended, same as the earlier `placeholder.com` catch on D-89.
+  Replacement found and verified end-to-end: Big Buck Bunny (Blender Foundation, CC-licensed),
+  mirrored on the Internet Archive — `BigBuckBunny_512kb.mp4` confirmed `200`, real
+  `video/mp4`, correct size (43 MB). Other Archive.org items tried (Sintel, Elephants Dream)
+  either had wrong guessed filenames or a slow/unresponsive datanode on this attempt — not
+  shipped, rather than guessed at. `STATIC_VIDEOS` in `lib/lorem-video.ts` is deliberately a
+  one-item array: structured so a second verified mirror is a one-line addition, not padded
+  with unverified entries to look like a bigger library.
+
+Recommendation given to the user before building: worth it only with the risk stated plainly
+and a real fallback story, not silently trusted like Picsum/placehold.co are. User confirmed:
+build on lorem.video as primary, keep the other two as selectable/fallback sources, add the
+verified static file as a fourth "always works" option. Scoped remaining feature set and output
+formats via `AskUserQuestion` — user picked the full feature list plus URL/`<video>`/React/
+Markdown output (dropped a CSS tab, since `background-video` isn't a real CSS property — an
+honest omission, not a missing feature).
+
+**Real automatic fallback, not just a source picker**: the `<video>` element's own `onError`
+event walks `FALLBACK_ORDER` (`lorem → placeholdervideo → imgsrc → static`) starting from
+whichever source the user picked as primary, skipping ones already tried, until one loads or
+all four are exhausted — verified by manually dispatching synthetic `error` events on the live
+DOM node and confirming the "Currently playing from" badge advanced correctly through all four
+sources, then held steady (no crash, no loop) once every source had failed. One test-methodology
+gotcha caught and worked around, not shipped: the `<video key={videoUrl}>` remounts on every
+source change, so a stale `document.querySelector('video')` reference captured before a
+transition silently no-ops on `dispatchEvent` — had to re-query the DOM fresh between each
+manual test step once this was diagnosed.
+
+**Matching poster image reuses D-89's tool rather than a fifth external dependency**:
+`buildPosterUrl()` calls `lib/placeholder.ts`'s existing `buildSolidUrl()` directly to generate
+a `placehold.co` image at the same width/height for the `<video poster>` attribute — genuine
+code reuse between the two Lorem tools, not a new placehold.co integration written twice.
+
+**Live-video-playback verification hit a real environment artifact, resolved without chasing
+it further**: the primary source appeared stuck at `readyState: 0` in the browser for several
+seconds. Diagnosed rather than assumed broken — a direct `curl`, and a `fetch()` run from the
+page's own JS context, both confirmed the exact URL returns a real `200`/`video/mp4` in under
+2 seconds. The actual cause: `document.hidden === true` — this automation tool's tab is
+backgrounded from Chrome's perspective, and Chrome throttles `<video>` element resource loading
+specifically in hidden tabs (unlike `fetch()`/XHR, which aren't throttled the same way). Not a
+bug in this tool or in lorem.video; a known Chrome behaviour specific to the test environment,
+confirmed and moved on rather than mis-diagnosed as a broken API.
+
+Icon `Clapperboard` (new, unused by any other tool). No paired lesson exists, falls back to the
+Design category listing. Added to `/tools`/`/bn/tools` index cards, `app/sitemap.ts`,
+`docs/TOOLS.md`, and the header nav (`scripts/add-lorem-video-nav.mjs`, `sort_order` 17/last) —
+confirmed live in the Tools dropdown on the shared dev server via a direct DOM query
+(`href="/tools/lorem-video"`).
+
+**Verified**: `npx tsc --noEmit` clean, first pass. Live browser pass on the shared :3000 dev
+server — both locales render cleanly; all three live sources' exact constructed URLs confirmed
+`200`/real `video/mp4` via direct `curl` (independent of the backgrounded-tab playback artifact
+above); the static archive.org fallback plays correctly with right dimensions; the full
+auto-fallback chain verified via synthetic error dispatch; `<video>`/React output snippets
+confirmed byte-correct against the actual active source, dimensions, and poster URL.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-92 · Tier 2 of the beginner-eye content audit — 7 real Figma mockups across 10 lessons
+
+**Trigger.** User: "build tier 2" — continuing the audit from D-90. Scope from that entry: Graphic
+Design exercise examples (0/17 images, worst gap on the site — lessons literally say "design a
+poster" with no example shown), plus SEO SERP/Open Graph mockups. Deferred to a further session:
+Career Skills (CV/LinkedIn), Marketing (landing/email/social), HTML/CSS forms & navbar/dropdown
+states — not attempted this pass.
+
+**Shipped — 7 mockups, hand-built in the real Figma web app via `claude-in-chrome`:**
+
+- **`docs/img/design/business-card-example`** — navy card, white name/title, orange accent block.
+  Used in `design/visiting-card-intro` + `design/visiting-card-exercise`.
+- **`docs/img/design/poster-example`** — bold violet poster, white headline, image block, orange
+  event-details bar. Used in `design/poster`.
+- **`docs/img/design/flyer-example`** — teal-header flyer, distinct palette from the poster. Used in
+  `design/flyer`.
+- **`docs/img/design/brochure-example`** — 3-panel tri-fold (navy cover, services panel, contact
+  panel). Used in `design/brochure-intro` + `design/brochure-exercise`.
+- **`docs/img/design/menu-example`** — restaurant menu, dark header, item/price rows. Used in
+  `design/menu-exercise`.
+- **`docs/img/seo/serp-result-mockup`** — mocked Google result (breadcrumb URL, blue title link, gray
+  snippet). Used in both `seo/title-tags` and `seo/meta-descriptions` (same image, different caption
+  pointing at the relevant part of the snippet).
+- **`docs/img/seo/og-card-mockup`** — mocked Open Graph share-card preview. Used in `seo/open-graph`.
+
+All content — company/site names, prices, sample copy — is invented, matching the trade-dress-
+avoidance approach used throughout (Office Skills, Freelancing, Figma courses).
+
+**Insertion point differs from Tier 1.** The Graphic Design "exercise" lessons turned out to be
+unusually thin (heading → `<hr>` → an assignment table → a note — no intro paragraph to insert
+after), discovered by inspecting block structure before writing the insert script. Image goes at
+index 2, right before the assignment table, so the flow reads "here's a finished example → now build
+yours" rather than interrupting the instructions. SEO lessons kept Tier 1's index-1 convention
+(right after the intro paragraph).
+
+**Build notes — new Figma automation failure mode found, on top of the ones D-90 already
+documented.** A rectangle would sometimes get stuck presenting Figma's "Vector edit" panel
+(Move/Lasso/Paint/Bend/Cut toolbar) instead of the normal Design panel after a fill-click miss,
+persisting across reselection until explicitly cleared with Escape ×2 + a fresh single-click (double-
+click landed on the shape entered vector-edit mode directly in a couple of cases). Also hit one
+Figma-side text-input quirk: typing "CAFÉ" silently dropped the preceding "F" — worked around by
+avoiding accented characters in typed text (used "CAFE" instead). Recorded here so a future session
+doesn't waste time rediscovering either.
+
+**Verified**: dry-run confirmed all 10 targets and insertion indices before writing; ran for real,
+all 20 en+bn upserts succeeded; all 10 `doc:` tags revalidated; live-checked `/design/poster`
+(renders correctly right before the Exercise table) and `/seo/open-graph` (renders correctly,
+initially looked missing only because it sat below the fold).
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
+## D-93 · Number System Converter (new tool) — binary/octal/decimal/hex, taught-method walkthrough, practice mode
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Number System Converter** — `/tools/number-system`, `/bn/tools/number-system`. Explicitly
+requested for school-age kids, with the audience shaping the design from the start: the point
+isn't just a correct answer, it's showing the *same method* the kid is expected to reproduce by
+hand in a notebook. No overlap with anything shipped — genuinely new ground. Scoped extra
+features via `AskUserQuestion`; user picked the full feature set plus extending scope beyond
+the requested binary↔decimal to all four bases (binary/octal/decimal/hex), since it's usually
+the same textbook chapter and the same two techniques cover it.
+
+**Two methods, matching the classroom exactly, not a from-first-principles reinvention**:
+converting *into* decimal uses the place-value table (each digit × its column's power of the
+base, summed); converting *out of* decimal uses repeated division (divide by the target base,
+keep the remainder, repeat until the quotient is 0, read remainders bottom-to-top). Both are
+implemented as pure step-generator functions in `lib/number-system.ts`
+(`weightSteps`/`divisionSteps`) returning the full derivation as data, not just the final
+number — the UI reveals it progressively rather than computing-then-hiding. **Converting
+between two non-decimal bases chains both methods through decimal** (e.g. binary→hex: place-
+value table to decimal, then repeated division to hex) — deliberately *not* using the faster
+4-bit binary↔hex grouping shortcut some textbooks teach later, so every conversion in the tool
+follows one consistent, explainable method regardless of which two bases are picked, rather
+than silently switching technique depending on the pair.
+
+**Step-by-step player, not an instant reveal**: Prev/Next buttons walk a single flat
+`stepIndex` across however many total steps a conversion needs (weight-table columns, then
+division-ladder rows, in that order for chained conversions) — verified live at `84 (decimal) →
+binary` (7 division steps, remainders read bottom-to-top as `1010100`, correctly zero-padded to
+`01010100` at the 8-bit word size) and at `10110110 (binary) → hex` (8 weight-table columns
+summing to 182, then 2 division steps landing on `B6`) — both hand-checked against the actual
+arithmetic before considering them verified, not just "a table rendered."
+
+**Interactive bit-toggle row is a separate, independently-stateful mini-tool**, not wired into
+the main converter's state — clicking a bit recomputes only that row's own decimal value
+(`decimalFromBits`/`bitsFromDecimal`, base-2 only, sized to the current word size). A "use this
+value above" button is the only bridge between the two, deliberately one-directional and
+explicit rather than silently keeping two representations of the same number in sync — verified
+live: flipping one bit moved the row's value from 84 to 116 correctly, and "use this value
+above" correctly pushed `01110100` into the main converter with `fromBase` switched to binary.
+
+**Practice mode reuses the main converter's own current from/to base selection and its own
+`convert()`/`normalizeAnswer()` rather than a separate quiz engine** — "New question" generates
+a random value in the *currently selected* `fromBase` (word-size-bounded, and capped even with
+"no padding" selected so a kid isn't handed a number nobody could reasonably work by hand),
+hides the derivation until asked, and checks the typed answer against the same conversion logic
+the walkthrough above already computes. Verified live: a `10101011 (binary) → hex` question,
+hand-solved as `AB`, typed in, correctly marked "Correct!" with the streak/attempted counters
+incrementing.
+
+**No hydration-random risk** — the practice question is `null` until a client click generates
+one (same fix shape as D-87's bug, applied preemptively this time, not found as a bug): the
+initial `useState`/render never calls `Math.random()`, only the "New question" event handler
+does.
+
+Icon `Binary` (new, unused by any other tool). No paired lesson exists, falls back to a category
+listing — **corrected mid-build**: shipped first pointing at Design (the fallback every other
+`/tools` demo without a lesson uses), user caught it immediately as the wrong category for a
+number-systems tool and asked for Computer Basics instead — fixed to `/basics`/`/bn/basics` in
+`lib/number-system-i18n.ts`'s CTA string and the component's `Link` href. Added to `/tools`/
+`/bn/tools` index cards, `app/sitemap.ts`, `docs/TOOLS.md`, and the header nav
+(`scripts/add-number-system-nav.mjs`, `sort_order` 18/last) — confirmed live in the Tools
+dropdown on the shared dev server via a direct DOM query (`href="/tools/number-system"`).
+
+**One real TypeScript fix needed**: `SegmentedControl<T extends string>` can't take the numeric
+`Base`/`WordSize` union values directly — same shape of fix as the Shade Scale Generator's
+aspect-label fix a few tools back (D-85) — cast to `String(...)` for the control's own `value`/
+`options`, parse back to `Number(...) as Base` in the `onChange` handler. Caught by `tsc`, not
+by a runtime bug.
+
+**Verified**: `npx tsc --noEmit` clean after that fix. Live browser pass on the shared :3000 dev
+server — hand-verified two full conversions' arithmetic (see above), the bit-toggle row and its
+bridge into the main converter, and the full practice-mode flow including a correct-answer
+check; both locales render cleanly.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-94 · Notepad (new tool) — plain-textarea scratchpad, text utilities, Shiki-reused preview
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Notepad** — `/tools/notepad`, `/bn/tools/notepad`. Requested against W3Schools' notepad tool
+(one textarea, autosaves to localStorage, nothing else) with "much more features." Scoped via
+`AskUserQuestion` before building, including a real architecture decision rather than assuming
+the flashier option: checked the codebase first and found `docs/UI.md` *names* CodeMirror 6 as
+the eventual Try-It-editor stack, but it was never actually installed — the existing Try It
+blocks use a plain `<textarea>`. Presented the honest tradeoff (plain textarea + utilities, zero
+new dependency, vs. a real code editor requiring a new lazy-loaded dependency against the site's
+documented <100 KB JS budget) — user picked the lighter path, plus the full utility feature set.
+
+**Mid-build, user pointed out `lib/shiki.ts` is already a real dependency** (used server-side
+for lesson code blocks and client-side already in the homepage's animated code demo,
+confirmed by reading `components/magic/animated-code.tsx`, which is `'use client'` and calls
+`highlight()` directly). That's exactly the reuse this session's ladder favours over a new
+dependency — added an optional syntax-highlighted preview panel that calls the site's existing
+`highlight()` async function on the active note's text, rendered via the same `dangerouslySetInnerHTML`
+pattern and `.shiki`/dark-mode CSS rule every lesson code block already relies on (`app/globals.css`).
+Exported `LANGS` from `lib/shiki.ts` (was a private module const) so the preview's language
+dropdown reuses the exact same list rather than duplicating it. Verified live: real Shiki tokens
+and colours rendered for a JavaScript snippet (`function`/keywords, template-literal
+interpolation), confirming genuine reuse, not a mocked-up look-alike.
+
+**Feature set**, all in `lib/notepad.ts` as pure functions the component composes: multiple
+named notes (independent localStorage entries, switchable, deletable with a confirm), case/line
+utilities (UPPERCASE/lowercase/Title Case, trim each line, remove blank lines, sort A→Z/Z→A,
+dedupe) that apply to the current text selection if there is one, else the whole note — same
+convention as a desktop editor's Format menu — find & replace (case-insensitive toggle, "find
+next" wraps around, "replace all"), live word/character/line counts, import a `.txt` file
+(creates a new note named after the file), export the active note as `.txt`, copy-all, word-wrap
+and font-size controls. Verified live: sorted and deduped a 4-line list correctly, replaced
+"apple" → "mango" across the note correctly.
+
+**No hydration-random risk** — notes start as one deterministic default (`DEFAULT_NOTE`, a fixed
+literal id, matching the documented `useState(defaultState)` gotcha's fix shape) and the real
+localStorage-backed notes only load in a client-only `useEffect`, same pattern as D-87's fix and
+D-93's practice-mode question generation — applied preemptively again here, not found as a bug.
+
+Icon `NotebookText` (new, unused by any other tool). No paired lesson exists, falls back to the
+Computer Basics category listing (`/basics`) — picked directly this time, not defaulted to
+Design and corrected after the fact like D-93's mid-build fix. Added to `/tools`/`/bn/tools`
+index cards, `app/sitemap.ts`, `docs/TOOLS.md`, and the header nav (`scripts/add-notepad-nav.mjs`,
+`sort_order` 19/last) — confirmed live in the Tools dropdown on the shared dev server via a
+direct DOM query (`href="/tools/notepad"`).
+
+**Verified**: `npx tsc --noEmit` clean, first pass. Live browser pass on the shared :3000 dev
+server — text utilities (sort, dedupe, find/replace) hand-checked against their actual output,
+the Shiki preview confirmed with real syntax colours on a JS snippet, both locales render
+cleanly, and notes correctly persist across the `/tools/notepad` ↔ `/bn/tools/notepad` locale
+switch (same origin, same localStorage — expected, not a bug).
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-95 · Beginner-eye content audit — deferred scope shipped ("do the rest"): Career, Marketing, HTML/CSS mockups (8 mockups, 8 lessons)
+
+**Trigger.** User: "do the rest" — the deferred scope named in D-90/D-92: Career Skills
+(CV/LinkedIn mockups), Marketing (landing/email/social mockups), HTML/CSS forms & navbar/dropdown
+states. This closes out the beginner-eye audit's image-gap fix entirely.
+
+**Shipped — 8 mockups, hand-built in the real Figma web app via `claude-in-chrome`, same
+fictional-content approach as Tier 1/2:**
+
+- **`docs/img/career/cv-example`** — navy-accent CV, Skills + Experience-with-a-project-bullet.
+  Used in `career/writing-a-developer-cv`.
+- **`docs/img/career/profile-example`** — deliberately generic "professional profile" (dark cover
+  band, avatar, headline, location+connections) — no real LinkedIn blue or logo, captioned as
+  generic rather than platform-specific. Used in `career/linkedin-and-your-online-presence`.
+- **`docs/img/marketing/cta-example`** — teal CTA section, one headline, one orange button. Used
+  in `marketing/calls-to-action`.
+- **`docs/img/marketing/email-example`** — newsletter mockup (header, greeting, headline, body
+  placeholder lines, CTA button, required unsubscribe line). Used in `marketing/writing-emails`.
+- **`docs/img/marketing/social-post-example`** — generic social post anatomy (avatar/username,
+  image placeholder, caption, like/comment row). Used in `marketing/social-content-strategy`.
+- **`docs/img/html/form-example`** — styled contact form (Name/Email inputs, Message textarea,
+  teal submit button). Used in `html/forms`.
+- **`docs/img/css/navbar-example`** — one navbar showing all three link states side by side:
+  active (underline), hover (background pill), default (muted). Used in `css/navbar`.
+- **`docs/img/css/dropdown-example`** — an open "Products" dropdown, one item shown hovered. Used
+  in `css/dropdowns`.
+
+**Insertion index, decided per lesson shape (inspected block arrays before writing the insert
+script, same discipline as D-90/D-92):** the 5 normal prose lessons (Career/Marketing) get index
+1, right after their intro paragraph. The 3 older Jekyll-style HTML/CSS docs don't have that
+shape — `html/forms` opens with `<hr>` → heading → intro paragraph → code sample, so the image
+goes at index 3, right before the code; `css/navbar` and `css/dropdowns` open with `<hr>` →
+heading → an existing interactive `tryit` demo, so the image goes at index 2, right before that
+demo — the static mockup sets up what the live demo then lets you play with, rather than
+duplicating it.
+
+**Figma build notes.** Two new failure modes hit and fixed inline, on top of the ones D-90/D-92
+already documented: (1) drawing a new shape/text immediately after a *previous* shape+deselect
+sequence occasionally left multiple objects selected instead of deselecting — a `ctrl+a` meant
+for a hex-input field then selected all canvas objects instead, and a numeric key mistaken for
+opacity shortcut (`6` → 60% opacity) silently applied to every selected object; fixed by
+reselecting the single intended layer from the Layers panel and re-verifying the panel header
+reads the singular object type before typing into any field. (2) A misclick during a stroke-
+color-picker sequence landed on the "Prototype" tab instead of a swatch and popped Figma's
+"Upgrade to Dev Mode" modal, silently switching the whole file into Dev Mode — fixed via "Back
+to Design Mode" in the modal, then continuing. Recorded here so a future session doesn't waste
+time rediscovering either.
+
+**Revalidation deliberately skipped — ISR-quota constraint (see CLAUDE.md's active constraint,
+added 2026-08-17).** Unlike D-90/D-92, which revalidated all target `doc:` tags immediately,
+this batch's 8 `/api/revalidate` calls were **not made**: the constraint added since D-92
+explicitly lists the admin panel's `revalidateTag`/`revalidatePath` webhook as something to
+avoid while the Vercel free-tier ISR Writes quota is exhausted. Same call already made for O-29's
+nav-item add. **Consequence:** the DB writes are confirmed (dry-run matched, real run reported
+all 8 en+bn upserts succeeded), but the 8 lesson pages in production stay stale — serving their
+pre-edit cached HTML — until either the quota clears and the tags get revalidated, or the pages
+naturally regenerate through some other on-demand trigger. Local dev (`content.ts` reads straight
+from Supabase, no cache) shows the images immediately if anyone needs to eyeball them now.
+
+**Not pushed** — same standing rule as everything else.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -3804,4 +5016,6 @@ same as every other content fix this project makes.
 | O-25 | Re-run `node scripts/indexnow-submit-all.mjs` (D-67) — first real attempt hit `403 SiteVerificationNotCompleted`, IndexNow's side hadn't caught up to the newly-live key file yet | Nothing broken; the ~140 pre-webhook pages just aren't backfilled to IndexNow yet. New pages going forward are unaffected — they go through the `/api/revalidate` webhook, a separate path |
 | O-26 | Vercel free-tier ISR Writes at 133K/200K (66%, 30-day window). **Update:** user pulled Observability → ISR (Production, last 12h) before D-74's fix deployed — confirmed on-demand row-trigger writes are the dominant driver (2-4 writes per single lesson path within 12h, matching the exact bug fixed), not build-time pre-rendering as first suspected. Two new leads surfaced there, neither investigated yet: (1) Next's segment cache (`.segments/_tree.segment` etc.) likely multiplies the cost of every `revalidatePath()` call beyond "1 write" — framework-level, unaffected by this fix; (2) `/[category]` alone showed 64 writes vs. 19 reads in 12h, disproportionate to traffic. **Next:** check the same dashboard page again a few days after this fix deploys to confirm per-lesson write counts actually dropped; if so, investigate the two new leads next | Nothing broken today; free-tier project auto-pauses if the quota is actually hit, which would take the whole site down until next month or an upgrade |
 | O-27 | Decide the approach for the remaining 11 lessons on `docs/RESEARCH.md`'s original 15-file "needs a decision" list (D-75) — `css/font`, `css/form`, `css/pseudo-classes`, `css/pseudo-elements`, `css/image-transparency`, `css/inline-block`, `html/blocks`, `html/form-elements`, `html/form-input-types`, `html/forms`, `html/responsive`. Each now has dozens of small isolated syntax snippets rather than one clean demo — needs a call on whether to convert every snippet to its own `tryit` (many small iframes per lesson) or author new synthesized "put it together" examples (real new content, not extraction) | Nothing broken — these render fine today as plain `code` blocks, just not interactive |
+| O-30 | Revalidate the 8 `doc:` tags from D-95 (`career/writing-a-developer-cv`, `career/linkedin-and-your-online-presence`, `marketing/calls-to-action`, `marketing/writing-emails`, `marketing/social-content-strategy`, `html/forms`, `css/navbar`, `css/dropdowns`) once the ISR quota clears — deliberately skipped this session, same as O-29 | Those 8 production pages serve stale cached HTML without the new mockups; local dev shows them correctly already |
+| O-29 | ~~Add "CSS Units Converter" to the header nav~~ — **resolved, D-79.** `nav_items` row added via script, `sort_order` 10 (last), shows in local dev now. The `/api/revalidate` webhook call was deliberately skipped (ISR-quota constraint) — production's header nav is stale until quota clears or another nav edit busts the `nav` tag | Live production header doesn't show the new tool yet; everything else does |
 | O-28 | New bug found in `components/blocks/try-it.tsx` (D-75): a `tryit` block whose CSS does `@import` on a cross-origin stylesheet (tested with both Font Awesome via cdnjs and Google Material Icons) never paints the resulting icons inside the preview iframe, even though the font file itself loads successfully (confirmed 200 status, correct byte count, via network log). Reproduced in gstack's headless browser AND real Chrome; does NOT reproduce in an isolated static-file harness with the identical `srcdoc` string outside the app, including with two such iframes side by side. No CSP present (checked both header and meta tag) to explain it. Root cause unknown — worth a focused debugging session with real devtools access into the sandboxed iframe (blocked from JS inspection here since `sandbox="allow-scripts"` has no `allow-same-origin`) | Blocks using external icon-font demos in Try It blocks (rare — most lessons use plain HTML/CSS/JS with no external font). `css/icons` reverted to plain code blocks rather than ship this broken |
