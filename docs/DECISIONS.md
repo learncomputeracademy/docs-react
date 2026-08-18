@@ -5049,6 +5049,231 @@ the rendered page) shows lesson text and its image with no server-render error.
 
 ---
 
+## D-97 · Call Stack + Event Loop Visualizer (new tool) — real instrumented execution, not a simulation
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Call Stack + Event Loop Visualizer** — `/tools/event-loop`, `/bn/tools/event-loop`. Grew out
+of a discussion, not a direct build request: user asked what other tools would help teachers and
+students, was told to check the actual course content first rather than guess, so every published
+lesson across all 26 categories was pulled straight from Supabase (600+ titles — this catalog has
+grown far past the 132-doc migration baseline) before suggesting anything. User's own instinct —
+"a JavaScript stack viewer" — turned out to match the roadmap's own Tier-2 entry almost exactly
+("Event Loop / Async Visualizer... hardest build... least well-served"), and matched three real
+lessons directly (`JavaScript Promises and Async`, `JavaScript Events`/`Events Advanced`, and
+Node.js's own dedicated `The Event Loop`). Built on request, with "as much colour and animation as
+possible" and an open invitation to add more.
+
+**The one house rule this tool can't literally satisfy, and the honest way through it**: rule 4
+says "real CSS/JS on real elements, never simulate" — but no JS API exposes the engine's actual
+call stack or task/microtask queues, so nothing here can be *measured* the way layout is measured.
+The resolution, same approach every real event-loop visualizer (Philip Roberts' loupe included)
+actually uses: run the user's **real** code, with **real** `setTimeout`/`Promise` scheduling,
+inside a sandboxed iframe (the exact `sandbox="allow-scripts"` + `srcdoc` pattern `lib/tryit.ts`
+already established and this site already trusts), and read the call stack via `new
+Error().stack` — a real, engine-provided value, not invented. The *ordering* and *timing* are
+100% real; only the "waiting in a queue" box durations are an illustrative rendering of that real
+trace, since JS genuinely can't observe what's sitting in the browser's internal queues, only when
+things start and stop running — stated plainly in the tool's own UI, not buried.
+
+**Instrumentation** (`lib/event-loop.ts`, `buildEventLoopDoc`): patches `console.log`,
+`window.setTimeout`, `Promise.prototype.then`, and `window.queueMicrotask` to emit a real,
+timestamped trace event around each call and each callback's start/end, streamed to the parent via
+`postMessage` as they happen, with a quiet-period + hard-cap fallback to signal "done." Long
+`setTimeout` delays are capped at 3s (capped values, not scaled — relative order is preserved for
+any delay under the cap) so a teaching example with a 5s timeout doesn't make a class wait 5s.
+
+**Real bug found and fixed during verification**: the call stack panel initially showed garbage
+frame names like `about:srcdoc:112:3()` at the final step instead of a clean empty stack. Root
+cause: V8 renders an anonymous/wrapper frame (this tool's own outer IIFE, or the `<script>` tag's
+own eval context) as a bare `at url:line:col` line with no function name, and the fallback regex
+was mislabelling that entire string as if it were a function name instead of recognising it as
+"not a named frame." Fixed by only keeping frames that match a genuine `at name (` (V8) or
+`name@url` (Firefox/Safari) pattern and dropping bare/anonymous frames entirely — the pedagogical
+point is the user's own named functions stacking up, not implementation-wrapper noise. Verified
+live after the fix: the "Synchronous calls" preset now shows a clean `['first']` → `['first',
+'second']` → empty progression matching the actual code exactly.
+
+**Verified live, preset by preset, not assumed**: "Promise vs setTimeout" produced the textbook
+`start, end, promise callback, timeout callback` ordering — the single most important thing this
+tool needs to get right, and it's driven by genuine browser scheduling, not a hand-tuned demo.
+"Chained promises" produced `start, end, step 1, step 2, step 3`, with all 3 `.then()` calls
+correctly traced through the microtask-queue box one at a time. "async/await" produced the correct
+`before main, main start, after main call, main after await` ordering too — but a real, honestly-
+documented limitation surfaced here: V8's internal `await` optimization doesn't route through the
+patched `Promise.prototype.then`, so the microtask-queue box doesn't visually populate during that
+one preset's await, even though the resulting order is still genuinely correct. No false claim is
+made anywhere in the UI about this (the existing "queue boxes are illustrative" note already covers
+it) — noted here for the record rather than silently shipped and forgotten.
+
+**Features beyond the base ask**: five curated presets (sync calls, setTimeout ordering, Promise
+vs setTimeout, chained promises, async/await) plus a freely-editable code textarea; a Prev/Next/
+Play/Restart step player with speed control, reusing the same step-through pattern that's worked
+well twice already this session (Number System Converter, and conceptually the Lorem tools); a
+plain-English narration line per step, not just the animated boxes; colour-coded panels (blue call
+stack, purple Web APIs, green microtask queue, neutral console) animated via `motion/react`
+(`motion` — already a real dependency, reused rather than adding a new animation library, same
+"check before adding" habit as D-94's Shiki reuse).
+
+Icon `Layers3` (new, unused by any other tool). Links to a real lesson category — `/javascript` —
+the first `/tools` demo added this session with an actual `lessonHref` set rather than falling
+back to a category listing, since the fit is direct. Added to `/tools`/`/bn/tools` index cards,
+`app/sitemap.ts`, `docs/TOOLS.md`, and the header nav (`scripts/add-event-loop-nav.mjs`,
+`sort_order` 20/last) — confirmed live in the Tools dropdown on the shared dev server via a
+direct DOM query (`href="/tools/event-loop"`).
+
+**Verified**: `npx tsc --noEmit` clean after the stack-frame fix. Live browser pass on the shared
+:3000 dev server across all 5 presets — synchronous call-stack nesting, real microtask-before-
+macrotask ordering (twice, via two different presets), and async/await ordering, each checked
+against the actual expected output rather than assumed correct from the code alone; both locales
+render cleanly.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-98 · Recursion Visualizer (new tool) — real call stack, args and return values, deliberately preset-scoped
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Recursion Visualizer** — `/tools/recursion`, `/bn/tools/recursion`. Follow-on from D-97 in the
+same discussion thread — asked what other tools would help, picked "Recursion / Call Stack
+Visualizer" as the cheapest next build (reuses the event-loop tool's proven call-stack-box +
+step-player shape) and the natural pairing lesson: `Recursion` (Programming Basics), the sync
+half of "call stack" the async-focused Event Loop Visualizer didn't cover. Built and added to
+the header nav in the same turn, both pre-approved up front rather than asked separately —
+first tool this session where nav wasn't a separate confirm step.
+
+**Same house-rule tension as D-97, resolved differently on purpose**: real arguments and real
+return values — the actual pedagogical point of recursion, not just function names — can't be
+recovered from `Error().stack` the way D-97 recovers call-stack names; getting them requires the
+traced function to be wrapped explicitly. Rather than attempt a general auto-instrumenter for
+arbitrary free-form code (which would need a real JS parser to safely rewrite arbitrary call
+sites, and this tool doesn't have one), scoped down honestly: three curated presets (Sum 1..n,
+Factorial, Fibonacci), each pre-wrapped with a small `trace()` helper following a
+`let x; x = trace('x', function (n) {...})` pattern — the `let` binding matters, since a named
+function expression's *own* recursive calls resolve to its own inner unwrapped name, not the
+outer traced wrapper, unless the recursion goes through an outer variable instead. An
+"Edit code" escape hatch lets a confident student follow the same convention for their own
+function; anything that doesn't won't error, it just won't produce trace events — documented
+plainly in "How this works" rather than silently promised as auto-tracing.
+
+**Verified live, not assumed**: "Sum 1..n" at n=5 produced the exact correct unwind —
+`sumTo(0)→0, sumTo(1)→1, sumTo(2)→3, sumTo(3)→6, sumTo(4)→10, sumTo(5)→15` — 6 calls, max depth
+6, hand-checked against the actual arithmetic. "Fibonacci" at n=5 produced genuine branching
+recursion, caught mid-run: `fib(1)→1, fib(0)→0, fib(2)→1, fib(3)→2, fib(1)→1, fib(0)→0, fib(2)→1,
+fib(4)→3` — the real exponential call pattern naive fibonacci actually makes, not a simplified
+stand-in, useful on its own as a "this is why it's slow" demonstration.
+
+**Features**: an auto-play kickoff the moment "Run" completes (execution is synchronous and
+arrives as one message, unlike D-97's streamed async trace, so there's no "live recording" phase
+to watch — auto-playing the recorded trace immediately is the closer analogue), a Call Stack
+panel and a separate Call Log panel (every completed call shown as `name(args) → result`, the
+clearest single view of the unwind), total-calls/max-depth stats, and the same Prev/Next/Play/
+speed step player as D-97, reusing `motion/react` again for the animated frames.
+
+Icon `FunctionSquare` (new, unused by any other tool). Links to a real lesson category —
+`/programming` — the second tool this session with an actual `lessonHref` instead of a category
+fallback. Added to `/tools`/`/bn/tools` index cards, `app/sitemap.ts`, `docs/TOOLS.md`, and the
+header nav (`scripts/add-recursion-nav.mjs`, `sort_order` 21/last) — confirmed live in the Tools
+dropdown on the shared dev server via a direct DOM query (`href="/tools/recursion"`).
+
+**Verified**: `npx tsc --noEmit` clean (one unrelated pre-existing error in
+`components/admin/docs-list.tsx`, confirmed via `git status` to belong to the other concurrently-
+running instance's in-progress edit, not touched here — resolved on its own by the time of the
+final check). Live browser pass on the shared :3000 dev server across all three presets, with the
+Sum and Fibonacci traces hand-verified against real arithmetic as above; both locales render
+cleanly. One test-session note, not a product bug: the shared dev server's fast-refresh (from the
+other instance's concurrent edits) reset this tool's in-page state mid-verification a couple of
+times — recognized immediately from the now-familiar pattern, re-ran rather than mis-diagnosed.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-99 · ISR-write root cause fully diagnosed and fixed — per-category sidebar cache + service-role trigger skip, both verified live
+
+**Trigger.** User asked why Vercel's ISR Writes jumped from 248K to 317K despite never pushing to
+git. Investigated the whole revalidation pipeline rather than guessing — two real, separate causes
+found in the actual code, both fixed and **verified working against production**, not just shipped
+and hoped.
+
+**Cause 1 — the D-21 `pg_net` trigger fires on every row write, unconditionally.** `AFTER INSERT OR
+UPDATE OR DELETE` on `docs`/`doc_translations`/`categories`, added in D-21 to let admin-panel
+publishes revalidate without a redeploy. It has no concept of "this write came from a bulk content
+script, not an interactive edit" — every one of the hundreds of rows every `scripts/create-*-
+content.mjs` run writes fires the same production webhook a real admin edit would.
+
+**Cause 2 — the `'sidebar'` cache tag was global, not per-category.** `getSidebarTree()` was one
+`unstable_cache` entry for the *entire* site (~600 docs, 23 categories), tagged `'sidebar'`. Any
+single doc edit anywhere busted the one shared entry every category page, the homepage, and search
+all read from — confirmed this is exactly what O-26 measured without explaining
+("`/[category]` showed 64 writes vs 19 reads in 12h").
+
+**Fix 1 — per-category sidebar caching (`lib/content.ts`, `app/api/revalidate/route.ts`,
+`lib/admin/{docs,translation,categories}.ts`, `components/admin/docs-list.tsx`).** Split into
+`getCategoryMeta()` (cheap, tag `'categories-list'`) + `getCategoryDocsCached()` (one cache entry
+per category, tag `sidebar:<slug>`) + a plain merge function replacing the old monolithic
+`unstable_cache`. `getSearchIndex` moved off the (now-gone) `'sidebar'` tag onto its own
+`'search-index'` tag — it's genuinely global by necessity (must find any doc), so it stays global on
+purpose, just decoupled from the sidebar cache's lifecycle. Every `revalidateTag('sidebar', ...)`
+call site updated to the new per-category tag — category slug is always `path.split('/')[0]`, no
+extra query needed anywhere. Zero UI changes — `DocSidebar`/`SidebarNav` untouched, same
+`SidebarCategory[]` shape. Verified: `tsc --noEmit` clean; local dev — `mongodb` category still
+lists all 22 lessons, `sql/intro` unaffected, no server-render errors on either.
+
+**Fix 2 — skip the trigger entirely for service-role-key writes (`supabase/migrations/010`, then
+`011`).** Content scripts always write via the service-role key; admin-panel edits always write via
+an authenticated user's cookie session. That distinction is visible inside the trigger via which
+Postgres role PostgREST switched to for the request — skip when it's `service_role`, fire normally
+otherwise.
+
+**First attempt (010) shipped wrong and was caught, not assumed correct.** Checked
+`current_setting('request.jwt.claim.role', true) = 'service_role'` — a real, documented PostgREST
+GUC in general, but this project's PostgREST version doesn't populate the per-claim exploded form,
+only the single `request.jwt.claims` JSON blob. Verified this was actually the failure (not just
+theorized) with a live debug trigger — a temporary version of the function that logged
+`request.jwt.claims`, `request.jwt.claim.role`, `current_setting('role')`, `current_user`, and
+`session_user` into a scratch table on every real fire, read back via the service-role key. Real
+data from an actual service-role write:
+
+| Signal | Value |
+|---|---|
+| `request.jwt.claim.role` (010's check) | `NULL` — confirmed wrong |
+| `request.jwt.claims` (full JSON) | `{"role":"service_role",...}` — correct, needs parsing |
+| `current_setting('role', true)` | `service_role` — direct, simplest, correct |
+| `current_user` | `postgres` — masked to the function owner by `SECURITY DEFINER`, useless here |
+| `session_user` | `authenticator` — fixed pooler login role for every request regardless of caller, useless here |
+
+**011 fixes it with the confirmed-correct signal** (`current_setting('role', true) = 'service_role'`)
+and drops the scratch debug table. **Verified live, twice, with a real service-role write each
+time** — recorded `net._http_response`'s max `id` before, wrote, checked after: 010's version let
+the id advance (skip did not fire); 011's version left it unchanged both times (skip fires
+correctly). This is direct evidence against the live trigger, not an inference from code review —
+Vercel's Hobby tier has no per-request log view to check this any other way (`Observability → Logs`
+is Pro-only), so `net._http_response` (pg_net's own request log, queryable via SQL Editor
+regardless of Vercel plan) was the only way to get a real answer.
+
+**Also fixed while investigating, unrelated to the ISR-write growth itself:**
+`.github/workflows/supabase-daily.yml` (the nightly backup+keep-alive Action) had **failed on all 22
+runs since inception** (`Error: supabaseUrl is required`) — the two GitHub repo secrets were simply
+never set. Confirmed via `gh secret list` returning empty, and via the full run history (every run,
+same error, since day one). Fixed: user added both secrets through the GitHub UI (I don't enter API
+keys into any field, even on request — directed them to do it themselves); a second bug then
+surfaced (`Error: Node.js detected but native WebSocket not found` — `@supabase/supabase-js`'s
+realtime client needs Node 22+, workflow pinned Node 20), fixed by bumping `node-version`. Since this
+Action never once reached its git-push step in 22 runs, it has contributed **zero** to the ISR-write
+growth — a real finding, but not related to what the user asked about, and worth recording so a
+future session doesn't re-diagnose the same thing. Also added `vercel.json`'s `ignoreCommand` so a
+push touching only `backup/**` or `.github/**` skips the Vercel build entirely going forward.
+
+**Not pushed** — same standing rule as everything else, all four commits (per-category caching,
+migration 010, migration 011, backup Action + vercel.json) are local only. Migrations 010/011 ARE
+live on production Supabase, though — DB migrations are a separate deploy surface from git/Vercel,
+applied directly via SQL Editor, unaffected by the push ban.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

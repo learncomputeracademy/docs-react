@@ -9,6 +9,151 @@ for picking up work weeks later.
 
 ---
 
+## 2026-08-18 — Session 76: ISR-write root cause found + fixed (D-99)
+
+**Done**
+- Diagnosed Vercel ISR Writes jump (248K→317K, no git pushes) end to end. Two real causes,
+  both in code/DB, neither related to git pushes.
+- Cause 1: D-21 `pg_net` trigger fires on every `docs`/`doc_translations`/`categories` row
+  write, no distinction between bulk content-script writes and real admin edits.
+- Cause 2: `getSidebarTree()` was one global `unstable_cache` tagged `'sidebar'` — any single
+  doc edit busted the cache for the whole site. Matches O-26's old unexplained "64 writes/19
+  reads" finding.
+- Fix 1 (DB): trigger now skips when `current_setting('role', true) = 'service_role'`.
+  Migration `010` shipped with wrong GUC (`request.jwt.claim.role`, not populated on this
+  PostgREST version) — caught via live debug-logging trigger, not assumed. Migration `011` is
+  the real fix, **verified live in production twice** via `net._http_response` id-comparison
+  (id unchanged across a fresh service-role write = skip firing correctly).
+- Fix 2 (code): split `'sidebar'` tag into per-category `sidebar:<slug>` — `lib/content.ts`,
+  `app/api/revalidate/route.ts`, `lib/admin/{docs,translation,categories}.ts`,
+  `components/admin/docs-list.tsx`. `getSearchIndex` moved to its own `'search-index'` tag
+  (stays global, decoupled from sidebar). `tsc --noEmit` clean, local dev verified.
+- Also fixed while investigating (unrelated to ISR growth — this Action never once reached
+  its push step in 22 runs, contributed zero): `supabase-daily.yml` missing secrets (user
+  added via GitHub UI), then Node 20→22 (supabase-js realtime needs native WebSocket).
+  Added `vercel.json` `ignoreCommand` so `backup/**`/`.github/**`-only pushes skip the Vercel
+  build.
+- Full writeup: `docs/DECISIONS.md` D-99.
+
+**Not pushed** — standing rule, everything local-commit only. Migrations 010/011 ARE live on
+production Supabase already (DB migrations bypass the git/Vercel push gate — applied directly
+via SQL Editor).
+
+**Next session — start here**
+- Nothing blocking. If the user lifts the push ban, four local commits are waiting:
+  per-category sidebar caching, migration 010, migration 011, backup-Action+vercel.json fix.
+- Not independently tested: an authenticated (real admin-panel) write still revalidating
+  correctly post-fix — logic implies it does (anything ≠ `service_role` falls through
+  unchanged), but no live authenticated-session test was run.
+
+---
+
+## 2026-08-18 — Session 75: Recursion Visualizer (new tool, D-98)
+
+**Done**
+- Follow-on from Session 74's "what other tools" discussion — picked Recursion Visualizer as
+  the cheapest next build (reuses D-97's call-stack-box + step-player shape) and the natural
+  pairing lesson (`Recursion`, Programming Basics — the sync half of "call stack" D-97's
+  async-focused tool didn't cover). Built and added to the header nav in the same turn, both
+  pre-approved up front — first tool this session where nav wasn't a separate ask.
+- Built `/tools/recursion` + `/bn/tools/recursion` — three curated presets (Sum 1..n, Factorial,
+  Fibonacci), each pre-wrapped with a small `trace()` helper so real arguments and real return
+  values (not just function names) can be captured, plus an "Edit code" escape hatch for the
+  same wrapping convention. Auto-plays the moment "Run" completes; Call Stack + Call Log panels,
+  stats, Prev/Next/Play/speed step player, `motion/react` animation — same shape as D-97.
+- `lib/recursion.ts`, `lib/recursion-i18n.ts`, `components/tools/recursion-demo.tsx`.
+- Wired into `/tools`/`/bn/tools` index, `app/sitemap.ts`, `docs/TOOLS.md`, and the header nav
+  (`scripts/add-recursion-nav.mjs`, `sort_order` 21/last) — confirmed live via a direct DOM
+  query of the Tools dropdown.
+
+**Findings worth remembering**
+- **Scoped down honestly instead of attempting a general auto-instrumenter**: real arguments
+  and return values (the actual point of recursion) can't be recovered from `Error().stack`
+  alone the way D-97 recovers call-stack names — getting them needs the traced function
+  explicitly wrapped, and auto-rewriting arbitrary call sites safely would need a real JS
+  parser this tool doesn't have. Shipped as presets + an editable-code convention instead of
+  either building a parser or silently pretending to auto-trace anything typed in.
+- **A real correctness gotcha in the wrapping pattern itself, caught before shipping, not
+  after**: a named function expression's own recursive calls resolve to its *own* inner
+  unwrapped name, not an outer traced wrapper — so `factorial = trace('f', function
+  factorial(n) {... factorial(n-1) ...})` would silently NOT trace the recursive calls. The
+  fix baked into all three presets: bind the recursive call to an *outer* `let` variable
+  instead (`let factorial; factorial = trace(...)`), so the inner call resolves to the
+  already-traced wrapper by the time it's actually invoked. Worth remembering generally: this
+  is the standard gotcha whenever wrapping/monkey-patching a function that calls itself by
+  name — the self-reference inside a named function expression is fixed at definition time,
+  not lookup time.
+- **Verified both a linear and a branching recursion case against real arithmetic, not just
+  that something rendered**: Sum 1..n at n=5 produced the exact correct unwind end to end;
+  Fibonacci at n=5, caught mid-run, showed the real exponential branching call pattern
+  (`fib(1)→1, fib(0)→0, fib(2)→1, fib(3)→2, fib(1)→1, fib(0)→0, fib(2)→1, fib(4)→3`) — useful
+  on its own as a "this is why naive fibonacci is slow" demonstration, not manufactured for
+  the demo.
+- **Recognized a now-familiar test-environment pattern immediately rather than chasing a false
+  bug**: the shared dev server's fast-refresh (triggered by the other instance's concurrent
+  edits) reset this tool's in-page state mid-verification more than once. Diagnosed from the
+  pattern already seen this session rather than mis-attributed to the tool's own code, and
+  simply re-ran verification rather than "fixing" something that wasn't broken.
+
+---
+
+## 2026-08-18 — Session 74: Call Stack + Event Loop Visualizer (new tool, D-97)
+
+**Done**
+- User asked what tools would help teachers and students; told to check actual course content
+  before suggesting anything, so pulled every published lesson across all 26 categories straight
+  from Supabase (600+ titles) before answering. User's own idea — "a JavaScript stack viewer" —
+  matched the roadmap's own Tier-2 entry and three real lessons directly. Built on request.
+- Built `/tools/event-loop` + `/bn/tools/event-loop` — runs real user code (or one of 5 curated
+  presets) inside a sandboxed iframe with real `setTimeout`/`Promise` scheduling, instruments
+  `console.log`/`setTimeout`/`Promise.prototype.then`/`queueMicrotask`, and reads the real call
+  stack via `new Error().stack` at each traced moment. Animated (via `motion/react`, already a
+  real dependency) colour-coded panels — call stack, Web APIs, microtask queue, console — a
+  Prev/Next/Play step player with speed control, and a plain-English narration line per step.
+- `lib/event-loop.ts`, `lib/event-loop-i18n.ts`, `components/tools/event-loop-demo.tsx` — full
+  build notes, including the one house rule this tool can't literally satisfy (rule 4, "never
+  simulate") and the honest resolution, in D-97.
+- Wired into `/tools`/`/bn/tools` index, `app/sitemap.ts`, `docs/TOOLS.md`. First tool this
+  session with a real `lessonHref` (`/javascript`) instead of falling back to a category
+  listing. Header nav added same session (`scripts/add-event-loop-nav.mjs`, `sort_order`
+  20/last) — confirmed live via a direct DOM query of the Tools dropdown on the shared dev server.
+
+**Findings worth remembering**
+- **Checking real course content before suggesting tools was worth doing** — not just for this
+  request, but as a pattern: the previous "here are some ideas" answer was reasonable but
+  untethered from what's actually taught; grounding the same discussion in 600+ real lesson
+  titles turned "reasonable guesses" into "here's the exact lesson this fixes" for five separate
+  ideas, and confirmed the user's own instinct was already the highest-value gap.
+- **Real bug caught during verification, not shipped**: the call stack panel showed garbage
+  frame names (`about:srcdoc:112:3()`) instead of a clean empty stack at the final step. Root
+  cause: V8 renders anonymous/wrapper frames (this tool's own IIFE, the `<script>` tag's eval
+  context) as a bare `at url:line:col` line with no name, and the fallback regex was
+  mislabelling that whole string as a function name instead of recognising "this isn't a named
+  frame, drop it." Fixed by requiring a genuine `at name (`/`name@url` match and dropping
+  anything else — verified live afterward that a simple two-function example now shows a clean
+  stack progression matching the actual code.
+- **Verified every preset's actual output against the expected textbook answer, not just that
+  something rendered**: "Promise vs setTimeout" → `start, end, promise callback, timeout
+  callback` (the one ordering this tool most needs to get right). "Chained promises" → `start,
+  end, step 1, step 2, step 3`, all three `.then()` calls correctly traced through the
+  microtask queue one at a time. "async/await" → correct final ordering too, **but** with a
+  real, disclosed limitation: V8's internal `await` optimisation bypasses the patched
+  `Promise.prototype.then`, so the microtask-queue box doesn't visually populate during that
+  one preset's await — the order shown is still genuinely correct, just less animated for that
+  specific case. No false claim made anywhere in the UI; the tool's existing "queue boxes are
+  illustrative" note already covers it, and it's recorded here rather than silently shipped.
+- Reused `motion` (the already-installed `motion/react` animation library, used elsewhere in
+  `components/magic/*`) for every panel transition instead of hand-rolling CSS animations or
+  adding a new dependency — matches this session's now-established "check the codebase for a
+  real dependency before reaching for a new one" habit (Shiki in D-94, CodeMirror-avoidance in
+  the same entry).
+
+**Next session — start here**
+1. No pending request from the user as of this entry — nav addition (above) closes out the
+   Call Stack + Event Loop Visualizer.
+
+---
+
 ## 2026-08-19 — Session 73: New "MongoDB" category — 22 lessons shipped (D-96)
 
 **Done**
