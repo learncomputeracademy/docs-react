@@ -308,8 +308,9 @@ export function DocsList({ docs, categories, canDelete }: { docs: AdminDocRow[];
       return next
     })
     const updates = orderedIds.map((id, i) => ({ id, sort_order: i + 1 }))
+    const categorySlug = categories.find((c) => c.id === categoryId)?.slug ?? ''
     startTransition(async () => {
-      await saveSortOrder(updates)
+      await saveSortOrder(updates, categorySlug)
       router.refresh()
     })
   }

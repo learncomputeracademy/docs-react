@@ -46,8 +46,13 @@ export async function listCategoriesForAdmin() {
 // English-only edit doesn't touch what bn readers see and the write is
 // waste — that's the case this skips.
 export async function revalidateDoc(supabase: Awaited<ReturnType<typeof createClient>>, id: string, path: string) {
+  // path is always <category>/<slug> — sidebar tag is per-category since
+  // 2026-08-19 (lib/content.ts), so this edit only busts its own
+  // category's cache entry, not all 23.
+  const categorySlug = path.split('/')[0]
   revalidateTag(`doc:${path}`, { expire: 0 })
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag(`sidebar:${categorySlug}`, { expire: 0 })
+  revalidateTag('search-index', { expire: 0 })
   revalidatePath(`/${path}`, 'page')
   const { count } = await supabase
     .from('doc_translations')
@@ -138,13 +143,16 @@ export async function restoreDoc(id: string) {
 // One row per changed order number, not a single upsert — "Save order" is
 // a batch of at most ~40 rows (one category at a time in practice), and a
 // real upsert would need every NOT NULL column repeated for no benefit.
-export async function saveSortOrder(updates: { id: string; sort_order: number }[]) {
+// categorySlug: caller always reorders within one category (see
+// docs-list.tsx's persistOrder) — sidebar tag is per-category, so this
+// only busts that one category's cache entry.
+export async function saveSortOrder(updates: { id: string; sort_order: number }[], categorySlug: string) {
   const supabase = await createClient()
   for (const u of updates) {
     const { error } = await supabase.from('docs').update({ sort_order: u.sort_order }).eq('id', u.id)
     if (error) throw new Error(error.message)
   }
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag(`sidebar:${categorySlug}`, { expire: 0 })
 }
 
 export async function createDraftDoc(categoryId: string, slug: string, title: string) {

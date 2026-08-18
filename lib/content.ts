@@ -108,36 +108,66 @@ export type SidebarDoc = Pick<Doc, 'slug' | 'path' | 'title' | 'sort_order'>
 export type SidebarCategory = Omit<Category, 'docs'> & { docs: SidebarDoc[] }
 
 // Persistent sidebar needs every category with its docs in one shot, not
-// fetched per-category — that's what a "fixed syllabus sidebar" is.
+// fetched per-category on the *client* — that's what a "fixed syllabus
+// sidebar" is (SidebarNav still receives the full tree as props and does
+// its accordion open/close client-side, unchanged). But it used to be
+// cached and *tagged* as one shot too — a single unstable_cache entry for
+// all ~600 docs across every category, tagged 'sidebar'. That meant every
+// single doc edit anywhere on the site invalidated the exact same cache
+// entry every other category's page, the homepage, and search all read
+// from — one lesson edit in `mongodb/` forced the next visitor to `css/`
+// to pay for a full 23-category requery too. Split into two cached layers
+// instead (2026-08-19, ISR-write investigation):
+//   - getCategoryMeta(): cheap, id/slug/title/sort_order only, tagged
+//     'categories-list' — busted only when a category itself is added/
+//     renamed/reordered/deleted, not by ordinary doc edits.
+//   - getCategoryDocsCached(): one cache entry PER category, tagged
+//     `sidebar:<slug>` — a doc edit only busts its own category's entry;
+//     the other 22 stay warm.
+// getSidebarTree() itself is no longer unstable_cache-wrapped — it's a
+// plain merge of already-cached pieces, so nothing here talks to Supabase
+// on a cache hit. Still React cache()-wrapped for request-level dedup
+// (sidebar + page sharing one render), same as before.
+function getCategoryMeta(locale: Locale): Promise<Omit<Category, 'docs'>[]> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase.from('categories').select('id, slug, title, title_bn, description, sort_order').order('sort_order')
+      if (error) throw error
+      return (data ?? []).map(c => ({ ...c, title: locale === 'bn' ? (c.title_bn ?? c.title) : c.title }))
+    },
+    ['categories-meta', locale],
+    { tags: ['categories-list'] }
+  )()
+}
+
 // locale='bn': doc titles fall back to English where no translation exists
 // yet — partial rollout shows real titles, not blanks, while translation
-// is still in progress category-by-category.
-// Two layers of caching, doing two different jobs:
-// - React cache(): request-level memoization, so the category layout
-//   (sidebar) and the category/lesson page sharing one render don't issue
-//   the query twice.
-// - unstable_cache(): Next's persistent Data Cache, tagged 'sidebar' so the
-//   revalidation webhook can bust it on any docs/categories change without
-//   a redeploy. This is the layer that makes it ISR rather than frozen SSG.
-export const getSidebarTree = cache(function getSidebarTree(locale: Locale = 'en'): Promise<SidebarCategory[]> {
+// is still in progress category-by-category. Same graceful-degradation
+// reasoning as getDoc: if doc_translations isn't there yet or errors for
+// any reason, this just shows English titles, not a crash.
+function getCategoryDocsCached(categoryId: string, categorySlug: string, locale: Locale): Promise<SidebarDoc[]> {
   return unstable_cache(
     async () => {
       const supabase = createPublicClient()
       const { data, error } = await supabase
-        .from('categories')
-        .select('*, docs(id, slug, path, title, sort_order, status)')
+        .from('docs')
+        .select('id, slug, path, title, sort_order, status')
+        .eq('category_id', categoryId)
         .order('sort_order')
       if (error) throw error
-      type Row = Omit<Category, 'docs'> & { docs: (SidebarDoc & { id: string; status: string })[] }
+      type Row = SidebarDoc & { id: string; status: string }
       const rows = (data ?? []) as unknown as Row[]
+      const published = rows.filter(d => d.status === 'published')
 
-      // Same graceful-degradation reasoning as getDoc: if doc_translations
-      // isn't there yet (pre-migration) or errors for any reason, the sidebar
-      // just shows English doc titles under Bengali category names, not a crash.
       let titleByDocId = new Map<string, string>()
-      if (locale === 'bn') {
+      if (locale === 'bn' && published.length > 0) {
         try {
-          const { data: translations } = await supabase.from('doc_translations').select('doc_id, title').eq('locale', 'bn')
+          const { data: translations } = await supabase
+            .from('doc_translations')
+            .select('doc_id, title')
+            .eq('locale', 'bn')
+            .in('doc_id', published.map(d => d.id))
           const rows2 = (translations ?? []) as unknown as { doc_id: string; title: string }[]
           titleByDocId = new Map(rows2.map(row => [row.doc_id, row.title]))
         } catch {
@@ -145,18 +175,17 @@ export const getSidebarTree = cache(function getSidebarTree(locale: Locale = 'en
         }
       }
 
-      return rows.map(c => ({
-        ...c,
-        title: locale === 'bn' ? (c.title_bn ?? c.title) : c.title,
-        docs: c.docs
-          .filter(d => d.status === 'published')
-          .sort((a, b) => a.sort_order - b.sort_order)
-          .map(d => ({ ...d, title: titleByDocId.get(d.id) ?? d.title })),
-      }))
+      return published.map(d => ({ ...d, title: titleByDocId.get(d.id) ?? d.title }))
     },
-    ['sidebar-tree', locale],
-    { tags: ['sidebar'] }
+    ['category-docs', categorySlug, locale],
+    { tags: [`sidebar:${categorySlug}`] }
   )()
+}
+
+export const getSidebarTree = cache(async function getSidebarTree(locale: Locale = 'en'): Promise<SidebarCategory[]> {
+  const meta = await getCategoryMeta(locale)
+  const withDocs = await Promise.all(meta.map(async c => ({ ...c, docs: await getCategoryDocsCached(c.id, c.slug, locale) })))
+  return withDocs
 })
 
 export type AdjacentDoc = { path: string; title: string }
@@ -291,7 +320,11 @@ export const getSearchIndex = cache(function getSearchIndex(locale: Locale = 'en
       })
     },
     ['search-index', locale],
-    { tags: ['sidebar'] }
+    // Genuinely site-wide (search must find any doc in any category), so
+    // it can't be scoped per-category like getSidebarTree's cache is —
+    // stays on its own global tag instead of riding the old 'sidebar' tag,
+    // which no longer exists as a single entry after that split.
+    { tags: ['search-index'] }
   )()
 })
 

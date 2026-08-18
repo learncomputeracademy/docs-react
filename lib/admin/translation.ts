@@ -58,7 +58,8 @@ export async function deleteTranslation(docId: string) {
   // so that fallback takes effect immediately rather than waiting for TTL.
   if (docRow.status === 'published') {
     revalidateTag(`doc:${docRow.path}`, { expire: 0 })
-    revalidateTag('sidebar', { expire: 0 })
+    revalidateTag(`sidebar:${docRow.path.split('/')[0]}`, { expire: 0 })
+    revalidateTag('search-index', { expire: 0 })
     revalidatePath(`/bn/${docRow.path}`, 'page')
   }
 }
@@ -123,7 +124,8 @@ export async function saveTranslation(docId: string, englishBlocks: Block[], inp
 
   if (docRow.status === 'published') {
     revalidateTag(`doc:${docRow.path}`, { expire: 0 })
-    revalidateTag('sidebar', { expire: 0 })
+    revalidateTag(`sidebar:${docRow.path.split('/')[0]}`, { expire: 0 })
+    revalidateTag('search-index', { expire: 0 })
     revalidatePath(`/bn/${docRow.path}`, 'page')
   }
 }

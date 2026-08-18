@@ -73,25 +73,39 @@ async function resolveTargets(body: WebhookPayload): Promise<{ tags: string[]; p
     // docs/DECISIONS.md D-21 — it fires on every row, including the
     // hundreds of script-driven bulk inserts each category's content script
     // does, not just admin-panel edits).
+    //
+    // Sidebar tag is per-category, not global (2026-08-19 ISR-write fix) —
+    // `path` is always `<category>/<slug>`, so the category slug is just
+    // its first segment, no extra query needed. 'search-index' stays
+    // global on purpose (see lib/content.ts) since search must find any
+    // doc regardless of category.
     case 'docs': {
       const path = row.path
       const docId = row.id
-      if (typeof path !== 'string') return { tags: ['sidebar'], paths: [] }
+      if (typeof path !== 'string') return { tags: ['search-index'], paths: [] }
+      const categorySlug = path.split('/')[0]
       const hasTranslation = typeof docId === 'string' ? await hasBnTranslation(docId) : false
       const paths = hasTranslation ? [`/${path}`] : [`/${path}`, `/bn/${path}`]
-      return { tags: [`doc:${path}`, 'sidebar'], paths }
+      return { tags: [`doc:${path}`, `sidebar:${categorySlug}`, 'search-index'], paths }
     }
     // A translation edit never changes the English page — only /bn/path,
     // never /path.
     case 'doc_translations': {
       const docId = row.doc_id
       const path = typeof docId === 'string' ? await pathForDocId(docId) : null
-      return path
-        ? { tags: [`doc:${path}`, 'sidebar'], paths: [`/bn/${path}`] }
-        : { tags: ['sidebar'], paths: [] }
+      if (!path) return { tags: ['search-index'], paths: [] }
+      const categorySlug = path.split('/')[0]
+      return { tags: [`doc:${path}`, `sidebar:${categorySlug}`, 'search-index'], paths: [`/bn/${path}`] }
     }
-    case 'categories':
-      return { tags: ['sidebar'], paths: [] }
+    // The category row itself changed (created/renamed/reordered/deleted)
+    // — that's the category-list cache, plus that one category's own doc
+    // list (harmless no-op if it has none yet, e.g. right after creation).
+    case 'categories': {
+      const slug = row.slug
+      const tags = ['categories-list', 'search-index']
+      if (typeof slug === 'string') tags.push(`sidebar:${slug}`)
+      return { tags, paths: [] }
+    }
     default:
       return { tags: [], paths: [] }
   }

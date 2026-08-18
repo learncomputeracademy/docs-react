@@ -79,8 +79,9 @@ export async function proxy(request: NextRequest) {
 // every request, including bots, which is exactly what the free-tier
 // "never SSR a doc page" guardrail (CLAUDE.md §4) forbids. This instead
 // rides the same getSidebarTree() cache every category layout already
-// reads — tag 'sidebar', busted by the existing revalidateTag('sidebar')
-// call on every publish/unpublish — so a genuinely invalid slug gets
+// reads — now split into per-category `sidebar:<slug>` tags (2026-08-19)
+// but getSidebarTree() itself still merges the full tree the same way, so
+// this check is unaffected — so a genuinely invalid slug gets
 // rewritten to a path with no matching route, which forces Next's normal
 // (correctly-statused) not-found flow instead of the static-fallback one.
 async function checkDocPath(request: NextRequest, pathname: string): Promise<NextResponse> {

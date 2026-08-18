@@ -10,7 +10,7 @@ export async function saveCategoryOrder(orderedIds: string[]) {
     const { error } = await supabase.from('categories').update({ sort_order: i + 1 }).eq('id', orderedIds[i])
     if (error) throw new Error(error.message)
   }
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag('categories-list', { expire: 0 })
 }
 
 export type CategoryRow = {
@@ -64,7 +64,7 @@ export async function createCategory(input: CategoryInput) {
   })
   if (error) throw new Error(error.message)
   await logActivity('created', 'category', null, input.title)
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag('categories-list', { expire: 0 })
 }
 
 export async function updateCategory(id: string, input: CategoryInput) {
@@ -75,7 +75,7 @@ export async function updateCategory(id: string, input: CategoryInput) {
     .eq('id', id)
   if (error) throw new Error(error.message)
   await logActivity('updated', 'category', id, input.title)
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag('categories-list', { expire: 0 })
 }
 
 // The FK (docs.category_id references categories on delete restrict) is
@@ -91,5 +91,5 @@ export async function deleteCategory(id: string) {
     throw new Error(error.message)
   }
   await logActivity('deleted', 'category', id, null)
-  revalidateTag('sidebar', { expire: 0 })
+  revalidateTag('categories-list', { expire: 0 })
 }
