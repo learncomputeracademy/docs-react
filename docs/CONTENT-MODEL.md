@@ -35,7 +35,12 @@ type Block =
   | { id: string; type: "richtext"; html: string }                    // prose, Tiptap
   | { id; type: "heading";  level: 2|3|4|5|6; text: string; anchor: string }  // 5–6 measured in the wild
   | { id; type: "code";     language: Lang; code: string;
-      filename?: string; runnable?: boolean }                          // runnable → Try-It
+      filename?: string; runnable?: boolean;                            // runnable → Try-It
+      variants?: { language: Lang; label?: string; code: string }[] }
+      // variants (D-100): same example, other languages, shown as tabs. Optional/additive —
+      // no variants = renders exactly as before. First (only) user: programming/* — JS
+      // primary, PHP + Python variants, since full PHP/Python tracks exist elsewhere on the
+      // site but weren't discoverable from this JS-only intro chapter.
   | { id; type: "tryit";    mode: "web" | "react";
       files: { html?: string; css?: string; js?: string; jsx?: string } }
   | { id; type: "image";    publicId: string; alt: string;
