@@ -2,10 +2,17 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
-import { ChevronDown } from 'lucide-react'
+import { ChevronDown, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { groupNavChildren } from '@/lib/nav-megamenu'
 import type { NavNode, NavItem } from '@/lib/content'
 import type { Locale } from '@/lib/types'
+
+// EXPERIMENT (2026-08-19) — mega-menu dropdowns for Docs/Tools, modeled on
+// https://21st.dev/@ln-dev7/components/dorpdown-navigation. Flip to false to
+// revert every dropdown to the old flat NavDropdown below instantly — no
+// other changes needed, MegaDropdown is purely additive.
+const MEGAMENU_ENABLED = true
 
 // Exported for MobileMenuDrawer, which renders the same nav items as a
 // vertical list inside the drawer rather than SiteNav's horizontal/dropdown
@@ -99,20 +106,117 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   )
 }
 
+// Same open/close/escape/click-outside contract as NavDropdown above — only
+// the panel body differs (grouped columns vs. a flat list). Only rendered
+// when groupNavChildren() has a config for this node; every other dropdown
+// still gets the plain NavDropdown.
+function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
+  const [open, setOpen] = useState(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const groups = groupNavChildren(node)!
+
+  useEffect(() => {
+    if (!open) return
+    function onPointerDown(e: MouseEvent) {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+    }
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === 'Escape') setOpen(false)
+    }
+    document.addEventListener('mousedown', onPointerDown)
+    document.addEventListener('keydown', onKeyDown)
+    return () => {
+      document.removeEventListener('mousedown', onPointerDown)
+      document.removeEventListener('keydown', onKeyDown)
+    }
+  }, [open])
+
+  return (
+    <div ref={ref} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={cn(LINK_CLASS, 'flex items-center gap-1', open && 'bg-muted text-foreground')}
+      >
+        {labelFor(node, locale)}
+        <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
+      </button>
+
+      {open && (
+        <div
+          role="menu"
+          className="animate-dropdown-in absolute left-1/2 top-full z-50 mt-1.5 w-[min(90vw,52rem)] -translate-x-1/2 overflow-y-auto rounded-xl border bg-background p-4 shadow-lg max-h-[calc(100vh-5rem)]"
+        >
+          <div
+            className="grid gap-x-6 gap-y-4"
+            style={{ gridTemplateColumns: `repeat(${Math.min(groups.length, 4)}, minmax(0, 1fr))` }}
+          >
+            {groups.map((group) => (
+              <div key={group.title}>
+                <div className="mb-2 flex items-center gap-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                  <group.icon className="size-3.5" />
+                  {group.title}
+                </div>
+                <div className="flex flex-col">
+                  {group.items.map((item) => (
+                    <Link
+                      key={item.id}
+                      href={item.url}
+                      role="menuitem"
+                      onClick={() => setOpen(false)}
+                      {...itemLinkProps(item.url)}
+                      className="flex items-start gap-2.5 rounded-md px-2 py-1.5 hover:bg-muted"
+                    >
+                      <item.icon className="mt-0.5 size-4 shrink-0 text-muted-foreground" />
+                      <span className="flex flex-col">
+                        <span className="text-sm font-medium leading-tight">{labelFor(item, locale)}</span>
+                        {item.hint && <span className="text-xs leading-tight text-muted-foreground">{item.hint}</span>}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-3 border-t pt-3">
+            <Link
+              href={node.url}
+              role="menuitem"
+              onClick={() => setOpen(false)}
+              {...itemLinkProps(node.url)}
+              className="flex items-center gap-1.5 rounded-md px-2 py-1.5 text-sm font-medium hover:bg-muted"
+            >
+              Browse all {labelFor(node, locale)}
+              <ArrowRight className="size-3.5" />
+            </Link>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
 export function SiteNav({ navItems, locale }: { navItems: NavNode[]; locale: Locale }) {
   if (navItems.length === 0) return null
 
   return (
     <nav className="hidden items-center gap-1 sm:flex">
-      {navItems.map((node) =>
-        node.children.length > 0 ? (
-          <NavDropdown key={node.id} node={node} locale={locale} />
+      {navItems.map((node) => {
+        if (node.children.length === 0) {
+          return (
+            <Link key={node.id} href={node.url} {...itemLinkProps(node.url)} className={LINK_CLASS}>
+              {labelFor(node, locale)}
+            </Link>
+          )
+        }
+        return MEGAMENU_ENABLED && groupNavChildren(node) ? (
+          <MegaDropdown key={node.id} node={node} locale={locale} />
         ) : (
-          <Link key={node.id} href={node.url} {...itemLinkProps(node.url)} className={LINK_CLASS}>
-            {labelFor(node, locale)}
-          </Link>
+          <NavDropdown key={node.id} node={node} locale={locale} />
         )
-      )}
+      })}
     </nav>
   )
 }

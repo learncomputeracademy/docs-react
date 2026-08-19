@@ -7,8 +7,13 @@ import * as Dialog from '@radix-ui/react-dialog'
 import { Menu, X, Sun, Moon, Languages } from 'lucide-react'
 import { t } from '@/lib/i18n'
 import { labelFor, itemLinkProps } from '@/components/site-nav'
+import { groupNavChildren } from '@/lib/nav-megamenu'
 import type { NavNode } from '@/lib/content'
 import type { Locale } from '@/lib/types'
+
+// Same revert breakpoint as site-nav.tsx's MEGAMENU_ENABLED — false here
+// falls back to the old flat nested list further down.
+const MEGAMENU_ENABLED = true
 
 // Site-wide nav + language + theme, collapsed into one drawer below `sm` —
 // the same breakpoint SiteNav hides at. Slides from the right, deliberately
@@ -84,27 +89,53 @@ export function MobileMenuDrawer({
 
           {navItems.length > 0 && (
             <nav className="flex flex-col gap-0.5 text-sm">
-              {navItems.map((node) => (
-                <div key={node.id}>
-                  <Link href={node.url} {...itemLinkProps(node.url)} className="block rounded-md px-2 py-2 font-medium hover:bg-muted">
-                    {labelFor(node, locale)}
-                  </Link>
-                  {node.children.length > 0 && (
-                    <div className="ml-2 flex flex-col gap-0.5 border-l pl-2">
-                      {node.children.map((child) => (
-                        <Link
-                          key={child.id}
-                          href={child.url}
-                          {...itemLinkProps(child.url)}
-                          className="block rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
-                        >
-                          {labelFor(child, locale)}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+              {navItems.map((node) => {
+                const groups = MEGAMENU_ENABLED ? groupNavChildren(node) : null
+                return (
+                  <div key={node.id}>
+                    <Link href={node.url} {...itemLinkProps(node.url)} className="block rounded-md px-2 py-2 font-medium hover:bg-muted">
+                      {labelFor(node, locale)}
+                    </Link>
+                    {groups ? (
+                      <div className="ml-2 flex flex-col gap-2 border-l pl-2 pb-1">
+                        {groups.map((group) => (
+                          <div key={group.title}>
+                            <div className="flex items-center gap-1.5 px-1 pb-0.5 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                              <group.icon className="size-3" />
+                              {group.title}
+                            </div>
+                            {group.items.map((item) => (
+                              <Link
+                                key={item.id}
+                                href={item.url}
+                                {...itemLinkProps(item.url)}
+                                className="block rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+                              >
+                                {labelFor(item, locale)}
+                              </Link>
+                            ))}
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      node.children.length > 0 && (
+                        <div className="ml-2 flex flex-col gap-0.5 border-l pl-2">
+                          {node.children.map((child) => (
+                            <Link
+                              key={child.id}
+                              href={child.url}
+                              {...itemLinkProps(child.url)}
+                              className="block rounded-md px-2 py-1.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+                            >
+                              {labelFor(child, locale)}
+                            </Link>
+                          ))}
+                        </div>
+                      )
+                    )}
+                  </div>
+                )
+              })}
             </nav>
           )}
         </Dialog.Content>
