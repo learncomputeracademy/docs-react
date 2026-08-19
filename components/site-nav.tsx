@@ -195,7 +195,7 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
         inert={!open}
         style={{ top: panelTop }}
         className={cn(
-          'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background px-10 py-6 shadow-xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
+          'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background/80 px-10 py-6 shadow-xl backdrop-blur-xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
           open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
         )}
       >
