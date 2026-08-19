@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown, ArrowRight } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { groupNavChildren } from '@/lib/nav-megamenu'
@@ -117,8 +118,25 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   // trigger's own bottom edge is measured in pixels at open time instead.
   const [panelTop, setPanelTop] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const groups = groupNavChildren(node)!
+  // Portal target: SiteHeader itself has `backdrop-blur`, and this panel is
+  // `fixed` — a backdrop-filter on an ancestor creates a new containing/
+  // stacking context for descendants, so a nested backdrop-filter has
+  // nothing distinct left behind it to blur (verified live: text behind the
+  // panel stayed sharp, only dimmed). Portaling to <body> gets the panel out
+  // from under the header's filter context entirely.
+  const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
+  useEffect(() => setPortalEl(document.body), [])
+
+  // ref alone can no longer tell "inside the dropdown" apart from "outside"
+  // once the panel lives in a different part of the real DOM (portal) —
+  // native contains() only sees actual DOM structure. panelRef covers the
+  // portaled half.
+  function isInside(node: Node | null) {
+    return !!(node && (ref.current?.contains(node) || panelRef.current?.contains(node)))
+  }
 
   function clearCloseTimer() {
     if (closeTimer.current) {
@@ -145,7 +163,7 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   useEffect(() => {
     if (!open) return
     function onPointerDown(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false)
+      if (!isInside(e.target as Node)) setOpen(false)
     }
     function onKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape') setOpen(false)
@@ -160,45 +178,25 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
 
   useEffect(() => () => clearCloseTimer(), [])
 
-  return (
+  const panel = (
     <div
-      ref={ref}
-      className="relative"
+      ref={panelRef}
+      role="menu"
+      aria-hidden={!open}
+      inert={!open}
       onMouseEnter={show}
       onMouseLeave={scheduleHide}
       onBlur={(e) => {
         // React normalizes blur to bubble, so this catches focus leaving any
         // descendant (button or a menu link), not just the div itself.
-        if (!ref.current) return
-        if (!e.relatedTarget || !ref.current.contains(e.relatedTarget as Node)) setOpen(false)
+        if (!isInside(e.relatedTarget as Node)) setOpen(false)
       }}
+      style={{ top: panelTop }}
+      className={cn(
+        'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background/95 px-10 py-6 shadow-xl backdrop-blur-2xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
+        open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
+      )}
     >
-      <button
-        type="button"
-        onClick={() => (open ? setOpen(false) : show())}
-        onFocus={show}
-        aria-expanded={open}
-        aria-haspopup="menu"
-        className={cn(LINK_CLASS, 'flex items-center gap-1', open && 'bg-muted text-foreground')}
-      >
-        {labelFor(node, locale)}
-        <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
-      </button>
-
-      {/* Always mounted (not open && (...)) — a transition animates both
-          open AND close; conditional rendering would only animate open and
-          make the panel vanish instantly on close. inert removes it from
-          tab order and AT while closed without touching the fade/slide. */}
-      <div
-        role="menu"
-        aria-hidden={!open}
-        inert={!open}
-        style={{ top: panelTop }}
-        className={cn(
-          'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background/95 px-10 py-6 shadow-xl backdrop-blur-2xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
-          open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
-        )}
-      >
         <div
           className="mx-auto grid max-w-[110rem] gap-x-10 gap-y-4"
           style={{ gridTemplateColumns: `repeat(${groups.length}, minmax(0, 1fr))` }}
@@ -243,7 +241,27 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
             </Link>
           </div>
         </div>
-      </div>
+  )
+
+  return (
+    <div ref={ref} className="relative" onMouseEnter={show} onMouseLeave={scheduleHide}>
+      <button
+        type="button"
+        onClick={() => (open ? setOpen(false) : show())}
+        onFocus={show}
+        aria-expanded={open}
+        aria-haspopup="menu"
+        className={cn(LINK_CLASS, 'flex items-center gap-1', open && 'bg-muted text-foreground')}
+      >
+        {labelFor(node, locale)}
+        <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
+      </button>
+      {/* Portaled to <body> — see the comment on portalEl above. Always
+          mounted (not open && (...)) so a transition animates both open AND
+          close, not just open; `inert` removes it from tab order/AT while
+          closed without touching the fade/slide. */}
+      {portalEl && createPortal(panel, portalEl)}
+    </div>
   )
 }
 
