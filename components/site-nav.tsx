@@ -147,10 +147,10 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
       {open && (
         <div
           role="menu"
-          className="animate-dropdown-in absolute left-1/2 top-full z-50 mt-1.5 w-[min(90vw,52rem)] -translate-x-1/2 overflow-y-auto rounded-xl border bg-background p-4 shadow-lg max-h-[calc(100vh-5rem)]"
+          className="animate-dropdown-in absolute left-1/2 top-full z-50 mt-1.5 w-[min(94vw,72rem)] -translate-x-1/2 overflow-y-auto rounded-xl border bg-background p-6 shadow-lg max-h-[calc(100vh-5rem)]"
         >
           <div
-            className="grid gap-x-6 gap-y-4"
+            className="grid gap-x-10 gap-y-4"
             style={{ gridTemplateColumns: `repeat(${Math.min(groups.length, 4)}, minmax(0, 1fr))` }}
           >
             {groups.map((group) => (
