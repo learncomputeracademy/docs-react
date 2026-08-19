@@ -128,17 +128,23 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   // panel stayed sharp, only dimmed). Portaling to <body> gets the panel out
   // from under the header's filter context entirely.
   //
-  // Computed inline, not via useState+useEffect: an effect only fires AFTER
-  // the first paint, so if the user hovered "Docs" before it ran, the
-  // portal's DOM node got created for the first time mid-hover — inserting
-  // a new element right under the cursor makes the browser recompute what's
-  // hovered, firing a spurious mouseleave on the trigger (reproduced: open,
-  // then immediately closes, first hover only — every hover after that
-  // works, because the node already exists by then). `document` is always
-  // defined here regardless — this only runs on the client (`'use client'`
-  // at the top of the file), and by the time a real hover can happen,
-  // hydration's first client render has already executed this same line.
-  const portalEl = typeof document === 'undefined' ? null : document.body
+  // MUST be useState(null)+useEffect, not computed inline. An earlier pass
+  // computed it inline (`typeof document === 'undefined' ? null :
+  // document.body`) reasoning that a real hover can't happen before
+  // hydration's first client render — true, but irrelevant: hydration
+  // mismatch is about whether the CLIENT's first render output matches the
+  // SERVER's, not about user timing. Server always sees no document (null,
+  // no portal); a client that resolves document.body on that very first
+  // render mismatches it unconditionally, every load — React then discards
+  // and regenerates the whole subtree client-side, which reset `open` if a
+  // hover landed anywhere near that regeneration. Confirmed via the Next.js
+  // dev overlay: "Hydration failed because the server rendered HTML didn't
+  // match the client... this tree will be regenerated on the client",
+  // pointing straight at this component. useState(null) matches the server
+  // on the hydration render itself (both null); the effect then flips it
+  // client-side, safely, after hydration has already succeeded.
+  const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
+  useEffect(() => setPortalEl(document.body), [])
 
   // ref alone can no longer tell "inside the dropdown" apart from "outside"
   // once the panel lives in a different part of the real DOM (portal) —
