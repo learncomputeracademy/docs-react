@@ -10,6 +10,7 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Cpu, Palette, Image as ImageIcon, Code2, BrainCircuit, FileCode, Paintbrush, Braces, Atom,
   Server, Database, Layout, Terminal, Hexagon, Cloud, Megaphone, Search, Briefcase,
+  FileSpreadsheet, Frame, HandCoins,
   Box, Layers, Blend, LayoutGrid, Columns3, Pipette, ScrollText, Calculator, Ruler,
   ArrowLeftRight, Play, SlidersHorizontal, Eye, Paintbrush2, Type, ImagePlus, Video,
   NotebookPen, Binary, Workflow, Repeat, Boxes, MoreHorizontal,
@@ -38,6 +39,11 @@ const ITEM_META: Record<string, ItemMeta> = {
   '/marketing': { icon: Megaphone, hint: 'Reaching people once it’s live' },
   '/seo': { icon: Search, hint: 'Getting found on Google' },
   '/career': { icon: Briefcase, hint: 'Portfolio, resume, interviews' },
+  '/office': { icon: FileSpreadsheet, hint: 'Word, Excel, PowerPoint basics' },
+  '/figma': { icon: Frame, hint: 'Interface design and prototyping' },
+  '/ui-ux': { icon: Layers, hint: 'Design principles behind good UI' },
+  '/mongodb': { icon: Database, hint: 'A NoSQL database, hands-on' },
+  '/freelancing': { icon: HandCoins, hint: 'Finding clients, getting paid' },
 
   '/tools/box-model': { icon: Box, hint: 'Padding, border, margin, visually' },
   '/tools/box-shadow-generator': { icon: Layers, hint: 'Build a shadow, copy the CSS' },
@@ -64,11 +70,11 @@ const ITEM_META: Record<string, ItemMeta> = {
 }
 
 const DOCS_GROUPS: GroupDef[] = [
-  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/programming', '/ai'] },
+  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/programming', '/ai', '/office'] },
   { title: 'Web Development', icon: Code2, urls: ['/html', '/css', '/javascript', '/react'] },
-  { title: 'Design', icon: Palette, urls: ['/design', '/photoshop'] },
-  { title: 'Backend & Data', icon: Database, urls: ['/php', '/python', '/nodejs', '/sql', '/wordpress'] },
-  { title: 'Grow & Deploy', icon: Cloud, urls: ['/hosting', '/marketing', '/seo', '/career'] },
+  { title: 'Design', icon: Palette, urls: ['/design', '/photoshop', '/figma', '/ui-ux'] },
+  { title: 'Backend & Data', icon: Database, urls: ['/php', '/python', '/nodejs', '/sql', '/mongodb', '/wordpress'] },
+  { title: 'Grow & Deploy', icon: Cloud, urls: ['/hosting', '/marketing', '/seo', '/career', '/freelancing'] },
 ]
 
 const TOOLS_GROUPS: GroupDef[] = [

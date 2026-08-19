@@ -112,8 +112,32 @@ function NavDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
 // still gets the plain NavDropdown.
 function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   const [open, setOpen] = useState(false)
+  // Full-width panel is `fixed`, whose containing block is the viewport, not
+  // the trigger — `top-full` (a % of the trigger) can't position it, so the
+  // trigger's own bottom edge is measured in pixels at open time instead.
+  const [panelTop, setPanelTop] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const groups = groupNavChildren(node)!
+
+  function clearCloseTimer() {
+    if (closeTimer.current) {
+      clearTimeout(closeTimer.current)
+      closeTimer.current = null
+    }
+  }
+  function show() {
+    clearCloseTimer()
+    if (ref.current) setPanelTop(ref.current.getBoundingClientRect().bottom)
+    setOpen(true)
+  }
+  // Grace period, not an instant close: the mouse crossing the gap between
+  // trigger and panel would otherwise read as "left the dropdown" and slam
+  // it shut before it's reachable.
+  function scheduleHide() {
+    clearCloseTimer()
+    closeTimer.current = setTimeout(() => setOpen(false), 200)
+  }
 
   useEffect(() => {
     if (!open) return
@@ -131,11 +155,25 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
     }
   }, [open])
 
+  useEffect(() => () => clearCloseTimer(), [])
+
   return (
-    <div ref={ref} className="relative">
+    <div
+      ref={ref}
+      className="relative"
+      onMouseEnter={show}
+      onMouseLeave={scheduleHide}
+      onBlur={(e) => {
+        // React normalizes blur to bubble, so this catches focus leaving any
+        // descendant (button or a menu link), not just the div itself.
+        if (!ref.current) return
+        if (!e.relatedTarget || !ref.current.contains(e.relatedTarget as Node)) setOpen(false)
+      }}
+    >
       <button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => (open ? setOpen(false) : show())}
+        onFocus={show}
         aria-expanded={open}
         aria-haspopup="menu"
         className={cn(LINK_CLASS, 'flex items-center gap-1', open && 'bg-muted text-foreground')}
@@ -144,16 +182,25 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
         <ChevronDown className={cn('size-3.5 transition-transform', open && 'rotate-180')} />
       </button>
 
-      {open && (
+      {/* Always mounted (not open && (...)) — a transition animates both
+          open AND close; conditional rendering would only animate open and
+          make the panel vanish instantly on close. inert removes it from
+          tab order and AT while closed without touching the fade/slide. */}
+      <div
+        role="menu"
+        aria-hidden={!open}
+        inert={!open}
+        style={{ top: panelTop }}
+        className={cn(
+          'fixed inset-x-0 z-50 overflow-y-auto border-b bg-background px-10 py-6 shadow-lg transition-all duration-200 ease-out max-h-[calc(100vh-5rem)]',
+          open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
+        )}
+      >
         <div
-          role="menu"
-          className="animate-dropdown-in absolute left-1/2 top-full z-50 mt-1.5 w-[min(94vw,72rem)] -translate-x-1/2 overflow-y-auto rounded-xl border bg-background p-6 shadow-lg max-h-[calc(100vh-5rem)]"
+          className="mx-auto grid max-w-[110rem] gap-x-10 gap-y-4"
+          style={{ gridTemplateColumns: `repeat(${groups.length}, minmax(0, 1fr))` }}
         >
-          <div
-            className="grid gap-x-10 gap-y-4"
-            style={{ gridTemplateColumns: `repeat(${Math.min(groups.length, 4)}, minmax(0, 1fr))` }}
-          >
-            {groups.map((group) => (
+          {groups.map((group) => (
               <div key={group.title}>
                 <div className="mb-2 flex items-center gap-1.5 px-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
                   <group.icon className="size-3.5" />
@@ -193,8 +240,7 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
             </Link>
           </div>
         </div>
-      )}
-    </div>
+      </div>
   )
 }
 
