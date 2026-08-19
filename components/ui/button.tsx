@@ -74,7 +74,7 @@ const GLASS_BASE = `relative isolate overflow-hidden backdrop-blur-lg ${SPOTLIGH
 const GLASS: Record<ColorVariant, string> = {
   default: `${GLASS_BASE} border border-primary-foreground/25 bg-primary/70 text-primary-foreground shadow-[0_8px_28px_-10px_rgba(0,0,0,0.45)] hover:bg-primary/80`,
   outline: `${GLASS_BASE} border border-foreground/20 bg-foreground/[0.08] shadow-[0_4px_20px_-8px_rgba(0,0,0,0.25)] hover:bg-foreground/[0.14] hover:border-foreground/30`,
-  ghost: `${GLASS_BASE} border border-transparent bg-foreground/[0.05] hover:bg-foreground/[0.12] hover:border-foreground/15`,
+  ghost: `${GLASS_BASE} border border-foreground/10 bg-foreground/[0.08] hover:bg-foreground/[0.16] hover:border-foreground/20`,
 }
 
 function Button({
