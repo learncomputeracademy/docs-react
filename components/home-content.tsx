@@ -92,7 +92,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             {firstLesson && (
               <div className="mt-8">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button asChild size="lg" className="shadow-sm shadow-primary/20">
+                  <Button asChild size="lg">
                     <Link href={`${prefix}/${firstLesson.path}`}>
                       {s.startLearning} <ArrowRight className="size-4" />
                     </Link>

@@ -3,6 +3,7 @@ import { createClient } from '@/lib/supabase/server'
 import { getCurrentRole } from '@/lib/admin/session'
 import { APP_VERSION } from '@/lib/admin/version'
 import { AdminChrome } from '@/components/admin/admin-chrome'
+import { ButtonGlassOff } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -20,8 +21,10 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const [{ data: { user } }, role] = await Promise.all([supabase.auth.getUser(), getCurrentRole()])
 
   return (
-    <AdminChrome email={user?.email} role={role} builtHrefs={BUILT_HREFS} version={APP_VERSION}>
-      {children}
-    </AdminChrome>
+    <ButtonGlassOff>
+      <AdminChrome email={user?.email} role={role} builtHrefs={BUILT_HREFS} version={APP_VERSION}>
+        {children}
+      </AdminChrome>
+    </ButtonGlassOff>
   )
 }
