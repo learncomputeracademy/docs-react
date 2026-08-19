@@ -128,7 +128,10 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   }
   function show() {
     clearCloseTimer()
-    if (ref.current) setPanelTop(ref.current.getBoundingClientRect().bottom)
+    // +8px gap so the panel visibly floats below the header instead of
+    // sitting flush against it (mt on a fixed element works, but baking the
+    // gap into the measured value keeps the math in one place).
+    if (ref.current) setPanelTop(ref.current.getBoundingClientRect().bottom + 8)
     setOpen(true)
   }
   // Grace period, not an instant close: the mouse crossing the gap between
@@ -192,7 +195,7 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
         inert={!open}
         style={{ top: panelTop }}
         className={cn(
-          'fixed inset-x-0 z-50 overflow-y-auto border-b bg-background px-10 py-6 shadow-lg transition-all duration-200 ease-out max-h-[calc(100vh-5rem)]',
+          'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background px-10 py-6 shadow-xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
           open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
         )}
       >

@@ -70,11 +70,11 @@ const ITEM_META: Record<string, ItemMeta> = {
 }
 
 const DOCS_GROUPS: GroupDef[] = [
-  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/programming', '/ai', '/office'] },
+  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/office', '/programming', '/ai'] },
   { title: 'Web Development', icon: Code2, urls: ['/html', '/css', '/javascript', '/react'] },
-  { title: 'Design', icon: Palette, urls: ['/design', '/photoshop', '/figma', '/ui-ux'] },
-  { title: 'Backend & Data', icon: Database, urls: ['/php', '/python', '/nodejs', '/sql', '/mongodb', '/wordpress'] },
-  { title: 'Grow & Deploy', icon: Cloud, urls: ['/hosting', '/marketing', '/seo', '/career', '/freelancing'] },
+  { title: 'Design', icon: Palette, urls: ['/design', '/ui-ux', '/photoshop', '/figma'] },
+  { title: 'Backend & Data', icon: Database, urls: ['/php', '/sql', '/wordpress', '/python', '/nodejs', '/mongodb'] },
+  { title: 'Grow & Deploy', icon: Cloud, urls: ['/freelancing', '/hosting', '/marketing', '/seo', '/career'] },
 ]
 
 const TOOLS_GROUPS: GroupDef[] = [

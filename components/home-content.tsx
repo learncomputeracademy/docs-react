@@ -32,11 +32,11 @@ const FEATURES = {
 // than silently vanishing the next time a category ships and this list
 // isn't updated.
 const SUBJECT_GROUPS = [
-  { key: 'start', slugs: ['basics', 'programming', 'office'], label: { en: 'Start here', bn: 'শুরু করুন' } },
-  { key: 'design', slugs: ['design', 'photoshop', 'figma', 'ui-ux'], label: { en: 'Design', bn: 'ডিজাইন' } },
+  { key: 'start', slugs: ['basics', 'office', 'programming', 'ai'], label: { en: 'Start here', bn: 'শুরু করুন' } },
+  { key: 'design', slugs: ['design', 'ui-ux', 'photoshop', 'figma'], label: { en: 'Design', bn: 'ডিজাইন' } },
   { key: 'web', slugs: ['html', 'css', 'javascript', 'react'], label: { en: 'Build the web', bn: 'ওয়েব তৈরি' } },
-  { key: 'backend', slugs: ['php', 'python', 'sql', 'mongodb', 'nodejs', 'wordpress', 'ai'], label: { en: 'Backend, data & AI', bn: 'ব্যাকএন্ড, ডেটা ও এআই' } },
-  { key: 'launch', slugs: ['hosting', 'marketing', 'seo', 'career', 'freelancing'], label: { en: 'Launch & grow', bn: 'লঞ্চ ও ক্যারিয়ার' } },
+  { key: 'backend', slugs: ['php', 'sql', 'wordpress', 'python', 'nodejs', 'mongodb'], label: { en: 'Backend & data', bn: 'ব্যাকএন্ড ও ডেটা' } },
+  { key: 'launch', slugs: ['freelancing', 'hosting', 'marketing', 'seo', 'career'], label: { en: 'Launch & grow', bn: 'লঞ্চ ও ক্যারিয়ার' } },
 ] as const
 
 // Optional per-locale text overrides from /admin/settings, layered on top
