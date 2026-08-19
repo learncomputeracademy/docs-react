@@ -127,8 +127,18 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   // nothing distinct left behind it to blur (verified live: text behind the
   // panel stayed sharp, only dimmed). Portaling to <body> gets the panel out
   // from under the header's filter context entirely.
-  const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
-  useEffect(() => setPortalEl(document.body), [])
+  //
+  // Computed inline, not via useState+useEffect: an effect only fires AFTER
+  // the first paint, so if the user hovered "Docs" before it ran, the
+  // portal's DOM node got created for the first time mid-hover — inserting
+  // a new element right under the cursor makes the browser recompute what's
+  // hovered, firing a spurious mouseleave on the trigger (reproduced: open,
+  // then immediately closes, first hover only — every hover after that
+  // works, because the node already exists by then). `document` is always
+  // defined here regardless — this only runs on the client (`'use client'`
+  // at the top of the file), and by the time a real hover can happen,
+  // hydration's first client render has already executed this same line.
+  const portalEl = typeof document === 'undefined' ? null : document.body
 
   // ref alone can no longer tell "inside the dropdown" apart from "outside"
   // once the panel lives in a different part of the real DOM (portal) —
