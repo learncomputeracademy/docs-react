@@ -5474,6 +5474,45 @@ Realtime Colors, the 6 deleted CSS Generators entries genuinely gone. 97 resourc
 
 ---
 
+## D-103 · Resource thumbnails re-captured at exact 700x900px — resize_window confirmed not to affect claude-in-chrome's screenshot tool
+
+**Date:** 2026-08-20 · **Status:** Active · **Decided by:** user
+
+User required all 16 screenshots from D-102 (15 new resources + Umso) at exactly 700x900px.
+D-102's captures were plain viewport screenshots (1568x717, whatever the browser tab
+happened to be) — not sized on request at all.
+
+**Tried doing it directly first**, per the user's own preference order. `resize_window`
+to 700x900 followed by a fresh navigate+screenshot produced the *same* 1568x717 output as
+before, unchanged — confirmed by direct A/B test, not assumed: the claude-in-chrome
+screenshot tool's output size is independent of the actual browser window/viewport size.
+Worth remembering for any future exact-pixel-size screenshot request — `resize_window` does
+not help.
+
+**Fell back to the user's suggested services.** `pikwy.com`'s web form takes width/height
+fields directly, captured 10 of the 16 at true 700x900 before its free daily quota ran out
+mid-batch ("error of worker" then "limit exceeded"). Switched to `site-shot.com` for the
+rest — its in-browser "Download" button produced a stuck `.tmp` file (Chrome's native Save-As
+dialog, which browser automation can't dismiss), so used `read_network_requests` to find the
+actual call the page makes: a plain `GET` to `site-shot.com/screenshot/?width=…&height=…&url=…`
+returning JSON with the image as a `data:` URI — fetchable directly via plain `fetch`/`curl`
+with no browser at all once the URL pattern was known (`scripts/fetch-siteshot.mjs`). Found
+one pikwy result short of the requested height (Recraft, 700x761) and re-fetched it through
+the same direct endpoint instead of leaving it inconsistent.
+
+**Every image re-uploaded to Cloudinary at the same `public_id`** (`scripts/resize-resource-
+thumbs-700x900.mjs`) and, critically, **the DB `thumbnail_url` re-pointed at the new
+`secure_url`** — Cloudinary's returned URL is version-stamped, so overwriting the asset alone
+would not have changed what the *old* stored URL serves; the row has to point at the new one.
+
+**Verified**: `file` on all 16 local images confirmed exactly `700x900` before upload. Live
+local render after a `POST /api/revalidate {tag:"resources"}` (local-only) confirmed the
+new images loading (AI Tools group zoomed in and inspected directly, not just "page loaded").
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -5508,6 +5547,6 @@ Realtime Colors, the 6 deleted CSS Generators entries genuinely gone. 97 resourc
 | O-27 | Decide the approach for the remaining 11 lessons on `docs/RESEARCH.md`'s original 15-file "needs a decision" list (D-75) — `css/font`, `css/form`, `css/pseudo-classes`, `css/pseudo-elements`, `css/image-transparency`, `css/inline-block`, `html/blocks`, `html/form-elements`, `html/form-input-types`, `html/forms`, `html/responsive`. Each now has dozens of small isolated syntax snippets rather than one clean demo — needs a call on whether to convert every snippet to its own `tryit` (many small iframes per lesson) or author new synthesized "put it together" examples (real new content, not extraction) | Nothing broken — these render fine today as plain `code` blocks, just not interactive |
 | O-30 | Revalidate the 8 `doc:` tags from D-95 (`career/writing-a-developer-cv`, `career/linkedin-and-your-online-presence`, `marketing/calls-to-action`, `marketing/writing-emails`, `marketing/social-content-strategy`, `html/forms`, `css/navbar`, `css/dropdowns`) once the ISR quota clears — deliberately skipped this session, same as O-29 | Those 8 production pages serve stale cached HTML without the new mockups; local dev shows them correctly already |
 | O-29 | ~~Add "CSS Units Converter" to the header nav~~ — **resolved, D-79.** `nav_items` row added via script, `sort_order` 10 (last), shows in local dev now. The `/api/revalidate` webhook call was deliberately skipped (ISR-quota constraint) — production's header nav is stale until quota clears or another nav edit busts the `nav` tag | Live production header doesn't show the new tool yet; everything else does |
-| O-31 | Run `supabase/migrations/012-resources-link-health.sql` (D-101) | Until run, `resources` table has no `link_status`/etc. columns — the checker script and `getResources()`/admin filter will error on `select`/`update` against them |
+| ~~O-31~~ | ~~Run `supabase/migrations/012-resources-link-health.sql`~~ — **resolved.** User ran it (2026-08-20). `check-resource-links.yml`'s daily Action can now write real status instead of erroring on missing columns | — |
 | O-32 | Wire `revalidateTag('resources')` into `scripts/check-resource-links.mjs` (D-101) once the ISR-quota block is lifted — deliberately left out for now | `/resources` won't reflect any link-health status changes on the live site until this is added (or another resources edit busts the `resources` tag) |
 | O-28 | New bug found in `components/blocks/try-it.tsx` (D-75): a `tryit` block whose CSS does `@import` on a cross-origin stylesheet (tested with both Font Awesome via cdnjs and Google Material Icons) never paints the resulting icons inside the preview iframe, even though the font file itself loads successfully (confirmed 200 status, correct byte count, via network log). Reproduced in gstack's headless browser AND real Chrome; does NOT reproduce in an isolated static-file harness with the identical `srcdoc` string outside the app, including with two such iframes side by side. No CSP present (checked both header and meta tag) to explain it. Root cause unknown — worth a focused debugging session with real devtools access into the sandboxed iframe (blocked from JS inspection here since `sandbox="allow-scripts"` has no `allow-same-origin`) | Blocks using external icon-font demos in Try It blocks (rare — most lessons use plain HTML/CSS/JS with no external font). `css/icons` reverted to plain code blocks rather than ship this broken |
