@@ -5513,6 +5513,50 @@ new images loading (AI Tools group zoomed in and inspected directly, not just "p
 
 ---
 
+## D-104 · Cloudflare-blocked thumbnails fixed via real browser capture, not a "stealthier" 3rd-party service — 13 more resources added
+
+**Date:** 2026-08-20 · **Status:** Active · **Decided by:** user
+
+User caught it live: Ideogram and Leonardo AI's thumbnails were actually screenshots of
+Cloudflare's "Performing security verification" interstitial, not the real homepages — asked
+what alternative screenshot services could bypass that. Checked all 16 D-103 thumbnails by
+hand (not just those two) and found a third: Spline's showed a blank page with "An error
+occurred on client" (site-shot's headless render hit a client-side JS error).
+
+**Answer given, then acted on**: no free/cheap 3rd-party screenshot API reliably beats
+Cloudflare — pikwy/site-shot's headless-browser pool runs from known datacenter IP ranges
+that get fingerprinted and challenged; "stealth" tiers on paid services (ScrapingBee,
+Browserless) fight the same losing arms race, not a guarantee. The actual fix needed no new
+service: claude-in-chrome **is** a real, non-flagged browser session — it had already
+sailed through Cloudflare on these exact sites earlier this session (D-102) before the
+700x900 requirement sent the work to 3rd-party services in the first place. Re-captured all
+3 with it directly.
+
+**Combined the fix with D-103's exact-size requirement in one step**: rather than fighting
+claude-in-chrome's screenshot tool for a native portrait capture (confirmed impossible,
+D-103), uploaded each landscape capture to Cloudinary with an incoming
+`crop:fill,gravity:auto` transform baked into the upload itself — Cloudinary's saliency-based
+auto-gravity picks the more visually interesting horizontal slice rather than a blind
+center-crop, and the stored asset comes out already exactly 700x900 with no on-the-fly URL
+transform needed at render time. `scripts/add-more-resources-2.mjs`.
+
+**13 more resources added** in the same batch, screenshots captured the same real-browser
+way: AI Tools — Midjourney, v0 (Vercel), Perplexity; Design & UI — Dribbble, Behance,
+Awwwards; Free Icons — Heroicons, Tabler Icons; Colors — Huemint, UI Colors; JavaScript
+Libraries — Tailwind CSS, Radix UI, TanStack. v0's URL confirmed via WebSearch first
+(`v0.app`, not `v0.dev` — Vercel's own blog post on the rename) rather than guessed, same
+discipline as D-101's Freepik/Magnific check.
+
+**Verified**: `file` confirmed all 3 fixes and all 13 new uploads at exact 700x900. Fixed
+thumbnails' actual image content inspected directly (not just "page loaded") — real Ideogram/
+Leonardo AI/Spline hero content, no interstitials. Live local render confirmed post-
+`revalidateTag` (local-only) — AI Tools group shows Magnific/Ideogram/Leonardo AI/Krea AI/
+Recraft/Midjourney/v0/Perplexity all with real thumbnails, Colors group extended correctly.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
