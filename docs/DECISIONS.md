@@ -5557,6 +5557,46 @@ Recraft/Midjourney/v0/Perplexity all with real thumbnails, Colors group extended
 
 ---
 
+## D-105 · 14 more resources — new "Hosting & Deployment" group, another logged-in-account catch (Vercel)
+
+**Date:** 2026-08-20 · **Status:** Active · **Decided by:** user
+
+User asked (separately) whether GoFullPage or other installed Chrome extensions could be
+used for the resource screenshots — answered honestly: no, this session's browser tools
+operate on the page viewport/DOM only, an extension's own popup UI is a separate isolated
+browser-chrome surface outside that reach; a configured keyboard shortcut might reach it but
+untested, and it wasn't needed since the existing real-browser + Cloudinary-crop pipeline
+(D-104) already covers what's required. Then: "add more resources."
+
+**14 added**, same real-browser-capture + `crop:fill,gravity:auto` pipeline as D-104, no 3rd-
+party screenshot service: CSS Generators — Clippy, Cubic Bezier, Haikei, Neumorphism.io;
+Design & UI — Land-book, Siteinspire; Free Fonts — Font Pair; JavaScript Libraries — Next.js,
+Vite, Zod. New **"Hosting & Deployment" group** — Vercel, Netlify, Cloudflare Pages, Railway
+— matching the site's own "Hosting & Deployment" lesson category naming, since none of the
+existing groups fit a deploy-target platform. Vite confirmed at `vite.dev` (not `vitejs.dev`,
+which now redirects to versioned docs archives) and Railway at `railway.com` (not
+`railway.app`) via WebSearch first — same discipline as D-101/D-104's URL checks.
+
+**Second logged-in-account catch this session**: Vercel's page rendered the signed-in
+dashboard — real project names ("sitalabari", "webdevs") and GitHub repo paths
+(`amartadey/Sitalabari-Next-JS-Project`) from the browser's own saved session, same shape as
+D-102's Magnific catch. Same fix: fetched `vercel.com`'s HTML same-origin with
+`credentials:'omit'` inside the page, read the public `og:image` URL (this one had no query
+string, so directly downloadable via plain `curl`, no base64-extraction workaround needed
+this time) and used that instead of the live screenshot. Worth treating as a standing check
+now, not a one-off: screenshot any dev-tool/SaaS site whose category this browser profile
+might plausibly have an account with (hosting, AI, design-tool platforms) expecting a
+possible signed-in render, not just the two sites it's happened on so far.
+
+**Verified**: live local render (post local-only `revalidateTag`) — "Hosting & Deployment"
+confirmed present between Free Images and JavaScript Libraries (alphabetical `group_name`
+order), Vercel's thumbnail is the clean public triangle logo, not the dashboard. 112 -> 126
+resources total.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
