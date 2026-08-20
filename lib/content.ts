@@ -30,7 +30,15 @@ export const getSiteSettings = cache(function getSiteSettings(key: 'home' | 'foo
   )()
 })
 
-export type Resource = { id: string; group_name: string; name: string; url: string; thumbnail_url: string | null }
+export type Resource = {
+  id: string
+  group_name: string
+  name: string
+  url: string
+  thumbnail_url: string | null
+  link_status: 'unchecked' | 'ok' | 'redirect_offsite' | 'dead'
+  link_force_show: boolean
+}
 
 // Real bug fixed here: this was a plain Supabase fetch with no
 // unstable_cache wrapper, but lib/admin/resources.ts's create/update/
@@ -41,13 +49,22 @@ export type Resource = { id: string; group_name: string; name: string; url: stri
 // caught when 94 real rows were seeded directly and /resources kept
 // showing empty against a rebuilt production server. Tagged now, matching
 // every other read in this file.
+//
+// Filters out link_status 'dead'/'redirect_offsite' (scripts/check-
+// resource-links.mjs, run daily) unless an admin set link_force_show —
+// 'unchecked' still shows (a just-added resource shouldn't vanish before
+// its first check). Filtered here in JS, not via RLS/query — same pattern
+// docs uses for status:'published' (lib/content.ts's getDoc), and the
+// catalog is small enough that fetching all rows and filtering is simpler
+// than a Supabase .or() clause.
 export const getResources = cache(function getResources(): Promise<Resource[]> {
   return unstable_cache(
     async () => {
       const supabase = createPublicClient()
       const { data, error } = await supabase.from('resources').select('*').order('group_name').order('sort_order')
       if (error) throw error
-      return data ?? []
+      const rows = (data ?? []) as Resource[]
+      return rows.filter((r) => r.link_force_show || r.link_status === 'ok' || r.link_status === 'unchecked')
     },
     ['resources'],
     { tags: ['resources'] }

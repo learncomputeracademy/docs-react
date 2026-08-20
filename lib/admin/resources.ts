@@ -11,6 +11,20 @@ export type ResourceRow = {
   url: string
   thumbnail_url: string | null
   sort_order: number
+  link_status: 'unchecked' | 'ok' | 'redirect_offsite' | 'dead'
+  link_checked_at: string | null
+  link_force_show: boolean
+}
+
+// Admin-only override for a flagged link (checker false positive — WAF-
+// blocked the checker, site requires auth, etc.). Doesn't touch
+// link_status itself so the next successful check still clears it normally.
+export async function setResourceForceShow(id: string, forceShow: boolean) {
+  const supabase = await createClient()
+  const { error } = await supabase.from('resources').update({ link_force_show: forceShow }).eq('id', id)
+  if (error) throw new Error(error.message)
+  await logActivity('updated', 'resource', id, forceShow ? 'force-show on' : 'force-show off')
+  revalidateTag('resources', { expire: 0 })
 }
 
 export async function listResourcesForAdmin(): Promise<ResourceRow[]> {

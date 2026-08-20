@@ -100,6 +100,49 @@ before assuming the script broke.
 
 ---
 
+## Resources link-health check
+
+Separate daily Action, added 2026-08-20 in response to a user request ("don't show a
+resource link if it's dead or redirecting somewhere else"). DB writes only — no git
+operations, unlike the backup job above.
+
+```yaml
+# .github/workflows/check-resource-links.yml
+on:
+  schedule: [{ cron: "20 3 * * *" }]   # 03:20 UTC — offset from the backup job
+  workflow_dispatch:
+```
+
+`scripts/check-resource-links.mjs`: `HEAD` (GET fallback on 405/501) each resource URL with
+a real browser UA, follows redirects, flags a link `redirect_offsite` if the final host
+differs from the saved one (same-domain redirects — http→https, trailing slash, www — are
+not flagged), `dead` on status ≥400/timeout/network error. `/resources` (`getResources()`,
+`lib/content.ts`) filters those two out unless an admin sets `link_force_show` from
+`/admin/resources`.
+
+**Doesn't check every link every day.** Healthy (`ok`) links rotate through 30 daily
+buckets (`id` char-sum `% 30`) — full catalog re-checked monthly, flat cost regardless of
+catalog size. `unchecked`/already-flagged links are checked every run instead, so new or
+fixed links resolve fast. A link only flips out of `ok` after 2 consecutive failures, so one
+flaky check doesn't hide it.
+
+**Why this stays DB-only, no `revalidateTag`:** matches the standing ISR-quota block
+(CLAUDE.md) — the same reason this job's writes don't show on the live `/resources` page
+until that block is lifted and a `revalidateTag('resources')` call is added to the script
+(flat cost either way: one tag covers the whole page regardless of how many rows changed
+that day, so it doesn't scale with catalog size once wired in).
+
+Considered and rejected: any 3rd-party link-checking API. Uptime-monitor free tiers (UptimeRobot,
+Freshping) cap around 50 monitors — far short of a resources catalog that could reach the
+1000s; scraping/proxy APIs (ScrapingBee, ScraperAPI) cap free tiers around 1000 calls/**month**,
+which one full check pass would exhaust outright. Self-hosted `fetch` + the 30-bucket stagger
+above is the only actually-free option at scale, and also avoids a real risk none of those
+services solve for free: hammering 1000s of external domains daily from one CI runner IP risks
+some sites' WAFs blocking/challenging that IP, producing false dead-link flags — the fix is
+fewer requests per day (staggering), not a different checker.
+
+---
+
 ## Auth
 
 **Superseded by D-37 (2026-07-27).** Role/status now live in a `profiles` table, not

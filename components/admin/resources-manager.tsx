@@ -4,7 +4,43 @@ import { useMemo, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { type ResourceRow, type ResourceInput, createResource, updateResource, deleteResource } from '@/lib/admin/resources'
+import { cn } from '@/lib/utils'
+import {
+  type ResourceRow,
+  type ResourceInput,
+  createResource,
+  updateResource,
+  deleteResource,
+  setResourceForceShow,
+} from '@/lib/admin/resources'
+
+// scripts/check-resource-links.mjs writes link_status daily. 'dead'/
+// 'redirect_offsite' hide the link on the public /resources page (unless
+// link_force_show) — this badge is the only place an editor sees that
+// happened, since it's otherwise silent.
+const STATUS_LABEL: Record<ResourceRow['link_status'], string> = {
+  unchecked: 'Not checked yet',
+  ok: 'OK',
+  redirect_offsite: 'Redirects off-site',
+  dead: 'Dead link',
+}
+const STATUS_CLASS: Record<ResourceRow['link_status'], string> = {
+  unchecked: 'bg-muted text-muted-foreground',
+  ok: 'bg-emerald-500/15 text-emerald-600 dark:text-emerald-400',
+  redirect_offsite: 'bg-amber-500/15 text-amber-600 dark:text-amber-400',
+  dead: 'bg-destructive/15 text-destructive',
+}
+
+function StatusBadge({ resource }: { resource: ResourceRow }) {
+  const hidden = (resource.link_status === 'dead' || resource.link_status === 'redirect_offsite') && !resource.link_force_show
+  return (
+    <span className={cn('inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium', STATUS_CLASS[resource.link_status])}>
+      {STATUS_LABEL[resource.link_status]}
+      {hidden && ' — hidden from site'}
+      {resource.link_force_show && ' (forced visible)'}
+    </span>
+  )
+}
 
 function emptyInput(groupName = ''): ResourceInput {
   return { groupName, name: '', url: '', thumbnailUrl: null }
@@ -113,6 +149,18 @@ export function ResourcesManager({ resources }: { resources: ResourceRow[] }) {
     })
   }
 
+  function onToggleForceShow(resource: ResourceRow) {
+    setError(null)
+    startTransition(async () => {
+      try {
+        await setResourceForceShow(resource.id, !resource.link_force_show)
+        router.refresh()
+      } catch (e) {
+        setError(e instanceof Error ? e.message : 'Update failed')
+      }
+    })
+  }
+
   return (
     <div>
       {error && (
@@ -146,12 +194,20 @@ export function ResourcesManager({ resources }: { resources: ResourceRow[] }) {
                 ) : (
                   <div key={r.id} className="flex items-center justify-between gap-3 rounded-lg border p-3">
                     <div className="min-w-0">
-                      <p className="font-medium">{r.name}</p>
+                      <div className="flex items-center gap-2">
+                        <p className="font-medium">{r.name}</p>
+                        <StatusBadge resource={r} />
+                      </div>
                       <a href={r.url} target="_blank" rel="noopener noreferrer" className="truncate text-xs text-muted-foreground hover:text-primary hover:underline">
                         {r.url}
                       </a>
                     </div>
                     <div className="flex shrink-0 items-center gap-1">
+                      {(r.link_status === 'dead' || r.link_status === 'redirect_offsite') && (
+                        <Button size="sm" variant="outline" disabled={pending} onClick={() => onToggleForceShow(r)}>
+                          {r.link_force_show ? 'Unforce' : 'Show anyway'}
+                        </Button>
+                      )}
                       <Button size="sm" variant="ghost" onClick={() => setEditingId(r.id)} aria-label="Edit">
                         <Pencil className="size-3.5" />
                       </Button>

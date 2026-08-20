@@ -1,0 +1,31 @@
+name: Check resource links
+
+# docs/ADMIN.md "Resources link-health check" — daily, staggered link-health
+# check for the /resources catalog. Writes status to Supabase only, never
+# calls revalidateTag (CLAUDE.md's active ISR-quota block) — /resources
+# won't reflect these updates on the live site until that's lifted and the
+# revalidate call is wired in separately. Same secrets as
+# supabase-daily.yml, no git operations here (DB writes only).
+
+on:
+  schedule:
+    - cron: '20 3 * * *' # 03:20 UTC daily — offset from supabase-daily.yml's 03:00
+  workflow_dispatch: {}
+
+jobs:
+  check-links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: node scripts/check-resource-links.mjs
+        env:
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}

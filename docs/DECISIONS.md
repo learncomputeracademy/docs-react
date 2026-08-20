@@ -5274,6 +5274,145 @@ applied directly via SQL Editor, unaffected by the push ban.
 
 ---
 
+## D-100 · Scope & Closure Visualizer (new tool) — presets only, real values and real ReferenceErrors, two shipped bugs found and fixed
+
+**Date:** 2026-08-18 · **Status:** Active · **Decided by:** user
+
+**Scope & Closure Visualizer** — `/tools/scope-closure`, `/bn/tools/scope-closure`. Third and
+final pick from the same "what other tools would help" discussion — the closure/hoisting half
+of what D-97/D-98 didn't cover, matching `JavaScript Scope Hoisting` and `JavaScript Closures`
+directly. "As much features as possible," and nav added in the same turn as build, both
+pre-approved up front like D-98.
+
+**A different honesty shape again, and a firmer scoping call than D-98's**: unlike a call stack
+(observable via `Error().stack`), there is no runtime API that exposes a lexical scope chain or
+hoisting state at all — it's a static property of the source text, not something a running
+engine exposes. D-98 could still allow free-form code with a documented convention (`trace()`
+wrapping); this tool goes further and drops free-form code entirely, since correctly enumerating
+every declared variable per scope under arbitrary edits has no safe fallback the way an
+incorrectly-wrapped recursive call at worst just "doesn't trace." Four presets (block vs
+function scope, hoisting var-vs-let, closures via a counter maker, the classic loop+closure
+var-vs-let gotcha), each hand-matched scope structure to real code, run for real in a sandboxed
+iframe via a `snapshot(activeScopes, vars)` helper called by hand at meaningful points — same
+trust model as D-97/D-98's sandbox, same "only the static shape is hand-authored, every value is
+real" disclosure pattern, stated plainly in the tool's own UI.
+
+**Two real bugs found during verification, both fixed, neither shipped**:
+1. The "closures" preset's `counter` variable (a `const` holding the returned closure function)
+   permanently displayed as stuck in the temporal dead zone, even long after real assignment —
+   traced to the preset simply never having included it in any `snapshot()` call's `vars`
+   object, so `deriveState`'s "not captured → assume TDZ" fallback (correct for genuinely
+   uninitialised `let`/`const`) misfired on a variable that was just never snapshotted. Fixed by
+   adding the capture; also caught the same shape of gap didn't exist in the other three
+   presets by auditing each one's declared variables against its own `snapshot()` calls.
+2. Fixing bug 1 immediately exposed a second, more fundamental one: `counter` holds a *function*
+   value, and `postMessage` (via structured clone) cannot carry a function across the iframe
+   boundary at all — attempting it crashed the entire trace with `Failed to execute
+   'postMessage': ... could not be cloned`. Fixed at the actual source of the problem, not the
+   symptom: `buildScopeDoc`'s `snapshot()` helper now sanitises every captured value inside the
+   iframe, before it ever reaches `postMessage`, replacing any function with a plain `{__fn:
+   true}` marker — verified the sanitisation logic in isolation via a standalone Node check
+   before trusting the browser re-test, given the shared dev server's fast-refresh was actively
+   interrupting UI-click-based testing throughout this session (see below).
+3. A third, related design flaw surfaced while re-verifying the fix: `deriveState` was reading
+   variable values from only the single *latest* snapshot, so a variable captured once (like the
+   now-fixed `counter`) would look like it had "reverted" to uninitialised the moment any later
+   snapshot's `vars` object simply didn't happen to re-list it — which every preset's later
+   snapshots don't, since they only re-capture what changed. Fixed by accumulating captured
+   values across every snapshot seen so far (up to the current step), not just the latest one;
+   documented the one real constraint this accumulation relies on (no preset reuses a variable
+   name across two different scopes) directly in the code rather than leaving it implicit.
+
+**Verified live, precisely, after both fixes** — not just that something rendered: the
+hoisting preset's console shows the actual V8 error text, `Cannot access 'b' before
+initialization`, for a real temporal-dead-zone access; the closures preset's final state shows
+`const counter = ƒ()` and `let count = 3` correctly (persisted and incremented across three real
+calls, the exact "still alive after the outer function returned" point of a closure); the
+loop-closure preset reproduced the classic bug exactly — `var callback sees i = 3` three times
+(all three closures sharing one binding) against `let callback sees j = 0, 1, 2` (a fresh binding
+per iteration) — real, not narrated.
+
+**A genuine testing-environment obstacle this session, handled rather than worked around
+blindly**: the shared dev server's fast-refresh (from the other instance's concurrent edits)
+repeatedly reset this tool's in-page state mid-verification, badly enough that ordinary
+click-then-screenshot testing kept landing on stale/reverted UI state. Switched to a more robust
+verification method — a single `javascript_tool` script per check that clicks the preset tab,
+clicks Run, waits, and reads the resulting DOM text in one atomic call — which reliably produced
+consistent results even through further remounts, and is worth reaching for first next time this
+pattern recurs rather than retrying screenshot timing by hand.
+
+Icon `Boxes` (new, unused by any other tool). Links to a real lesson category — `/javascript` —
+third tool this session with an actual `lessonHref`. Added to `/tools`/`/bn/tools` index cards,
+`app/sitemap.ts`, `docs/TOOLS.md`, and the header nav (`scripts/add-scope-closure-nav.mjs`,
+`sort_order` 22/last) — confirmed live in the Tools dropdown via a direct DOM query
+(`href="/tools/scope-closure"`).
+
+**Verified**: `npx tsc --noEmit` clean after all three fixes. All four presets re-verified live
+via the `javascript_tool` method above after the fixes, each checked against the real expected
+output; both locales render cleanly.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
+## D-101 · Resources link-health checking — self-hosted daily script, no 3rd party
+
+**Date:** 2026-08-20 · **Status:** Active · **Decided by:** user
+
+User request: don't show a resource link if it's dead, or redirects somewhere else — check
+periodically, only show links that pass.
+
+**Considered and rejected every 3rd-party option first**, since the user explicitly asked.
+Uptime-monitor free tiers (UptimeRobot, Freshping) cap around 50 monitors — the resources
+catalog could reach the 1000s, so these are the wrong shape (built for "watch my 5 critical
+URLs," not "curate a growing catalog"). Scraping/proxy APIs (ScrapingBee, ScraperAPI) — would
+also dodge IP-based WAF blocking — cap free tiers around 1000 calls/**month**; one full
+check pass would exhaust the entire month in a single run. Malware-scan APIs (VirusTotal,
+Safe Browsing) are the wrong tool entirely. None of them are free at the scale this needs to
+work at.
+
+**Built self-hosted instead**: `scripts/check-resource-links.mjs`, run daily by
+`.github/workflows/check-resource-links.yml` (separate workflow from the existing backup job
+— DB writes only, no git operations). `HEAD` request per resource (GET fallback on 405/501,
+some servers reject HEAD), real browser UA (bare fetch UAs get false-403'd by some sites),
+follows redirects and flags `redirect_offsite` only when the final host differs from the
+saved one (same-domain http→https/trailing-slash/www redirects are not flagged — those are
+normal, not rot). `dead` on status ≥400/timeout/network error. A link only flips out of `ok`
+after 2 consecutive failures (`link_fail_count`), so one flaky check doesn't hide it.
+
+**Staggered, not exhaustive, by design** — the actual answer to "what happens at 1000s of
+links": healthy (`ok`) links rotate through 30 daily buckets (`id` char-sum `% 30`), so the
+full catalog gets re-checked monthly at flat daily cost regardless of catalog size.
+Unchecked/already-flagged links are checked every run instead, so new or just-fixed links
+resolve fast rather than waiting up to a month. This is also the fix for the real risk at
+scale that no paid/free API solves either: hammering 1000s of external domains daily from one
+CI runner IP risks WAFs blocking/challenging that IP, producing false dead-link flags —
+fewer requests per day is the actual fix, not a different checker.
+
+**`/resources` (`getResources()`, `lib/content.ts`) filters** `dead`/`redirect_offsite` rows
+out unless an admin sets `link_force_show` (new column, `/admin/resources` UI — a "Show
+anyway" button appears on flagged rows, for checker false positives: WAF-blocked the runner,
+site requires auth the checker can't do, etc.). `unchecked` still shows — a just-added
+resource shouldn't vanish before its first check.
+
+**Deliberately kept out of the standing ISR-quota block**: the script only writes to
+Supabase, never calls `revalidateTag`. So `/resources` won't reflect these status changes on
+the live site until the block is lifted and a `revalidateTag('resources')` call is added —
+flat cost once wired in (one tag invalidates the whole page regardless of how many rows
+changed that day, so it doesn't scale with catalog size either).
+
+Schema: `supabase/migrations/012-resources-link-health.sql` — `link_status`,
+`link_checked_at`, `link_fail_count`, `link_force_show` columns on `resources`. Written by
+the service role (bypasses RLS, same as the daily backup script), no RLS policy changes
+needed. Full design writeup: `docs/ADMIN.md` → "Resources link-health check".
+
+**Verified**: `npx tsc --noEmit` clean, script syntax-checked (`node --check`). Not yet run
+against real Supabase (migration hasn't been applied — see Open) and not yet exercised live.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -5308,4 +5447,6 @@ applied directly via SQL Editor, unaffected by the push ban.
 | O-27 | Decide the approach for the remaining 11 lessons on `docs/RESEARCH.md`'s original 15-file "needs a decision" list (D-75) — `css/font`, `css/form`, `css/pseudo-classes`, `css/pseudo-elements`, `css/image-transparency`, `css/inline-block`, `html/blocks`, `html/form-elements`, `html/form-input-types`, `html/forms`, `html/responsive`. Each now has dozens of small isolated syntax snippets rather than one clean demo — needs a call on whether to convert every snippet to its own `tryit` (many small iframes per lesson) or author new synthesized "put it together" examples (real new content, not extraction) | Nothing broken — these render fine today as plain `code` blocks, just not interactive |
 | O-30 | Revalidate the 8 `doc:` tags from D-95 (`career/writing-a-developer-cv`, `career/linkedin-and-your-online-presence`, `marketing/calls-to-action`, `marketing/writing-emails`, `marketing/social-content-strategy`, `html/forms`, `css/navbar`, `css/dropdowns`) once the ISR quota clears — deliberately skipped this session, same as O-29 | Those 8 production pages serve stale cached HTML without the new mockups; local dev shows them correctly already |
 | O-29 | ~~Add "CSS Units Converter" to the header nav~~ — **resolved, D-79.** `nav_items` row added via script, `sort_order` 10 (last), shows in local dev now. The `/api/revalidate` webhook call was deliberately skipped (ISR-quota constraint) — production's header nav is stale until quota clears or another nav edit busts the `nav` tag | Live production header doesn't show the new tool yet; everything else does |
+| O-31 | Run `supabase/migrations/012-resources-link-health.sql` (D-101) | Until run, `resources` table has no `link_status`/etc. columns — the checker script and `getResources()`/admin filter will error on `select`/`update` against them |
+| O-32 | Wire `revalidateTag('resources')` into `scripts/check-resource-links.mjs` (D-101) once the ISR-quota block is lifted — deliberately left out for now | `/resources` won't reflect any link-health status changes on the live site until this is added (or another resources edit busts the `resources` tag) |
 | O-28 | New bug found in `components/blocks/try-it.tsx` (D-75): a `tryit` block whose CSS does `@import` on a cross-origin stylesheet (tested with both Font Awesome via cdnjs and Google Material Icons) never paints the resulting icons inside the preview iframe, even though the font file itself loads successfully (confirmed 200 status, correct byte count, via network log). Reproduced in gstack's headless browser AND real Chrome; does NOT reproduce in an isolated static-file harness with the identical `srcdoc` string outside the app, including with two such iframes side by side. No CSP present (checked both header and meta tag) to explain it. Root cause unknown — worth a focused debugging session with real devtools access into the sandboxed iframe (blocked from JS inspection here since `sandbox="allow-scripts"` has no `allow-same-origin`) | Blocks using external icon-font demos in Try It blocks (rare — most lessons use plain HTML/CSS/JS with no external font). `css/icons` reverted to plain code blocks rather than ship this broken |
