@@ -209,7 +209,22 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
       }}
       style={{ top: panelTop }}
       className={cn(
-        'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background/95 px-10 py-6 shadow-xl backdrop-blur-2xl transition-all duration-200 ease-out max-h-[calc(100vh-6rem)]',
+        // transition-[opacity,transform], NOT transition-all: the panel's
+        // `top` (style, below) is a plain inline value driven by panelTop
+        // state, which starts at 0 and only gets its real measured value
+        // inside show(). transition-all animates that jump too — on the
+        // very first-ever open only (every later open reuses the same,
+        // already-correct panelTop, so no value change, no transition), the
+        // panel visibly slides its top from 0 up through the header/trigger
+        // row, sweeping under a stationary cursor still resting on the
+        // trigger, firing a spurious mouseenter then mouseleave on the panel
+        // as it slides on past — arming scheduleHide's close timer, which
+        // then fires because the cursor never gets a chance to re-enter.
+        // Confirmed live via instrumentation: panelRect.top read -4 (the
+        // resting/closed position) at the moment of that spurious
+        // mouseenter. Scoping the transition to opacity+transform only
+        // makes `top` snap instantly — no sweep, same fluid fade/slide feel.
+        'fixed inset-x-4 z-50 overflow-y-auto rounded-2xl border bg-background/95 px-10 py-6 shadow-xl backdrop-blur-2xl transition-[opacity,transform] duration-200 ease-out max-h-[calc(100vh-6rem)]',
         open ? 'translate-y-0 opacity-100' : 'pointer-events-none -translate-y-1 opacity-0'
       )}
     >
