@@ -57,6 +57,15 @@ export type Resource = {
 // docs uses for status:'published' (lib/content.ts's getDoc), and the
 // catalog is small enough that fetching all rows and filtering is simpler
 // than a Supabase .or() clause.
+//
+// `?? 'unchecked'` / `?? false`: migration 012 (link_status/link_force_show
+// columns) isn't applied everywhere yet — a select('*') against a DB still
+// on the old schema returns those keys as undefined, not the column's SQL
+// default. Without the fallback, `undefined === 'ok'` is false for every
+// row and this filters out the entire catalog — a real regression caught
+// live (2026-08-20): /resources went empty locally before migration 012
+// had been run. Falling back to 'unchecked' (visible) matches what the
+// column's own `default 'unchecked'` will do once the migration lands.
 export const getResources = cache(function getResources(): Promise<Resource[]> {
   return unstable_cache(
     async () => {
@@ -64,7 +73,10 @@ export const getResources = cache(function getResources(): Promise<Resource[]> {
       const { data, error } = await supabase.from('resources').select('*').order('group_name').order('sort_order')
       if (error) throw error
       const rows = (data ?? []) as Resource[]
-      return rows.filter((r) => r.link_force_show || r.link_status === 'ok' || r.link_status === 'unchecked')
+      return rows.filter((r) => {
+        const status = r.link_status ?? 'unchecked'
+        return (r.link_force_show ?? false) || status === 'ok' || status === 'unchecked'
+      })
     },
     ['resources'],
     { tags: ['resources'] }

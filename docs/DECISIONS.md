@@ -5413,6 +5413,67 @@ against real Supabase (migration hasn't been applied — see Open) and not yet e
 
 ---
 
+## D-102 · Resources catalog cleaned + 15 modern resources added — and a real regression found and fixed same session
+
+**Date:** 2026-08-20 · **Status:** Active · **Decided by:** user
+
+User couldn't run migration 012 (D-101) yet — remote-controlled machine, ~1 hour out — but
+asked for the manual cleanup pass now: check every current resource link, drop dead ones,
+add modern replacements with real screenshots. Also flagged Freepik has rebranded to
+Magnific — confirmed via WebSearch (April 2026 rebrand, $230M ARR, consolidates Freepik +
+Magnific + several other products under one name).
+
+**Audited all 88 resources** (`scripts/audit-resource-links.mjs`, real HTTP checks, not
+guesses): 67 clean, 7 ambiguous (403/429/401 — bot-protection false positives on famous
+sites like Pexels/Unsplash/Coolors, correctly left alone), 14 flagged cross-domain-redirect
+or dead. **Hand-reviewed every flagged one before touching data** — the blanket "cross-domain
+redirect = drop" heuristic (correct for D-101's daily automated flag-for-review job) produced
+mostly false positives here: Freepik→Magnific, Iconfinder→Magnific (same consolidation),
+Landen→Umso, and four more were all confirmed real rebrands/domain moves (WebSearch on the
+uncertain ones), not link rot — `scripts/fix-resource-links.mjs` updated those 7 rows in
+place (URL/name corrected, `Freepik` moved into a new **AI Tools** group as `Magnific`, since
+it's now a full creative platform, not just stock images) rather than deleting them. Only 6
+were genuinely dead (timeout/DNS failure/error status on the same host, not a redirect) and
+got removed.
+
+**15 new resources added**, each with a real screenshot captured via live browser navigation
+this session (not a generic placeholder) — AI Tools: Ideogram, Leonardo AI, Krea AI, Recraft;
+Free Images: Storyset, Lummi; Colors: Realtime Colors; Free Icons: Phosphor Icons, Lucide;
+Free Fonts: Fontshare; Design & UI: Mobbin, Framer, Spline; JavaScript Libraries: shadcn/ui,
+Motion. `scripts/add-modern-resources.mjs` uploaded each to Cloudinary (`resources/<slug>`,
+registered in `media` too) and inserted the row.
+
+**One screenshot deliberately NOT a live navigation**: Magnific's browser session was already
+logged into the user's real account (Freepik credentials carried over) — navigating there
+landed on the private dashboard, showing a real project name (**"Learn Computer Academy
+Collages"**) that must never end up on a public resource-catalog thumbnail. Caught before
+uploading anything. Fixed by extracting the site's own public `og:image` URL via a
+same-origin `fetch(..., {credentials:'omit'})` inside the page (bypasses the account
+redirect without needing to sign out), then downloading that specific asset URL with plain
+`curl` outside the browser (no cookies to leak). Worth remembering as the general pattern any
+time a resource thumbnail comes from a site the browser session might already be signed into.
+
+**Real regression found and fixed before it shipped broken**: `getResources()`'s new
+`link_status`/`link_force_show` filter (D-101) assumed those columns exist. They don't yet —
+migration 012 is still pending (O-31, this is exactly why). A `select('*')` against the
+unmigrated table returns both keys as `undefined`, and the original filter
+(`r.link_force_show || r.link_status === 'ok' || ...`) evaluated false for literally every
+row — caught live: a fresh `/resources` load showed "Nothing here yet" against a database
+that has 97 real rows. Fixed with `?? 'unchecked'` / `?? false` fallbacks in `lib/content.ts`,
+matching what the column's own `default 'unchecked'` will do once the migration actually
+runs — verified live after the fix (full catalog renders, all groups, all thumbnails) via a
+local-only `POST /api/revalidate {tag:"resources"}` call (confirmed safe, same as prior
+sessions' nav-tag calls — doesn't touch Vercel/production).
+
+**Verified**: `npx tsc --noEmit` clean throughout. Live local render confirmed post-fix — AI
+Tools group visible with Magnific/Ideogram/Leonardo AI/Krea AI/Recraft, Colors group includes
+Realtime Colors, the 6 deleted CSS Generators entries genuinely gone. 97 resources total
+(88 − 6 deleted + 15 inserted = 97 ✓), zero missing thumbnails.
+
+**Not pushed** — same standing rule as everything else. Local commit only.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
