@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { motion, useMotionValue, useMotionTemplate, animate } from 'motion/react'
+import { motion, useMotionValue, useMotionTemplate } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { useProximity } from '@/components/magic/proximity-grid'
 
@@ -38,8 +38,15 @@ export function MagicCard({ children, className, glow = false }: { children: Rea
       const cy = rect.top + rect.height / 2
       const dist = Math.hypot(x - cx, y - cy)
       const maxDist = Math.hypot(rect.width, rect.height) / 2 + PROXIMITY_RADIUS
-      const target = proximity!.active.get() ? Math.max(0, 1 - dist / maxDist) : 0
-      animate(proximityOpacity, target, { duration: 0.2 })
+      // Square the falloff so it ramps up fast near the card instead of
+      // thinning out linearly — a linear falloff read as "almost not even
+      // visible" until the pointer was nearly centered (user feedback).
+      const linear = Math.max(0, 1 - dist / maxDist)
+      const target = proximity!.active.get() ? linear ** 0.5 : 0
+      // Instant set, not animate() — this already fires on every mousemove,
+      // so it's already smooth; an extra tween on top just adds lag on top
+      // of the CSS transition below (user feedback: "not instant").
+      proximityOpacity.set(target)
     }
     const unsubs = [proximity.mouseX.on('change', update), proximity.mouseY.on('change', update), proximity.active.on('change', update)]
     return () => unsubs.forEach((u) => u())
@@ -52,8 +59,8 @@ export function MagicCard({ children, className, glow = false }: { children: Rea
     mouseY.set(e.clientY - rect.top)
   }
 
-  const ringBackground = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, color-mix(in oklch, var(--primary) 60%, transparent), transparent 70%)`
-  const fillBackground = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, color-mix(in oklch, var(--primary) 15%, transparent), transparent 70%)`
+  const ringBackground = useMotionTemplate`radial-gradient(200px circle at ${mouseX}px ${mouseY}px, var(--primary), transparent 70%)`
+  const fillBackground = useMotionTemplate`radial-gradient(300px circle at ${mouseX}px ${mouseY}px, color-mix(in oklch, var(--primary) 30%, transparent), transparent 70%)`
 
   return (
     <div ref={ref} onMouseMove={onMouseMove} className={cn('group relative rounded-[inherit]', className)}>
@@ -62,8 +69,8 @@ export function MagicCard({ children, className, glow = false }: { children: Rea
         <motion.div
           aria-hidden
           className={cn(
-            'pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300',
-            proximity ? '' : 'opacity-0 group-hover:opacity-100'
+            'pointer-events-none absolute inset-0 rounded-[inherit]',
+            proximity ? '' : 'opacity-0 transition-opacity duration-300 group-hover:opacity-100'
           )}
           style={{ background: fillBackground, opacity: proximity ? proximityOpacity : undefined }}
         />
@@ -71,8 +78,8 @@ export function MagicCard({ children, className, glow = false }: { children: Rea
       <motion.div
         aria-hidden
         className={cn(
-          'pointer-events-none absolute inset-0 rounded-[inherit] transition-opacity duration-300',
-          proximity ? '' : 'opacity-0 group-hover:opacity-100'
+          'pointer-events-none absolute inset-0 rounded-[inherit]',
+          proximity ? '' : 'opacity-0 transition-opacity duration-300 group-hover:opacity-100'
         )}
         style={{
           background: ringBackground,
