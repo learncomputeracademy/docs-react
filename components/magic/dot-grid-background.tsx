@@ -13,14 +13,33 @@ import { useEffect, useRef } from 'react'
 // Plain Canvas 2D, no WebGL/ogl: cheaper than every prior attempt, and
 // genuinely idle when the pointer isn't over the hero (redraws happen on
 // pointermove/resize only, no persistent requestAnimationFrame loop
-// running forever like the WebGL versions needed to justify). Dark-mode
-// only via CSS (`dark:block`) — no MutationObserver mount/unmount dance
-// this time; there's no meaningful idle cost in light mode to defend
-// against without one.
+// running forever like the WebGL versions needed to justify).
+//
+// Shown in both themes now (was dark-only) — the dot color is resolved
+// live from the `--primary` CSS variable each time, via a 1x1 canvas
+// (canvas 2D parses oklch() directly; this just forces it to actual RGB
+// bytes so per-dot alpha can be blended in JS) rather than hardcoding the
+// dark-mode hex and a second light-mode one to keep in sync by hand. A
+// MutationObserver on <html>'s class re-resolves and redraws on theme
+// toggle — cheap (one canvas readback), not the same "avoid a persistent
+// loop" concern the WebGL attempts had.
 const SPACING = 26 // px between dot centers
 const BASE_RADIUS = 1.3
 const MAX_RADIUS = 3
 const GLOW_RADIUS = 140 // px — how far the cursor's influence reaches
+
+function resolvePrimaryRgb(): [number, number, number] {
+  const raw = getComputedStyle(document.documentElement).getPropertyValue('--primary').trim()
+  const c = document.createElement('canvas')
+  c.width = 1
+  c.height = 1
+  const ctx = c.getContext('2d')
+  if (!ctx || !raw) return [255, 138, 49]
+  ctx.fillStyle = raw
+  ctx.fillRect(0, 0, 1, 1)
+  const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data
+  return [r, g, b]
+}
 
 export function DotGridBackground({ className }: { className?: string }) {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -36,6 +55,7 @@ export function DotGridBackground({ className }: { className?: string }) {
 
     let width = 0
     let height = 0
+    let dotColor = resolvePrimaryRgb()
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
 
     function resize() {
@@ -66,7 +86,7 @@ export function DotGridBackground({ className }: { className?: string }) {
           }
           ctx.beginPath()
           ctx.arc(x, y, radius, 0, Math.PI * 2)
-          ctx.fillStyle = `rgba(255, 138, 49, ${alpha})` // --primary (dark), see commit
+          ctx.fillStyle = `rgba(${dotColor[0]}, ${dotColor[1]}, ${dotColor[2]}, ${alpha})`
           ctx.fill()
         }
       }
@@ -103,8 +123,15 @@ export function DotGridBackground({ className }: { className?: string }) {
     window.addEventListener('pointermove', onPointerMove)
     window.addEventListener('pointerleave', onPointerLeave)
 
+    const themeObserver = new MutationObserver(() => {
+      dotColor = resolvePrimaryRgb()
+      draw()
+    })
+    themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
+
     return () => {
       ro.disconnect()
+      themeObserver.disconnect()
       window.removeEventListener('pointermove', onPointerMove)
       window.removeEventListener('pointerleave', onPointerLeave)
     }

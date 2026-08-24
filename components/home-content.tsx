@@ -88,17 +88,18 @@ export async function HomeContent({ locale }: { locale: Locale }) {
       {/* Hero — flat surface, no ambient decoration. Typography and the one
           real product proof (AnimatedCode, live-typing) carry the page.
           One deliberate exception (user-requested): DotGridBackground, a
-          cursor-reactive dot grid behind the hero, dark-mode only — see its
-          own file comment. Light mode stays exactly as flat as before.
-          Fifth attempt (2026-08-24): Molten/GradientWaves/Lightfall/
-          LiquidEther were all WebGL "inspired by" approximations of a
-          heavier reference technique and all rejected — user asked why
-          none matched their example, and the honest answer was the
+          cursor-reactive dot grid behind the hero — see its own file
+          comment. Fifth attempt (2026-08-24): Molten/GradientWaves/
+          Lightfall/LiquidEther were all WebGL "inspired by" approximations
+          of a heavier reference technique and all rejected — user asked
+          why none matched their example, and the honest answer was the
           fidelity gap itself. Dot grid has no such gap: the real technique
           is this simple, so this is a faithful build, not an
-          approximation. */}
+          approximation. Shown in both themes (user follow-up) — cheap
+          enough, and low-density enough, not to need dark-only gating the
+          way every WebGL attempt did. */}
       <section className="relative overflow-hidden border-b">
-        <DotGridBackground className="absolute inset-0 hidden dark:block" />
+        <DotGridBackground className="absolute inset-0" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
