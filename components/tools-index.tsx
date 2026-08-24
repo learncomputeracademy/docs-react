@@ -14,14 +14,20 @@ function ToolCard({ tool, locale, openLabel }: { tool: ToolEntry; locale: Locale
     <MagicCard className="rounded-xl" glow>
       <Link
         href={href}
-        className="group flex flex-col gap-3 rounded-xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5"
+        className="group flex h-full flex-col gap-3 rounded-xl border bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5"
       >
         <span className="flex size-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
           <Icon className="size-5" />
         </span>
         <div>
           <h2 className="font-semibold">{tool.name}</h2>
-          <p className="mt-1 text-sm text-muted-foreground">{tool.description}</p>
+          {/* line-clamp-3, not the full text — descriptions range ~110-250
+              chars (deliberately, some tools have more to say than others),
+              which made cards in the same row 3 lines vs 4+ lines tall
+              (user report). Clamping to a fixed count is the standard
+              card-grid fix: every card is the same height regardless of
+              copy length, at the cost of an ellipsis on the longer ones. */}
+          <p className="mt-1 line-clamp-3 text-sm text-muted-foreground">{tool.description}</p>
         </div>
         <span className="mt-auto flex items-center gap-1 text-sm font-medium text-primary">
           {openLabel} <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
