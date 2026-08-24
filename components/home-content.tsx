@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight, BookOpen, GraduationCap, Languages, MapPin } from 'lucide-react'
+import { ArrowRight, GraduationCap, Languages, MapPin } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -9,12 +9,13 @@ import { HeroReveal } from '@/components/magic/hero-reveal'
 import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
-import { NumberTicker } from '@/components/magic/number-ticker'
+import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
-// editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was aspirational.
-// Replaced by a real stat card built from the same totalLessons/categories
-// data the hero microcopy already uses — not a fabricated number.
+// editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
+// aspirational. A replacement stat card (NumberTicker on totalLessons) was
+// tried and then dropped too (user: remove it, just keep these two) — no
+// third item, two cards is the shipped shape.
 const FEATURES = {
   en: [
     { icon: GraduationCap, title: 'Beginner friendly', body: 'Structured like a real syllabus, from computer basics through to React, one topic at a time.' },
@@ -24,11 +25,6 @@ const FEATURES = {
     { icon: GraduationCap, title: 'শিক্ষার্থীবান্ধব', body: 'কম্পিউটার বেসিক্স থেকে শুরু করে React পর্যন্ত, একটি বাস্তব সিলেবাসের মতো ধাপে ধাপে সাজানো।' },
     { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
   ],
-} as const
-
-const STAT_COPY = {
-  en: { suffix: 'lessons', body: (subjects: number) => `Across ${subjects} subjects — computer basics through React, one topic at a time. Always free, always growing.` },
-  bn: { suffix: 'টি পাঠ', body: (subjects: number) => `${subjects}টি বিষয় জুড়ে — কম্পিউটার বেসিক্স থেকে React পর্যন্ত। সম্পূর্ণ ফ্রি, প্রতিনিয়ত বাড়ছে।` },
 } as const
 
 // Presentation-only grouping for the subject index — independent of the
@@ -78,7 +74,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   const aboutBandBody = override.aboutBandBody || s.aboutBandBody
   const prefix = locale === 'bn' ? '/bn' : ''
   const features = FEATURES[locale]
-  const stat = STAT_COPY[locale]
 
   const byslug = new Map(categories.map(c => [c.slug, c]))
   // Any category not accounted for by SUBJECT_GROUPS still ships — appended
@@ -125,43 +120,33 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Features — superseding the 2026-08-06 "single inline strip"
-          verdict: direct design feedback this session called that strip
-          "too basic and old school." Rebuilt as MagicCard/ProximityGrid
-          cards — the same glow-hover language the subject/tool/resource
-          grids already use below — rather than reintroducing a plain,
-          uniform icon-over-heading-over-text scaffold (still avoided: the
-          stat card's live NumberTicker breaks the sameness the original
-          finish review actually objected to). "Runnable examples" is
-          dropped (Try It editor isn't built) for a real stat pulled from
-          the same totalLessons/categories data the hero already uses. */}
+      {/* Features — round 2: the MagicCard/glow version (2026-08-24 first
+          pass) still read flat to the user, who pointed at 21st.dev's
+          "Animated 3D Card" as the target instead — a cursor-driven
+          perspective tilt with the icon/heading popping forward in Z on
+          hover (TiltCard/TiltLayer, new). Colors stay this site's own
+          neutral bg-card + single orange accent (confirmed with the user)
+          rather than the reference's per-card rainbow gradients, which
+          would break DESIGN.md's one-accent-color rule sitewide. Two cards,
+          not three — the stat card (NumberTicker on totalLessons) was tried
+          and then dropped (user: just keep these two). */}
       <section className="border-b">
         <div className="mx-auto max-w-6xl px-6 py-16">
-          <ProximityGrid className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <MagicCard className="rounded-xl" glow>
-              <div className="flex h-full flex-col gap-3 rounded-xl bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5">
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-                  <BookOpen className="size-5" />
-                </span>
-                <h3 className="flex items-baseline gap-1.5">
-                  <NumberTicker value={totalLessons} className="text-3xl font-bold tabular-nums text-primary" />
-                  <span className="text-sm font-medium text-muted-foreground">{stat.suffix}</span>
-                </h3>
-                <p className="text-sm text-muted-foreground">{stat.body(categories.length)}</p>
-              </div>
-            </MagicCard>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {features.map((f) => (
-              <MagicCard key={f.title} className="rounded-xl" glow>
-                <div className="flex h-full flex-col gap-3 rounded-xl bg-card p-6 shadow-sm transition-all hover:-translate-y-0.5">
+              <TiltCard key={f.title} className="rounded-xl border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg">
+                <TiltLayer depth={40}>
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
                     <f.icon className="size-5" />
                   </span>
+                </TiltLayer>
+                <TiltLayer depth={24} className="mt-3">
                   <h3 className="font-semibold">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground">{f.body}</p>
-                </div>
-              </MagicCard>
+                  <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
+                </TiltLayer>
+              </TiltCard>
             ))}
-          </ProximityGrid>
+          </div>
         </div>
       </section>
 
