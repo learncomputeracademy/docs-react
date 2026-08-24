@@ -10,7 +10,7 @@ import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
-import { LightfallBackground } from '@/components/magic/lightfall-background'
+import { LiquidEtherBackground } from '@/components/magic/liquid-ether-background'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -87,15 +87,15 @@ export async function HomeContent({ locale }: { locale: Locale }) {
     <main className="flex-1">
       {/* Hero — flat surface, no ambient decoration. Typography and the one
           real product proof (AnimatedCode, live-typing) carry the page.
-          One deliberate exception (user-requested): LightfallBackground, an
-          ambient WebGL glow behind the hero, dark-mode only — see its own
+          One deliberate exception (user-requested): LiquidEtherBackground,
+          an ambient WebGL glow behind the hero, dark-mode only — see its own
           file comment for the perf/accessibility guardrails. Light mode
-          stays exactly as flat as before. Third attempt (2026-08-24):
-          MoltenBackground then GradientWavesBackground were both rejected
-          ("doesn't look good") — this one starts intentionally low-intensity
-          rather than needing a tuning pass down like the first two. */}
+          stays exactly as flat as before. Fourth attempt (2026-08-24):
+          Molten/GradientWaves/Lightfall backgrounds were all rejected — this
+          one adds real cursor interactivity (the liquid pushes away from
+          the pointer), which none of the first three had. */}
       <section className="relative overflow-hidden border-b">
-        <LightfallBackground className="absolute inset-0 hidden dark:block" />
+        <LiquidEtherBackground className="absolute inset-0 hidden dark:block" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
