@@ -1,24 +1,26 @@
-import IconCss from '~icons/logos/css-3'
-import IconHtml from '~icons/logos/html-5'
-import IconJs from '~icons/logos/javascript'
-import IconReact from '~icons/logos/react'
-import IconPhotoshop from '~icons/logos/adobe-photoshop'
-import IconPhp from '~icons/logos/php'
-import IconPython from '~icons/logos/python'
-import IconWordpress from '~icons/selfhst/wordpress'
-import IconNodejs from '~icons/logos/nodejs-icon'
-import IconMongodb from '~icons/logos/mongodb-icon'
-import IconFigma from '~icons/logos/figma'
+import IconCss from '~icons/simple-icons/css3'
+import IconHtml from '~icons/simple-icons/html5'
+import IconJs from '~icons/simple-icons/javascript'
+import IconReact from '~icons/simple-icons/react'
+import IconPhotoshop from '~icons/simple-icons/adobephotoshop'
+import IconPhp from '~icons/simple-icons/php'
+import IconPython from '~icons/simple-icons/python'
+import IconWordpress from '~icons/simple-icons/wordpress'
+import IconNodejs from '~icons/simple-icons/nodedotjs'
+import IconMongodb from '~icons/simple-icons/mongodb'
+import IconFigma from '~icons/simple-icons/figma'
 import { Laptop, Palette, Braces, Sparkles, Database, Search, Megaphone, Briefcase, Server, FileSpreadsheet, Handshake, LayoutTemplate } from 'lucide-react'
 
-// One icon grammar, not five. Real brand-color logos where the subject IS a
-// specific technology (forcing HTML's logo to be monochrome would be worse,
-// not better — brand recognition is a real asset there). Everywhere the
-// subject is a discipline rather than a product, Lucide outline icons —
-// already a dependency used elsewhere on this page — instead of the glossy
-// "sticker" icon packs (Twemoji, Fluent Color, Streamline) that used to sit
-// next to the flat brand logos in the same grid and read as stitched
-// together (design critique 2026-08-06, P1).
+// One icon grammar — literally one color. Was brand-color logos (`logos`
+// collection) for the tech icons, tinted-orange Lucide glyphs for
+// disciplines (2026-08-06 decision) — deliberate at the time, but the user
+// later said the multicolor logos (React's teal, JS's yellow, HTML's
+// orange-red, CSS's blue) read as inconsistent against the rest of the
+// site's one-accent-color rule. Switched every brand mark to `simple-icons`
+// (monochrome, single-path, fill="currentColor" by design — built for
+// exactly this: recoloring to match a UI's accent) so `text-primary` on the
+// icon-badge wrapper now recolors brand logos the same way it already did
+// the Lucide glyphs. No more two icon systems in the same grid.
 export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   basics: Laptop,
   html: IconHtml,
