@@ -1,6 +1,7 @@
 import { getResources } from '@/lib/content'
 import { buildAlternates } from '@/lib/seo'
 import { MagicCard } from '@/components/magic/magic-card'
+import { ProximityGrid } from '@/components/magic/proximity-grid'
 
 export const metadata = {
   title: 'Resources',
@@ -27,7 +28,7 @@ export default async function ResourcesPage() {
         {[...groups.entries()].map(([groupName, items]) => (
           <section key={groupName}>
             <h2 className="text-xl font-semibold">{groupName}</h2>
-            <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <ProximityGrid className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((r) => (
                 <MagicCard key={r.id} className="rounded-lg" glow>
                   <a
@@ -44,7 +45,7 @@ export default async function ResourcesPage() {
                   </a>
                 </MagicCard>
               ))}
-            </div>
+            </ProximityGrid>
           </section>
         ))}
       </div>

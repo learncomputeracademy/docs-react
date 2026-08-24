@@ -8,6 +8,7 @@ import type { Locale } from '@/lib/types'
 import { HeroReveal } from '@/components/magic/hero-reveal'
 import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
+import { ProximityGrid } from '@/components/magic/proximity-grid'
 
 const FEATURES = {
   en: [
@@ -191,7 +192,7 @@ function SubjectGroup({ label, items, prefix, locale, s }: {
   return (
     <div>
       <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">{label}</h3>
-      <div className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <ProximityGrid className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {items.map((cat) => {
           const Icon = CATEGORY_ICONS[cat.slug]
           return (
@@ -219,7 +220,7 @@ function SubjectGroup({ label, items, prefix, locale, s }: {
             </MagicCard>
           )
         })}
-      </div>
+      </ProximityGrid>
     </div>
   )
 }

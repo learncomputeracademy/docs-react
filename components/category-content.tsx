@@ -6,6 +6,7 @@ import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { MagicCard } from '@/components/magic/magic-card'
+import { ProximityGrid } from '@/components/magic/proximity-grid'
 
 export async function loadCategory(slug: string, locale: Locale) {
   const categories = await getSidebarTree(locale)
@@ -36,7 +37,7 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
         </div>
       </div>
 
-      <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ProximityGrid className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {category.docs.map((doc, i) => (
           <MagicCard key={doc.path} className="rounded-xl" glow>
             <Link
@@ -51,7 +52,7 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
             </Link>
           </MagicCard>
         ))}
-      </div>
+      </ProximityGrid>
     </main>
   )
 }
