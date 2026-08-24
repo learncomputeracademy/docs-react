@@ -10,6 +10,7 @@ import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
+import { MoltenBackground } from '@/components/magic/molten-background'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -85,10 +86,14 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   return (
     <main className="flex-1">
       {/* Hero — flat surface, no ambient decoration. Typography and the one
-          real product proof (AnimatedCode, live-typing) carry the page;
-          nothing else auto-plays. */}
-      <section className="border-b">
-        <div className="mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
+          real product proof (AnimatedCode, live-typing) carry the page.
+          One deliberate exception (user-requested): MoltenBackground, an
+          ambient WebGL glow behind the hero, dark-mode only — see its own
+          file comment for the perf/accessibility guardrails. Light mode
+          stays exactly as flat as before. */}
+      <section className="relative overflow-hidden border-b">
+        <MoltenBackground className="absolute inset-0 hidden opacity-40 dark:block" />
+        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               {heroTitle1}<span className="text-primary">{heroTitle2}</span>
