@@ -1,0 +1,107 @@
+---
+id: "9d774b4b-3ff6-41cc-bf9d-4b2eb8de9aa2"
+title: "Working with JSON in PHP"
+path: "php/json-processing"
+status: "published"
+meta_title: "PHP JSON Processing | Learn Computer Academy"
+meta_description: "Converting a PHP array or object to JSON and back — the standard format for an API request or response."
+sort_order: 39
+updated_at: "2026-09-03T04:05:25.33565+00:00"
+---
+
+```json
+[
+  {
+    "id": "vM-a-fk0jQWh",
+    "html": "<p>JSON is the standard format for exchanging data between a PHP backend and a frontend, or between two servers — nearly every API request and response uses it. PHP has JSON support built in, no package required.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hUQlDLQneQ_p",
+    "text": "PHP to JSON — json_encode()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "php-to-json-json_encode"
+  },
+  {
+    "id": "Rb8O4nT2yMc4",
+    "code": "$user = [\n    'name' => 'Sam',\n    'age' => 28,\n    'active' => true,\n];\n\necho json_encode($user);\n// {\"name\":\"Sam\",\"age\":28,\"active\":true}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "yY5efRu9R-5j",
+    "text": "Pretty-Printing for Readability",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pretty-printing-for-readability"
+  },
+  {
+    "id": "FmZpQo8rKcso",
+    "code": "echo json_encode($user, JSON_PRETTY_PRINT);",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qLhC_BS_K6G4",
+    "text": "JSON to PHP — json_decode()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "json-to-php-json_decode"
+  },
+  {
+    "id": "hCFd2BeXPNqR",
+    "html": "<p>By default, this returns an <code>stdClass</code> object — pass <code>true</code> as the second argument to get an associative array instead, usually the more convenient choice.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dWXmeteWUz-G",
+    "code": "$json = '{\"name\":\"Sam\",\"age\":28}';\n\n$object = json_decode($json);\necho $object->name;        // Sam — object access\n\n$array = json_decode($json, true);\necho $array['name'];        // Sam — array access",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "uP_9qyK8-qRx",
+    "text": "A Complete API Response Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-complete-api-response-example"
+  },
+  {
+    "id": "wq3-16mFrZ9c",
+    "code": "header('Content-Type: application/json');\n\n$users = getUsersFromDatabase();   // an array of associative arrays\n\necho json_encode([\n    'success' => true,\n    'data' => $users,\n]);",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ATM6pvqoZXTN",
+    "text": "Checking for Errors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-for-errors"
+  },
+  {
+    "id": "qwLFPLeLbZR6",
+    "html": "<p>Invalid JSON makes <code>json_decode()</code> return <code>null</code> — worth checking explicitly, since a genuinely empty result also decodes to something falsy.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vExFKdeSvCf1",
+    "code": "$data = json_decode($json);\nif (json_last_error() !== JSON_ERROR_NONE) {\n    die('Invalid JSON: ' . json_last_error_msg());\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "fK2wJlHMoBYO",
+    "html": "<p>Not every PHP value converts cleanly — a resource (like an open file handle) can't be represented in JSON at all, and encoding one silently produces <code>0</code> rather than an error.</p>",
+    "type": "callout",
+    "title": "What json_encode() can't do",
+    "variant": "note"
+  }
+]
+```

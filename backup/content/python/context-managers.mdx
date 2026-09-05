@@ -1,0 +1,122 @@
+---
+id: "f40d6dd6-90a6-4cc3-8027-c7d6a8922913"
+title: "Context Managers — the with Statement"
+path: "python/context-managers"
+status: "published"
+meta_title: "Python Context Managers | Learn Computer Academy"
+meta_description: "The pattern behind \"with open(...) as f\" — guaranteed setup and cleanup, and how to write a context manager of your own."
+sort_order: 29
+updated_at: "2026-09-03T04:52:49.884951+00:00"
+---
+
+```json
+[
+  {
+    "id": "uHhnHfEhAgio",
+    "html": "<p>The earlier File Handling lesson used <code>with open('file.txt') as f:</code> without explaining why. A <b>context manager</b> guarantees a cleanup step runs — closing a file, releasing a lock, closing a database connection — even if an error happens in between.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "33XRjVoQtocs",
+    "text": "What with Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-with-actually-does"
+  },
+  {
+    "id": "RmgupqhuGkB_",
+    "code": "with open('notes.txt') as f:\n    content = f.read()\n# f.close() runs automatically here — even if the code above raised an error",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "u9FFlW2qf8xK",
+    "html": "<p>Without <code>with</code>, the same safety needs a manual <code>try</code>/<code>finally</code> — the whole point of a context manager is not needing to write that by hand every time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BaDVRdGISrKF",
+    "code": "# The manual equivalent, for comparison\nf = open('notes.txt')\ntry:\n    content = f.read()\nfinally:\n    f.close()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "acQ8AU6sJ5Fv",
+    "text": "Writing a Context Manager — __enter__ and __exit__",
+    "type": "heading",
+    "level": 2,
+    "anchor": "writing-a-context-manager-__enter__-and-__exit__"
+  },
+  {
+    "id": "FaHy7pS9bs-d",
+    "html": "<p>Any class implementing these two methods can be used with <code>with</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9dxKpMl3zzWH",
+    "code": "class Timer:\n    def __enter__(self):\n        import time\n        self.start = time.time()\n        return self\n\n    def __exit__(self, exc_type, exc_value, traceback):\n        import time\n        print(f'Elapsed: {time.time() - self.start:.2f}s')\n\nwith Timer():\n    slow_operation()\n# The elapsed time prints automatically when the block ends",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "wkINUuCCF_xE",
+    "text": "A Simpler Way — contextlib.contextmanager",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-simpler-way-contextlibcontextmanager"
+  },
+  {
+    "id": "JhyMUIupmbs7",
+    "html": "<p>For a simple case, a generator function decorated with <code>@contextmanager</code> avoids writing a whole class.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KCZDwPXpA5Pv",
+    "code": "from contextlib import contextmanager\nimport time\n\n@contextmanager\ndef timer():\n    start = time.time()\n    yield\n    print(f'Elapsed: {time.time() - start:.2f}s')\n\nwith timer():\n    slow_operation()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "bO-3FCzuZj4w",
+    "html": "<p>Everything before <code>yield</code> runs as setup (like <code>__enter__</code>); everything after runs as cleanup (like <code>__exit__</code>), and always runs even if the block raises.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X12TK3afkilp",
+    "rows": [
+      [
+        "open()",
+        "Closes the file"
+      ],
+      [
+        "threading.Lock()",
+        "Releases the lock"
+      ],
+      [
+        "a database connection object",
+        "Closes the connection"
+      ],
+      [
+        "unittest.mock.patch()",
+        "Restores the original, un-mocked value"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Common context manager",
+      "What it cleans up"
+    ]
+  },
+  {
+    "id": "TH-U13vTPJ-m",
+    "html": "<p>__exit__ receiving exception details (exc_type, exc_value, traceback) lets a context manager react to — or even suppress — an error, not just clean up after a successful block. Most simple context managers ignore these and just do cleanup regardless.</p>",
+    "type": "callout",
+    "title": "What those three __exit__ arguments are for",
+    "variant": "note"
+  }
+]
+```

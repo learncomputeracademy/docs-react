@@ -1,0 +1,151 @@
+---
+id: "ddfb6491-460c-40f0-878a-fac46ab0553b"
+title: "Large Language Models & RAG in Depth"
+path: "ai/llms-and-rag-in-depth"
+status: "published"
+meta_title: "Large Language Models & RAG in Depth | Learn Computer Academy"
+meta_description: "Fine-tuning versus prompting explained, and a genuinely deep look at Retrieval-Augmented Generation — the technique behind AI that knows your own data."
+sort_order: 18
+updated_at: "2026-09-03T06:44:38.156033+00:00"
+---
+
+```json
+[
+  {
+    "id": "nFEERxKEY7mn",
+    "html": "<p>An earlier lesson covered how LLMs learn to predict text. This lesson covers two ways professionals adapt a general-purpose model to a specific need — fine-tuning and RAG — and goes deep on the second, since it's what the document chatbot from two lessons ago was actually built on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "twaDijkbzYyg",
+    "text": "Fine-Tuning vs. Prompting: When to Use Which",
+    "type": "heading",
+    "level": 2,
+    "anchor": "fine-tuning-vs-prompting-when-to-use-which"
+  },
+  {
+    "id": "eXs9qcSRVJyy",
+    "html": "<p><b>Fine-tuning</b> means taking an already-trained model and training it further on a specific, narrower dataset, actually adjusting its internal parameters. <b>Prompting</b> (including RAG) leaves the model completely unchanged and instead shapes its behaviour through what you send it at the moment you ask.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5o2-KL5SCgly",
+    "rows": [
+      [
+        "Changes the model itself?",
+        "Yes — retrains on new data",
+        "No — model stays exactly as it was"
+      ],
+      [
+        "Cost and effort",
+        "Significant — needs a prepared dataset and real training time",
+        "Low — just write a better prompt or add relevant context"
+      ],
+      [
+        "Best for",
+        "Teaching a consistent tone, format, or specialised skill the model doesn't have by default",
+        "Giving the model facts it doesn't know, or facts that change often"
+      ],
+      [
+        "Iteration speed",
+        "Slow — each change means retraining",
+        "Fast — change and test instantly"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Fine-tuning",
+      "Prompting / RAG"
+    ]
+  },
+  {
+    "id": "Jcupgw87v00T",
+    "html": "<p>In practice, most real applications reach for prompting and RAG first, since they're dramatically cheaper and faster to iterate on — fine-tuning is a more specialised tool for when prompting genuinely isn't enough.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_fgrgEDvqPHS",
+    "text": "The Problem RAG Actually Solves",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-rag-actually-solves"
+  },
+  {
+    "id": "t6YDmEFbIg0X",
+    "html": "<p>An LLM has a training cutoff date and no access to your private data. If you want a chatbot that knows your specific company's products, policies, or documentation, you can't just paste everything into every prompt — it would be far too long and expensive — and retraining the model for this is extremely costly. <b>Retrieval-Augmented Generation (RAG)</b> solves this without touching the model at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3aqtAIjTSIPe",
+    "html": "<p>A regular LLM is like a professor who read an enormous number of books before a certain date, but can't look anything up afterward. RAG is like giving that same professor access to your specific private library, and having them quickly find the relevant pages before answering your question.</p>",
+    "type": "callout",
+    "title": "The Library Analogy",
+    "variant": "note"
+  },
+  {
+    "id": "cJT9eg5USGYN",
+    "text": "How RAG Actually Works, Step by Step",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-rag-actually-works-step-by-step"
+  },
+  {
+    "id": "F_X_Pf9bbrPf",
+    "rows": [
+      [
+        "1. Ingest",
+        "Your documents (a PDF, a website, internal docs) are split into small chunks — a few hundred words each."
+      ],
+      [
+        "2. Embed",
+        "Each chunk is converted into a mathematical vector — a long list of numbers — using an embedding model. Similar meaning produces similar vectors, and these are stored in a vector database."
+      ],
+      [
+        "3. Retrieve",
+        "When a user asks a question, the question itself is converted into a vector, and the system finds the stored chunks whose vectors are closest to it — the most relevant sections of your documents."
+      ],
+      [
+        "4. Generate",
+        "The question plus those retrieved chunks are sent to the LLM together: \"based only on this context, answer this question.\" The model answers from your actual data, not from its general training."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Step",
+      "What happens"
+    ]
+  },
+  {
+    "id": "Gy2rsIMRRQCR",
+    "html": "<p>This is exactly the process the LangChain example from the automation lesson implemented in code — now you know what each of its five steps was actually doing underneath.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tJje5bzzFa0r",
+    "alt": "Diagram of the four-step RAG pipeline in sequence — documents split into chunks during ingest, chunks converted to vectors during embed, the closest matching chunks found during retrieve, and the question plus retrieved chunks sent to the LLM during generate",
+    "type": "image",
+    "width": 1344,
+    "height": 576,
+    "caption": "Four steps, left to right — retrieve grounds the model before it ever generates an answer.",
+    "publicId": "docs/img/ai/llms-and-rag-in-depth-1"
+  },
+  {
+    "id": "ZVABBQZ9ajvq",
+    "text": "Vector Databases",
+    "type": "heading",
+    "level": 2,
+    "anchor": "vector-databases"
+  },
+  {
+    "id": "lMgcTmu_JkUN",
+    "html": "<p>A <b>vector database</b> is built specifically to store and search these numerical vectors efficiently, finding the closest matches among millions of chunks in a fraction of a second — a specialised tool for a specialised job, the same way a normal database is optimised for rows and columns rather than meaning-based similarity.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rWTLWemQCuO0",
+    "html": "<p>You now understand both how to adapt a model's behaviour and how to ground it in real data. The next lesson goes further still — from a model that answers to one that can actually act.</p>",
+    "type": "richtext"
+  }
+]
+```

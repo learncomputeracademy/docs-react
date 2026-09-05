@@ -1,0 +1,99 @@
+---
+id: "f2d61ae1-8f6f-4b8e-8cd0-91f9a93278df"
+title: "Building index.php, page.php, single.php, and 404.php"
+path: "wordpress/core-templates"
+status: "published"
+meta_title: "Building index.php, page.php, single.php, and 404.php | Learn Computer Academy"
+meta_description: "Putting the Loop and template hierarchy together to build the four template files nearly every request ends up passing through."
+sort_order: 8
+updated_at: "2026-07-30T14:23:26.634126+00:00"
+---
+
+```json
+[
+  {
+    "id": "oC1I2FSVl8r3",
+    "html": "<p>With the Loop and the template hierarchy both covered, these four files are just a matter of combining them. Each one exists because the hierarchy checks for it by name — none of this is magic, just the pattern from the last two lessons applied a few times over.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f3q71GPHoGYU",
+    "text": "index.php — the Universal Fallback",
+    "type": "heading",
+    "level": 2,
+    "anchor": "indexphp-the-universal-fallback"
+  },
+  {
+    "id": "Y-t6EwTAvYS1",
+    "code": "<?php get_header(); ?>\n\n<main>\n<?php if ( have_posts() ) : ?>\n    <?php while ( have_posts() ) : the_post(); ?>\n        <article>\n            <h2><a href=\"<?php the_permalink(); ?>\"><?php the_title(); ?></a></h2>\n            <?php the_excerpt(); ?>\n        </article>\n    <?php endwhile; ?>\n<?php else : ?>\n    <p>Nothing found.</p>\n<?php endif; ?>\n</main>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "oTzHgAmt2rjg",
+    "html": "<p>Because <code>index.php</code> is the fallback for lists of posts (the blog listing, category archives, search results, and more), it loops over <i>multiple</i> posts and shows an excerpt and a link — not the full content, which belongs on the single post itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qHu7TQiMHEeb",
+    "text": "page.php and single.php",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pagephp-and-singlephp"
+  },
+  {
+    "id": "jBzcAuttznHL",
+    "html": "<p>Both follow the same shape: one item, full content, no excerpt. The only real difference between them in practice is often the surrounding markup:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kNgHXrrbUOrA",
+    "code": "<?php get_header(); ?>\n\n<main>\n<?php while ( have_posts() ) : the_post(); ?>\n    <article>\n        <h1><?php the_title(); ?></h1>\n        <?php the_content(); ?>\n    </article>\n<?php endwhile; ?>\n</main>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "hBhCj0SrkG_Y",
+    "html": "<p>A single post commonly adds the publish date, author, or category alongside the title; a page usually doesn't need any of that. Beyond that, the files are close to identical, which is exactly why the hierarchy treats them as two separate template slots in the first place.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mJ4ugJyZ-L9Z",
+    "text": "404.php — No Loop Needed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "404php-no-loop-needed"
+  },
+  {
+    "id": "kaJTo9orVr__",
+    "html": "<p>A 404 page has nothing to loop over — there's no post that matched — so it skips the Loop entirely and just shows a message and something useful to do next:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cbsDL_G9a5P9",
+    "code": "<?php get_header(); ?>\n\n<main>\n    <h1>Page Not Found</h1>\n    <p>Sorry, nothing matched that address.</p>\n    <?php get_search_form(); ?>\n</main>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "WlV3emOwlTXv",
+    "html": "<p><code>get_search_form()</code> outputs WordPress's built-in search box — genuinely useful on a 404 page, since a visitor who hit a broken link often knows roughly what they were looking for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p2W8kulv8Oy3",
+    "html": "<p>All four of these files can — and usually should — grow well beyond this minimal shape: pagination on <code>index.php</code>, comments on <code>single.php</code>, a featured image at the top of <code>page.php</code>. What's here is the skeleton every real version starts from, not the ceiling.</p>",
+    "type": "callout",
+    "title": "This is a starting point",
+    "variant": "tip"
+  },
+  {
+    "id": "u5XivAnH7542",
+    "html": "<p>With the core templates in place, the next lesson looks at a different kind of page template — one you assign by hand to a specific page, rather than one WordPress picks automatically.</p>",
+    "type": "richtext"
+  }
+]
+```

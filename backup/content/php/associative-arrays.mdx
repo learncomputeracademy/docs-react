@@ -1,0 +1,91 @@
+---
+id: "7f9b025f-570e-47b1-8003-842cacafcceb"
+title: "Associative Arrays"
+path: "php/associative-arrays"
+status: "published"
+meta_title: "PHP Associative Arrays | Learn Computer Academy"
+meta_description: "PHP's associative arrays — key-value pairs instead of numeric positions — and why they're used constantly in real PHP code."
+sort_order: 12
+updated_at: "2026-07-30T09:08:37.894105+00:00"
+---
+
+```json
+[
+  {
+    "id": "jSJt-SD_z9BA",
+    "html": "<p>An <b>associative array</b> uses named keys instead of numeric positions — the same array, just addressed by a meaningful label instead of \"the third item.\" These show up everywhere in real PHP code, including in superglobals you'll meet soon.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3-XTMa7xD0_Y",
+    "text": "Creating One",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-one"
+  },
+  {
+    "id": "Tq1p5ntr_pHe",
+    "code": "<?php\n  $student = [\n    \"name\" => \"Priya\",\n    \"age\" => 21,\n    \"course\" => \"Web Development\",\n  ];\n  echo $student[\"name\"]; // \"Priya\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "-s1_otvw0PSz",
+    "html": "<p>The <code>=&gt;</code> symbol pairs each key with its value. Keys are usually strings, but can also be integers.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yUPy9nra8YnG",
+    "text": "Looping Over Key-Value Pairs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "looping-over-key-value-pairs"
+  },
+  {
+    "id": "syU3_hBGzguR",
+    "code": "<?php\n  foreach ($student as $key => $value) {\n    echo \"$key: $value\\n\";\n  }\n  // name: Priya\n  // age: 21\n  // course: Web Development\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "AabG4H1ngJjy",
+    "text": "Checking a Key Exists",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-a-key-exists"
+  },
+  {
+    "id": "8f7U0ppYeXz_",
+    "html": "<p>Reading a key that isn't there produces a warning, not a crash — but it's good practice to check first, especially with data from outside your own script (forms, a database, an API):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ljUkO3K--tE9",
+    "code": "<?php\n  if (array_key_exists(\"email\", $student)) {\n    echo $student[\"email\"];\n  } else {\n    echo \"No email on file.\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qaUVhpPXecCC",
+    "text": "Nested Associative Arrays",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nested-associative-arrays"
+  },
+  {
+    "id": "f6Tsz_S1TI--",
+    "html": "<p>Combining arrays and associative arrays models real-world data naturally — this shape will look familiar once you reach the PHP-and-MySQL lessons, since a database row often lands in PHP exactly this way:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IkU_pNH6N1Ml",
+    "code": "<?php\n  $students = [\n    [\"name\" => \"Priya\", \"age\" => 21],\n    [\"name\" => \"Amit\", \"age\" => 23],\n  ];\n  echo $students[0][\"name\"]; // \"Priya\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

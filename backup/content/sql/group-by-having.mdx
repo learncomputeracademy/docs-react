@@ -1,0 +1,116 @@
+---
+id: "95acb3e2-58c9-44cd-9a1e-ef8e7658be6d"
+title: "Grouping — GROUP BY & HAVING"
+path: "sql/group-by-having"
+status: "published"
+meta_title: "SQL Grouping — GROUP BY & HAVING | Learn Computer Academy"
+meta_description: "How GROUP BY collapses rows into summarized groups, and how HAVING filters those groups after they're formed — the difference from WHERE."
+sort_order: 10
+updated_at: "2026-07-29T06:31:07.480871+00:00"
+---
+
+```json
+[
+  {
+    "id": "VZbSBInweTVt",
+    "html": "<p><code>GROUP BY</code> collapses rows into summarized groups, and <code>HAVING</code> filters those groups after they're formed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "740qjh-nOTAS",
+    "text": "GROUP BY",
+    "type": "heading",
+    "level": 2,
+    "anchor": "group-by"
+  },
+  {
+    "id": "lJxd1KFpuSEZ",
+    "html": "<p>Groups rows that share a value so aggregate functions can summarize each group.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GSsm-3h097it",
+    "code": "SELECT column, AGG(column)\nFROM table_name\nGROUP BY column;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "LyyRBQSWkq55",
+    "code": "SELECT department, COUNT(*)\nFROM Employee\nGROUP BY department;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "yXcWn_eyHoV7",
+    "rows": [
+      [
+        "IT",
+        "12"
+      ],
+      [
+        "HR",
+        "5"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "department",
+      "count"
+    ],
+    "caption": "Result"
+  },
+  {
+    "id": "eAVlCXD42xTX",
+    "html": "<ul><li>Groups rows by department.</li><li>Returns exactly one summarized result per group.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "xzlLrFIMuGtP",
+    "html": "<p>Selecting a column that's neither grouped nor wrapped in an aggregate function — most engines reject this outright.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "i2lLCKJR8Cme",
+    "text": "HAVING",
+    "type": "heading",
+    "level": 2,
+    "anchor": "having"
+  },
+  {
+    "id": "niHE1V_Fd4K9",
+    "html": "<p>Filters grouped results, the way <code>WHERE</code> filters individual rows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zOnf1YFodjwN",
+    "code": "SELECT column, AGG(column)\nFROM table_name\nGROUP BY column\nHAVING condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "0zfQDISgJ9vq",
+    "code": "SELECT department, COUNT(*)\nFROM Employee\nGROUP BY department\nHAVING COUNT(*) > 5;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "vNhMckS16iDV",
+    "html": "<ul><li>Filters groups after GROUP BY has formed them.</li><li>Runs after grouping, whereas WHERE runs before — that ordering is the whole reason HAVING exists.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "vmULbQKo5ufC",
+    "html": "<p>Using <code>WHERE</code> to filter on an aggregate value — that's <code>HAVING</code>'s job specifically, because the aggregate doesn't exist yet at the point WHERE runs.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "rrX7yus6PXqJ",
+    "html": "<p>Grouping and filtering set up the last piece of core querying: combining data from more than one table at once, with joins.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,106 @@
+---
+id: "366a1a5d-ebbc-4e4b-9ac2-051892c685d6"
+title: "Building Field Groups with SCF"
+path: "wordpress/scf-field-groups"
+status: "published"
+meta_title: "Building Field Groups with SCF | Learn Computer Academy"
+meta_description: "Adding fields to a field group and using location rules to attach it to the right post type."
+sort_order: 19
+updated_at: "2026-07-30T14:23:30.239047+00:00"
+---
+
+```json
+[
+  {
+    "id": "1l2ao8zk5KJU",
+    "html": "<p>From <b>Custom Fields → Add New</b> in the admin, a field group starts as just a name and a blank list — everything else is adding fields to it one at a time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qn5JOeMBvfPy",
+    "text": "Adding a Field",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-field"
+  },
+  {
+    "id": "fvckjFiSZY6N",
+    "html": "<p>Each field needs a <b>Field Label</b> (what an editor sees — \"Client Name\"), a <b>Field Name</b> (the key used to read it back in code, auto-filled from the label but worth checking), and a <b>Field Type</b> from the list in the previous lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wd-WWNtgzYos",
+    "html": "<p>Field Name and Field Label look similar but do different jobs — the Label is what an editor sees, the Name is what your template code refers to (<code>get_field( 'client_name' )</code>). Renaming a Label later is free; renaming a Name after fields have real data in them means updating every template that reads it.</p>",
+    "type": "callout",
+    "title": "Get the Field Name right early",
+    "variant": "tip"
+  },
+  {
+    "id": "EqU95zbkFxEu",
+    "text": "Location Rules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "location-rules"
+  },
+  {
+    "id": "ZLBPRi6921kc",
+    "html": "<p>A field group does nothing until it's told where to appear — the <b>Location Rules</b> section at the bottom, built as a simple \"Show this field group if...\" condition:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SeD6RznTBAnG",
+    "code": "Show this field group if\nPost Type    is equal to    Project",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "rjwpbO9c5uAT",
+    "html": "<p>Location rules can combine multiple conditions, and can target far more than just a post type — a specific page template, a taxonomy term, even a user role. For a <code>project</code>-specific field group, though, \"Post Type is equal to Project\" is usually the whole rule.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IwIDpm9uTiPY",
+    "text": "A Practical Field Group",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-field-group"
+  },
+  {
+    "id": "5gPGRYOxQLfe",
+    "html": "<p>For the <code>project</code> post type from earlier, a reasonable field group might be:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PhSQ8b82hEQF",
+    "rows": [
+      [
+        "Client Name",
+        "client_name",
+        "Text"
+      ],
+      [
+        "Completion Date",
+        "completion_date",
+        "Text (or Date Picker, if available)"
+      ],
+      [
+        "Project Gallery",
+        "project_gallery",
+        "Gallery / Repeater of Image fields"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Field Label",
+      "Field Name",
+      "Type"
+    ]
+  },
+  {
+    "id": "D39ADaT4pSbU",
+    "html": "<p>Save the field group, open (or create) a project, and those three fields now appear right below the content editor — ready to fill in. The next lesson gets that data back out, into an actual template.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,103 @@
+---
+id: "ea4e3817-6af0-410c-bcf1-8785f1574850"
+title: "HTTPS and SSL Certificates"
+path: "hosting/https-and-ssl-certificates"
+status: "published"
+meta_title: "HTTPS and SSL Certificates Explained | Learn Computer Academy"
+meta_description: "What actually happens when a site uses HTTPS, why it is now essentially mandatory, and how to actually get a certificate — usually for free."
+sort_order: 32
+updated_at: "2026-08-05T13:35:40.546478+00:00"
+---
+
+```json
+[
+  {
+    "id": "YuT0OtD_hiGf",
+    "html": "<p>This site's <a href=\"/seo/\">SEO course</a> already covers HTTPS as a baseline requirement. This lesson covers the hosting side directly: what a certificate actually is, and how to get one onto your own server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GRNeLexisFJt",
+    "text": "What HTTPS Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-https-actually-does"
+  },
+  {
+    "id": "DrZ0XvUQRCqa",
+    "html": "<p>Plain HTTP sends everything — including anything typed into a form — as readable plain text, visible to anything positioned between the browser and the server. <b>HTTPS</b> encrypts that connection, so the content is unreadable to anyone intercepting it in between, even though it still travels over the same network path.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "931XraG6s9Vx",
+    "text": "What a Certificate Actually Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-certificate-actually-is"
+  },
+  {
+    "id": "m8GPWyQa14s1",
+    "html": "<p>An <b>SSL/TLS certificate</b> (the terms are used interchangeably in casual conversation; TLS is the modern, correct name for what most people still call SSL) is a small file, issued by a trusted <b>certificate authority</b>, that proves a server genuinely controls the domain it claims to represent, and enables the encryption itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1juY4DJJo38I",
+    "alt": "Isometric diagram showing a browser and a server connected by a line, with a padlock icon on the connection representing HTTPS encryption, contrasted with an open unlocked padlock on a separate plain HTTP connection",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A certificate proves identity and enables encryption — the padlock browsers show is this working correctly.",
+    "publicId": "docs/img/hosting/https-1"
+  },
+  {
+    "id": "75VqLt-3yzev",
+    "text": "Getting One — Usually Free Today",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-one-usually-free-today"
+  },
+  {
+    "id": "QDbRVq3n_kG9",
+    "html": "<p><b>Let's Encrypt</b> issues certificates at no cost, and most hosting control panels integrate it directly — often a single toggle, with automatic renewal handled entirely behind the scenes. There is no longer a real cost argument for a site running on plain HTTP. Most cloud and managed platforms covered earlier in this category provision HTTPS automatically for any domain you connect, with no separate step at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2Ep348DPwm_1",
+    "text": "Why This Is No Longer Optional",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-is-no-longer-optional"
+  },
+  {
+    "id": "IyRAUNAOB1UL",
+    "html": "<p>Browsers now mark plain-HTTP pages as \"Not Secure\" directly in the address bar, and some browser features (camera and location access, service workers, among others) are simply unavailable without HTTPS. Combined with the SEO course's point that HTTPS is a baseline ranking signal, this is a case where there is genuinely no remaining reason to skip it — every hosting type covered in this category supports it, usually for free.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "y1QFGjvNsJH0",
+    "text": "A Common Migration Mistake",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-migration-mistake"
+  },
+  {
+    "id": "Ps5jxHLiGrn8",
+    "html": "<p>Enabling HTTPS without also redirecting the old plain-HTTP version to it leaves both versions of your site live at once — a duplicate that confuses search engines and splits any accumulated ranking signals between two addresses. A permanent (301) redirect from <code>http://</code> to <code>https://</code> is a required companion step, not an optional extra, every time HTTPS is turned on for an existing site.</p>",
+    "type": "callout",
+    "title": "Redirect HTTP to HTTPS, always",
+    "variant": "warning"
+  },
+  {
+    "id": "g7qoM6NFSpeG",
+    "text": "Certificate Renewal",
+    "type": "heading",
+    "level": 2,
+    "anchor": "certificate-renewal"
+  },
+  {
+    "id": "F-c3aNYULKmw",
+    "html": "<p>Certificates expire, typically after a period of months, specifically so a compromised or outdated one cannot remain trusted indefinitely. Modern free certificate services renew automatically with no action from you; if using an older manual process, an expired certificate is a real, visible failure — visitors see a security warning rather than a working site, so tracking renewal dates matters if this isn't automated for you.</p>",
+    "type": "richtext"
+  }
+]
+```

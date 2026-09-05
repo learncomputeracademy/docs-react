@@ -1,0 +1,85 @@
+---
+id: "b7dd2027-ffc7-4b69-a426-dc9cd19c45ee"
+title: "Registering Post Types with CPT UI"
+path: "wordpress/cpt-ui-post-types"
+status: "published"
+meta_title: "Registering Post Types with CPT UI | Learn Computer Academy"
+meta_description: "Building a real custom post type through the CPT UI plugin's admin screen, and the settings that actually matter."
+sort_order: 15
+updated_at: "2026-07-30T14:23:28.954709+00:00"
+---
+
+```json
+[
+  {
+    "id": "VOfK2YvDBwiK",
+    "html": "<p>With CPT UI active (installed back in the setup lesson), a new <b>CPT UI</b> menu appears in the admin sidebar. Registering a post type is a form, not code — <b>CPT UI → Add/Edit Post Types</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R2G2kEUIRCjs",
+    "text": "The Settings That Matter",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-settings-that-matter"
+  },
+  {
+    "id": "V-6gXHi4AKkU",
+    "rows": [
+      [
+        "Post Type Slug",
+        "The internal name used in code and URLs — lowercase, no spaces, e.g. <code>project</code>"
+      ],
+      [
+        "Plural / Singular Labels",
+        "What shows in the admin menu and screens — \"Projects\" / \"Project\""
+      ],
+      [
+        "Public",
+        "Whether this content type has a public-facing URL at all — almost always <b>True</b>"
+      ],
+      [
+        "Has Archive",
+        "Whether an automatic listing page exists at <code>/projects/</code> — needed for <code>archive-project.php</code> to ever be used (next lesson)"
+      ],
+      [
+        "Show in Menu",
+        "Whether it gets its own top-level admin menu item — usually <b>True</b>"
+      ],
+      [
+        "Supports",
+        "Which editor features are available — Title, Editor, Featured Image are the common baseline; only enable what the content type actually needs"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Field",
+      "What it controls"
+    ]
+  },
+  {
+    "id": "3EfbC41k01bl",
+    "text": "What This Generates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-this-generates"
+  },
+  {
+    "id": "0ZqrNSDXACt4",
+    "html": "<p>Filling out that form and saving is functionally equivalent to writing a <code>register_post_type()</code> call in <code>functions.php</code> by hand — CPT UI just gives it a form instead of PHP syntax to get wrong. It even has an \"Export/Get Code\" option that shows the generated PHP, worth a look once just to see what the plugin's doing on your behalf.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "brI8vQjfPtdX",
+    "html": "<p>After adding a new post type, visit <b>Settings → Permalinks</b> and click <b>Save Changes</b> — even without changing anything. WordPress caches its URL-routing rules, and a newly registered post type's URLs (especially its archive) can 404 until that cache is refreshed.</p>",
+    "type": "callout",
+    "title": "Flush permalinks after adding a post type",
+    "variant": "tip"
+  },
+  {
+    "id": "1KUO4Xk1W6ww",
+    "html": "<p>With a post type registered, the next lesson covers its natural companion — a custom taxonomy, for organizing that content type the way categories organize posts.</p>",
+    "type": "richtext"
+  }
+]
+```

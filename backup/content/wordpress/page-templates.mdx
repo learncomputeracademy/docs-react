@@ -1,0 +1,80 @@
+---
+id: "0b4bd1b3-6ea0-4a1a-9c2e-4785ab6d27ab"
+title: "Custom Page Templates"
+path: "wordpress/page-templates"
+status: "published"
+meta_title: "Custom Page Templates | Learn Computer Academy"
+meta_description: "How to build a page template that only applies where you assign it by hand — the pattern behind a totally different homepage layout."
+sort_order: 9
+updated_at: "2026-07-30T14:23:26.960969+00:00"
+---
+
+```json
+[
+  {
+    "id": "XbOc1K2LuVza",
+    "html": "<p>The template hierarchy picks a file automatically based on a page's slug or ID, but sometimes you want a completely custom layout that has nothing to do with either — a homepage with a hero banner, a landing page with a different structure entirely. That's what a <b>custom page template</b> is for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0EHFtwY06Zh4",
+    "text": "Registering a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-a-template"
+  },
+  {
+    "id": "R44CbVAIPufM",
+    "html": "<p>Any PHP file in the theme becomes a selectable page template just by adding one comment at the top:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iZy7QdG2UkgX",
+    "code": "<?php\n/**\n * Template Name: Home Page\n */\nget_header();\n?>\n\n<section class=\"hero\">\n    <?php while ( have_posts() ) : the_post(); ?>\n        <?php the_content(); ?>\n    <?php endwhile; ?>\n</section>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Ol7wuduvfmyN",
+    "html": "<p>That single <code>Template Name:</code> line is the entire registration step — no <code>functions.php</code> code needed. A common naming convention is <code>template-{name}.php</code>, but the file name itself doesn't matter to WordPress; only the comment does.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fPRnQ5rynfFG",
+    "text": "Assigning It to a Page",
+    "type": "heading",
+    "level": 2,
+    "anchor": "assigning-it-to-a-page"
+  },
+  {
+    "id": "_Wm9CYyLPBye",
+    "html": "<p>In the editor for any page, the <b>Page Attributes</b> panel has a <b>Template</b> dropdown — every file with a <code>Template Name:</code> comment shows up there by its given name. Pick it, update the page, and that one page now renders through the custom file instead of <code>page.php</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UlA0xFH7WTf_",
+    "html": "<p>A custom page template completely replaces <code>page.php</code> for that one page — the hierarchy checks for it <i>first</i>, ahead of everything else. Nothing from <code>page.php</code> carries over automatically; if the custom template needs the same header, footer, or other shared markup, it calls <code>get_header()</code>/<code>get_footer()</code> itself, same as any other template.</p>",
+    "type": "callout",
+    "title": "It replaces page.php entirely, for that page only",
+    "variant": "note"
+  },
+  {
+    "id": "LSWfIlRclZ03",
+    "text": "A Real Use: the Homepage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-real-use-the-homepage"
+  },
+  {
+    "id": "TaWl2NBKjWDS",
+    "html": "<p>The most common real-world use is exactly the example above: a \"Home Page\" template, assigned to whichever page is set as the site's static homepage in <b>Settings → Reading</b>. It lets the homepage have a completely different structure — a hero section, featured content, whatever the design calls for — without any of that logic leaking into the regular <code>page.php</code> that every other page still uses.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N_INUixG6MBz",
+    "html": "<p>The next lesson steps away from templates for a moment to fix something every one of them has been doing wrong so far — loading CSS and JavaScript the right way, instead of hardcoding <code>&lt;link&gt;</code> and <code>&lt;script&gt;</code> tags directly in <code>header.php</code>.</p>",
+    "type": "richtext"
+  }
+]
+```

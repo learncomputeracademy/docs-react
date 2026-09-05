@@ -1,0 +1,140 @@
+---
+id: "e0218591-42c8-480e-b07f-ab65eafd0c72"
+title: "Windows Command Line Basics"
+path: "cybersecurity/windows-command-line"
+status: "published"
+meta_title: "Windows Command Line Basics | Learn Computer Academy"
+meta_description: "A first, practical introduction to the Windows command line — the handful of commands worth knowing before the security lessons ahead use them."
+sort_order: 2
+updated_at: "2026-09-03T02:15:30.00321+00:00"
+---
+
+```json
+[
+  {
+    "id": "uGQNrFSeFa4-",
+    "html": "<p>Several lessons ahead reference checking network settings, running processes, and files from the command line rather than clicking through menus — it's faster, more precise, and is how real troubleshooting and security work actually gets done. This lesson is a first, practical introduction for anyone who has never opened one before.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sqVQVR-uiLME",
+    "text": "Opening It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "opening-it"
+  },
+  {
+    "id": "C3PenyygKOs5",
+    "html": "<p>Press <code>Win</code>, type <code>powershell</code>, and press Enter. This course uses PowerShell (the modern default on Windows 10/11) rather than the older Command Prompt — the commands below work in both, with PowerShell adding a few extra security-relevant ones.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "umBiQyvbxxah",
+    "text": "Finding Your Way Around",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finding-your-way-around"
+  },
+  {
+    "id": "_M9NE96_7rev",
+    "code": "# Show the current folder\nGet-Location\n\n# List files and folders here\nGet-ChildItem\n\n# Move into a folder\nCd Downloads\n\n# Go back up one level\nCd ..",
+    "type": "code",
+    "language": "powershell",
+    "runnable": false
+  },
+  {
+    "id": "IjsjVnH6sMq8",
+    "html": "<p><code>Get-ChildItem</code> is commonly shortened to its alias <code>dir</code> or <code>ls</code> — both work identically in PowerShell.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7PnllIlWONG5",
+    "text": "Checking Your Network — Security-Relevant",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-your-network-security-relevant"
+  },
+  {
+    "id": "z-xpYmT5pP0F",
+    "code": "# Show this computer's IP address, gateway, and DNS servers\nipconfig /all\n\n# Test whether a host is reachable\nping google.com\n\n# List active network connections — useful for spotting\n# a connection to somewhere unexpected\nGet-NetTCPConnection -State Established",
+    "type": "code",
+    "language": "powershell",
+    "runnable": false
+  },
+  {
+    "id": "HdLCBDrilXjD",
+    "html": "<p><code>ipconfig /all</code> is worth knowing on its own — it's the fastest way to confirm which Wi-Fi network a device is actually connected to, which matters directly in the Wi-Fi and VPN lesson ahead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "h2XoRLTJQsg7",
+    "text": "Checking What's Running",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-whats-running"
+  },
+  {
+    "id": "4yPPIBMEl0gU",
+    "code": "# List every running process\nGet-Process\n\n# Find one specific process by name\nGet-Process -Name chrome\n\n# End a process that's stuck or shouldn't be running\nStop-Process -Name notepad",
+    "type": "code",
+    "language": "powershell",
+    "runnable": false
+  },
+  {
+    "id": "D1W1Bq4gHwvn",
+    "html": "<p>Ending an unfamiliar process with <code>Stop-Process</code> without knowing what it is can crash other programs or the system. Look up an unrecognized process name before killing it — this command is for processes already identified as safe to close.</p>",
+    "type": "callout",
+    "title": "Know before you stop",
+    "variant": "warning"
+  },
+  {
+    "id": "xq37MSr3qBS4",
+    "text": "Common Commands, Quick Reference",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-commands-quick-reference"
+  },
+  {
+    "id": "nVYQvrmjpy-W",
+    "rows": [
+      [
+        "Get-Location / cd",
+        "Show or change the current folder"
+      ],
+      [
+        "Get-ChildItem / dir",
+        "List files and folders"
+      ],
+      [
+        "ipconfig /all",
+        "Show network configuration — IP, gateway, DNS"
+      ],
+      [
+        "ping <host>",
+        "Test whether a host responds"
+      ],
+      [
+        "Get-Process",
+        "List running processes"
+      ],
+      [
+        "Stop-Process -Name <name>",
+        "End a running process"
+      ],
+      [
+        "Get-NetTCPConnection",
+        "List active network connections"
+      ],
+      [
+        "Clear-History",
+        "Clear this session's command history"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  }
+]
+```

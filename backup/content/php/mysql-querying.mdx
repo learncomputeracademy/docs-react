@@ -1,0 +1,96 @@
+---
+id: "fb7f6f03-3a93-4b93-89db-c4d3c61e30bb"
+title: "PHP and MySQL — Querying Data with PDO"
+path: "php/mysql-querying"
+status: "published"
+meta_title: "PHP and MySQL: Querying Data with PDO | Learn Computer Academy"
+meta_description: "Running SELECT, INSERT, UPDATE, and DELETE queries from PHP with PDO, and why prepared statements are essential for security."
+sort_order: 29
+updated_at: "2026-07-30T09:08:44.377335+00:00"
+---
+
+```json
+[
+  {
+    "id": "3nwMXcYb0bIq",
+    "html": "<p>With a connection open (from the previous lesson), PDO can run any SQL you already know from the <a href=\"/sql/dml/\">SQL DML lesson</a> — <code>SELECT</code>, <code>INSERT</code>, <code>UPDATE</code>, <code>DELETE</code> — all work the same way from PHP.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZLirpHX_HCqQ",
+    "text": "Running a SELECT Query",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-a-select-query"
+  },
+  {
+    "id": "-9is5pR0Sq5C",
+    "code": "<?php\n  $stmt = $pdo->query(\"SELECT name, course FROM students\");\n  $students = $stmt->fetchAll(PDO::FETCH_ASSOC);\n\n  foreach ($students as $student) {\n    echo $student[\"name\"] . \" — \" . $student[\"course\"] . \"\\n\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ipVPC9tY9Q7n",
+    "html": "<p><code>fetchAll(PDO::FETCH_ASSOC)</code> returns exactly the shape you met in the Associative Arrays lesson — an array of associative arrays, one per row, keyed by column name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ib6hou8E9nek",
+    "text": "Prepared Statements — the Safe Way to Use Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "prepared-statements-the-safe-way-to-use-variables"
+  },
+  {
+    "id": "Yk79O5w1ZVOl",
+    "html": "<p>Never build a query by directly gluing a variable into the SQL string. A <b>prepared statement</b> sends the query and the data separately, so the database never confuses \"data\" with \"SQL code\" — this is the single most important security practice in this entire lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XDbHq6R4Hixx",
+    "code": "<?php\n  // NEVER do this:\n  // $stmt = $pdo->query(\"SELECT * FROM students WHERE name = '$name'\");\n\n  // Do this instead:\n  $stmt = $pdo->prepare(\"SELECT * FROM students WHERE name = ?\");\n  $stmt->execute([$name]);\n  $result = $stmt->fetch(PDO::FETCH_ASSOC);\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "XU2CzPJGiLOO",
+    "html": "<p>Gluing a variable directly into a SQL string opens the door to <b>SQL injection</b> — a visitor typing something like <code>anything' OR '1'='1</code> into a form field could rewrite your query's logic entirely, potentially reading or deleting data they were never meant to touch. Prepared statements close this off completely, because the database engine itself is what keeps data and code separate — this is not something to memorize and skip \"for simple cases.\"</p>",
+    "type": "callout",
+    "title": "This is not optional",
+    "variant": "warning"
+  },
+  {
+    "id": "J9iDVPpk_PPy",
+    "text": "INSERT, UPDATE, and DELETE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "insert-update-and-delete"
+  },
+  {
+    "id": "oKVM1HdVzFUC",
+    "code": "<?php\n  // INSERT\n  $stmt = $pdo->prepare(\"INSERT INTO students (name, course) VALUES (?, ?)\");\n  $stmt->execute([\"Priya\", \"Web Development\"]);\n\n  // UPDATE\n  $stmt = $pdo->prepare(\"UPDATE students SET course = ? WHERE name = ?\");\n  $stmt->execute([\"Graphic Design\", \"Priya\"]);\n\n  // DELETE\n  $stmt = $pdo->prepare(\"DELETE FROM students WHERE name = ?\");\n  $stmt->execute([\"Priya\"]);\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "pfMAc-wpLMaT",
+    "html": "<p>The <code>?</code> placeholders are filled in, in order, by the array passed to <code>execute()</code> — named placeholders (<code>:name</code> instead of <code>?</code>) are also available, and read more clearly once a query has several parameters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0gxC3u0hRpwg",
+    "text": "Where This Leaves You",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-leaves-you"
+  },
+  {
+    "id": "ST75u4L9BorV",
+    "html": "<p>This lesson closes out the PHP section by connecting it back to everything else on this site: the HTML you already know renders the page, the PHP in this section decides what data goes into it, and the <a href=\"/sql/\">SQL section</a> is the full reference for everything you can ask a database to do once PHP hands it a query. From here, the practical next step is a small real project — a guestbook, a simple to-do list stored in a database — that uses all of it together.</p>",
+    "type": "richtext"
+  }
+]
+```

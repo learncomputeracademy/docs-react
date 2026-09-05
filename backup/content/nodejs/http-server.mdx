@@ -1,0 +1,134 @@
+---
+id: "17845f39-b215-4864-b9e1-6e8c8ace8e14"
+title: "Creating a Web Server"
+path: "nodejs/http-server"
+status: "published"
+meta_title: "Creating a Web Server with Node.js | Learn Computer Academy"
+meta_description: "Build a real web server from scratch with the built-in http module, and understand the request/response cycle that every web framework is built on."
+sort_order: 9
+updated_at: "2026-08-05T05:47:55.289464+00:00"
+---
+
+```json
+[
+  {
+    "id": "jNfo8EB4xA0Z",
+    "html": "<p>Every website you've ever visited works the same basic way: your browser <b>sends a request</b> to a server, and the server <b>sends back a response</b>. The <code>http</code> module lets Node.js play the server side of that exchange, with no external packages needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lfKW2p5Kwey6",
+    "alt": "Diagram showing a browser sending an HTTP request to a Node.js server, and the server sending back an HTTP response with HTML content",
+    "type": "image",
+    "width": 1344,
+    "height": 752,
+    "caption": "A browser sends a request; a Node.js server decides what response to send back.",
+    "publicId": "docs/img/nodejs/http-server-1"
+  },
+  {
+    "id": "_c4Uw-q_QWPE",
+    "text": "The Simplest Server",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-simplest-server"
+  },
+  {
+    "id": "e1_Be3qk_iLb",
+    "code": "const http = require('http')\n\nconst server = http.createServer((req, res) => {\n  res.writeHead(200, { 'Content-Type': 'text/plain' })\n  res.end('Hello from Node!')\n})\n\nserver.listen(3000, () => {\n  console.log('Server running at http://localhost:3000')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "XET73-UQl5IU",
+    "html": "<p>Run this file with <code>node</code>, then open <code>http://localhost:3000</code> in a browser. Unlike the scripts you've run so far, this one doesn't finish — <code>server.listen()</code> keeps the program alive, waiting for requests, until you stop it with <code>Ctrl+C</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jvIZwNPPUqsF",
+    "text": "The Callback: req and res",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-callback-req-and-res"
+  },
+  {
+    "id": "0jzeNygmBUQB",
+    "html": "<p>The function passed to <code>createServer()</code> runs once for every incoming request, and receives two objects:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZD-swbYU0zrK",
+    "rows": [
+      [
+        "<code>req</code> (request)",
+        "What the browser asked for — <code>req.url</code>, <code>req.method</code>, <code>req.headers</code>"
+      ],
+      [
+        "<code>res</code> (response)",
+        "What you send back — <code>res.writeHead()</code>, <code>res.write()</code>, <code>res.end()</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Object",
+      "What it holds"
+    ]
+  },
+  {
+    "id": "xv4UUfk1KF94",
+    "html": "<p><code>res.end()</code> is required — the browser keeps waiting until it's called, and the connection never finishes without it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kUSo4Pj8TA-D",
+    "text": "Responding Differently by URL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responding-differently-by-url"
+  },
+  {
+    "id": "Z_QGqJ0IFAxv",
+    "code": "const server = http.createServer((req, res) => {\n  if (req.url === '/') {\n    res.writeHead(200, { 'Content-Type': 'text/plain' })\n    res.end('Welcome home')\n  } else if (req.url === '/about') {\n    res.writeHead(200, { 'Content-Type': 'text/plain' })\n    res.end('About this site')\n  } else {\n    res.writeHead(404, { 'Content-Type': 'text/plain' })\n    res.end('Not found')\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "NOaCkIUL6RBG",
+    "html": "<p>This <code>if</code>/<code>else</code> chain checking <code>req.url</code> is, at its core, exactly what a web framework's \"router\" does — just with a much friendlier syntax and a lot more built in. You'll see that properly in the Express lessons later in this course.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "78lljwrpIl7T",
+    "text": "Sending HTML Instead of Plain Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sending-html-instead-of-plain-text"
+  },
+  {
+    "id": "bqwPZAaJjfFY",
+    "code": "res.writeHead(200, { 'Content-Type': 'text/html' })\nres.end('<h1>Hello!</h1><p>This is a real webpage.</p>')",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "zPL6hTLhj03B",
+    "html": "<p>The <code>Content-Type</code> header tells the browser how to interpret what follows. Set it to <code>text/html</code> and the browser renders the tags; leave it as <code>text/plain</code> and it shows the raw <code>&lt;h1&gt;</code> text instead of rendering it.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "dXfE9G3aa7M1",
+    "text": "Status Codes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "status-codes"
+  },
+  {
+    "id": "TF-EyCJbD-jt",
+    "html": "<p>The first argument to <code>writeHead()</code> is the <b>status code</b> — a number that tells the browser how the request went. <code>200</code> means success; <code>404</code> means \"not found\"; <code>500</code> means the server hit an error. Getting these right matters — a page that failed but returns <code>200</code> looks successful to search engines and monitoring tools even when it isn't.</p>",
+    "type": "richtext"
+  }
+]
+```

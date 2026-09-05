@@ -1,0 +1,132 @@
+---
+id: "76993226-6398-4dd7-963d-f67a17758c6e"
+title: "Git Workflows — Feature Branches and Commit Conventions"
+path: "git/git-workflows"
+status: "published"
+meta_title: "Git Workflows | Learn Computer Academy"
+meta_description: "How a real team actually uses everything from earlier lessons together — a feature branch workflow, and writing commits that stay useful months later."
+sort_order: 17
+updated_at: "2026-09-03T05:20:04.223755+00:00"
+---
+
+```json
+[
+  {
+    "id": "PNFQd6UWfzoa",
+    "html": "<p>Every command in this course so far is a building block. This lesson is how they combine into the habits a real team (or a disciplined solo developer) actually follows day to day.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QaHfnWrAcjrT",
+    "text": "The Feature Branch Workflow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-feature-branch-workflow"
+  },
+  {
+    "id": "hyW__td2VVns",
+    "rows": [
+      [
+        "1. Start from an up-to-date main",
+        "git switch main && git pull"
+      ],
+      [
+        "2. Create a branch for one specific change",
+        "git switch -c feature/user-login"
+      ],
+      [
+        "3. Commit in small, logical steps",
+        "git add ... && git commit -m \"...\""
+      ],
+      [
+        "4. Push and open a pull request",
+        "git push -u origin feature/user-login"
+      ],
+      [
+        "5. Address review feedback with more commits",
+        "Same branch, more commits, pushed again"
+      ],
+      [
+        "6. Merge once approved, then delete the branch",
+        "Usually done through GitHub's merge button"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Step",
+      "Command(s)"
+    ]
+  },
+  {
+    "id": "eMkp7MBR2mk-",
+    "text": "Branch Naming Conventions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "branch-naming-conventions"
+  },
+  {
+    "id": "gbJFOpqQnI3d",
+    "rows": [
+      [
+        "feature/...",
+        "A new feature"
+      ],
+      [
+        "fix/...",
+        "A bug fix"
+      ],
+      [
+        "chore/...",
+        "Maintenance work — dependency updates, config changes"
+      ],
+      [
+        "docs/...",
+        "Documentation only"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Prefix",
+      "For"
+    ]
+  },
+  {
+    "id": "QQTm3C1mZD1w",
+    "text": "Conventional Commits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "conventional-commits"
+  },
+  {
+    "id": "CjhkM99UnrCP",
+    "html": "<p>A widely-used commit message format that makes a project's history scannable and machine-parseable (some tools auto-generate changelogs from it).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qbjn1Vib3jEr",
+    "code": "feat: add password reset flow\nfix: correct off-by-one error in pagination\ndocs: update README installation steps\nrefactor: simplify user validation logic\ntest: add coverage for edge cases in checkout\nchore: bump dependency versions",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "HT4wDRgzigdt",
+    "text": "Commit Size — Small and Logical",
+    "type": "heading",
+    "level": 2,
+    "anchor": "commit-size-small-and-logical"
+  },
+  {
+    "id": "dTOOqMRABJ6W",
+    "html": "<p>One commit per logical change, not one commit per work session — a commit fixing a bug and a commit adding an unrelated feature should never be the same commit, even if they happened back to back.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VbHDXLSEYyrz",
+    "html": "<p>A useful test for commit size: could this specific commit be reverted on its own, cleanly, without breaking something unrelated? If not, it's probably bundling more than one logical change.</p>",
+    "type": "callout",
+    "title": "A gut check for commit size",
+    "variant": "tip"
+  }
+]
+```

@@ -1,0 +1,111 @@
+---
+id: "0b02c3ff-752b-4821-b7cf-c0470c088c29"
+title: "Useful functions.php Utilities"
+path: "wordpress/functions-php-utilities"
+status: "published"
+meta_title: "Useful functions.php Utilities | Learn Computer Academy"
+meta_description: "A handful of small, genuinely practical functions.php additions that show up in almost every real custom theme build."
+sort_order: 25
+updated_at: "2026-07-30T14:23:32.165893+00:00"
+---
+
+```json
+[
+  {
+    "id": "nFa3Gd7aJi1Y",
+    "html": "<p>A few small additions that don't fit neatly into any single earlier lesson, but come up often enough in real theme builds to be worth collecting here.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-gIEGxMqrMvs",
+    "text": "Cleaning Up wp_head()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cleaning-up-wp_head"
+  },
+  {
+    "id": "UJcrRRwYJXyQ",
+    "html": "<p>By default, <code>wp_head()</code> outputs a few things most sites don't need — a meta tag announcing the exact WordPress version (a minor information-disclosure risk) and legacy links few tools still use:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AA6mKylAqGkH",
+    "code": "<?php\nremove_action( 'wp_head', 'wp_generator' );          // WordPress version meta tag\nremove_action( 'wp_head', 'rsd_link' );              // legacy remote-publishing link\nremove_action( 'wp_head', 'wlwmanifest_link' );       // legacy Windows Live Writer link\n",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "0mdUDni_s570",
+    "html": "<p>None of this changes how the site looks or behaves for a visitor — it just trims a handful of lines a browser never renders anyway.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AI5BbHEDz7CL",
+    "text": "A Simple Breadcrumb Helper",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-simple-breadcrumb-helper"
+  },
+  {
+    "id": "hIfp2CPsUCCJ",
+    "html": "<p>WordPress has no built-in breadcrumb function. A small custom one, called from within a template, covers the common case:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0D144SDshQ27",
+    "code": "<?php\nfunction mytheme_breadcrumb() {\n    echo '<nav aria-label=\"Breadcrumb\"><ol>';\n    echo '<li><a href=\"' . esc_url( home_url( '/' ) ) . '\">Home</a></li>';\n\n    if ( is_page() && $post->post_parent ) {\n        echo '<li><a href=\"' . esc_url( get_permalink( $post->post_parent ) ) . '\">' . esc_html( get_the_title( $post->post_parent ) ) . '</a></li>';\n    }\n\n    echo '<li aria-current=\"page\">' . esc_html( get_the_title() ) . '</li>';\n    echo '</ol></nav>';\n}\n",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "D0NpfABUPOvl",
+    "html": "<p>Called simply as <code>&lt;?php mytheme_breadcrumb(); ?&gt;</code> anywhere in <code>page.php</code> or <code>single.php</code>. Real sites usually extend this to also handle single posts' categories and archive pages — this covers the shape, not every branch.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R2vN2Pi8hmXo",
+    "text": "A tel: / mailto: Link Helper",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-tel-mailto-link-helper"
+  },
+  {
+    "id": "mGiB-e01rr_L",
+    "html": "<p>A custom field storing a phone number or email as plain text still needs the right <code>href</code> scheme to actually be clickable as a phone call or email draft — easy to forget on a busy contact page with several such links:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4RkaQo_uvtKQ",
+    "code": "<?php\nfunction mytheme_contact_href( $value ) {\n    if ( is_email( $value ) ) {\n        return 'mailto:' . antispambot( $value );\n    }\n    $digits = preg_replace( '/[^\\d+]/', '', $value );\n    return $digits ? 'tel:' . $digits : '';\n}\n",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "jdVzlW69c0jZ",
+    "code": "<?php $phone = get_field( 'phone_number', 'option' ); ?>\n<a href=\"<?php echo esc_attr( mytheme_contact_href( $phone ) ); ?>\"><?php echo esc_html( $phone ); ?></a>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "eHlVdPFvGt6i",
+    "html": "<p><code>antispambot()</code> is a built-in WordPress function that obfuscates an email address's HTML slightly, to make it a little harder for basic scrapers to harvest — a small, free precaution worth using anywhere an email address is printed in plain sight.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "h1zNcwlhEmQK",
+    "html": "<p>None of these three are required — a site works without them. They're the kind of small polish that separates a theme that merely functions from one that feels finished, and every one of them lives in exactly one place: <code>functions.php</code>.</p>",
+    "type": "callout",
+    "title": "Small, optional, worth doing anyway",
+    "variant": "tip"
+  },
+  {
+    "id": "ZkQ9uAHEXfRT",
+    "html": "<p>With the theme functionally complete, the final lesson in this section covers what's left before handing it to a client or pushing it live.</p>",
+    "type": "richtext"
+  }
+]
+```

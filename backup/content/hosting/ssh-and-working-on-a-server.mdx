@@ -1,0 +1,125 @@
+---
+id: "5943053e-1098-49fc-b047-bd2962cdf796"
+title: "SSH and Working on a Server"
+path: "hosting/ssh-and-working-on-a-server"
+status: "published"
+meta_title: "SSH and Working on a Server | Learn Computer Academy"
+meta_description: "SSH gives you a real command line on a remote server. What it actually is, how to connect, and the handful of commands that cover most real work."
+sort_order: 22
+updated_at: "2026-08-05T13:35:37.062292+00:00"
+---
+
+```json
+[
+  {
+    "id": "T74rIovJpTe7",
+    "html": "<p><b>SSH</b> (Secure Shell) gives you a real, direct command line on a remote server — the same kind of terminal access you'd have sitting physically in front of the machine, over an encrypted connection. It is the standard way of genuinely administering a VPS or dedicated server, where there is no control panel abstracting the work away.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BO8PCQbOR7vK",
+    "text": "What Connecting Looks Like",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-connecting-looks-like"
+  },
+  {
+    "id": "rXuvTNU-78zG",
+    "code": "ssh username@your-server-ip\n# or, using a domain already pointed at the server\nssh username@example.com",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "A0u3xzjfbWnp",
+    "html": "<p>After authenticating — with a password, or more securely with an <b>SSH key</b> (a cryptographic key pair, covered briefly below) — you land at a command prompt running directly on the remote server, exactly as if you had opened a terminal on that machine yourself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_dF3K89Oegy8",
+    "alt": "Isometric diagram showing a laptop with a terminal window connected via an encrypted line labelled SSH directly to a remote server, with a command prompt visible on the server itself",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "SSH puts you directly at a command prompt on the remote machine, not a layer of abstraction above it.",
+    "publicId": "docs/img/hosting/ssh-1"
+  },
+  {
+    "id": "ua4PfiYBVq7l",
+    "text": "SSH Keys, Briefly",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ssh-keys-briefly"
+  },
+  {
+    "id": "qCOmcuZH34Hn",
+    "html": "<p>An SSH key pair is a more secure alternative to a password: a <b>private key</b> stays on your own computer, never shared, and a matching <b>public key</b> is placed on the server. The server can verify you hold the matching private key without that key ever being transmitted — meaningfully more secure than a password alone, and the standard, expected way to connect for any serious server work.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U4aBNDVfCLa-",
+    "text": "Commands That Cover Most Real Work",
+    "type": "heading",
+    "level": 2,
+    "anchor": "commands-that-cover-most-real-work"
+  },
+  {
+    "id": "kU3aGhHDX-WS",
+    "rows": [
+      [
+        "ls",
+        "Lists files in the current directory"
+      ],
+      [
+        "cd foldername",
+        "Changes into a directory"
+      ],
+      [
+        "pwd",
+        "Shows the current directory's full path"
+      ],
+      [
+        "nano filename or vim filename",
+        "Opens a file in a terminal-based text editor"
+      ],
+      [
+        "cp / mv / rm",
+        "Copies, moves/renames, or deletes a file"
+      ],
+      [
+        "sudo command",
+        "Runs a command with administrator privileges"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "Does"
+    ]
+  },
+  {
+    "id": "MX94lmK34lka",
+    "html": "<p>This is a genuinely small set. A large share of real server work — deploying an app, checking logs, restarting a service, editing a configuration file — is built from just these commands, repeated and combined.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "I77BcJHvW0Ih",
+    "html": "<p>There is real risk here that a control panel deliberately prevents by design: a mistyped command with <code>sudo</code>, especially involving <code>rm</code> (delete), can genuinely damage a server with no confirmation prompt and no undo. Move carefully, double-check any command before running it with elevated privileges, and keep backups (covered in a later lesson) before experimenting on anything that matters.</p>",
+    "type": "callout",
+    "title": "SSH gives you real power, with no safety net",
+    "variant": "warning"
+  },
+  {
+    "id": "imK0sAyJnoY0",
+    "text": "When You Actually Need SSH",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-you-actually-need-ssh"
+  },
+  {
+    "id": "zousk7UnlQA2",
+    "html": "<p>Shared hosting rarely requires it — the control panel from the previous lesson covers nearly everything a shared hosting user needs. SSH becomes necessary once you're on a VPS or dedicated server, or when a cloud platform's deployment or debugging tools specifically require it. It is also directly relevant to the Node.js and connecting-to-a-database material on this site, where a live server session is often the fastest way to diagnose a real problem.</p>",
+    "type": "richtext"
+  }
+]
+```

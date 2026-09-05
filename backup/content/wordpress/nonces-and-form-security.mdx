@@ -1,0 +1,98 @@
+---
+id: "74506793-fc1c-435d-a8ff-e7fe5146ae72"
+title: "Nonces and Form Security"
+path: "wordpress/nonces-and-form-security"
+status: "published"
+meta_title: "WordPress Nonces and Form Security | Learn Computer Academy"
+meta_description: "Verifying a form submission or action actually came from your site's own page, not a forged request from somewhere else."
+sort_order: 31
+updated_at: "2026-09-03T04:11:00.896522+00:00"
+---
+
+```json
+[
+  {
+    "id": "pTP1_xnmJTXi",
+    "html": "<p>The earlier Escaping & Sanitizing lesson covered making <i>output</i> safe. A <b>nonce</b> (\"number used once\") covers the other direction — verifying an incoming form submission or action request genuinely came from a page your site rendered, not a forged request from elsewhere.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JDgK5FV0c1m9",
+    "text": "The Problem a Nonce Solves",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-a-nonce-solves"
+  },
+  {
+    "id": "jympqICzidaB",
+    "html": "<p>Without one, a malicious site could trick a logged-in user's browser into submitting a request to your site — the browser sends the session cookie automatically, making the forged request look legitimate. This is the same CSRF attack covered in the PHP Security lesson; a nonce is WordPress's specific built-in defense against it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "54dndXd3y66O",
+    "text": "Adding a Nonce to a Form",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-nonce-to-a-form"
+  },
+  {
+    "id": "iqu6yR2d8OQC",
+    "code": "<form method=\"post\" action=\"\">\n    <?php wp_nonce_field('wgh_save_settings', 'wgh_nonce'); ?>\n    <input type=\"text\" name=\"site_tagline\">\n    <button type=\"submit\">Save</button>\n</form>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "cAJOZUiELjo6",
+    "html": "<p><code>wp_nonce_field()</code> outputs a hidden input containing a token tied to the current user's session and the action name given as its first argument.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UgGvgTZw-87X",
+    "text": "Verifying It on Submission",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-it-on-submission"
+  },
+  {
+    "id": "frAzzOdVcAWA",
+    "code": "if (isset($_POST['wgh_nonce']) && wp_verify_nonce($_POST['wgh_nonce'], 'wgh_save_settings')) {\n    // Safe to process the form\n    update_option('site_tagline', sanitize_text_field($_POST['site_tagline']));\n} else {\n    wp_die('Security check failed.');\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "wZ0pjVDEjfzY",
+    "text": "Nonces in a URL — for a Link-Triggered Action",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nonces-in-a-url-for-a-link-triggered-action"
+  },
+  {
+    "id": "4y8ueZgCLpQE",
+    "html": "<p>The same idea applies to a plain link that triggers an action (deleting an item, for example), not just a form.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HGxQf0fSXIdM",
+    "code": "<?php $url = wp_nonce_url(admin_url('admin-post.php?action=wgh_delete_item&id=42'), 'wgh_delete_item_42'); ?>\n<a href=\"<?php echo esc_url($url); ?>\">Delete</a>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "raMc6PKfIxpl",
+    "code": "// Handling it\nif (!isset($_GET['_wpnonce']) || !wp_verify_nonce($_GET['_wpnonce'], 'wgh_delete_item_' . $_GET['id'])) {\n    wp_die('Security check failed.');\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "TlV7GHeraRz5",
+    "html": "<p>A nonce expires (24 hours by default) and is tied to the specific user session that generated it — it isn't a password or a secret to keep hidden, just a check that the request came from where it claims to.</p>",
+    "type": "callout",
+    "title": "What a nonce is not",
+    "variant": "note"
+  }
+]
+```

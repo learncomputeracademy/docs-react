@@ -1,0 +1,132 @@
+---
+id: "6eb6d3d2-adcf-4865-a481-b7f8025ab507"
+title: "Python Syntax Basics"
+path: "python/syntax-basics"
+status: "published"
+meta_title: "Python Syntax Basics | Learn Computer Academy"
+meta_description: "Python's indentation-based syntax, comments, and print() — the ground rules before writing anything more complex."
+sort_order: 3
+updated_at: "2026-08-04T11:39:27.128543+00:00"
+---
+
+```json
+[
+  {
+    "id": "E4abWjV6qOQn",
+    "html": "<p>Python's syntax is unusually minimal, and almost all of that comes from one decision: using indentation instead of braces.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ikRf37hiHEdg",
+    "text": "Indentation Defines Blocks",
+    "type": "heading",
+    "level": 2,
+    "anchor": "indentation-defines-blocks"
+  },
+  {
+    "id": "-QYn9JuxiarW",
+    "html": "<p>Many languages use <code>{ }</code> to mark where a block of code starts and ends. Python uses indentation instead — consistent spacing at the start of a line — for the exact same purpose:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Rwi5kcV3lWF7",
+    "code": "if 5 > 2:\n    print(\"Five is greater than two!\")\n    print(\"This line is part of the if too.\")\nprint(\"This line is not — it lines up with if, not the code inside it.\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "KqDHXXMcWKqh",
+    "html": "<p>Mixing tabs and spaces, or using inconsistent indentation width, causes an <code>IndentationError</code> — this isn't a style suggestion, it's enforced by the language. The standard convention is <b>4 spaces</b> per indentation level; most editors can be configured to insert 4 spaces automatically when you press Tab.</p>",
+    "type": "callout",
+    "title": "Indentation is enforced, not optional",
+    "variant": "warning"
+  },
+  {
+    "id": "Aln9vYQGjW8A",
+    "text": "No Semicolons Required",
+    "type": "heading",
+    "level": 2,
+    "anchor": "no-semicolons-required"
+  },
+  {
+    "id": "tELu7kpc--gd",
+    "html": "<p>A Python statement normally ends at the end of the line — no semicolon needed. You <i>can</i> put a semicolon between two statements to fit them on one line, but it's rarely done in real code:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6z2OtIzj3z8X",
+    "code": "x = 5\ny = 10\nprint(x + y)  # normal style — one statement per line",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "WzZZ8F0p59C_",
+    "text": "Comments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comments"
+  },
+  {
+    "id": "1tj563Cyj_DU",
+    "html": "<p>Python has one comment style, <code>#</code>, for single-line comments. Multi-line comments aren't a dedicated feature, though a triple-quoted string not assigned to anything is commonly used the same way:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yxzbgrmar483",
+    "code": "# This is a single-line comment\n\n\"\"\"\nThis is often used as a multi-line comment,\neven though it's technically just an unused string.\n\"\"\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "zQavKQld6czB",
+    "text": "print()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "print"
+  },
+  {
+    "id": "qiUI4iZDtkuV",
+    "html": "<p><code>print()</code> is the standard way to output text in Python. It's a real function, always called with parentheses:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kVJhhYn0H61v",
+    "code": "print(\"Hello, world!\")\nprint(\"Multiple\", \"values\", \"get\", \"joined\", \"with spaces\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "WOMbfH5CmrsC",
+    "text": "Splitting a Long Line",
+    "type": "heading",
+    "level": 2,
+    "anchor": "splitting-a-long-line"
+  },
+  {
+    "id": "8Lz3EItbf1wG",
+    "html": "<p>A line inside unclosed parentheses, brackets, or braces can continue onto the next line with no extra syntax — this is the normal way to keep a long function call or collection readable:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sSHfktBC3WmA",
+    "code": "total = (\n    1 + 2 + 3\n    + 4 + 5\n)\n\nnames = [\n    \"Priya\",\n    \"Amit\",\n    \"Sara\",\n]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "y8EXO72dmzUx",
+    "html": "<p>A backslash (<code>\\</code>) at the end of a line does the same thing outside of brackets, but it's rarely used in real code — restructuring the line to use parentheses instead is almost always considered cleaner.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ebIN6jx6FVS7",
+    "html": "<p>With the ground rules out of the way, the next lesson looks at how Python stores data — starting with variables.</p>",
+    "type": "richtext"
+  }
+]
+```

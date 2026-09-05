@@ -1,0 +1,117 @@
+---
+id: "97b0ba13-6576-479e-b133-1ee52ab33905"
+title: "Pointing a Domain at Hosting"
+path: "hosting/pointing-a-domain-at-hosting"
+status: "published"
+meta_title: "Pointing a Domain at Hosting | Learn Computer Academy"
+meta_description: "The two practical ways to connect a registered domain to hosting — changing nameservers or adding individual DNS records — and how long to expect it to take."
+sort_order: 19
+updated_at: "2026-08-05T13:35:36.078632+00:00"
+---
+
+```json
+[
+  {
+    "id": "sSqp8tKcYNZ3",
+    "html": "<p>With a domain registered and hosting chosen, connecting the two is genuinely one of two approaches, both building directly on the DNS lessons earlier in this category.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2X59sOf9KyWF",
+    "text": "Approach 1 — Change the Nameservers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "approach-1-change-the-nameservers"
+  },
+  {
+    "id": "Sx7UFUWSL3NO",
+    "html": "<p>Your hosting provider gives you a set of nameservers (something like <code>ns1.yourhost.com</code>, <code>ns2.yourhost.com</code>). In your domain registrar's control panel, you replace the default nameservers with these. This hands complete DNS control over to the host — from that point on, all DNS records, not just the website-pointing ones, are managed in the hosting provider's panel rather than the registrar's.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FWQ4pDfbot0O",
+    "text": "Approach 2 — Keep the Registrar, Add Records",
+    "type": "heading",
+    "level": 2,
+    "anchor": "approach-2-keep-the-registrar-add-records"
+  },
+  {
+    "id": "CU5rIkJscRfQ",
+    "html": "<p>Alternatively, keep the registrar's default nameservers and instead add the specific records the host needs directly in the registrar's DNS panel — typically an A record pointing at the host's IP address, or a CNAME pointing at an address the host gives you. This keeps DNS management with the registrar while still connecting to the host.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UjiCSIQ8GItS",
+    "alt": "Isometric diagram showing two paths from a domain registrar to a hosting server: one labelled changing nameservers pointing directly to the host, another labelled adding records showing individual DNS entries pointing to the same host",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Two equally valid approaches — hand over full DNS control, or keep it and add specific records.",
+    "publicId": "docs/img/hosting/connecting-domain-1"
+  },
+  {
+    "id": "8_F8pHJgUKSg",
+    "text": "Which to Use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "which-to-use"
+  },
+  {
+    "id": "stFADX1Cx_md",
+    "rows": [
+      [
+        "Hosting and domain are otherwise unrelated, simple setup",
+        "Change nameservers — simpler, the host manages everything"
+      ],
+      [
+        "You want email through one provider and the website through another",
+        "Keep the registrar, add records — more granular control"
+      ],
+      [
+        "A platform explicitly tells you to add one specific record (very common for cloud/managed platforms)",
+        "Follow that platform's instruction directly — usually a CNAME or a specific A record"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Better approach"
+    ]
+  },
+  {
+    "id": "AOY2Mcw1qGJj",
+    "html": "<p>Most modern cloud and managed platforms (the kind covered earlier in this category) walk you through exactly which record to add when you connect a custom domain — the underlying concept is always one of these two approaches, even when the interface hides the terminology.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yRPUp__botcv",
+    "text": "What to Actually Expect Afterward",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-to-actually-expect-afterward"
+  },
+  {
+    "id": "isLKfPzLNrKQ",
+    "html": "<p>This is <b>DNS propagation</b>, mentioned in the earlier what-DNS-is lesson: the change does not appear everywhere instantly. Most people see it within minutes to a few hours; some resolvers, holding an old cached answer with a long TTL, can take up to about 48 hours. This is normal, expected, and not a sign anything went wrong.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7k9728nKttA-",
+    "html": "<p>Make DNS changes with a comfortable buffer before anything time-sensitive — a launch date, a demo, a deadline — rather than right before it. If something needs to be fixed, a same-day DNS change might not be visible to everyone in time.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "5YCCJf21VAAq",
+    "text": "Checking It Actually Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-it-actually-worked"
+  },
+  {
+    "id": "mRHjBwqxKekZ",
+    "html": "<p>Once you've made the change, a DNS lookup tool (many free ones exist online, and command-line tools like <code>nslookup</code> or <code>dig</code> work too) lets you check what a given DNS server currently reports for your domain, without waiting to see if your own browser has picked up the change yet.</p>",
+    "type": "richtext"
+  }
+]
+```

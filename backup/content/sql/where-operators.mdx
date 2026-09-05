@@ -1,0 +1,322 @@
+---
+id: "22cc03b3-2f3e-49ad-9c18-ddb2f0234e2b"
+title: "Filtering — WHERE & Operators"
+path: "sql/where-operators"
+status: "published"
+meta_title: "SQL Filtering — WHERE & Operators | Learn Computer Academy"
+meta_description: "Comparison operators, AND/OR/NOT, BETWEEN, LIKE, IN, ANY/ALL, and EXISTS — the full vocabulary for narrowing SQL results down to the rows that matter."
+sort_order: 8
+updated_at: "2026-07-29T06:31:06.875988+00:00"
+---
+
+```json
+[
+  {
+    "id": "BFWmReJ4F2p4",
+    "html": "<p><code>WHERE</code> narrows a result down to the rows that matter, and operators are the vocabulary you filter with. This lesson covers every operator you'll reach for regularly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VtQjU0uAMBFj",
+    "text": "WHERE (Comparison Operators)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-comparison-operators"
+  },
+  {
+    "id": "vgOxirrbCPJY",
+    "html": "<p>Filters rows using <code>=</code>, <code>&lt;&gt;</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, <code>&lt;=</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZG9vwcsJgYrL",
+    "code": "SELECT * FROM table_name\nWHERE column operator value;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "wCZOOGY4lu9P",
+    "code": "SELECT * FROM Employee\nWHERE salary > 50000;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "RaBGIa8zzzIO",
+    "html": "<ul><li>Compares each row's value against the condition.</li><li>Only matching rows are returned.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "pdj7FvKnwGbS",
+    "html": "<p>Using <code>=</code> to compare against NULL instead of <code>IS NULL</code> — a NULL is never equal to anything, not even another NULL.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "8B2Az1paWZy1",
+    "text": "AND / OR / NOT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "and-or-not"
+  },
+  {
+    "id": "uSmRVDMsQs-E",
+    "html": "<p>Combines multiple conditions in a WHERE clause.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "10ffdR0v1q2L",
+    "code": "WHERE condition1 AND condition2\nWHERE condition1 OR condition2",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "OAFifB1Vr60L",
+    "code": "SELECT * FROM Employee\nWHERE department = 'IT'\nAND salary > 50000;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "SjvsRH6KlcJx",
+    "html": "<ul><li>AND requires every condition to be true.</li><li>OR requires at least one condition to be true; NOT inverts a condition.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "AgWn0br5pdtb",
+    "html": "<p>Missing parentheses when mixing AND with OR, silently changing the intended logic.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "EWOXhhKONC5K",
+    "text": "BETWEEN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "between"
+  },
+  {
+    "id": "6vb7m7WGZnyP",
+    "html": "<p>Checks whether a value falls within an inclusive range.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FLv8S3059HRM",
+    "code": "WHERE column BETWEEN low AND high;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "XzDoY9CGOM4G",
+    "code": "WHERE salary BETWEEN 50000 AND 70000;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "N7zV6xc3V3uQ",
+    "html": "<ul><li>Includes both boundary values.</li><li>Reads more naturally than two chained comparisons.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "mOqDz4GmAcIU",
+    "html": "<p>Forgetting that <code>BETWEEN</code> is inclusive on both ends.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "PuOpAjfD8u8i",
+    "text": "LIKE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "like"
+  },
+  {
+    "id": "NgPJSp4tyzdi",
+    "html": "<p>Matches text against a pattern.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "K3yGGI3CmTjO",
+    "code": "WHERE column LIKE 'pattern';",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "9tkaZVikRYBs",
+    "code": "WHERE name LIKE 'J%';",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "PxHP9NeNdDyb",
+    "html": "<ul><li><code>%</code> matches any sequence of characters, <code>_</code> matches exactly one.</li><li>Case sensitivity depends on the database engine's collation.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "rOMqymkU9BFx",
+    "html": "<p>Leading a pattern with % ('%text'), which usually forces a slow full table scan.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "8FG2tD4vV94r",
+    "text": "IN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "in"
+  },
+  {
+    "id": "DgegvAjy_TQE",
+    "html": "<p>Matches a column against a list of possible values.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-ajudKlrw8QU",
+    "code": "WHERE column IN (value1, value2, ...);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "iYUK5uSRork5",
+    "code": "WHERE department IN ('IT', 'HR');",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "PSal7zYjAE5v",
+    "html": "<ul><li>Returns rows where the column matches any value in the list.</li><li>Cleaner than a long chain of OR conditions.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "qUoXOZ4ag61v",
+    "html": "<p>Using <code>IN</code> with a very large list instead of joining against a table.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "D9vP9XqVgOtJ",
+    "text": "ANY / ALL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "any-all"
+  },
+  {
+    "id": "cuHzXX8Zeiz4",
+    "html": "<p>Compares a value against every value returned by a subquery.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sb5lpd_Chnif",
+    "code": "WHERE column > ANY (subquery);\nWHERE column > ALL (subquery);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "P1O6SVK4oePO",
+    "code": "WHERE salary > ANY (\n  SELECT salary FROM Employee WHERE department = 'HR'\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "gGjnRUI1L4b3",
+    "html": "<ul><li>ANY is true if the comparison holds for at least one returned value.</li><li>ALL requires the comparison to hold for every returned value.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "bd6TBaIcYnEf",
+    "html": "<p>Confusing <code>ANY</code> with <code>IN</code> — ANY works with comparison operators, not just equality. See the Subqueries lesson for more.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "S8okORwyRtS7",
+    "text": "EXISTS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exists"
+  },
+  {
+    "id": "ckr-HZgNW7He",
+    "html": "<p>Checks whether a subquery returns any rows at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "isLGvH6qEv4B",
+    "code": "WHERE EXISTS (subquery);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "LJukzu-muvYr",
+    "code": "WHERE EXISTS (\n  SELECT 1 FROM Department WHERE Department.id = Employee.department_id\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "v6QVEG0iWQDY",
+    "html": "<ul><li>Returns TRUE as soon as the subquery finds one matching row.</li><li>Often faster than IN for correlated subqueries, since it can stop early.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ijiJJUE20c0d",
+    "html": "<p>Selecting specific columns inside <code>EXISTS</code> — the values returned are never actually used.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "ip37GR8N9fIF",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "XRVwDwRdurrt",
+    "rows": [
+      [
+        "=, <>, >, <, >=, <=",
+        "Direct value comparison"
+      ],
+      [
+        "AND / OR / NOT",
+        "Combining or inverting conditions"
+      ],
+      [
+        "BETWEEN",
+        "A value within an inclusive range"
+      ],
+      [
+        "LIKE",
+        "A text pattern match"
+      ],
+      [
+        "IN",
+        "A value against a fixed list"
+      ],
+      [
+        "ANY / ALL",
+        "A value against every result of a subquery"
+      ],
+      [
+        "EXISTS",
+        "Whether a subquery returns any rows"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "What it checks"
+    ]
+  },
+  {
+    "id": "jTghdwYBIpFY",
+    "html": "<p>With filtering covered, the next lesson is a short one: sorting results with ORDER BY.</p>",
+    "type": "richtext"
+  }
+]
+```

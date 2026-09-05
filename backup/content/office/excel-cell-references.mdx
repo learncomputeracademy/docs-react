@@ -1,0 +1,63 @@
+---
+id: "2e82d6cf-407e-4b40-a02e-292c42115ce6"
+title: "Cell References (Relative and Absolute)"
+path: "office/excel-cell-references"
+status: "published"
+meta_title: "Excel Cell References — Relative and Absolute | Learn Computer Academy"
+meta_description: "What happens to a formula when you copy it, and how the $ sign locks a reference in place."
+sort_order: 19
+updated_at: "2026-08-17T08:36:24.969225+00:00"
+---
+
+```json
+[
+  {
+    "id": "3dYaCBUqCeSc",
+    "html": "<p>What happens to a formula when you copy it is the single most confusing, and most useful, Excel behavior for a beginner.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GFH7k2-kBlDs",
+    "text": "Relative References",
+    "type": "heading",
+    "level": 2,
+    "anchor": "relative-references"
+  },
+  {
+    "id": "N0dBEPhc9OjG",
+    "html": "<p><code>=A1+B1</code> copied one row down automatically becomes <code>=A2+B2</code> — Excel shifts the reference to match, which is usually exactly what's wanted when applying the same calculation down a whole column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CRZq7bgb91aj",
+    "text": "Absolute References ($)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "absolute-references"
+  },
+  {
+    "id": "SZ8xOFtlYBu8",
+    "html": "<p>Putting <code>$</code> before the column letter and row number, like <code>$D$1</code>, locks that reference so copying the formula never changes it — essential when every row needs to use the same one fixed cell, like a tax rate.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UIi8k2XdaooS",
+    "code": "=B2*$D$1   (row 2)\n=B3*$D$1   (row 3, copied down — $D$1 never moves)\n=B4*$D$1   (row 4, still $D$1)",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "Xs55aDl23FJW",
+    "text": "Mixed References",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mixed-references"
+  },
+  {
+    "id": "_EDQSQq8hKSW",
+    "html": "<p>It's also possible to lock only the column or only the row: <code>$A1</code> locks column A but lets the row shift when copied down; <code>A$1</code> locks row 1 but lets the column shift when copied across. Genuinely useful when building a table where one axis should stay fixed and the other shouldn't.</p>",
+    "type": "richtext"
+  }
+]
+```

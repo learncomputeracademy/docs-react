@@ -1,0 +1,65 @@
+---
+id: "79564055-afee-4ef1-94b9-422bbf3182e4"
+title: "Common Beginner Mistakes in Excel"
+path: "office/excel-common-mistakes"
+status: "published"
+meta_title: "Common Beginner Mistakes in Excel | Learn Computer Academy"
+meta_description: "#DIV/0!, #REF!, #NAME? and the one-column-sort mistake — recognizing the errors instead of panicking."
+sort_order: 27
+updated_at: "2026-08-17T08:36:27.882447+00:00"
+---
+
+```json
+[
+  {
+    "id": "Uc_ctRtnIqJe",
+    "html": "<p>A short list of the errors that trip up almost every beginner, so they're recognized instead of panicked over.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TlfqYAvnN9sl",
+    "rows": [
+      [
+        "#DIV/0!",
+        "A formula divided by an empty or zero cell"
+      ],
+      [
+        "#REF!",
+        "A formula points at a cell that got deleted"
+      ],
+      [
+        "#NAME?",
+        "A typo in a function name, or a missing quote around text"
+      ],
+      [
+        "Rows scrambled after sorting",
+        "Only one column was selected before sorting, not the whole table"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Error",
+      "Real cause"
+    ]
+  },
+  {
+    "id": "I0RFCVu9Riuf",
+    "html": "<p>None of these mean the file is broken. Each has one specific, fixable cause — find the referenced cell or the exact formula and the fix is usually obvious once seen.</p>",
+    "type": "callout",
+    "title": "It's always fixable",
+    "variant": "note"
+  },
+  {
+    "id": "oEhypx5XEHeJ",
+    "text": "Circular Reference",
+    "type": "heading",
+    "level": 2,
+    "anchor": "circular-reference"
+  },
+  {
+    "id": "0IAaNrbdL_GE",
+    "html": "<p>A <b>circular reference</b> happens when a formula refers back to its own cell, directly or through a chain — <code>A1</code> containing <code>=A1+1</code> is the simplest example. Excel can't calculate a result that depends on itself, and shows a warning rather than a wrong number.</p>",
+    "type": "richtext"
+  }
+]
+```

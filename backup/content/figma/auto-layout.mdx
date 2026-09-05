@@ -1,0 +1,98 @@
+---
+id: "2a3b4425-fe0a-4674-a4d3-97b5db882d19"
+title: "Auto Layout"
+path: "figma/auto-layout"
+status: "published"
+meta_title: "Auto Layout | Learn Computer Academy"
+meta_description: "What Auto Layout is, how it turns a Frame into a self-arranging row or column, and why it's the single most important Figma feature for real UI work."
+sort_order: 6
+updated_at: "2026-08-17T13:42:31.656993+00:00"
+---
+
+```json
+[
+  {
+    "id": "kms_peTuQOUP",
+    "html": "<p><b>Auto Layout</b> turns an ordinary Frame into one that arranges its own children — spacing them automatically, growing or shrinking to fit their content, and reflowing everything the moment anything inside changes. It's the closest thing Figma has to writing actual CSS flexbox, without writing any code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xHZbSl_311PO",
+    "alt": "A Frame with Auto Layout enabled containing three buttons — Cancel, Save changes (highlighted orange), and Delete — evenly spaced in a row with consistent padding",
+    "type": "image",
+    "width": 1568,
+    "height": 669,
+    "caption": "A horizontal Auto Layout frame holding three buttons — resize any button and the row reflows on its own.",
+    "publicId": "docs/img/figma/auto-layout"
+  },
+  {
+    "id": "OEP2X8LuUGUQ",
+    "text": "Turning It On",
+    "type": "heading",
+    "level": 2,
+    "anchor": "turning-it-on"
+  },
+  {
+    "id": "iUXQM3szeRld",
+    "html": "<p>Select one or more layers and press <code>Shift+A</code>, or click the Auto Layout icon in the Design panel. Figma wraps the selection in a new Frame with Auto Layout already active, arranging the children in a row by default.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C6PwcaoltU2y",
+    "text": "The Controls",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-controls"
+  },
+  {
+    "id": "PPWCyMir9yGV",
+    "rows": [
+      [
+        "Direction",
+        "Horizontal (row) or vertical (column) arrangement"
+      ],
+      [
+        "Spacing",
+        "The gap between each child element"
+      ],
+      [
+        "Padding",
+        "Space between the children and the frame's own edge"
+      ],
+      [
+        "Resizing",
+        "\"Hug contents\" shrinks the frame to fit; \"Fill container\" grows to fill its parent"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Control",
+      "What it does"
+    ]
+  },
+  {
+    "id": "cyAmaf7FuPs8",
+    "text": "Why It Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-it-matters"
+  },
+  {
+    "id": "kQEX2IiQH95e",
+    "html": "<p>Before Auto Layout, adding a fourth button to a row meant manually recalculating and moving every element after it. With Auto Layout, dropping in a new child — or deleting one — reflows everything else instantly, in both spacing and frame size. This is also what makes a design closely predict what a developer's actual flexbox/grid code will look like, which shortens the design-to-code handoff covered in the last lesson of this course.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zFAGYun4d0zh",
+    "text": "Nested Auto Layout",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nested-auto-layout"
+  },
+  {
+    "id": "yPxLKw9BwktP",
+    "html": "<p>An Auto Layout frame can sit inside another Auto Layout frame — a row of buttons (horizontal Auto Layout) inside a card (vertical Auto Layout) inside a page (vertical Auto Layout). Real interfaces are almost always several layers of nested Auto Layout, which is why it's worth building the habit early rather than treating it as an advanced feature.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,125 @@
+---
+id: "be42ba31-df41-42fe-a3e6-ae6d3f1c26d9"
+title: "Data Types in MongoDB"
+path: "mongodb/data-types"
+status: "published"
+meta_title: "Data Types in MongoDB | Learn Computer Academy"
+meta_description: "The BSON data types MongoDB supports: strings, numbers, booleans, dates, ObjectId, arrays, and embedded documents."
+sort_order: 13
+updated_at: "2026-08-18T10:11:25.39797+00:00"
+---
+
+```json
+[
+  {
+    "id": "LTlXfYDqHGbG",
+    "html": "<p>Because MongoDB stores data as BSON rather than plain JSON, it supports a richer set of data types than JSON has natively — this lesson covers the ones you will actually use.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rNVGVsK2yP85",
+    "alt": "An isometric illustration of labeled colored blocks representing different data types — a string tag, a number cube, a calendar for dates, a checkbox for boolean",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "MongoDB's BSON format supports more data types than plain JSON.",
+    "publicId": "docs/img/mongodb/data-types-hero"
+  },
+  {
+    "id": "u00puov7qjzD",
+    "rows": [
+      [
+        "String",
+        "\"Rahul Verma\"",
+        "UTF-8 text, MongoDB's most common type"
+      ],
+      [
+        "Number",
+        "27, 3.14",
+        "MongoDB distinguishes Int32, Int64, and Double internally"
+      ],
+      [
+        "Boolean",
+        "true, false",
+        ""
+      ],
+      [
+        "Date",
+        "ISODate(\"2026-08-19\")",
+        "Stored as milliseconds since the Unix epoch"
+      ],
+      [
+        "ObjectId",
+        "ObjectId(\"651f2a...\")",
+        "The default type for _id — see below"
+      ],
+      [
+        "Array",
+        "[\"HTML\", \"CSS\", \"React\"]",
+        "A field can hold a list of values, including other objects"
+      ],
+      [
+        "Embedded Document",
+        "{ city: \"Kolkata\" }",
+        "A nested object as a field's value"
+      ],
+      [
+        "Null",
+        "null",
+        "Explicitly \"no value,\" different from a missing field"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Example",
+      "Notes"
+    ]
+  },
+  {
+    "id": "zkKg9-M185p-",
+    "text": "Dates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dates"
+  },
+  {
+    "id": "_V88RTCpmfOZ",
+    "html": "<p>Always create dates with <code>new Date()</code> rather than storing a date as a plain string — a real Date type sorts and compares correctly, and can be queried with range operators like <code>$gt</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8hmsQDUG7iWd",
+    "code": "db.orders.insertOne({\n  product: \"Notebook\",\n  orderedAt: new Date()\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "Ri-MTIQHMzjd",
+    "text": "ObjectId, In Detail",
+    "type": "heading",
+    "level": 2,
+    "anchor": "objectid-in-detail"
+  },
+  {
+    "id": "hLl9LGb7h878",
+    "html": "<p>An <code>ObjectId</code> is 12 bytes, built from a timestamp, a random value, and an incrementing counter — which means ObjectIds generated later sort after earlier ones, and you can extract an approximate creation time directly from one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PVoyw7dwr9pc",
+    "code": "const id = ObjectId(\"651f2a9e1c4a2b0012a4f8d1\")\nid.getTimestamp()\n// ISODate(\"2023-10-05T14:22:22.000Z\")",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "QAnDoq8notjc",
+    "html": "<p>You rarely need to construct an <code>ObjectId</code> by hand — let MongoDB generate it on insert. Knowing it encodes a timestamp is mainly useful for understanding <i>why</i> ObjectIds are roughly sortable by creation order.</p>",
+    "type": "callout",
+    "title": "ObjectId encodes a creation timestamp",
+    "variant": "tip"
+  }
+]
+```

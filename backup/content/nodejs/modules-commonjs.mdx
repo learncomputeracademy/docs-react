@@ -1,0 +1,134 @@
+---
+id: "91e1aeda-b46d-4b93-b3ee-5c6c250796fe"
+title: "The Module System (CommonJS)"
+path: "nodejs/modules-commonjs"
+status: "published"
+meta_title: "Node.js Modules — CommonJS | Learn Computer Academy"
+meta_description: "Split Node.js code across multiple files with require() and module.exports, and understand what a module actually is."
+sort_order: 3
+updated_at: "2026-08-05T05:47:53.395248+00:00"
+---
+
+```json
+[
+  {
+    "id": "UNB9TR1OpVYL",
+    "html": "<p>A real program is never one giant file. Node.js lets you split code across separate files called <b>modules</b>, and pull pieces from one file into another with <code>require()</code>. This is CommonJS — Node's original, still very common module system.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "51yrX76T1c46",
+    "text": "Every File Is Its Own Module",
+    "type": "heading",
+    "level": 2,
+    "anchor": "every-file-is-its-own-module"
+  },
+  {
+    "id": "QxViX5KNDNE6",
+    "html": "<p>In Node.js, each <code>.js</code> file is automatically wrapped as a separate module. Variables and functions declared in one file are <b>private to that file</b> by default — another file can't see them unless the first file deliberately shares them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F9oBbqd3iDY9",
+    "text": "Exporting From a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exporting-from-a-file"
+  },
+  {
+    "id": "KxrsBFCpR1a8",
+    "html": "<p>Attach anything you want another file to be able to use to <code>module.exports</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bO24Ju-j-60H",
+    "code": "// math.js\nfunction add(a, b) {\n  return a + b\n}\n\nfunction multiply(a, b) {\n  return a * b\n}\n\nmodule.exports = { add, multiply }",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "-DFwFh2vBhCf",
+    "text": "Importing With require()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "importing-with-require"
+  },
+  {
+    "id": "jMco1XYjTuGI",
+    "html": "<p>Another file pulls that in with <code>require()</code>, giving it a path to the file (starting with <code>./</code> for \"in this same folder\"):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yu9g7wJkOkFV",
+    "code": "// app.js\nconst { add, multiply } = require('./math')\n\nconsole.log(add(2, 3))       // 5\nconsole.log(multiply(2, 3))  // 6",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "HhyKGzEZXPuZ",
+    "html": "<p>Note there's no <code>.js</code> extension in the <code>require()</code> call — Node adds it automatically when the path doesn't already have one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wAW9XcMZYojq",
+    "alt": "Diagram showing two separate JavaScript files, one exporting functions with module.exports and another importing them with require, connected by an arrow",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "One file shares functions through module.exports; another pulls them in with require().",
+    "publicId": "docs/img/nodejs/module-system-1"
+  },
+  {
+    "id": "pPV0WiIY7Y3Z",
+    "text": "Exporting a Single Thing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exporting-a-single-thing"
+  },
+  {
+    "id": "W3C5JWLmVNTg",
+    "html": "<p>If a file only has one thing worth sharing, you can export it directly instead of wrapping it in an object:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W2LM3QqshlpO",
+    "code": "// greet.js\nmodule.exports = function greet(name) {\n  return `Hello, ${name}!`\n}\n\n// app.js\nconst greet = require('./greet')\nconsole.log(greet('Priya'))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "aBRFgKIfzhD9",
+    "text": "Built-in Modules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-modules"
+  },
+  {
+    "id": "A3ThgmXsR9rV",
+    "html": "<p>Node also ships with modules already built in — you <code>require()</code> them by name instead of a file path, no installation needed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o7TcWr2FI6e0",
+    "code": "const path = require('path')\nconsole.log(path.extname('photo.png'))  // '.png'",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "xuKO3b1cse0n",
+    "html": "<p>The next several lessons cover the most useful of these built-in modules one at a time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IBNPj5Cf6Mps",
+    "html": "<p>Requiring the same module twice doesn't run its code twice — Node caches the result after the first <code>require()</code> and reuses it. This matters once you start sharing state, like a database connection, across files.</p>",
+    "type": "callout",
+    "title": "Modules are cached",
+    "variant": "note"
+  }
+]
+```

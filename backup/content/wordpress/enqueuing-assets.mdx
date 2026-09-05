@@ -1,0 +1,93 @@
+---
+id: "bdc5ee6b-2c8a-4f28-8aa1-ca5264fad96a"
+title: "Enqueuing Styles & Scripts the Right Way"
+path: "wordpress/enqueuing-assets"
+status: "published"
+meta_title: "Enqueuing Styles & Scripts the Right Way | Learn Computer Academy"
+meta_description: "Why WordPress themes never hardcode a <link> or <script> tag, and how wp_enqueue_style/script actually works."
+sort_order: 10
+updated_at: "2026-07-30T14:23:27.288769+00:00"
+---
+
+```json
+[
+  {
+    "id": "ax4TrnOXzLA-",
+    "html": "<p>Every earlier example in this section wrote a plain <code>&lt;link&gt;</code> or <code>&lt;script&gt;</code> tag directly, to keep the focus on one idea at a time. A real theme never does this — CSS and JavaScript get loaded through <code>wp_enqueue_style()</code> and <code>wp_enqueue_script()</code> instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tRpjQimNDoMr",
+    "text": "Why Not Just Write the Tag?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-not-just-write-the-tag"
+  },
+  {
+    "id": "5M1uA3NQrfdO",
+    "html": "<p>WordPress sites routinely run a dozen or more plugins, each with their own CSS and JS. Hardcoded tags have no way to know about any of that — a plugin might load the same library twice, or your theme's script might run before a library it depends on has loaded. Enqueuing puts every stylesheet and script through one shared system that can track dependencies and avoid duplicates automatically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BvFhaVyuIPXE",
+    "text": "The Pattern",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-pattern"
+  },
+  {
+    "id": "5XTNZDzCTOHQ",
+    "code": "<?php\nfunction mytheme_enqueue_assets() {\n    $uri = get_template_directory_uri();\n    $dir = get_template_directory();\n\n    wp_enqueue_style( 'mytheme-style', $uri . '/css/style.css', [], filemtime( $dir . '/css/style.css' ) );\n    wp_enqueue_script( 'mytheme-main', $uri . '/js/main.js', [ 'jquery' ], filemtime( $dir . '/js/main.js' ), true );\n}\nadd_action( 'wp_enqueue_scripts', 'mytheme_enqueue_assets' );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "P6n6_vn_d6u0",
+    "html": "<p>Both functions take roughly the same arguments: a unique handle, the file's URL, an array of dependency handles, a version number, and (for scripts) whether to load it in the footer.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9beMTvQIcEDL",
+    "rows": [
+      [
+        "handle",
+        "A unique name other code can reference — <code>'jquery'</code> as a dependency above refers to WordPress's own bundled copy, so it loads first automatically"
+      ],
+      [
+        "src",
+        "Built with <code>get_template_directory_uri()</code>, never a hardcoded path — this keeps the theme portable if it's ever renamed or moved"
+      ],
+      [
+        "deps",
+        "An array of handles that must load first — WordPress sorts the final load order for you"
+      ],
+      [
+        "version",
+        "<code>filemtime()</code> (the file's last-modified time) is a common trick: it changes automatically every time the file is edited, which busts browser caches without hand-bumping a version number"
+      ],
+      [
+        "in_footer (scripts only)",
+        "<code>true</code> loads the script near <code>wp_footer()</code> instead of in <code>&lt;head&gt;</code> — almost always what you want, since it doesn't block the page from rendering while the script downloads"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Argument",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "vmJ2uQYu56vr",
+    "html": "<p><code>wp_enqueue_scripts</code> is the correct hook for the public-facing site. It's easy to mix up with <code>admin_enqueue_scripts</code> (for <code>wp-admin</code> screens) — using the wrong one means your assets simply never load, with no error to explain why.</p>",
+    "type": "callout",
+    "title": "Not admin_enqueue_scripts",
+    "variant": "warning"
+  },
+  {
+    "id": "hAeKujDP3mAR",
+    "html": "<p>With assets loading properly, the next lesson covers the other thing every theme needs from <code>functions.php</code> — registering and outputting navigation menus.</p>",
+    "type": "richtext"
+  }
+]
+```

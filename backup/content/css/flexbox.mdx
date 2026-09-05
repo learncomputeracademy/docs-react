@@ -1,0 +1,196 @@
+---
+id: "8517dc27-9031-491c-9d7a-f36875dc7e00"
+title: "CSS Flexbox"
+path: "css/flexbox"
+status: "published"
+meta_title: "CSS Flexbox | Learn Computer Academy"
+meta_description: "The flexbox layout model — container and item properties for arranging elements in a row or column, with even spacing and alignment."
+sort_order: 36
+updated_at: "2026-09-03T03:54:06.648339+00:00"
+---
+
+```json
+[
+  {
+    "id": "JNdP6aGLm4BV",
+    "html": "<hr><p>Flexbox is a one-dimensional layout model — it arranges items in a single row or column, and makes spacing, alignment, and reordering them far easier than the older float-based layout in earlier lessons.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "PzXYUX4XfLWx",
+    "text": "Creating a Flex Container",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-flex-container"
+  },
+  {
+    "id": "-ey7aSsWcRwQ",
+    "html": "<p>Set <code>display: flex</code> on a parent element to turn its direct children into flex items.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1U6nrSIHuZwy",
+    "code": ".container {\n  display: flex;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "9GV6botcRTNw",
+    "text": "flex-direction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "flex-direction"
+  },
+  {
+    "id": "YPKSfuYuL-3P",
+    "html": "<p>Controls whether items lay out in a row or a column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "roPe3KXwuLGn",
+    "code": ".container {\n  flex-direction: row;          /* default — left to right */\n  flex-direction: row-reverse;\n  flex-direction: column;        /* top to bottom */\n  flex-direction: column-reverse;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "elhlmI3lkan9",
+    "text": "justify-content",
+    "type": "heading",
+    "level": 2,
+    "anchor": "justify-content"
+  },
+  {
+    "id": "MvGqdFpIywDT",
+    "html": "<p>Aligns items along the main axis (horizontally, for a row).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6gWGl13_njMc",
+    "code": ".container {\n  justify-content: flex-start;    /* default */\n  justify-content: flex-end;\n  justify-content: center;\n  justify-content: space-between;\n  justify-content: space-around;\n  justify-content: space-evenly;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "bqLw-X_5W6hD",
+    "text": "align-items",
+    "type": "heading",
+    "level": 2,
+    "anchor": "align-items"
+  },
+  {
+    "id": "RfwhSoeNVpS0",
+    "html": "<p>Aligns items along the cross axis (vertically, for a row).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6zUGrxqd8m2c",
+    "code": ".container {\n  align-items: stretch;    /* default — fills the container height */\n  align-items: flex-start;\n  align-items: flex-end;\n  align-items: center;\n  align-items: baseline;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "OB-PP50JN2nV",
+    "text": "flex-wrap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "flex-wrap"
+  },
+  {
+    "id": "i4LKNvgIxOBt",
+    "html": "<p>Items shrink to fit on one line by default. <code>flex-wrap: wrap</code> lets them wrap onto multiple lines instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d63nsbOsrNMY",
+    "code": ".container {\n  flex-wrap: nowrap;    /* default */\n  flex-wrap: wrap;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "BzvFqf3g8Qfk",
+    "text": "gap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "gap"
+  },
+  {
+    "id": "x2G3dIJqKXju",
+    "html": "<p>Adds space between flex items, without needing margin on each individual item.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vMbR9-5dbtOn",
+    "code": ".container {\n  display: flex;\n  gap: 16px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "GFNPeDd5p2dz",
+    "text": "Item Properties — flex-grow, flex-shrink, flex-basis",
+    "type": "heading",
+    "level": 2,
+    "anchor": "item-properties-flex-grow-flex-shrink-flex-basis"
+  },
+  {
+    "id": "rIqO_CSebfj8",
+    "rows": [
+      [
+        "flex-grow",
+        "How much an item grows to fill extra space, relative to other items (default 0)"
+      ],
+      [
+        "flex-shrink",
+        "How much an item shrinks when there isn't enough space (default 1)"
+      ],
+      [
+        "flex-basis",
+        "The item's starting size before growing or shrinking (default auto)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "What it does"
+    ]
+  },
+  {
+    "id": "Tm-DYUMuYID2",
+    "code": ".item {\n  flex-grow: 1;\n  flex-shrink: 1;\n  flex-basis: 200px;\n\n  /* often written as shorthand: */\n  flex: 1 1 200px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "0RD5mPPBKHT3",
+    "text": "align-self and order",
+    "type": "heading",
+    "level": 2,
+    "anchor": "align-self-and-order"
+  },
+  {
+    "id": "X_HpV4ZLFZg1",
+    "html": "<p><code>align-self</code> overrides <code>align-items</code> for one specific item. <code>order</code> changes the visual order of items without touching the HTML.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iji4_lPS6UH7",
+    "code": ".item-featured {\n  align-self: center;\n  order: -1;    /* moves this item first */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "DZNf2VZmQn5D",
+    "html": "<p>This site's Flexbox Playground tool (under Tools) lets you drag values for every property on this page and see the layout update live — a faster way to build intuition than reading code alone.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

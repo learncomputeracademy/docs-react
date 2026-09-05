@@ -1,0 +1,103 @@
+---
+id: "ebef85d2-1366-463e-8e32-a5fbf78f5d92"
+title: "Variable Scope"
+path: "php/scope"
+status: "published"
+meta_title: "PHP Variable Scope | Learn Computer Academy"
+meta_description: "Where a PHP variable is visible from — local vs. global scope, and the global keyword."
+sort_order: 17
+updated_at: "2026-07-30T09:08:39.707428+00:00"
+---
+
+```json
+[
+  {
+    "id": "lT3AcAFrUyJI",
+    "html": "<p><b>Scope</b> is where in your code a variable can actually be seen and used — the same idea from <a href=\"/programming/scope/\">Intro to Programming</a>, and PHP is stricter about it than some languages you may have used.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yZRx2eAH72qt",
+    "text": "Local Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "local-scope"
+  },
+  {
+    "id": "guhbK1Oi6FHm",
+    "html": "<p>A variable created inside a function only exists inside that function. It disappears the moment the function finishes, and is completely invisible to code outside it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hUhaRBmDDFBY",
+    "code": "<?php\n  function setName() {\n    $name = \"Priya\"; // local to setName()\n    echo $name;       // works fine here\n  }\n\n  setName();\n  // echo $name; // Error — $name doesn't exist out here\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "AOlq906X56zi",
+    "text": "Global Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "global-scope"
+  },
+  {
+    "id": "GfoBleQ0QyOr",
+    "html": "<p>A variable declared outside every function is in the <b>global</b> scope — but, unlike many languages, a PHP function <b>cannot</b> see a global variable automatically just because it exists:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FHK1QTn7BWuG",
+    "code": "<?php\n  $siteName = \"Learn Computer Academy\";\n\n  function showName() {\n    // echo $siteName; // does NOT work — functions don't see globals by default\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "p-Paf9ZTeQ-b",
+    "text": "The global Keyword",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-global-keyword"
+  },
+  {
+    "id": "xKWyuEiEVGOh",
+    "html": "<p>To use a global variable inside a function, it has to be explicitly pulled in with <code>global</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6XSMPmIFpSnS",
+    "code": "<?php\n  $siteName = \"Learn Computer Academy\";\n\n  function showName() {\n    global $siteName;\n    echo $siteName; // now this works\n  }\n\n  showName();\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "JTUGfdECTh-l",
+    "html": "<p>Relying on <code>global</code> throughout a codebase makes it hard to trace where a value actually comes from. The more common, cleaner pattern — used in nearly every example from here on — is to pass the value in as a parameter instead: <code>function showName($siteName) { echo $siteName; }</code>.</p>",
+    "type": "callout",
+    "title": "Prefer parameters over global",
+    "variant": "tip"
+  },
+  {
+    "id": "OxH_hUzEs9z-",
+    "text": "static Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "static-variables"
+  },
+  {
+    "id": "5JqBIAkvXzqT",
+    "html": "<p>A <code>static</code> variable inside a function keeps its value between calls, instead of resetting every time — useful for counters that live inside a single function:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GjrLqeI8A-za",
+    "code": "<?php\n  function countCalls() {\n    static $count = 0;\n    $count++;\n    echo $count . \"\\n\";\n  }\n\n  countCalls(); // 1\n  countCalls(); // 2\n  countCalls(); // 3\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

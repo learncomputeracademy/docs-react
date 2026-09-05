@@ -1,0 +1,83 @@
+---
+id: "43fdafda-a2c5-40b1-aa06-12960983c391"
+title: "What DNS Is"
+path: "hosting/what-dns-is"
+status: "published"
+meta_title: "What DNS Is and How It Works | Learn Computer Academy"
+meta_description: "DNS is the system that translates a domain name into the numeric address a computer actually needs. How the lookup works, and why changes take time to spread."
+sort_order: 8
+updated_at: "2026-08-05T13:35:32.383073+00:00"
+---
+
+```json
+[
+  {
+    "id": "1Fz9l63-0NdM",
+    "html": "<p><b>DNS</b> — Domain Name System — is the system that translates a human-readable domain name into the numeric IP address a computer actually needs to connect to a server. It is, in effect, the internet's phone book, looked up automatically on every single request.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WZCxNn_gRu7P",
+    "text": "The Lookup, Step by Step",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-lookup-step-by-step"
+  },
+  {
+    "id": "8FdJUiDfWw82",
+    "html": "<p>When your browser needs to load <code>example.com</code>, roughly this happens: it asks a <b>DNS resolver</b> (often run by your internet provider) whether it already knows the answer; if not, the resolver asks a chain of DNS servers, working from the most general down to the most specific, until it reaches the <b>nameservers</b> responsible for <code>example.com</code> specifically; those nameservers return the actual IP address; and the resolver hands that back to your browser, which finally makes the real connection to the server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "I8iiF1YuJyC7",
+    "alt": "Isometric diagram showing a browser querying a DNS resolver, which queries a chain of nameservers, eventually returning an IP address that the browser uses to connect to a server",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A domain lookup happens automatically, in a fraction of a second, before every single page load.",
+    "publicId": "docs/img/hosting/dns-lookup-1"
+  },
+  {
+    "id": "tK89gIXvsZs9",
+    "text": "Nameservers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nameservers"
+  },
+  {
+    "id": "LMrrzPsXOeWU",
+    "html": "<p>A domain's <b>nameservers</b> are the specific servers that hold the authoritative DNS records for it — the actual source of truth for where that domain points. When you register a domain, it comes with default nameservers from your registrar; when you buy hosting elsewhere, you typically either point your domain at that host's nameservers, or keep the registrar's nameservers and add individual records instead. Both approaches are covered practically in the connecting-a-domain lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "maV4JnlethKD",
+    "text": "Caching and Why Changes Take Time",
+    "type": "heading",
+    "level": 2,
+    "anchor": "caching-and-why-changes-take-time"
+  },
+  {
+    "id": "QT_mq1aspqsx",
+    "html": "<p>Looking up DNS on every single request, all the way through that full chain, would be slow — so the answer is cached at multiple points along the way: your browser, your operating system, your internet provider's resolver, and others in between. Each cached copy has a <b>TTL</b> (time to live), a duration after which it is allowed to expire and be looked up fresh.</p><p>This is why a DNS change — pointing a domain at new hosting, for instance — does not take effect everywhere instantly. Some visitors see the change within minutes; others, whose resolver cached the old answer with a long TTL, may see it hours later. This delay is commonly called <b>propagation</b>, covered with practical timing guidance in the connecting-a-domain lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C4dYxd0k8Kha",
+    "html": "<p>DNS changes are not risky to make, but they are not instant either. Plan any DNS change with the expectation that it may take anywhere from minutes to about 48 hours to be visible everywhere, and avoid making a change right before a critical moment (a launch event, a scheduled announcement) where you'd have no room to fix a mistake.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "qxB0AnKY0fLt",
+    "text": "Where This Goes Next",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-goes-next"
+  },
+  {
+    "id": "pUrETjVCnfJq",
+    "html": "<p>DNS itself is just the lookup mechanism. What it actually stores and returns are <b>records</b> — different types for different purposes, covered in full in the next lesson.</p>",
+    "type": "richtext"
+  }
+]
+```

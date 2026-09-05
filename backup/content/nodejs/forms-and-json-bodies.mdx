@@ -1,0 +1,100 @@
+---
+id: "9ec61c30-bc6c-43e0-a9d2-bdac83867935"
+title: "Handling Forms & JSON Request Bodies"
+path: "nodejs/forms-and-json-bodies"
+status: "published"
+meta_title: "Handling Forms and JSON in Express | Learn Computer Academy"
+meta_description: "Read data a browser sends along with a POST request — both JSON and HTML form submissions — with Express's built-in body-parsing middleware."
+sort_order: 22
+updated_at: "2026-08-05T05:47:59.488484+00:00"
+---
+
+```json
+[
+  {
+    "id": "zCSWcB1KZ-BT",
+    "html": "<p>A GET request's data lives entirely in the URL — route parameters and the query string, both covered already. A POST request typically carries data in its <b>body</b> instead, which needs its own step to read.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PLZY7Dyyu32u",
+    "text": "Reading a JSON Body",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-json-body"
+  },
+  {
+    "id": "0HHSgLtcx5Ko",
+    "html": "<p><code>express.json()</code>, from the middleware lesson, reads a JSON request body and parses it onto <code>req.body</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "95pM46R4_HtZ",
+    "code": "app.use(express.json())\n\napp.post('/products', (req, res) => {\n  console.log(req.body)  // { name: 'Laptop Stand', price: 25 }\n  res.status(201).send(`Created: ${req.body.name}`)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "RdvdGy6yiWie",
+    "html": "<p>Without <code>express.json()</code> registered, <code>req.body</code> is simply <code>undefined</code> — this is the single most common reason a POST route \"isn't receiving any data\" while testing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G5bY3xSNUM1y",
+    "text": "Reading an HTML Form Submission",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-an-html-form-submission"
+  },
+  {
+    "id": "Ec-XEFVZM8sH",
+    "html": "<p>A plain HTML <code>&lt;form&gt;</code> doesn't send JSON by default — it sends <code>application/x-www-form-urlencoded</code> data instead, which needs a different piece of middleware:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N3-i1YdEkyp9",
+    "code": "<form method=\"POST\" action=\"/contact\">\n  <input name=\"email\" type=\"email\">\n  <textarea name=\"message\"></textarea>\n  <button type=\"submit\">Send</button>\n</form>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "IwHfEt862yqw",
+    "code": "app.use(express.urlencoded({ extended: true }))\n\napp.post('/contact', (req, res) => {\n  console.log(req.body)  // { email: '...', message: '...' }\n  res.send('Thanks for your message')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "2d014FMv9wCt",
+    "html": "<p>Registering both <code>express.json()</code> and <code>express.urlencoded()</code> at once is normal — each only activates for requests whose <code>Content-Type</code> header matches what it handles, so they don't conflict.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1lNyUTAyBttB",
+    "text": "Sending a JSON Response",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sending-a-json-response"
+  },
+  {
+    "id": "9frgOYbX0LGt",
+    "html": "<p><code>res.json()</code> is the response-side equivalent — it sets the correct <code>Content-Type</code> and converts a JavaScript object to a JSON string automatically:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YC82LsHnmcSm",
+    "code": "app.get('/products/:id', (req, res) => {\n  res.json({ id: req.params.id, name: 'Laptop Stand', price: 25 })\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "A35ZKWI0C9xl",
+    "html": "<p><code>res.send()</code> works for JSON too, technically, but <code>res.json()</code> is more explicit about intent and handles a couple of edge cases (like sending <code>null</code>) more predictably. Use <code>res.json()</code> whenever the response is meant to be data rather than text or HTML.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

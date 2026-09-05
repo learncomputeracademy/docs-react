@@ -1,0 +1,89 @@
+---
+id: "e2574091-603b-4339-a35b-2b868b0a5a9a"
+title: "Performance Basics"
+path: "react/performance"
+status: "published"
+meta_title: "React Performance Basics | Learn Computer Academy"
+meta_description: "How React re-renders actually work, and using React.memo to skip re-rendering a component when its props haven't changed."
+sort_order: 24
+updated_at: "2026-07-31T11:24:43.423302+00:00"
+---
+
+```json
+[
+  {
+    "id": "nyrL0RA8eC2a",
+    "html": "<p>Understanding what actually triggers a re-render is the foundation for reasoning about React performance at all — most of it comes down to one fact worth stating plainly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6jfLcszUwRP7",
+    "text": "What Triggers a Re-Render",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-triggers-a-re-render"
+  },
+  {
+    "id": "dWHf8EAgqYZM",
+    "html": "<p>When a component's state changes (via a <code>useState</code> setter), React re-renders that component <b>and every one of its child components</b> — regardless of whether those children's own props actually changed. This is deliberate, and correct by default: it's cheap in the vast majority of real components.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OxRMeWfYWQBY",
+    "code": "function Parent() {\n  const [count, setCount] = useState(0);\n  return (\n    <div>\n      <button onClick={() => setCount(count + 1)}>{count}</button>\n      <ExpensiveChild /> {/* re-renders every time count changes, even with no props of its own */}\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "yptSxn6Gd0Lm",
+    "text": "React.memo",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reactmemo"
+  },
+  {
+    "id": "LG3meOVkw5f_",
+    "html": "<p>For a component that's genuinely expensive to re-render and receives the same props most of the time, <code>React.memo</code> skips re-rendering it when its props haven't changed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eXHAavdzN-3h",
+    "code": "const ExpensiveChild = React.memo(function ExpensiveChild({ data }) {\n  // only re-renders when `data` actually changes\n  return <ComplexVisualization data={data} />;\n});",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "YmtkmFv36wSU",
+    "html": "<p><code>React.memo</code> compares props with <code>===</code> — the same reference check from the Updating State lesson. A new object or array literal created fresh on every parent render (<code>&lt;ExpensiveChild data={{ x: 1 }} /&gt;</code>) defeats it completely, since it's never actually equal to the previous render's object even when the values inside look identical. This is exactly where <code>useMemo</code>, from the earlier lesson, earns its keep — memoizing the object itself, not just the child's render.</p>",
+    "type": "callout",
+    "title": "React.memo needs stable prop references to help at all",
+    "variant": "warning"
+  },
+  {
+    "id": "Z-frU-sqczdE",
+    "text": "Measure Before Optimizing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "measure-before-optimizing"
+  },
+  {
+    "id": "rrk8UHIYnqC1",
+    "html": "<p>React DevTools' <b>Profiler</b> tab shows exactly which components re-rendered and how long each one took — the right first step whenever something feels slow, rather than guessing which component to wrap in <code>React.memo</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zVfoEP5GyjfF",
+    "text": "The Practical Default",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-practical-default"
+  },
+  {
+    "id": "b9QWewzhTV7k",
+    "html": "<p>Most components never need <code>React.memo</code>, <code>useMemo</code>, or <code>useCallback</code> at all — write plain components first, and reach for these specifically once the Profiler has shown a real, measured problem. This mirrors the same warning from the useMemo/useCallback lesson: optimization tools that get reached for by default add real complexity for a benefit that, most of the time, doesn't exist.</p>",
+    "type": "richtext"
+  }
+]
+```

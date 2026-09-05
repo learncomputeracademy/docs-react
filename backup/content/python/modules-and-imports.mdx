@@ -1,0 +1,131 @@
+---
+id: "15b61827-43f0-4bab-9b8a-dfc125c8abe7"
+title: "Modules and Imports"
+path: "python/modules-and-imports"
+status: "published"
+meta_title: "Python Modules and Imports | Learn Computer Academy"
+meta_description: "Using Python's standard library and third-party packages with import, and installing packages with pip."
+sort_order: 19
+updated_at: "2026-08-04T11:39:31.967342+00:00"
+---
+
+```json
+[
+  {
+    "id": "InpVKlBa1zAB",
+    "html": "<p>A huge part of Python's practical usefulness comes from code you don't have to write yourself — the <b>standard library</b> ships with Python itself, and <b>pip</b> installs anything else from the wider Python community.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8pybOLP_n6Db",
+    "text": "Importing from the Standard Library",
+    "type": "heading",
+    "level": 2,
+    "anchor": "importing-from-the-standard-library"
+  },
+  {
+    "id": "YBDCnA-U8cAr",
+    "html": "<p>You already used this with the <code>math</code> module. <code>import</code> makes a whole module available; <code>from ... import ...</code> pulls out just what you need:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PmJP571lIHtl",
+    "code": "import math\nprint(math.sqrt(64))\n\nfrom math import sqrt\nprint(sqrt(64))  # same result, no math. prefix needed",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "5Ge5Jp1lkMTI",
+    "html": "<p>The standard library is large and covers a lot of everyday needs — <code>random</code> (random numbers), <code>datetime</code> (dates, covered in its own lesson soon), <code>json</code> (reading/writing JSON), <code>os</code> (interacting with the operating system), among many others. The <a href=\"https://docs.python.org/3/library/index.html\" target=\"_blank\" rel=\"noopener noreferrer\">full standard library reference is on python.org</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RhAWUDNzE7pr",
+    "alt": "Isometric diagram showing a Python script icon in the center with arrows pulling in modules from two labeled source groups on either side, one representing the built-in standard library and one representing external packages",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A script can pull in code from the built-in standard library, or from packages installed separately.",
+    "publicId": "docs/img/python/modules-1"
+  },
+  {
+    "id": "lfU5cjXUQqBJ",
+    "text": "Aliasing an Import",
+    "type": "heading",
+    "level": 2,
+    "anchor": "aliasing-an-import"
+  },
+  {
+    "id": "TKmLKBbqyCJp",
+    "html": "<p><code>as</code> renames an import — useful for a long module name you'll type repeatedly. It's so standard for a few libraries that the alias is effectively part of how everyone writes them:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "K_5P30UZ42Bw",
+    "code": "import math as m\nprint(m.sqrt(64))  # 8.0 — same module, shorter name\n\n# You'll see these exact aliases constantly once you reach data/AI libraries:\n# import pandas as pd\n# import numpy as np",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "tXJFq3IMJc-6",
+    "text": "Third-Party Packages with pip",
+    "type": "heading",
+    "level": 2,
+    "anchor": "third-party-packages-with-pip"
+  },
+  {
+    "id": "VsCpAI6zbeUa",
+    "html": "<p>Anything not in the standard library — a web framework, a data analysis library, an HTTP client — is installed with <b>pip</b>, Python's package manager, roughly equivalent to what npm is for JavaScript:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "drpCcz6wU9mx",
+    "code": "pip install requests",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "AZ3-J_r_ftms",
+    "code": "import requests\n\nresponse = requests.get(\"https://api.example.com/data\")\nprint(response.status_code)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "9MjOL-URA9Ia",
+    "text": "Your Own Modules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "your-own-modules"
+  },
+  {
+    "id": "eoL5OWyjiTMX",
+    "html": "<p>Any <code>.py</code> file can be imported by another — this is how Python code gets split across multiple files instead of living in one giant script:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C4kl-Cabmmoz",
+    "code": "# helpers.py\ndef greet(name):\n    return f\"Hello, {name}!\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "buXRpMhvEDYB",
+    "code": "# main.py\nfrom helpers import greet\n\nprint(greet(\"Priya\"))",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "ylU_ITOA2JDN",
+    "html": "<p>Real Python projects almost always use a <b>virtual environment</b> to keep each project's installed packages separate from every other project's — covered properly in the \"Where to Go Next\" lesson at the end of this section, since it's more of a workflow habit than a language feature.</p>",
+    "type": "callout",
+    "title": "Virtual environments come later",
+    "variant": "note"
+  }
+]
+```

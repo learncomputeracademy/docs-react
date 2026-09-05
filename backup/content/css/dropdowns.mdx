@@ -4,8 +4,8 @@ title: "CSS Dropdowns"
 path: "css/dropdowns"
 status: "published"
 meta_title: "CSS Dropdowns | Learn Computer Academy"
-sort_order: 10
-updated_at: "2026-07-25T06:20:42.256625+00:00"
+sort_order: 30
+updated_at: "2026-08-18T08:03:09.06517+00:00"
 ---
 
 ```json
@@ -23,9 +23,22 @@ updated_at: "2026-07-25T06:20:42.256625+00:00"
     "anchor": "demo-dropdown-examples"
   },
   {
+    "id": "c_hVQqFWgNm3",
+    "alt": "A dropdown menu mockup showing a \"Products\" trigger open, with a panel of four menu items and one item highlighted as hovered",
+    "type": "image",
+    "width": 590,
+    "height": 250,
+    "caption": "The open state — what the demo below builds toward.",
+    "publicId": "docs/img/css/dropdown-example"
+  },
+  {
     "id": "JqImgAESHwOj",
-    "html": "<p>Move the mouse over the examples below:</p>\n<div class=\"dropdown dropdown2\" style=\"position:relative;top:15px;display: inline-block;\">\n                                          <span class=\"dropspan\">Dropdown Text</span>\n                                          <div class=\"dropdown-content\" style=\"padding:8px 16px;min-width:150px;text-align:center\">\n                                            <p>Hello World!</p>\n                                          </div>\n                                        </div>\n<div class=\"dropdown dropdown2\">\n                                          <button class=\"btn btn-primary\">Dropdown Menu</button>\n                                          <div class=\"dropdown-content dropdown-content2\">\n                                            <a href=\"javascript:void(0)\">Link 1</a>\n                                            <a href=\"javascript:void(0)\">Link 2</a>\n                                            <a href=\"javascript:void(0)\">Link 3</a>\n                                          </div>\n                                        </div>\n<div class=\"dropdown dropdown2\">\n                                        <span style=\"position:relative;bottom:15px;\">Other: </span><img class=\"dropimg\" src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960389/img/img_5terre.webp\" alt=\"Cinque Terre\">\n                                          <div class=\"dropdown-content right\">\n                                            <div class=\"img\">\n                                                <img src=\"https://res.cloudinary.com/docslca/image/upload/f_auto,q_auto/v1784960389/img/img_5terre.webp\" alt=\"Cinque Terre\">\n                                                <div style=\"padding:15px;text-align:center;\">Beautiful Cinque Terre</div>\n                                            </div>\n                                            </div>\n                                        </div>",
-    "type": "richtext"
+    "mode": "web",
+    "type": "tryit",
+    "files": {
+      "css": ".dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 32px;\n}\n.dropbtn {\n  background-color: #f97316;\n  color: white;\n  padding: 10px 16px;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 14px;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  left: 0;\n  top: 100%;\n  margin-top: 8px;\n  min-width: 150px;\n  padding: 12px 16px;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);\n  background-color: #f9f9f9;\n  border-radius: 6px;\n  text-align: center;\n}\n.dropdown-content p {\n  margin: 0;\n}\n.dropdown-content2 {\n  text-align: left;\n}\n.dropdown-content2 a {\n  display: block;\n  color: #111;\n  padding: 4px 0;\n  text-decoration: none;\n}\n.dropdown-content2 a:hover {\n  color: #f97316;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}",
+      "html": "<div class=\"dropdown\">\n  <span>Dropdown Text</span>\n  <div class=\"dropdown-content\">\n    <p>Hello World!</p>\n  </div>\n</div>\n\n<div class=\"dropdown\">\n  <button class=\"dropbtn\">Dropdown Menu</button>\n  <div class=\"dropdown-content dropdown-content2\">\n    <a href=\"#\">Link 1</a>\n    <a href=\"#\">Link 2</a>\n    <a href=\"#\">Link 3</a>\n  </div>\n</div>"
+    }
   }
 ]
 ```

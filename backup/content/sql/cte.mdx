@@ -1,0 +1,97 @@
+---
+id: "0fef31cc-de39-4b98-baf1-5716f645306d"
+title: "Common Table Expressions (CTEs)"
+path: "sql/cte"
+status: "published"
+meta_title: "SQL Common Table Expressions (CTEs) | Learn Computer Academy"
+meta_description: "WITH...AS and recursive CTEs — naming a temporary result set to make complex queries easier to read, and walking hierarchical data like org charts."
+sort_order: 15
+updated_at: "2026-07-29T06:31:08.973215+00:00"
+---
+
+```json
+[
+  {
+    "id": "bqf0pE0n5PGM",
+    "html": "<p>A <b>CTE</b> (Common Table Expression) names a temporary result set with <code>WITH</code>, making complex queries easier to read and reuse within the same statement.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZxDmAJyDIuJ1",
+    "text": "WITH ... AS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "with-as"
+  },
+  {
+    "id": "OwCwOMj9FE4R",
+    "html": "<p>Defines a named, temporary result set that the main query can reference like a table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "E1HSrnAtIwd0",
+    "code": "WITH cte_name AS (\n  SELECT ...\n)\nSELECT * FROM cte_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "JOoMxjt055Hh",
+    "code": "WITH DeptAvg AS (\n  SELECT department, AVG(salary) AS avg_salary\n  FROM Employee\n  GROUP BY department\n)\nSELECT * FROM DeptAvg\nWHERE avg_salary > 60000;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "8C_gEjYeCmZw",
+    "html": "<ul><li>The CTE is computed once and can be referenced by name afterward.</li><li>Reads top-to-bottom, unlike a nested subquery — this is the readability win over the \"subquery in FROM\" pattern from the last lesson.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "_KlpzuzdcreJ",
+    "html": "<p>Reaching for a CTE purely for style when a simple subquery would do just as well.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "n9gaTZSydDaT",
+    "text": "Recursive CTE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "recursive-cte"
+  },
+  {
+    "id": "FWommULPRPWk",
+    "html": "<p>A CTE that refers to itself, used to walk hierarchical or graph-like data.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7l8jOPyZk5OQ",
+    "code": "WITH RECURSIVE cte_name AS (\n  base_case\n  UNION ALL\n  recursive_case\n)\nSELECT * FROM cte_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "0eVxu9j4wPhK",
+    "code": "WITH RECURSIVE OrgChart AS (\n  SELECT id, name, manager_id FROM Employee WHERE manager_id IS NULL\n  UNION ALL\n  SELECT e.id, e.name, e.manager_id\n  FROM Employee e\n  JOIN OrgChart o ON e.manager_id = o.id\n)\nSELECT * FROM OrgChart;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "aV13pIgia8wo",
+    "html": "<ul><li>The base case picks the starting rows (the top of the hierarchy).</li><li>The recursive case repeatedly joins back until no new rows are found.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "GIwwIEoQdj42",
+    "html": "<p>Writing a recursive case with no terminating condition, causing an infinite loop.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "K2vY1f_By2TF",
+    "html": "<p>CTEs are the last of the \"advancing\" querying techniques in this section. The final lesson steps past everyday querying entirely, into tools that sit past the beginner track: views, indexes, stored procedures, triggers, and how to check whether a query is actually fast.</p>",
+    "type": "richtext"
+  }
+]
+```

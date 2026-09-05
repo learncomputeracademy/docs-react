@@ -1,0 +1,106 @@
+---
+id: "3e4f440f-9163-4195-b6b6-9b2fdd425943"
+title: "OOP — Constructors, Inheritance, and Visibility"
+path: "php/oop-inheritance"
+status: "published"
+meta_title: "PHP OOP: Constructors, Inheritance, Visibility | Learn Computer Academy"
+meta_description: "Setting up objects automatically with constructors, sharing behavior between classes with inheritance, and controlling access with public, private, and protected."
+sort_order: 24
+updated_at: "2026-07-30T09:08:42.240481+00:00"
+---
+
+```json
+[
+  {
+    "id": "-A_ephoX6yUs",
+    "html": "<p>The previous lesson built a class by hand, property by property. This one covers the three features that make classes genuinely powerful in practice.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gNdPBuQS_Ti0",
+    "text": "Constructors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "constructors"
+  },
+  {
+    "id": "5o2u1A1ug63I",
+    "html": "<p>A <b>constructor</b> — a special method named <code>__construct()</code> — runs automatically the moment an object is created, so you never have to set every property manually afterward:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AJW7wD_YN6k7",
+    "code": "<?php\n  class Student {\n    public $name;\n    public $course;\n\n    public function __construct($name, $course) {\n      $this->name = $name;\n      $this->course = $course;\n    }\n  }\n\n  $student = new Student(\"Priya\", \"Web Development\"); // set in one line\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "NjLoHH140yo2",
+    "text": "Visibility: public, private, protected",
+    "type": "heading",
+    "level": 2,
+    "anchor": "visibility-public-private-protected"
+  },
+  {
+    "id": "6XBpGTRhMcGN",
+    "rows": [
+      [
+        "public",
+        "Anywhere — inside the class, and from outside it"
+      ],
+      [
+        "private",
+        "Only from inside this exact class"
+      ],
+      [
+        "protected",
+        "This class, and any class that inherits from it"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Keyword",
+      "Accessible from"
+    ]
+  },
+  {
+    "id": "9EMVk7Up-c2E",
+    "code": "<?php\n  class BankAccount {\n    private $balance = 0;\n\n    public function deposit($amount) {\n      $this->balance += $amount;\n    }\n\n    public function getBalance() {\n      return $this->balance;\n    }\n  }\n\n  $account = new BankAccount();\n  $account->deposit(500);\n  echo $account->getBalance(); // 500\n  // echo $account->balance; // Error — private, not accessible from outside\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Udbj3gzIDEFw",
+    "html": "<p>Making a property <code>private</code> and only exposing it through methods like <code>getBalance()</code> is called <b>encapsulation</b> — it stops outside code from setting <code>$balance</code> to an invalid value directly, since every change has to go through a method you control.</p>",
+    "type": "callout",
+    "title": "Why bother with private?",
+    "variant": "tip"
+  },
+  {
+    "id": "LeuzDSdAcf6r",
+    "text": "Inheritance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inheritance"
+  },
+  {
+    "id": "YbQeMfNH1MdJ",
+    "html": "<p><b>Inheritance</b> lets one class build on another with <code>extends</code>, reusing its properties and methods instead of rewriting them:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qFzYZkbU6CPV",
+    "code": "<?php\n  class Person {\n    public $name;\n\n    public function __construct($name) {\n      $this->name = $name;\n    }\n\n    public function greet() {\n      return \"Hi, I'm {$this->name}.\";\n    }\n  }\n\n  class Student extends Person {\n    public $course;\n\n    public function __construct($name, $course) {\n      parent::__construct($name); // reuse Person's constructor\n      $this->course = $course;\n    }\n  }\n\n  $s = new Student(\"Amit\", \"Graphic Design\");\n  echo $s->greet(); // \"Hi, I'm Amit.\" — inherited from Person, unchanged\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "28nyVfSg2oKX",
+    "html": "<p><code>parent::</code> calls a method from the class being extended — commonly used, as above, to reuse a parent's constructor instead of duplicating its logic.</p>",
+    "type": "richtext"
+  }
+]
+```

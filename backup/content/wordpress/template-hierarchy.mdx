@@ -1,0 +1,102 @@
+---
+id: "6992eb1e-8974-4a6d-8a0f-7089ebe98eb0"
+title: "The Template Hierarchy"
+path: "wordpress/template-hierarchy"
+status: "published"
+meta_title: "The Template Hierarchy | Learn Computer Academy"
+meta_description: "How WordPress decides which template file to load for a given URL — the search order every custom theme has to design around."
+sort_order: 7
+updated_at: "2026-07-30T14:23:26.29933+00:00"
+---
+
+```json
+[
+  {
+    "id": "ofc4vMXxZR51",
+    "html": "<p>Every time WordPress serves a page, it has to decide which of a theme's template files should render it. That decision isn't random or configured anywhere — it follows a fixed, predictable search order called the <b>template hierarchy</b>, and understanding it is what turns \"a folder of PHP files\" into a theme that actually knows what to show where.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "L6hQtrVKbflB",
+    "text": "The Basic Idea",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-basic-idea"
+  },
+  {
+    "id": "S8Z3r7cJ8v4y",
+    "html": "<p>For any given request, WordPress works out what's being asked for (a single post? a category archive? the homepage?) and then checks for a series of increasingly generic file names, in order, using the first one that actually exists in the theme. If none of the specific ones exist, it always falls back to <code>index.php</code> — which is exactly why that file is the one truly required template.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZaO_g7d-SR5C",
+    "text": "A Few Concrete Examples",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-concrete-examples"
+  },
+  {
+    "id": "0EVI-q3gWaew",
+    "rows": [
+      [
+        "A single blog post",
+        "<code>single-{post-type}.php</code> → <code>single.php</code> → <code>index.php</code>"
+      ],
+      [
+        "A standalone page",
+        "<code>page-{slug}.php</code> → <code>page-{id}.php</code> → <code>page.php</code> → <code>index.php</code>"
+      ],
+      [
+        "A category archive",
+        "<code>category-{slug}.php</code> → <code>category-{id}.php</code> → <code>category.php</code> → <code>archive.php</code> → <code>index.php</code>"
+      ],
+      [
+        "A 404 (not found)",
+        "<code>404.php</code> → <code>index.php</code>"
+      ],
+      [
+        "The site's homepage",
+        "<code>front-page.php</code> → <code>home.php</code> → <code>page.php</code> (if a static page is set) → <code>index.php</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Requested URL",
+      "Files checked, in order"
+    ]
+  },
+  {
+    "id": "U62PlE4YW99M",
+    "alt": "Isometric flowchart diagram showing a page request branching down through decision points into different template file blocks, illustrating the WordPress template hierarchy",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "WordPress always checks the most specific possible file name first, falling back one step at a time until something matches.",
+    "publicId": "docs/img/wordpress/template-hierarchy-1"
+  },
+  {
+    "id": "opmoIiJVi_h2",
+    "text": "Why This Matters for a Custom Theme",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-for-a-custom-theme"
+  },
+  {
+    "id": "mArJuEm7H1Gh",
+    "html": "<p>This is what makes it possible to give one specific page — a single category, a single page, even a single post — its own completely different layout, just by adding a more specifically-named file. No settings screen, no conditional logic inside a shared template required; the file name alone tells WordPress when to use it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EXxBKL4Jf8Jf",
+    "html": "<p>The full hierarchy covers many more cases than the table above — tag archives, author archives, date archives, search results, and every custom post type and taxonomy gets its own equivalent chain. The <a href=\"https://developer.wordpress.org/themes/basics/template-hierarchy/\" target=\"_blank\" rel=\"noopener noreferrer\">official WordPress template hierarchy diagram</a> is worth keeping bookmarked; this lesson covers the pattern, not every single branch.</p>",
+    "type": "callout",
+    "title": "This is the pattern, not the full list",
+    "variant": "note"
+  },
+  {
+    "id": "bc-Ncb3w8wHv",
+    "html": "<p>With the decision-making logic clear, the next lesson builds the actual files this hierarchy points to most often — <code>index.php</code>, <code>page.php</code>, <code>single.php</code>, and <code>404.php</code>.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,121 @@
+---
+id: "1c85d49e-9ff2-4582-ab37-88eb0bab1a53"
+title: "Streams"
+path: "nodejs/streams"
+status: "published"
+meta_title: "Node.js Streams | Learn Computer Academy"
+meta_description: "Process data piece by piece as it arrives with Node.js streams, instead of waiting for an entire file to load into memory first."
+sort_order: 15
+updated_at: "2026-08-05T05:47:57.208201+00:00"
+---
+
+```json
+[
+  {
+    "id": "8VTACHuUsD5n",
+    "html": "<p>Every <code>fs.readFile()</code> call so far loads the entire file into memory before your code can touch any of it. That's fine for a small text file. For a 4 GB video, it means holding all 4 GB in memory at once just to start processing it. <b>Streams</b> solve this by handling data in small pieces, as those pieces arrive, instead of all at once.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y-EUtHyuJ8aN",
+    "alt": "Diagram showing a large file being broken into small sequential chunks flowing one at a time from a readable stream into a writable stream",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A stream moves data in small chunks instead of loading the whole thing into memory at once.",
+    "publicId": "docs/img/nodejs/streams-1"
+  },
+  {
+    "id": "dD4_qDQ521Zf",
+    "text": "Reading a File as a Stream",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-file-as-a-stream"
+  },
+  {
+    "id": "cLxqjUchszir",
+    "code": "const fs = require('fs')\n\nconst stream = fs.createReadStream('huge-file.txt', 'utf8')\n\nstream.on('data', (chunk) => {\n  console.log(`Received ${chunk.length} characters`)\n})\n\nstream.on('end', () => {\n  console.log('Finished reading the file')\n})\n\nstream.on('error', (err) => {\n  console.error('Something went wrong:', err)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "Cds5ZPhbx2dx",
+    "html": "<p>This is <code>EventEmitter</code> from a few lessons back, applied directly — a readable stream <i>is</i> an <code>EventEmitter</code> that emits <code>'data'</code> for every chunk and <code>'end'</code> once the file is fully read.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cxvxSjoTVu7L",
+    "text": "Writing a File as a Stream",
+    "type": "heading",
+    "level": 2,
+    "anchor": "writing-a-file-as-a-stream"
+  },
+  {
+    "id": "SRpEyfQIGWeB",
+    "code": "const writeStream = fs.createWriteStream('output.txt')\n\nwriteStream.write('First line\\n')\nwriteStream.write('Second line\\n')\nwriteStream.end()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "a5G3i13GcxE7",
+    "text": "Piping — Connecting a Readable to a Writable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "piping-connecting-a-readable-to-a-writable"
+  },
+  {
+    "id": "uKGfaWjAXDwh",
+    "html": "<p>Reading from one stream and writing each chunk to another is common enough to have its own shortcut: <code>.pipe()</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "B_WpbZ4bLfFA",
+    "code": "const readStream = fs.createReadStream('input.txt')\nconst writeStream = fs.createWriteStream('output.txt')\n\nreadStream.pipe(writeStream)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "J0mC4hmJsTDN",
+    "html": "<p>This one line copies a file of any size, at any speed the disk can manage, without ever holding the whole thing in memory. It's the same mechanism <code>http</code> uses under the hood — <code>req</code> and <code>res</code> in the web server lessons are themselves streams.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "93muyD0PcSH7",
+    "text": "When Streams Actually Matter",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-streams-actually-matter"
+  },
+  {
+    "id": "AcnFaen4TU3i",
+    "rows": [
+      [
+        "A small config file (a few KB)",
+        "No — readFile is simpler and the difference is unmeasurable"
+      ],
+      [
+        "A large video or log file",
+        "Yes — loading it whole could exhaust available memory"
+      ],
+      [
+        "Serving a file over an HTTP response",
+        "Yes — the browser can start rendering before the whole file arrives"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Worth streaming?"
+    ]
+  },
+  {
+    "id": "NGLO-7RSu7K_",
+    "html": "<p>Streams are one of the areas where Node's design shows through most clearly: memory is a shared, limited resource, and a server handling many requests at once can't afford to load a large file into memory for each one.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

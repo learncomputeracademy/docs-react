@@ -1,0 +1,122 @@
+---
+id: "6bcb7918-c2ad-43f1-b89e-507dc3566575"
+title: "HTML Accessibility Basics"
+path: "html/accessibility-basics"
+status: "published"
+meta_title: "HTML Accessibility Basics | Learn Computer Academy"
+meta_description: "The handful of HTML habits — alt text, labels, and semantic tags — that make a page usable for people relying on a screen reader or keyboard."
+sort_order: 44
+updated_at: "2026-09-03T03:43:16.583716+00:00"
+---
+
+```json
+[
+  {
+    "id": "FV_8FoIA9ghF",
+    "html": "<hr><p>Accessibility means a page works for everyone, including people using a screen reader, a keyboard instead of a mouse, or a browser zoomed in far past 100%. Most of it comes from a handful of plain HTML habits, not a separate skill.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZrID1c-wz58r",
+    "text": "Alt Text on Every Image",
+    "type": "heading",
+    "level": 2,
+    "anchor": "alt-text-on-every-image"
+  },
+  {
+    "id": "oQ0Mj0ohchFB",
+    "html": "<p>The <code>alt</code> attribute is read aloud by a screen reader in place of the image. Describe what the image conveys, not just what it literally shows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YkUSNWRYcobQ",
+    "code": "<img src=\"chart.png\" alt=\"Bar chart showing sales doubling from January to June\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "wqiFmi1WMYsv",
+    "text": "Labels on Every Form Input",
+    "type": "heading",
+    "level": 2,
+    "anchor": "labels-on-every-form-input"
+  },
+  {
+    "id": "JTiVVKfGKIm5",
+    "html": "<p>A <code>&lt;label&gt;</code> connected to its input via a matching <code>for</code> and <code>id</code> lets a screen reader announce what a field is for, and lets a click anywhere on the label focus the input.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bwA1S6R1vTkc",
+    "code": "<label for=\"email\">Email address</label>\n<input type=\"email\" id=\"email\" name=\"email\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "wu4z5w4GanVG",
+    "text": "Semantic Tags Over div Soup",
+    "type": "heading",
+    "level": 2,
+    "anchor": "semantic-tags-over-div-soup"
+  },
+  {
+    "id": "DrDd7iuDOJnS",
+    "html": "<p>Using <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;button&gt;</code>, and <code>&lt;header&gt;</code> instead of generic <code>&lt;div&gt;</code>s for everything gives a screen reader real landmarks to jump between — this is the same semantic elements covered earlier in this course, and accessibility is the main reason they exist.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W-egXwE1QvGd",
+    "text": "A Basic ARIA Attribute",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-aria-attribute"
+  },
+  {
+    "id": "XWcrUoC2vW2Q",
+    "html": "<p>When an icon-only button has no visible text, <code>aria-label</code> gives it an accessible name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HmaBrmbB7XhM",
+    "code": "<button aria-label=\"Close menu\">✕</button>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "76rOT8SANIr5",
+    "rows": [
+      [
+        "alt text on images",
+        "Screen reader users"
+      ],
+      [
+        "label connected to every input",
+        "Screen reader users, and anyone clicking to focus a field"
+      ],
+      [
+        "Semantic tags instead of generic divs",
+        "Screen reader users navigating by landmark"
+      ],
+      [
+        "Visible focus states, keyboard-reachable controls",
+        "Keyboard-only users, no mouse"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Habit",
+      "Who it helps"
+    ]
+  },
+  {
+    "id": "Mpy-xbtmBVPp",
+    "html": "<p>This lesson is deliberately basic — a full accessibility audit (color contrast, focus order, complex ARIA patterns) is its own deep topic. These four habits alone cover a large share of real-world accessibility problems.</p>",
+    "type": "callout",
+    "title": "This is a starting point, not the whole subject",
+    "variant": "note"
+  }
+]
+```

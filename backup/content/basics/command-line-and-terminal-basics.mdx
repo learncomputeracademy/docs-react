@@ -1,0 +1,258 @@
+---
+id: "a8b4b657-24d4-4e23-9bb2-62e22cb70648"
+title: "Command Line and Terminal Basics"
+path: "basics/command-line-and-terminal-basics"
+status: "published"
+meta_title: "Command Line and Terminal Basics | Learn Computer Academy"
+meta_description: "What a terminal actually is, why developers use it instead of clicking, and the handful of navigation commands you'll use in every session."
+sort_order: 19
+updated_at: "2026-09-03T06:17:23.39926+00:00"
+---
+
+```json
+[
+  {
+    "id": "LyJFT8yB0lXd",
+    "html": "<p>Almost every real developer tool — installing packages, running a script, using Git — happens through typed commands, not clicked icons. The <b>terminal</b> (also called the <b>command line</b> or <b>console</b>) is where you type them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cYrOD8ruKolQ",
+    "text": "Terminal vs Clicking Around",
+    "type": "heading",
+    "level": 2,
+    "anchor": "terminal-vs-clicking-around"
+  },
+  {
+    "id": "LrS90sTspwWU",
+    "html": "<p>A normal app is a <b>GUI</b> — a Graphical User Interface — where you click buttons and icons. A terminal is a <b>CLI</b> — a Command-Line Interface — where you type a line of text describing exactly what you want done, and the computer does it immediately, with no menus in between.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xYQdnp-eu_KV",
+    "text": "Opening a Terminal",
+    "type": "heading",
+    "level": 2,
+    "anchor": "opening-a-terminal"
+  },
+  {
+    "id": "6jBLxLGda7La",
+    "html": "<p>On Windows, search for <b>PowerShell</b> or <b>Windows Terminal</b> in the Start menu. On macOS, open the <b>Terminal</b> app from Applications → Utilities. Both give you the same kind of typing-based window — the exact commands differ slightly, which is exactly why the table below shows both.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_WNcgfgMUkk7",
+    "text": "Basic Navigation Commands",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-navigation-commands"
+  },
+  {
+    "id": "4mR9M-T1If_g",
+    "alt": "Isometric diagram of a computer terminal window with a command-line cursor, with arrows flowing from the window down to a stack of file icons representing files being controlled by typed commands",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Every command you type in a terminal acts directly on your file system — no clicking or menus involved.",
+    "publicId": "docs/img/basics/command-line-and-terminal-basics-1"
+  },
+  {
+    "id": "ielwfFXnL88w",
+    "rows": [
+      [
+        "Show current folder",
+        "pwd",
+        "pwd"
+      ],
+      [
+        "List files here",
+        "dir  (or ls)",
+        "ls"
+      ],
+      [
+        "Move into a folder",
+        "cd foldername",
+        "cd foldername"
+      ],
+      [
+        "Move up one level",
+        "cd ..",
+        "cd .."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Action",
+      "Windows (PowerShell)",
+      "macOS / Linux (bash)"
+    ]
+  },
+  {
+    "id": "JBN45tr-9bso",
+    "text": "A Short Session",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-short-session"
+  },
+  {
+    "id": "uJWrIrgMm4ha",
+    "code": "PS C:\\Users\\Rahul> cd projects\nPS C:\\Users\\Rahul\\projects> dir\nmy-site   notes.txt\nPS C:\\Users\\Rahul\\projects> cd my-site\nPS C:\\Users\\Rahul\\projects\\my-site>",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "3m6ydHFehPY1",
+    "html": "<p>Press the <b>↑</b> arrow to bring back your last command instead of retyping it, and press <b>Tab</b> to auto-complete a file or folder name — both work in every terminal you'll ever use.</p>",
+    "type": "callout",
+    "title": "Two habits worth building immediately",
+    "variant": "tip"
+  },
+  {
+    "id": "2Kz4qxes0qun",
+    "text": "Creating and Removing Files and Folders",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-and-removing-files-and-folders"
+  },
+  {
+    "id": "rm9ML5ZLcB9Q",
+    "html": "<p>Navigation gets you around; these commands let you actually change what's there — the terminal equivalent of right-click → New Folder, or Delete.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ED6oMipdCnv3",
+    "rows": [
+      [
+        "Create a folder",
+        "mkdir foldername",
+        "mkdir foldername"
+      ],
+      [
+        "Create an empty file",
+        "New-Item filename.txt",
+        "touch filename.txt"
+      ],
+      [
+        "Delete a file",
+        "del filename.txt",
+        "rm filename.txt"
+      ],
+      [
+        "Delete an empty folder",
+        "rmdir foldername",
+        "rmdir foldername"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Action",
+      "Windows (PowerShell)",
+      "macOS / Linux (bash)"
+    ]
+  },
+  {
+    "id": "lBAN9OnpCmxQ",
+    "html": "<p>Deleting from a terminal is <b>permanent</b> — there's no Recycle Bin or Trash to rescue you afterward. Double-check the file or folder name before pressing enter, especially with anything that deletes a whole folder's contents at once.</p>",
+    "type": "callout",
+    "title": "No undo here",
+    "variant": "warning"
+  },
+  {
+    "id": "SjG2KjVphoUc",
+    "text": "Reading a Command: Command, Flags, Arguments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-command-command-flags-arguments"
+  },
+  {
+    "id": "aSuVxNK8R9Ui",
+    "html": "<p>Most commands follow the same shape: the <b>command</b> itself, optional <b>flags</b> that change how it behaves (usually starting with <code>-</code> or <code>/</code>), and an <b>argument</b> — what to actually act on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_r45AhBlZgJm",
+    "code": "ls -la my-site\n│   │   └─ argument: which folder to list\n│   └─ flags: -l (long format) and -a (show hidden files too)\n└─ command: list files",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "EI_1kekWjw8h",
+    "html": "<p>Once this shape clicks, an unfamiliar command stops looking like a magic word to memorize and starts looking like something you can actually read — a command, adjusted by flags, aimed at an argument.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FTnUmWwoMPm-",
+    "text": "Running a Program from the Terminal",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-a-program-from-the-terminal"
+  },
+  {
+    "id": "uIuLEL4tXHIM",
+    "html": "<p>Instead of double-clicking a file, you can tell the terminal to run it directly by naming the program that understands it, followed by the file: <code>python app.py</code> runs a Python file, <code>node app.js</code> runs a JavaScript file. This is how nearly every real project actually gets started, once you're past the code editor.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "D5aWFVSW1c_F",
+    "alt": "Isometric diagram of a terminal window with an arrow pointing to a gear and play button icon, representing a program being launched from a typed command",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Typing python app.py or node app.js hands the file to that program and runs it — the same idea as double-clicking, just typed instead of clicked.",
+    "publicId": "docs/img/basics/command-line-and-terminal-basics-2"
+  },
+  {
+    "id": "6QkHMZrimSC5",
+    "text": "When a Command Doesn't Work",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-a-command-doesnt-work"
+  },
+  {
+    "id": "Tmg6lFo63acS",
+    "html": "<p>Two errors show up constantly for beginners, and neither means anything is broken:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V6jmsB7lA-9t",
+    "rows": [
+      [
+        "\"command not found\" / \"not recognized\"",
+        "That program isn't installed yet, or the terminal doesn't know where to find it"
+      ],
+      [
+        "\"permission denied\"",
+        "You're trying to change something the current user account isn't allowed to touch"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Message",
+      "What it usually means"
+    ]
+  },
+  {
+    "id": "gcvCEt8mK_Gc",
+    "text": "Why Every Developer Ends Up Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-every-developer-ends-up-here"
+  },
+  {
+    "id": "fnI1T-vJ_8K3",
+    "html": "<p>A GUI can only offer the buttons someone thought to build. The terminal can do anything the computer is capable of, which is why tools like Git, Python, and Node.js are all typed, not clicked. The next two lessons — Git and GitHub — are typed entirely from here.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wlqi48iFXXh_",
+    "alt": "An infographic covering command line and terminal basics — GUI vs CLI, opening a terminal on Windows and macOS, navigation commands, creating and deleting files, and reading a command's structure",
+    "type": "image",
+    "width": 1536,
+    "height": 1024,
+    "caption": "The same commands, side by side for Windows and macOS/Linux — the exact reference used throughout the Cybersecurity course's CLI lessons too.",
+    "publicId": "docs/img/basics/command-line-and-terminal-basics-3"
+  }
+]
+```

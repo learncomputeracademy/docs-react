@@ -1,0 +1,74 @@
+---
+id: "95089a44-0075-43d1-bb64-f3ae0a01aaf9"
+title: "HTTPS & Site Security"
+path: "seo/https-and-security"
+status: "published"
+meta_title: "HTTPS and Site Security for SEO | Learn Computer Academy"
+meta_description: "Why HTTPS is a baseline requirement rather than an optimisation, and the redirect mistakes that commonly follow a certificate installation."
+sort_order: 19
+updated_at: "2026-08-05T07:22:05.102495+00:00"
+---
+
+```json
+[
+  {
+    "id": "qFEGk_5cWnlO",
+    "html": "<p><b>HTTPS</b> encrypts the connection between a visitor's browser and your server, so nobody in between can read or alter what is sent. Google confirmed years ago that it is used as a ranking signal — but by now the more important point is that it has become a baseline expectation rather than an advantage.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wtsq9tG1Uu-5",
+    "text": "Why It Is No Longer Optional",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-it-is-no-longer-optional"
+  },
+  {
+    "id": "TNh8-EI8x5oV",
+    "html": "<p>Browsers mark pages served over plain HTTP as \"Not Secure\" in the address bar. Forms on such pages trigger additional warnings. Some browser features — geolocation, camera access, service workers — are simply unavailable without a secure context.</p><p>The result is that the ranking benefit is almost beside the point. A visible security warning costs you visitors directly, and it does so at the exact moment someone is deciding whether to trust you with a form submission.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yS5AC2fQCWWp",
+    "text": "Getting a Certificate",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-a-certificate"
+  },
+  {
+    "id": "OnCD0TGb94KC",
+    "html": "<p>Certificates are free. <b>Let's Encrypt</b> issues them at no cost, and most hosting providers integrate it directly — often as a single toggle in a control panel, with automatic renewal handled for you. There is no longer a cost argument for staying on HTTP.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mZ6Pr4gmr-55",
+    "text": "The Migration Mistakes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-migration-mistakes"
+  },
+  {
+    "id": "IUZQ5b2jp-ay",
+    "html": "<p>Installing a certificate is the easy part. What follows is where sites lose ground:</p><ul><li><b>Not redirecting HTTP to HTTPS.</b> Both versions now serve the site, creating a full duplicate of every page. Every URL needs a permanent (301) redirect from the <code>http://</code> version to the <code>https://</code> one.</li><li><b>Mixed content.</b> An HTTPS page loading an image, script, or stylesheet over HTTP. Browsers block or warn about this, and it often breaks layout or functionality in ways that are easy to miss.</li><li><b>Internal links still hardcoded to <code>http://</code>.</b> They will redirect, but every redirect is a wasted round trip, and it accumulates across a site.</li><li><b>Canonical tags, sitemap entries, and structured data still referencing HTTP URLs.</b> These contradict the redirects and confuse the signal.</li><li><b>Not adding the HTTPS version in Search Console.</b> Search Console treats <code>http://</code> and <code>https://</code> as separate properties — data for the new one will not appear until it is added.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "dJz2S2i-0YQo",
+    "html": "<p>After any HTTP-to-HTTPS migration, load the site and check the browser console for mixed-content warnings, then check that <code>http://yoursite.com</code> actually lands on the HTTPS version rather than serving a parallel copy. Both checks take a minute and catch the majority of migration problems.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "F-u_0GNmBo8f",
+    "text": "Security Beyond the Certificate",
+    "type": "heading",
+    "level": 2,
+    "anchor": "security-beyond-the-certificate"
+  },
+  {
+    "id": "Iz-DodqPw3-c",
+    "html": "<p>A certificate encrypts traffic; it does not make a site secure. A site that gets compromised and starts serving spam or malware can be flagged with a warning in search results, or removed from them entirely — a far larger problem than any ranking factor.</p><p>The basics that prevent this are ordinary maintenance: keep the platform and any plugins updated, use strong unique passwords with two-factor authentication on admin accounts, remove software you no longer use, and keep backups you have actually tested restoring.</p>",
+    "type": "richtext"
+  }
+]
+```

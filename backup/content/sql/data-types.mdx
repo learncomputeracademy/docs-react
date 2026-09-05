@@ -1,0 +1,291 @@
+---
+id: "f759f735-28bc-4cc9-8848-69719642d1d6"
+title: "Data Types & Memory Sizing"
+path: "sql/data-types"
+status: "published"
+meta_title: "SQL Data Types & Memory Sizing | Learn Computer Academy"
+meta_description: "A practical guide to SQL data types — numeric, text, date/time, boolean/ENUM/JSON — plus a real-world sizing cheatsheet for common production columns."
+sort_order: 3
+updated_at: "2026-07-29T06:31:05.329363+00:00"
+---
+
+```json
+[
+  {
+    "id": "JEYXn8YP3T1-",
+    "html": "<p>The type you pick per column isn't just about correctness — it's a direct memory and storage decision. Oversized columns waste space and slow down every index that touches them; undersized ones truncate real data in production. This lesson gives you concrete types and limits to reach for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KCMCyDq4K_Qn",
+    "text": "Numeric Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "numeric-types"
+  },
+  {
+    "id": "tUmsA_EcKkIv",
+    "html": "<p>Whole and decimal numbers, sized from 1 byte to 8+ bytes depending on the range you actually need.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VEmpdToxDwhT",
+    "code": "TINYINT · SMALLINT · INT · BIGINT · DECIMAL(p,s) · FLOAT/DOUBLE",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "tI_2ws0_dMsj",
+    "code": "CREATE TABLE Product (\n  id BIGINT UNSIGNED PRIMARY KEY,\n  stock_count SMALLINT UNSIGNED,\n  price DECIMAL(10,2)\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "S2XWfcfnCMir",
+    "html": "<ul><li>TINYINT (1 byte, 0–255 unsigned) fits status codes and small counters.</li><li>SMALLINT (2 bytes, up to ~65k unsigned) fits stock counts and short IDs.</li><li>INT (4 bytes, ~4.2B unsigned) is the default safe choice for most primary keys.</li><li>BIGINT (8 bytes) is for IDs that will genuinely exceed 4 billion rows — most tables never need it.</li><li>DECIMAL(p,s) stores exact values with no floating-point rounding — always use it for money, never FLOAT/DOUBLE.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "PbwzJDWKWWMp",
+    "html": "<ul><li>Defaulting every ID to BIGINT \"just in case,\" doubling index size for no reason.</li><li>Storing money as FLOAT, which introduces silent rounding errors.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "7JVrdVhUElpf",
+    "text": "CHAR vs. VARCHAR",
+    "type": "heading",
+    "level": 2,
+    "anchor": "char-vs-varchar"
+  },
+  {
+    "id": "MZ33qp7qDL2P",
+    "html": "<p>Both store text — <code>CHAR</code> is fixed-length and padded, <code>VARCHAR</code> is variable-length and stores only what you write plus a short length prefix.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rXn76tOLz3h2",
+    "code": "CHAR(n) — always uses n bytes\nVARCHAR(n) — uses actual length + 1–2 bytes overhead",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "wl_9Y2mSubUI",
+    "code": "CREATE TABLE Employee (\n  country_code CHAR(2),\n  full_name VARCHAR(100),\n  email VARCHAR(254)\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "s6yaZmEvNyL3",
+    "html": "<ul><li>CHAR(2) always occupies exactly 2 bytes — ideal for fixed-width codes like country or currency codes.</li><li>VARCHAR(n) only stores what's actually written, so it's the right default for names, emails, and anything variable-length.</li><li>The (n) in VARCHAR is a maximum, not a reservation — a VARCHAR(255) column holding \"Sam\" uses roughly 4 bytes, not 255.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "oXAzH-mpZA8s",
+    "html": "<p>Using CHAR for variable-length text, wasting space on padding for every short value.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "ev2kz7sMi7hL",
+    "text": "Date & Time Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "date-time-types"
+  },
+  {
+    "id": "LU1F37wn1Kqm",
+    "html": "<p>Purpose-built types for calendar dates, timestamps, and durations — smaller and safer than storing dates as text.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rbMO0XP_W3yV",
+    "code": "DATE (3 bytes) · TIME (3 bytes) · DATETIME (8 bytes) · TIMESTAMP (4 bytes)",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "ld3-WlbodJSA",
+    "code": "CREATE TABLE Employee (\n  hire_date DATE,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "VkeL03pI61VY",
+    "html": "<ul><li>DATE stores just the calendar date — the smallest option when time-of-day doesn't matter.</li><li>TIMESTAMP is timezone-aware and more compact than DATETIME, but limited in range in some engines — check yours.</li><li>DATETIME has no timezone awareness but a much wider valid range.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "PNtycHE21dZu",
+    "html": "<p>Storing dates as VARCHAR, which breaks sorting, range queries, and date math entirely.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "2bWO1w8WPzLX",
+    "text": "Boolean, ENUM & JSON",
+    "type": "heading",
+    "level": 2,
+    "anchor": "boolean-enum-json"
+  },
+  {
+    "id": "v7CAsbQ5KyiC",
+    "html": "<p>Types for fixed small choices and semi-structured data, used sparingly to keep rows compact and queryable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8k0ASL6wL12c",
+    "code": "CREATE TABLE Employee (\n  is_active BOOLEAN DEFAULT TRUE,\n  status ENUM('active','on_leave','terminated'),\n  metadata JSON\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "9souVkxBG40v",
+    "html": "<ul><li>BOOLEAN is really a 1-byte TINYINT under the hood in most engines — cheap and clear.</li><li>ENUM stores a fixed list of string values as a compact integer internally, saving space over repeating text.</li><li>JSON is flexible but not indexable the way normal columns are — reach for it only when the shape of the data genuinely varies row to row.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZpnvV7TH1jRI",
+    "html": "<p>Using JSON as a substitute for proper columns because it's \"flexible,\" making common queries slow and hard to index.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "z6WbFiADwSZA",
+    "text": "Production Sizing Cheatsheet",
+    "type": "heading",
+    "level": 2,
+    "anchor": "production-sizing-cheatsheet"
+  },
+  {
+    "id": "WXucHrL9HsV1",
+    "html": "<p>Concrete types and limits for the fields nearly every production schema has — a direct answer to \"what should this column actually be.\"</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "laIe91t6AiAR",
+    "rows": [
+      [
+        "full_name",
+        "VARCHAR(100)",
+        "30 truncates real names — many run 40–80+ characters with middle names/titles"
+      ],
+      [
+        "first_name / last_name",
+        "VARCHAR(50) each",
+        "Splitting lets you sort, greet, and validate independently"
+      ],
+      [
+        "email",
+        "VARCHAR(254)",
+        "RFC 5321 hard limit for a valid email address"
+      ],
+      [
+        "password_hash",
+        "CHAR(60)",
+        "bcrypt output is always exactly 60 chars — CHAR avoids padding waste"
+      ],
+      [
+        "phone",
+        "VARCHAR(20)",
+        "Covers \"+\", country code, extensions — never store as INT"
+      ],
+      [
+        "uuid",
+        "CHAR(36) or BINARY(16)",
+        "36 for readable text form, 16 binary for a 2x+ smaller index"
+      ],
+      [
+        "postal_code",
+        "VARCHAR(10)",
+        "International codes vary; some contain letters"
+      ],
+      [
+        "country_code",
+        "CHAR(2)",
+        "Fixed-width ISO 3166-1 alpha-2"
+      ],
+      [
+        "currency_amount",
+        "DECIMAL(19,4)",
+        "Exact precision, headroom for large sums and 4 decimal places"
+      ],
+      [
+        "url",
+        "VARCHAR(2048)",
+        "Practical browser-enforced upper bound for a URL"
+      ],
+      [
+        "ip_address",
+        "VARBINARY(16) or VARCHAR(45)",
+        "16 bytes binary covers IPv4 + IPv6 compactly"
+      ],
+      [
+        "is_active",
+        "BOOLEAN",
+        "1 byte instead of a TINYINT or VARCHAR flag"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Field",
+      "Recommended type",
+      "Why"
+    ]
+  },
+  {
+    "id": "t1WqMMEb3jj_",
+    "html": "<p>A common real-world bug: sizing <code>full_name VARCHAR(30)</code> — names like \"Priyanka Chattopadhyay\" or \"Jean-Baptiste van der Berg\" already exceed 30 characters. Since VARCHAR only costs what's used, sizing to VARCHAR(100) instead of VARCHAR(30) has effectively zero memory cost for short names — the cap only matters for the rare long one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vkmVJqwIgVPj",
+    "html": "<p>Pick the smallest fixed type that can never legitimately overflow (IDs, codes, flags), and be generous with VARCHAR caps since they don't pre-allocate space.</p>",
+    "type": "callout",
+    "title": "Rule of Thumb",
+    "variant": "tip"
+  },
+  {
+    "id": "WAQayE68slro",
+    "html": "<ul><li>Sizing VARCHAR columns to the average case instead of the real maximum case.</li><li>Storing phone numbers or postal codes as INT, breaking leading zeros and \"+\" prefixes.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "biy16IpMmHZR",
+    "text": "Memory Management Principles",
+    "type": "heading",
+    "level": 2,
+    "anchor": "memory-management-principles"
+  },
+  {
+    "id": "FDcBsTHYMYQp",
+    "html": "<p>A few rules that keep a schema lean at scale, beyond just picking types per column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NTZgQ0BHWMGd",
+    "html": "<ul><li>Fixed-width columns (CHAR, INT, DATE) pack more predictably into an engine's storage pages, which helps index performance.</li><li>Every extra byte on an indexed column is multiplied across every row in that index — sizing matters most on indexed and frequently-joined columns.</li><li>Repeated strings (department names, categories) are cheaper normalized into a lookup table referenced by a small INT foreign key than stored as text in every row.</li><li>NULL-able columns typically cost a bit less than storing an empty string, and mean something different — use NULL for \"unknown,\" not empty text.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "qJcQ1oud4gN4",
+    "alt": "Diagram showing the four SQL data type families — numeric, text, date and time, and boolean/ENUM/JSON — each with example type names",
+    "type": "image",
+    "width": 1344,
+    "height": 752,
+    "caption": "Every column's type comes from one of these four families, sized to the data it actually needs to hold.",
+    "publicId": "docs/img/sql/data-types-1"
+  },
+  {
+    "id": "2pvJGfYLNF-x",
+    "html": "<p>With the right types and sizes in place, the next four lessons cover each SQL family in turn, starting with DDL — the commands that actually create the tables you've just learned to size.</p>",
+    "type": "richtext"
+  }
+]
+```

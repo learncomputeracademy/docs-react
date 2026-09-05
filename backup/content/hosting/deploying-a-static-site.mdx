@@ -1,0 +1,91 @@
+---
+id: "8271581e-00f1-448f-82f4-6773174770fa"
+title: "Deploying a Static Site"
+path: "hosting/deploying-a-static-site"
+status: "published"
+meta_title: "Deploying a Static HTML/CSS/JS Site | Learn Computer Academy"
+meta_description: "A concrete, start-to-finish walkthrough for putting a plain HTML/CSS/JS project online, using everything covered earlier in this category."
+sort_order: 24
+updated_at: "2026-08-05T13:35:37.747194+00:00"
+---
+
+```json
+[
+  {
+    "id": "qsKXDT6I1XrW",
+    "html": "<p>This lesson applies everything covered so far to the simplest real case: a plain HTML/CSS/JS project — exactly what this site's <a href=\"/html/\">HTML</a>, <a href=\"/css/\">CSS</a>, and <a href=\"/javascript/\">JavaScript</a> courses build.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TQR9CW7hvYLI",
+    "text": "What You Need, From the Earlier Checklist",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-you-need-from-the-earlier-checklist"
+  },
+  {
+    "id": "Df0Q9rdKZBF0",
+    "html": "<p>Per the what-going-live-actually-requires lesson, a static site needs almost the shortest list in this category: hosting (static hosting fits perfectly, per the hosting-types lessons), and optionally a domain — a platform's free subdomain is a completely reasonable starting point.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "McFDFJN5GlVV",
+    "text": "Option A — A Cloud/Static Hosting Platform (Recommended for Most Students)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "option-a-a-cloudstatic-hosting-platform-recommended-for-most-students"
+  },
+  {
+    "id": "gd9UNbgPjGCT",
+    "html": "<ol><li>Push your project's files to a Git repository.</li><li>Connect that repository to a static or cloud hosting platform.</li><li>The platform detects there is no build step needed (or runs a trivial one) and serves the files directly.</li><li>You get a free URL on the platform's subdomain immediately.</li><li>Optionally, connect your own domain, per the pointing-a-domain-at-hosting lesson.</li></ol><p>This is the fastest path, requires no FTP client, and is very often entirely free — the realistic default for a portfolio project.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ohgVEoxzXP8X",
+    "alt": "Isometric diagram showing a simple project folder with HTML CSS and JS file icons being pushed to a repository and appearing live on a browser window, a short direct path with no server configuration step",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A static site's deployment path is the shortest in this category — no server to configure at all.",
+    "publicId": "docs/img/hosting/deploy-static-1"
+  },
+  {
+    "id": "OoO7gmcS_lBg",
+    "text": "Option B — Shared Hosting via FTP",
+    "type": "heading",
+    "level": 2,
+    "anchor": "option-b-shared-hosting-via-ftp"
+  },
+  {
+    "id": "MIo0ukaQaV5O",
+    "html": "<ol><li>Get your FTP/SFTP credentials from your host's control panel.</li><li>Connect with an FTP client, per the FTP/SFTP lesson.</li><li>Navigate to the <code>public_html</code> folder (or your host's equivalent).</li><li>Upload your project's files — typically an <code>index.html</code> at the root, plus your CSS, JS, and any assets.</li><li>Visit your domain to confirm it loads.</li></ol><p>This route makes sense mainly if you already have shared hosting for another reason (a WordPress or PHP site, for instance) and want to add a static project alongside it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bbA6u6EmZy9B",
+    "text": "A Common Beginner Mistake",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-beginner-mistake"
+  },
+  {
+    "id": "kY75hqDjeeYt",
+    "html": "<p>The homepage file must be named exactly <code>index.html</code> and sit in the root of the folder your host actually serves. A file named anything else, or nested inside an extra subfolder, will not load automatically when someone visits your bare domain — this single detail causes a large share of \"I uploaded my site and it shows a blank page or an error\" confusion.</p>",
+    "type": "callout",
+    "title": "index.html, in the right folder",
+    "variant": "warning"
+  },
+  {
+    "id": "AuwQ37rop-DN",
+    "text": "Verifying It Actually Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-it-actually-worked"
+  },
+  {
+    "id": "dl5kCTbL8MdH",
+    "html": "<p>Visit the live URL in an incognito/private browser window, to rule out your own browser cache showing you something stale. Check that CSS and images load — a common secondary mistake is linking to assets with a path that worked locally but breaks once deployed, because the folder structure or the base URL is different in production.</p>",
+    "type": "richtext"
+  }
+]
+```

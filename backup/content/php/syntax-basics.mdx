@@ -1,0 +1,111 @@
+---
+id: "142a11f0-6917-400c-91a1-d745586bdf91"
+title: "PHP Syntax Basics"
+path: "php/syntax-basics"
+status: "published"
+meta_title: "PHP Syntax Basics | Learn Computer Academy"
+meta_description: "The ground rules of PHP syntax — opening and closing tags, statements, semicolons, and comments — before writing anything more complex."
+sort_order: 3
+updated_at: "2026-07-30T09:08:34.71146+00:00"
+---
+
+```json
+[
+  {
+    "id": "c20c9Xj4qHDH",
+    "html": "<p>Before going any further, it's worth nailing down the small rules that every single PHP file follows, so they stop being a distraction once real logic starts.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4VPm9PyinC3s",
+    "text": "The PHP Tag",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-php-tag"
+  },
+  {
+    "id": "cknM6OaT8XDJ",
+    "html": "<p>PHP code always lives between <code>&lt;?php</code> and <code>?&gt;</code>. Everything inside those tags is executed as PHP; everything outside them — even in the same file — is sent straight through as plain HTML.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jwnzpACYKFxZ",
+    "code": "<h1>My Page</h1>\n\n<?php\n  echo \"This part is PHP.\";\n?>\n\n<p>This part is plain HTML again.</p>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "uXpGaZYaWFyk",
+    "html": "<p>This is what makes PHP genuinely useful for building web pages: a single file can freely mix static HTML with dynamic PHP, switching between the two as often as needed. If a file contains <i>only</i> PHP (like a script you'll never mix with HTML), it's common practice to leave off the closing <code>?&gt;</code> tag entirely — it avoids an easy-to-miss bug where a stray blank line after it causes unexpected output.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gmVYb1HvxSKv",
+    "text": "Statements End with a Semicolon",
+    "type": "heading",
+    "level": 2,
+    "anchor": "statements-end-with-a-semicolon"
+  },
+  {
+    "id": "F0FDFa02Ur03",
+    "html": "<p>Every PHP statement ends with a semicolon (<code>;</code>) — the same rule as JavaScript. Forgetting one is one of the most common beginner mistakes, and PHP will refuse to run the script until it's fixed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rVsT9C0X3CTT",
+    "code": "<?php\n  echo \"Line one\";\n  echo \"Line two\"; // both statements need their own semicolon\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "fobeIyo5IUcg",
+    "text": "Case Sensitivity",
+    "type": "heading",
+    "level": 2,
+    "anchor": "case-sensitivity"
+  },
+  {
+    "id": "bCe64fe60P4M",
+    "html": "<p>PHP is a mix of case-sensitive and case-insensitive, and it catches people out: <b>variable names are case-sensitive</b> (<code>$name</code> and <code>$Name</code> are two different variables), but <b>function and keyword names are not</b> (<code>echo</code>, <code>ECHO</code>, and <code>Echo</code> all work identically). The safe habit is to always write everything in lowercase anyway, and treat variables as strictly case-sensitive.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_vN9BdcNJ608",
+    "text": "Comments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comments"
+  },
+  {
+    "id": "iQYlzW2LmCqa",
+    "html": "<p>PHP supports three comment styles, borrowed from other languages you may already recognize:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lXFglphOWeKj",
+    "code": "<?php\n  // single-line comment\n  # also a single-line comment\n  /* multi-line\n     comment */\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "-59JzVgmtMA-",
+    "html": "<p><code>//</code> is by far the most common in practice. Comments are never sent to the browser — they exist purely for anyone reading the source code later, including future you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kr06D_jTp__W",
+    "html": "<p>Whitespace (spaces, tabs, blank lines) between statements doesn't matter to PHP the way it does in some other languages — it's there purely to help humans read the code. Consistent indentation is still worth keeping as a habit, even though PHP itself won't enforce it.</p>",
+    "type": "callout",
+    "title": "Whitespace is for you, not PHP",
+    "variant": "tip"
+  },
+  {
+    "id": "qcqAttBJCdd_",
+    "html": "<p>With the ground rules out of the way, the next lesson looks at how PHP actually stores data — starting with variables.</p>",
+    "type": "richtext"
+  }
+]
+```

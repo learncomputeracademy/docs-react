@@ -1,0 +1,110 @@
+---
+id: "2e4b06f0-f9ec-46d8-86b6-cf4d5a200084"
+title: "Match Expression and the Null-Safe Operator"
+path: "php/match-expression-and-null-safe-operator"
+status: "published"
+meta_title: "PHP Match Expression and Null-Safe Operator | Learn Computer Academy"
+meta_description: "PHP 8's match expression — a stricter, more concise alternative to switch — and the null-safe operator for chaining property or method access safely."
+sort_order: 30
+updated_at: "2026-09-03T04:05:22.51253+00:00"
+---
+
+```json
+[
+  {
+    "id": "o0hF4jSdKcuF",
+    "html": "<p>PHP 8 added two small features that clean up two very common patterns: choosing between several values, and safely reading a property that might not exist.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aGIt5D68PWGa",
+    "text": "match — A Stricter switch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-a-stricter-switch"
+  },
+  {
+    "id": "UMnbEAQa4Nt2",
+    "html": "<p><code>match</code> compares with strict equality (<code>===</code>, no type juggling), never falls through to the next case, and returns a value directly instead of needing <code>break</code> in every branch.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fFGTjBMAS7pO",
+    "code": "$statusText = match ($statusCode) {\n    200, 201 => 'Success',\n    404 => 'Not Found',\n    500 => 'Server Error',\n    default => 'Unknown Status',\n};",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "fW4exORIEVjX",
+    "text": "match vs. switch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-vs-switch"
+  },
+  {
+    "id": "41D66iVE6wx9",
+    "rows": [
+      [
+        "Loose comparison (==)",
+        "Strict comparison (===)"
+      ],
+      [
+        "Falls through without break",
+        "Never falls through"
+      ],
+      [
+        "A statement — doesn't return a value",
+        "An expression — returns a value directly"
+      ],
+      [
+        "An unmatched case with no default is silently skipped",
+        "An unmatched case with no default throws an error"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "switch",
+      "match"
+    ]
+  },
+  {
+    "id": "v3gV7soGOVr1",
+    "text": "The Null-Safe Operator — ?->",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-null-safe-operator--"
+  },
+  {
+    "id": "AVDzZCFcc0ED",
+    "html": "<p>Without it, reading a property several levels deep on something that might be <code>null</code> requires a chain of manual checks.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MkaYcRXQBekt",
+    "code": "// The old way\n$city = null;\nif ($user !== null) {\n    if ($user->address !== null) {\n        $city = $user->address->city;\n    }\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "kVCnsEu0Qx7C",
+    "html": "<p>With <code>?-&gt;</code>, the whole expression short-circuits to <code>null</code> the moment any link in the chain is <code>null</code>, without a single manual check.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9YX54EjuSU-3",
+    "code": "// The null-safe way\n$city = $user?->address?->city;",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Mb3l1VJ3kNtm",
+    "html": "<p>The null-safe operator only protects against the exact chain it's used on — a typo in a property name still causes a normal error. It replaces null-checking, not all error handling.</p>",
+    "type": "callout",
+    "title": "What ?-> does not do",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,116 @@
+---
+id: "4120b0f1-3126-4af7-829c-b72b0cf7a475"
+title: "Edge and Serverless"
+path: "hosting/edge-and-serverless"
+status: "published"
+meta_title: "Edge and Serverless Hosting Explained | Learn Computer Academy"
+meta_description: "What platforms actually mean by \"the edge\" and \"serverless\" when they describe modern hosting, and why this is how most new React and Node.js hosting works today."
+sort_order: 31
+updated_at: "2026-08-05T13:35:40.186275+00:00"
+---
+
+```json
+[
+  {
+    "id": "XKIzo6rH9Hii",
+    "html": "<p>\"The edge\" and \"serverless\" are two of the most overused, least-explained terms in modern hosting marketing. Both describe real, useful ideas — this lesson is what the marketing usually skips.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qhio-c3ea_3C",
+    "text": "Serverless — Not Actually Serverless",
+    "type": "heading",
+    "level": 2,
+    "anchor": "serverless-not-actually-serverless"
+  },
+  {
+    "id": "o_2Dt0BF8aC8",
+    "html": "<p>\"Serverless\" does not mean no server is involved — one always is. It means <i>you</i> never provision, configure, or maintain that server yourself. You write a function; the platform runs it, on infrastructure it manages entirely, only when a request actually needs it, and automatically stops running it when the request is done.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pUw3OeCgh2cl",
+    "text": "How This Differs From What Came Before",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-this-differs-from-what-came-before"
+  },
+  {
+    "id": "VyPzz8pNSpNX",
+    "rows": [
+      [
+        "Traditional server (VPS, shared)",
+        "Continuously, whether or not anyone is visiting",
+        "Time — a fixed period, regardless of use"
+      ],
+      [
+        "Serverless function",
+        "Only while actively handling a specific request",
+        "Usage — roughly how often and how long your code actually ran"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Model",
+      "How it runs",
+      "You pay for"
+    ]
+  },
+  {
+    "id": "ZEW2ZZ8cULQH",
+    "html": "<p>This is precisely why serverless free tiers can be so generous for a low-traffic project — per the free-hosting lesson, a function that runs rarely costs the provider very little to offer for free, since it consumes real resources only in short bursts, not continuously.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FhrLzYnK_jxn",
+    "text": "The Edge, Specifically",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-edge-specifically"
+  },
+  {
+    "id": "_W484cTuvhPm",
+    "html": "<p>\"The edge\" extends the CDN idea from the previous two lessons beyond just static files: instead of running your server-side code in one central location, some platforms can now run small pieces of it directly at those same distributed edge locations, physically close to each visitor — reducing not just static-content delivery time, but the time some server-side logic itself takes to run.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mvfocv-4YFfm",
+    "alt": "Isometric diagram showing small function icons distributed across several edge locations on a world map, each one activating briefly only when a nearby visitor icon sends a request, then disappearing",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Small pieces of code, running briefly and only when needed, physically close to whoever triggered them.",
+    "publicId": "docs/img/hosting/edge-serverless-1"
+  },
+  {
+    "id": "JDXMJc5_Qw4x",
+    "text": "Where This Connects to This Site's Courses",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-connects-to-this-sites-courses"
+  },
+  {
+    "id": "pE0DtvZNGCf6",
+    "html": "<p>This is exactly the model most modern React/Next.js hosting is built around — this site itself runs this way, and the deploying-a-react-app lesson's Git-push-to-live workflow is the practical surface of this underlying architecture. It is also increasingly common for Node.js APIs specifically suited to short, independent operations, as an alternative to the always-on VPS process model covered in the deploying-a-node.js-app lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "g7hVpb1rSbEn",
+    "html": "<p>Not everything fits this model well. A serverless function that needs to finish within a short time limit is a poor fit for a long-running task — video processing, a large batch job — and a traditional always-on server (a VPS, or a managed platform explicitly built for continuous processes) remains the better choice there. This is a genuine trade-off, not a strictly newer-is-better upgrade path.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "kVIFtodLY14w",
+    "text": "The Practical Takeaway",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-practical-takeaway"
+  },
+  {
+    "id": "DovKQwsu9sPh",
+    "html": "<p>For a typical student project — a portfolio, a small API, a React app — edge and serverless hosting is very often the default you land on simply by using a modern cloud platform, without needing to understand the underlying mechanics deeply to benefit from it. Understanding what these terms actually mean mostly helps you read a platform's pricing and documentation with real comprehension, rather than choosing based on the word alone.</p>",
+    "type": "richtext"
+  }
+]
+```

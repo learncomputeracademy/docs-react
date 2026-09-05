@@ -1,0 +1,119 @@
+---
+id: "f41d316d-c133-47c5-999f-75f530f08fa3"
+title: "Introduction to SQL"
+path: "sql/intro"
+status: "published"
+meta_title: "Introduction to SQL | Learn Computer Academy"
+meta_description: "What SQL actually is, why it reads like a description rather than a set of steps, and the four command families every SQL statement belongs to."
+sort_order: 1
+updated_at: "2026-07-29T06:31:04.6375+00:00"
+---
+
+```json
+[
+  {
+    "id": "z3KgvC4Bod7r",
+    "html": "<p><b>SQL</b> (Structured Query Language) is how you talk to a relational database — asking it to store, find, change, or remove data. Every SQL statement falls into one of four families, which is exactly how this section is organized, lesson by lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "59jvEnaA8efw",
+    "text": "What SQL Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-sql-actually-does"
+  },
+  {
+    "id": "AR9J36EcuaXX",
+    "html": "<p>SQL is a <b>declarative</b> language: you describe the result you want, not the steps to get it. The database engine decides how to actually fetch it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2juEiwSRAUz-",
+    "code": "SELECT name FROM Employee WHERE department = 'IT';",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "VCj2td978BDe",
+    "html": "<ul><li>You state the \"what\" (employees in IT), not the \"how\" (loop, compare, collect) — the engine works that part out.</li><li>Every statement ends in a semicolon.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RtW11VKr7tQ5",
+    "html": "<ul><li>Forgetting the semicolon in multi-statement scripts.</li><li>Assuming SQL runs top-to-bottom like a normal program — it describes a result, it doesn’t execute as a sequence of steps the way a script does.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "wiL1cWzUFT9N",
+    "text": "The Four SQL Families",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-sql-families"
+  },
+  {
+    "id": "LRa943hVt8qA",
+    "html": "<p>Every SQL command belongs to one of four families, grouped by what they affect:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FRfhsA7-F70G",
+    "rows": [
+      [
+        "DDL",
+        "Data Definition Language",
+        "The structure — tables, columns",
+        "CREATE, ALTER, DROP, TRUNCATE"
+      ],
+      [
+        "DML",
+        "Data Manipulation Language",
+        "The data inside that structure",
+        "SELECT, INSERT, UPDATE, DELETE"
+      ],
+      [
+        "DCL",
+        "Data Control Language",
+        "Who can touch it",
+        "GRANT, REVOKE"
+      ],
+      [
+        "TCL",
+        "Transaction Control Language",
+        "When changes stick",
+        "COMMIT, ROLLBACK, SAVEPOINT"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Family",
+      "Full name",
+      "Affects",
+      "Example commands"
+    ]
+  },
+  {
+    "id": "sbNeZQlkNU_M",
+    "alt": "Diagram showing the four SQL command families — DDL, DML, DCL, and TCL — each with its full name and example commands",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Every SQL command you’ll meet belongs to exactly one of these four families.",
+    "publicId": "docs/img/sql/intro-1"
+  },
+  {
+    "id": "re9M-oUPoGDl",
+    "html": "<p>Mixing up <code>DELETE</code> (DML, removes rows) with <code>DROP</code> (DDL, removes the whole table) — one of the most common beginner mistakes in SQL, and one of the most costly to get wrong.</p>",
+    "type": "callout",
+    "title": "The Mistake Worth Remembering Most",
+    "variant": "warning"
+  },
+  {
+    "id": "avQkzMH_Fqal",
+    "html": "<p>This section walks through each family in its own lesson, plus the querying, functions, and advanced techniques built on top of them. Next up: databases and tables — the structure everything else in SQL operates on.</p>",
+    "type": "richtext"
+  }
+]
+```

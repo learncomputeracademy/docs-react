@@ -1,0 +1,91 @@
+---
+id: "a996be6f-b633-4446-8ad1-2b4a4e3be011"
+title: "Disabling Gutenberg with Classic Editor"
+path: "wordpress/disabling-gutenberg"
+status: "published"
+meta_title: "Disabling Gutenberg with Classic Editor | Learn Computer Academy"
+meta_description: "What the Classic Editor plugin actually changes, how to configure it, and why a custom theme is more predictable without the block editor."
+sort_order: 13
+updated_at: "2026-07-30T14:23:28.293188+00:00"
+---
+
+```json
+[
+  {
+    "id": "B-Q6Fcq4hI6h",
+    "html": "<p>Every earlier lesson assumed post and page content is plain text and HTML, not a block-based layout. This lesson makes that assumption actually true, site-wide, by configuring the Classic Editor plugin installed back in the setup lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q8eZjhGtpniS",
+    "text": "What Classic Editor Changes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-classic-editor-changes"
+  },
+  {
+    "id": "FEdXRD6WuMHR",
+    "html": "<p>Since WordPress 5.0, the default content editor is the <b>block editor</b> — every paragraph, image, and heading becomes its own block, and that structure is saved as HTML comments mixed into the post content itself. Classic Editor replaces it with the older, plain content editor: one text area, formatted with a simple toolbar, saved as ordinary HTML with no block markup at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mQ33FD5ygB5a",
+    "text": "Configuring It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "configuring-it"
+  },
+  {
+    "id": "H-d_CuyC3q9y",
+    "html": "<p>From <b>Settings → Writing</b>, two options appear once the plugin is active:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YBHo3SkIYUhr",
+    "rows": [
+      [
+        "Default editor for all users",
+        "<b>Classic Editor</b> — makes it the editor every post and page opens with"
+      ],
+      [
+        "Allow users to switch editors",
+        "<b>No</b> — removes the option to switch back to the block editor per-post, keeping every editor consistent"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Setting",
+      "What it controls"
+    ]
+  },
+  {
+    "id": "Z0UahVHNXKhZ",
+    "html": "<p>With both set this way, the block editor is effectively gone from the site — every content screen behaves exactly like the examples throughout this section assume.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Kjfq55sLpRJ7",
+    "text": "Why This Matters for a Custom Theme",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-for-a-custom-theme"
+  },
+  {
+    "id": "GHGCh1BvuJm5",
+    "html": "<p>It comes back to the same point from the very first lesson: a block-based post stores layout markup inside its content, which fights against a theme that wants to control layout through its own PHP templates. With Classic Editor active, <code>the_content()</code> reliably returns exactly what an editor typed — plain HTML, nothing a block ever injected — which is what every template in this section has been assuming all along.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rMnBOoLFmce8",
+    "html": "<p>WordPress core itself doesn't currently plan to remove the classic editing mode from the block editor entirely, but plugin support timelines shift — it's worth periodically checking the Classic Editor plugin page for its supported-until date, especially on a long-lived client site.</p>",
+    "type": "callout",
+    "title": "Worth revisiting occasionally",
+    "variant": "tip"
+  },
+  {
+    "id": "rNtqrUp96ynV",
+    "html": "<p>That closes out the foundational part of this section — a working theme with proper templates, assets, menus, and settings, and Gutenberg out of the way. From here, the section moves on to modeling real content types with CPT UI, starting with what a custom post type actually is and why regular posts and pages eventually stop being enough.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,111 @@
+---
+id: "f3ff4c25-a6fe-44bc-b06f-11c46449ab6b"
+title: "Stashing Changes"
+path: "git/stashing-changes"
+status: "published"
+meta_title: "Git Stash | Learn Computer Academy"
+meta_description: "Temporarily setting aside uncommitted work to switch branches cleanly, without committing something half-finished."
+sort_order: 10
+updated_at: "2026-09-03T05:20:02.065179+00:00"
+---
+
+```json
+[
+  {
+    "id": "MtVP1QWkPjtV",
+    "html": "<p>Switching branches with uncommitted changes in the way is a common snag — <code>git stash</code> temporarily shelves those changes without committing them, so a branch switch can happen cleanly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Dm4pa_GRii-V",
+    "text": "A Basic Stash",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-stash"
+  },
+  {
+    "id": "b7Jj8B2eQZkf",
+    "code": "git status\n# modified: index.html (not staged)\n\ngit stash\n# Saved working directory and index state WIP on main: a1b2c3d Add README\n\ngit status\n# nothing to commit, working tree clean",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "wXifsttHU1LL",
+    "text": "Bringing It Back",
+    "type": "heading",
+    "level": 2,
+    "anchor": "bringing-it-back"
+  },
+  {
+    "id": "7qgtOKsAQj_6",
+    "code": "git stash pop\n# Restores the most recent stash AND removes it from the stash list",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "PJaEQoVXapTl",
+    "text": "Keeping the Stash Around",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-the-stash-around"
+  },
+  {
+    "id": "0WPcGRYWRpyz",
+    "code": "# Restore it but keep the stash entry too, for applying elsewhere\ngit stash apply",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "-BYCQwIdWD0T",
+    "text": "Stashing More Than One Thing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stashing-more-than-one-thing"
+  },
+  {
+    "id": "BJxfm3V6sXL7",
+    "code": "git stash list\n# stash@{0}: WIP on main: a1b2c3d Add README\n# stash@{1}: WIP on feature-login: e5f6g7h Add form\n\ngit stash apply stash@{1}   # apply a specific one, not just the most recent",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ZTLB3WlXqP6X",
+    "text": "Naming a Stash",
+    "type": "heading",
+    "level": 2,
+    "anchor": "naming-a-stash"
+  },
+  {
+    "id": "FwJumgGxJQxM",
+    "code": "git stash push -m \"Half-finished login validation\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "rQL9D3Gd6rLN",
+    "text": "Discarding a Stash",
+    "type": "heading",
+    "level": 2,
+    "anchor": "discarding-a-stash"
+  },
+  {
+    "id": "Dhn3l29ZEwz_",
+    "code": "git stash drop stash@{0}\n\n# Discard every stash entry\ngit stash clear",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "OkIItsy6M-yL",
+    "html": "<p>A typical real use: mid-way through a change, an urgent bug needs fixing on main right now. git stash, switch to main, fix the bug, switch back, git stash pop — the half-finished work resumes exactly where it was left.</p>",
+    "type": "callout",
+    "title": "The classic use case",
+    "variant": "tip"
+  }
+]
+```

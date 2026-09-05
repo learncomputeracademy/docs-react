@@ -1,0 +1,99 @@
+---
+id: "a01b96dc-35f8-4e13-8445-1a5a29b9f06a"
+title: "Inserting Documents"
+path: "mongodb/inserting-documents"
+status: "published"
+meta_title: "Inserting Documents | Learn Computer Academy"
+meta_description: "Adding new documents to a collection with insertOne() and insertMany(), and how MongoDB assigns the _id field."
+sort_order: 5
+updated_at: "2026-08-18T10:11:22.561974+00:00"
+---
+
+```json
+[
+  {
+    "id": "lAn9A9qmBj_n",
+    "html": "<p>Adding data to a collection is done with <code>insertOne()</code> for a single document, or <code>insertMany()</code> for several at once.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bfIV36UedlQ8",
+    "alt": "An isometric illustration of a document icon being dropped into an open drawer-like collection tray, with a plus symbol",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "insertOne() and insertMany() add new documents to a collection.",
+    "publicId": "docs/img/mongodb/insert-hero"
+  },
+  {
+    "id": "UMPdA2eO4Ct_",
+    "text": "insertOne()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "insertone"
+  },
+  {
+    "id": "379hOA3Yg3qM",
+    "code": "db.users.insertOne({\n  name: \"Ananya Roy\",\n  email: \"ananya@example.com\",\n  age: 27\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "J392zb3gdsZY",
+    "html": "<p>The response includes the generated <code>_id</code> of the new document, confirming it was created:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "m1ieSUbZppMb",
+    "code": "{\n  acknowledged: true,\n  insertedId: ObjectId(\"651f2b1a1c4a2b0012a4f8d2\")\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "6mXOvPRa6nt2",
+    "text": "insertMany()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "insertmany"
+  },
+  {
+    "id": "3MQnVAgxLk8z",
+    "html": "<p>Pass an array of documents to insert several in a single call — this is meaningfully faster than calling <code>insertOne()</code> in a loop, since it is one round trip to the database instead of many:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jSq-OOtxILLB",
+    "code": "db.users.insertMany([\n  { name: \"Karan Mehta\", age: 22 },\n  { name: \"Sneha Patel\", age: 30 },\n  { name: \"Vikram Singh\", age: 25 }\n])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "-HXFQECOnZYb",
+    "text": "Supplying Your Own _id",
+    "type": "heading",
+    "level": 2,
+    "anchor": "supplying-your-own-_id"
+  },
+  {
+    "id": "KgSw0ouUzJZb",
+    "html": "<p>You can set <code>_id</code> explicitly instead of letting MongoDB generate one — useful when you want a predictable, human-meaningful identifier. MongoDB will reject the insert if the value is already in use in that collection:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iX2BfPz3K7FE",
+    "code": "db.users.insertOne({\n  _id: \"user-ananya\",\n  name: \"Ananya Roy\"\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "x5H0FmCqrNw9",
+    "html": "<p>Once set, a document's <code>_id</code> cannot be changed — trying to <code>update()</code> the <code>_id</code> field throws an error. If you need a different identifier later, you must delete and re-insert the document.</p>",
+    "type": "callout",
+    "title": "_id is immutable",
+    "variant": "warning"
+  }
+]
+```

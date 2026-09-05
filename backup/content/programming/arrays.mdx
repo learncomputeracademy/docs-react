@@ -5,56 +5,76 @@ path: "programming/arrays"
 status: "published"
 meta_title: "Arrays | Learn Computer Academy"
 sort_order: 10
-updated_at: "2026-07-25T08:16:50.349274+00:00"
+updated_at: "2026-08-18T14:27:47.088655+00:00"
 ---
 
 ```json
 [
   {
-    "id": "f_ldiIsYUy_Q",
+    "id": "fqhwIotDJwGW",
     "html": "<p>An array is an ordered list of values, stored under a single variable name. Instead of creating <code>fruit1</code>, <code>fruit2</code>, <code>fruit3</code>, you create one array holding all of them.</p>",
     "type": "richtext"
   },
   {
-    "id": "vYcyNxlSeqfg",
+    "id": "7tHRpGV2CWtr",
     "text": "Creating an array",
     "type": "heading",
     "level": 2,
     "anchor": "creating-an-array"
   },
   {
-    "id": "zOQ8P-Hc3Rb0",
+    "id": "0HZrad-snvh4",
     "code": "let fruits = [\"apple\", \"banana\", \"mango\"];\nconsole.log(fruits); // [\"apple\", \"banana\", \"mango\"]",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$fruits = [\"apple\", \"banana\", \"mango\"];\nprint_r($fruits); // Array ( [0] => apple [1] => banana [2] => mango )",
+        "language": "php"
+      },
+      {
+        "code": "fruits = [\"apple\", \"banana\", \"mango\"]\nprint(fruits)  # ['apple', 'banana', 'mango']",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "HKfw9GHMtQJL",
+    "id": "D2CCE1736Vic",
     "text": "Accessing items by index",
     "type": "heading",
     "level": 2,
     "anchor": "accessing-items-by-index"
   },
   {
-    "id": "zIKG6kWIJXkE",
+    "id": "5hE3Mnzo223B",
     "html": "<p>Each item has a position, called its index, starting from <strong>0</strong> — not 1.</p>",
     "type": "richtext"
   },
   {
-    "id": "cntEfeD-LNzf",
+    "id": "5BRi2wdnUbPT",
     "code": "let fruits = [\"apple\", \"banana\", \"mango\"];\n\nconsole.log(fruits[0]); // \"apple\"  — first item\nconsole.log(fruits[1]); // \"banana\"\nconsole.log(fruits[2]); // \"mango\"  — last item",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$fruits = [\"apple\", \"banana\", \"mango\"];\n\necho $fruits[0]; // \"apple\"  — first item\necho $fruits[1]; // \"banana\"\necho $fruits[2]; // \"mango\"  — last item",
+        "language": "php"
+      },
+      {
+        "code": "fruits = [\"apple\", \"banana\", \"mango\"]\n\nprint(fruits[0])  # \"apple\"  — first item\nprint(fruits[1])  # \"banana\"\nprint(fruits[2])  # \"mango\"  — last item",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "icq_LP4qWnmF",
+    "id": "YVdWZbL_k1qi",
     "text": "Common array operations",
     "type": "heading",
     "level": 2,
     "anchor": "common-array-operations"
   },
   {
-    "id": "Yr6yG_S3iRPQ",
+    "id": "cNOK3yr-Ghkm",
     "rows": [
       [
         "<code>.push(x)</code>",
@@ -85,10 +105,20 @@ updated_at: "2026-07-25T08:16:50.349274+00:00"
     ]
   },
   {
-    "id": "MM2zXDQgxEGb",
+    "id": "bYNcALM5SMoU",
     "code": "let fruits = [\"apple\", \"banana\"];\nfruits.push(\"mango\");\n\nconsole.log(fruits.length); // 3\nconsole.log(fruits);        // [\"apple\", \"banana\", \"mango\"]",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$fruits = [\"apple\", \"banana\"];\n$fruits[] = \"mango\"; // PHP's equivalent of push\n\necho count($fruits); // 3\nprint_r($fruits);    // Array ( [0] => apple [1] => banana [2] => mango )",
+        "language": "php"
+      },
+      {
+        "code": "fruits = [\"apple\", \"banana\"]\nfruits.append(\"mango\")\n\nprint(len(fruits))  # 3\nprint(fruits)        # ['apple', 'banana', 'mango']",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

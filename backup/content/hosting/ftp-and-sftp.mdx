@@ -1,0 +1,90 @@
+---
+id: "b2129adf-406a-48eb-8015-310f6ecb1f7e"
+title: "FTP and SFTP"
+path: "hosting/ftp-and-sftp"
+status: "published"
+meta_title: "FTP and SFTP Explained | Learn Computer Academy"
+meta_description: "The classic way to move files onto a server: FTP and its secure successor SFTP. What they are, how to use one, and why plain FTP should be avoided."
+sort_order: 20
+updated_at: "2026-08-05T13:35:36.432529+00:00"
+---
+
+```json
+[
+  {
+    "id": "p5RAnYgGIXj9",
+    "html": "<p><b>FTP</b> (File Transfer Protocol) is one of the oldest and still most common ways to move files from your own computer onto a server — the literal mechanism behind \"uploading your website.\"</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F0Jv7-ezbv7d",
+    "text": "What It Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-it-actually-does"
+  },
+  {
+    "id": "FoA66KiKgdss",
+    "html": "<p>An FTP client — a piece of software on your computer — connects to your server using credentials your host gives you (a hostname, a username, a password, sometimes a port number), and presents two file listings side by side: your local computer's files and the server's files. Dragging a file from one side to the other uploads or downloads it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "10JZ6sR-4Ids",
+    "alt": "Isometric diagram showing a laptop and a remote server connected by a line labelled FTP, with a folder icon transferring between the two, side-by-side file listing panels visible on each",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "An FTP client connects your computer directly to a folder on the server, side by side.",
+    "publicId": "docs/img/hosting/ftp-1"
+  },
+  {
+    "id": "ueYz3tlWr3IP",
+    "text": "FTP vs. SFTP",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ftp-vs-sftp"
+  },
+  {
+    "id": "goiPqSMtxE-j",
+    "html": "<p>Plain <b>FTP</b> sends your username, password, and every file completely unencrypted — anyone intercepting the connection on the network in between can read it all, credentials included. <b>SFTP</b> (SSH File Transfer Protocol — related to SSH, covered in its own lesson shortly) does the same job over an encrypted connection.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k8FeW3iMNwFN",
+    "html": "<p>Use SFTP, not plain FTP, whenever your host offers it — which is nearly always, today. Sending a server password over plain, unencrypted FTP on an untrusted network is a genuine, avoidable security risk, not a theoretical one.</p>",
+    "type": "callout",
+    "title": "Prefer SFTP over plain FTP",
+    "variant": "warning"
+  },
+  {
+    "id": "wiiazPKIZKPs",
+    "text": "A Typical Workflow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-typical-workflow"
+  },
+  {
+    "id": "4S3JqaBRkY_5",
+    "html": "<ol><li>Get your connection details from your host's control panel — hostname, username, password, port.</li><li>Open an FTP client and enter those details to connect.</li><li>Navigate to the correct folder on the server — commonly named <code>public_html</code> or <code>www</code>, the folder your host actually serves to visitors.</li><li>Drag your project's files into that folder.</li><li>Visit your domain to confirm the upload worked.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "j_IaAJDELD57",
+    "html": "<p>Every file destined to be visible on your site has to actually be inside the server's designated web folder — usually <code>public_html</code>. Files uploaded elsewhere on the server exist, but nothing on the internet can reach them. This single detail causes a large share of \"I uploaded it but nothing changed\" confusion.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "UOZ1u3XaBc6l",
+    "text": "Where FTP Fits Among the Other Options",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-ftp-fits-among-the-other-options"
+  },
+  {
+    "id": "FYworN1pBIRF",
+    "html": "<p>FTP/SFTP is the standard way to deploy to shared hosting and many control-panel-based hosts specifically, since that is what those platforms are built to expect. It is not how cloud and managed platforms typically work — those generally use Git-based deployment instead, covered in its own lesson later in this part.</p>",
+    "type": "richtext"
+  }
+]
+```

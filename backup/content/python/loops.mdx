@@ -1,0 +1,127 @@
+---
+id: "44ee8c0e-bf77-41f7-928a-5d3d2874d247"
+title: "Loops"
+path: "python/loops"
+status: "published"
+meta_title: "Python Loops | Learn Computer Academy"
+meta_description: "Python's for and while loops, the range() function, and break/continue."
+sort_order: 15
+updated_at: "2026-08-04T11:39:30.784378+00:00"
+---
+
+```json
+[
+  {
+    "id": "SXXzngDfz3fx",
+    "html": "<p>Python has two loop keywords — <code>for</code> and <code>while</code>. Python's <code>for</code> always loops over an iterable (a list, string, range, and so on) — there's no separate keyword needed for counting a fixed number of times versus looping over a collection.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ajfPtUkEQX6J",
+    "text": "for",
+    "type": "heading",
+    "level": 2,
+    "anchor": "for"
+  },
+  {
+    "id": "0bycWYKwKbp_",
+    "html": "<p>You already used this looping over lists and dictionaries. Looping a fixed number of times uses <code>range()</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bLO2LHBxguYa",
+    "code": "for i in range(5):\n    print(f\"Count: {i}\")  # 0, 1, 2, 3, 4 — range(5) stops before 5\n\nfor i in range(1, 6):\n    print(f\"Count: {i}\")  # 1, 2, 3, 4, 5",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "7KMrEPrVQwEF",
+    "html": "<p>There is no C-style <code>for (i = 0; i < 5; i++)</code> in Python — <code>range()</code> is how you get a counted loop.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AlwfA3Bp7aLn",
+    "text": "while",
+    "type": "heading",
+    "level": 2,
+    "anchor": "while"
+  },
+  {
+    "id": "G1mGlsHGESz7",
+    "html": "<p>Repeats as long as a condition stays true:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YFisjUwGAXtl",
+    "code": "count = 0\nwhile count < 3:\n    print(f\"Iteration {count}\")\n    count += 1  # Python has no ++ operator — this is the idiomatic way",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "MVthNsAI1I6K",
+    "html": "<p>Python has no <code>++</code> or <code>--</code> increment/decrement operators at all — <code>count += 1</code> is the only way to increase a variable by one. This is a deliberate language design choice, not an oversight.</p>",
+    "type": "callout",
+    "title": "No ++ in Python",
+    "variant": "note"
+  },
+  {
+    "id": "EsvXPwnKuDZT",
+    "text": "No do-while",
+    "type": "heading",
+    "level": 2,
+    "anchor": "no-do-while"
+  },
+  {
+    "id": "D59cdEdxjPjl",
+    "html": "<p>Python has no <code>do-while</code> loop — a loop that always runs its body at least once before checking the condition. The common workaround is a <code>while True</code> loop with a <code>break</code> at the point where the condition would normally be checked:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3-n3NJu2LXRY",
+    "code": "count = 10\nwhile True:\n    print(f\"This runs once, even though {count} is not < 3.\")\n    if not (count < 3):\n        break",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "pldHClRe9Mwj",
+    "text": "break and continue",
+    "type": "heading",
+    "level": 2,
+    "anchor": "break-and-continue"
+  },
+  {
+    "id": "IY2h3w-Hucx1",
+    "code": "for i in range(1, 11):\n    if i == 6:\n        break       # stops the loop entirely\n    if i % 2 == 0:\n        continue    # skips this iteration, keeps looping\n    print(i, end=\" \")\n# Output: 1 3 5",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "fMKgGxNlT5WQ",
+    "text": "The else Clause on a Loop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-else-clause-on-a-loop"
+  },
+  {
+    "id": "3qYpQNGyjURn",
+    "html": "<p>This one is genuinely distinctive: a loop can have its own <code>else</code>, which runs if the loop finished normally — that is, only if <code>break</code> was <b>never</b> hit:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JX8cUL_a4hsa",
+    "code": "numbers = [2, 4, 6, 8]\nfor n in numbers:\n    if n % 2 != 0:\n        print(\"Found an odd number.\")\n        break\nelse:\n    print(\"All numbers are even.\")  # runs, since break never fired",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "4s9G1za-Q5KF",
+    "html": "<p>It reads oddly at first, but it's a clean way to express \"search for something, and do X only if it wasn't found\" without a separate flag variable to track whether <code>break</code> happened.</p>",
+    "type": "richtext"
+  }
+]
+```

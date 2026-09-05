@@ -1,0 +1,730 @@
+---
+id: "d1b518d3-68a9-40cd-bd5d-0be3e7b85062"
+title: "The Linux Command Line — A Practical Deep Dive"
+path: "cybersecurity/linux-command-line"
+status: "published"
+meta_title: "The Linux Command Line — A Practical Deep Dive | Learn Computer Academy"
+meta_description: "A long, practical tour of the Linux command line — files, permissions, text processing, processes, users, packages, services, networking, and basic shell scripting."
+sort_order: 3
+updated_at: "2026-09-03T04:22:55.753628+00:00"
+---
+
+```json
+[
+  {
+    "id": "6zIqBaxAjvEc",
+    "html": "<p>Linux runs most of the servers on the internet, and its command line appears constantly in security guides, hosting tutorials, and troubleshooting articles — including elsewhere on this site (the Hosting & Deployment course connects to a server over SSH and uses exactly these commands). This lesson is a long, practical tour, deliberately going further than a typical \"basics\" chapter — the more of this that feels familiar, the less intimidating a real server becomes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wL-twGZqktrs",
+    "text": "Finding Your Way Around",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finding-your-way-around"
+  },
+  {
+    "id": "SRrSeZoN8qL0",
+    "code": "# Show the current folder\npwd\n\n# List files and folders here\nls -la\n\n# Move into a folder\ncd Downloads\n\n# Go back up one level\ncd ..\n\n# Go straight to the home folder\ncd ~",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "pkL5hBrDDpZp",
+    "html": "<p><code>ls -la</code> specifically — the <code>-a</code> flag shows hidden files (names starting with a dot, like <code>.ssh</code> or <code>.bashrc</code>), which regular <code>ls</code> quietly skips. A surprising amount of security-relevant configuration lives in hidden files.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0LocPPwUXjRS",
+    "text": "The Directory Hierarchy — Where Things Live",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-directory-hierarchy-where-things-live"
+  },
+  {
+    "id": "Ap8wYgaP93BJ",
+    "html": "<p>Unlike Windows' separate drive letters, Linux has one single folder tree starting at <code>/</code> (the root) — everything, including other disks, gets mounted somewhere inside it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AlKFABwGLZ-1",
+    "rows": [
+      [
+        "/home",
+        "Each user's personal files (e.g. /home/sam)"
+      ],
+      [
+        "/etc",
+        "System-wide configuration files"
+      ],
+      [
+        "/var",
+        "Data that changes often — logs, caches, mail"
+      ],
+      [
+        "/usr",
+        "Installed programs and their supporting files"
+      ],
+      [
+        "/bin, /usr/bin",
+        "Common command-line programs"
+      ],
+      [
+        "/tmp",
+        "Temporary files, usually cleared on reboot"
+      ],
+      [
+        "/root",
+        "The root (administrator) user's home folder"
+      ],
+      [
+        "/dev",
+        "Device files representing hardware"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Folder",
+      "What lives there"
+    ]
+  },
+  {
+    "id": "Tf0BAyelyHr8",
+    "text": "Working with Files — Creating, Moving, Deleting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "working-with-files-creating-moving-deleting"
+  },
+  {
+    "id": "-auuvLdtyjIb",
+    "code": "# Create an empty file\ntouch notes.txt\n\n# Create a folder\nmkdir project\n\n# Copy a file\ncp notes.txt backup-notes.txt\n\n# Copy an entire folder\ncp -r project project-backup\n\n# Move or rename (same command does both)\nmv notes.txt archive/notes.txt\nmv old-name.txt new-name.txt\n\n# Delete a file\nrm notes.txt\n\n# Delete a folder and everything in it\nrm -rf project-backup",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "dCuqvBk_lots",
+    "html": "<p><code>rm -rf</code> deletes permanently — no Recycle Bin, no undo. Double-check the path before running it, especially with a wildcard (<code>rm -rf *</code>) or as root.</p>",
+    "type": "callout",
+    "title": "The most dangerous common command",
+    "variant": "warning"
+  },
+  {
+    "id": "JI5ObnYbkZsJ",
+    "text": "Viewing and Editing Files",
+    "type": "heading",
+    "level": 2,
+    "anchor": "viewing-and-editing-files"
+  },
+  {
+    "id": "gBSXqL6_9l0Z",
+    "code": "# Print a whole file to the screen\ncat notes.txt\n\n# Scroll through a long file (q to quit)\nless server.log\n\n# First 10 lines\nhead server.log\n\n# Last 10 lines — great for watching a log grow\ntail server.log\n\n# Keep watching a file as new lines are added\ntail -f server.log",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "FIgKfcoa_HKQ",
+    "html": "<p>For actually editing a file from the terminal, <b>nano</b> is the friendliest starting point — arrow keys work as expected, and the shortcuts are listed on screen.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7oHhJJdV69rC",
+    "code": "nano config.txt\n# Ctrl+O to save, Ctrl+X to exit",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "0jeC-cMHM_f7",
+    "html": "<p><b>vim</b> is the other common option, far more powerful once learned but genuinely unintuitive at first — it opens in \"normal mode,\" where typing doesn't insert text until <code>i</code> is pressed. Worth knowing at least the exit sequence, since it's a famous first stumbling block.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tZdJRNRsPEIZ",
+    "code": "vim config.txt\n# Press i to start typing (insert mode)\n# Press Esc to leave insert mode\n# Type :wq and press Enter to save and quit\n# Type :q! and press Enter to quit WITHOUT saving",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "MNxGLQTBcYeA",
+    "text": "Redirects, Pipes, and the Three I/O Streams",
+    "type": "heading",
+    "level": 2,
+    "anchor": "redirects-pipes-and-the-three-io-streams"
+  },
+  {
+    "id": "kybdswis5tyo",
+    "html": "<p>Every command has three data streams: <b>stdin</b> (input), <b>stdout</b> (normal output), and <b>stderr</b> (error output) — understanding these unlocks most of what makes the command line powerful.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FkYygc5MPsaG",
+    "rows": [
+      [
+        ">",
+        "Send stdout to a file, overwriting it"
+      ],
+      [
+        ">>",
+        "Send stdout to a file, appending to it"
+      ],
+      [
+        "2>",
+        "Send stderr (only) to a file"
+      ],
+      [
+        "<",
+        "Feed a file in as stdin"
+      ],
+      [
+        "|",
+        "Pipe — send one command's stdout as the next command's stdin"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Symbol",
+      "What it does"
+    ]
+  },
+  {
+    "id": "k5DKdI40SPWN",
+    "code": "# Save output to a file\nls -la > filelist.txt\n\n# Append instead of overwrite\necho \"new entry\" >> notes.txt\n\n# Send errors to a separate file, keep normal output on screen\nsome-command 2> errors.log\n\n# Chain commands — this pipeline is genuinely common in practice\nps aux | grep nginx | wc -l\n# ps aux: list every process\n# grep nginx: keep only lines mentioning nginx\n# wc -l: count the remaining lines",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "1UoaecerbW4D",
+    "text": "Text Processing — cut, sort, uniq, grep, awk",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-processing-cut-sort-uniq-grep-awk"
+  },
+  {
+    "id": "vh8zX2jOCcC7",
+    "html": "<p>Linux's small, single-purpose text tools are designed to be piped together — this is the toolkit behind reading logs, filtering data, and quick one-off reports without writing a script.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cyKIvJrjDbiq",
+    "rows": [
+      [
+        "grep \"pattern\" file",
+        "Prints lines matching a pattern"
+      ],
+      [
+        "grep -i",
+        "Case-insensitive match"
+      ],
+      [
+        "grep -r \"pattern\" .",
+        "Search recursively through every file in a folder"
+      ],
+      [
+        "cut -d',' -f2",
+        "Extract one column from delimited text (here, the 2nd, comma-separated)"
+      ],
+      [
+        "sort",
+        "Sort lines alphabetically or numerically (-n)"
+      ],
+      [
+        "uniq",
+        "Remove adjacent duplicate lines (usually paired with sort first)"
+      ],
+      [
+        "wc -l",
+        "Count lines (also -w for words, -c for characters)"
+      ],
+      [
+        "tr 'a-z' 'A-Z'",
+        "Translate characters — here, lowercase to uppercase"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "jJJKqr5LPxLU",
+    "code": "# Find every failed login attempt in an auth log\ngrep \"Failed password\" /var/log/auth.log\n\n# Get a sorted, de-duplicated list of IPs that tried\ngrep \"Failed password\" /var/log/auth.log | awk '{print $(NF-3)}' | sort | uniq -c | sort -rn\n# awk pulls out one field per line, sort+uniq -c counts how often\n# each IP appears, the final sort -rn ranks the worst offenders first",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "PZYbqSskmjJB",
+    "html": "<p><b>awk</b> and <b>sed</b> are both full text-processing languages on their own — the single most useful pattern to remember from each: <code>awk '{print $N}'</code> to grab column N of space-separated text, and <code>sed 's/old/new/g'</code> to find-and-replace text in a stream.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wtCrUowx_58B",
+    "code": "# Replace every occurrence of \"staging\" with \"production\" and print the result\nsed 's/staging/production/g' config.txt",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "2OBghRaHEP0G",
+    "text": "File Permissions and Ownership",
+    "type": "heading",
+    "level": 2,
+    "anchor": "file-permissions-and-ownership"
+  },
+  {
+    "id": "lfEJv5B7bZoR",
+    "html": "<p>Every file on Linux has permissions controlling who can read, write, or execute it — this is not a formality, it's an actual access-control mechanism. A world-writable config file or an overly permissive SSH key is a genuine, common vulnerability.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RzAZ6G8dL-Mx",
+    "code": "# Check permissions on a file\nls -l script.sh\n# -rwxr-xr-- 1 sam staff 220 Sep 3 10:00 script.sh",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "uUD5TFqp-T9i",
+    "html": "<p>That first block of ten characters breaks into: the file type, then three permission triplets (owner, group, everyone else) — each triplet is read (<code>r</code>), write (<code>w</code>), execute (<code>x</code>), or a dash for \"not permitted.\"</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vghoUDHUJ4mG",
+    "rows": [
+      [
+        "r (read)",
+        "4"
+      ],
+      [
+        "w (write)",
+        "2"
+      ],
+      [
+        "x (execute)",
+        "1"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Symbol",
+      "Numeric value"
+    ]
+  },
+  {
+    "id": "LH_SM_gYIr3F",
+    "code": "# Give the owner read+write+execute, group read+execute, others nothing\nchmod 750 script.sh\n\n# The same change, written symbolically\nchmod u=rwx,g=rx,o= script.sh\n\n# Make a file only the owner can read and write (common for SSH keys)\nchmod 600 id_rsa\n\n# Change who owns a file\nchown sam script.sh\n\n# Change owner and group together\nchown sam:staff script.sh",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "IpYHOizF-mEa",
+    "text": "Archiving and Compressing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "archiving-and-compressing"
+  },
+  {
+    "id": "9DYy_6pRrdXu",
+    "code": "# Bundle a folder into one .tar file\ntar -cvf backup.tar project/\n\n# Same, but gzip-compressed (.tar.gz)\ntar -czvf backup.tar.gz project/\n\n# Unpack a .tar.gz\ntar -xzvf backup.tar.gz\n\n# Zip / unzip, if that format is needed instead\nzip -r backup.zip project/\nunzip backup.zip",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "3kTaytSvpKLo",
+    "html": "<p><code>c</code> = create, <code>x</code> = extract, <code>z</code> = gzip, <code>v</code> = verbose (show progress), <code>f</code> = the filename follows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mMIDpS-S687O",
+    "text": "Finding Files",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finding-files"
+  },
+  {
+    "id": "8FkfC849LW73",
+    "code": "# Search by name, from the current folder down\nfind . -name \"*.log\"\n\n# Search the whole system for a file modified in the last day\nfind / -name \"config.php\" -mtime -1\n\n# Fast search using a pre-built index (usually faster, may be slightly stale)\nlocate nginx.conf",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "i2KH1CkgXo2n",
+    "text": "Process Management",
+    "type": "heading",
+    "level": 2,
+    "anchor": "process-management"
+  },
+  {
+    "id": "h6I0d2N0sGx6",
+    "code": "# List every running process\nps aux\n\n# Live, auto-refreshing view of processes and resource use\ntop\n\n# End a process by its process ID (find the ID from ps aux first)\nkill 4821\n\n# Force-kill a process that ignores a normal kill\nkill -9 4821",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "M-PVyDgDAr13",
+    "html": "<p>Ending an unfamiliar process ID can break something else that depends on it. Confirm what a process is (via <code>ps aux</code> or a search on its name) before ending it.</p>",
+    "type": "callout",
+    "title": "Know before you kill",
+    "variant": "warning"
+  },
+  {
+    "id": "6Gzq0-XfmDEK",
+    "text": "Background and Foreground",
+    "type": "heading",
+    "level": 3,
+    "anchor": "background-and-foreground"
+  },
+  {
+    "id": "NcFDcuF_WxAs",
+    "code": "# Start a long-running command in the background\nlong-task &\n\n# List the current background jobs\njobs\n\n# Bring a background job back to the foreground\nfg %1\n\n# A command that keeps running even after the terminal closes\nnohup long-task &",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "fwWOEvkMn7ov",
+    "text": "Users and Groups",
+    "type": "heading",
+    "level": 2,
+    "anchor": "users-and-groups"
+  },
+  {
+    "id": "_ZK3nxTtkQZE",
+    "html": "<p>Every file, process, and permission ultimately belongs to a user — and every user belongs to one or more groups, which is how group-level permissions from the earlier section actually get applied.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AsiePuqSJjVM",
+    "code": "# Add a new user\nsudo useradd -m newuser   # -m also creates their home folder\n\n# Set (or change) that user's password\nsudo passwd newuser\n\n# Add an existing user to a group\nsudo usermod -aG developers newuser\n\n# See which groups the current user belongs to\ngroups\n\n# Delete a user (and optionally their home folder with -r)\nsudo userdel -r newuser",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "jChdi0xYPGv7",
+    "text": "sudo — Running One Command as Another User",
+    "type": "heading",
+    "level": 3,
+    "anchor": "sudo-running-one-command-as-another-user"
+  },
+  {
+    "id": "Kybv75H5Ol0X",
+    "html": "<p><code>sudo</code> runs a single command with administrator (root) privileges, rather than logging in as root directly — the safer, standard approach, since it's scoped to one command and logged.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "z2-p-bIjKsqu",
+    "code": "sudo apt update\n\n# Run a shell as root (use sparingly)\nsudo -i",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "wygSrpFyEVf4",
+    "text": "Package Management",
+    "type": "heading",
+    "level": 2,
+    "anchor": "package-management"
+  },
+  {
+    "id": "Cfe4LbYyocbk",
+    "html": "<p>Installing software on Linux almost never means downloading an installer — a package manager handles finding, installing, updating, and removing software from a trusted repository.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tIw_RvuVWd2V",
+    "rows": [
+      [
+        "Debian, Ubuntu",
+        "apt",
+        "sudo apt install <package> / sudo apt update && sudo apt upgrade"
+      ],
+      [
+        "Fedora, RHEL, CentOS",
+        "dnf (or the older yum)",
+        "sudo dnf install <package> / sudo dnf update"
+      ],
+      [
+        "Arch",
+        "pacman",
+        "sudo pacman -S <package> / sudo pacman -Syu"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Distro family",
+      "Package manager",
+      "Install / update"
+    ]
+  },
+  {
+    "id": "XUfhzMvgSIqx",
+    "code": "# Update the local list of available packages\nsudo apt update\n\n# Install a package\nsudo apt install htop\n\n# Remove a package\nsudo apt remove htop\n\n# List installed packages\napt list --installed\n\n# Upgrade every installed package\nsudo apt upgrade",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "2VWog5mf6rgM",
+    "text": "Service Management — systemd",
+    "type": "heading",
+    "level": 2,
+    "anchor": "service-management-systemd"
+  },
+  {
+    "id": "wabiSjJi_aqK",
+    "html": "<p>Most modern Linux distributions manage background services (a web server, a database, an SSH server) with <b>systemd</b>, via the <code>systemctl</code> command.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "agZQQJthBxjt",
+    "code": "# Check whether a service is running\nsudo systemctl status nginx\n\n# Start / stop / restart a service\nsudo systemctl start nginx\nsudo systemctl stop nginx\nsudo systemctl restart nginx\n\n# Make a service start automatically on boot\nsudo systemctl enable nginx\n\n# Read a service's recent logs\njournalctl -u nginx --since today",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "5srzXplnNqCz",
+    "text": "Environment Variables and the Command Path",
+    "type": "heading",
+    "level": 2,
+    "anchor": "environment-variables-and-the-command-path"
+  },
+  {
+    "id": "d0LrqWcfuMXw",
+    "html": "<p>An environment variable is a named value available to every program run in that session — <code>PATH</code> is the most important one, since it's the list of folders the shell searches when a command is typed without a full path.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KwYSeQnPH_O6",
+    "code": "# Show every environment variable\nenv\n\n# Show one specific variable\necho $HOME\necho $PATH\n\n# Set one for the current session only\nexport API_KEY=abc123\n\n# Set one permanently — added to ~/.bashrc (or ~/.zshrc), then re-loaded\necho 'export API_KEY=abc123' >> ~/.bashrc\nsource ~/.bashrc",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "1LmPXDIQNdr4",
+    "text": "Networking Commands",
+    "type": "heading",
+    "level": 2,
+    "anchor": "networking-commands"
+  },
+  {
+    "id": "iu0BCAYDaES8",
+    "code": "# Show this machine's IP address\nip a\n\n# Test whether a host is reachable\nping -c 4 google.com\n\n# Trace the network hops to a host\ntraceroute google.com\n\n# List active network connections and the process using each\nss -tulnp\n\n# The older equivalent, still common in guides\nnetstat -tulnp\n\n# Download a file or check an API from the command line\ncurl -I https://example.com    # -I: headers only\nwget https://example.com/file.zip\n\n# Look up a domain's DNS records\ndig example.com\nnslookup example.com",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "MwawmsUJfEW9",
+    "html": "<p><code>ss -tulnp</code> is worth remembering on its own — it lists every port a program is listening on, which is exactly what to check when trying to work out whether something unexpected is running a server on a machine.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_VvZUcQZFPO-",
+    "text": "Disks and Filesystems — the Basics",
+    "type": "heading",
+    "level": 2,
+    "anchor": "disks-and-filesystems-the-basics"
+  },
+  {
+    "id": "sz7V3X_EuEF2",
+    "code": "# Show disk space used per mounted filesystem\ndf -h\n\n# Show how much space a specific folder is using\ndu -sh /var/log\n\n# List the block devices (drives and partitions) attached\nlsblk\n\n# Show what's currently mounted where\nmount",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "XgMO0a882RME",
+    "text": "Shell Scripting Basics",
+    "type": "heading",
+    "level": 2,
+    "anchor": "shell-scripting-basics"
+  },
+  {
+    "id": "6JALgIMoA8c9",
+    "html": "<p>Any sequence of commands can be saved into a file and run as a script — the same commands covered throughout this lesson, just automated.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fcELZGxlqzDE",
+    "code": "#!/bin/bash\n# The line above is the \"shebang\" — tells the system which\n# interpreter to run this file with\n\nname=\"World\"\necho \"Hello, $name!\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "j-k97ZbT_5yY",
+    "code": "chmod +x greet.sh   # make it executable\n./greet.sh          # run it",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "2fKbgW2NOY96",
+    "text": "Variables, Conditionals, and Loops",
+    "type": "heading",
+    "level": 3,
+    "anchor": "variables-conditionals-and-loops"
+  },
+  {
+    "id": "NIbB2P1F4vqE",
+    "code": "# A variable\ncount=5\n\n# A conditional\nif [ \"$count\" -gt 3 ]; then\n  echo \"More than 3\"\nelse\n  echo \"3 or fewer\"\nfi\n\n# A loop\nfor file in *.txt; do\n  echo \"Found: $file\"\ndone",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "FqVZXF1Jv2Oq",
+    "text": "Troubleshooting and Server Review",
+    "type": "heading",
+    "level": 2,
+    "anchor": "troubleshooting-and-server-review"
+  },
+  {
+    "id": "MKIvd6ISqwcG",
+    "html": "<p>A quick, standard set of checks for \"what's going on with this machine\" — worth knowing as a sequence, not just individually.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qwHpNO43iyrX",
+    "code": "# How long has this system been up, and how loaded is it?\nuptime\n\n# Who is (or has recently been) logged in?\nwho\nlast\n\n# What does the system log say happened recently?\ntail -50 /var/log/syslog       # Debian/Ubuntu\njournalctl -n 50                # systemd-based systems\n\n# The most recent kernel/hardware messages\ndmesg | tail -50\n\n# How much memory is free?\nfree -h",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "h6QFfYVholF0",
+    "rows": [
+      [
+        "Is the system overloaded?",
+        "uptime (check the load average)"
+      ],
+      [
+        "Is a specific service actually running?",
+        "systemctl status <service>"
+      ],
+      [
+        "Is the disk full?",
+        "df -h"
+      ],
+      [
+        "What's using all the memory?",
+        "top or free -h"
+      ],
+      [
+        "What just happened, system-wide?",
+        "journalctl -n 50 or tail -f /var/log/syslog"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Question",
+      "Command"
+    ]
+  },
+  {
+    "id": "QzIbdFtogofg",
+    "text": "Common Commands, Full Reference",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-commands-full-reference"
+  },
+  {
+    "id": "T_ldhlnBdbsS",
+    "rows": [
+      [
+        "pwd",
+        "Show the current folder"
+      ],
+      [
+        "ls -la",
+        "List files and folders, including hidden ones"
+      ],
+      [
+        "cd <folder>",
+        "Change folder"
+      ],
+      [
+        "cp / mv / rm",
+        "Copy / move-rename / delete"
+      ],
+      [
+        "mkdir / rmdir",
+        "Create / remove an empty folder"
+      ],
+      [
+        "cat / less / head / tail",
+        "View a file — all at once, scrollable, first lines, last lines"
+      ],
+      [
+        "grep / awk / sed / cut / sort / uniq",
+        "Search and process text"
+      ],
+      [
+        "chmod / chown",
+        "Change permissions / ownership"
+      ],
+      [
+        "tar / zip",
+        "Archive and compress files"
+      ],
+      [
+        "find / locate",
+        "Search for files"
+      ],
+      [
+        "ps aux / top / kill",
+        "List, monitor, and end processes"
+      ],
+      [
+        "useradd / usermod / passwd",
+        "Manage user accounts"
+      ],
+      [
+        "sudo apt install / update / upgrade",
+        "Manage packages (Debian/Ubuntu)"
+      ],
+      [
+        "systemctl start / stop / status",
+        "Manage background services"
+      ],
+      [
+        "ip a / ping / curl / ss -tulnp",
+        "Network configuration, connectivity, requests, open ports"
+      ],
+      [
+        "df -h / du -sh / lsblk",
+        "Disk space, folder size, attached drives"
+      ],
+      [
+        "uptime / free -h / journalctl",
+        "System load, memory, logs"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "gg5C69xqS59d",
+    "html": "<p>Deliberately left out of this lesson: containers (Docker), advanced storage (LVM), deep networking internals (the full TCP/IP stack, Netfilter/iptables rule-writing), and boot process internals — genuinely useful, but DevOps/sysadmin-specialist territory rather than the security-relevant CLI literacy this course is scoped for.</p>",
+    "type": "callout",
+    "title": "What this deliberately leaves out",
+    "variant": "note"
+  }
+]
+```

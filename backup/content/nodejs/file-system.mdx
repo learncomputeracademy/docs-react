@@ -1,0 +1,147 @@
+---
+id: "ce47ad26-3229-4b67-bffb-6156278c4282"
+title: "The File System Module"
+path: "nodejs/file-system"
+status: "published"
+meta_title: "Node.js File System (fs) Module | Learn Computer Academy"
+meta_description: "Read, write, and check files with the built-in fs module, and understand the difference between its sync, callback, and promise versions."
+sort_order: 7
+updated_at: "2026-08-05T05:47:54.669073+00:00"
+---
+
+```json
+[
+  {
+    "id": "seH2gOLrgIDW",
+    "html": "<p>The <code>fs</code> (file system) module reads and writes files — something browser JavaScript is never allowed to do. It's one of the clearest examples of what makes Node.js different from JavaScript running in a page.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eQLJ1dDL0qxy",
+    "text": "Reading a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-file"
+  },
+  {
+    "id": "wk9cheWqHZCE",
+    "code": "const fs = require('fs')\n\nconst data = fs.readFileSync('notes.txt', 'utf8')\nconsole.log(data)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "FHG8HCiQ8Um7",
+    "html": "<p>The second argument, <code>'utf8'</code>, tells Node to return text instead of raw bytes. Leave it off and you get a <code>Buffer</code> — covered later in this course — instead of a readable string.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YXZ6KGLoSPS2",
+    "text": "Writing a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "writing-a-file"
+  },
+  {
+    "id": "9M0qvbglolvB",
+    "code": "fs.writeFileSync('output.txt', 'Hello, file!')",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "dIoN1Uz-0lxA",
+    "html": "<p><code>writeFileSync</code> creates the file if it doesn't exist, and <b>overwrites it completely</b> if it does. To add to a file instead of replacing it, use <code>fs.appendFileSync()</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uYNd5xCAQosg",
+    "text": "Sync vs. Async",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sync-vs-async"
+  },
+  {
+    "id": "j8VPI52XogVK",
+    "html": "<p>Every method ending in <code>Sync</code> blocks the program — nothing else runs until the file operation finishes. For a quick script that's fine. For a running server handling many requests at once, blocking on disk access stalls every other request too.</p><p>The non-blocking version takes a callback function instead of returning a value directly:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uvXo3GVLKHJG",
+    "code": "fs.readFile('notes.txt', 'utf8', (err, data) => {\n  if (err) {\n    console.error('Failed to read file:', err)\n    return\n  }\n  console.log(data)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "h9PFQwOsv-eL",
+    "html": "<p>Node keeps running other code while the file is being read, and calls the function you passed in once it's done. This callback pattern — <code>(err, result)</code> as the first two parameters — shows up throughout Node's built-in APIs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8ybgthyEm3tm",
+    "text": "The Promise Version",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-promise-version"
+  },
+  {
+    "id": "Y5_uttfrsPms",
+    "html": "<p><code>fs/promises</code> gives the same non-blocking behavior with <code>async</code>/<code>await</code> instead of a callback:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sQNhXBd4ewSE",
+    "code": "const fs = require('fs/promises')\n\nasync function readNotes() {\n  const data = await fs.readFile('notes.txt', 'utf8')\n  console.log(data)\n}\n\nreadNotes()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "vLn1iN5Grkz5",
+    "rows": [
+      [
+        "<code>fs.readFileSync()</code>",
+        "Returns the value directly",
+        "Yes"
+      ],
+      [
+        "<code>fs.readFile()</code>",
+        "Takes a callback",
+        "No"
+      ],
+      [
+        "<code>fs/promises</code>'s <code>readFile()</code>",
+        "<code>await</code>able",
+        "No"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Style",
+      "How you call it",
+      "Blocks the program?"
+    ]
+  },
+  {
+    "id": "2pRCRbgk7ihZ",
+    "html": "<p>Reach for the promise-based version by default in real code — it's non-blocking and reads cleanly with <code>async</code>/<code>await</code>. Sync methods are fine for one-off scripts and startup code that genuinely needs to finish before anything else runs.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "ONVmvjwvmWOs",
+    "text": "Checking If a File Exists",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-if-a-file-exists"
+  },
+  {
+    "id": "yj-LShYjhylA",
+    "code": "if (fs.existsSync('config.json')) {\n  console.log('Found it')\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  }
+]
+```

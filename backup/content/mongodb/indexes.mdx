@@ -1,0 +1,117 @@
+---
+id: "88acec04-c468-4bc6-8340-deab6682aa36"
+title: "Indexes"
+path: "mongodb/indexes"
+status: "published"
+meta_title: "Indexes | Learn Computer Academy"
+meta_description: "Why indexes make queries fast, creating single-field and compound indexes, and checking a query's performance with explain()."
+sort_order: 14
+updated_at: "2026-08-18T10:11:25.795591+00:00"
+---
+
+```json
+[
+  {
+    "id": "ZQ3r3PBt8Ii1",
+    "html": "<p>Without an index, MongoDB checks every single document in a collection to answer a query — a <b>collection scan</b>. On a small collection this is instant; on a large one it gets slow fast. An <b>index</b> is a separate, sorted data structure that lets MongoDB jump straight to matching documents instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A3noBE0vP4w2",
+    "alt": "An isometric illustration of a book with a bookmark tab structure representing a database index, next to a stack of documents being searched",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "An index lets MongoDB find matching documents without scanning every one.",
+    "publicId": "docs/img/mongodb/indexes-hero"
+  },
+  {
+    "id": "gngdo-vYzIzF",
+    "text": "Creating a Single-Field Index",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-single-field-index"
+  },
+  {
+    "id": "3jPMNdpBE96I",
+    "code": "db.users.createIndex({ email: 1 })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "sWrcS_1R06c_",
+    "html": "<p><code>1</code> means ascending order, <code>-1</code> descending — for a single-field index used for equality lookups, the direction rarely matters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GD1Ty5UEYMeU",
+    "text": "Compound Indexes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "compound-indexes"
+  },
+  {
+    "id": "TN9MZNh9xzTc",
+    "html": "<p>A <b>compound index</b> covers multiple fields, and speeds up queries that filter (or sort) on that combination:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nTUDdX4_ZL7i",
+    "code": "db.users.createIndex({ role: 1, age: -1 })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "vZpWS03E0rQY",
+    "html": "<p>Field order in a compound index matters — this index efficiently serves queries filtering by <code>role</code> alone, or by <code>role</code> and <code>age</code> together, but not a query that filters by <code>age</code> alone.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SRTEdxt0qvlw",
+    "text": "Unique Indexes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unique-indexes"
+  },
+  {
+    "id": "fky2JPNKWKdn",
+    "html": "<p>Add <code>{ unique: true }</code> to enforce that no two documents can share a value for that field — commonly used on fields like <code>email</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4qX8lMjGsxc7",
+    "code": "db.users.createIndex({ email: 1 }, { unique: true })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "HuT7wWcqBLh_",
+    "text": "Checking Whether a Query Uses an Index",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-whether-a-query-uses-an-index"
+  },
+  {
+    "id": "ww3LXeMgwviF",
+    "html": "<p><code>.explain()</code> shows exactly how MongoDB executed a query — look for <code>\"stage\": \"IXSCAN\"</code> (index scan, fast) versus <code>\"stage\": \"COLLSCAN\"</code> (collection scan, slow on large data):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cWV5-fuW3ib0",
+    "code": "db.users.find({ email: \"ananya@example.com\" }).explain()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "7Q2Q2ThmrpUH",
+    "html": "<p>Indexes speed up reads but slow down writes slightly, since MongoDB has to update every index whenever a document changes. Index the fields you actually query and sort by often — not every field.</p>",
+    "type": "callout",
+    "title": "Indexes are a trade-off, not a free upgrade",
+    "variant": "warning"
+  }
+]
+```

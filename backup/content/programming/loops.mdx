@@ -5,80 +5,110 @@ path: "programming/loops"
 status: "published"
 meta_title: "Loops | Learn Computer Academy"
 sort_order: 9
-updated_at: "2026-07-25T08:16:50.27564+00:00"
+updated_at: "2026-08-18T14:27:46.910297+00:00"
 ---
 
 ```json
 [
   {
-    "id": "BqlD94IVRkTc",
+    "id": "Q801QEA8S_Wh",
     "html": "<p>A loop repeats a block of code multiple times, so you don't have to write it out by hand. Loops are how programs process lists of data, repeat a task a fixed number of times, or keep running until some condition is met.</p>",
     "type": "richtext"
   },
   {
-    "id": "BDogVo5-XwSG",
+    "id": "hPFXcy-3Hgom",
     "text": "The for loop",
     "type": "heading",
     "level": 2,
     "anchor": "the-for-loop"
   },
   {
-    "id": "72GmENh28Kkd",
+    "id": "rFuijzDODfCp",
     "html": "<p>Use a <code>for</code> loop when you know how many times you want to repeat something.</p>",
     "type": "richtext"
   },
   {
-    "id": "wF2XRD9lMhgg",
+    "id": "9kGyjGH9fCMd",
     "code": "for (let i = 1; i <= 5; i++) {\n  console.log(\"Count: \" + i);\n}\n// Prints Count: 1 through Count: 5",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\nfor ($i = 1; $i <= 5; $i++) {\n  echo \"Count: \" . $i . \"\\n\";\n}\n// Prints Count: 1 through Count: 5",
+        "language": "php"
+      },
+      {
+        "code": "for i in range(1, 6):\n    print(\"Count:\", i)\n# Prints Count: 1 through Count: 5",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "BKxJNWp09KBY",
+    "id": "sYOs46745iJS",
     "html": "<p>A <code>for</code> loop has three parts, separated by semicolons: a starting point (<code>let i = 1</code>), a condition checked before every repeat (<code>i <= 5</code>), and a step that runs after every repeat (<code>i++</code>).</p>",
     "type": "richtext"
   },
   {
-    "id": "edvQWPzMeHEj",
+    "id": "VbXA0KKvFTeL",
     "text": "The while loop",
     "type": "heading",
     "level": 2,
     "anchor": "the-while-loop"
   },
   {
-    "id": "7wOcE-hYg8IF",
+    "id": "Q0R_yLFgFyR6",
     "html": "<p>Use a <code>while</code> loop when you don't know in advance how many repeats you need — it keeps going as long as a condition stays true.</p>",
     "type": "richtext"
   },
   {
-    "id": "h3LElJ7HLHMy",
+    "id": "0m5E1HU3gd9T",
     "code": "let energy = 3;\n\nwhile (energy > 0) {\n  console.log(\"Still going, energy: \" + energy);\n  energy = energy - 1;\n}",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$energy = 3;\n\nwhile ($energy > 0) {\n  echo \"Still going, energy: \" . $energy . \"\\n\";\n  $energy = $energy - 1;\n}",
+        "language": "php"
+      },
+      {
+        "code": "energy = 3\n\nwhile energy > 0:\n    print(\"Still going, energy:\", energy)\n    energy = energy - 1",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "sytnUJlyAUS5",
+    "id": "V3IazaNwz0al",
     "html": "<p>If the condition in a <code>while</code> loop never becomes false, the loop runs forever — this is called an infinite loop, and it's one of the most common early mistakes. Always make sure something inside the loop moves it toward finishing.</p>",
     "type": "callout",
     "variant": "warning"
   },
   {
-    "id": "uUb1dqQN9u8X",
+    "id": "9eNignIIkRb3",
     "text": "Looping over an array",
     "type": "heading",
     "level": 2,
     "anchor": "looping-over-an-array"
   },
   {
-    "id": "KFWzXhHtqkWL",
+    "id": "VQugNG_O68uu",
     "html": "<p><code>for...of</code> is the simplest way to visit every item in a list.</p>",
     "type": "richtext"
   },
   {
-    "id": "MYumHM7XoGqs",
+    "id": "QMa3ZLvWOswT",
     "code": "let fruits = [\"apple\", \"banana\", \"mango\"];\n\nfor (let fruit of fruits) {\n  console.log(fruit);\n}",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$fruits = [\"apple\", \"banana\", \"mango\"];\n\nforeach ($fruits as $fruit) {\n  echo $fruit . \"\\n\";\n}",
+        "language": "php"
+      },
+      {
+        "code": "fruits = [\"apple\", \"banana\", \"mango\"]\n\nfor fruit in fruits:\n    print(fruit)",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

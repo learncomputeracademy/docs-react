@@ -1,0 +1,136 @@
+---
+id: "3b3de42c-a55b-430e-a08f-d74cf1034f56"
+title: "Transactions — ACID Properties and Isolation Levels"
+path: "sql/transactions-acid-and-isolation-levels"
+status: "published"
+meta_title: "SQL Transactions — ACID and Isolation Levels | Learn Computer Academy"
+meta_description: "The theory behind BEGIN/COMMIT/ROLLBACK from the earlier TCL lesson — the four ACID guarantees, and how isolation levels trade consistency for speed."
+sort_order: 20
+updated_at: "2026-09-03T04:30:03.256828+00:00"
+---
+
+```json
+[
+  {
+    "id": "4eGE76PPPW00",
+    "html": "<p>The earlier TCL lesson covered the commands — BEGIN, COMMIT, ROLLBACK, SAVEPOINT. This lesson covers what those commands are actually guaranteeing, and why a database offers several different levels of that guarantee.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jRYgwhvzxDHb",
+    "text": "Starting a Transaction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "starting-a-transaction"
+  },
+  {
+    "id": "cC0zI719bHq0",
+    "code": "BEGIN;\n\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\n\nCOMMIT;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "zmXhs1gQ1LIh",
+    "html": "<p>Both updates succeed together, or neither does — this money-transfer example is the classic illustration of why transactions exist.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "in4xNzYW6z-t",
+    "text": "The Four ACID Guarantees",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-acid-guarantees"
+  },
+  {
+    "id": "TZqtEDvwI4gx",
+    "rows": [
+      [
+        "Atomicity",
+        "A transaction's changes all happen, or none of them do — no partial transfer where money leaves one account but never arrives at the other"
+      ],
+      [
+        "Consistency",
+        "A transaction can only move the database from one valid state to another — every constraint (from the earlier lesson) still holds afterward"
+      ],
+      [
+        "Isolation",
+        "Concurrent transactions don't see each other's uncommitted changes — covered in depth below"
+      ],
+      [
+        "Durability",
+        "Once committed, a change survives — even a server crash immediately after doesn't lose it"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Guarantee",
+      "What it means"
+    ]
+  },
+  {
+    "id": "kOvv9r_44AZA",
+    "text": "The Problem Isolation Solves",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-isolation-solves"
+  },
+  {
+    "id": "Tcne8YnM7MZR",
+    "html": "<p>Multiple transactions often run at the same time. Without isolation, one transaction could read another's half-finished changes — a \"dirty read\" — and make a decision based on data that's about to be rolled back.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EdgCla9-Kpm7",
+    "text": "The Four Isolation Levels",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-isolation-levels"
+  },
+  {
+    "id": "OoqojUf2zU3O",
+    "rows": [
+      [
+        "Read Uncommitted",
+        "Nothing — dirty reads are possible",
+        "Fastest, least safe"
+      ],
+      [
+        "Read Committed",
+        "Dirty reads",
+        "The default in most databases (e.g. PostgreSQL, SQL Server)"
+      ],
+      [
+        "Repeatable Read",
+        "Dirty reads + non-repeatable reads (a row changing mid-transaction)",
+        "MySQL's default"
+      ],
+      [
+        "Serializable",
+        "Every concurrency issue — transactions behave as if run one at a time",
+        "Safest, slowest"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Level",
+      "Prevents",
+      "Trade-off"
+    ]
+  },
+  {
+    "id": "RllVeL54_C-M",
+    "code": "SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;\nBEGIN;\n-- ... queries here run with the strictest isolation ...\nCOMMIT;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "UINQg51I7eS0",
+    "html": "<p>A higher isolation level isn't automatically the right choice — Serializable can cause more transactions to fail and need retrying under heavy concurrent load. Most applications are well-served by the database's default.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  }
+]
+```

@@ -1,0 +1,132 @@
+---
+id: "06dce043-ecf2-4205-a9d2-0eecbec0ee74"
+title: "JSX Syntax"
+path: "react/jsx"
+status: "published"
+meta_title: "JSX Syntax | Learn Computer Academy"
+meta_description: "What JSX is, how it lets you write HTML-like markup inside JavaScript, and the key differences from real HTML."
+sort_order: 3
+updated_at: "2026-07-31T11:24:35.184651+00:00"
+---
+
+```json
+[
+  {
+    "id": "P9gt94_FeUMn",
+    "html": "<p><b>JSX</b> is a syntax extension that lets you write HTML-like markup directly inside JavaScript. It looks like HTML, but it isn't — it gets converted into regular JavaScript function calls before it ever reaches a browser.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hE6x6qF4Rlsu",
+    "text": "What JSX Looks Like",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-jsx-looks-like"
+  },
+  {
+    "id": "V0HZfCXYd1_L",
+    "code": "const element = <h1>Hello, world!</h1>;",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "Q4gWRN-h6FeP",
+    "html": "<p>This isn't a string, and it isn't HTML — it's JavaScript, compiled by the build tooling from your last lesson into something like <code>React.createElement('h1', null, 'Hello, world!')</code>. You'll never write that longer form yourself; JSX is simply a more readable way to write the same thing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "czw-1_W70Pa3",
+    "text": "Embedding JavaScript Expressions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "embedding-javascript-expressions"
+  },
+  {
+    "id": "-xtmHIZXA71j",
+    "html": "<p>Curly braces <code>{ }</code> drop any JavaScript expression directly into JSX:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "heij0ae7LGme",
+    "code": "const name = \"Priya\";\nconst element = <h1>Hello, {name}!</h1>;\n\nconst total = <p>Total: {2 + 2}</p>;",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "8KWbnhVE-LLJ",
+    "html": "<p>Only <b>expressions</b> work inside <code>{ }</code> — something that produces a value. Statements like <code>if</code> or a <code>for</code> loop don't fit directly; the Conditional Rendering lesson later in this section covers the expression-based patterns JSX actually uses instead.</p>",
+    "type": "callout",
+    "title": "Expressions, not statements",
+    "variant": "note"
+  },
+  {
+    "id": "VTE2DtjtaUOw",
+    "text": "JSX Isn't Quite HTML",
+    "type": "heading",
+    "level": 2,
+    "anchor": "jsx-isnt-quite-html"
+  },
+  {
+    "id": "n-pOOBlwClrb",
+    "html": "<p>A handful of real differences trip up almost everyone coming from HTML:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FZb1tXjNucvR",
+    "rows": [
+      [
+        "class=\"box\"",
+        "className=\"box\"",
+        "`class` is a reserved word in JavaScript"
+      ],
+      [
+        "&lt;label for=\"name\"&gt;",
+        "&lt;label htmlFor=\"name\"&gt;",
+        "`for` is also reserved"
+      ],
+      [
+        "&lt;img src=\"...\"&gt;",
+        "&lt;img src=\"...\" /&gt;",
+        "Every tag must be closed, even ones HTML allows to stay open"
+      ],
+      [
+        "onclick=\"...\"",
+        "onClick={...}",
+        "Event names are camelCase, and take a real function, not a string"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "HTML",
+      "JSX",
+      "Why"
+    ]
+  },
+  {
+    "id": "42Cf7fh31dN9",
+    "text": "One Root Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "one-root-element"
+  },
+  {
+    "id": "PAwdECDENcAn",
+    "html": "<p>A component can only return one top-level element — this trips up nearly everyone the first time:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JoLt7l8azUCe",
+    "code": "// This is an error — two sibling elements with no single parent:\n// return (\n//   <h1>Title</h1>\n//   <p>Text</p>\n// );\n\n// Wrap them in one element instead:\nreturn (\n  <div>\n    <h1>Title</h1>\n    <p>Text</p>\n  </div>\n);",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "DlLjwVd_v7ZS",
+    "html": "<p>The Fragments and Portals lesson later in this section covers a way to satisfy this rule without adding an extra, meaningless <code>&lt;div&gt;</code> to the actual page.</p>",
+    "type": "richtext"
+  }
+]
+```

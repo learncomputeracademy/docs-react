@@ -1,0 +1,166 @@
+---
+id: "dbf6f0c2-b773-4e63-a67c-5c316f659880"
+title: "Prompt Engineering Basics"
+path: "ai/prompt-engineering-basics"
+status: "published"
+meta_title: "Prompt Engineering Basics | Learn Computer Academy"
+meta_description: "The single most valuable AI skill for non-coders — five principles for writing prompts that get genuinely useful answers, with real weak-vs-strong examples."
+sort_order: 6
+updated_at: "2026-07-29T09:14:46.189019+00:00"
+---
+
+```json
+[
+  {
+    "id": "eXCwk0QmIYcq",
+    "html": "<p>A <b>prompt</b> is the instruction you give an AI — a question or command. The quality of your prompt directly determines the quality of the response, which makes prompting the single most valuable AI skill for anyone who isn't writing code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A9g0ZygUdBMO",
+    "text": "The Restaurant Analogy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-restaurant-analogy"
+  },
+  {
+    "id": "OcFFMwHY0eGN",
+    "html": "<p>Walk into a restaurant and say \"give me something to eat,\" and you might get anything. Say \"a medium-spiced chicken curry with rice, not too oily, with one piece of bread\" and you get exactly what you wanted. AI works the same way — the more specific the order, the better the result.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ms18pHMjlOlP",
+    "text": "Five Principles for a Strong Prompt",
+    "type": "heading",
+    "level": 2,
+    "anchor": "five-principles-for-a-strong-prompt"
+  },
+  {
+    "id": "Czbb4ISHnso9",
+    "rows": [
+      [
+        "Be specific",
+        "Vague prompts give vague answers. Include the topic, length, format, audience, and tone you actually want."
+      ],
+      [
+        "Give context",
+        "Tell the AI who you are and what the situation is — \"I run a small shop in a small town...\" gives it what it needs to tailor the answer."
+      ],
+      [
+        "Assign a role",
+        "Tell the AI to act as an expert: \"You are an experienced doctor. Explain...\" or \"You are a professional editor. Check my grammar...\""
+      ],
+      [
+        "Specify the format",
+        "Say exactly how you want the answer shaped: \"as a bullet list,\" \"as a table,\" \"in 3 paragraphs,\" \"under 100 words.\""
+      ],
+      [
+        "Iterate and refine",
+        "Treat the first response as a draft. Say \"make it shorter,\" \"add more detail on X,\" \"make the tone more formal.\""
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Principle",
+      "What it means"
+    ]
+  },
+  {
+    "id": "sE4m0719FGBy",
+    "text": "Weak vs. Strong, Side by Side",
+    "type": "heading",
+    "level": 2,
+    "anchor": "weak-vs-strong-side-by-side"
+  },
+  {
+    "id": "9CI7qV9uVnaN",
+    "html": "<p><b>Example — a complaint email:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RAYVL2AiYcfg",
+    "html": "<p>❌ Weak: <i>\"Write an email.\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f2HIc24Gz30D",
+    "html": "<p>✅ Strong: <i>\"Write a formal email to my electricity provider. I want to complain that my bill this month was much higher than last month despite using roughly the same amount of electricity. Ask them to investigate and send a corrected bill within 7 days. Keep the tone polite but firm. My consumer number is [number].\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BatjZpm6Zi_O",
+    "html": "<p><b>Example — learning something new:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AqL00C9gJHQA",
+    "html": "<p>❌ Weak: <i>\"Explain AI.\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MRoBzFjLgcdo",
+    "html": "<p>✅ Strong: <i>\"Explain artificial intelligence as if I'm a 55-year-old who has never used a smartphone before. Use very simple language, no technical words, and relate it to everyday examples. Keep it under 150 words.\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PuVDOuMxGqCK",
+    "html": "<p><b>Example — a business question:</b></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Wk5_7WCQ2sHy",
+    "html": "<p>❌ Weak: <i>\"Help me with my business.\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3CHZ0odnr1lD",
+    "html": "<p>✅ Strong: <i>\"I run a small clothing shop. I sell traditional and modern styles, and my customers are mostly women aged 30–60. Suggest 5 creative, low-cost ways I can use WhatsApp and Instagram to attract more customers this festive season.\"</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7GRnNYKHc4uA",
+    "alt": "Colorful infographic comparing a weak, vague AI prompt that produces a generic result against a strong, specific AI prompt that produces a useful result",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Same AI, same amount of typing — the only difference is the prompt.",
+    "publicId": "docs/img/ai/prompt-engineering-basics-1"
+  },
+  {
+    "id": "8L1OhhrmfS79",
+    "text": "Role Prompting in More Detail",
+    "type": "heading",
+    "level": 2,
+    "anchor": "role-prompting-in-more-detail"
+  },
+  {
+    "id": "QuWKec-tAnA5",
+    "html": "<p>Telling the AI to \"be\" a specific kind of expert is one of the most reliable ways to improve an answer's quality:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2LgRmFaZSogu",
+    "code": "You are an experienced doctor. A patient is experiencing chest pain,\nshortness of breath, and dizziness. List 5 possible causes and explain\nwhen they should go to the emergency room immediately.",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "Bs13lHcuMoS9",
+    "code": "You are a professional resume writer. Review the following resume and\nsuggest improvements to make it more competitive for entry-level IT\njobs: [paste resume]",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "h5NQkhEhAcuk",
+    "html": "<p>Role prompting changes the style and depth of the answer, not its factual reliability — a \"doctor\" role still can't replace an actual doctor, and its medical claims still need the same real-world verification as anything else from an AI. Use it to shape tone and expertise level, not as a substitute for a real professional when it matters.</p>",
+    "type": "callout",
+    "title": "A Role Prompt Isn't a Real Expert",
+    "variant": "note"
+  },
+  {
+    "id": "fuS_w0A0aIMo",
+    "html": "<p>These five principles cover most everyday prompting. The next lesson goes further — techniques built specifically for more demanding, professional-grade tasks like coding and complex reasoning.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,106 @@
+---
+id: "cfd73cce-a4fe-40f6-82c9-0de097cc9365"
+title: "Multi-Document Transactions"
+path: "mongodb/transactions"
+status: "published"
+meta_title: "MongoDB Multi-Document Transactions | Learn Computer Academy"
+meta_description: "Making several writes across documents (or collections) succeed or fail together, and how read/write concerns tune the consistency guarantee."
+sort_order: 24
+updated_at: "2026-09-03T04:59:12.691569+00:00"
+---
+
+```json
+[
+  {
+    "id": "ntYENF3p198W",
+    "html": "<p>A single <code>updateOne()</code> is always atomic on its own — it either fully applies or doesn't. A <b>transaction</b> extends that same all-or-nothing guarantee across several operations, possibly touching several documents or collections, the same concept as the earlier SQL course's transactions lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ntFDAqKvOGLR",
+    "text": "Why This Matters — a Money Transfer Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-a-money-transfer-example"
+  },
+  {
+    "id": "Tl2hPIuqI0DJ",
+    "html": "<p>Moving money from one account to another needs two writes — subtract from one document, add to another. Without a transaction, a crash between the two writes leaves the data in a genuinely broken, inconsistent state.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cHOEF3EVoCMa",
+    "text": "Using a Transaction",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-transaction"
+  },
+  {
+    "id": "8rVq-6Q2n3Jx",
+    "code": "const session = db.getMongo().startSession()\n\ntry {\n  session.startTransaction()\n\n  const accounts = session.getDatabase('bank').accounts\n  accounts.updateOne({ _id: 'A' }, { $inc: { balance: -100 } })\n  accounts.updateOne({ _id: 'B' }, { $inc: { balance: 100 } })\n\n  session.commitTransaction()\n} catch (error) {\n  session.abortTransaction()\n  throw error\n} finally {\n  session.endSession()\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "XZZZuxzZZP7e",
+    "html": "<p>Both updates commit together, or — if anything fails in between — neither one does, exactly like the earlier SQL transactions lesson's BEGIN/COMMIT/ROLLBACK.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TEDyfbKJf6RQ",
+    "text": "Read and Write Concerns",
+    "type": "heading",
+    "level": 2,
+    "anchor": "read-and-write-concerns"
+  },
+  {
+    "id": "9QxgmDX5e9in",
+    "html": "<p>MongoDB replicates data across multiple servers for durability — <b>write concern</b> and <b>read concern</b> tune how much of that replication a write or read waits for before being considered done.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "78lWGKd28q-L",
+    "rows": [
+      [
+        "w: 1 (default)",
+        "Acknowledgment from the primary server only"
+      ],
+      [
+        "w: 'majority'",
+        "Acknowledgment from a majority of replica servers — safer, slightly slower"
+      ],
+      [
+        "w: 0",
+        "No acknowledgment at all — fastest, least safe"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Write concern",
+      "Waits for"
+    ]
+  },
+  {
+    "id": "zM62veDE3XuS",
+    "code": "db.accounts.updateOne(\n  { _id: 'A' },\n  { $inc: { balance: -100 } },\n  { writeConcern: { w: 'majority' } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "CgXrY48lhm_R",
+    "html": "<p>A transaction, by itself, only guarantees the writes inside it succeed or fail together — it says nothing about how durably they're replicated. For genuinely critical operations (like the money transfer above), pairing a transaction with a majority write concern is what most real applications actually use.</p>",
+    "type": "callout",
+    "title": "Transactions and write concern are separate guarantees",
+    "variant": "note"
+  },
+  {
+    "id": "-kNjlBdmKcvf",
+    "html": "<p>A transaction that touches many documents or runs for a long time can hurt performance across the whole database — reach for one specifically when an operation genuinely needs the all-or-nothing guarantee, not as a default habit for every multi-step write.</p>",
+    "type": "callout",
+    "title": "Not a default choice",
+    "variant": "warning"
+  }
+]
+```

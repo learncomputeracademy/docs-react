@@ -1,0 +1,83 @@
+---
+id: "20bf796f-87d8-4887-9621-2d65448b0770"
+title: "What Actually Happens When You Visit a Website"
+path: "hosting/what-happens-when-you-visit-a-website"
+status: "published"
+meta_title: "What Happens When You Visit a Website | Learn Computer Academy"
+meta_description: "Typing a URL and getting a page back involves several distinct steps and several separate services. Understanding the whole chain makes everything after this lesson easier."
+sort_order: 1
+updated_at: "2026-08-05T13:35:29.963461+00:00"
+---
+
+```json
+[
+  {
+    "id": "vMZk9HKG2vuA",
+    "html": "<p>You have built things — HTML pages, PHP scripts, React apps, WordPress sites. All of it, so far, has run on your own computer. This category is about the gap between \"it works on my machine\" and \"anyone in the world can visit it\" — and that gap has more pieces than most beginners expect.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HLnX9241kzDL",
+    "text": "The Chain of Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-chain-of-events"
+  },
+  {
+    "id": "slCJ42RFJouj",
+    "html": "<p>Typing <code>example.com</code> into a browser and getting a page back involves several distinct steps, each handled by a different piece of infrastructure:</p><ol><li>Your browser asks a <b>DNS</b> system to translate the human-readable name <code>example.com</code> into a numeric address.</li><li>That numeric address points to a <b>server</b> — a computer, somewhere, that is turned on and connected to the internet all the time.</li><li>Your browser sends a request to that server, over the internet.</li><li>The server runs whatever software is on it — reads a static file, runs a PHP script, queries a database — and builds a response.</li><li>The response travels back to your browser, which renders it.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "24Wow7Phy2M2",
+    "alt": "Isometric diagram showing a browser sending a request through a DNS lookup step to a server, and the server sending a response back",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Five steps, several separate systems — none of them run on your own computer.",
+    "publicId": "docs/img/hosting/website-chain-1"
+  },
+  {
+    "id": "YlMtGMn_TJYB",
+    "text": "Why This Matters Before Anything Else",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-before-anything-else"
+  },
+  {
+    "id": "84o7kaz0lEGr",
+    "html": "<p>Every term in this category attaches to one link in that chain. A <b>domain</b> is the human-readable name. <b>DNS</b> is the translation step. <b>Hosting</b> is the always-on server. <b>Deployment</b> is getting your code onto that server. A <b>CDN</b>, covered later, sits partway along the chain to speed it up. Knowing which piece each term refers to prevents most of the confusion that follows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NorjsoJe6EmJ",
+    "text": "What Your Own Computer Cannot Do",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-your-own-computer-cannot-do"
+  },
+  {
+    "id": "ar22mqREs9xu",
+    "html": "<p>A website needs to be reachable at any hour, from anywhere, by anyone. Your own laptop fails all three: it is off sometimes, it is usually behind a home network that was never set up to accept outside connections, and even when it is on, your home internet connection was not built to serve thousands of strangers at once.</p><p>Hosting solves exactly this: it is someone else's computer, built and configured specifically to stay on and stay reachable, that you rent space on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o0s3fDEqa9uk",
+    "html": "<p>Nothing in this category requires deep networking knowledge. It requires knowing what each piece is for, so that when something breaks — and things do break — you know which of these five steps to check first instead of guessing randomly.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "QrJ1s45_ulpX",
+    "text": "Where This Category Goes From Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-category-goes-from-here"
+  },
+  {
+    "id": "ptx0-VnLnoOH",
+    "html": "<p>The next two lessons finish the foundation: the fact that domain, hosting, and email are three separate purchases that only look bundled, and a plain list of what \"going live\" actually requires. After that, domains and DNS in depth, then hosting types, then the practical work of connecting and deploying, then a walkthrough for each stack you've learned on this site.</p>",
+    "type": "richtext"
+  }
+]
+```

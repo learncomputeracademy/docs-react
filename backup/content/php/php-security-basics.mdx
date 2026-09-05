@@ -1,0 +1,150 @@
+---
+id: "5536030d-8a84-4d49-98de-46d1a26e4094"
+title: "PHP Security Basics — SQL Injection, XSS, CSRF & Password Hashing"
+path: "php/php-security-basics"
+status: "published"
+meta_title: "PHP Security Basics | Learn Computer Academy"
+meta_description: "The four security issues every PHP developer runs into eventually — SQL injection, cross-site scripting, CSRF, and how to store passwords safely — and how to actually prevent each one."
+sort_order: 32
+updated_at: "2026-09-03T04:05:23.270976+00:00"
+---
+
+```json
+[
+  {
+    "id": "pDXNgSFhGEvG",
+    "html": "<p>PHP scripts commonly handle user input, a database, and a login system — which means they're also commonly the target of a handful of well-understood attacks. Each one has a specific, practical defense.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Uz3R9E5t7I5Q",
+    "text": "SQL Injection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sql-injection"
+  },
+  {
+    "id": "bjXFop2tExFc",
+    "html": "<p>Building a query by directly inserting user input into the SQL string lets an attacker inject their own SQL — the earlier MySQL lessons' use of PDO <b>prepared statements</b> is exactly what prevents this, and it's worth understanding why.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7GR2e-r5ckra",
+    "code": "// VULNERABLE — never do this\n$username = $_GET['username'];\n$sql = \"SELECT * FROM users WHERE username = '$username'\";\n// An attacker submitting: ' OR '1'='1\n// turns this into a query that matches every row",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Dpt5bTVeE_Yd",
+    "code": "// SAFE — a prepared statement\n$stmt = $pdo->prepare('SELECT * FROM users WHERE username = ?');\n$stmt->execute([$_GET['username']]);\n// The input is sent separately from the SQL — it can never be\n// interpreted as part of the query itself, no matter what it contains",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "rbkcyhZHinIy",
+    "html": "<p>String-concatenating any user input directly into a SQL query is the single most common serious PHP security bug. A prepared statement isn't an optional improvement — treat it as mandatory for every query that includes user input.</p>",
+    "type": "callout",
+    "title": "The one rule that matters most here",
+    "variant": "danger"
+  },
+  {
+    "id": "SOsGmbmyAFeW",
+    "text": "Cross-Site Scripting (XSS)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cross-site-scripting-xss"
+  },
+  {
+    "id": "aduXZT3fMAMN",
+    "html": "<p>If user input is echoed back into a page without escaping it, an attacker can submit HTML or JavaScript that runs in another visitor's browser — stealing their session, or acting on their behalf.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UwfFVNtNBvg2",
+    "code": "// VULNERABLE\necho \"Welcome, \" . $_GET['name'];\n// A name of <script>stealCookies()</script> runs as real JavaScript\n\n// SAFE — escape before output\necho \"Welcome, \" . htmlspecialchars($_GET['name']);\n// The script tag is displayed as harmless text, not executed",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "kOlqFrGwMASL",
+    "html": "<p>The rule of thumb: escape on output, every time, with <code>htmlspecialchars()</code> — not just for input that \"looks risky.\" It costs nothing when the input was harmless anyway.</p>",
+    "type": "callout",
+    "title": "Escape everything, not just the suspicious parts",
+    "variant": "tip"
+  },
+  {
+    "id": "b9MzU4swm-WF",
+    "text": "CSRF (Cross-Site Request Forgery)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "csrf-cross-site-request-forgery"
+  },
+  {
+    "id": "AejRtpSYY3b4",
+    "html": "<p>Without protection, a malicious site can trick a logged-in user's browser into submitting a form to your site — the browser automatically includes the user's session cookie, making the request look legitimate. A CSRF token defeats this: a random value stored in the session and required on every form submission.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JGJLZa8irXCZ",
+    "code": "// When rendering the form\nif (empty($_SESSION['csrf_token'])) {\n    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));\n}\necho '<input type=\"hidden\" name=\"csrf_token\" value=\"' . $_SESSION['csrf_token'] . '\">';\n\n// When processing the form submission\nif (!hash_equals($_SESSION['csrf_token'], $_POST['csrf_token'] ?? '')) {\n    die('Invalid request.');\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "X9A7QhKxGRwC",
+    "text": "Password Hashing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "password-hashing"
+  },
+  {
+    "id": "clUi-zDzcQYb",
+    "html": "<p>A password must never be stored as plain text or with a simple hash like MD5 — PHP's built-in <code>password_hash()</code> uses a strong, salted, deliberately slow algorithm designed specifically for this.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5W3DK8ZxipND",
+    "code": "// When a user registers\n$hashed = password_hash($_POST['password'], PASSWORD_DEFAULT);\n// Store $hashed in the database — never the plain password\n\n// When a user logs in\nif (password_verify($_POST['password'], $storedHash)) {\n    // Correct password\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "s5cWfuKmK3Ux",
+    "rows": [
+      [
+        "SQL Injection",
+        "Prepared statements — never concatenate input into SQL"
+      ],
+      [
+        "XSS",
+        "htmlspecialchars() on every piece of output that includes user input"
+      ],
+      [
+        "CSRF",
+        "A random token in the session, checked on every state-changing form submission"
+      ],
+      [
+        "Plain-text passwords",
+        "password_hash() to store, password_verify() to check"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Issue",
+      "Defense"
+    ]
+  },
+  {
+    "id": "r9XphdVnrP-j",
+    "html": "<p>This lesson covers the specific PHP-level defenses. The Cybersecurity course elsewhere on this site covers phishing, password managers, and account security from the user's side — worth pairing with this one.</p>",
+    "type": "callout",
+    "title": "Related, from the other side",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,108 @@
+---
+id: "5f143701-5c88-4997-9f51-d6e24f80dd09"
+title: "Generators and Iterators"
+path: "javascript/generators-and-iterators"
+status: "published"
+meta_title: "Generators and Iterators | Learn Computer Academy"
+meta_description: "What makes for...of work on arrays and strings, and generator functions that can pause mid-execution and resume later."
+sort_order: 32
+updated_at: "2026-09-03T04:17:12.011826+00:00"
+---
+
+```json
+[
+  {
+    "id": "Rtnix0sGKOZz",
+    "html": "<hr><p>An <b>iterator</b> is what lets <code>for...of</code> and the spread operator work on something — a protocol any object can implement. A <b>generator</b> is a special kind of function that builds an iterator automatically, and can pause its own execution.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "oA2RGUSrDAOW",
+    "text": "What Makes Something Iterable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-something-iterable"
+  },
+  {
+    "id": "T9X9Ekqo9Tvx",
+    "html": "<p>Arrays, strings, Maps, and Sets are all iterable — they implement <code>Symbol.iterator</code>, a method that returns an object with a <code>next()</code> method producing one value at a time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WRBnweBFWxNq",
+    "code": "const numbers = [10, 20, 30]\nconst iterator = numbers[Symbol.iterator]()\n\niterator.next()   // { value: 10, done: false }\niterator.next()   // { value: 20, done: false }\niterator.next()   // { value: 30, done: false }\niterator.next()   // { value: undefined, done: true }",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "YBtpP21dFnWS",
+    "html": "<p><code>for...of</code> is really just repeatedly calling <code>next()</code> under the hood, stopping when <code>done</code> becomes <code>true</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "syu59B9Ks1g3",
+    "text": "A Generator Function — function*",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-generator-function-function"
+  },
+  {
+    "id": "c3P48RVwml1e",
+    "html": "<p>A generator, marked with <code>function*</code>, pauses at every <code>yield</code> and resumes exactly where it left off the next time it's called.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "88HJWQaUabdG",
+    "code": "function* countUpTo(max) {\n  let count = 1\n  while (count <= max) {\n    yield count\n    count++\n  }\n}\n\nconst counter = countUpTo(3)\ncounter.next()   // { value: 1, done: false }\ncounter.next()   // { value: 2, done: false }\ncounter.next()   // { value: 3, done: false }\ncounter.next()   // { value: undefined, done: true }",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "810bj0B3fVtM",
+    "text": "A Generator Is Iterable Too",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-generator-is-iterable-too"
+  },
+  {
+    "id": "6-ryNlJ5SbLy",
+    "html": "<p>Since a generator automatically implements the iterator protocol, it works directly with <code>for...of</code> and the spread operator.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lFgDBAab_p49",
+    "code": "for (const n of countUpTo(3)) {\n  console.log(n)   // 1, 2, 3\n}\n\n[...countUpTo(3)]   // [1, 2, 3]",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "X4xX0N44noy2",
+    "text": "A Practical Use — Lazy, On-Demand Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-use-lazy-on-demand-values"
+  },
+  {
+    "id": "N2uQVnNz0xgS",
+    "html": "<p>Because a generator only computes the next value when asked, it can represent a sequence too large — or infinite — to build all at once.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HNqDTd0xuVut",
+    "code": "function* infiniteIds() {\n  let id = 1\n  while (true) {\n    yield id++\n  }\n}\n\nconst ids = infiniteIds()\nids.next().value   // 1\nids.next().value   // 2\n// never actually builds an infinite array — just produces one value at a time",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "-wOauIWXKJqr",
+    "html": "<p>A generator's pause-and-resume behavior is also the mechanism async/await is built on top of, conceptually — both let a function stop mid-execution and continue later without blocking anything else.</p>",
+    "type": "callout",
+    "title": "The connection to async/await",
+    "variant": "tip"
+  }
+]
+```

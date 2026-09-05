@@ -1,0 +1,121 @@
+---
+id: "abffc6ca-3306-453d-aeb1-44397f78f5eb"
+title: "Handling Events"
+path: "react/events"
+status: "published"
+meta_title: "Handling Events in React | Learn Computer Academy"
+meta_description: "Responding to clicks and other events in React with camelCase event props and real function references."
+sort_order: 8
+updated_at: "2026-07-31T11:24:37.504696+00:00"
+---
+
+```json
+[
+  {
+    "id": "JsRThH4qNgCX",
+    "html": "<p>The JSX Syntax lesson already flagged the two headline differences from HTML: event names are camelCase, and take a real function instead of a string.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Uq7Ce1bnmolK",
+    "text": "A Basic Click Handler",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-click-handler"
+  },
+  {
+    "id": "dDMdWW_ndv5c",
+    "code": "function Button() {\n  function handleClick() {\n    alert('Button clicked!');\n  }\n\n  return <button onClick={handleClick}>Click me</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "PHhsiX7ES_j-",
+    "html": "<p><code>onClick={handleClick()}</code> — with parentheses — calls the function immediately during render, not when clicked, and passes whatever it returns (usually <code>undefined</code>) as the handler instead. Pass the function itself: <code>onClick={handleClick}</code>.</p>",
+    "type": "callout",
+    "title": "Pass the function, don't call it",
+    "variant": "warning"
+  },
+  {
+    "id": "_vXUMJ98ocxx",
+    "text": "Inline Arrow Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inline-arrow-functions"
+  },
+  {
+    "id": "ojbKmrll9lIb",
+    "html": "<p>For a handler that needs an argument, an inline arrow function is the standard way to pass one along without calling the handler immediately:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YlsuED853gg0",
+    "code": "function FruitList({ fruits, onSelect }) {\n  return (\n    <ul>\n      {fruits.map((fruit) => (\n        <li key={fruit} onClick={() => onSelect(fruit)}>\n          {fruit}\n        </li>\n      ))}\n    </ul>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "wRcXkL_4Gw_C",
+    "text": "The Event Object",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-event-object"
+  },
+  {
+    "id": "to9kMDilDUST",
+    "html": "<p>React passes a <b>synthetic event</b> to every handler — a cross-browser wrapper around the native browser event, with the same familiar properties and methods you already know from the <a href=\"/javascript/events/\">JavaScript Events lesson</a>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ucmqMylFcFMy",
+    "code": "function Form() {\n  function handleSubmit(e) {\n    e.preventDefault(); // same method, same purpose, as plain JS\n    console.log('Submitted');\n  }\n\n  return <form onSubmit={handleSubmit}><button type=\"submit\">Send</button></form>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "fUHkf8Bvr4RG",
+    "text": "Common Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-events"
+  },
+  {
+    "id": "NcmIurlrbjBg",
+    "rows": [
+      [
+        "onClick",
+        "An element is clicked"
+      ],
+      [
+        "onChange",
+        "An input's value changes"
+      ],
+      [
+        "onSubmit",
+        "A form is submitted"
+      ],
+      [
+        "onMouseEnter / onMouseLeave",
+        "The pointer enters or leaves an element"
+      ],
+      [
+        "onKeyDown",
+        "A key is pressed"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Prop",
+      "Fires when"
+    ]
+  },
+  {
+    "id": "CvMd2MaauwXE",
+    "html": "<p>The Forms in React lesson right after this one puts <code>onChange</code> and <code>onSubmit</code> to real use.</p>",
+    "type": "richtext"
+  }
+]
+```

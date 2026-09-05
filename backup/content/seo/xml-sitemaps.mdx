@@ -1,0 +1,99 @@
+---
+id: "45d4e029-3790-4f94-b6f8-319840f29553"
+title: "XML Sitemaps"
+path: "seo/xml-sitemaps"
+status: "published"
+meta_title: "XML Sitemaps for SEO | Learn Computer Academy"
+meta_description: "What an XML sitemap is, what it can and cannot do for indexing, and how to keep one accurate without maintaining it by hand."
+sort_order: 13
+updated_at: "2026-08-05T07:22:03.033326+00:00"
+---
+
+```json
+[
+  {
+    "id": "c-rXsFyH7OX5",
+    "html": "<p>An <b>XML sitemap</b> is a file listing the pages on your site that you want search engines to know about. It is a direct way of saying \"here is what exists\", rather than relying entirely on crawlers finding everything by following links.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "j8a0v1btcKUu",
+    "text": "What One Looks Like",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-one-looks-like"
+  },
+  {
+    "id": "2QjomUg3AJmc",
+    "code": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n  <url>\n    <loc>https://example.com/</loc>\n    <lastmod>2026-08-01</lastmod>\n  </url>\n  <url>\n    <loc>https://example.com/guides/laptop-buying-guide</loc>\n    <lastmod>2026-07-15</lastmod>\n  </url>\n</urlset>",
+    "type": "code",
+    "language": "xml",
+    "runnable": false
+  },
+  {
+    "id": "hbhXlwYd_IOj",
+    "html": "<p><code>&lt;loc&gt;</code> is the full URL. <code>&lt;lastmod&gt;</code> is when it last meaningfully changed — useful to engines deciding what to re-crawl, but only if it is honest. Setting every page's <code>lastmod</code> to today's date on every build teaches engines to ignore the field entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "J-HT42zZSbmh",
+    "text": "What a Sitemap Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-sitemap-does"
+  },
+  {
+    "id": "mKkwb7G8ufoq",
+    "html": "<ul><li>Tells engines about pages they might not otherwise discover — new pages, pages with few internal links</li><li>Helps large sites get crawled more completely</li><li>Signals which version of a URL you consider canonical</li><li>Gives you a place to report against: Search Console will tell you how many submitted URLs were actually indexed</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "WBP4KqV0Zo70",
+    "html": "<p><b>A sitemap does not guarantee indexing.</b> It is a suggestion, not an instruction. Pages in a sitemap are still evaluated on their merits, and thin or duplicate pages listed there will still be skipped. If a page is not being indexed, adding it to the sitemap again is rarely the fix.</p>",
+    "type": "callout",
+    "variant": "warning"
+  },
+  {
+    "id": "Odzglu85myeY",
+    "text": "Generate It, Do Not Write It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "generate-it-do-not-write-it"
+  },
+  {
+    "id": "cqRu8iQ6uUso",
+    "html": "<p>A hand-maintained sitemap goes out of date the first time someone forgets to update it, and a sitemap full of URLs that no longer exist is worse than none — it wastes crawl effort and signals carelessness.</p><p>Every serious content system can generate one automatically from its actual content. WordPress does it through plugins; modern frameworks generate it at build time or on request. Whatever the platform, the sitemap should be produced from the same source of truth as the site itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nU7PMdXWV8ZM",
+    "text": "Telling Engines Where It Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "telling-engines-where-it-is"
+  },
+  {
+    "id": "lUaX4y83aUUs",
+    "html": "<p>Two ways, and you should do both:</p><ol><li>Reference it in <code>robots.txt</code>, which every crawler reads:<br><code>Sitemap: https://example.com/sitemap.xml</code></li><li>Submit it directly in Google Search Console and Bing Webmaster Tools. This also unlocks the reporting on how many of its URLs got indexed.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "F50-wuIil6wG",
+    "text": "What to Include",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-to-include"
+  },
+  {
+    "id": "vFG1edRdiiZh",
+    "html": "<p>Only URLs you actually want in search results, and only ones that return a normal <code>200</code> response. Leave out redirects, error pages, pages marked <code>noindex</code>, and non-canonical duplicates. A sitemap contradicting your other signals — listing a page you have also told engines not to index — is a confusing message, and engines resolve the contradiction however they choose.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ffqQw70avVQ6",
+    "html": "<p>Very large sites can split their sitemap into several files with a sitemap index pointing to them. Below the tens of thousands of URLs mark, one file is fine and simpler.</p>",
+    "type": "callout",
+    "variant": "tip"
+  }
+]
+```

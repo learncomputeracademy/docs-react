@@ -1,0 +1,91 @@
+---
+id: "4b00cc81-5014-44b7-ba26-71bbb60ce743"
+title: "Introduction to Custom Post Types"
+path: "wordpress/custom-post-types-intro"
+status: "published"
+meta_title: "Introduction to Custom Post Types | Learn Computer Academy"
+meta_description: "What a custom post type actually is, when a site needs one instead of regular posts or pages, and how it fits alongside them under the hood."
+sort_order: 14
+updated_at: "2026-07-30T14:23:28.61676+00:00"
+---
+
+```json
+[
+  {
+    "id": "4eTWCYFUjR-1",
+    "html": "<p>WordPress ships with exactly two content types out of the box: <b>posts</b> (blog entries, organized by category and date) and <b>pages</b> (standalone, hierarchical content like an About or Contact page). Most real sites need a third kind of content that fits neither mold — projects in a portfolio, team member profiles, testimonials, products. That's what a <b>custom post type</b> is for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pLhHQxyKpvN9",
+    "text": "What Makes It \"Custom\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-it-custom"
+  },
+  {
+    "id": "iyXr-eIb24q7",
+    "html": "<p>A custom post type behaves exactly like a regular post — it gets an editor screen, a URL, an admin listing — but under its own name, with its own admin menu, and without dragging along everything that comes bundled with regular posts (categories and tags, for one, which rarely make sense for a list of team members).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UQTOr_WWu-Ko",
+    "rows": [
+      [
+        "Post",
+        "Blog-style, date-ordered content",
+        "Categories and tags"
+      ],
+      [
+        "Page",
+        "Standalone, mostly-static content",
+        "Parent/child page hierarchy"
+      ],
+      [
+        "Custom Post Type",
+        "Any other repeating content type a site needs",
+        "Whatever custom taxonomy you attach to it (next lesson) — or none at all"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Built for",
+      "Organized by"
+    ]
+  },
+  {
+    "id": "4HBZeu0UqcwY",
+    "text": "A Concrete Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-concrete-example"
+  },
+  {
+    "id": "L5kA6W9MYt-s",
+    "html": "<p>A portfolio site needs \"Projects\" — each with its own title, description, images, and client name. Trying to force that into regular posts means either polluting the blog with non-blog content, or using a category as a stand-in for \"this is a project,\" which breaks down fast: there's no dedicated admin screen, no way to add project-specific fields cleanly, and no clean separation from actual blog posts. A <code>project</code> custom post type solves all of that at once.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hDyA_3fZldZe",
+    "alt": "Isometric diagram showing three separate stacked groups of content cards side by side, representing regular posts, pages, and a custom post type organized separately",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Custom post types sit alongside posts and pages as their own, independently organized content type.",
+    "publicId": "docs/img/wordpress/custom-post-types-intro-1"
+  },
+  {
+    "id": "RDiIVEDEa8Wl",
+    "html": "<p>Under the hood, a custom post type isn't a separate database table — it's stored in the exact same <code>wp_posts</code> table as regular posts and pages, just tagged with a different <code>post_type</code> value. That's why it inherits so much for free: an editor screen, revisions, featured images, custom fields — all of it already knows how to work with any post type, not just the built-in two.</p>",
+    "type": "callout",
+    "title": "Same table, different post_type",
+    "variant": "note"
+  },
+  {
+    "id": "S0nRkjAJ4QEG",
+    "html": "<p>The next lesson registers an actual custom post type — no PHP required, using the CPT UI plugin installed back in the setup lesson.</p>",
+    "type": "richtext"
+  }
+]
+```

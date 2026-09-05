@@ -1,0 +1,102 @@
+---
+id: "5a0e4982-57c3-487b-974e-eab116d7fe4c"
+title: "Path & OS Modules"
+path: "nodejs/path-and-os"
+status: "published"
+meta_title: "Node.js path and os Modules | Learn Computer Academy"
+meta_description: "Build file paths safely across operating systems with the path module, and read system information with the os module."
+sort_order: 8
+updated_at: "2026-08-05T05:47:54.979357+00:00"
+---
+
+```json
+[
+  {
+    "id": "n2Io46f0QlG1",
+    "html": "<p>File paths look different on different operating systems — Windows uses backslashes (<code>C:\\Users\\name</code>), Mac and Linux use forward slashes (<code>/home/name</code>). The <code>path</code> module builds and reads paths in a way that works correctly regardless of which one Node happens to be running on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BnJdD6GsjwXZ",
+    "text": "Joining Paths",
+    "type": "heading",
+    "level": 2,
+    "anchor": "joining-paths"
+  },
+  {
+    "id": "3eib7JILN960",
+    "html": "<p>Never build a path by joining strings with <code>+</code> — use <code>path.join()</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VGh8sA_fp643",
+    "code": "const path = require('path')\n\nconst filePath = path.join('data', 'users', 'list.json')\nconsole.log(filePath)  // 'data/users/list.json' on Mac/Linux, 'data\\\\users\\\\list.json' on Windows",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "GIAzWjbvuy3U",
+    "html": "<p><code>path.join()</code> automatically uses the right separator for whichever system the code is running on — code written this way behaves the same on every operating system.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Xv9n3GwUhvJH",
+    "text": "Pulling a Path Apart",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pulling-a-path-apart"
+  },
+  {
+    "id": "W2FLgHdswP-o",
+    "code": "const filePath = '/projects/site/photo.png'\n\npath.basename(filePath)   // 'photo.png'\npath.extname(filePath)    // '.png'\npath.dirname(filePath)    // '/projects/site'",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "ecV87VR-YZR8",
+    "text": "Absolute vs. Relative Paths",
+    "type": "heading",
+    "level": 2,
+    "anchor": "absolute-vs-relative-paths"
+  },
+  {
+    "id": "0P-CmW2OGxXj",
+    "html": "<p>A relative path like <code>'data.json'</code> is resolved against the current working directory — wherever the terminal happened to be when the script started, which isn't always where the script file itself lives. <code>__dirname</code> always points to the folder containing the current file, so combining it with <code>path.join()</code> gives a path that works no matter where the script is run from:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GnOFxbcoAINt",
+    "code": "const configPath = path.join(__dirname, 'config.json')",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "r0yhnZ-uHQaP",
+    "text": "The os Module",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-os-module"
+  },
+  {
+    "id": "pEAOAREzI9l9",
+    "html": "<p><code>os</code> reports information about the machine Node is running on:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zh_EF1X2YKF4",
+    "code": "const os = require('os')\n\nconsole.log(os.platform())    // 'win32', 'darwin', 'linux'\nconsole.log(os.cpus().length) // number of CPU cores\nconsole.log(os.freemem())     // free memory, in bytes",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "1Fiz3W32HtxO",
+    "html": "<p>You won't reach for <code>os</code> often in everyday app code — it's mostly useful in command-line tools and scripts that need to behave differently depending on the machine they're running on.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

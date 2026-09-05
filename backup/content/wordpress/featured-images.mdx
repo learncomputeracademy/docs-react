@@ -1,0 +1,115 @@
+---
+id: "94b7dad6-9fb0-47d2-935c-9c054e17f8d6"
+title: "Featured Images & Custom Image Sizes"
+path: "wordpress/featured-images"
+status: "published"
+meta_title: "Featured Images & Custom Image Sizes | Learn Computer Academy"
+meta_description: "Outputting a post's featured image correctly, and registering custom crop sizes so a theme never has to resize images by hand."
+sort_order: 23
+updated_at: "2026-07-30T14:23:31.490262+00:00"
+---
+
+```json
+[
+  {
+    "id": "yhor_R5H1Iv0",
+    "html": "<p>The <code>add_theme_support( 'post-thumbnails' )</code> call back in the theme setup lesson is what turns on featured images at all — this lesson covers actually using them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cK3B4f600KrM",
+    "text": "Outputting a Featured Image",
+    "type": "heading",
+    "level": 2,
+    "anchor": "outputting-a-featured-image"
+  },
+  {
+    "id": "JAN8mn7vsPlW",
+    "code": "<?php if ( has_post_thumbnail() ) : ?>\n    <?php the_post_thumbnail( 'large' ); ?>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "KSrU2CTL9DZH",
+    "html": "<p><code>has_post_thumbnail()</code> checks whether one was ever set — never assume it was, an editor can always skip it. <code>the_post_thumbnail()</code> takes an optional size name; leaving it out uses <code>'thumbnail'</code>, almost never what you actually want.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jOyB7Lz78A4d",
+    "text": "The Built-In Sizes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-built-in-sizes"
+  },
+  {
+    "id": "JfX-bRJq_vJp",
+    "rows": [
+      [
+        "thumbnail",
+        "150×150, cropped"
+      ],
+      [
+        "medium",
+        "300×300 max, not cropped (keeps aspect ratio)"
+      ],
+      [
+        "large",
+        "1024×1024 max, not cropped"
+      ],
+      [
+        "full",
+        "The original uploaded image, unresized"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Size",
+      "Default dimensions"
+    ]
+  },
+  {
+    "id": "tM8-7TFshwAa",
+    "text": "Registering a Custom Size",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-a-custom-size"
+  },
+  {
+    "id": "Ml4VB_WDinFB",
+    "html": "<p>The built-in sizes rarely match a specific design exactly — a card grid might need a consistent 400×300 crop, for instance. <code>add_image_size()</code> registers a new one, in <code>functions.php</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M4yLfFIem5Ho",
+    "code": "<?php\nfunction mytheme_image_sizes() {\n    add_image_size( 'card-thumb', 400, 300, true );\n}\nadd_action( 'after_setup_theme', 'mytheme_image_sizes' );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qcMilAD7vGvQ",
+    "html": "<p>The fourth argument (<code>true</code>) means <b>hard crop</b> — exactly 400×300, cropping whatever doesn't fit, rather than shrinking to fit within those dimensions while keeping the original aspect ratio.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "t5GNhFrOti0D",
+    "code": "<?php the_post_thumbnail( 'card-thumb' ); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "-sINoGZW5GVC",
+    "html": "<p>A custom size registered <i>after</i> images already exist only applies to newly-uploaded ones — WordPress generates every registered size at upload time, not on demand. Adding a size to an existing site with existing content usually means running the free Regenerate Thumbnails plugin once, to backfill the new crop for every already-uploaded image.</p>",
+    "type": "callout",
+    "title": "New sizes don't retroactively apply",
+    "variant": "tip"
+  },
+  {
+    "id": "pj0JmKwqQJUA",
+    "html": "<p>With images handled properly, the next lesson covers something that applies to everything built so far, not just images — escaping and sanitizing any data a template outputs.</p>",
+    "type": "richtext"
+  }
+]
+```

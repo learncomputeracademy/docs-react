@@ -1,0 +1,119 @@
+---
+id: "5d8dd4cc-18ab-4a4c-aafc-b4d70c31d7bb"
+title: "Environment Variables and Configuration"
+path: "php/environment-variables"
+status: "published"
+meta_title: "PHP Environment Variables | Learn Computer Academy"
+meta_description: "Keeping secrets and per-environment settings out of the codebase with environment variables and a .env file."
+sort_order: 41
+updated_at: "2026-09-03T04:05:25.907128+00:00"
+---
+
+```json
+[
+  {
+    "id": "Ey5ltD3sK8Jf",
+    "html": "<p>A database password, an API key, or a setting that differs between a local machine and a live server doesn't belong hardcoded in a PHP file — an <b>environment variable</b> keeps it outside the codebase entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pR4S_uIvIvNv",
+    "text": "Reading an Environment Variable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-an-environment-variable"
+  },
+  {
+    "id": "hDFhHe0SjJ9y",
+    "code": "$dbHost = getenv('DB_HOST');\n$dbPassword = getenv('DB_PASSWORD');\n\n// or, depending on server configuration:\n$dbHost = $_ENV['DB_HOST'] ?? $_SERVER['DB_HOST'];",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ZwShnnQw6yoF",
+    "text": "A .env File for Local Development",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-env-file-for-local-development"
+  },
+  {
+    "id": "y-PKp8se5FYn",
+    "html": "<p>A plain text file, kept out of version control, listing key-value pairs — the standard way to set environment variables on a local machine without configuring the whole OS.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xSzyS4SsNHuw",
+    "code": "# .env\nDB_HOST=localhost\nDB_NAME=myapp\nDB_USER=root\nDB_PASSWORD=secret123\nAPI_KEY=sk_test_abc123",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "SGyWGltMUYG_",
+    "text": "Loading a .env File — vlucas/phpdotenv",
+    "type": "heading",
+    "level": 2,
+    "anchor": "loading-a-env-file-vlucasphpdotenv"
+  },
+  {
+    "id": "mfRs9e6yej6y",
+    "html": "<p>PHP doesn't read <code>.env</code> files natively — the standard package for it, installed via Composer, loads the file's values into <code>getenv()</code>/<code>$_ENV</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6O_EBvK3-8ls",
+    "code": "composer require vlucas/phpdotenv",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "PF-dv1josJNO",
+    "code": "require 'vendor/autoload.php';\n\n$dotenv = Dotenv\\Dotenv::createImmutable(__DIR__);\n$dotenv->load();\n\necho getenv('DB_HOST');   // localhost",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "n2kYjtDD9n-w",
+    "text": "Never Commit .env",
+    "type": "heading",
+    "level": 2,
+    "anchor": "never-commit-env"
+  },
+  {
+    "id": "tNXLqzEjOq5d",
+    "code": "# .gitignore\n.env",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "vXEQ39QERPGO",
+    "html": "<p>A <code>.env</code> file committed to a public repository is one of the most common real-world causes of a leaked API key or database password — add it to <code>.gitignore</code> from the very first commit, not after the fact.</p>",
+    "type": "callout",
+    "title": "The most important habit in this lesson",
+    "variant": "danger"
+  },
+  {
+    "id": "9Iu57XAcdiVl",
+    "text": "A .env.example File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-envexample-file"
+  },
+  {
+    "id": "DM8BVYJeM6lM",
+    "html": "<p>A version of the file with the keys but placeholder values, committed to the repo — shows every teammate what variables are needed, without exposing any real secret.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CZSosnAAXPFm",
+    "code": "# .env.example — safe to commit\nDB_HOST=localhost\nDB_NAME=\nDB_USER=\nDB_PASSWORD=\nAPI_KEY=",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  }
+]
+```

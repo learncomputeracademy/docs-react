@@ -1,0 +1,95 @@
+---
+id: "8cca7d2f-25eb-4101-91e5-f49fc36df543"
+title: "Deploying a Node.js App"
+path: "hosting/deploying-a-nodejs-app"
+status: "published"
+meta_title: "Deploying a Node.js App | Learn Computer Academy"
+meta_description: "Why Node.js cannot use traditional shared hosting, and a start-to-finish walkthrough for the two paths that actually work — managed platforms and a VPS."
+sort_order: 28
+updated_at: "2026-08-05T13:35:39.255302+00:00"
+---
+
+```json
+[
+  {
+    "id": "GtuhfnPyMO5R",
+    "html": "<p>Node.js deployment is genuinely different from every stack covered so far, for the reason established in the choosing-hosting-for-your-stack lesson: a Node.js app typically runs as one continuous, always-on process, not a fresh process started per request the way PHP works — which is exactly what traditional shared hosting cannot accommodate.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6Qi8A-FJi2SJ",
+    "text": "Path A — A Managed Node.js Platform (Recommended for Most Students)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "path-a-a-managed-nodejs-platform-recommended-for-most-students"
+  },
+  {
+    "id": "7KQd4hw_6dL5",
+    "html": "<p>Platforms built specifically for Node.js hosting handle the \"keep the process running\" problem for you entirely, using the same Git-based deployment workflow covered earlier in this category:</p><ol><li>Push your Node.js project to a Git repository.</li><li>Connect it to a platform that supports Node.js specifically.</li><li>The platform installs your dependencies (<code>npm install</code>), starts your app, and keeps the process running — restarting it automatically if it ever crashes.</li><li>You get a live URL, with the same free-tier considerations from the free-hosting lessons applying here too.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "1vlfbo2LgXLV",
+    "alt": "Isometric diagram contrasting two paths: on the left, code pushed to a managed platform that keeps a process running automatically with a restart icon; on the right, a terminal window connected via SSH to a VPS running the same process manually",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Two real paths — let a managed platform keep the process alive, or manage that yourself on a VPS.",
+    "publicId": "docs/img/hosting/deploy-nodejs-1"
+  },
+  {
+    "id": "sfE0nfcwyCSB",
+    "text": "Path B — A VPS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "path-b-a-vps"
+  },
+  {
+    "id": "VFs1BJIU7NSY",
+    "html": "<p>Running Node.js on your own VPS means genuinely keeping the process alive yourself. A process manager — <b>PM2</b> is the most common choice — handles this specifically: it restarts your app automatically if it crashes, keeps it running after you disconnect from SSH, and starts it again automatically if the whole server reboots.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Rjiy6AaGwwTq",
+    "code": "# Install PM2 once\nnpm install -g pm2\n\n# Start your app through PM2 instead of running it directly\npm2 start server.js\n\n# It now survives you closing the SSH session\npm2 status",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zxmbs7LSb14b",
+    "html": "<p>A VPS also typically needs a <b>reverse proxy</b> (commonly Nginx) sitting in front of the Node.js app — handling incoming traffic on the standard web ports and forwarding it to the port your Node app actually listens on internally. This is a genuinely more involved setup than Path A, appropriate once there's a specific reason for the extra control, per the VPS lesson earlier in this category.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "w9mdEqFz0zJb",
+    "text": "Environment Variables and the Database",
+    "type": "heading",
+    "level": 2,
+    "anchor": "environment-variables-and-the-database"
+  },
+  {
+    "id": "A9zDfgNAaUjb",
+    "html": "<p>Exactly the same principle as the PHP lesson's database credentials: a Node.js app's database connection string, API keys, and similar secrets are set as environment variables on the hosting platform, not hardcoded into the source — covered in full in its own lesson later in this category, directly building on this site's <a href=\"/nodejs/\">Node.js course</a> material on environment variables.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GKQsgsPBG0R9",
+    "html": "<p>The port a Node.js app listens on locally during development is often not the port the hosting platform expects in production. Most platforms provide this as an environment variable (commonly named <code>PORT</code>) rather than a fixed number — reading it from <code>process.env.PORT</code>, with a local fallback, is the standard pattern that works correctly in both places.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "2J5A0lLRUcNe",
+    "text": "Verifying It Actually Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-it-actually-worked"
+  },
+  {
+    "id": "4EaIDmStskL5",
+    "html": "<p>Beyond loading the site, specifically check that the process actually stays running after some time has passed — a common Node deployment failure is an app that starts successfully but crashes shortly after on real traffic, which a quick initial check right after deploying won't catch.</p>",
+    "type": "richtext"
+  }
+]
+```

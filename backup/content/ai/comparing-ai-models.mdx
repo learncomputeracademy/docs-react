@@ -1,0 +1,166 @@
+---
+id: "c0543448-cbea-4d31-92d5-5283dd3841ba"
+title: "Comparing AI Models"
+path: "ai/comparing-ai-models"
+status: "published"
+meta_title: "Comparing AI Models — ChatGPT, Gemini, Claude & Open Source | Learn Computer Academy"
+meta_description: "How to choose between the major AI model families — what actually differs between them, open source vs. closed source trade-offs, and why professionals use more than one."
+sort_order: 3
+updated_at: "2026-07-29T09:14:45.289593+00:00"
+---
+
+```json
+[
+  {
+    "id": "UV8rYHSFOFew",
+    "html": "<p>Once you know several AI tools exist, the next real question is: which one should you actually use? This lesson covers the dimensions that matter and the major families available today — without pinning to specific version numbers or prices, since those change every few months.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "njpIbISMIUM3",
+    "text": "No Single Model Is Best at Everything",
+    "type": "heading",
+    "level": 2,
+    "anchor": "no-single-model-is-best-at-everything"
+  },
+  {
+    "id": "vt387El_1KM4",
+    "html": "<p>Different AI models are built with different strengths — one may be better at long, nuanced writing, another at coding, another at handling images and video alongside text. Professionals commonly keep accounts on more than one platform and switch depending on the task, rather than treating any single model as a universal best choice.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1JOsIyNJaATP",
+    "text": "The Major Model Families",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-major-model-families"
+  },
+  {
+    "id": "HLTheyLbjB30",
+    "html": "<p>Rather than memorising specific version numbers (which change often), it's more useful to know the major players and what each is generally known for:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OC8-7TgHqpuh",
+    "rows": [
+      [
+        "GPT",
+        "OpenAI",
+        "Strong all-round performance, widely integrated into other products (Microsoft Copilot, and many third-party tools)"
+      ],
+      [
+        "Claude",
+        "Anthropic",
+        "Long-form writing, careful step-by-step reasoning, following detailed instructions closely"
+      ],
+      [
+        "Gemini",
+        "Google",
+        "Very large context windows, strong at combining text with images/video/audio, tightly integrated into Google Workspace"
+      ],
+      [
+        "Llama",
+        "Meta",
+        "Open-source — the model itself can be downloaded and run on your own hardware"
+      ],
+      [
+        "Mistral",
+        "Mistral AI",
+        "Open-source, lightweight and efficient, good for running on modest hardware"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Family",
+      "Made by",
+      "Generally known for"
+    ]
+  },
+  {
+    "id": "wnFd8jlFNLfQ",
+    "html": "<p>Exact capabilities, pricing, and version numbers for every model here change every few months — check each provider's own site for what's current before making a decision based on specifics. The <i>families</i> and what they're generally good at is the durable part of this table.</p>",
+    "type": "callout",
+    "title": "Specifics Go Stale Fast — Check the Source",
+    "variant": "note"
+  },
+  {
+    "id": "tY_b6oGZAgil",
+    "alt": "Colorful infographic showing five generic AI model cards, each labeled with its general strength — all-round writing and coding, long-form reasoning, huge multimodal context, open-source local use, and lightweight efficiency",
+    "type": "image",
+    "width": 1344,
+    "height": 576,
+    "caption": "Five different strengths, not five rankings of one \"best\" model.",
+    "publicId": "docs/img/ai/comparing-ai-models-1"
+  },
+  {
+    "id": "5maS5gyezkrD",
+    "text": "Open Source vs. Closed Source",
+    "type": "heading",
+    "level": 2,
+    "anchor": "open-source-vs-closed-source"
+  },
+  {
+    "id": "sXxWJKjJvk9F",
+    "html": "<p>This is one of the more important, longer-lasting distinctions to understand:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-cTr4-bAS_Lp",
+    "rows": [
+      [
+        "How you use it",
+        "Through the company's app or API — the model itself stays on their servers",
+        "Download the model weights and run them on your own computer or server"
+      ],
+      [
+        "Cost",
+        "Usually free tier + paid tier, billed by usage on paid plans",
+        "Free to download and run; you pay only for your own hardware/electricity"
+      ],
+      [
+        "Privacy",
+        "Your data typically passes through the provider's servers",
+        "Can run fully offline — nothing leaves your machine"
+      ],
+      [
+        "Customisation",
+        "Limited to what the provider allows",
+        "Can be fine-tuned and modified freely"
+      ],
+      [
+        "Setup effort",
+        "Usually just sign up and go",
+        "Requires technical setup and reasonably capable hardware"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Closed source (e.g. GPT, Claude, Gemini)",
+      "Open source (e.g. Llama, Mistral)"
+    ]
+  },
+  {
+    "id": "aOi6cJK3lio9",
+    "html": "<p>A free tool called <b>Ollama</b> makes running open-source models locally straightforward — download it, then pull a model like Llama with a single command, and you have a private, offline AI chatbot with no per-message cost and nothing sent to any server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6OCIOriM30fm",
+    "text": "A Simple Way to Choose",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-simple-way-to-choose"
+  },
+  {
+    "id": "zUakRzMhl6ZO",
+    "html": "<ul><li>Writing something long and nuanced, or need careful step-by-step reasoning? Try a model known for writing and reasoning.</li><li>Working with images, video, or need to search a huge amount of context at once? Try a model known for multimodal input and large context windows.</li><li>Care about privacy, cost at scale, or want to run something offline? Look at open-source options via a tool like Ollama.</li><li>Not sure? Run the same prompt on two or three tools and compare — the fastest way to learn each one's actual strengths for your own work.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "nDvKQ5YomIg_",
+    "html": "<p>You now know how to pick a model. The next lessons put that model to work — starting with how to actually talk to it well, in the everyday productivity tools you already use.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,99 @@
+---
+id: "f5d892c0-1d7d-408f-9a41-0c961f1298cc"
+title: "Lambda Functions"
+path: "python/lambda-functions"
+status: "published"
+meta_title: "Python Lambda Functions | Learn Computer Academy"
+meta_description: "Small, anonymous one-expression functions in Python, and where they're genuinely useful."
+sort_order: 17
+updated_at: "2026-08-04T11:39:31.318798+00:00"
+---
+
+```json
+[
+  {
+    "id": "m5_bIssxYmWD",
+    "html": "<p>A <b>lambda</b> is a small, unnamed function limited to a single expression.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "98_LfYl1bFQA",
+    "text": "Basic Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-syntax"
+  },
+  {
+    "id": "yoQYS2985pLu",
+    "code": "double = lambda n: n * 2\nprint(double(5))  # 10\n\n# Equivalent to:\ndef double(n):\n    return n * 2",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "lM-TsujsGUfQ",
+    "html": "<p>A lambda can take multiple arguments, but its body is always exactly one expression — no statements, no multiple lines.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0eGM1mqTzWFc",
+    "text": "Where Lambdas Actually Get Used",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-lambdas-actually-get-used"
+  },
+  {
+    "id": "AekiBE7wjHce",
+    "html": "<p>Lambdas are rarely assigned to a variable the way the example above does (a regular <code>def</code> reads better for anything with a name) — their real use is as a throwaway function passed directly into something else, most commonly <code>sorted()</code>'s <code>key</code> argument:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CJYE16zLNRgv",
+    "code": "students = [\n    {\"name\": \"Priya\", \"age\": 21},\n    {\"name\": \"Amit\", \"age\": 19},\n]\n\n# Sort by age, using a lambda to say \"compare by this\"\nstudents_sorted = sorted(students, key=lambda s: s[\"age\"])\nprint(students_sorted)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "yJJ0k7tMDQsw",
+    "html": "<p><code>key=lambda s: s[\"age\"]</code> tells <code>sorted()</code> what to compare, without needing a separately-named function defined elsewhere just for this one sort.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EscSlaK1nCOj",
+    "text": "map() and filter()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "map-and-filter"
+  },
+  {
+    "id": "CZ6GyjoGnsJN",
+    "html": "<p><code>map()</code> and <code>filter()</code> are Python's functional-style tools for transforming and filtering, often paired with a lambda — though a list comprehension (from the earlier lesson) does the same job and is usually considered more readable in modern Python:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VDZw3mugxgwI",
+    "code": "numbers = [1, 2, 3, 4, 5]\n\ndoubled = list(map(lambda n: n * 2, numbers))\nprint(doubled)  # [2, 4, 6, 8, 10]\n\n# The more idiomatic Python way to write the same thing:\ndoubled = [n * 2 for n in numbers]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "c30_DY_2t4Ef",
+    "html": "<p><code>filter()</code> is the other half — it keeps only the items where the lambda returns something truthy:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nnhd7qluVvh2",
+    "code": "numbers = [1, 2, 3, 4, 5, 6]\n\neven = list(filter(lambda n: n % 2 == 0, numbers))\nprint(even)  # [2, 4, 6]\n\n# The more idiomatic Python way to write the same thing:\neven = [n for n in numbers if n % 2 == 0]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "FNpLpzuiChqi",
+    "html": "<p>Both <code>map()</code> and <code>filter()</code> return a lazy iterator, not a list directly — which is why <code>list(...)</code> wraps them above to actually see the results.</p>",
+    "type": "richtext"
+  }
+]
+```

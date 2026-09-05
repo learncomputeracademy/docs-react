@@ -1,0 +1,105 @@
+---
+id: "869d8131-98aa-4970-ba78-4b195a733aca"
+title: "Sorting, Limiting & Skipping"
+path: "mongodb/sorting-limiting-skipping"
+status: "published"
+meta_title: "Sorting, Limiting & Skipping | Learn Computer Academy"
+meta_description: "Ordering query results with sort(), capping how many come back with limit(), and paginating with skip()."
+sort_order: 10
+updated_at: "2026-08-18T10:11:24.375475+00:00"
+---
+
+```json
+[
+  {
+    "id": "Wwio_cigs0Nc",
+    "html": "<p>Three chainable methods control the shape of a <code>find()</code> result: <code>sort()</code> orders it, <code>limit()</code> caps how many documents come back, and <code>skip()</code> discards a number of results from the start — the combination used to build pagination.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AUc1BC-7XwS4",
+    "alt": "An isometric illustration of document cards being arranged in a sorted vertical stack with an ascending arrow beside them",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "sort(), limit(), and skip() chain onto find() to shape query results.",
+    "publicId": "docs/img/mongodb/sort-hero"
+  },
+  {
+    "id": "UkonUqlXDVNY",
+    "text": "sort()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sort"
+  },
+  {
+    "id": "cS6y8UJjjRTC",
+    "html": "<p>Pass a field with <code>1</code> for ascending or <code>-1</code> for descending:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-gf97eOnmu5t",
+    "code": "// Oldest to youngest\ndb.users.find().sort({ age: 1 })\n\n// Youngest to oldest\ndb.users.find().sort({ age: -1 })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "yfYDgA7tpspG",
+    "text": "limit()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "limit"
+  },
+  {
+    "id": "bW_4dk5AJRu1",
+    "html": "<p>Caps the number of documents returned — useful for \"top 5\" style results, and for keeping large collections from returning everything at once:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "upc70z_b7Xrb",
+    "code": "db.users.find().sort({ age: -1 }).limit(5)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "QpbfShJrMf-b",
+    "text": "skip()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "skip"
+  },
+  {
+    "id": "O8SV9mFZbePM",
+    "html": "<p>Skips a number of documents before returning results — combined with <code>limit()</code>, this is exactly how pagination works:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "udouPLOgY1Pl",
+    "code": "// Page 2, 10 results per page: skip the first 10, then take 10\ndb.users.find().sort({ name: 1 }).skip(10).limit(10)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "fflqLQFeshpP",
+    "text": "Method Order Matters in Reading, Not Execution",
+    "type": "heading",
+    "level": 2,
+    "anchor": "method-order-matters-in-reading-not-execution"
+  },
+  {
+    "id": "HtfUza83_yNy",
+    "html": "<p>MongoDB always applies sort, then skip, then limit internally regardless of the order you chain them in the shell — but writing them in that order (<code>.sort().skip().limit()</code>) makes the query read the same way it actually behaves, which matters when someone else reads your code later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "z6QYgsVT-H4n",
+    "html": "<p>For real pagination, calculate <code>skip</code> as <code>(pageNumber - 1) * pageSize</code>. Skipping a very large number of documents gets slower as the number grows, since MongoDB still has to walk past every skipped document — for deep pagination on large collections, a different technique (cursor-based pagination) works better, but <code>skip()</code> is fine for typical page sizes.</p>",
+    "type": "callout",
+    "title": "skip() is fine for typical pagination",
+    "variant": "tip"
+  }
+]
+```

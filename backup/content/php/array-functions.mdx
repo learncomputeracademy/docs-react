@@ -1,0 +1,133 @@
+---
+id: "248e0acb-63b0-4da7-b2bd-8af2db9e02b8"
+title: "Array Functions"
+path: "php/array-functions"
+status: "published"
+meta_title: "PHP Array Functions | Learn Computer Academy"
+meta_description: "The PHP array functions you'll reach for constantly — array_map, array_filter, sorting, searching, and more."
+sort_order: 13
+updated_at: "2026-07-30T09:08:38.315321+00:00"
+---
+
+```json
+[
+  {
+    "id": "H0miK1fnSwIk",
+    "html": "<p>PHP has an enormous built-in array function library — over 80 functions. This lesson covers the handful that come up in almost every real script; the <a href=\"https://www.php.net/manual/en/ref.array.php\" target=\"_blank\" rel=\"noopener noreferrer\">full array function reference is on php.net</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lN56vufgGo7F",
+    "text": "Transforming: array_map()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transforming-array_map"
+  },
+  {
+    "id": "89rUiI3wt0Yw",
+    "html": "<p>Applies a function to every element and returns a new array of the results:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UzDaIffZCZ8K",
+    "code": "<?php\n  $prices = [100, 200, 300];\n  $withTax = array_map(fn($p) => $p * 1.18, $prices);\n  print_r($withTax); // [118, 236, 354]\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qbu_YutpGFIS",
+    "text": "Filtering: array_filter()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "filtering-array_filter"
+  },
+  {
+    "id": "qeWxH4hfRw5U",
+    "html": "<p>Keeps only the elements that pass a test:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iLTCKGDAAMSV",
+    "code": "<?php\n  $numbers = [1, 2, 3, 4, 5, 6];\n  $even = array_filter($numbers, fn($n) => $n % 2 === 0);\n  print_r($even); // [1 => 2, 3 => 4, 5 => 6] — note the original indexes stick around\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "rHAxRCvUpfVT",
+    "text": "Searching",
+    "type": "heading",
+    "level": 2,
+    "anchor": "searching"
+  },
+  {
+    "id": "LAL7ToKJG17O",
+    "code": "<?php\n  $fruits = [\"apple\", \"banana\", \"mango\"];\n  var_dump(in_array(\"banana\", $fruits));  // true\n  var_dump(array_search(\"mango\", $fruits)); // 2 (its index)\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bt3wchAX2R5a",
+    "text": "Sorting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sorting"
+  },
+  {
+    "id": "78BL7cdGabwC",
+    "rows": [
+      [
+        "sort($arr)",
+        "Sorts values ascending, re-indexes from 0"
+      ],
+      [
+        "rsort($arr)",
+        "Sorts values descending, re-indexes from 0"
+      ],
+      [
+        "asort($arr)",
+        "Sorts values ascending, keeps original keys"
+      ],
+      [
+        "ksort($arr)",
+        "Sorts by key instead of value"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "What it does"
+    ]
+  },
+  {
+    "id": "iPajaLKvUdew",
+    "code": "<?php\n  $scores = [40, 10, 30, 20];\n  sort($scores);\n  print_r($scores); // [10, 20, 30, 40]\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "8oshwCOXNxQV",
+    "html": "<p>Sorting functions like <code>sort()</code> modify the array <b>in place</b> and don't return the sorted array — they return <code>true</code>/<code>false</code> for success. Assigning their result to a variable is a common beginner mistake.</p>",
+    "type": "callout",
+    "title": "sort() modifies in place",
+    "variant": "warning"
+  },
+  {
+    "id": "0HukGi-ZlJbQ",
+    "text": "Combining and Merging",
+    "type": "heading",
+    "level": 2,
+    "anchor": "combining-and-merging"
+  },
+  {
+    "id": "XsZU0n1GBolI",
+    "code": "<?php\n  $a = [\"red\", \"green\"];\n  $b = [\"blue\", \"yellow\"];\n  $all = array_merge($a, $b);\n  print_r($all); // [\"red\", \"green\", \"blue\", \"yellow\"]\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

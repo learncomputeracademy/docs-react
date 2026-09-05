@@ -1,0 +1,84 @@
+---
+id: "b2dcb430-174c-4bdb-919c-a22abb322c9c"
+title: "Constants"
+path: "php/constants"
+status: "published"
+meta_title: "PHP Constants | Learn Computer Academy"
+meta_description: "How to define values in PHP that can never change once set, using define() and const."
+sort_order: 7
+updated_at: "2026-07-30T09:08:36.170187+00:00"
+---
+
+```json
+[
+  {
+    "id": "kIqNtU21e8WY",
+    "html": "<p>A <b>constant</b> is a named value that, unlike a variable, can never be changed once it's set. Use one whenever a value genuinely should never change while the script runs — a maximum file size, a tax rate, a site name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7ViKRwNNQlH4",
+    "text": "define()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "define"
+  },
+  {
+    "id": "BM9SiYG6BxfL",
+    "code": "<?php\n  define(\"SITE_NAME\", \"Learn Computer Academy\");\n  echo SITE_NAME;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "rXd6yH5qnxMy",
+    "html": "<p>Notice constants don't use the <code>$</code> sigil, and by convention are written in <code>UPPER_SNAKE_CASE</code> to make them visually stand out from ordinary variables at a glance.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Bfj5H-3RjolN",
+    "text": "const",
+    "type": "heading",
+    "level": 2,
+    "anchor": "const"
+  },
+  {
+    "id": "MREv5l3nWZmZ",
+    "html": "<p>The <code>const</code> keyword does the same job, with slightly different rules — it can only be used at the top level of a file or inside a class (you'll meet classes later in this section), and its value must be known at compile time rather than computed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MMAnPgb5m_x2",
+    "code": "<?php\n  const MAX_UPLOAD_SIZE = 5242880; // 5 MB, in bytes\n  echo MAX_UPLOAD_SIZE;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "9pnMjQzm_2zr",
+    "text": "Attempting to Reassign",
+    "type": "heading",
+    "level": 2,
+    "anchor": "attempting-to-reassign"
+  },
+  {
+    "id": "blBGxgGJWQEJ",
+    "code": "<?php\n  define(\"PI\", 3.14159);\n  // define(\"PI\", 3.14); // Fatal error — PI is already defined\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "CB7dsmBf_xbU",
+    "html": "<p>Trying to redefine a constant is a fatal error, not a warning — PHP stops the script entirely. That's the whole point of a constant: once set, it's a guarantee, not a suggestion.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u-fUAkgEiFfL",
+    "html": "<p>In everyday PHP code, <code>const</code> is more common than <code>define()</code> for values known ahead of time, since it's slightly faster and reads more consistently with other languages. <code>define()</code> is still useful when a constant's value needs to be computed conditionally, which <code>const</code> doesn't allow.</p>",
+    "type": "callout",
+    "title": "const vs define() in practice",
+    "variant": "note"
+  }
+]
+```

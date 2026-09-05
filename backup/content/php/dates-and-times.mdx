@@ -1,0 +1,99 @@
+---
+id: "8bbd824a-1955-4679-8717-1411361e8e63"
+title: "Working with Dates and Times"
+path: "php/dates-and-times"
+status: "published"
+meta_title: "PHP Dates and Times | Learn Computer Academy"
+meta_description: "Getting and formatting the current date and time in PHP, plus the DateTime class for anything more involved."
+sort_order: 26
+updated_at: "2026-07-30T09:08:42.848746+00:00"
+---
+
+```json
+[
+  {
+    "id": "lgR_JhIwsgpB",
+    "html": "<p>Nearly every real application needs to show or store a date somewhere — when a post was published, when an account was created. PHP has a quick functional way to do this, and a more capable object-oriented one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p2MazrUlvy6m",
+    "text": "The Quick Way: date()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-quick-way-date"
+  },
+  {
+    "id": "YP5eon4C1e3Q",
+    "code": "<?php\n  echo date(\"Y-m-d\");       // \"2026-07-30\"\n  echo date(\"d/m/Y\");       // \"30/07/2026\"\n  echo date(\"l, F j, Y\");   // \"Thursday, July 30, 2026\"\n  echo date(\"H:i:s\");        // \"14:30:00\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "9B8HR-NkWI3T",
+    "rows": [
+      [
+        "Y",
+        "4-digit year"
+      ],
+      [
+        "m",
+        "2-digit month"
+      ],
+      [
+        "d",
+        "2-digit day"
+      ],
+      [
+        "H:i:s",
+        "Hour:minute:second, 24-hour"
+      ],
+      [
+        "l",
+        "Full day name"
+      ],
+      [
+        "F",
+        "Full month name"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Character",
+      "Means"
+    ]
+  },
+  {
+    "id": "ZxrSovOKaMk0",
+    "html": "<p>The full set of format characters is in the <a href=\"https://www.php.net/manual/en/function.date.php\" target=\"_blank\" rel=\"noopener noreferrer\">date() reference on php.net</a> — there are dozens, covering every format you're likely to need.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4zGrQ1aA6q7S",
+    "text": "The DateTime Class",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-datetime-class"
+  },
+  {
+    "id": "1sLVnQ8apn5T",
+    "html": "<p>For anything beyond simple formatting — comparing dates, adding time, working across time zones — the object-oriented <code>DateTime</code> class is the better tool:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Jciq-JNYYJN2",
+    "code": "<?php\n  $today = new DateTime();\n  $deadline = new DateTime(\"2026-12-31\");\n\n  $interval = $today->diff($deadline);\n  echo $interval->days . \" days remaining\"; // e.g. \"154 days remaining\"\n\n  $today->modify(\"+7 days\");\n  echo $today->format(\"Y-m-d\"); // one week from today\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "gOXWpKWnIo92",
+    "html": "<p>PHP's date and time functions default to the server's configured time zone, which may not match a visitor's own. For anything where that matters — a scheduled event, a countdown — either set the time zone explicitly with <code>date_default_timezone_set()</code>, or handle the conversion in JavaScript on the visitor's own device.</p>",
+    "type": "callout",
+    "title": "Time zones are the server's, by default",
+    "variant": "note"
+  }
+]
+```

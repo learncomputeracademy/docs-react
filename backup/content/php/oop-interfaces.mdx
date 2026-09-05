@@ -1,0 +1,94 @@
+---
+id: "7a3effc8-b4ef-452b-b54b-033f7037a04c"
+title: "OOP — Interfaces and Abstract Classes"
+path: "php/oop-interfaces"
+status: "published"
+meta_title: "PHP Interfaces and Abstract Classes | Learn Computer Academy"
+meta_description: "Using interfaces and abstract classes in PHP to guarantee that different classes share a common set of methods."
+sort_order: 25
+updated_at: "2026-07-30T09:08:42.544643+00:00"
+---
+
+```json
+[
+  {
+    "id": "myrz7_sbOeTU",
+    "html": "<p>Both of these solve a similar problem: making sure a group of otherwise different classes all provide a certain set of methods, so code that uses them doesn't need to care which exact class it's working with.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V51q3exA6N4T",
+    "text": "Interfaces",
+    "type": "heading",
+    "level": 2,
+    "anchor": "interfaces"
+  },
+  {
+    "id": "6Vz734gj-5el",
+    "html": "<p>An <b>interface</b> defines a set of method names a class promises to implement — it specifies <i>what</i> a class must be able to do, with no detail about <i>how</i>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VQfUvHWjzx28",
+    "code": "<?php\n  interface Payable {\n    public function pay($amount);\n  }\n\n  class CreditCard implements Payable {\n    public function pay($amount) {\n      echo \"Charged $amount to credit card.\";\n    }\n  }\n\n  class Cash implements Payable {\n    public function pay($amount) {\n      echo \"Received $amount in cash.\";\n    }\n  }\n\n  function checkout(Payable $method, $amount) {\n    $method->pay($amount); // works with any Payable, regardless of exact class\n  }\n\n  checkout(new CreditCard(), 500);\n  checkout(new Cash(), 500);\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "0CN2_48qiH8V",
+    "html": "<p><code>checkout()</code> doesn't know or care whether it received a <code>CreditCard</code> or a <code>Cash</code> object — only that whatever it received honors the <code>Payable</code> interface. This is the practical payoff: code written once keeps working correctly even as new payment types are added later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "P--8C3N7DX7a",
+    "text": "Abstract Classes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "abstract-classes"
+  },
+  {
+    "id": "LW1QbifSGEhc",
+    "html": "<p>An <b>abstract class</b> is a class that can't be instantiated directly — it exists purely to be extended, and can mix fully-written methods with abstract ones (a method signature with no body, that every subclass must fill in):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1audYmbTnUTr",
+    "code": "<?php\n  abstract class Shape {\n    abstract public function area(); // every subclass must define this\n\n    public function describe() { // shared by every subclass, as-is\n      return \"This shape has an area of \" . $this->area();\n    }\n  }\n\n  class Circle extends Shape {\n    public function __construct(private $radius) {}\n    public function area() {\n      return round(pi() * $this->radius ** 2, 2);\n    }\n  }\n\n  $circle = new Circle(5);\n  echo $circle->describe(); // \"This shape has an area of 78.54\"\n  // new Shape(); // Error — cannot instantiate an abstract class\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "1Bi1uA_BQ0GV",
+    "text": "Interface vs. Abstract Class",
+    "type": "heading",
+    "level": 2,
+    "anchor": "interface-vs-abstract-class"
+  },
+  {
+    "id": "PM6f65Ayf_dZ",
+    "rows": [
+      [
+        "Interface",
+        "No (method signatures only)",
+        "Several, at once",
+        "Unrelated classes need to guarantee the same capability"
+      ],
+      [
+        "Abstract class",
+        "Yes, mixed with abstract methods",
+        "One",
+        "Related classes should share real, common behavior"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Can include real method code?",
+      "A class can use how many?",
+      "Use when"
+    ]
+  }
+]
+```

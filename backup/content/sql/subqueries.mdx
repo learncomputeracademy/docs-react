@@ -1,0 +1,207 @@
+---
+id: "326e6c92-3523-4167-8e3a-92d816abb2ad"
+title: "Subqueries"
+path: "sql/subqueries"
+status: "published"
+meta_title: "SQL Subqueries | Learn Computer Academy"
+meta_description: "Single-row, multi-row, correlated subqueries, and subqueries in FROM — how to nest one query inside another to feed a value, list, or result set into it."
+sort_order: 14
+updated_at: "2026-07-29T06:31:08.67299+00:00"
+---
+
+```json
+[
+  {
+    "id": "lBH74GcgZHd8",
+    "html": "<p>A <b>subquery</b> is a query nested inside another — used to feed a value, a list, or a whole result set into the outer query.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XifnnqsiQwAL",
+    "text": "Single-Row Subquery",
+    "type": "heading",
+    "level": 2,
+    "anchor": "single-row-subquery"
+  },
+  {
+    "id": "cVk1AVd4lG2i",
+    "html": "<p>A subquery that returns exactly one value, usable anywhere a single value is expected.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Nk842uJR05tZ",
+    "code": "WHERE column = (SELECT ... );",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "num1z3nBSf3V",
+    "code": "SELECT name FROM Employee\nWHERE salary = (SELECT MAX(salary) FROM Employee);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "lbu5DSupKizH",
+    "html": "<ul><li>The inner query resolves to a single number first.</li><li>The outer query then filters against that value.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zth6SkfHvC6V",
+    "html": "<p>Using <code>=</code> when the subquery could return more than one row, which causes an error.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "g_dfh6NRKa07",
+    "text": "Multi-Row Subquery",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multi-row-subquery"
+  },
+  {
+    "id": "XohxTthMlyCF",
+    "html": "<p>A subquery that returns a list of values, paired with <code>IN</code>, <code>ANY</code>, or <code>ALL</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OD2nPIUVQapU",
+    "code": "WHERE column IN (SELECT ... );",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "G-lkX0q2e19G",
+    "code": "SELECT name FROM Employee\nWHERE department_id IN (\n  SELECT id FROM Department WHERE location = 'Kolkata'\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "dbN04k0JRTKE",
+    "html": "<ul><li>The inner query returns a list of department IDs.</li><li>The outer query keeps only employees whose department is in that list.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "aPg7VT0ttOWG",
+    "html": "<p>Using <code>=</code> instead of <code>IN</code> when the subquery can return multiple rows.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "X9R_0qFljhQG",
+    "text": "Correlated Subquery",
+    "type": "heading",
+    "level": 2,
+    "anchor": "correlated-subquery"
+  },
+  {
+    "id": "_sCz_6-eSMwj",
+    "html": "<p>A subquery that references a column from the outer query, re-running once per outer row.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lK7cXfMSAVkr",
+    "code": "WHERE EXISTS (SELECT 1 FROM ... WHERE outer.col = inner.col);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "XYlL5kBftj6K",
+    "code": "SELECT name FROM Employee e\nWHERE salary > (\n  SELECT AVG(salary) FROM Employee\n  WHERE department = e.department\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "jJvIKNgfegxa",
+    "html": "<ul><li>The inner query recalculates for every row in the outer query.</li><li>Finds employees earning above their own department's average.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZaB2reWbsJ44",
+    "html": "<p>Using a correlated subquery over a huge table without an index — it can be slow, since it re-runs per outer row.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "fINQdmvGkO5f",
+    "text": "Subquery in FROM",
+    "type": "heading",
+    "level": 2,
+    "anchor": "subquery-in-from"
+  },
+  {
+    "id": "H5m9RC-DrrH4",
+    "html": "<p>Treats a subquery as a temporary table that the outer query can select from.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UxBQ-oCKjshA",
+    "code": "SELECT * FROM (SELECT ...) AS alias;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Ry3-29knzRbm",
+    "code": "SELECT department, avg_salary\nFROM (\n  SELECT department, AVG(salary) AS avg_salary\n  FROM Employee GROUP BY department\n) AS dept_avg\nWHERE avg_salary > 60000;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "jAQ11R5jwaID",
+    "html": "<ul><li>The inner query builds a summarized table first.</li><li>The outer query then filters or selects from that temporary result.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "vYuJYZ_FP80E",
+    "html": "<p>Forgetting the subquery needs an alias — most engines require one.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "IcsTJ7j5uNMc",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "1Uzo1bxDLmOa",
+    "rows": [
+      [
+        "Single-row",
+        "Exactly one value",
+        "=, >, <"
+      ],
+      [
+        "Multi-row",
+        "A list of values",
+        "IN, ANY, ALL"
+      ],
+      [
+        "Correlated",
+        "Re-evaluated per outer row",
+        "EXISTS, comparisons referencing the outer query"
+      ],
+      [
+        "In FROM",
+        "A whole result set",
+        "Treated as a temporary table, needs an alias"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Kind",
+      "Returns",
+      "Typically used with"
+    ]
+  },
+  {
+    "id": "8Z8TiJcLc-Zg",
+    "html": "<p>Subqueries nest one query inside a clause of another. The next lesson covers a cleaner way to do something similar — Common Table Expressions, which name a subquery so it reads top-to-bottom instead of nested.</p>",
+    "type": "richtext"
+  }
+]
+```

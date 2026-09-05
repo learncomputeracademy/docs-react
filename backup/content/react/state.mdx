@@ -1,0 +1,96 @@
+---
+id: "937f9ad5-b9b4-416b-95e5-e382abf069a8"
+title: "Introduction to State"
+path: "react/state"
+status: "published"
+meta_title: "React State: useState | Learn Computer Academy"
+meta_description: "The useState hook — how a component remembers a value between renders, and why updating it triggers React to re-render."
+sort_order: 9
+updated_at: "2026-07-31T11:24:37.873719+00:00"
+---
+
+```json
+[
+  {
+    "id": "LioqpIBORpEx",
+    "html": "<p>Props (from the earlier Props lesson) let data flow into a component from outside, but a component can't change its own props. <b>State</b> is the other half: data a component owns and can change itself, over time — a counter, a form field, whether a menu is open.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TURzmuL_scrp",
+    "text": "Why a Plain Variable Doesn't Work",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-a-plain-variable-doesnt-work"
+  },
+  {
+    "id": "poo1xQOUMyfM",
+    "html": "<p>A regular JavaScript variable inside a component gets reset to its initial value every single time the component re-renders, and changing it doesn't even trigger a re-render in the first place — React has no way to know the value changed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T5t6SrSHjfMQ",
+    "code": "function Counter() {\n  let count = 0; // resets to 0 on every render — this does not work\n\n  function increment() {\n    count = count + 1; // React never finds out this happened\n  }\n\n  return <button onClick={increment}>Clicked {count} times</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "ixTi_2aodgmo",
+    "text": "useState",
+    "type": "heading",
+    "level": 2,
+    "anchor": "usestate"
+  },
+  {
+    "id": "sJT6OwlttBvB",
+    "html": "<p><code>useState</code> solves both problems: it gives a component a value that survives between renders, and a way to update it that tells React to re-render:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7b4RcDvh4kdD",
+    "code": "import { useState } from 'react';\n\nfunction Counter() {\n  const [count, setCount] = useState(0);\n\n  function increment() {\n    setCount(count + 1);\n  }\n\n  return <button onClick={increment}>Clicked {count} times</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "xNi7-fY9af5S",
+    "html": "<p><code>useState(0)</code> takes the initial value and returns a pair: the current value (<code>count</code>) and a function to update it (<code>setCount</code>) — the <code>[a, b]</code> array destructuring here is the same syntax from the <a href=\"/javascript/es6-and-modern-features/\">JavaScript ES6 lesson</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dw9TKMkkCmPp",
+    "text": "Calling the Setter Triggers a Re-Render",
+    "type": "heading",
+    "level": 2,
+    "anchor": "calling-the-setter-triggers-a-re-render"
+  },
+  {
+    "id": "sGviNjzaI_a1",
+    "html": "<p>Calling <code>setCount(...)</code> does two things: it updates the stored value, <i>and</i> tells React to re-run the component function so the UI reflects the new value. This is the actual mechanism behind the \"declarative\" idea from the Introduction lesson — you never manually touch the DOM; you update state, and React re-renders to match.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Vt7av5ijrBIz",
+    "text": "Each Component Instance Has Its Own State",
+    "type": "heading",
+    "level": 2,
+    "anchor": "each-component-instance-has-its-own-state"
+  },
+  {
+    "id": "ist_gRBeCav_",
+    "code": "function App() {\n  return (\n    <div>\n      <Counter />\n      <Counter />\n    </div>\n  );\n}\n// Clicking one Counter never affects the other — each has its own independent state.",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "GfePyCYR1AqI",
+    "html": "<p>A component can have as many <code>useState</code> calls as it needs — one per independent piece of state is the normal pattern, rather than bundling everything into one big object. <code>const [name, setName] = useState(''); const [age, setAge] = useState(0);</code> is completely normal.</p>",
+    "type": "callout",
+    "title": "Multiple useState calls are fine",
+    "variant": "note"
+  }
+]
+```

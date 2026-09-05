@@ -1,0 +1,97 @@
+---
+id: "722fa5f2-1487-4c37-9c5a-08a08aca5733"
+title: "DCL — Data Control Language"
+path: "sql/dcl"
+status: "published"
+meta_title: "SQL DCL — Data Control Language | Learn Computer Academy"
+meta_description: "GRANT and REVOKE — the two SQL commands that manage who is allowed to see or change your data."
+sort_order: 6
+updated_at: "2026-07-29T06:31:06.281236+00:00"
+---
+
+```json
+[
+  {
+    "id": "xbBmQW5FXbUG",
+    "html": "<p><b>DCL</b> statements manage who is allowed to see or change your data. It's the smallest of the four SQL families, built from just two commands.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LoiIwN7rgvO6",
+    "text": "GRANT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grant"
+  },
+  {
+    "id": "IVAqCzAem8sv",
+    "html": "<p>Gives a user or role permission to perform an action.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "skYCgT8cTYYz",
+    "code": "GRANT permission\nON object\nTO user;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "yQsvdK-dv0WU",
+    "code": "GRANT SELECT\nON Employee\nTO User1;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "F2puwPRystht",
+    "html": "<ul><li>Gives User1 permission to read from the Employee table.</li><li>User1 can read the data only — not modify it.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "bOu8e6kxP8LT",
+    "html": "<p>Granting broader permissions (e.g. <code>ALL</code>) than the task actually needs.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "00UeBn05iQsn",
+    "text": "REVOKE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "revoke"
+  },
+  {
+    "id": "NipNew_pfNlD",
+    "html": "<p>Removes a permission that was previously granted.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_9-m4lqTS1VS",
+    "code": "REVOKE permission\nON object\nFROM user;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "8rXvTkvElVLr",
+    "code": "REVOKE SELECT\nON Employee\nFROM User1;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "pcDDbKd1Y6ex",
+    "html": "<ul><li>Removes the previously granted SELECT permission.</li><li>Useful for tightening access as part of routine security management.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "CgY-h3G9SMl2",
+    "html": "<p>Revoking access without checking what else depends on it.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "PyflGByWD6jn",
+    "html": "<p>DCL is about permissions — the next lesson covers TCL, the family that manages when a group of changes becomes permanent.</p>",
+    "type": "richtext"
+  }
+]
+```

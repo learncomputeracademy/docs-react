@@ -1,0 +1,150 @@
+---
+id: "08cf809a-0c0c-4610-a900-ed805f9fcbe7"
+title: "CSS Attribute Selectors"
+path: "css/attribute-selectors"
+status: "published"
+meta_title: "CSS Attribute Selectors | Learn Computer Academy"
+meta_description: "Select an element by the presence, exact value, or partial match of an HTML attribute — beyond just class and id."
+sort_order: 44
+updated_at: "2026-09-03T03:54:09.160872+00:00"
+---
+
+```json
+[
+  {
+    "id": "mQBwt1fVPIht",
+    "html": "<hr><p>An attribute selector targets an element based on an HTML attribute it carries, rather than its tag, class, or id — useful for styling form inputs by type, or links by their destination.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "DxhbCIP9_gxt",
+    "text": "Presence — [attr]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "presence-attr"
+  },
+  {
+    "id": "E8pJl24-4-Zw",
+    "html": "<p>Matches any element that has the attribute at all, regardless of its value.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0E9xy60bUZEh",
+    "code": "input[required] {\n  border-color: orange;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "1hF81qCogfUp",
+    "text": "Exact Match — [attr=value]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exact-match-attrvalue"
+  },
+  {
+    "id": "jqUW4d2oniGr",
+    "code": "input[type=\"email\"] {\n  background-image: url(email-icon.svg);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "Wi4Pap7WYx_g",
+    "text": "Starts With — [attr^=value]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "starts-with-attrvalue"
+  },
+  {
+    "id": "g1_rTQU4xy0v",
+    "code": "a[href^=\"https://\"] {\n  /* every link that starts with https:// */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "hHFoO7LXXLNX",
+    "text": "Ends With — [attr$=value]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ends-with-attrvalue"
+  },
+  {
+    "id": "aw85DnQmzbTE",
+    "code": "a[href$=\".pdf\"] {\n  /* every link ending in .pdf — good for a download icon */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "CPv1XxoMB7MN",
+    "text": "Contains — [attr*=value]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "contains-attrvalue"
+  },
+  {
+    "id": "qIpsz6bLF-_R",
+    "code": "a[href*=\"example.com\"] {\n  /* every link containing example.com anywhere in the URL */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "gvZZY_9Aimil",
+    "text": "Whitespace-Separated Word — [attr~=value]",
+    "type": "heading",
+    "level": 2,
+    "anchor": "whitespace-separated-word-attrvalue"
+  },
+  {
+    "id": "_0RRogAUyDLI",
+    "code": "[class~=\"featured\"] {\n  /* matches class=\"card featured\" but not class=\"unfeatured\" */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "vYVNA0rxffVn",
+    "rows": [
+      [
+        "[attr]",
+        "The attribute exists, any value"
+      ],
+      [
+        "[attr=value]",
+        "The attribute equals value exactly"
+      ],
+      [
+        "[attr^=value]",
+        "The attribute starts with value"
+      ],
+      [
+        "[attr$=value]",
+        "The attribute ends with value"
+      ],
+      [
+        "[attr*=value]",
+        "The attribute contains value anywhere"
+      ],
+      [
+        "[attr~=value]",
+        "value appears as one whole word in a space-separated list"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Selector",
+      "Matches"
+    ]
+  },
+  {
+    "id": "FGaU-feWu5U_",
+    "html": "<p>A very common real use: <code>a[href^=\"https://\"]:not([href*=\"yoursite.com\"])</code> selects external links only — a good base for automatically adding an \"opens in new tab\" icon.</p>",
+    "type": "callout",
+    "title": "A practical combination",
+    "variant": "tip"
+  }
+]
+```

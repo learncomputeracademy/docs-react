@@ -1,0 +1,141 @@
+---
+id: "d24457b9-4c8d-47a2-97d5-a7a796f578e2"
+title: "Remotes — Clone, Push, Pull, and Fetch"
+path: "git/remotes-clone-push-pull"
+status: "published"
+meta_title: "Git Remotes — Clone, Push, Pull, Fetch | Learn Computer Academy"
+meta_description: "Connecting a local repository to GitHub — downloading an existing project, sending local commits up, and getting others' commits back down."
+sort_order: 12
+updated_at: "2026-09-03T05:20:02.690409+00:00"
+---
+
+```json
+[
+  {
+    "id": "1m2F5-toMA03",
+    "html": "<p>A <b>remote</b> is a repository hosted elsewhere — usually on GitHub — that a local repository stays connected to.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "S2b3BMpJ0EYN",
+    "text": "git clone — Downloading an Existing Repository",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-clone-downloading-an-existing-repository"
+  },
+  {
+    "id": "SSU1elMBataC",
+    "code": "git clone https://github.com/username/repo-name.git\ncd repo-name\n# A complete copy, full history included, ready to work on",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "Jfin1sXl4J8W",
+    "text": "Connecting an Existing Local Repository to GitHub",
+    "type": "heading",
+    "level": 2,
+    "anchor": "connecting-an-existing-local-repository-to-github"
+  },
+  {
+    "id": "14jcY5Srw1Ll",
+    "html": "<p>For a project that started with <code>git init</code> locally, rather than a clone — create an empty repository on GitHub first, then connect it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tmobEp_9DXcm",
+    "code": "git remote add origin https://github.com/username/repo-name.git\ngit branch -M main\ngit push -u origin main",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zQVsg08HKams",
+    "html": "<p><code>origin</code> is the conventional name for a repository's primary remote — not a special keyword, just the default everyone uses.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ujF4gC31LrkY",
+    "text": "git push — Sending Local Commits Up",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-push-sending-local-commits-up"
+  },
+  {
+    "id": "2rGtdxcfBJTO",
+    "code": "git push\n# Sends commits on the current branch to the remote\n\n# First push of a new branch needs -u (short for --set-upstream)\n# to link the local and remote branch together, once:\ngit push -u origin feature-login\n# Every push after that, on that branch, can just be: git push",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ABieN-RjPR74",
+    "text": "git pull — Getting Others' Commits Down",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-pull-getting-others-commits-down"
+  },
+  {
+    "id": "6FnkJL5tuYrn",
+    "code": "git pull\n# Downloads new commits from the remote and merges them into the current branch\n# Equivalent to: git fetch, then git merge",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "bEv6i7SGcPUE",
+    "text": "git fetch — Downloading Without Merging",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-fetch-downloading-without-merging"
+  },
+  {
+    "id": "HyxJ4g-R9Gd4",
+    "html": "<p>Downloads what changed on the remote without touching local files — useful for seeing what's new before deciding whether to merge it in.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hPKBHOeNXx1F",
+    "code": "git fetch\ngit log origin/main   # see what's new on the remote before pulling it in",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "n2wjb23xLXW2",
+    "text": "Checking Configured Remotes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-configured-remotes"
+  },
+  {
+    "id": "Z-NDaAghcaFX",
+    "code": "git remote -v\n# origin  https://github.com/username/repo-name.git (fetch)\n# origin  https://github.com/username/repo-name.git (push)",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "otGDUC4ErsHP",
+    "rows": [
+      [
+        "git clone",
+        "Remote -> new local copy"
+      ],
+      [
+        "git push",
+        "Local -> remote"
+      ],
+      [
+        "git pull / git fetch",
+        "Remote -> local"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "Direction"
+    ]
+  }
+]
+```

@@ -1,0 +1,129 @@
+---
+id: "7bf08367-c6ac-4063-a970-f7507948fd0d"
+title: "Functions"
+path: "python/functions"
+status: "published"
+meta_title: "Python Functions | Learn Computer Academy"
+meta_description: "Defining Python functions with def — parameters, default values, and *args/**kwargs for flexible argument lists."
+sort_order: 16
+updated_at: "2026-08-04T11:39:31.051374+00:00"
+---
+
+```json
+[
+  {
+    "id": "J_HJmaagfYSF",
+    "html": "<p>A function packages up logic so it can be reused by name — the same idea from <a href=\"/programming/functions/\">Intro to Programming</a>, defined in Python with the <code>def</code> keyword.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fqaIvhW46_Rv",
+    "text": "Defining and Calling a Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-and-calling-a-function"
+  },
+  {
+    "id": "6RrGjwHoqicv",
+    "code": "def greet(name):\n    return f\"Hello, {name}!\"\n\nprint(greet(\"Priya\"))  # \"Hello, Priya!\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "eZCRmhNYUC5I",
+    "text": "Default Parameter Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "default-parameter-values"
+  },
+  {
+    "id": "_Z9Craw5cBdQ",
+    "code": "def greet(name=\"Guest\"):\n    return f\"Hello, {name}!\"\n\nprint(greet())         # \"Hello, Guest!\"\nprint(greet(\"Amit\"))   # \"Hello, Amit!\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "BYYbOfl8o3U3",
+    "text": "Type Hints",
+    "type": "heading",
+    "level": 2,
+    "anchor": "type-hints"
+  },
+  {
+    "id": "_r3BYC-9m0t5",
+    "html": "<p>Python lets you optionally annotate parameter and return types. These are <b>not enforced at runtime</b> — they're documentation and tooling support (your editor can catch a mismatch), not a hard rule the language checks when the function actually runs:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5qYFeFQt4UzC",
+    "code": "def add(a: int, b: int) -> int:\n    return a + b\n\nprint(add(2, 3))       # 5\nprint(add(\"2\", \"3\"))  # \"23\" — no error! type hints don't stop this at runtime",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "I_yOTdRC82EV",
+    "text": "Multiple Return Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-return-values"
+  },
+  {
+    "id": "wJorNZ3rp7hJ",
+    "html": "<p>A Python function can return more than one value directly, separated by commas — under the hood, this is really returning a tuple (from the Tuples and Sets lesson):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_TCTnt4ZV9v_",
+    "code": "def min_max(numbers):\n    return min(numbers), max(numbers)\n\nlow, high = min_max([4, 9, 1, 7])\nprint(low, high)  # 1 9",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "U6MN8Mp35ejM",
+    "text": "*args and **kwargs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "args-and-kwargs"
+  },
+  {
+    "id": "RNO_Mw5De7Gd",
+    "html": "<p>These let a function accept any number of arguments — <code>*args</code> collects extra positional arguments into a tuple, <code>**kwargs</code> collects extra named arguments into a dict:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kjVU_vJYo0Og",
+    "code": "def total(*numbers):\n    return sum(numbers)\n\nprint(total(1, 2, 3))       # 6\nprint(total(1, 2, 3, 4, 5)) # 15 — works with any number of arguments\n\ndef describe(**details):\n    for key, value in details.items():\n        print(f\"{key}: {value}\")\n\ndescribe(name=\"Priya\", course=\"Web Development\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Nmghl1g6_svT",
+    "text": "Docstrings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "docstrings"
+  },
+  {
+    "id": "SjbJ0ZoeqCnj",
+    "html": "<p>A string literal placed as the very first line inside a function becomes its <b>docstring</b> — Python's built-in way to document what a function does, retrievable at runtime instead of just sitting in a comment:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OnbAE7FkD6d3",
+    "code": "def greet(name):\n    \"\"\"Return a friendly greeting for the given name.\"\"\"\n    return f\"Hello, {name}!\"\n\nprint(greet.__doc__)  # \"Return a friendly greeting for the given name.\"\nhelp(greet)            # shows the same text, formatted nicely",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Mb-M2FHRokA4",
+    "html": "<p>Real Python projects write one on every function that isn't completely obvious — this is closer to a formal expectation than a nice-to-have, and tools like Sphinx can generate full documentation pages straight from docstrings.</p>",
+    "type": "richtext"
+  }
+]
+```

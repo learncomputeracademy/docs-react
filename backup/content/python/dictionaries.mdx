@@ -1,0 +1,140 @@
+---
+id: "4514e06a-9774-4f85-9b0f-ac2c69a85f89"
+title: "Dictionaries"
+path: "python/dictionaries"
+status: "published"
+meta_title: "Python Dictionaries | Learn Computer Academy"
+meta_description: "Python's dict type — key-value pairs, one of the most commonly used data structures in the language."
+sort_order: 12
+updated_at: "2026-08-04T11:39:29.981931+00:00"
+---
+
+```json
+[
+  {
+    "id": "cJ27OI7Lz3JQ",
+    "html": "<p>A <b>dictionary</b> (<code>dict</code>) stores key-value pairs. These show up everywhere in real Python code, and you'll meet them again immediately once you reach working with databases.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-sGL6_qcD7PQ",
+    "text": "Creating One",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-one"
+  },
+  {
+    "id": "i0i_gytk84KM",
+    "code": "student = {\n    \"name\": \"Priya\",\n    \"age\": 21,\n    \"course\": \"Web Development\",\n}\nprint(student[\"name\"])  # \"Priya\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "5ThltygTuUR6",
+    "text": "Modifying a Dictionary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "modifying-a-dictionary"
+  },
+  {
+    "id": "nQVflX9JmuMn",
+    "code": "student[\"email\"] = \"priya@example.com\"  # adds a new key\nstudent[\"age\"] = 22                       # overwrites an existing one\ndel student[\"email\"]                      # removes a key",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "6_1W5anAB5hY",
+    "text": "Looping Over Key-Value Pairs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "looping-over-key-value-pairs"
+  },
+  {
+    "id": "9yUyssWt-cQV",
+    "code": "for key, value in student.items():\n    print(f\"{key}: {value}\")\n# name: Priya\n# age: 21\n# course: Web Development",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Rx6LGkMEUOtl",
+    "text": "Checking a Key Exists",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-a-key-exists"
+  },
+  {
+    "id": "cOVMtkW2gRKe",
+    "html": "<p>Reading a missing key with <code>[ ]</code> raises a <code>KeyError</code> and stops the script — <code>.get()</code> returns <code>None</code> (or a fallback you choose) instead, which is usually what you actually want:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "STqgL41TEgbF",
+    "code": "email = student.get(\"email\")               # None — key doesn't exist, no crash\nemail = student.get(\"email\", \"no email\")   # \"no email\" — a custom fallback",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "NsgCIM89vLUR",
+    "text": "Nested Dictionaries",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nested-dictionaries"
+  },
+  {
+    "id": "ok398leV5Znt",
+    "html": "<p>Combining lists and dictionaries models real-world data naturally — this shape will look familiar once you reach the Python-and-Databases lesson, since a database row often lands in Python exactly this way:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JeIvtU8-gmcF",
+    "code": "students = [\n    {\"name\": \"Priya\", \"age\": 21},\n    {\"name\": \"Amit\", \"age\": 23},\n]\nprint(students[0][\"name\"])  # \"Priya\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "7Ii_fGpbl4xt",
+    "text": "More Dictionary Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "more-dictionary-methods"
+  },
+  {
+    "id": "vuOKtcTKokTb",
+    "rows": [
+      [
+        "d.keys()",
+        "All the keys"
+      ],
+      [
+        "d.values()",
+        "All the values"
+      ],
+      [
+        "d.pop(key)",
+        "Removes a key and returns its value"
+      ],
+      [
+        "d.update(other)",
+        "Merges another dictionary in, overwriting any matching keys"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "What it does"
+    ]
+  },
+  {
+    "id": "7s4nvUH-M5FX",
+    "code": "a = {\"name\": \"Priya\", \"age\": 21}\nb = {\"age\": 22, \"course\": \"Web Development\"}\na.update(b)\nprint(a)  # {'name': 'Priya', 'age': 22, 'course': 'Web Development'}",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  }
+]
+```

@@ -1,0 +1,147 @@
+---
+id: "8d2b04e4-e1ee-45a1-ac16-4e63f7a70de3"
+title: "npm & package.json"
+path: "nodejs/npm-and-package-json"
+status: "published"
+meta_title: "npm and package.json | Learn Computer Academy"
+meta_description: "Install and manage third-party packages with npm, and understand what package.json and package-lock.json actually do."
+sort_order: 5
+updated_at: "2026-08-05T05:47:54.042046+00:00"
+---
+
+```json
+[
+  {
+    "id": "Y-NsoJv2lbI6",
+    "html": "<p><b>npm</b> (Node Package Manager) installs code other people have written and published, so you don't have to write everything yourself. It comes bundled with Node.js — you already have it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G9oLn6KAsM_n",
+    "text": "package.json",
+    "type": "heading",
+    "level": 2,
+    "anchor": "packagejson"
+  },
+  {
+    "id": "i8s4dlQn48ez",
+    "html": "<p>Every Node project has a <code>package.json</code> file at its root — a plain JSON file describing the project: its name, version, dependencies, and the scripts you can run. Create one with:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zwNEhTWYYU7H",
+    "code": "npm init -y",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ZEuOz8BUlis1",
+    "html": "<p>The <code>-y</code> accepts all the defaults instead of asking questions one at a time. It produces something like:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pLXd0lagnfK8",
+    "code": "{\n  \"name\": \"my-app\",\n  \"version\": \"1.0.0\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"test\": \"echo \\\"Error: no test specified\\\" && exit 1\"\n  }\n}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "AFv2mvdSDnc0",
+    "alt": "Diagram showing package.json at the center connected to node_modules folder full of installed packages, with an arrow from npm install",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "npm install reads package.json, downloads what it lists, and puts the code in node_modules.",
+    "publicId": "docs/img/nodejs/npm-1"
+  },
+  {
+    "id": "rWUm0E2EbQMw",
+    "text": "Installing a Package",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-a-package"
+  },
+  {
+    "id": "z8082ErN2iXX",
+    "code": "npm install express",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "0s6tZbg-tuxw",
+    "html": "<p>This does three things: downloads the <code>express</code> package into a new <code>node_modules</code> folder, adds it to the <code>\"dependencies\"</code> list in <code>package.json</code>, and writes exact version numbers to <code>package-lock.json</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x1QRQr-A5GxG",
+    "text": "Why the Lock File Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-the-lock-file-matters"
+  },
+  {
+    "id": "eEIc8YPHISbW",
+    "html": "<p><code>package.json</code> can list a dependency loosely, like \"any version 4.x.x.\" <code>package-lock.json</code> records the <i>exact</i> version that was actually installed, for every package and everything those packages depend on. Committing this file means everyone on a team — and the server the app eventually runs on — installs the identical set of versions, instead of whatever happens to be newest on install day.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "usYXNFJhOjZx",
+    "text": "What Never Gets Committed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-never-gets-committed"
+  },
+  {
+    "id": "GQZV4vHDfCUi",
+    "html": "<p><code>node_modules</code> can easily reach hundreds of megabytes and is never committed to version control — anyone can rebuild it from <code>package.json</code> and <code>package-lock.json</code> with one command:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5W1NAs95EL3B",
+    "code": "npm install",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ggMWTcz2lhfw",
+    "html": "<p>Run with no package name, <code>npm install</code> reads <code>package.json</code> and installs everything listed. This is the command a teammate runs after cloning the project, and it's why the lock file is committed but the folder it fills isn't.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9i0G5ut3CtMf",
+    "text": "npm Scripts",
+    "type": "heading",
+    "level": 2,
+    "anchor": "npm-scripts"
+  },
+  {
+    "id": "WkVJVRtcpo_E",
+    "html": "<p>The <code>\"scripts\"</code> section in <code>package.json</code> gives shell commands short names:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iM5Cs0XvoBkq",
+    "code": "{\n  \"scripts\": {\n    \"start\": \"node index.js\",\n    \"dev\": \"node --watch index.js\"\n  }\n}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "fnfWGOsPcOoz",
+    "code": "npm run dev",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zXOXmqzreQdc",
+    "html": "<p><code>npm start</code> and <code>npm test</code> can drop the word \"run\" — those two are special-cased. Every other script needs it: <code>npm run &lt;name&gt;</code>.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

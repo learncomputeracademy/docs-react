@@ -1,0 +1,145 @@
+---
+id: "71b8f4d8-3bbb-45a7-aa2f-49a57a7c8e34"
+title: "Query Optimization Techniques"
+path: "sql/query-optimization-techniques"
+status: "published"
+meta_title: "SQL Query Optimization Techniques | Learn Computer Academy"
+meta_description: "Practical habits that make a slow query fast — reading an EXPLAIN plan, indexing what actually gets filtered on, and rewriting subqueries as joins."
+sort_order: 22
+updated_at: "2026-09-03T04:30:03.948181+00:00"
+---
+
+```json
+[
+  {
+    "id": "UCdWLExxhkrg",
+    "html": "<p>The earlier Beyond the Basics lesson introduced <code>EXPLAIN</code> and indexes briefly. This lesson is a fuller, practical set of techniques for actually making a slow query fast.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_WzJCCjtFJo7",
+    "text": "Reading an EXPLAIN Plan",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-an-explain-plan"
+  },
+  {
+    "id": "CoVdJIDKFa-q",
+    "html": "<p><code>EXPLAIN</code> shows how the database actually plans to run a query — which indexes it'll use, in what order it'll touch each table, and roughly how many rows it expects at each step.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iPCQCasZhiIt",
+    "code": "EXPLAIN SELECT * FROM orders WHERE customer_id = 42;\n\n-- A \"Seq Scan\" (sequential scan) means it's reading every row —\n-- usually a sign a useful index is missing on customer_id\n-- An \"Index Scan\" means it found and used an index — the goal",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "ZNLWKFdreY9E",
+    "text": "Indexing the Right Columns",
+    "type": "heading",
+    "level": 2,
+    "anchor": "indexing-the-right-columns"
+  },
+  {
+    "id": "x0iMdVqh-kKv",
+    "html": "<p>An index speeds up finding rows by a column's value, at the cost of some extra storage and slightly slower writes. The columns worth indexing are the ones actually used to filter or join — not every column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SOVqVB1dOdq8",
+    "code": "-- If this WHERE clause runs constantly and is slow, this index likely helps:\nCREATE INDEX idx_orders_customer_id ON orders(customer_id);\n\nSELECT * FROM orders WHERE customer_id = 42;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "pdtK-PzWoB4S",
+    "html": "<p>Indexing every column \"just in case\" backfires — each index slows down every INSERT/UPDATE/DELETE on that table, since the index itself needs updating too. Index what queries actually filter or join on, not everything.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "FwCGM9h5c0LA",
+    "text": "Optimizing Joins",
+    "type": "heading",
+    "level": 2,
+    "anchor": "optimizing-joins"
+  },
+  {
+    "id": "8uhGQTgzDU0t",
+    "html": "<ul><li>Join on indexed columns — an unindexed join column forces the database to scan one side of the join row by row.</li><li>Filter before joining where possible — a WHERE clause that reduces one table's rows before the join means less data to combine.</li><li>Join only the tables actually needed — an unnecessary JOIN still costs work even if its columns are never selected.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "oewbYs6862XJ",
+    "text": "Reducing Subqueries",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reducing-subqueries"
+  },
+  {
+    "id": "vbA5pxq9VZZA",
+    "html": "<p>A subquery re-run for every row of the outer query (a correlated subquery, from the earlier Subqueries lesson) can often be rewritten as a JOIN, which the database can usually plan more efficiently.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eNDRbw4aBuly",
+    "code": "-- Slower — the subquery runs once per row of products\nSELECT name FROM products p\nWHERE (SELECT COUNT(*) FROM order_items oi WHERE oi.product_id = p.id) > 0;\n\n-- Often faster — rewritten as a join\nSELECT DISTINCT p.name\nFROM products p\nJOIN order_items oi ON oi.product_id = p.id;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "Cib75cBHRRLp",
+    "text": "Selective Projection — Don't SELECT *",
+    "type": "heading",
+    "level": 2,
+    "anchor": "selective-projection-dont-select"
+  },
+  {
+    "id": "ZC8cJss_LoR5",
+    "html": "<p>Requesting only the columns actually needed, instead of every column, reduces the data the database has to read and send — a small habit that adds up significantly on a large table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tLw1R85cCQ1x",
+    "code": "-- Wasteful if only the name is needed\nSELECT * FROM products WHERE category = 'electronics';\n\n-- Better\nSELECT name FROM products WHERE category = 'electronics';",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "l2EVwl5t4-ov",
+    "rows": [
+      [
+        "Index the right columns",
+        "Avoids scanning every row to find a match"
+      ],
+      [
+        "Join on indexed columns",
+        "Avoids a row-by-row scan on one side of a join"
+      ],
+      [
+        "Filter before joining",
+        "Reduces how much data gets combined"
+      ],
+      [
+        "Rewrite correlated subqueries as joins",
+        "Avoids re-running the same subquery once per outer row"
+      ],
+      [
+        "Select only needed columns",
+        "Reduces data read and transferred"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Technique",
+      "What it saves"
+    ]
+  }
+]
+```

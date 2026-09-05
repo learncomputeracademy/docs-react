@@ -1,0 +1,77 @@
+---
+id: "b6f04acb-c384-48db-8c59-8fbe4062c485"
+title: "Components and Variants"
+path: "figma/components-and-variants"
+status: "published"
+meta_title: "Components and Variants | Learn Computer Academy"
+meta_description: "Turning a design into a reusable Component, creating Instances, and grouping related Components into a Variant set with properties."
+sort_order: 7
+updated_at: "2026-08-17T13:42:32.036058+00:00"
+---
+
+```json
+[
+  {
+    "id": "zhFLVJ9V0G7h",
+    "html": "<p>A <b>Component</b> is a master copy of a reusable piece of UI — a button, an input field, a card. Every place that button is used elsewhere in the file is an <b>Instance</b> — a linked copy that automatically updates the moment the original Component changes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WR0d3ARYM2Vd",
+    "text": "Creating a Component",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-component"
+  },
+  {
+    "id": "BRqO3d1wd3tk",
+    "html": "<p>Select any layer or group and press <code>Ctrl+Alt+K</code> (or right-click → Create component). The layer gets a purple diamond icon in the Layers panel, marking it as a Component. Dragging it onto the canvas again, or copy-pasting it, creates an Instance rather than a duplicate Component.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jhYlDkGJrbpg",
+    "text": "Why This Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters"
+  },
+  {
+    "id": "BVYuI_ibh1PW",
+    "html": "<p>Without Components, fixing a typo in a button used on 40 screens means finding and editing it 40 times. With Components, editing the one master Component instantly updates every Instance across the entire file — this single feature is why design systems are practical at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7gzKGsHeDfsV",
+    "text": "Variants",
+    "type": "heading",
+    "level": 2,
+    "anchor": "variants"
+  },
+  {
+    "id": "bSjdC7XX5-fM",
+    "html": "<p>A button rarely has just one look — it needs a default state, a disabled state, maybe primary and secondary versions. Rather than creating four unrelated Components, Figma groups related Components into a single <b>Variant set</b> with named properties, so a designer picks \"State: Disabled\" from a dropdown instead of hunting for a separate disabled-button Component.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1pd_BvRcVbQL",
+    "alt": "A Button component set with two variants shown stacked in the Layers panel with diamond component icons — a full-opacity \"Default\" variant and a faded 40%-opacity \"Disabled\" variant — and the Design panel showing a \"State\" property set to the selected variant",
+    "type": "image",
+    "width": 1568,
+    "height": 669,
+    "caption": "A real two-variant Button component set — Default and Disabled — with the \"State\" property visible in the right panel and both variants in the Layers panel.",
+    "publicId": "docs/img/figma/component-variants"
+  },
+  {
+    "id": "YMc1VYT6t4-S",
+    "text": "Building a Variant Set",
+    "type": "heading",
+    "level": 2,
+    "anchor": "building-a-variant-set"
+  },
+  {
+    "id": "_ZZfAHZFkUHC",
+    "html": "<p>Select two or more Components with a consistent naming pattern (e.g. \"Button, State=Default\" and \"Button, State=Disabled\") and combine them into a set. Each property (like \"State\") becomes a dropdown in the Design panel wherever an Instance of that set is placed — the same button, switchable between every state it was designed for, without ever leaving the panel.</p>",
+    "type": "richtext"
+  }
+]
+```

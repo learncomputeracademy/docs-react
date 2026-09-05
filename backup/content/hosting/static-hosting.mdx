@@ -1,0 +1,83 @@
+---
+id: "7a63a2c4-0ee5-408d-9347-8ea3ae37c66e"
+title: "Static Hosting"
+path: "hosting/static-hosting"
+status: "published"
+meta_title: "Static Hosting Explained | Learn Computer Academy"
+meta_description: "When a site is just files with no server-side processing, hosting becomes dramatically simpler and often free. What static hosting is and where it stops being enough."
+sort_order: 14
+updated_at: "2026-08-05T13:35:34.395127+00:00"
+---
+
+```json
+[
+  {
+    "id": "3yGiEHUC0Vjp",
+    "html": "<p>A <b>static site</b> is one with no server-side processing at all — plain HTML, CSS, and JavaScript files, sent to the browser exactly as they are stored, with no PHP, no database query, and no server-side logic deciding what to send. Hosting for this kind of site is dramatically simpler than everything covered so far, and often free.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iIMSEZnb7McW",
+    "text": "Why Static Hosting Is So Much Simpler",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-static-hosting-is-so-much-simpler"
+  },
+  {
+    "id": "gnaAxQj-UzXv",
+    "html": "<p>A static host does not need to run any code at all — no PHP interpreter, no application server, no database. It just needs to store files and hand them out on request, which is one of the cheapest, most reliable things a server can do. That simplicity is exactly why static hosting is frequently free, and why it scales to enormous traffic with very little effort.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AF2EX_SFRE5l",
+    "alt": "Isometric diagram showing a folder of plain files — HTML, CSS, JS icons — being handed directly to a browser with no server processing step in between, in contrast to a server with a gear icon representing processing",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "No processing step — the files sent are exactly the files stored, unchanged.",
+    "publicId": "docs/img/hosting/static-hosting-1"
+  },
+  {
+    "id": "GRpegY3thJsO",
+    "text": "What Genuinely Counts as Static",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-genuinely-counts-as-static"
+  },
+  {
+    "id": "CXsHCCpG99qF",
+    "html": "<ul><li>A plain HTML/CSS/JS site — this site's own HTML, CSS, and JavaScript courses build exactly this kind of project.</li><li>A React app, once <b>built</b> — the build process turns React source code into plain static files, which is why React apps commonly deploy to static-style hosting even though the source involves a build step.</li><li>Any site generated ahead of time into fixed files, even if the generation process itself was complex.</li></ul><p>What does <b>not</b> count: anything running PHP on each request, anything querying a database live, and anything needing server-side logic to decide what to send back. WordPress and PHP sites, by their nature, are not static — see the note on `getStaticProps`-style approaches for advanced cases, which are outside the scope of this introductory category.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jqFvu9jaa-WX",
+    "text": "Where It's Hosted",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-its-hosted"
+  },
+  {
+    "id": "v31bklwTzR3i",
+    "html": "<p>Static hosting is commonly offered free by cloud platforms (the same ones covered in the previous lesson), by dedicated static-hosting services, and as a basic feature of most CDNs, covered later in this category. Because there is no processing to manage, it is also naturally suited to being served from many locations at once, which is precisely the connection to CDNs made explicit soon.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LRRA5u18MOcL",
+    "html": "<p>For a portfolio site — the exact kind of project the <a href=\"/career/\">Career Skills</a> course tells you to deploy — static hosting is very often the right, and free, choice. It is worth using for any project that genuinely does not need a database or server-side logic, regardless of how it was built.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "vu9gt3IZ60pN",
+    "text": "Where Static Stops Being Enough",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-static-stops-being-enough"
+  },
+  {
+    "id": "8fwSWyFEyzY0",
+    "html": "<p>The moment a project needs to save data submitted by a user, query a database, or run any logic that must happen on a server rather than in the visitor's browser, it is no longer purely static. That doesn't mean starting over — many real projects combine a static frontend with a small separate backend API (exactly the Node.js pattern taught in this site's Node.js course), which is a different and increasingly common architecture, covered briefly in the edge and serverless lesson later in this part.</p>",
+    "type": "richtext"
+  }
+]
+```

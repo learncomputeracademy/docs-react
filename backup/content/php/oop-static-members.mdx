@@ -1,0 +1,106 @@
+---
+id: "482c622f-c58d-4a21-a384-12bdd2caa145"
+title: "OOP — Static Properties and Methods"
+path: "php/oop-static-members"
+status: "published"
+meta_title: "PHP Static Properties and Methods | Learn Computer Academy"
+meta_description: "Properties and methods that belong to the class itself rather than any one object, accessed with :: instead of ->."
+sort_order: 33
+updated_at: "2026-09-03T04:05:23.573432+00:00"
+---
+
+```json
+[
+  {
+    "id": "3OwbxXT10-7j",
+    "html": "<p>Every property and method covered so far belongs to a specific object — <code>$user1</code> and <code>$user2</code> each have their own separate copy. A <b>static</b> member belongs to the class itself, shared identically across every object of that class.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QBsGvRDwJKZP",
+    "text": "A Static Property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-static-property"
+  },
+  {
+    "id": "5WU7N2EFNp1X",
+    "code": "class User {\n    public static int $totalUsers = 0;\n\n    public function __construct() {\n        self::$totalUsers++;\n    }\n}\n\nnew User();\nnew User();\nnew User();\n\necho User::$totalUsers;   // 3",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Qh_5QkBbs6zd",
+    "html": "<p>Note the syntax difference: a static property is accessed with <code>::</code> and no <code>$</code> before the name (<code>User::$totalUsers</code>), never with <code>-&gt;</code> on an object.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dXaIOqTy4El_",
+    "text": "self:: vs. the Class Name",
+    "type": "heading",
+    "level": 2,
+    "anchor": "self-vs-the-class-name"
+  },
+  {
+    "id": "KIC241uJb1pe",
+    "html": "<p>Inside the class, <code>self::</code> refers to the static member — using the class name directly works too, but <code>self::</code> stays correct even if the class is later renamed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jCrcZk5Lc88D",
+    "text": "A Static Method",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-static-method"
+  },
+  {
+    "id": "tFv_Hd797KCV",
+    "html": "<p>Called on the class itself, without needing an object instance at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y4aQr9tNhkIA",
+    "code": "class MathHelper {\n    public static function square(int $n): int {\n        return $n * $n;\n    }\n}\n\necho MathHelper::square(5);   // 25 — no \"new MathHelper()\" needed",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Bfygl66K6xBn",
+    "text": "When a Static Method Makes Sense",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-a-static-method-makes-sense"
+  },
+  {
+    "id": "39ACmAnIHeHF",
+    "rows": [
+      [
+        "The logic doesn't depend on any particular object's data",
+        "The logic reads or changes a specific object's properties"
+      ],
+      [
+        "A utility function grouped inside a class for organization",
+        "The method genuinely represents something a single object does"
+      ],
+      [
+        "A counter or shared value across every instance",
+        "Each object needs its own independent value"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Use static when...",
+      "Use a regular (instance) method when..."
+    ]
+  },
+  {
+    "id": "O81uWhtT_V8s",
+    "html": "<p>A static method can't access <code>$this</code> — it has no specific object to refer to. Reaching for static as a default, rather than when it genuinely fits, is a common beginner overuse.</p>",
+    "type": "callout",
+    "title": "The main limitation",
+    "variant": "warning"
+  }
+]
+```

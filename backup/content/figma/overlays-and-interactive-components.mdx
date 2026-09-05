@@ -1,0 +1,88 @@
+---
+id: "548705f3-ce0c-412d-9bf2-f65c8dcbe709"
+title: "Overlays and Interactive Components"
+path: "figma/overlays-and-interactive-components"
+status: "published"
+meta_title: "Overlays and Interactive Components | Learn Computer Academy"
+meta_description: "Prototyping modals, dropdowns, and tooltips in Figma with the Overlay interaction, and using interactive component states without extra connections."
+sort_order: 15
+updated_at: "2026-08-17T13:42:34.45338+00:00"
+---
+
+```json
+[
+  {
+    "id": "SbLl1R-timiC",
+    "html": "<p>A modal, a dropdown menu, a tooltip — none of these replace the whole screen the way a normal prototype connection does. Figma's <b>Overlay</b> interaction shows a Frame on top of the current one instead of navigating away from it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dFFlmZU2osju",
+    "text": "Setting Up an Overlay",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-up-an-overlay"
+  },
+  {
+    "id": "twduqlJoKk7d",
+    "html": "<p>Create a prototype connection exactly as usual, but choose <b>Open overlay</b> from the action dropdown instead of \"Navigate to.\" The target Frame appears floating on top of the source screen — the screen behind it is still visible and, depending on settings, still visible-not-interactive or fully interactive underneath.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vsAQ8xAJkiWo",
+    "text": "Overlay Positioning",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overlay-positioning"
+  },
+  {
+    "id": "wj7XAC3h0g74",
+    "rows": [
+      [
+        "Manual",
+        "Wherever the target Frame is placed relative to the source, exactly"
+      ],
+      [
+        "Top / Bottom / Left / Right / Center",
+        "Automatically anchored to that edge or center of the screen"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Position option",
+      "Where the overlay appears"
+    ]
+  },
+  {
+    "id": "dgCt7F_RwjEm",
+    "text": "Closing an Overlay",
+    "type": "heading",
+    "level": 2,
+    "anchor": "closing-an-overlay"
+  },
+  {
+    "id": "yqC5awZCNQf2",
+    "html": "<p>An overlay needs its own way to close — a background \"click outside to dismiss\" option in the interaction settings, or an explicit close button wired with its own <b>Close overlay</b> action. Forgetting this is the single most common broken-prototype mistake: an overlay that opens but has no way back.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mJoo_-CzyJUn",
+    "text": "Interactive Component States",
+    "type": "heading",
+    "level": 2,
+    "anchor": "interactive-component-states"
+  },
+  {
+    "id": "1iwvgkKMRi7Q",
+    "html": "<p>Beyond overlays, a Component set built with a \"State\" property (Default/Hover/Pressed, from the Components & Variants lesson) can react to real cursor interaction directly, without a manual connection at all — set an instance's interactive states in the Prototype tab's \"Interactive components\" area, and Figma auto-switches variants on hover or press in the live preview.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OgLUo2oRjwws",
+    "html": "<p>A dropdown menu is usually just an Overlay anchored below the button that opens it, positioned \"Manual,\" with a click-outside-to-close setting — one interaction, not custom code.</p>",
+    "type": "callout",
+    "title": "A common real pattern",
+    "variant": "tip"
+  }
+]
+```

@@ -1,0 +1,123 @@
+---
+id: "ff71c4b3-9657-420b-a47f-c3b2656f1157"
+title: "The useEffect Hook"
+path: "react/useeffect"
+status: "published"
+meta_title: "The useEffect Hook in React | Learn Computer Academy"
+meta_description: "Running code in response to rendering with useEffect — the dependency array, and cleanup functions."
+sort_order: 12
+updated_at: "2026-07-31T11:24:38.757669+00:00"
+---
+
+```json
+[
+  {
+    "id": "V288_KzHzINr",
+    "html": "<p>Everything so far happens either during render (computing JSX) or in response to a user event (a click, a keystroke). <b>Effects</b> are for a third case: code that needs to run because a component rendered — talking to something outside React entirely, like an API, a timer, or the browser's <code>document</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hQsZSBtiUlOM",
+    "text": "A Basic Effect",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-effect"
+  },
+  {
+    "id": "sUkcXX0xyG3D",
+    "code": "import { useState, useEffect } from 'react';\n\nfunction PageTitle({ title }) {\n  useEffect(() => {\n    document.title = title;\n  });\n\n  return <h1>{title}</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "Blho_GanZGyE",
+    "html": "<p>With no second argument, this effect runs after <i>every</i> render — usually more often than actually needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-83Oe-mVNQD8",
+    "text": "The Dependency Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-dependency-array"
+  },
+  {
+    "id": "Jtxw-lfIhIzD",
+    "html": "<p>A second argument — an array of values — tells React to only re-run the effect when one of those values has actually changed since the last render:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "h782HPtpogza",
+    "code": "useEffect(() => {\n  document.title = title;\n}, [title]); // only re-runs when title changes, not on every render",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "dxa5M2VkpKIb",
+    "rows": [
+      [
+        "(none)",
+        "After every single render"
+      ],
+      [
+        "[]",
+        "Once, right after the first render, never again"
+      ],
+      [
+        "[title]",
+        "After the first render, and again whenever title changes"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Dependency array",
+      "Runs"
+    ]
+  },
+  {
+    "id": "71Mrd27hTu1v",
+    "html": "<p>ESLint's React rules will flag a dependency array that's missing a value the effect actually uses — this isn't pedantry, it's catching a real bug: the effect would keep using a stale, outdated value from an earlier render instead of the current one. Include everything the effect reads from outside itself.</p>",
+    "type": "callout",
+    "title": "Don't silence the exhaustive-deps warning",
+    "variant": "warning"
+  },
+  {
+    "id": "A4OWhkO-sEbm",
+    "text": "Cleanup Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cleanup-functions"
+  },
+  {
+    "id": "BmL8aoIoMaJ2",
+    "html": "<p>Returning a function from an effect gives React something to run before the effect runs again, and when the component is removed from the page — the standard place to cancel a timer, close a connection, or remove an event listener:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CyetrdYoexVF",
+    "code": "function Timer() {\n  const [seconds, setSeconds] = useState(0);\n\n  useEffect(() => {\n    const id = setInterval(() => setSeconds((s) => s + 1), 1000);\n    return () => clearInterval(id); // cleanup — runs when the component unmounts\n  }, []);\n\n  return <p>{seconds} seconds elapsed</p>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "JGE-4aWb7qad",
+    "html": "<p>Without this cleanup, the interval would keep running forever, even after the <code>Timer</code> component is gone — a genuine memory leak, not just a style issue.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ONEKgUuzq2X3",
+    "text": "What useEffect Is Not For",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-useeffect-is-not-for"
+  },
+  {
+    "id": "Rs9jHBUgSpjk",
+    "html": "<p>If a value can be calculated directly from props or state during render, calculate it during render — don't reach for <code>useEffect</code> to sync one piece of state from another. The next lesson, Fetching Data, is <code>useEffect</code>'s single most common legitimate use.</p>",
+    "type": "richtext"
+  }
+]
+```

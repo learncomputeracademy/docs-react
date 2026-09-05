@@ -1,0 +1,119 @@
+---
+id: "0cc1ff33-d05a-4668-a282-d86a355073ae"
+title: "React Router"
+path: "react/react-router"
+status: "published"
+meta_title: "React Router Basics | Learn Computer Academy"
+meta_description: "Client-side routing basics with React Router — matching a URL to a component, without the browser reloading the page."
+sort_order: 21
+updated_at: "2026-07-31T11:24:42.445891+00:00"
+---
+
+```json
+[
+  {
+    "id": "WjoHMlFaXdMS",
+    "html": "<p>Everything so far has lived on one page. A real application usually needs multiple views — a home page, a profile page, a settings page — each at its own URL. <b>React Router</b> is the standard library for this: it matches the current URL to a component, without the browser doing a full page reload the way a plain <code>&lt;a href&gt;</code> normally would.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_3tExqzKI3xZ",
+    "text": "Installing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-it"
+  },
+  {
+    "id": "pbYoILJFriUf",
+    "code": "npm install react-router-dom",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "xo7_FWrGEXID",
+    "text": "Defining Routes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-routes"
+  },
+  {
+    "id": "lW-__G8G94fv",
+    "code": "import { BrowserRouter, Routes, Route } from 'react-router-dom';\n\nfunction App() {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<Home />} />\n        <Route path=\"/about\" element={<About />} />\n        <Route path=\"/users/:id\" element={<UserProfile />} />\n      </Routes>\n    </BrowserRouter>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "DDgND_JXez2Z",
+    "html": "<p><code>BrowserRouter</code> wraps the whole app once, near the root; <code>Routes</code> looks at the current URL and renders whichever single <code>Route</code>'s <code>path</code> matches.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4RsDD70xf3G6",
+    "alt": "Isometric diagram showing three different URL path labels each pointing with an arrow to a different labeled component box, illustrating a router matching a URL to the component it renders",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The router matches the current URL against each route and renders the one component that matches.",
+    "publicId": "docs/img/react/react-router-1"
+  },
+  {
+    "id": "TTMjyuy0Qv0O",
+    "text": "Navigating Between Routes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "navigating-between-routes"
+  },
+  {
+    "id": "CkaVoVLmTZyn",
+    "html": "<p>A plain <code>&lt;a href=\"/about\"&gt;</code> would trigger a full page reload — exactly what client-side routing exists to avoid. <code>Link</code> looks like an anchor tag but updates the URL and swaps the rendered route without one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dTTe9kAQio3G",
+    "code": "import { Link } from 'react-router-dom';\n\nfunction Nav() {\n  return (\n    <nav>\n      <Link to=\"/\">Home</Link>\n      <Link to=\"/about\">About</Link>\n    </nav>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "1iROuuYFQ9ve",
+    "text": "Reading URL Parameters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-url-parameters"
+  },
+  {
+    "id": "ZMdJhGAmXzZv",
+    "html": "<p><code>:id</code> in the route path from earlier becomes available inside the matched component via <code>useParams</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ESNUXN-4e86q",
+    "code": "import { useParams } from 'react-router-dom';\n\nfunction UserProfile() {\n  const { id } = useParams(); // reads the :id segment from the current URL\n  const { data: user } = useFetch(`/api/users/${id}`); // the custom hook from earlier\n  return user ? <h1>{user.name}</h1> : <p>Loading...</p>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "MrYw_-jqcMFm",
+    "text": "Navigating Programmatically",
+    "type": "heading",
+    "level": 2,
+    "anchor": "navigating-programmatically"
+  },
+  {
+    "id": "xxRmGn2fSPmp",
+    "html": "<p>For redirecting after an action — a successful form submission, for instance — rather than in response to a click on a <code>Link</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R965MkZ4PmeL",
+    "code": "import { useNavigate } from 'react-router-dom';\n\nfunction LoginForm() {\n  const navigate = useNavigate();\n\n  function handleSubmit(e) {\n    e.preventDefault();\n    navigate('/dashboard');\n  }\n\n  return <form onSubmit={handleSubmit}>{/* ... */}</form>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

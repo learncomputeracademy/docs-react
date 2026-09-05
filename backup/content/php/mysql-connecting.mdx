@@ -1,0 +1,86 @@
+---
+id: "12a4da3c-b1bd-4d5b-b246-6b4f8580b87c"
+title: "PHP and MySQL — Connecting with PDO"
+path: "php/mysql-connecting"
+status: "published"
+meta_title: "PHP and MySQL: Connecting with PDO | Learn Computer Academy"
+meta_description: "Connecting a PHP script to a MySQL database using PDO, PHP's modern, safer database interface."
+sort_order: 28
+updated_at: "2026-07-30T09:08:43.645646+00:00"
+---
+
+```json
+[
+  {
+    "id": "5GVxKhuLXZEq",
+    "html": "<p>This is where the earlier lesson on why PHP matters — \"it can talk to a database\" — actually becomes real. If you haven't looked at the <a href=\"/sql/intro/\">Introduction to SQL</a> lesson yet, this is the right point to do it; from here on, this section assumes you know what a table, row, and basic <code>SELECT</code> statement are.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X2ZzZEeSY07a",
+    "text": "PDO: PHP Data Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pdo-php-data-objects"
+  },
+  {
+    "id": "ahbsIEdQdO2f",
+    "html": "<p>PHP has more than one way to talk to a database, but <b>PDO</b> is the modern, recommended one — it works with several different database systems through one consistent interface, and it makes writing safe queries straightforward, which matters a lot once real user input is involved.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OQf1Es0pD3PV",
+    "text": "Making the Connection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "making-the-connection"
+  },
+  {
+    "id": "PKvXmswewiu9",
+    "code": "<?php\n  $host = \"localhost\";\n  $db   = \"school\";\n  $user = \"root\";\n  $pass = \"\";\n\n  try {\n    $pdo = new PDO(\"mysql:host=$host;dbname=$db;charset=utf8mb4\", $user, $pass);\n    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);\n    echo \"Connected successfully.\";\n  } catch (PDOException $e) {\n    echo \"Connection failed: \" . $e->getMessage();\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Zupyt-AA6EEN",
+    "html": "<p>Wrapping the connection in <code>try</code>/<code>catch</code> (from the Error Handling lesson) matters here specifically — a database can be temporarily unreachable for reasons that have nothing to do with your code, and a visitor should see a clean message, not a raw connection error.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qlg642a0Hk_I",
+    "alt": "Isometric diagram showing a PHP script connecting through PDO to a MySQL database cylinder, with a small key icon representing credentials",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "PDO sits between a PHP script and a MySQL database, providing one consistent interface.",
+    "publicId": "docs/img/php/mysql-connecting-1"
+  },
+  {
+    "id": "YWMhuQJqBCP8",
+    "text": "Keeping Credentials Out of the Script",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-credentials-out-of-the-script"
+  },
+  {
+    "id": "RnLBLXgvb5wl",
+    "html": "<p>Hardcoding a database password directly in a file you might commit to version control or accidentally expose is a real, common mistake. A safer pattern is a separate config file, outside your project's public web root, pulled in with <code>require_once</code> (from the Includes lesson):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3OLEhO6QjCLd",
+    "code": "// config.php — kept outside the web-accessible folder\n<?php\n  return [\n    \"host\" => \"localhost\",\n    \"db\" => \"school\",\n    \"user\" => \"root\",\n    \"pass\" => \"\",\n  ];\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "pB4VSH0aIM3s",
+    "html": "<p>These examples connect to a local MySQL install for learning. A real deployment almost always keeps credentials in environment variables rather than any file at all — a detail specific to hosting, not the PHP or SQL itself.</p>",
+    "type": "callout",
+    "title": "Local learning vs. real deployment",
+    "variant": "tip"
+  }
+]
+```

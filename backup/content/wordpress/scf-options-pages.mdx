@@ -1,0 +1,94 @@
+---
+id: "fa171711-260d-4606-829a-fd768da8ef9e"
+title: "SCF Options Pages"
+path: "wordpress/scf-options-pages"
+status: "published"
+meta_title: "SCF Options Pages | Learn Computer Academy"
+meta_description: "Building a dedicated admin settings screen for site-wide data with acf_add_options_page(), for settings too big for the Customizer."
+sort_order: 22
+updated_at: "2026-07-30T14:23:31.175793+00:00"
+---
+
+```json
+[
+  {
+    "id": "DbF85mMd6Rin",
+    "html": "<p>Every field group so far attaches to a post — it needs a specific post to belong to. Some data genuinely doesn't: a company phone number, a default social sharing image, a footer disclaimer. The Customizer lesson covered a lightweight way to handle a couple of values like that; an <b>options page</b> is the fuller version, built for a whole settings screen with as many fields as a site needs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qnh0yaWiPOf4",
+    "text": "Registering the Page",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-the-page"
+  },
+  {
+    "id": "-dtfrUDLGTGc",
+    "code": "<?php\nif ( function_exists( 'acf_add_options_page' ) ) {\n    acf_add_options_page( [\n        'page_title' => 'Theme Settings',\n        'menu_title' => 'Theme Settings',\n        'menu_slug'  => 'theme-settings',\n        'capability' => 'manage_options',\n    ] );\n}\n",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3eOzZxfgopbA",
+    "html": "<p>Despite the function name still starting with <code>acf_</code> — a holdover from before the ACF/SCF split, kept for compatibility — this call works exactly the same way under Secure Custom Fields. It adds a new top-level admin menu item; nothing shows up in it until a field group is pointed at it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DiK4WWznfOvL",
+    "text": "Attaching Fields to It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "attaching-fields-to-it"
+  },
+  {
+    "id": "iPzg-Iq833Ng",
+    "html": "<p>Same field group screen as always (<b>Custom Fields → Add New</b>), just with a different location rule:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SY5Pf8rZwe6e",
+    "code": "Show this field group if\nOptions Page    is equal to    Theme Settings",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "mYi6y9y6KCYi",
+    "html": "<p>Add whatever fields the settings screen needs — a phone number, an address, a default Open Graph image — the same field types covered throughout this section, just not attached to any particular post.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0K7Wtzd_lECF",
+    "text": "Reading Options Page Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-options-page-fields"
+  },
+  {
+    "id": "uGA5Jn1oJrMk",
+    "html": "<p>The one real difference from every other field read so far: pass <code>'option'</code> as a second argument, since there's no current post to default to:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "glZLMqC60I5D",
+    "code": "<?php $phone = get_field( 'phone_number', 'option' ); ?>\n<?php if ( $phone ) : ?>\n    <a href=\"tel:<?php echo esc_attr( $phone ); ?>\"><?php echo esc_html( $phone ); ?></a>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "jzwTnsHXfV6c",
+    "html": "<p>This is the practical answer to the question the Customizer lesson raised: a handful of simple values → the Customizer, with its live preview. A real settings screen, with structured or repeatable fields → an SCF options page. Most real theme builds end up using both, for different things.</p>",
+    "type": "callout",
+    "title": "Customizer vs. options page, settled",
+    "variant": "note"
+  },
+  {
+    "id": "saQswViaLINs",
+    "html": "<p>That closes out the custom fields part of this section — post-level fields, repeaters, and now site-wide settings, all read the same consistent way. From here, the section moves into finishing touches every real theme needs before it's ready to hand off.</p>",
+    "type": "richtext"
+  }
+]
+```

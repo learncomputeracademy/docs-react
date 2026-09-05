@@ -1,0 +1,143 @@
+---
+id: "44337770-de90-41b8-a1cb-5e8dcbaa5ed7"
+title: "Numbers and Math"
+path: "python/numbers"
+status: "published"
+meta_title: "Python Numbers and Math | Learn Computer Academy"
+meta_description: "Working with integers and floats in Python, the math module, and formatting numbers for display."
+sort_order: 9
+updated_at: "2026-08-04T11:39:29.085823+00:00"
+---
+
+```json
+[
+  {
+    "id": "wZerMOQFebCE",
+    "html": "<p>Python's numbers work about the way you'd expect, with one standout difference: Python integers have no size limit, growing as large as memory allows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "myGRj8UsXuUE",
+    "text": "Rounding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rounding"
+  },
+  {
+    "id": "ctPyrkMRrAjX",
+    "rows": [
+      [
+        "round(n)",
+        "Rounds to the nearest whole number",
+        "round(4.5) → 4 (see the callout below)"
+      ],
+      [
+        "round(n, decimals)",
+        "Rounds to a set number of decimal places",
+        "round(3.14159, 2) → 3.14"
+      ],
+      [
+        "math.floor(n)",
+        "Always rounds down",
+        "math.floor(4.9) → 4"
+      ],
+      [
+        "math.ceil(n)",
+        "Always rounds up",
+        "math.ceil(4.1) → 5"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "What it does",
+      "Example"
+    ]
+  },
+  {
+    "id": "OFVusBGk_fBa",
+    "html": "<p>Python's <code>round()</code> uses \"round half to even\" (also called banker's rounding) — <code>round(4.5)</code> gives <code>4</code>, not <code>5</code>, and <code>round(5.5)</code> gives <code>6</code>. This is a deliberate design choice, not the simple \"always round .5 up\" rule you might expect, and it surprises almost everyone the first time they hit it.</p>",
+    "type": "callout",
+    "title": "round(4.5) is not what you'd expect",
+    "variant": "note"
+  },
+  {
+    "id": "B8x9eV3tzMTy",
+    "text": "The math Module",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-math-module"
+  },
+  {
+    "id": "j3ghPBU1I08x",
+    "html": "<p><code>floor()</code> and <code>ceil()</code>, along with most other math functions, live in Python's <code>math</code> module rather than being available by default — you'll look at <code>import</code> properly in an upcoming lesson, but the pattern is simple enough to use right away:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-prL-ee_JUIW",
+    "code": "import math\n\nprint(math.floor(4.9))  # 4\nprint(math.ceil(4.1))   # 5\nprint(math.sqrt(64))    # 8.0\nprint(math.pi)          # 3.141592653589793",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "9HiYgvlX5DGm",
+    "text": "Built-In Number Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-number-functions"
+  },
+  {
+    "id": "fUJjkMFEQxgn",
+    "code": "print(abs(-7))        # 7 — absolute value\nprint(max(3, 9, 2))   # 9 — largest of the arguments\nprint(min(3, 9, 2))   # 2 — smallest of the arguments\nprint(pow(2, 10))     # 1024 — same as 2 ** 10",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "kMc8Hhp-dwTB",
+    "text": "Formatting Numbers for Display",
+    "type": "heading",
+    "level": 2,
+    "anchor": "formatting-numbers-for-display"
+  },
+  {
+    "id": "dP7hoFWatD6z",
+    "html": "<p>An f-string with a format specifier is the standard way to control decimal places and add thousands separators — the Strings lesson covers format specifiers in full:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "j3oEDbvDnIqN",
+    "code": "value = 1234567.891\nprint(f\"{value:,.2f}\")  # \"1,234,567.89\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "yCmDg2y1xvQg",
+    "text": "Random Numbers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "random-numbers"
+  },
+  {
+    "id": "LxAZureHNijY",
+    "html": "<p>The <code>random</code> module — another standard library module, like <code>math</code> — generates random numbers and makes random choices:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PWb2EYs4jUAr",
+    "code": "import random\n\nprint(random.randint(1, 6))          # a random integer from 1 to 6, both included\nprint(random.random())               # a random float from 0.0 up to (not including) 1.0\nprint(random.choice([\"red\", \"green\", \"blue\"]))  # picks one item at random",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "HQtGtWSn-7WZ",
+    "html": "<p><code>random</code> is fine for games, quizzes, and sampling — it is not secure enough for anything like a password reset token or an API key. For that, the standard library's <code>secrets</code> module exists specifically to generate values safe for security purposes.</p>",
+    "type": "callout",
+    "title": "Not for security-sensitive values",
+    "variant": "note"
+  }
+]
+```

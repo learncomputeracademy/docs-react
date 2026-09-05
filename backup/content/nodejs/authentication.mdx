@@ -1,0 +1,110 @@
+---
+id: "0f035768-27c4-44cb-a072-0caaa0c969f3"
+title: "Authentication — Passwords and JWTs"
+path: "nodejs/authentication"
+status: "published"
+meta_title: "Node.js Authentication with JWT | Learn Computer Academy"
+meta_description: "Hashing passwords safely with bcrypt, and issuing and verifying a JSON Web Token so an Express route can tell who's making a request."
+sort_order: 26
+updated_at: "2026-09-03T04:41:41.41142+00:00"
+---
+
+```json
+[
+  {
+    "id": "_MAjf3X_KigF",
+    "html": "<p>The REST API lesson mentioned that not just anyone should be able to delete a product — this lesson is how that's actually enforced: hashing passwords safely, and issuing a token that proves who's making a request on every request afterward.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3qCDUH5fdgKR",
+    "text": "Never Store a Plain Password",
+    "type": "heading",
+    "level": 2,
+    "anchor": "never-store-a-plain-password"
+  },
+  {
+    "id": "PvJjofXxvirQ",
+    "html": "<p><code>bcrypt</code> hashes a password with a random salt baked in — the same password hashed twice produces two different results, which is exactly what stops a stolen password database from being searchable with a precomputed table of common passwords.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "j1oJK2DRlq5_",
+    "code": "import bcrypt from 'bcrypt'\n\n// When a user signs up\nconst passwordHash = await bcrypt.hash(req.body.password, 10)\n// Store passwordHash in the database — never the plain password\n\n// When a user logs in\nconst isCorrect = await bcrypt.compare(req.body.password, user.passwordHash)",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "mMIWOZUThlA_",
+    "text": "JWTs — Proving Who's Making a Request",
+    "type": "heading",
+    "level": 2,
+    "anchor": "jwts-proving-whos-making-a-request"
+  },
+  {
+    "id": "EHVDoEVF-OKd",
+    "html": "<p>After a successful login, the server issues a <b>JSON Web Token</b> — a signed string the client sends back on every future request (usually in an <code>Authorization</code> header) instead of logging in again each time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aUsrXFCL2o1M",
+    "code": "import jwt from 'jsonwebtoken'\n\n// After verifying the password is correct\nconst token = jwt.sign(\n  { userId: user.id },\n  process.env.JWT_SECRET,\n  { expiresIn: '7d' }\n)\n\nres.json({ token })",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "QKR8jekfKi3W",
+    "text": "Verifying a Token on a Protected Route",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-a-token-on-a-protected-route"
+  },
+  {
+    "id": "64mAxCO18TJw",
+    "code": "function requireAuth(req, res, next) {\n  const authHeader = req.headers.authorization\n  const token = authHeader?.split(' ')[1]   // \"Bearer <token>\"\n\n  if (!token) {\n    return res.status(401).json({ error: 'No token provided' })\n  }\n\n  try {\n    const payload = jwt.verify(token, process.env.JWT_SECRET)\n    req.userId = payload.userId\n    next()\n  } catch {\n    res.status(401).json({ error: 'Invalid or expired token' })\n  }\n}\n\napp.delete('/products/:id', requireAuth, (req, res) => {\n  // req.userId is now available — this route only runs for a valid token\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "SpBXLN-V2zxf",
+    "html": "<p>This is exactly the middleware pattern from the earlier Middleware lesson — <code>requireAuth</code> runs before the route handler, and can block the request entirely before it reaches the actual logic.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gsY_gtnmDaRJ",
+    "rows": [
+      [
+        "bcrypt.hash()",
+        "Turns a plain password into a safe, salted hash for storage"
+      ],
+      [
+        "bcrypt.compare()",
+        "Checks a login attempt's password against the stored hash"
+      ],
+      [
+        "jwt.sign()",
+        "Issues a signed token after a successful login"
+      ],
+      [
+        "jwt.verify()",
+        "Confirms a token is genuine and not expired, on every protected request"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Piece",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "d400R7Ams-Dd",
+    "html": "<p><code>JWT_SECRET</code> must be a long, random, private value kept in an environment variable — never committed to the repo. Anyone who obtains it can forge a valid token for any user.</p>",
+    "type": "callout",
+    "title": "The one secret this whole system depends on",
+    "variant": "warning"
+  }
+]
+```

@@ -1,0 +1,119 @@
+---
+id: "d528e531-11b8-4d3c-a3a1-3787ceaeae81"
+title: "Schema Design — Embedding vs Referencing"
+path: "mongodb/schema-design-embedding-vs-referencing"
+status: "published"
+meta_title: "Schema Design — Embedding vs Referencing | Learn Computer Academy"
+meta_description: "The single biggest decision in MongoDB schema design: nest related data as a sub-document, or store it in a separate collection and reference it."
+sort_order: 12
+updated_at: "2026-08-18T10:11:25.087934+00:00"
+---
+
+```json
+[
+  {
+    "id": "5307ccnmP428",
+    "html": "<p>MongoDB has no fixed schema, but that does not mean schema design does not matter — it means the decisions move from \"which columns does this table have\" to a different question: for any two related pieces of data, do you <b>embed</b> one inside the other, or keep them in separate collections and <b>reference</b> one from the other?</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F4S42gZ8fs9N",
+    "alt": "A two-panel comparison diagram — the left panel shows a single document with a nested sub-document inside it labeled \"Embedding\", the right panel shows two separate documents connected by an arrow labeled \"Referencing\"",
+    "type": "image",
+    "width": 690,
+    "height": 342,
+    "caption": "Embedding nests related data in one document. Referencing links two separate documents.",
+    "publicId": "docs/img/mongodb/embedding-vs-referencing"
+  },
+  {
+    "id": "qh7wPDYpJ8LA",
+    "text": "Embedding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "embedding"
+  },
+  {
+    "id": "G1fAelMBMHXy",
+    "html": "<p><b>Embedding</b> puts related data directly inside the parent document, as a nested object or array:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X90GNv26ZhSM",
+    "code": "{\n  name: \"Rahul Verma\",\n  address: {\n    city: \"Kolkata\",\n    pincode: \"700001\"\n  }\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "R-2WlZFDpE-W",
+    "html": "<p>One query returns everything — no second lookup needed. Embedding fits data that is only ever read <i>with</i> its parent and does not grow without bound, like an address on a user, or line items on a specific order.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qb_Mg8dHZWU_",
+    "text": "Referencing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "referencing"
+  },
+  {
+    "id": "Pcc9tmh3BX_w",
+    "html": "<p><b>Referencing</b> stores related data in its own collection, and the parent document holds just an <code>_id</code> pointing to it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YXTNQXSYXGXz",
+    "code": "// In the \"authors\" collection\n{ _id: \"auth1\", name: \"Rahul Verma\" }\n\n// In the \"posts\" collection\n{ title: \"Getting Started with MongoDB\", authorId: \"auth1\" }",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "Gur14Zx78t-b",
+    "html": "<p>Referencing fits data that is reused across many parents (one author has many posts), grows without a practical limit (a popular post could have thousands of comments), or genuinely needs to be queried and updated on its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_jwgM-P26F1x",
+    "text": "A Practical Rule of Thumb",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-rule-of-thumb"
+  },
+  {
+    "id": "anEE0_yOh54S",
+    "rows": [
+      [
+        "Data only makes sense attached to its parent",
+        "Embedding"
+      ],
+      [
+        "Data is reused by multiple parents",
+        "Referencing"
+      ],
+      [
+        "The nested list could grow very large (thousands+)",
+        "Referencing"
+      ],
+      [
+        "You always read the two together",
+        "Embedding"
+      ],
+      [
+        "You need to query the child independently",
+        "Referencing"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Lean toward"
+    ]
+  },
+  {
+    "id": "zMdYsb35_ELd",
+    "html": "<p>This decision is the MongoDB equivalent of SQL normalization — but decided per relationship, not applied uniformly. The same application very often embeds some relationships and references others.</p>",
+    "type": "callout",
+    "title": "Not an all-or-nothing choice",
+    "variant": "note"
+  }
+]
+```

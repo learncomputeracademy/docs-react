@@ -1,0 +1,112 @@
+---
+id: "5fb4f1ce-f334-43b6-949a-6571c0c32104"
+title: "Type Casting"
+path: "php/type-casting"
+status: "published"
+meta_title: "PHP Type Casting | Learn Computer Academy"
+meta_description: "How to deliberately convert a PHP value from one type to another, instead of leaving it to automatic type juggling."
+sort_order: 6
+updated_at: "2026-07-30T09:08:35.766372+00:00"
+---
+
+```json
+[
+  {
+    "id": "QZSLGBvj5u0s",
+    "html": "<p>The previous lesson showed PHP converting types automatically. <b>Type casting</b> is doing that conversion yourself, on purpose, so the result is predictable rather than left to PHP's own rules.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q-0ASMORO47r",
+    "text": "Casting with (type)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "casting-with-type"
+  },
+  {
+    "id": "6TueTl4YO08r",
+    "html": "<p>Put the target type in parentheses in front of a value to cast it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4ITUjFoTbv4J",
+    "code": "<?php\n  $price = \"19.99\";\n  $number = (float) $price;   // 19.99 as an actual float\n  $whole  = (int) $price;      // 19 (int cast truncates, doesn't round)\n  $text   = (string) 42;       // \"42\"\n  $flag   = (bool) 1;          // true\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3RM-gjf5SCua",
+    "html": "<p>Note that casting to <code>int</code> <b>truncates</b> rather than rounds — <code>(int) 19.99</code> gives <code>19</code>, not <code>20</code>. Use <code>round()</code> first if you actually need rounding.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5Gm6Y50-nl38",
+    "text": "Helper Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "helper-functions"
+  },
+  {
+    "id": "PM4AvilZtdCN",
+    "html": "<p>PHP also provides named functions that do the same job and read a little more clearly in context:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SQKHC5I2FFCC",
+    "code": "<?php\n  $n = intval(\"42abc\");    // 42 — reads leading digits, ignores the rest\n  $f = floatval(\"3.14\");   // 3.14\n  $s = strval(100);        // \"100\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Z2ZV3cllixRq",
+    "text": "Truthy and Falsy Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "truthy-and-falsy-values"
+  },
+  {
+    "id": "LgqIBqx1MMyv",
+    "html": "<p>Casting anything to <code>bool</code> follows a specific set of rules worth memorizing, since PHP applies this same logic inside every <code>if</code> statement:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zq2LMrRVJ_AY",
+    "rows": [
+      [
+        "0, 0.0, \"0\"",
+        "false"
+      ],
+      [
+        "\"\" (empty string)",
+        "false"
+      ],
+      [
+        "[] (empty array)",
+        "false"
+      ],
+      [
+        "null",
+        "false"
+      ],
+      [
+        "Any other number or non-empty string",
+        "true"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Value",
+      "Casts to bool as"
+    ]
+  },
+  {
+    "id": "Tr-0qNWUX5XX",
+    "html": "<p>The string <code>\"0\"</code> is falsy, but the string <code>\"0.0\"</code> is <b>truthy</b> — it's a non-empty string that just happens to contain the characters \"0.0\". This exact gotcha has caused real bugs in real PHP code; when in doubt, compare explicitly (<code>$value === \"0\"</code>) rather than relying on truthiness.</p>",
+    "type": "callout",
+    "title": "The \"0\" vs \"0.0\" trap",
+    "variant": "warning"
+  }
+]
+```

@@ -1,0 +1,98 @@
+---
+id: "3f480475-826f-4e66-81cb-d9b92bd4f773"
+title: "WordPress Shortcodes"
+path: "wordpress/shortcodes"
+status: "published"
+meta_title: "WordPress Shortcodes | Learn Computer Academy"
+meta_description: "Registering a custom [bracket] shortcode that outputs reusable HTML, so an editor typing into a post never needs to touch PHP."
+sort_order: 28
+updated_at: "2026-09-03T04:10:59.993134+00:00"
+---
+
+```json
+[
+  {
+    "id": "TXKcFtfyucDa",
+    "html": "<p>A <b>shortcode</b> is a small bracketed tag — <code>[shortcode]</code> — typed directly into a post or page's content, which WordPress replaces with dynamically generated HTML when the page renders. It's a way to hand a piece of reusable PHP output to an editor who never touches code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8BhMSahwizhA",
+    "text": "Registering a Basic Shortcode",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-a-basic-shortcode"
+  },
+  {
+    "id": "PNIEfkDHzFwy",
+    "code": "// functions.php\nfunction wgh_year_shortcode() {\n    return date('Y');\n}\nadd_shortcode('current_year', 'wgh_year_shortcode');\n\n// Typed into a post: © [current_year] My Site\n// Rendered on the page: © 2026 My Site",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "cBDKFisXDaFE",
+    "text": "Accepting Attributes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "accepting-attributes"
+  },
+  {
+    "id": "1QXVFhRRq0kO",
+    "html": "<p>A shortcode can accept attributes, just like an HTML tag — <code>shortcode_atts()</code> merges them with sensible defaults.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x7x4erFnoKX9",
+    "code": "function wgh_button_shortcode($atts) {\n    $atts = shortcode_atts([\n        'text' => 'Click Here',\n        'url'  => '#',\n    ], $atts);\n\n    return sprintf(\n        '<a class=\"button\" href=\"%s\">%s</a>',\n        esc_url($atts['url']),\n        esc_html($atts['text'])\n    );\n}\nadd_shortcode('button', 'wgh_button_shortcode');\n\n// [button text=\"Buy Now\" url=\"/shop\"]",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "zeBS1VxNd5l9",
+    "text": "A Shortcode with Enclosed Content",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-shortcode-with-enclosed-content"
+  },
+  {
+    "id": "-9Crd-iZi4bi",
+    "html": "<p>A shortcode written with an opening and closing tag receives whatever's between them as its second argument.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "q_8ULnsH9m-2",
+    "code": "function wgh_highlight_shortcode($atts, $content = null) {\n    return '<mark>' . esc_html($content) . '</mark>';\n}\nadd_shortcode('highlight', 'wgh_highlight_shortcode');\n\n// [highlight]this text gets marked[/highlight]",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "LV_Pw3EINXiI",
+    "html": "<p>A shortcode function must <b>return</b> its HTML, never <code>echo</code> it directly — echoing prints the output in the wrong place in the page's render order, usually above the content instead of inside it.</p>",
+    "type": "callout",
+    "title": "return, not echo",
+    "variant": "warning"
+  },
+  {
+    "id": "OXEyZxl-43ba",
+    "text": "Using a Shortcode Inside a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-shortcode-inside-a-template"
+  },
+  {
+    "id": "GIpNhUU4keA3",
+    "html": "<p>Outside a post's content, a shortcode needs to be run through <code>do_shortcode()</code> explicitly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "I89N3fnKGGDI",
+    "code": "<?php echo do_shortcode('[button text=\"Contact Us\" url=\"/contact\"]'); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

@@ -1,0 +1,104 @@
+---
+id: "68a66856-e749-45a4-b51d-08983887356a"
+title: "OOP — Magic Methods"
+path: "php/oop-magic-methods"
+status: "published"
+meta_title: "PHP Magic Methods | Learn Computer Academy"
+meta_description: "PHP's special __-prefixed methods that run automatically for certain operations — reading an undefined property, converting an object to a string, and more."
+sort_order: 36
+updated_at: "2026-09-03T04:05:24.461529+00:00"
+---
+
+```json
+[
+  {
+    "id": "SEVp19GX9zZ2",
+    "html": "<p>PHP calls a small set of specially-named methods automatically, in response to specific operations on an object — reading a property that doesn't exist, treating an object as a string, and a few others. <code>__construct()</code> from earlier lessons is the most common one; here are the rest worth knowing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7zyQDqSBcjzE",
+    "text": "__toString() — Converting an Object to a String",
+    "type": "heading",
+    "level": 2,
+    "anchor": "__tostring-converting-an-object-to-a-string"
+  },
+  {
+    "id": "7Eiy7fiFav_B",
+    "code": "class Money {\n    public function __construct(private int $cents) {}\n\n    public function __toString(): string {\n        return '$' . number_format($this->cents / 100, 2);\n    }\n}\n\n$price = new Money(1999);\necho $price;   // $19.99 — echo calls __toString() automatically",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Hpgj5oyyC7K7",
+    "text": "__get() and __set() — Reading and Writing Undefined Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "__get-and-__set-reading-and-writing-undefined-properties"
+  },
+  {
+    "id": "0qLbPCTQNOx_",
+    "html": "<p>Runs when code tries to read or write a property that isn't explicitly declared — useful for computed or dynamically-stored properties.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6PMueK1Qtl5Z",
+    "code": "class Config {\n    private array $data = [];\n\n    public function __get(string $name) {\n        return $this->data[$name] ?? null;\n    }\n\n    public function __set(string $name, $value): void {\n        $this->data[$name] = $value;\n    }\n}\n\n$config = new Config();\n$config->siteName = 'My App';   // triggers __set()\necho $config->siteName;         // triggers __get() — \"My App\"",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "6t9_2fBRaAec",
+    "text": "__call() — Handling a Call to an Undefined Method",
+    "type": "heading",
+    "level": 2,
+    "anchor": "__call-handling-a-call-to-an-undefined-method"
+  },
+  {
+    "id": "iqz8kABv6dR3",
+    "code": "class ApiClient {\n    public function __call(string $method, array $args) {\n        return \"Called $method with \" . count($args) . \" argument(s)\";\n    }\n}\n\n$client = new ApiClient();\necho $client->getUsers(1, 2);   // \"Called getUsers with 2 argument(s)\"",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "1p54CqTw3sQn",
+    "rows": [
+      [
+        "__construct()",
+        "An object is created"
+      ],
+      [
+        "__destruct()",
+        "An object is destroyed or the script ends"
+      ],
+      [
+        "__toString()",
+        "An object is used in a string context (echo, concatenation)"
+      ],
+      [
+        "__get() / __set()",
+        "An undefined property is read or written"
+      ],
+      [
+        "__call()",
+        "An undefined method is called"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Runs when..."
+    ]
+  },
+  {
+    "id": "pVnRba5H_aPH",
+    "html": "<p>Magic methods make code harder to trace — a click-to-definition on <code>$config->siteName</code> won't lead anywhere obvious. Use them for a genuine, specific need (a config object, a lightweight ORM), not as a default way to write a class.</p>",
+    "type": "callout",
+    "title": "A real trade-off, not a free upgrade",
+    "variant": "warning"
+  }
+]
+```

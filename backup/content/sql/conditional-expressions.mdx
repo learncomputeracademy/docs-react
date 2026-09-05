@@ -1,0 +1,118 @@
+---
+id: "d3fd3628-4410-439a-a1c5-301ba052601f"
+title: "Conditional Expressions — CASE, COALESCE, NULLIF"
+path: "sql/conditional-expressions"
+status: "published"
+meta_title: "SQL Conditional Expressions | Learn Computer Academy"
+meta_description: "Branching logic inside a query — CASE for if/else-style output, COALESCE for a NULL fallback, and NULLIF to turn a specific value into NULL."
+sort_order: 19
+updated_at: "2026-09-03T04:30:02.938331+00:00"
+---
+
+```json
+[
+  {
+    "id": "0m30EylMmLsj",
+    "html": "<p>Some values need to change shape based on a condition, right inside the query, without a separate step in application code afterward. These three expressions cover nearly every case that comes up.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X3lgT8c4uIlj",
+    "text": "CASE — If/Else Logic in a Query",
+    "type": "heading",
+    "level": 2,
+    "anchor": "case-ifelse-logic-in-a-query"
+  },
+  {
+    "id": "lOQJA2sNJUEl",
+    "html": "<p>Evaluates conditions in order and returns the value tied to the first one that matches, falling back to ELSE if none do.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rTMRQLRj4zgr",
+    "code": "SELECT\n  name,\n  price,\n  CASE\n    WHEN price < 10 THEN 'Budget'\n    WHEN price < 50 THEN 'Mid-range'\n    ELSE 'Premium'\n  END AS price_tier\nFROM products;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "AFRQYwikI0iA",
+    "html": "<ul><li>Conditions are checked top to bottom — the first matching WHEN wins, later ones are never checked.</li><li>ELSE is optional — without it, a row matching no condition gets NULL.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "IgVIiDir8c_0",
+    "html": "<p>Conditions that overlap can silently return the wrong branch — a common mistake is ordering price ranges so a later, more specific condition never gets reached because an earlier, broader one already matched.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "yB9DY5Y5EocZ",
+    "text": "COALESCE — The First Non-NULL Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "coalesce-the-first-non-null-value"
+  },
+  {
+    "id": "W8ssVny76Ev5",
+    "html": "<p>Takes any number of arguments and returns the first one that isn't NULL — most often used to substitute a default when a value is missing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ssipz8lSSCSc",
+    "code": "SELECT\n  name,\n  COALESCE(nickname, name) AS display_name\nFROM users;\n-- Shows the nickname if one exists, otherwise falls back to the real name",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "b0lxurTJo_Mm",
+    "code": "-- Works with more than two arguments too, tried in order\nSELECT COALESCE(phone_mobile, phone_home, phone_work, 'No phone on file')\nFROM contacts;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "XQ4eRYCkWJ10",
+    "text": "NULLIF — Turn a Specific Value Into NULL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nullif-turn-a-specific-value-into-null"
+  },
+  {
+    "id": "ktjC2xLtD6C4",
+    "html": "<p>The reverse idea — compares two values, and returns NULL if they're equal, or the first value otherwise. Most commonly used to avoid a divide-by-zero error.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fTd5fvs_zZZ9",
+    "code": "SELECT\n  total_revenue / NULLIF(total_orders, 0) AS avg_order_value\nFROM sales_summary;\n-- If total_orders is 0, NULLIF returns NULL instead of 0,\n-- and dividing by NULL gives NULL instead of a divide-by-zero error",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "EHB1flak0bMU",
+    "rows": [
+      [
+        "CASE",
+        "Multi-branch conditional logic — an if/elseif/else for a query"
+      ],
+      [
+        "COALESCE(a, b, c, ...)",
+        "Returns the first non-NULL argument — a default value fallback"
+      ],
+      [
+        "NULLIF(a, b)",
+        "Returns NULL if a equals b, otherwise returns a — often used to prevent divide-by-zero"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Expression",
+      "Purpose"
+    ]
+  }
+]
+```

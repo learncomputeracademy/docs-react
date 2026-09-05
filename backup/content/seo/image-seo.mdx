@@ -1,0 +1,106 @@
+---
+id: "694b14d3-7277-4775-9e79-09060a1ec845"
+title: "Image SEO"
+path: "seo/image-seo"
+status: "published"
+meta_title: "Image SEO — Alt Text, Filenames, Compression | Learn Computer Academy"
+meta_description: "How to make images findable in image search and keep them from slowing your pages down — alt text, filenames, formats, and lazy loading."
+sort_order: 11
+updated_at: "2026-08-05T07:22:02.097305+00:00"
+---
+
+```json
+[
+  {
+    "id": "Hl8m6_DLFVad",
+    "html": "<p>Search engines cannot see what is in a picture the way you can. Image SEO is about giving them enough context to understand your images, and making sure those images do not make the page slow enough to hurt everything else.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "evxvZSYkJAUR",
+    "text": "Alt Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "alt-text"
+  },
+  {
+    "id": "cMs63ivpdqe0",
+    "html": "<p>The <code>alt</code> attribute describes an image in words. It is read aloud by screen readers, displayed if the image fails to load, and used by search engines to understand image content.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4ZhhgRoqEbLO",
+    "code": "<!-- Useless -->\n<img src=\"img1.jpg\" alt=\"image\">\n<img src=\"img1.jpg\" alt=\"laptop laptop buy laptop cheap laptop\">\n\n<!-- Useful -->\n<img src=\"thin-laptop-desk.jpg\" alt=\"A thin silver laptop open on a wooden desk beside a notebook\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "puxNpN22SGWT",
+    "html": "<p>Write what you would say if you were describing the image to someone who cannot see it. Be specific and factual. Do not stuff keywords — it is the clearest possible signal of manipulation, and it makes the page actively hostile to screen reader users.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JdTNk_yK74aO",
+    "html": "<p>One exception worth knowing: purely decorative images that add no information should have an <b>empty</b> alt — <code>alt=\"\"</code>. This tells screen readers to skip them entirely. Omitting the attribute is not the same thing; some screen readers then read out the filename instead.</p>",
+    "type": "callout",
+    "title": "Decorative images",
+    "variant": "note"
+  },
+  {
+    "id": "7ic0BgSw0JXf",
+    "text": "Filenames",
+    "type": "heading",
+    "level": 2,
+    "anchor": "filenames"
+  },
+  {
+    "id": "bCVD8ysoO6gV",
+    "html": "<p>The filename is a small but free signal. <code>DSC_0042.jpg</code> says nothing; <code>thin-silver-laptop-on-desk.jpg</code> describes the content. Use lowercase, hyphens between words, and describe what is actually pictured.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9qadKPD2x5PE",
+    "text": "File Size and Format",
+    "type": "heading",
+    "level": 2,
+    "anchor": "file-size-and-format"
+  },
+  {
+    "id": "JTHMZbMPIR6J",
+    "html": "<p>Images are usually the largest thing on a page by size, which makes them the most common cause of slow loading — and page speed is covered as a ranking consideration later in this course.</p><ul><li><b>Compress before uploading.</b> A photo straight from a phone camera can be several megabytes; the same image at display size is usually a small fraction of that with no visible difference.</li><li><b>Use modern formats.</b> WebP and AVIF produce substantially smaller files than JPEG and PNG at comparable quality, and are widely supported.</li><li><b>Do not serve oversized images.</b> Uploading a 4000px-wide image to display in a 600px column wastes most of the bytes downloaded.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "l5Wbji7Bgf9N",
+    "text": "Width, Height, and Layout Shift",
+    "type": "heading",
+    "level": 2,
+    "anchor": "width-height-and-layout-shift"
+  },
+  {
+    "id": "TB7l8rycVXmw",
+    "html": "<p>Always set <code>width</code> and <code>height</code> attributes. Without them the browser does not know how much space to reserve, so the page reflows when each image loads — content jumps around while someone is trying to read it. That behaviour is measured directly as a page experience signal.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jKjEz-x_kFYl",
+    "code": "<img src=\"laptop.webp\" alt=\"A thin silver laptop on a desk\" width=\"1200\" height=\"800\" loading=\"lazy\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "RcJKRVCyV2bO",
+    "text": "Lazy Loading",
+    "type": "heading",
+    "level": 2,
+    "anchor": "lazy-loading"
+  },
+  {
+    "id": "sG1XFcTFFuq9",
+    "html": "<p><code>loading=\"lazy\"</code> tells the browser to hold off downloading an image until it is about to come into view. On a page with many images below the fold, this makes a substantial difference to how fast the visible part appears.</p><p>One caveat: do <b>not</b> lazy-load images that are visible immediately when the page opens. Deferring the main image at the top of the page delays exactly the thing you want to appear fastest.</p>",
+    "type": "richtext"
+  }
+]
+```

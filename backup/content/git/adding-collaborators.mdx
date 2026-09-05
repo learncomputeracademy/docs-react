@@ -1,0 +1,117 @@
+---
+id: "365e7df4-d0b8-47e0-8bf6-1d392b93aaa0"
+title: "Adding Collaborators to a Repository"
+path: "git/adding-collaborators"
+status: "published"
+meta_title: "Adding GitHub Collaborators | Learn Computer Academy"
+meta_description: "Giving a teammate direct write access to a repository — the difference between a collaborator and the fork-and-pull-request model, and permission levels."
+sort_order: 24
+updated_at: "2026-09-03T05:30:35.723144+00:00"
+---
+
+```json
+[
+  {
+    "id": "4_6kGCbG8cFo",
+    "html": "<p>The earlier Forking and Pull Requests lesson covered contributing without direct access — the standard way to work with strangers on a public project. A <b>collaborator</b> is different: someone given direct write access to push straight to the repository itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sGgjq6YPUBqF",
+    "text": "Adding a Collaborator",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-collaborator"
+  },
+  {
+    "id": "rVf7A9wcjHES",
+    "html": "<p>From a repository's Settings → Collaborators and teams → \"Add people,\" searching by their GitHub username or email. They receive an invitation, which they need to accept before access takes effect.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jMshX3x4whsc",
+    "text": "Permission Levels",
+    "type": "heading",
+    "level": 2,
+    "anchor": "permission-levels"
+  },
+  {
+    "id": "g6rthKEW-osr",
+    "rows": [
+      [
+        "Read",
+        "View and clone the repository, comment on issues/PRs"
+      ],
+      [
+        "Triage",
+        "Read, plus manage issues and PRs without write access to code"
+      ],
+      [
+        "Write",
+        "Read/Triage, plus push directly to non-protected branches, and merge PRs"
+      ],
+      [
+        "Maintain",
+        "Write, plus manage some repository settings, without full admin access"
+      ],
+      [
+        "Admin",
+        "Full control, including deleting the repository or changing who has access"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Level",
+      "Can do"
+    ]
+  },
+  {
+    "id": "BgFM9umDBSXV",
+    "text": "Collaborator vs. Fork-and-PR — When to Use Which",
+    "type": "heading",
+    "level": 2,
+    "anchor": "collaborator-vs-fork-and-pr-when-to-use-which"
+  },
+  {
+    "id": "fYZXaF8mAczN",
+    "rows": [
+      [
+        "A small, trusted team working on the same private or public project",
+        "An open-source project accepting contributions from anyone"
+      ],
+      [
+        "Faster — push straight to a branch, no fork needed",
+        "Slower per-contribution, but keeps the original repository fully controlled"
+      ],
+      [
+        "Requires trusting someone with real write access",
+        "The maintainer reviews every change before it goes in, from anyone"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Direct collaborator access",
+      "Fork and pull request"
+    ]
+  },
+  {
+    "id": "r-qjwdYDBDl0",
+    "text": "Protecting the main Branch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "protecting-the-main-branch"
+  },
+  {
+    "id": "eztIhkZMoOkk",
+    "html": "<p>Even with collaborators added, a <b>branch protection rule</b> can require every change — even from a collaborator with Write access — to go through a pull request and pass checks before merging into main, rather than allowing a direct push.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bU22mEu_AxTV",
+    "html": "<p>Requiring pull requests even from trusted collaborators, via a branch protection rule, is standard practice on real projects — it keeps a review step and a clean history even when direct push access exists.</p>",
+    "type": "callout",
+    "title": "A common real-world setup",
+    "variant": "tip"
+  }
+]
+```

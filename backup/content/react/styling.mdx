@@ -1,0 +1,129 @@
+---
+id: "d281b578-0e35-45ac-8ad5-dc7ffaccb691"
+title: "Styling in React"
+path: "react/styling"
+status: "published"
+meta_title: "Styling in React | Learn Computer Academy"
+meta_description: "The main approaches to styling a React component — plain CSS files, CSS Modules for scoped styles, and inline style objects."
+sort_order: 23
+updated_at: "2026-07-31T11:24:43.035553+00:00"
+---
+
+```json
+[
+  {
+    "id": "4rhzqVaG2m9s",
+    "html": "<p>React doesn't require any one styling approach — it's unopinionated here, and several genuinely common patterns exist side by side in real projects.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aUkH5rclg1nE",
+    "text": "Plain CSS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "plain-css"
+  },
+  {
+    "id": "wbt6Ljs2S7sh",
+    "html": "<p>A regular <code>.css</code> file, imported directly into a component, works with the build tooling from the Setup lesson — the same CSS you already know from the <a href=\"/css/\">CSS section</a>, applied with <code>className</code> instead of HTML's <code>class</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SznNAWqKjbDo",
+    "code": "import './Button.css';\n\nfunction Button({ children }) {\n  return <button className=\"btn-primary\">{children}</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "_lj0k9j3ZPDe",
+    "code": ".btn-primary {\n  background: #3b82f6;\n  color: white;\n  padding: 8px 16px;\n  border-radius: 6px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "LGlrmt4TC6yP",
+    "html": "<p>Plain CSS class names are <b>global</b> across the whole app — a class named <code>.card</code> in one file collides with any other file that also defines <code>.card</code>. This is exactly the problem CSS Modules solves.</p>",
+    "type": "callout",
+    "title": "Plain CSS has no scoping",
+    "variant": "warning"
+  },
+  {
+    "id": "o1H-ocbfs7Nn",
+    "text": "CSS Modules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "css-modules"
+  },
+  {
+    "id": "vhQbodqsaLCC",
+    "html": "<p>A file named <code>*.module.css</code> gets special handling from the build tool: each class name is automatically rewritten to something unique, so styles never leak between components:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aKnrNPqnm6Pp",
+    "code": "import styles from './Button.module.css';\n\nfunction Button({ children }) {\n  return <button className={styles.primary}>{children}</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "YT6f2p8ysw0K",
+    "code": "/* Button.module.css */\n.primary {\n  background: #3b82f6;\n  color: white;\n  padding: 8px 16px;\n  border-radius: 6px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "7p_rCOlB-3EN",
+    "html": "<p><code>styles.primary</code> resolves to something like <code>Button_primary__a1b2c</code> at build time — genuinely unique, no manual naming convention needed to avoid collisions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ja1ca5rrjUcs",
+    "text": "Inline Styles",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inline-styles"
+  },
+  {
+    "id": "wh1aLL4QJGF6",
+    "html": "<p>The <code>style</code> prop takes a JavaScript object, not a CSS string — property names are camelCase, matching JavaScript convention rather than CSS's hyphenated one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2NHkSmKnxWs1",
+    "code": "function Box({ color }) {\n  return <div style={{ backgroundColor: color, padding: '16px' }}>Content</div>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "kIk1Arr1nXhI",
+    "html": "<p>Inline styles are the right tool specifically for a value computed at runtime (a color from props, a position from a drag interaction) — for anything static, a CSS file or CSS Module is easier to maintain and supports things inline styles can't, like <code>:hover</code> or media queries.</p>",
+    "type": "callout",
+    "title": "Inline styles for dynamic values, CSS files for the rest",
+    "variant": "note"
+  },
+  {
+    "id": "0vtF6O4K6NEy",
+    "text": "Conditional Class Names",
+    "type": "heading",
+    "level": 2,
+    "anchor": "conditional-class-names"
+  },
+  {
+    "id": "v-O3s7vY9RTB",
+    "html": "<p>Combining classes based on state or props is common enough that most real projects reach for a small helper library (<code>clsx</code> or <code>classnames</code>) rather than string-concatenating by hand:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rxCNTPnr18c8",
+    "code": "function Button({ variant, children }) {\n  return (\n    <button className={variant === 'danger' ? 'btn btn-danger' : 'btn'}>\n      {children}\n    </button>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

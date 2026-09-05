@@ -1,0 +1,103 @@
+---
+id: "b4ea83fa-cc13-4df1-a541-6146b16eea6e"
+title: "OOP — Traits"
+path: "php/oop-traits"
+status: "published"
+meta_title: "PHP Traits | Learn Computer Academy"
+meta_description: "Sharing a set of methods across unrelated classes with traits — PHP's answer to not having multiple inheritance."
+sort_order: 34
+updated_at: "2026-09-03T04:05:23.873257+00:00"
+---
+
+```json
+[
+  {
+    "id": "vXEyYP2uDhRN",
+    "html": "<p>PHP classes can only extend one parent — no multiple inheritance. A <b>trait</b> solves the specific problem that limitation creates: sharing the same set of methods across classes that aren't related by inheritance at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KpGexpk2uscz",
+    "text": "Defining a Trait",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-a-trait"
+  },
+  {
+    "id": "BVeaguY571b0",
+    "code": "trait Loggable {\n    public function log(string $message): void {\n        echo '[' . date('Y-m-d H:i:s') . '] ' . $message . PHP_EOL;\n    }\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Kkn6Xu5R9GFP",
+    "text": "Using a Trait — use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-trait-use"
+  },
+  {
+    "id": "1wKBd4iR0cFU",
+    "html": "<p>A class pulls in a trait's methods with <code>use</code>, as if they were written directly in the class.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M6TCXSOXaPVV",
+    "code": "class Order {\n    use Loggable;\n\n    public function ship(): void {\n        $this->log('Order shipped');\n    }\n}\n\nclass User {\n    use Loggable;   // same trait, an unrelated class\n\n    public function register(): void {\n        $this->log('User registered');\n    }\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ocZ5mD1DXuzF",
+    "text": "Using Multiple Traits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-multiple-traits"
+  },
+  {
+    "id": "V8_9oPO0DQI8",
+    "code": "class Order {\n    use Loggable, Cacheable, Notifiable;\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "tLN9gLKDppD8",
+    "text": "When to Reach for a Trait Instead of Inheritance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-to-reach-for-a-trait-instead-of-inheritance"
+  },
+  {
+    "id": "cvfisAgwn55M",
+    "rows": [
+      [
+        "\"Is-a\" relationship — a Dog is an Animal",
+        "A shared capability across otherwise unrelated classes"
+      ],
+      [
+        "One parent only",
+        "Multiple traits at once"
+      ],
+      [
+        "Models a real hierarchy",
+        "A reusable bundle of behavior, not a hierarchy"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Inheritance (extends)",
+      "A trait (use)"
+    ]
+  },
+  {
+    "id": "YVc3UQCy__38",
+    "html": "<p>A trait method can be overridden by the class using it — the class's own version always wins if both define the same method name.</p>",
+    "type": "callout",
+    "title": "Traits don't force behavior",
+    "variant": "note"
+  }
+]
+```

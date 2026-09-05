@@ -1,0 +1,148 @@
+---
+id: "9ef5a7fd-28ea-44ab-89b3-54ce4bf12fbc"
+title: "Resolving Merge Conflicts"
+path: "git/resolving-merge-conflicts"
+status: "published"
+meta_title: "Resolving Git Merge Conflicts | Learn Computer Academy"
+meta_description: "What a merge conflict actually is, reading Git's conflict markers, and the exact steps to resolve one and finish the merge."
+sort_order: 8
+updated_at: "2026-09-03T05:20:01.455998+00:00"
+---
+
+```json
+[
+  {
+    "id": "ok3_mtL61smF",
+    "html": "<p>A <b>merge conflict</b> happens when Git can't automatically combine two changes — usually because both branches edited the exact same lines differently. It's not an error to be afraid of; it's Git correctly refusing to guess.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nG88nhr-PeeU",
+    "text": "Triggering One",
+    "type": "heading",
+    "level": 2,
+    "anchor": "triggering-one"
+  },
+  {
+    "id": "RkZ3MgCJfTIn",
+    "code": "git merge feature-login\n# Auto-merging index.html\n# CONFLICT (content): Merge conflict in index.html\n# Automatic merge failed; fix conflicts and then commit the result.",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "wnyYUcmTYg3X",
+    "text": "Reading the Conflict Markers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-the-conflict-markers"
+  },
+  {
+    "id": "rE1gJamKtmg6",
+    "html": "<p>Git edits the conflicted file directly, marking both versions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OCi3Zlbz6ojq",
+    "code": "<h1>Welcome</h1>\n<<<<<<< HEAD\n<p>This is the main branch version.</p>\n=======\n<p>This is the feature-login branch version.</p>\n>>>>>>> feature-login",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "Fmf2jtpkWE_r",
+    "rows": [
+      [
+        "<<<<<<< HEAD",
+        "Start of the current branch's version"
+      ],
+      [
+        "=======",
+        "Divider between the two versions"
+      ],
+      [
+        ">>>>>>> feature-login",
+        "End of the incoming branch's version, naming it"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Marker",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "aoar4PuCTqxe",
+    "text": "Resolving It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "resolving-it"
+  },
+  {
+    "id": "36QnkkeQd51q",
+    "html": "<p>Edit the file by hand — keep one version, keep the other, or write something combining both — and remove every marker line entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4Ts_x4K1KgFL",
+    "code": "<h1>Welcome</h1>\n<p>This is the main branch version.</p>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "pA3c1n0kWqS2",
+    "text": "Finishing the Merge",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finishing-the-merge"
+  },
+  {
+    "id": "w3sl20n_8fv-",
+    "code": "git add index.html\ngit commit\n# Git pre-fills a merge commit message — usually fine to accept as-is",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "F3mlDgcTww6p",
+    "text": "Checking for Multiple Conflicts",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-for-multiple-conflicts"
+  },
+  {
+    "id": "8pQ2wSDSkGNh",
+    "code": "# See every file still needing resolution\ngit status\n# Both modified:   index.html\n# Both modified:   style.css",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "NNOtnNghzfzn",
+    "text": "Backing Out Entirely",
+    "type": "heading",
+    "level": 2,
+    "anchor": "backing-out-entirely"
+  },
+  {
+    "id": "dhWGmG8RoCZa",
+    "html": "<p>If a merge goes badly wrong partway through, it can be abandoned completely, returning to the state right before it started.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DlD6F3L9ruzy",
+    "code": "git merge --abort",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "nAwXlGFWzkZD",
+    "html": "<p>Most code editors (VS Code among them) show conflict markers with clickable \"Accept Current,\" \"Accept Incoming,\" and \"Accept Both\" buttons — genuinely worth using instead of editing markers by hand once conflicts happen regularly.</p>",
+    "type": "callout",
+    "title": "A faster way to resolve these in practice",
+    "variant": "tip"
+  }
+]
+```

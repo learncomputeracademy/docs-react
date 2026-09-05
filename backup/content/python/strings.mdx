@@ -1,0 +1,255 @@
+---
+id: "7f72daac-e0a3-4c01-b09e-fed2252fb54c"
+title: "Strings in Python"
+path: "python/strings"
+status: "published"
+meta_title: "Strings in Python | Learn Computer Academy"
+meta_description: "F-strings, string slicing, and the built-in string methods you'll use constantly in Python."
+sort_order: 8
+updated_at: "2026-08-04T11:39:28.803309+00:00"
+---
+
+```json
+[
+  {
+    "id": "OT6-gnXd6Gir",
+    "html": "<p>Python strings come with a genuinely useful embedding syntax and a large set of built-in methods — this lesson covers what you'll actually reach for day to day.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CTTFTiydOwB3",
+    "text": "F-Strings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "f-strings"
+  },
+  {
+    "id": "7MFR9JYi9jqb",
+    "html": "<p>An <b>f-string</b> — a string literal prefixed with <code>f</code> — lets you embed any expression directly inside <code>{ }</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eF0s3bHw6w2e",
+    "code": "name = \"Priya\"\nage = 21\nprint(f\"{name} is {age} years old.\")\nprint(f\"Next year: {age + 1}\")  # expressions work too, not just variables",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "DDbmK5rur6RP",
+    "html": "<p>This lets you skip string concatenation entirely — you can embed a full expression like <code>age + 1</code>, not just a variable name, directly inside the string.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6LFozEafEMU4",
+    "text": "Format Specifiers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "format-specifiers"
+  },
+  {
+    "id": "0DSF9CJAfQ7N",
+    "html": "<p>Inside the <code>{ }</code>, a colon introduces a <b>format specifier</b> — controlling decimal places, padding, and alignment without a separate formatting function:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yBsc6ClSLsCG",
+    "code": "price = 3.14159\nprint(f\"{price:.2f}\")   # \"3.14\" — 2 decimal places\n\nname = \"Amit\"\nprint(f\"{name:>10}|\")   # \"      Amit|\" — right-align in a 10-character field\nprint(f\"{name:<10}|\")   # \"Amit      |\" — left-align\nprint(f\"{name:^10}|\")   # \"   Amit   |\" — center",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "w4IDsQJqG2MB",
+    "html": "<p>You already saw a variant of this in the Numbers lesson — <code>f\"{value:,.2f}\"</code> combines a thousands separator with 2 decimal places in a single specifier.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "H6rfVdiClc-H",
+    "html": "<p>Python 3.8 added a debugging shortcut — adding <code>=</code> right after a variable inside <code>{ }</code> prints both the variable's name and its value, saving you from typing it out by hand while tracking down a bug.</p>",
+    "type": "callout",
+    "title": "The = debug specifier",
+    "variant": "tip"
+  },
+  {
+    "id": "imzw2KtxbkBH",
+    "code": "age = 21\nprint(f\"{age=}\")  # \"age=21\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "V2Dc0LYgqkIT",
+    "text": "Multi-Line Strings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multi-line-strings"
+  },
+  {
+    "id": "lvQwr6eAWJuD",
+    "html": "<p>Triple quotes (<code>\"\"\"</code> or <code>'''</code>) create a string that can span multiple lines, keeping every line break and space inside it exactly as written — useful for a paragraph of text or a block of formatted output:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Haz2fJsE54Sc",
+    "code": "message = \"\"\"Dear Priya,\n\nYour course starts on Monday.\n\nRegards,\nLCA\"\"\"\nprint(message)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "6F-RlhHFRkAm",
+    "html": "<p>This is the same triple-quote syntax used for multi-line comments in the Syntax Basics lesson — the only difference is whether the result is assigned to something.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7561KrsAhRsT",
+    "text": "String Slicing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-slicing"
+  },
+  {
+    "id": "7E0Wu9ycNtKK",
+    "html": "<p>Python lets you pull out a range of characters using <code>[start:end]</code> — no separate function needed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lXAA3Hp3b7ZJ",
+    "code": "text = \"Hello, world!\"\nprint(text[0])     # \"H\"\nprint(text[0:5])   # \"Hello\"\nprint(text[-1])    # \"!\" — negative indexes count from the end\nprint(text[7:])    # \"world!\" — leaving off the end means \"to the end\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "iKms7Wdduzdd",
+    "text": "Common String Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-string-methods"
+  },
+  {
+    "id": "DloYg1ilUZEA",
+    "rows": [
+      [
+        "len(s)",
+        "Length of a string (a function, not a method)",
+        "len(\"hello\") → 5"
+      ],
+      [
+        "s.upper() / s.lower()",
+        "Change case",
+        "\"hi\".upper() → \"HI\""
+      ],
+      [
+        "s.strip()",
+        "Removes whitespace from both ends",
+        "\" hi \".strip() → \"hi\""
+      ],
+      [
+        "s.replace(old, new)",
+        "Replace all occurrences",
+        "\"I like cat\".replace(\"cat\", \"dog\")"
+      ],
+      [
+        "s.split(delimiter)",
+        "Split a string into a list",
+        "\"a,b,c\".split(\",\") → ['a', 'b', 'c']"
+      ],
+      [
+        "delimiter.join(list)",
+        "Join a list into a string",
+        "\"-\".join([\"a\", \"b\"]) → \"a-b\""
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "What it does",
+      "Example"
+    ]
+  },
+  {
+    "id": "NjMrXUn-WKZQ",
+    "html": "<p>Notice most of these are <b>methods</b> called on the string itself (<code>s.upper()</code>), not standalone functions taking the string as an argument — except <code>len()</code>, which is a function. This mixed pattern is just something to memorize; there's no rule predicting which is which.</p>",
+    "type": "callout",
+    "title": "Methods vs. functions — no clean rule",
+    "variant": "note"
+  },
+  {
+    "id": "r4D3VqZtGH0F",
+    "html": "<p>Python has a large standard string method set — see the <a href=\"https://docs.python.org/3/library/stdtypes.html#string-methods\" target=\"_blank\" rel=\"noopener noreferrer\">full string methods reference on python.org</a> for anything not covered here.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LsPoPQ_pMly8",
+    "html": "<p>Python strings are <b>immutable</b> — <code>s.upper()</code> returns a new string, it doesn't change <code>s</code> itself. <code>s.upper()</code> alone, with the result thrown away, is a common beginner mistake; you need <code>s = s.upper()</code> to actually keep the change.</p>",
+    "type": "callout",
+    "title": "String methods return a new string",
+    "variant": "warning"
+  },
+  {
+    "id": "BoYtKpEV1KRs",
+    "text": "More String Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "more-string-methods"
+  },
+  {
+    "id": "jWWV2Dm7fMHW",
+    "html": "<p>A few more that come up constantly, beyond the table above:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bQ-x3fLmRYQa",
+    "rows": [
+      [
+        "s.startswith(x) / s.endswith(x)",
+        "Checks the start/end of a string",
+        "\"file.pdf\".endswith(\".pdf\") → True"
+      ],
+      [
+        "s.find(x)",
+        "Index of the first match, or -1 if not found",
+        "\"hello\".find(\"l\") → 2"
+      ],
+      [
+        "s.count(x)",
+        "How many times x appears",
+        "\"banana\".count(\"a\") → 3"
+      ],
+      [
+        "s.isdigit()",
+        "True if every character is a digit",
+        "\"123\".isdigit() → True"
+      ],
+      [
+        "s.isalpha()",
+        "True if every character is a letter",
+        "\"abc\".isalpha() → True"
+      ],
+      [
+        "s.title()",
+        "Capitalizes the first letter of each word",
+        "\"hello world\".title() → \"Hello World\""
+      ],
+      [
+        "s.zfill(n)",
+        "Pads with leading zeros to length n",
+        "\"7\".zfill(3) → \"007\""
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "What it does",
+      "Example"
+    ]
+  },
+  {
+    "id": "uvlYgWGDe4rf",
+    "html": "<p>Between this table and the one above, most everyday string work is covered — anything else is in the full reference linked above.</p>",
+    "type": "richtext"
+  }
+]
+```

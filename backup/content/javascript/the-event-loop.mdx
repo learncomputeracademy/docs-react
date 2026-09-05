@@ -1,0 +1,117 @@
+---
+id: "667680f9-fe37-4893-a1f5-35766da814e3"
+title: "The JavaScript Event Loop"
+path: "javascript/the-event-loop"
+status: "published"
+meta_title: "The JavaScript Event Loop | Learn Computer Academy"
+meta_description: "Why JavaScript can run asynchronous code with only one thread — the call stack, the task queue, and how the event loop connects them."
+sort_order: 29
+updated_at: "2026-09-03T04:17:10.859056+00:00"
+---
+
+```json
+[
+  {
+    "id": "N96l5QxdkL-O",
+    "html": "<hr><p>JavaScript runs on a single thread — it can only do one thing at a time. Yet a page can wait on a network request, a timer, and a click handler all at once, without freezing. The <b>event loop</b> is the mechanism that makes this possible.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "3FPNrN7xB-p0",
+    "text": "The Call Stack",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-call-stack"
+  },
+  {
+    "id": "Y8Xkycr_D-jd",
+    "html": "<p>Every function call gets pushed onto the call stack, and popped off when it returns. JavaScript only ever runs what's on top of the stack.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HtQbpSAqhU19",
+    "code": "function greet() {\n  console.log('Hello')\n}\ngreet()\n// greet() is pushed, runs, then popped",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "cP2oQSHailaL",
+    "text": "Why setTimeout Doesn't Block",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-settimeout-doesnt-block"
+  },
+  {
+    "id": "QrV8hxRKZzSj",
+    "html": "<p>A function like <code>setTimeout</code> hands its callback off to the browser, not the call stack — the call stack stays free to keep running the rest of the script immediately.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8d8ZAvkZAVwe",
+    "code": "console.log('1')\nsetTimeout(() => console.log('2'), 0)\nconsole.log('3')\n\n// Output: 1, 3, 2 — even with a 0ms delay,\n// the callback waits until the call stack is empty",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "9v7OZ2cFbJsd",
+    "text": "The Task Queue",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-task-queue"
+  },
+  {
+    "id": "tUtNEkYp6-rT",
+    "html": "<p>Once a timer, network request, or event fires, its callback doesn't interrupt the call stack directly — it waits in a queue. The event loop's job is simple: check if the call stack is empty, and if so, move the next callback in queue onto it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CRjjGg_Saljk",
+    "text": "Microtasks vs. Macrotasks",
+    "type": "heading",
+    "level": 2,
+    "anchor": "microtasks-vs-macrotasks"
+  },
+  {
+    "id": "KFEPH1ZvuKDB",
+    "html": "<p>Not all queued callbacks are treated equally. Promise callbacks go into a <b>microtask</b> queue, which the event loop always fully empties before touching the <b>macrotask</b> queue (setTimeout, setInterval, DOM events).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "L3IyEzMRQqlH",
+    "code": "console.log('1')\nsetTimeout(() => console.log('2 — macrotask'), 0)\nPromise.resolve().then(() => console.log('3 — microtask'))\nconsole.log('4')\n\n// Output: 1, 4, 3, 2 — microtasks always run before the next macrotask",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "7wB4NdeWcw31",
+    "rows": [
+      [
+        "Microtask",
+        "Promise .then()/.catch(), async/await continuation",
+        "Fully drained before the next macrotask"
+      ],
+      [
+        "Macrotask",
+        "setTimeout, setInterval, DOM events, I/O",
+        "One runs per event loop cycle"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Queue",
+      "Examples",
+      "Priority"
+    ]
+  },
+  {
+    "id": "HS1yu7AW0W7Q",
+    "html": "<p>This site's Event Loop tool (under Tools) animates the call stack, task queue, and microtask queue step by step for a piece of code — a much faster way to build intuition than reading the ordering rules alone.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

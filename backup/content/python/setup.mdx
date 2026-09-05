@@ -1,0 +1,132 @@
+---
+id: "08529088-31e1-4e0a-8a4a-a4a412f7f6e5"
+title: "Setting Up Python"
+path: "python/setup"
+status: "published"
+meta_title: "Setting Up Python | Learn Computer Academy"
+meta_description: "Installing Python, using the interactive REPL, and running your first Python script."
+sort_order: 2
+updated_at: "2026-08-04T11:39:26.760821+00:00"
+---
+
+```json
+[
+  {
+    "id": "-UE66HKv7ya1",
+    "html": "<p>Getting Python running is simple — no separate development server is needed, since Python isn't inherently a web technology. You just install it and run files directly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BEmKd1HM7-tp",
+    "text": "Installing Python",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-python"
+  },
+  {
+    "id": "PV-CSJrLd0Tc",
+    "html": "<p>Download Python from <a href=\"https://www.python.org/downloads/\" target=\"_blank\" rel=\"noopener noreferrer\">python.org/downloads</a> (Windows/macOS), or install it through your system's package manager on Linux (<code>apt install python3</code> on most distributions). Once installed, confirm it from a terminal:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-kOIeJ1fGlfA",
+    "code": "python3 --version",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "4ITo73P9chWo",
+    "html": "<p>On Windows, the command is often just <code>python</code> rather than <code>python3</code>. Either way, confirm you're running Python 3 — Python 2 reached end of life in 2020 and none of this section applies to it.</p>",
+    "type": "callout",
+    "title": "python vs. python3",
+    "variant": "note"
+  },
+  {
+    "id": "UP0PfIZEp5Jm",
+    "text": "The Interactive REPL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-interactive-repl"
+  },
+  {
+    "id": "2UPb0saaVSLW",
+    "html": "<p>Typing <code>python3</code> alone (no filename) opens an interactive prompt where you can try code one line at a time and see the result immediately — extremely useful for quickly testing an idea:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a6n5xJhlFoEZ",
+    "code": "$ python3\n>>> 2 + 2\n4\n>>> print(\"Hello!\")\nHello!\n>>> exit()",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zHMUnjkYHft2",
+    "text": "Your First Script",
+    "type": "heading",
+    "level": 2,
+    "anchor": "your-first-script"
+  },
+  {
+    "id": "p3HG4_GRLEis",
+    "html": "<p>Create a file named <code>hello.py</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JgxRDHuMazXI",
+    "code": "print(\"Hello, world!\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "_SwNdFbVMHar",
+    "html": "<p>Then run it from a terminal in the same folder:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IZ1DGmWvOQ5U",
+    "code": "python3 hello.py",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "5oyCZyu16ULI",
+    "html": "<p>There's no special opening tag needed — a <code>.py</code> file is Python from the very first line.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Wd1OnM80HFZ9",
+    "text": "Checking pip Is Installed Too",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-pip-is-installed-too"
+  },
+  {
+    "id": "rivExo_rmciY",
+    "html": "<p><b>pip</b> — Python's package installer, covered properly in the Modules and Imports lesson — ships with Python 3.4 and later, so it's almost always already there. Confirm it the same way:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wy5Y6bCEGSlu",
+    "code": "pip3 --version",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "atP-xdzPVZJ7",
+    "html": "<p>If that command isn't found, reinstalling Python from python.org (making sure the \"Add to PATH\" / \"install pip\" option is checked during setup) fixes it on nearly every system.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qAhNcj4mfqWc",
+    "html": "<p>Most real Python development happens in a code editor with Python support (VS Code's Python extension is the most common choice) rather than a plain text editor — it catches obvious mistakes as you type instead of only when you run the file.</p>",
+    "type": "callout",
+    "title": "A proper editor helps early",
+    "variant": "tip"
+  }
+]
+```

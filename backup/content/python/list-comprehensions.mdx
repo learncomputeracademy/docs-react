@@ -1,0 +1,113 @@
+---
+id: "2983c6d2-b3a9-4214-b8c9-97401da0bdbf"
+title: "List Comprehensions"
+path: "python/list-comprehensions"
+status: "published"
+meta_title: "Python List Comprehensions | Learn Computer Academy"
+meta_description: "Building a new list from an existing one in a single, readable line — one of Python's most distinctive and widely-used features."
+sort_order: 13
+updated_at: "2026-08-04T11:39:30.260153+00:00"
+---
+
+```json
+[
+  {
+    "id": "Xi927pB0u7lH",
+    "html": "<p>A <b>list comprehension</b> builds a new list from an existing one in a single line — this is one of the most distinctly \"Python\" features in the language, and real Python code uses it constantly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bE8EhbK4_0dr",
+    "text": "The Long Way vs. the Comprehension",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-long-way-vs-the-comprehension"
+  },
+  {
+    "id": "N0ZFdC11hJKr",
+    "html": "<p>Here's the same task — squaring every number in a list — written both ways:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "q35Y-k1Lg4jk",
+    "code": "# The long way, with a regular loop:\nnumbers = [1, 2, 3, 4, 5]\nsquared = []\nfor n in numbers:\n    squared.append(n ** 2)\nprint(squared)  # [1, 4, 9, 16, 25]\n\n# The same thing, as a list comprehension:\nsquared = [n ** 2 for n in numbers]\nprint(squared)  # [1, 4, 9, 16, 25]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "tO4KZRSVV0en",
+    "html": "<p>The pattern is <code>[expression for item in iterable]</code> — read it left to right as \"the result of <i>expression</i>, for every <i>item</i> in <i>iterable</i>.\"</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CFkmXGp8af08",
+    "text": "Adding a Condition",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-condition"
+  },
+  {
+    "id": "m9H6acBMOrAp",
+    "html": "<p>An optional <code>if</code> at the end filters which items get included — combining filtering and transforming in a single expression:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gPIkcjvRfwVL",
+    "code": "numbers = [1, 2, 3, 4, 5, 6]\neven_squared = [n ** 2 for n in numbers if n % 2 == 0]\nprint(even_squared)  # [4, 16, 36]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "ijDAAVzx9-l-",
+    "text": "Dictionary Comprehensions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dictionary-comprehensions"
+  },
+  {
+    "id": "YKFai55L-mzF",
+    "html": "<p>The same idea works for building a dictionary, using <code>{ }</code> and a <code>key: value</code> pair instead:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wOz8qAEJQWEA",
+    "code": "names = [\"priya\", \"amit\", \"sara\"]\ncapitalized = {name: name.capitalize() for name in names}\nprint(capitalized)  # {'priya': 'Priya', 'amit': 'Amit', 'sara': 'Sara'}",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "yaZBSyNaLL42",
+    "text": "Transforming Instead of Filtering",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transforming-instead-of-filtering"
+  },
+  {
+    "id": "lVbisyo2vg4V",
+    "html": "<p>The <code>if</code> covered above filters — it decides whether an item is included at all. Putting <code>if/else</code> <i>before</i> the expression instead changes what value gets used, keeping every item:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FNhlo4YmCja8",
+    "code": "numbers = [1, 2, 3, 4, 5, 6]\nlabels = [\"even\" if n % 2 == 0 else \"odd\" for n in numbers]\nprint(labels)  # ['odd', 'even', 'odd', 'even', 'odd', 'even'] — one label per number, none dropped",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "XgaTkvXOL_ah",
+    "html": "<p>Position is what tells them apart: <code>if</code> after the loop filters, <code>if/else</code> before the expression transforms. Mixing the two up is an easy mistake when skimming someone else's code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mZU7dom8ic4b",
+    "html": "<p>A comprehension is a readability win for a short, simple transformation. Once the logic inside it gets complicated — several conditions, nested loops, a multi-line transformation — a regular <code>for</code> loop is usually clearer. There's no rule for exactly where that line is; if you find yourself squinting at a comprehension to understand it, that's the signal to write it as a loop instead.</p>",
+    "type": "callout",
+    "title": "When not to use one",
+    "variant": "tip"
+  }
+]
+```

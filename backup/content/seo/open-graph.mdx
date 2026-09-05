@@ -1,0 +1,109 @@
+---
+id: "66d6f194-e059-4d23-9791-3d2778d94b1a"
+title: "Open Graph & Social Previews"
+path: "seo/open-graph"
+status: "published"
+meta_title: "Open Graph Tags and Social Previews | Learn Computer Academy"
+meta_description: "How to control the title, description, and image that appear when someone shares a link to your page on social media or messaging apps."
+sort_order: 16
+updated_at: "2026-08-18T07:03:22.120238+00:00"
+---
+
+```json
+[
+  {
+    "id": "dENTz2vBcSev",
+    "html": "<p>When someone shares a link, the platform tries to build a preview card — a title, a description, an image. Left to guess, it picks whatever it can find, often badly. <b>Open Graph</b> tags let you specify exactly what appears.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0Gk7fDuyD4FI",
+    "alt": "A mocked Open Graph share-card preview — an image, a domain name, a bold title, and a description, as it would appear when a link is shared",
+    "type": "image",
+    "width": 737,
+    "height": 373,
+    "caption": "This is what og:image, og:title, and og:description control — the card shown when a link is shared.",
+    "publicId": "docs/img/seo/og-card-mockup"
+  },
+  {
+    "id": "aQZgjDP9-hA_",
+    "text": "The Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-tags"
+  },
+  {
+    "id": "0I9dAwDXf8Xz",
+    "code": "<head>\n  <meta property=\"og:title\" content=\"How to Choose a Laptop for Students\">\n  <meta property=\"og:description\" content=\"What specifications actually matter, what to skip, and how much you need to spend.\">\n  <meta property=\"og:image\" content=\"https://example.com/images/laptop-guide-og.jpg\">\n  <meta property=\"og:url\" content=\"https://example.com/guides/laptop-buying-guide\">\n  <meta property=\"og:type\" content=\"article\">\n  <meta property=\"og:site_name\" content=\"TechShop\">\n</head>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "fLHIVneAWEA7",
+    "html": "<p>Open Graph originated at Facebook but is now read by most platforms that render link previews — messaging apps, Slack, LinkedIn, and others. Adding it once covers most places a link can be shared.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fAkdZkeDCqcB",
+    "text": "Twitter/X Card Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "twitterx-card-tags"
+  },
+  {
+    "id": "dkVWomxNyneS",
+    "html": "<p>A small number of extra tags control the card format on X specifically. If they are absent, the platform falls back to the Open Graph tags, so these are optional refinement rather than a requirement:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bIW3XNeyTvrL",
+    "code": "<meta name=\"twitter:card\" content=\"summary_large_image\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "l5gk-Wg2RsD9",
+    "text": "The Image Matters Most",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-image-matters-most"
+  },
+  {
+    "id": "Xv-jyKuoik6F",
+    "html": "<p>In a feed of text, the preview image is what stops the scroll. A few practical points:</p><ul><li><b>Use a wide landscape image.</b> A 1200×630 pixel image is the widely-used convention and renders correctly in most places.</li><li><b>Use an absolute URL.</b> A relative path will not resolve — the platform fetching it is not on your domain.</li><li><b>Keep important content away from the edges.</b> Different platforms crop differently.</li><li><b>Text in the image should be large.</b> Previews are often displayed small.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "-YbJS9z_pWQV",
+    "html": "<p>These tags have no effect on search rankings. They exist entirely to control how a link looks when shared. They earn their place through clicks from social and messaging, which is a different channel from search — but the same page benefits from both.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "-8-9qDLirYKg",
+    "text": "Testing and Caching",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-and-caching"
+  },
+  {
+    "id": "P0LRHuklp4my",
+    "html": "<p>Platforms cache previews aggressively. If you share a link, then fix the tags, the old preview will usually persist — sometimes for a long time. Most major platforms provide a debugging tool that fetches the page fresh and refreshes their cached copy.</p><p>The practical implication: get the tags right <i>before</i> a link is widely shared, rather than fixing them after. Recovering from a bad cached preview is more work than setting it correctly the first time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7cptn9pDO965",
+    "text": "A Sensible Default",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-sensible-default"
+  },
+  {
+    "id": "q6-Tg5pNTAQs",
+    "html": "<p>For most pages, Open Graph tags can be generated from data you already have — the page title, the meta description, and a representative image. Hand-writing them per page is only worth it for pages you expect to be shared heavily. Having a reasonable site-wide default image, so that no link ever previews with nothing at all, matters more than perfecting each one.</p>",
+    "type": "richtext"
+  }
+]
+```

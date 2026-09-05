@@ -1,0 +1,124 @@
+---
+id: "0488a54f-70a1-4be0-a3d2-477e137edd33"
+title: "Introduction to MongoDB"
+path: "mongodb/introduction"
+status: "published"
+meta_title: "Introduction to MongoDB | Learn Computer Academy"
+meta_description: "What MongoDB is, how a document database differs from a relational one like SQL, and when each is the better choice."
+sort_order: 1
+updated_at: "2026-08-18T10:11:20.9012+00:00"
+---
+
+```json
+[
+  {
+    "id": "_GraHb4U50Go",
+    "html": "<p><b>MongoDB</b> is a <b>document database</b> — instead of rows and columns in fixed tables, it stores data as flexible, JSON-like documents grouped into collections. It is the most widely used database in the NoSQL family, and it pairs naturally with JavaScript and Node.js, since a MongoDB document and a JavaScript object are shaped almost the same way.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Pj-pzHnYIQoV",
+    "alt": "An isometric illustration of a green document-shaped database icon with floating curly-brace documents stacked around it",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A document database stores flexible, JSON-like records instead of table rows.",
+    "publicId": "docs/img/mongodb/introduction-hero"
+  },
+  {
+    "id": "uphxFvHrC9Jn",
+    "text": "Documents Instead of Rows",
+    "type": "heading",
+    "level": 2,
+    "anchor": "documents-instead-of-rows"
+  },
+  {
+    "id": "_PofzKUS8ORb",
+    "html": "<p>In a relational database (see this site's <a href=\"/sql/intro\">SQL course</a>), every row in a table must have the same columns. In MongoDB, every record — called a <b>document</b> — is its own self-contained JSON-like object, and different documents in the same collection can have different fields:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3VeXJxLcDOkb",
+    "code": "{\n  _id: \"651f2a...\",\n  name: \"Priya Nair\",\n  role: \"Frontend Developer\",\n  skills: [\"HTML\", \"CSS\", \"React\"]\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "dqLnKlz6bA30",
+    "text": "The Terminology Mapping",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-terminology-mapping"
+  },
+  {
+    "id": "bDE1Dw8Pu48d",
+    "html": "<p>If you already know SQL, most concepts have a direct MongoDB equivalent — the words are different, the underlying idea is close enough to reason from.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jtarOjlhstkv",
+    "rows": [
+      [
+        "Database",
+        "Database"
+      ],
+      [
+        "Table",
+        "Collection"
+      ],
+      [
+        "Row",
+        "Document"
+      ],
+      [
+        "Column",
+        "Field"
+      ],
+      [
+        "Primary key",
+        "_id"
+      ],
+      [
+        "JOIN",
+        "$lookup (aggregation stage) or embedding"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "SQL term",
+      "MongoDB term"
+    ]
+  },
+  {
+    "id": "OlU6uE5bHZSS",
+    "text": "When MongoDB Is a Good Fit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-mongodb-is-a-good-fit"
+  },
+  {
+    "id": "ZQnSB1aKZxqG",
+    "html": "<p>MongoDB tends to suit data that is naturally nested or that changes shape often — a user profile with an arbitrary list of addresses, a product catalog where different product types have different attributes, an activity log where every event has different fields. A relational database still tends to win when data is highly structured and relationships between tables matter a lot — accounting ledgers, inventory systems with strict foreign keys, anything where you would lean hard on SQL JOINs and transactions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KHKPndHHfzUF",
+    "html": "<p>Neither database type is strictly \"better.\" Production systems very often use both — a relational database for structured, transactional data, and MongoDB for flexible or high-volume data — chosen per use case, not as a blanket replacement for SQL.</p>",
+    "type": "callout",
+    "title": "Not a replacement for SQL — a different tool",
+    "variant": "note"
+  },
+  {
+    "id": "Id9jctfqoTLG",
+    "text": "What You Will Build in This Course",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-you-will-build-in-this-course"
+  },
+  {
+    "id": "ReDa60Rx_7iT",
+    "html": "<p>This course goes from installing MongoDB through every core CRUD operation, schema design decisions, indexes, the aggregation pipeline, and finally connecting a real <a href=\"/nodejs/introduction\">Node.js</a> application to MongoDB using both the official driver and Mongoose.</p>",
+    "type": "richtext"
+  }
+]
+```

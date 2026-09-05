@@ -1,0 +1,86 @@
+---
+id: "261d3b1e-4ca7-49e0-80ef-1c509e7faf62"
+title: "Introduction to OOP"
+path: "php/oop-introduction"
+status: "published"
+meta_title: "Introduction to OOP in PHP | Learn Computer Academy"
+meta_description: "The basics of object-oriented programming in PHP — classes, objects, properties, and methods."
+sort_order: 23
+updated_at: "2026-07-30T09:08:41.855182+00:00"
+---
+
+```json
+[
+  {
+    "id": "1qVcuBi8fGfx",
+    "html": "<p>Everything up to this point has been <b>procedural</b> — a script running top to bottom, calling functions along the way. <b>Object-oriented programming (OOP)</b> is a different way of organizing code: instead of separate functions and variables floating around, you group related data and behavior together into a single unit called an <b>object</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "55NAYtwhrPXf",
+    "text": "Classes and Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "classes-and-objects"
+  },
+  {
+    "id": "QtS5xEC08iMa",
+    "html": "<p>A <b>class</b> is a blueprint describing what an object of that kind will have and do. An <b>object</b> is one actual instance built from that blueprint. This is exactly like the difference between a house's architectural plan and an actual house built from it — one plan, any number of real houses.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ErmBXflxc-pG",
+    "code": "<?php\n  class Student {\n    public $name;\n    public $course;\n\n    public function introduce() {\n      return \"Hi, I'm {$this->name}, studying {$this->course}.\";\n    }\n  }\n\n  $student1 = new Student();\n  $student1->name = \"Priya\";\n  $student1->course = \"Web Development\";\n\n  echo $student1->introduce(); // \"Hi, I'm Priya, studying Web Development.\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "6TYfPs-NJYbG",
+    "text": "Properties and Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "properties-and-methods"
+  },
+  {
+    "id": "8_os_flEjeWV",
+    "html": "<p>A <b>property</b> is a variable that belongs to an object (<code>$name</code>, <code>$course</code> above); a <b>method</b> is a function that belongs to one (<code>introduce()</code>). The <code>-&gt;</code> arrow accesses both from outside the class, and <code>$this-&gt;</code> accesses them from inside a method.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UQs3jQAiXFNy",
+    "alt": "Isometric diagram showing a class blueprint labeled Student on one side, with arrows producing multiple distinct object instances on the other side, each with its own name and course property",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A class is the blueprint; each object built from it is a separate, independent instance.",
+    "publicId": "docs/img/php/oop-introduction-1"
+  },
+  {
+    "id": "UN7P7XdB_UVV",
+    "text": "Multiple Independent Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-independent-objects"
+  },
+  {
+    "id": "hnWvAeAjaKYW",
+    "html": "<p>Each object created from a class has its own separate copy of every property — changing one object never affects another:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SWbyz_qq8RUc",
+    "code": "<?php\n  $student2 = new Student();\n  $student2->name = \"Amit\";\n  $student2->course = \"Graphic Design\";\n\n  echo $student1->name; // still \"Priya\" — unaffected by $student2\n  echo $student2->name; // \"Amit\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "yXI4fvY0tPqr",
+    "html": "<p>The next lesson builds directly on this one, adding <b>constructors</b> (setting up an object's starting state automatically), <b>inheritance</b> (one class building on another), and <b>visibility</b> (controlling what's accessible from outside a class).</p>",
+    "type": "callout",
+    "title": "More is coming immediately",
+    "variant": "note"
+  }
+]
+```

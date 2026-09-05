@@ -1,0 +1,147 @@
+---
+id: "f50a1796-c41d-46ec-b2c1-3c0089cf6063"
+title: "CSS Transforms"
+path: "css/transforms"
+status: "published"
+meta_title: "CSS Transforms | Learn Computer Academy"
+meta_description: "Move, rotate, scale, and skew an element with the transform property, without affecting the layout of surrounding elements."
+sort_order: 38
+updated_at: "2026-09-03T03:54:07.411673+00:00"
+---
+
+```json
+[
+  {
+    "id": "zU4BQ4Il2sns",
+    "html": "<hr><p>The <code>transform</code> property changes an element's shape, size, or position visually, without pushing surrounding elements around the way changing width or margin would.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "GOB428eAesIJ",
+    "text": "translate() — Moving an Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "translate-moving-an-element"
+  },
+  {
+    "id": "cE9V9soO1B-W",
+    "code": ".box {\n  transform: translate(50px, 20px);    /* right 50px, down 20px */\n  transform: translateX(50px);\n  transform: translateY(20px);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "X4wLfAKZZINS",
+    "text": "rotate() — Rotating an Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rotate-rotating-an-element"
+  },
+  {
+    "id": "eA39iW4nNCMG",
+    "code": ".box {\n  transform: rotate(45deg);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "LMhDrtCjLzEB",
+    "text": "scale() — Resizing an Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "scale-resizing-an-element"
+  },
+  {
+    "id": "xuyPrQqFEnlc",
+    "code": ".box {\n  transform: scale(1.5);          /* 150% size, both directions */\n  transform: scale(1.5, 0.5);     /* different width and height scale */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "6NNfVqXJU2px",
+    "text": "skew() — Slanting an Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "skew-slanting-an-element"
+  },
+  {
+    "id": "g7V2Tpq1mKFK",
+    "code": ".box {\n  transform: skewX(20deg);\n  transform: skewY(10deg);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "UB3Drcz5lUL6",
+    "text": "Combining Multiple Transforms",
+    "type": "heading",
+    "level": 2,
+    "anchor": "combining-multiple-transforms"
+  },
+  {
+    "id": "n__iFY6OjUZg",
+    "html": "<p>Multiple functions can be listed in one <code>transform</code> value, applied in order.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "86gCVhZIi4-T",
+    "code": ".box {\n  transform: translate(20px, 10px) rotate(15deg) scale(1.2);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "GjUXc8DYWyOJ",
+    "text": "transform-origin",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transform-origin"
+  },
+  {
+    "id": "lEDd1gUL1kAA",
+    "html": "<p>Sets the point a rotation or scale happens around — the center by default.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kNyagB7KHohy",
+    "code": ".box {\n  transform-origin: top left;\n  transform: rotate(45deg);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "PcPstoJ4Ul8y",
+    "rows": [
+      [
+        "translate(x, y)",
+        "Moves an element"
+      ],
+      [
+        "rotate(deg)",
+        "Rotates an element"
+      ],
+      [
+        "scale(x, y)",
+        "Resizes an element"
+      ],
+      [
+        "skew(x, y)",
+        "Slants an element along an axis"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Effect"
+    ]
+  },
+  {
+    "id": "RDHdwzktvud_",
+    "html": "<p>A transform is purely visual — it never changes the space an element reserves in the page's layout, unlike changing width, height, or margin directly.</p>",
+    "type": "callout",
+    "title": "What transform does not do",
+    "variant": "note"
+  }
+]
+```

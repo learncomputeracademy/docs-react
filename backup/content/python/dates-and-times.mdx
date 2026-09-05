@@ -1,0 +1,139 @@
+---
+id: "11c463e8-67be-4ed4-af64-27b2e5a9c95b"
+title: "Working with Dates and Times"
+path: "python/dates-and-times"
+status: "published"
+meta_title: "Python Dates and Times | Learn Computer Academy"
+meta_description: "Getting and formatting the current date and time in Python with the datetime module."
+sort_order: 26
+updated_at: "2026-08-04T11:39:34.059187+00:00"
+---
+
+```json
+[
+  {
+    "id": "x0NX18ZAs1Qt",
+    "html": "<p>The <code>datetime</code> module — from the standard library, per the Modules and Imports lesson — is Python's tool for working with dates and times.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k3lb0HJF5BDY",
+    "text": "Getting the Current Date and Time",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-the-current-date-and-time"
+  },
+  {
+    "id": "NMnZlz1yE1Oz",
+    "code": "from datetime import datetime\n\nnow = datetime.now()\nprint(now)                          # 2026-07-30 14:30:00.123456\nprint(now.strftime(\"%Y-%m-%d\"))     # \"2026-07-30\"\nprint(now.strftime(\"%d/%m/%Y\"))     # \"30/07/2026\"\nprint(now.strftime(\"%A, %B %d, %Y\"))# \"Thursday, July 30, 2026\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "VY49y4Of8nrH",
+    "rows": [
+      [
+        "%Y",
+        "4-digit year"
+      ],
+      [
+        "%m",
+        "2-digit month"
+      ],
+      [
+        "%d",
+        "2-digit day"
+      ],
+      [
+        "%H:%M:%S",
+        "Hour:minute:second, 24-hour"
+      ],
+      [
+        "%A",
+        "Full day name"
+      ],
+      [
+        "%B",
+        "Full month name"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Code",
+      "Means"
+    ]
+  },
+  {
+    "id": "00ITrTvwkFss",
+    "html": "<p>The full set of format codes is in the <a href=\"https://docs.python.org/3/library/datetime.html#strftime-and-strptime-format-codes\" target=\"_blank\" rel=\"noopener noreferrer\">strftime() reference on python.org</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gWLJZyVyMBFD",
+    "text": "Creating a Specific Date",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-specific-date"
+  },
+  {
+    "id": "kUJviSE5q8qu",
+    "code": "from datetime import datetime\n\ndeadline = datetime(2026, 12, 31)\nprint(deadline.strftime(\"%Y-%m-%d\"))  # \"2026-12-31\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "UK565rmJIjb6",
+    "text": "Comparing and Calculating with Dates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comparing-and-calculating-with-dates"
+  },
+  {
+    "id": "RkszE5lnnWgZ",
+    "code": "from datetime import datetime, timedelta\n\nnow = datetime.now()\ndeadline = datetime(2026, 12, 31)\n\ndifference = deadline - now\nprint(f\"{difference.days} days remaining\")\n\nnext_week = now + timedelta(days=7)\nprint(next_week.strftime(\"%Y-%m-%d\"))",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "N-PcLCTOQvxH",
+    "html": "<p><code>timedelta</code> represents a span of time, and can be added to or subtracted from a <code>datetime</code> directly — no separate \"modify\" method needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zAzuN9x4HLjt",
+    "text": "Parsing a Date From Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "parsing-a-date-from-text"
+  },
+  {
+    "id": "93Tf0azEQ0iZ",
+    "html": "<p><code>strptime()</code> is the reverse of <code>strftime()</code> — it reads a date <i>out of</i> a string, using the same format codes to say what shape to expect:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s1T1qtFiec7z",
+    "code": "from datetime import datetime\n\ntext = \"30/07/2026\"\nparsed = datetime.strptime(text, \"%d/%m/%Y\")\nprint(parsed.year)   # 2026\nprint(parsed.month)  # 7",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "SJaApBnKhwMp",
+    "html": "<p>The format string must match the input exactly, or <code>strptime()</code> raises a <code>ValueError</code> — <code>\"30/07/2026\"</code> parsed with <code>\"%Y-%m-%d\"</code> fails outright rather than guessing. Wrap this in <code>try</code>/<code>except</code> whenever the text is coming from a user rather than a source you fully control.</p>",
+    "type": "callout",
+    "title": "strptime() does not guess the format",
+    "variant": "warning"
+  },
+  {
+    "id": "7ulXVo6nLW27",
+    "html": "<p>Dates and times in Python default to \"naive\" — no time zone attached at all, rather than automatically using the server's configured zone. For anything where the difference matters (a scheduled event across regions), look at the <code>zoneinfo</code> module in the standard library.</p>",
+    "type": "callout",
+    "title": "No time zone by default",
+    "variant": "note"
+  }
+]
+```

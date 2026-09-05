@@ -1,0 +1,197 @@
+---
+id: "f4f43545-a0c4-4644-bb7f-db74eba0a6d0"
+title: "Operators"
+path: "python/operators"
+status: "published"
+meta_title: "Python Operators | Learn Computer Academy"
+meta_description: "Python's arithmetic, comparison, and logical operators, plus the crucial difference between == and is."
+sort_order: 7
+updated_at: "2026-08-04T11:39:28.531404+00:00"
+---
+
+```json
+[
+  {
+    "id": "pW753zEuM4ay",
+    "html": "<p>Python's operators cover the same ground as most languages' — arithmetic, comparison, logic — with a few of Python's own choices worth flagging specifically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ag4x4wx8bVbE",
+    "text": "Arithmetic Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "arithmetic-operators"
+  },
+  {
+    "id": "x3VcrZ2_dtmd",
+    "rows": [
+      [
+        "+",
+        "Addition",
+        "5 + 2 → 7"
+      ],
+      [
+        "-",
+        "Subtraction",
+        "5 - 2 → 3"
+      ],
+      [
+        "*",
+        "Multiplication",
+        "5 * 2 → 10"
+      ],
+      [
+        "/",
+        "Division (always returns a float)",
+        "5 / 2 → 2.5"
+      ],
+      [
+        "//",
+        "Floor division (rounds down to an int)",
+        "5 // 2 → 2"
+      ],
+      [
+        "%",
+        "Modulus (remainder)",
+        "5 % 2 → 1"
+      ],
+      [
+        "**",
+        "Exponent",
+        "5 ** 2 → 25"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Meaning",
+      "Example"
+    ]
+  },
+  {
+    "id": "7kwCWq67emNH",
+    "html": "<p><code>//</code> is worth noting specifically: <code>/</code> always gives a float result, even when the numbers divide evenly, and <code>//</code> is how you deliberately get a whole number back instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eV9G3EyUeQni",
+    "text": "String Concatenation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-concatenation"
+  },
+  {
+    "id": "794Z9WZ9VhY6",
+    "html": "<p>Python uses <code>+</code> for both arithmetic and joining strings — there's no separate operator just for joining text. Python decides which one you mean from the types involved, which is exactly why mixing a string and a number with <code>+</code> raises an error rather than guessing (from the Data Types lesson):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YOpWntNO8kWU",
+    "code": "greeting = \"Hello, \" + \"world!\"\nprint(greeting)\n\n# name = \"Age: \" + 21  # TypeError — use an f-string instead (next lesson)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "ChT_5dLCQV_2",
+    "text": "Comparison: == vs. is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comparison-vs-is"
+  },
+  {
+    "id": "bL0jtz9icHRO",
+    "html": "<p><code>==</code> and <code>is</code> look similar but do different jobs. <code>==</code> compares <b>value</b>; <code>is</code> compares <b>identity</b> — whether two names point at the literal same object in memory:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yn6_FOSw30gi",
+    "code": "a = [1, 2, 3]\nb = [1, 2, 3]\nc = a\n\nprint(a == b)  # True — same values\nprint(a is b)  # False — two different list objects, even though equal\nprint(a is c)  # True — c points at the exact same object as a",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "__V3PDAHdoPn",
+    "html": "<p>Use <code>==</code> for comparing values, which is what you want almost all of the time. <code>is</code> is specifically for checking identity, and its one genuinely common use is comparing against <code>None</code>: <code>if value is None:</code> is the idiomatic Python way to do it, not <code>if value == None:</code>.</p>",
+    "type": "callout",
+    "title": "Default to ==, use is for None checks",
+    "variant": "tip"
+  },
+  {
+    "id": "iPip7MueAqEX",
+    "text": "Logical Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "logical-operators"
+  },
+  {
+    "id": "szL9Bgn5QXeW",
+    "html": "<p>Python spells these out as words rather than symbols — there's no <code>&&</code>, <code>||</code>, or <code>!</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KIbRUMcxje2h",
+    "code": "age = 20\nhas_id = True\nif age >= 18 and has_id:\n    print(\"Entry allowed.\")\n\nif not has_id:\n    print(\"ID required.\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "m_7RTDZluXac",
+    "text": "Assignment Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "assignment-operators"
+  },
+  {
+    "id": "9rkdF3aoIc0a",
+    "html": "<p>Every arithmetic operator has a compound form that updates a variable in place:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T9hWOj_i20nn",
+    "rows": [
+      [
+        "x += 1",
+        "x = x + 1"
+      ],
+      [
+        "x -= 1",
+        "x = x - 1"
+      ],
+      [
+        "x *= 2",
+        "x = x * 2"
+      ],
+      [
+        "x /= 2",
+        "x = x / 2"
+      ],
+      [
+        "x //= 2",
+        "x = x // 2"
+      ],
+      [
+        "x **= 2",
+        "x = x ** 2"
+      ],
+      [
+        "x %= 2",
+        "x = x % 2"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Same as"
+    ]
+  },
+  {
+    "id": "WRfOxezX0Wkr",
+    "html": "<p>You already saw <code>count += 1</code> used as the standard way to increment a counter, since Python has no <code>++</code> — the same shortcut works for every operator in the table above.</p>",
+    "type": "richtext"
+  }
+]
+```

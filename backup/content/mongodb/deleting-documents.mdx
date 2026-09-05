@@ -1,0 +1,112 @@
+---
+id: "3a655b7b-153e-472d-a9d5-8515c23090ec"
+title: "Deleting Documents"
+path: "mongodb/deleting-documents"
+status: "published"
+meta_title: "Deleting Documents | Learn Computer Academy"
+meta_description: "Removing documents from a collection with deleteOne() and deleteMany(), and the difference between deleting documents and dropping a whole collection."
+sort_order: 9
+updated_at: "2026-08-18T10:11:23.980966+00:00"
+---
+
+```json
+[
+  {
+    "id": "3rih1aMS7ml1",
+    "html": "<p>Removing data uses <code>deleteOne()</code> for a single document or <code>deleteMany()</code> for every document matching a filter.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "m-jW88Sk5s6c",
+    "alt": "An isometric illustration of a document icon being pulled into a trash bin, with a red X mark",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "deleteOne() and deleteMany() permanently remove matching documents.",
+    "publicId": "docs/img/mongodb/delete-hero"
+  },
+  {
+    "id": "w8yfwL167R6f",
+    "text": "deleteOne()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deleteone"
+  },
+  {
+    "id": "emq3yJdkWUa5",
+    "html": "<p>Removes the first document matching the filter — if several documents match, only one is deleted:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uptG5qAuTJpz",
+    "code": "db.users.deleteOne({ name: \"Vikram Singh\" })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "1bx2ExnD2F3o",
+    "text": "deleteMany()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deletemany"
+  },
+  {
+    "id": "OS9QIHPo2gI9",
+    "html": "<p>Removes every document matching the filter:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6xHOmye2qgyh",
+    "code": "db.users.deleteMany({ status: \"archived\" })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "vTsAGDE_ZGcS",
+    "text": "Deleting Every Document in a Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deleting-every-document-in-a-collection"
+  },
+  {
+    "id": "I5pr8FKaT7k2",
+    "html": "<p>Passing an empty filter object matches every document, effectively emptying the collection while keeping it (and any indexes on it) intact:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6Mzg1rU3_uH3",
+    "code": "db.users.deleteMany({})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "Ox1CkICoxVa7",
+    "text": "Dropping a Whole Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dropping-a-whole-collection"
+  },
+  {
+    "id": "scABaIgbmd4s",
+    "html": "<p><code>drop()</code> deletes the entire collection — not just its documents, but the collection itself and any indexes defined on it. This is a separate, more permanent operation from <code>deleteMany({})</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ski_uZIqH1Bq",
+    "code": "db.users.drop()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "R5pRtIZl-uAp",
+    "html": "<p>None of these operations can be undone from inside MongoDB. Before running <code>deleteMany()</code> or <code>drop()</code> against real data, run the equivalent <code>find()</code> query first to see exactly what would be affected.</p>",
+    "type": "callout",
+    "title": "Deletes are permanent — check with find() first",
+    "variant": "danger"
+  }
+]
+```

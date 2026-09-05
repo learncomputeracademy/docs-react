@@ -1,0 +1,107 @@
+---
+id: "e100aa97-ac76-4599-90ab-7f887823c538"
+title: "When Your Site Goes Down"
+path: "hosting/when-your-site-goes-down"
+status: "published"
+meta_title: "Website Down? How to Diagnose It | Learn Computer Academy"
+meta_description: "A calm, ordered way to figure out what actually broke — domain, DNS, hosting, or the site itself — before reacting."
+sort_order: 39
+updated_at: "2026-08-05T13:35:42.979234+00:00"
+---
+
+```json
+[
+  {
+    "id": "0KwQo3IAWE8J",
+    "html": "<p>Every concept needed to diagnose a down site has already appeared somewhere in this category. This lesson is a single ordered checklist that ties them together for the moment it actually happens.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VfDIZ83pdbHJ",
+    "text": "Step 1: Confirm It Is Actually Down",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-1-confirm-it-is-actually-down"
+  },
+  {
+    "id": "pbEqFrg4oS1L",
+    "html": "<p>Check the site from a different network — mobile data instead of the current Wi-Fi, or a site-checking tool that loads the page from an outside server. A single device or network having trouble is a very different problem from the whole site being down for everyone.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7lLU97iFIA7h",
+    "text": "Step 2: Check the Domain",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-2-check-the-domain"
+  },
+  {
+    "id": "i11sHWRGbsf1",
+    "html": "<p>Confirm the domain has not expired — a lapsed registration, covered in the previous lesson, is one of the most common causes of a suddenly-dead site and one of the easiest to overlook, since nothing about the site's files or hosting changed at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VB5sI1Sjen4e",
+    "text": "Step 3: Check DNS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-3-check-dns"
+  },
+  {
+    "id": "-UMirTXUddUl",
+    "html": "<p>Confirm the domain's DNS records still point where they should — a records lesson covered how to inspect these; an accidentally changed or deleted record is a common cause, especially right after a migration or a provider switch.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KMh7JUIL_36j",
+    "text": "Step 4: Check the Host Directly",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-4-check-the-host-directly"
+  },
+  {
+    "id": "cymgjWcHH7dZ",
+    "html": "<p>Try reaching the hosting provider's own status page or dashboard — an outage on the provider's side, a lapsed hosting plan, or a suspended account (sometimes triggered by exceeding a free-tier limit, covered in the free-hosting lesson) all live here, independent of DNS or the domain.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0PlR5DE4EwnY",
+    "alt": "Isometric flowchart diagram showing a decision tree starting from a red down website icon, branching through checkpoints labelled domain, DNS, and host, each with a yes or no path leading toward a found problem icon",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Working through causes in order, instead of guessing, finds the actual problem faster.",
+    "publicId": "docs/img/hosting/downtime-1"
+  },
+  {
+    "id": "xduZ4IpZzpxi",
+    "text": "Step 5: Check the Application Itself",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-5-check-the-application-itself"
+  },
+  {
+    "id": "cy1p3Vo0GPUO",
+    "html": "<p>If the domain, DNS, and host all check out, the problem is likely in the site's own code, a recent update, or its database — check the host's error logs, and consider whether a recent change (a new plugin, an update, a deploy) lines up with when the problem started.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iVbo83JOrovX",
+    "text": "Why This Order Specifically",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-order-specifically"
+  },
+  {
+    "id": "EVLQQbypaVIh",
+    "html": "<p>The list moves from the most catastrophic and most overlooked cause (domain expiry) toward the most granular (application code), and each step is something the earlier lessons in this category already explained how to check. Reacting immediately by rebuilding or restoring from a backup, before actually confirming the cause, risks losing time on a fix that does not match the real problem — or discarding work that a calmer diagnosis would have shown was never actually lost.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GZ8RcuJ1gV_D",
+    "html": "<p>This is precisely why the backups lesson matters as much as it does — once the actual cause is found, a backup is frequently the fastest real fix, but only after the cause is known, not as the first reflexive step.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

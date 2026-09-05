@@ -1,0 +1,122 @@
+---
+id: "f874e107-3082-4258-b1b0-70636030387d"
+title: "Exception Handling"
+path: "python/exception-handling"
+status: "published"
+meta_title: "Python Exception Handling | Learn Computer Academy"
+meta_description: "Handling errors gracefully in Python with try, except, else, and finally."
+sort_order: 20
+updated_at: "2026-08-04T11:39:32.263853+00:00"
+---
+
+```json
+[
+  {
+    "id": "w00NVZP97LPc",
+    "html": "<p>Things go wrong at runtime — a file might not exist, user input might not be what was expected. Python's <code>try</code>/<code>except</code> handles this gracefully instead of crashing outright, with a couple of pieces worth knowing about specifically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uIb9BkcvwbUj",
+    "text": "try and except",
+    "type": "heading",
+    "level": 2,
+    "anchor": "try-and-except"
+  },
+  {
+    "id": "mHKsyLhIPQ-3",
+    "code": "def divide(a, b):\n    if b == 0:\n        raise ValueError(\"Cannot divide by zero.\")\n    return a / b\n\ntry:\n    print(divide(10, 0))\nexcept ValueError as e:\n    print(f\"Error: {e}\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Y9yFPs8bDkVl",
+    "html": "<p><code>raise</code> is how you trigger an exception yourself; <code>except</code> is what catches it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hRlhINp5lnwD",
+    "text": "Catching Specific Exception Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "catching-specific-exception-types"
+  },
+  {
+    "id": "GqYtDlGK85UM",
+    "code": "try:\n    result = 10 / 0\nexcept ZeroDivisionError as e:\n    print(f\"Specifically caught: {e}\")\nexcept Exception as e:\n    print(f\"General error: {e}\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "kaRBI7Yj0_tn",
+    "html": "<p>Order matters here — a specific exception type should come before a more general one that would otherwise catch it first.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "O50uCtFoUxtM",
+    "text": "else and finally",
+    "type": "heading",
+    "level": 2,
+    "anchor": "else-and-finally"
+  },
+  {
+    "id": "h0VLqZ4reBfJ",
+    "html": "<p>Python also has an <code>else</code> block: it runs only if <b>no</b> exception was raised. <code>finally</code> runs either way, regardless of what happened above it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZJ5VHGKe1Vlv",
+    "code": "try:\n    result = divide(10, 2)\nexcept ValueError as e:\n    print(f\"Error: {e}\")\nelse:\n    print(f\"Success: {result}\")  # only runs if no exception happened\nfinally:\n    print(\"Done.\")  # always runs",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "V14a-XzJEn29",
+    "text": "Catching Multiple Types at Once",
+    "type": "heading",
+    "level": 2,
+    "anchor": "catching-multiple-types-at-once"
+  },
+  {
+    "id": "f4m7VGTpcc5a",
+    "code": "try:\n    value = int(\"not a number\")\nexcept (ValueError, TypeError) as e:\n    print(f\"Bad input: {e}\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "hOOs9xdSAacZ",
+    "text": "Avoid a Bare except",
+    "type": "heading",
+    "level": 2,
+    "anchor": "avoid-a-bare-except"
+  },
+  {
+    "id": "c72jsAoilAx9",
+    "html": "<p>Writing <code>except:</code> with no type at all catches literally everything, including mistakes you'd actually want to see — a typo'd variable name, a missing import. It silently hides bugs instead of surfacing them:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r9LKIiDye66F",
+    "code": "# Avoid this — catches every possible error, including your own bugs:\ntry:\n    risky_operation()\nexcept:\n    pass\n\n# Prefer this — catches runtime problems, but a real code bug still surfaces:\ntry:\n    risky_operation()\nexcept Exception as e:\n    print(f\"Something went wrong: {e}\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "zarY_22zrmCk",
+    "html": "<p><code>except Exception</code> is about as broad as you should normally go — it still lets Python's own internal signals (like the one used by <code>Ctrl+C</code>) through, which a bare <code>except:</code> would swallow too.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ryu1nPFSmudf",
+    "html": "<p>An uncaught exception on a real, deployed Python program prints a full traceback — file paths, line numbers, sometimes variable values — which is invaluable for you while developing, but should never be shown directly to an end user. Wrapping risky operations (file access, network requests, user input parsing) in <code>try</code>/<code>except</code> is what turns that into a clean, controlled message instead.</p>",
+    "type": "callout",
+    "title": "Tracebacks are for developers, not users",
+    "variant": "warning"
+  }
+]
+```

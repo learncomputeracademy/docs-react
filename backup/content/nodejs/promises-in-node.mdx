@@ -1,0 +1,122 @@
+---
+id: "5035d6ce-2656-4686-a331-2e6f1ce77725"
+title: "Promises in Node.js"
+path: "nodejs/promises-in-node"
+status: "published"
+meta_title: "Promises in Node.js | Learn Computer Academy"
+meta_description: "Use Node.js's promise-based APIs to flatten callback hell, and turn any callback-style function into one that returns a promise with util.promisify."
+sort_order: 13
+updated_at: "2026-08-05T05:47:56.582836+00:00"
+---
+
+```json
+[
+  {
+    "id": "pLFd7mOhWAx5",
+    "html": "<p>You already know what a promise is from the JavaScript course — an object representing a value that isn't ready yet. This lesson is about where promises show up specifically in Node, and how to get one when an API only offers callbacks.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5z8sMWdsaNAJ",
+    "text": "The Callback-Hell Example, With Promises",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-callback-hell-example-with-promises"
+  },
+  {
+    "id": "5j52FpLdtd31",
+    "html": "<p>The nested <code>fs.readFile()</code> calls from the last lesson use <code>fs</code>'s callback API. Switching to <code>fs/promises</code> flattens it with <code>.then()</code> chains instead of nesting:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5GPcsS8d20dq",
+    "code": "const fs = require('fs/promises')\n\nfs.readFile('user.json', 'utf8')\n  .then((userData) => fs.readFile('settings.json', 'utf8'))\n  .then((settingsData) => fs.readFile('preferences.json', 'utf8'))\n  .then((prefData) => console.log('All data loaded'))\n  .catch((err) => console.error('Something failed:', err))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "zARnznqG3YJ5",
+    "html": "<p>One <code>.catch()</code> at the end now handles a failure from <i>any</i> step, instead of repeating the same error check in every callback.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LWp_YZwJtvUF",
+    "text": "Running Things in Parallel",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-things-in-parallel"
+  },
+  {
+    "id": "00SVEKQkhFD5",
+    "html": "<p>Those three reads don't actually depend on each other — each one waits for the previous one to finish for no real reason. <code>Promise.all()</code> starts them all at once and waits for every one to finish:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7H9VQOa3MJ4R",
+    "code": "Promise.all([\n  fs.readFile('user.json', 'utf8'),\n  fs.readFile('settings.json', 'utf8'),\n  fs.readFile('preferences.json', 'utf8'),\n])\n  .then(([userData, settingsData, prefData]) => {\n    console.log('All data loaded')\n  })\n  .catch((err) => console.error('Something failed:', err))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "e_D7FFU97s9C",
+    "html": "<p>This finishes roughly as fast as the slowest single read, instead of the sum of all three — a real difference once a server is handling many requests.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V7Ip9BfHF4wB",
+    "text": "Turning a Callback API Into a Promise",
+    "type": "heading",
+    "level": 2,
+    "anchor": "turning-a-callback-api-into-a-promise"
+  },
+  {
+    "id": "NHw9GamMwcdm",
+    "html": "<p>Not every function offers a promise version. Node's built-in <code>util.promisify()</code> converts any error-first callback function into one that returns a promise:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FVd2bgyk7maf",
+    "code": "const util = require('util')\nconst fs = require('fs')\n\nconst readFileAsync = util.promisify(fs.readFile)\n\nreadFileAsync('data.txt', 'utf8')\n  .then((data) => console.log(data))\n  .catch((err) => console.error(err))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "Odt-ONICY31f",
+    "html": "<p><code>util.promisify()</code> only works on functions that follow Node's error-first callback convention from the last lesson — the callback's first parameter must be the error. Most of Node's own APIs qualify.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "eDfbzDRQB1S5",
+    "text": "Common Node Promise Rejections",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-node-promise-rejections"
+  },
+  {
+    "id": "TkNPXEPfvm75",
+    "rows": [
+      [
+        "Reading a file",
+        "File doesn't exist, or the program lacks permission to read it"
+      ],
+      [
+        "Making a network request",
+        "The other server is unreachable, or times out"
+      ],
+      [
+        "Parsing JSON",
+        "The text isn't valid JSON"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "What typically rejects the promise"
+    ]
+  }
+]
+```

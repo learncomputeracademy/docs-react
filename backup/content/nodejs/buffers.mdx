@@ -1,0 +1,81 @@
+---
+id: "a63e5994-956c-43c6-98d4-d5fbd499c1c3"
+title: "Buffers"
+path: "nodejs/buffers"
+status: "published"
+meta_title: "Node.js Buffers | Learn Computer Academy"
+meta_description: "What a Buffer is, why Node.js needs a separate type for raw binary data, and how it relates to the streams and files covered so far."
+sort_order: 16
+updated_at: "2026-08-05T05:47:57.521679+00:00"
+---
+
+```json
+[
+  {
+    "id": "WMvC6JTPnQB0",
+    "html": "<p>Not all data is text. Images, videos, and PDFs are <b>binary data</b> — raw bytes that don't map to readable characters. JavaScript strings are built for text; Node needs a different type to hold binary data, and that's what a <b>Buffer</b> is.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-l7z7lFPIaQa",
+    "text": "Where Buffers Show Up",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-buffers-show-up"
+  },
+  {
+    "id": "spE5sMsFWLQA",
+    "html": "<p>You've actually already produced one, without naming it. Leave off the encoding when reading a file:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "B4ilxtH8CTKg",
+    "code": "const fs = require('fs')\n\nconst data = fs.readFileSync('photo.png')\nconsole.log(data)  // <Buffer 89 50 4e 47 0d 0a 1a 0a ...>",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "KfmsG_8Wn9Rh",
+    "html": "<p>Without <code>'utf8'</code> as a second argument, <code>readFileSync</code> returns the file's raw bytes as a <code>Buffer</code> instead of trying to decode them as text — appropriate here, since PNG data isn't meant to be read as characters at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KkpEpVKjUI9E",
+    "text": "Creating a Buffer Directly",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-buffer-directly"
+  },
+  {
+    "id": "6EmTH86RLW2U",
+    "code": "const buf = Buffer.from('Hello')\nconsole.log(buf)          // <Buffer 48 65 6c 6c 6f>\nconsole.log(buf.length)   // 5\nconsole.log(buf.toString())  // 'Hello'",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "T6YB2HD_GXe0",
+    "html": "<p><code>Buffer.from()</code> converts a string into its raw byte representation; <code>.toString()</code> converts it back. Each byte is shown in hexadecimal when a Buffer is logged.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "69xCf8aYqzrR",
+    "text": "Buffers and Streams",
+    "type": "heading",
+    "level": 2,
+    "anchor": "buffers-and-streams"
+  },
+  {
+    "id": "oUI3HC7fFaFN",
+    "html": "<p>The <code>'data'</code> event from the streams lesson delivers each chunk as a <code>Buffer</code> by default — that's the actual type flowing through <code>readStream.pipe(writeStream)</code>. Passing <code>'utf8'</code> as an encoding to <code>createReadStream()</code>, as in the streams lesson, tells Node to convert each chunk to a string before your <code>'data'</code> handler ever sees it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gvsT1XPn_8Tf",
+    "html": "<p>You won't create Buffers directly very often in typical application code — most of the time they arrive already handed to you, from a file read, a network response, or a stream's <code>'data'</code> event. Knowing what they are is what matters, so a <code>&lt;Buffer ...&gt;</code> in your console output isn't a mystery when it shows up.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

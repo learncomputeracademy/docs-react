@@ -1,0 +1,101 @@
+---
+id: "f4d9f49f-818e-4420-821d-c75fac1f06d0"
+title: "Including JavaScript in HTML"
+path: "html/including-javascript"
+status: "published"
+meta_title: "Including JavaScript in HTML | Learn Computer Academy"
+meta_description: "The script tag — inline vs. external JavaScript, and where to place it for a page that loads fast."
+sort_order: 43
+updated_at: "2026-09-03T03:43:16.293945+00:00"
+---
+
+```json
+[
+  {
+    "id": "PMJ44Ka2Xy7H",
+    "html": "<hr><p>The <code>&lt;script&gt;</code> tag is how JavaScript gets attached to an HTML page — either written directly inline, or loaded from a separate file. This lesson covers the HTML side; the full JavaScript course elsewhere on this site covers the language itself.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "L7sfnR0qsGMv",
+    "text": "Inline JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inline-javascript"
+  },
+  {
+    "id": "bk2xpdknk61_",
+    "html": "<p>Code written directly between the opening and closing tags.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IzJ8XEW6RRkp",
+    "code": "<script>\n  console.log('Hello from inline JavaScript')\n</script>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "FiOG2Xp5L1H8",
+    "text": "External JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "external-javascript"
+  },
+  {
+    "id": "W05xNv7RCW0p",
+    "html": "<p>Code kept in its own <code>.js</code> file and loaded with the <code>src</code> attribute — usually the better choice, since the file can be cached by the browser and reused across pages.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KnSCRlPRKywJ",
+    "code": "<script src=\"app.js\"></script>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "rs8pKcuHyHin",
+    "text": "Where to Place It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-to-place-it"
+  },
+  {
+    "id": "QyF20BG8W9_S",
+    "rows": [
+      [
+        "At the end of &lt;body&gt;",
+        "The page's HTML renders first, then the script runs — the traditional, safest default"
+      ],
+      [
+        "In &lt;head&gt;, with the defer attribute",
+        "The script downloads in the background while the page parses, then runs after — modern equivalent, without blocking rendering"
+      ],
+      [
+        "In &lt;head&gt;, with no defer",
+        "The script downloads and runs before the rest of the page parses — blocks rendering, usually avoided"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Placement",
+      "Effect"
+    ]
+  },
+  {
+    "id": "Dt37QWZPHukU",
+    "code": "<head>\n  <script src=\"app.js\" defer></script>\n</head>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "9l2cBqg54FFB",
+    "html": "<p>When in doubt, either place the script tag right before <code>&lt;/body&gt;</code>, or use <code>defer</code> in the head — both avoid the common beginner mistake of a script trying to find an element on the page that hasn't loaded yet.</p>",
+    "type": "callout",
+    "title": "The most common beginner bug",
+    "variant": "tip"
+  }
+]
+```

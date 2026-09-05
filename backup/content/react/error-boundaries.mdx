@@ -1,0 +1,99 @@
+---
+id: "a08e048b-bd75-4f16-96e8-9cdc39b14aec"
+title: "Error Boundaries"
+path: "react/error-boundaries"
+status: "published"
+meta_title: "Error Boundaries in React | Learn Computer Academy"
+meta_description: "Catching rendering errors in a part of the component tree with an error boundary, instead of a crash taking down the whole page."
+sort_order: 22
+updated_at: "2026-07-31T11:24:42.735241+00:00"
+---
+
+```json
+[
+  {
+    "id": "juxgSQz3Y6oV",
+    "html": "<p>The <a href=\"/javascript/error-handling/\">JavaScript Error Handling lesson</a>'s <code>try</code>/<code>catch</code> doesn't catch errors thrown <i>during rendering</i> inside a component — by default, an error there crashes the entire React app, showing a blank page. An <b>error boundary</b> is React's tool for containing that damage to one part of the tree instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EMIodRQIUQ8C",
+    "text": "What an Error Boundary Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-an-error-boundary-is"
+  },
+  {
+    "id": "XiusJd1u9uAS",
+    "html": "<p>An error boundary is a component that catches JavaScript errors thrown by its children during rendering, logs them, and displays a fallback UI instead of the crashed tree. As of the current version of React, this specifically requires a class component — the one place in modern React you'll still write one, since no hook-based equivalent exists yet:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "t-UPWQsAb9yP",
+    "code": "import { Component } from 'react';\n\nclass ErrorBoundary extends Component {\n  state = { hasError: false };\n\n  static getDerivedStateFromError() {\n    return { hasError: true };\n  }\n\n  componentDidCatch(error, info) {\n    console.error('Caught by ErrorBoundary:', error, info);\n  }\n\n  render() {\n    if (this.state.hasError) {\n      return <h2>Something went wrong.</h2>;\n    }\n    return this.props.children;\n  }\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "2U8-UfmYCYtf",
+    "text": "Using It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-it"
+  },
+  {
+    "id": "kvvzj-aA6ZFR",
+    "html": "<p>Wrap it around whatever part of the tree should fail independently — composed with <code>children</code>, exactly like the Component Composition lesson:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FVzxN_ViBpnE",
+    "code": "function App() {\n  return (\n    <div>\n      <Header /> {/* stays up even if the widget below crashes */}\n      <ErrorBoundary>\n        <UnstableWidget />\n      </ErrorBoundary>\n      <Footer />\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "4Z7RdIUY5r7R",
+    "text": "What an Error Boundary Does Not Catch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-an-error-boundary-does-not-catch"
+  },
+  {
+    "id": "4WoxSUg0WpBa",
+    "rows": [
+      [
+        "Errors inside event handlers",
+        "A regular try/catch inside the handler itself"
+      ],
+      [
+        "Errors inside a fetch() call",
+        "The .catch() / try-catch pattern from the Fetching Data lesson"
+      ],
+      [
+        "Errors during server-side rendering",
+        "Framework-specific error handling (outside the scope of this section)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Doesn't catch",
+      "Handle it with"
+    ]
+  },
+  {
+    "id": "3SC1DI2GOt7w",
+    "html": "<p>An error boundary is specifically for the case those other tools don't cover: something going wrong while a component is actually rendering.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eCRT0iyh6fpb",
+    "html": "<p>A handful of well-placed error boundaries — around a page's major independent sections — usually beats wrapping every single small component individually. The goal is containing a crash to the section that broke, not eliminating every possible failure.</p>",
+    "type": "callout",
+    "title": "A few boundaries, placed deliberately",
+    "variant": "tip"
+  }
+]
+```

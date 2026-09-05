@@ -1,0 +1,122 @@
+---
+id: "673dc084-5417-4b94-b952-7b90505d8ca0"
+title: "Git Basics — init, add, commit"
+path: "git/git-basics-init-add-commit"
+status: "published"
+meta_title: "Git Basics — init, add, commit | Learn Computer Academy"
+meta_description: "Turning a folder into a Git repository, and the two-step process — staging, then committing — behind every saved snapshot of a project."
+sort_order: 3
+updated_at: "2026-09-03T05:19:59.85483+00:00"
+---
+
+```json
+[
+  {
+    "id": "qxfYggUkJY2Y",
+    "html": "<p>Three commands cover the entire core loop of using Git day to day. Everything in the lessons ahead builds on these.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "guIL4NvGb0ik",
+    "text": "git init — Starting a Repository",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-init-starting-a-repository"
+  },
+  {
+    "id": "k972ZXyHe9kr",
+    "code": "mkdir my-project\ncd my-project\ngit init\n# Initialized empty Git repository in .../my-project/.git/",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "F4DwEQlS1DoW",
+    "html": "<p>This creates a hidden <code>.git</code> folder — that's the entire repository. Deleting it removes all Git history while leaving the actual project files untouched.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pKBEO6ELtqsZ",
+    "text": "The Three States a File Can Be In",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-three-states-a-file-can-be-in"
+  },
+  {
+    "id": "fXcUyx4aGxeU",
+    "rows": [
+      [
+        "Untracked / Modified",
+        "A file Git sees but hasn't been told to track yet, or a tracked file that has changed"
+      ],
+      [
+        "Staged",
+        "A change marked as ready to be included in the next commit"
+      ],
+      [
+        "Committed",
+        "A change permanently saved into the project's history"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "State",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "6jRvwEviPsSg",
+    "text": "git add — Staging Changes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-add-staging-changes"
+  },
+  {
+    "id": "YvUPljnT_CLs",
+    "code": "echo \"# My Project\" > README.md\n\ngit add README.md      # stage one specific file\ngit add .               # stage every changed file in the current folder and below",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "I_0DEBxrXcT5",
+    "text": "git commit — Saving a Snapshot",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-commit-saving-a-snapshot"
+  },
+  {
+    "id": "LriQlduj95Kj",
+    "code": "git commit -m \"Add README\"\n# [main (root-commit) a1b2c3d] Add README\n#  1 file changed, 1 insertion(+)",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "AxeFu-exB9Mi",
+    "html": "<p>The <code>-m</code> flag provides the commit message inline — without it, Git opens the configured text editor to write one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0S2dec6RLP0L",
+    "text": "A Typical Cycle",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-typical-cycle"
+  },
+  {
+    "id": "PBZEK-W4QQfD",
+    "code": "# 1. Make some changes to files\n# 2. Check what changed (covered next lesson)\ngit status\n\n# 3. Stage the changes\ngit add .\n\n# 4. Commit them\ngit commit -m \"Describe what changed and why\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "akQ-ZCnqin1l",
+    "html": "<p>A good commit message describes <i>why</i> a change was made, not just what — \"Add README\" is fine for a first commit, but \"Fix off-by-one error in pagination\" is far more useful six months later than \"Fix bug.\"</p>",
+    "type": "callout",
+    "title": "Writing a useful commit message",
+    "variant": "tip"
+  }
+]
+```

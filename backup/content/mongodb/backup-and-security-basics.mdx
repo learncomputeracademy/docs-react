@@ -1,0 +1,124 @@
+---
+id: "9aeea164-e51e-4087-940a-f1e71efe2c18"
+title: "Backup & Security Basics"
+path: "mongodb/backup-and-security-basics"
+status: "published"
+meta_title: "Backup & Security Basics | Learn Computer Academy"
+meta_description: "Backing up and restoring a MongoDB database with mongodump and mongorestore, and the basics of authentication and role-based access."
+sort_order: 21
+updated_at: "2026-08-18T10:11:28.243817+00:00"
+---
+
+```json
+[
+  {
+    "id": "9eKMd76bh2ES",
+    "html": "<p>Two practical concerns before running MongoDB with real data: how you get your data back if something goes wrong, and who is allowed to touch it in the first place.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EO_OM-XnYYv5",
+    "alt": "An isometric illustration of a green database cylinder protected by a shield icon, with a small backup disk floating beside it",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Authentication, roles, and backups protect a database from accidental or unauthorized changes.",
+    "publicId": "docs/img/mongodb/security-hero"
+  },
+  {
+    "id": "7S-hruZiSFkV",
+    "text": "Backing Up with mongodump",
+    "type": "heading",
+    "level": 2,
+    "anchor": "backing-up-with-mongodump"
+  },
+  {
+    "id": "YYYsUGVht6nz",
+    "html": "<p><code>mongodump</code> exports an entire database (or a single collection) to a set of BSON files on disk — run from a regular terminal, not inside <code>mongosh</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YBrlPWKRWTyK",
+    "code": "mongodump --uri=\"mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/learningMongo\" --out=./backup",
+    "type": "code",
+    "language": "bash",
+    "runnable": true
+  },
+  {
+    "id": "Xf9wNO965jzb",
+    "text": "Restoring with mongorestore",
+    "type": "heading",
+    "level": 2,
+    "anchor": "restoring-with-mongorestore"
+  },
+  {
+    "id": "xlyyq_10jevv",
+    "code": "mongorestore --uri=\"mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/\" ./backup",
+    "type": "code",
+    "language": "bash",
+    "runnable": true
+  },
+  {
+    "id": "PTFMRT5EBpYd",
+    "html": "<p>MongoDB Atlas also offers automated, scheduled backups on paid tiers — for a learning project, running <code>mongodump</code> manually before any risky change is enough.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_lqOMBYl4iBp",
+    "text": "Authentication",
+    "type": "heading",
+    "level": 2,
+    "anchor": "authentication"
+  },
+  {
+    "id": "znfpif-THJ3L",
+    "html": "<p>Every serious MongoDB deployment requires a username and password to connect — the connection string used throughout this course already includes both. Never leave a production database reachable with no authentication at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LMynSskFPAgR",
+    "text": "Role-Based Access",
+    "type": "heading",
+    "level": 2,
+    "anchor": "role-based-access"
+  },
+  {
+    "id": "uTrr0AMc-J9w",
+    "html": "<p>Atlas (and self-managed MongoDB) supports assigning specific <b>roles</b> to each database user, rather than giving every user full access:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bhzYdGcM6TCP",
+    "rows": [
+      [
+        "read",
+        "Read data only, in one database"
+      ],
+      [
+        "readWrite",
+        "Read and write data, in one database"
+      ],
+      [
+        "dbAdmin",
+        "Manage indexes and schema, no data access"
+      ],
+      [
+        "atlasAdmin / root",
+        "Full administrative control — reserve for a small number of trusted accounts"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Role",
+      "Can do"
+    ]
+  },
+  {
+    "id": "tYdYqUPfxn2l",
+    "html": "<p>An application's connection string should use a user with only the roles that application actually needs — usually <code>readWrite</code> on its own database, never a full admin account. This limits the damage if that connection string is ever leaked.</p>",
+    "type": "callout",
+    "title": "Give application users the minimum role they need",
+    "variant": "warning"
+  }
+]
+```

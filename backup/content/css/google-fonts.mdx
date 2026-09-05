@@ -1,0 +1,91 @@
+---
+id: "1cfb58a1-057a-420b-8740-f29ac350ff15"
+title: "Using Google Fonts"
+path: "css/google-fonts"
+status: "published"
+meta_title: "Using Google Fonts | Learn Computer Academy"
+meta_description: "How to add a free, hosted Google Font to a page and apply it in CSS, plus why a fallback font stack still matters."
+sort_order: 46
+updated_at: "2026-09-03T03:54:09.723084+00:00"
+---
+
+```json
+[
+  {
+    "id": "xo4VQVJWc7gG",
+    "html": "<hr><p>Google Fonts is a free, hosted library of open-source fonts — no download or server setup needed, just a link tag and a CSS rule.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "4rUep6dFwjHJ",
+    "text": "Adding the Font",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-the-font"
+  },
+  {
+    "id": "VElsCk88-MkU",
+    "html": "<p>Google Fonts generates a <code>&lt;link&gt;</code> tag for any font and weight selected on their site — add it inside <code>&lt;head&gt;</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fHofaqFSWYen",
+    "code": "<link rel=\"preconnect\" href=\"https://fonts.googleapis.com\">\n<link rel=\"preconnect\" href=\"https://fonts.gstatic.com\" crossorigin>\n<link href=\"https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap\" rel=\"stylesheet\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "klfrJ_UiCMeV",
+    "text": "Applying the Font in CSS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "applying-the-font-in-css"
+  },
+  {
+    "id": "IDy8xCBYLyCc",
+    "code": "body {\n  font-family: 'Poppins', sans-serif;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "qfDefCIuGBcd",
+    "text": "Why the Fallback Still Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-the-fallback-still-matters"
+  },
+  {
+    "id": "tXi-HzFl199-",
+    "html": "<p>The generic <code>sans-serif</code> after the font name is used if the Google Fonts file fails to load — a slow connection, an ad blocker, or the service being briefly down. Always include one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xI1vhcROQwuP",
+    "text": "@import — the Alternative Method",
+    "type": "heading",
+    "level": 2,
+    "anchor": "import-the-alternative-method"
+  },
+  {
+    "id": "qEZ5VSZ8BEvz",
+    "html": "<p>Fonts can also be loaded from inside a CSS file, though the <code>&lt;link&gt;</code> method usually loads faster.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jL8tw-JKWTlL",
+    "code": "@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "RNyNWTRoqDGI",
+    "html": "<p>The <code>display=swap</code> parameter shows the fallback font immediately and swaps it once the custom font loads — without it, text can stay invisible for a moment while the font downloads.</p>",
+    "type": "callout",
+    "title": "Don't drop display=swap",
+    "variant": "tip"
+  }
+]
+```

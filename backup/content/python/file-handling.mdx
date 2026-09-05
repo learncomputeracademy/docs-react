@@ -1,0 +1,139 @@
+---
+id: "0ce67cca-b47e-4bdb-aea5-8432620a47ab"
+title: "File Handling"
+path: "python/file-handling"
+status: "published"
+meta_title: "Python File Handling | Learn Computer Academy"
+meta_description: "Reading from and writing to files in Python with open() and the with statement."
+sort_order: 21
+updated_at: "2026-08-04T11:39:32.535552+00:00"
+---
+
+```json
+[
+  {
+    "id": "9T7pnXaInfQO",
+    "html": "<p>Python reads and writes files with a single function, <code>open()</code> — one entry point for both reading and writing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0ctYysyMk611",
+    "text": "The with Statement",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-with-statement"
+  },
+  {
+    "id": "eKgb0yl3W1xq",
+    "html": "<p>The idiomatic way to work with a file in Python is the <code>with</code> statement, which automatically closes the file when the block ends — even if an error happens partway through, so you never have to remember to close it manually:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M3iC_eyH9k5b",
+    "code": "with open(\"notes.txt\", \"r\") as file:\n    content = file.read()\n    print(content)\n# the file is automatically closed here, guaranteed",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "FO3T2H3AiXGa",
+    "html": "<p><code>with</code> is a <b>context manager</b> — a general Python pattern for \"set something up, guarantee it gets cleaned up afterward,\" used for far more than just files (database connections and network sockets follow the same pattern). Prefer it over manually calling <code>.close()</code> yourself.</p>",
+    "type": "callout",
+    "title": "Always prefer with over manual close()",
+    "variant": "tip"
+  },
+  {
+    "id": "1_iRRh7N3aF7",
+    "text": "Writing to a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "writing-to-a-file"
+  },
+  {
+    "id": "jvnbiC06baVh",
+    "code": "with open(\"notes.txt\", \"w\") as file:\n    file.write(\"Hello, file!\")       # \"w\" overwrites\n\nwith open(\"notes.txt\", \"a\") as file:\n    file.write(\"\\nAnother line.\")    # \"a\" appends instead",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "E70dHz4wnC3n",
+    "text": "Reading Line by Line",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-line-by-line"
+  },
+  {
+    "id": "Iqk2Nzm06FUW",
+    "html": "<p>For a large file, looping over the file object directly reads one line at a time instead of loading everything into memory at once:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_Q5Cr82h6PWa",
+    "code": "with open(\"notes.txt\", \"r\") as file:\n    for line in file:\n        print(line.strip())  # .strip() removes the trailing newline",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "p_wEIiIQwwB_",
+    "text": "File Modes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "file-modes"
+  },
+  {
+    "id": "ecyrnW7ah7nN",
+    "rows": [
+      [
+        "\"r\"",
+        "Read (default) — the file must already exist"
+      ],
+      [
+        "\"w\"",
+        "Write — creates the file if missing, overwrites if it exists"
+      ],
+      [
+        "\"a\"",
+        "Append — creates the file if missing, adds to the end if it exists"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Mode",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "BW30NdNmtFou",
+    "text": "Checking Whether a File Exists",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-whether-a-file-exists"
+  },
+  {
+    "id": "V1IbQxpMIZH3",
+    "html": "<p>Opening a missing file with <code>\"r\"</code> raises a <code>FileNotFoundError</code> — checking first with the standard library's <code>pathlib</code> avoids that, and is the modern, recommended way to work with file paths in Python:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-DyQJ3mu5xe4",
+    "code": "from pathlib import Path\n\nfile = Path(\"notes.txt\")\nif file.exists():\n    print(file.read_text())\nelse:\n    print(\"File not found.\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "lnDQrPbcesDy",
+    "html": "<p><code>pathlib</code> can fully replace <code>open()</code> for reading and writing too (<code>file.read_text()</code>, <code>file.write_text(...)</code>) — worth knowing it exists, even though this lesson sticks with <code>open()</code> since it's the more universally recognized starting point.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DzY6AmQPS3YN",
+    "html": "<p>Any file path used with these functions should never come directly from user input without careful validation — a user-controlled path is a real security risk. This matters even more once file uploads are involved.</p>",
+    "type": "callout",
+    "title": "Never trust a user-supplied file path",
+    "variant": "warning"
+  }
+]
+```

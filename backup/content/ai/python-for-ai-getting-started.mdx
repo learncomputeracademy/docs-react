@@ -1,0 +1,115 @@
+---
+id: "66650be8-e078-4d2c-a4ee-6a34fb280385"
+title: "Python for AI — Getting Started"
+path: "ai/python-for-ai-getting-started"
+status: "published"
+meta_title: "Python for AI — Getting Started | Learn Computer Academy"
+meta_description: "Why Python is the language of AI, a fast-track syntax primer for web developers, and calling a real AI model from eight lines of working code."
+sort_order: 15
+updated_at: "2026-09-03T06:44:38.405203+00:00"
+---
+
+```json
+[
+  {
+    "id": "hIljjFpddc3U",
+    "html": "<p>Everything so far in this section used AI through a chat interface or a website. This lesson is the entry point into using AI <i>programmatically</i> — from your own code — starting with the language nearly all of it is built in.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "egxvuKObuDn-",
+    "text": "Why Python for AI?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-python-for-ai"
+  },
+  {
+    "id": "vh8Z983DWTYV",
+    "html": "<ul><li><b>Readable syntax</b> — closer to plain English than most languages, which makes it approachable even without a programming background.</li><li><b>The ecosystem</b> — the major AI libraries (data tools, machine learning frameworks, and every major AI provider's own SDK) are built for Python first, often exclusively.</li><li><b>Community size</b> — an enormous community means a tutorial or a working example exists for almost any AI task you'll want to attempt.</li><li><b>Industry standard</b> — the major AI research labs write their AI code primarily in Python.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "KMKcswUOp6Y0",
+    "text": "Google Colab: Python With No Installation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "google-colab-python-with-no-installation"
+  },
+  {
+    "id": "WThv5BIONLjw",
+    "html": "<p><b>Google Colab</b> (colab.research.google.com) gives you a ready-to-use Python environment in your browser — no installation, common AI libraries already available, and free access to more computing power than a typical laptop provides. All you need is a Google account, which makes it the easiest way to start writing and running real Python today.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qcJtoY5hGlC4",
+    "text": "Python Basics, Fast Track",
+    "type": "heading",
+    "level": 2,
+    "anchor": "python-basics-fast-track"
+  },
+  {
+    "id": "vdvSfTFaH6eX",
+    "html": "<p>If you already know a web language, most of Python's syntax maps directly onto ideas you already have — lists work like arrays, dictionaries work like objects or associative arrays, and indentation replaces curly braces:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TqwZQFt-AQB0",
+    "code": "# Variables — no var/let/const, just assign\nname = \"Riya\"\nage = 25\n\n# Print (like console.log)\nprint(f\"Hello, {name}! You are {age} years old.\")\n\n# Lists (like arrays)\ncourses = [\"Graphic Design\", \"Web Dev\", \"AI for Beginners\"]\ncourses.append(\"Python\")\nprint(courses[0])          # \"Graphic Design\"\n\n# Dictionaries (like objects)\nstudent = {\"name\": \"Anit\", \"age\": 22, \"courses\": [\"Web Dev\", \"AI\"]}\nprint(student[\"name\"])     # \"Anit\"\n\n# Functions\ndef greet(person_name):\n    return f\"Hello, {person_name}!\"\n\nprint(greet(\"Priya\"))      # \"Hello, Priya!\"\n\n# Loop\nfor course in courses:\n    print(f\"- {course}\")\n\n# Conditional\nif age >= 18:\n    print(\"Adult\")\nelse:\n    print(\"Minor\")",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "djd4TdAZ4EAe",
+    "text": "Calling a Real AI Model in 8 Lines",
+    "type": "heading",
+    "level": 2,
+    "anchor": "calling-a-real-ai-model-in-8-lines"
+  },
+  {
+    "id": "NVztx7YSkYOs",
+    "html": "<p>This is the moment Python and AI actually connect. After installing the relevant library, calling a real AI model is genuinely this short:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zkSbM1-ynR25",
+    "code": "from openai import OpenAI\n\nclient = OpenAI(api_key=\"YOUR_API_KEY_HERE\")\n\nresponse = client.chat.completions.create(\n    model=\"gpt-4o-mini\",\n    messages=[\n        {\"role\": \"system\", \"content\": \"You are a helpful assistant.\"},\n        {\"role\": \"user\", \"content\": \"What is artificial intelligence?\"}\n    ]\n)\n\nprint(response.choices[0].message.content)",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "kPSj3i_z3Pjr",
+    "html": "<p>This is what every AI-powered app — the chat interfaces you already use included — is doing underneath: calling an API with a message, and getting text back. There is no more hidden machinery than this.</p>",
+    "type": "callout",
+    "title": "This Is the Whole Trick",
+    "variant": "tip"
+  },
+  {
+    "id": "-FY76kX1hvvE",
+    "text": "A Chatbot Script With Memory",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-chatbot-script-with-memory"
+  },
+  {
+    "id": "sg5nuK3nTZsJ",
+    "html": "<p>Extending the single call above into a real back-and-forth conversation just means keeping a running list of messages and sending the whole list back each time:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sc5U5Z0wDvfD",
+    "code": "from openai import OpenAI\nclient = OpenAI(api_key=\"YOUR_API_KEY_HERE\")\n\nmessages = [\n    {\"role\": \"system\", \"content\": \"You are a friendly course advisor. Ask clarifying questions before recommending a course.\"}\n]\n\nprint(\"Type 'quit' to exit\\n\")\n\nwhile True:\n    user_input = input(\"You: \").strip()\n    if user_input.lower() == \"quit\":\n        break\n\n    messages.append({\"role\": \"user\", \"content\": user_input})\n\n    response = client.chat.completions.create(\n        model=\"gpt-4o-mini\",\n        messages=messages,\n        max_tokens=200\n    )\n\n    bot_reply = response.choices[0].message.content\n    messages.append({\"role\": \"assistant\", \"content\": bot_reply})\n    print(f\"\\nAdvisor: {bot_reply}\\n\")",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "0Mr4VRCXYVRl",
+    "html": "<p>The \"memory\" isn't magic — it's just a growing list, sent in full with every request, exactly the same pattern the chatbot website lesson used in JavaScript.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nrMO28QQ5Fks",
+    "html": "<p>You can now call an AI model from your own code. The next lesson builds on this directly — connecting AI to real data and automating multi-step tasks, rather than just chatting.</p>",
+    "type": "richtext"
+  }
+]
+```

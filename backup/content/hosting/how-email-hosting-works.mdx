@@ -1,0 +1,127 @@
+---
+id: "bd9cfe85-790b-427c-97a6-6c02a8c222fa"
+title: "How Email Hosting Actually Works"
+path: "hosting/how-email-hosting-works"
+status: "published"
+meta_title: "How Email Hosting Actually Works | Learn Computer Academy"
+meta_description: "Email at your own domain is a separate service from website hosting, sent through completely different protocols. How it actually gets set up."
+sort_order: 33
+updated_at: "2026-08-05T13:35:40.952618+00:00"
+---
+
+```json
+[
+  {
+    "id": "tMBy7sNxH7sX",
+    "html": "<p>Per the third lesson in this category, email is a genuinely separate service from website hosting — this lesson covers how it actually works and how to set it up, closing that particular loop.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CmuMgo6GG5Mx",
+    "text": "The Protocols Involved",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-protocols-involved"
+  },
+  {
+    "id": "194_ieJ5j49I",
+    "rows": [
+      [
+        "SMTP",
+        "Sending mail — from your email client to a mail server, and between mail servers"
+      ],
+      [
+        "IMAP",
+        "Reading mail — syncs with the server, so mail and folders stay consistent across every device you check email from"
+      ],
+      [
+        "POP3",
+        "An older way of reading mail — downloads messages to one device and often removes them from the server; largely superseded by IMAP today"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Protocol",
+      "What it does"
+    ]
+  },
+  {
+    "id": "jqYJujRhnZll",
+    "html": "<p>None of these are the same protocol a website uses (HTTP/HTTPS) — email is an entirely separate system with its own servers, its own software, and its own set of DNS records, which is exactly why it is sold and configured separately from web hosting even when the same company happens to offer both.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qz1ykIuT0TPg",
+    "text": "How a Domain Gets Connected to Email",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-a-domain-gets-connected-to-email"
+  },
+  {
+    "id": "jNV2hUlU3HF8",
+    "html": "<p>The connection is the <b>MX record</b>, covered in the DNS-record-types lesson — it tells the wider internet which mail server is responsible for handling <code>you@yourdomain.com</code>. Whichever provider that record points to is your actual email provider for that domain, regardless of who hosts your website.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q8ryK-aBbwXa",
+    "alt": "Isometric diagram showing a domain nameplate with an arrow labelled MX record pointing to a separate mail server icon, entirely apart from a second arrow pointing to a website hosting server icon",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "One domain, two entirely separate destinations — an MX record for mail, hosting for the website.",
+    "publicId": "docs/img/hosting/email-hosting-1"
+  },
+  {
+    "id": "ZTdZn6o-Aa_1",
+    "text": "Where Email Actually Comes From",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-email-actually-comes-from"
+  },
+  {
+    "id": "-6aaW5DflIAr",
+    "rows": [
+      [
+        "Included with shared hosting",
+        "Basic mailboxes, often limited in storage and features, fine for a small site's contact address"
+      ],
+      [
+        "A dedicated business email provider",
+        "A more reliable, feature-complete inbox, generally the better choice once email genuinely matters to the business"
+      ],
+      [
+        "A free personal email provider, aliased",
+        "Not the same as a real mailbox at your own domain — a common beginner shortcut worth understanding the limits of"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Source",
+      "Typical fit"
+    ]
+  },
+  {
+    "id": "B510muVs6coo",
+    "html": "<p>A dedicated email provider is very often a better real-world choice than whatever a hosting plan includes for free — deliverability (covered in the next lesson), storage, and spam filtering are usually meaningfully better on a service built specifically for email, rather than as a minor bundled feature of a web hosting plan.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-9AoOA7wpjA_",
+    "text": "Setting It Up, In Outline",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-it-up-in-outline"
+  },
+  {
+    "id": "Him6Pk9EpsHf",
+    "html": "<ol><li>Choose an email provider — your web host's included option, or a dedicated separate one.</li><li>The provider gives you MX records (and usually accompanying TXT records, covered in the next lesson) to add to your domain's DNS.</li><li>Add those records through whichever DNS panel currently manages your domain, per the connecting-a-domain lesson.</li><li>Wait for propagation, same as any other DNS change.</li><li>Create individual mailboxes through the provider's own dashboard.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "geiT6ilogFs6",
+    "html": "<p>This is precisely why you can run your website on one host and your email through a completely different provider, with no conflict — they connect to the same domain through entirely different DNS record types, A/CNAME for the website and MX for mail, which is the practical proof of the three-separate-things idea from earlier in this category.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,127 @@
+---
+id: "19e74808-62f7-4b11-b4d7-000ace2dcb56"
+title: "Map, Set, WeakMap, and WeakSet"
+path: "javascript/maps-and-sets"
+status: "published"
+meta_title: "JavaScript Map and Set | Learn Computer Academy"
+meta_description: "Four built-in data structures beyond plain objects and arrays — a Map for any-type keys, a Set for unique values, and their memory-friendly Weak variants."
+sort_order: 33
+updated_at: "2026-09-03T04:17:12.307543+00:00"
+---
+
+```json
+[
+  {
+    "id": "j1IZAy48oqCw",
+    "html": "<hr><p>A plain object and array cover most needs, but four more built-in structures solve specific problems neither one does well.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "isTw-VAWY1lk",
+    "text": "Map — Keys of Any Type",
+    "type": "heading",
+    "level": 2,
+    "anchor": "map-keys-of-any-type"
+  },
+  {
+    "id": "Wnw4wrZMX36_",
+    "html": "<p>A plain object's keys are always converted to strings. A <code>Map</code> allows a key of any type — an object, a function, even another Map.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "npDX7LfolP1o",
+    "code": "const userRoles = new Map()\nconst user1 = { name: 'Sam' }\n\nuserRoles.set(user1, 'admin')\nuserRoles.set('guest', 'viewer')\n\nuserRoles.get(user1)     // \"admin\"\nuserRoles.size           // 2\n\nfor (const [key, value] of userRoles) {\n  console.log(key, value)\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "ir_zkZNpi57n",
+    "text": "Set — Unique Values Only",
+    "type": "heading",
+    "level": 2,
+    "anchor": "set-unique-values-only"
+  },
+  {
+    "id": "_rPB_d-s8k_6",
+    "html": "<p>A <code>Set</code> stores a list of values with duplicates automatically removed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RuHoaGYGKuG6",
+    "code": "const uniqueTags = new Set(['js', 'css', 'js', 'html', 'css'])\nconsole.log(uniqueTags)       // Set(3) { 'js', 'css', 'html' }\nconsole.log(uniqueTags.size)  // 3\n\nuniqueTags.add('react')\nuniqueTags.has('css')          // true\nuniqueTags.delete('html')",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "8gbsNiO3-7NV",
+    "text": "A Practical Use for Set — Deduplicating an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-use-for-set-deduplicating-an-array"
+  },
+  {
+    "id": "c8YBYj8dS-MX",
+    "code": "const numbers = [1, 2, 2, 3, 3, 3]\nconst unique = [...new Set(numbers)]\n// [1, 2, 3]",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "ymUbgmOLEi5g",
+    "text": "WeakMap and WeakSet",
+    "type": "heading",
+    "level": 2,
+    "anchor": "weakmap-and-weakset"
+  },
+  {
+    "id": "M-4Nt_47B4GL",
+    "html": "<p><code>WeakMap</code> and <code>WeakSet</code> work like their non-weak counterparts, but only accept objects as keys/values, and don't prevent those objects from being garbage collected (covered in the earlier Memory Management lesson) once nothing else references them. This makes them useful for attaching extra data to an object without causing a memory leak.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RSgmcRc5D-ax",
+    "code": "const cache = new WeakMap()\n\nfunction process(obj) {\n  if (cache.has(obj)) return cache.get(obj)\n  const result = expensiveComputation(obj)\n  cache.set(obj, result)\n  return result\n}\n// If obj is later discarded elsewhere in the code,\n// its cache entry can be garbage collected too — a regular Map would hold it forever",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "aKxz3MalHKZy",
+    "rows": [
+      [
+        "Map",
+        "Any type",
+        "Yes",
+        "Yes"
+      ],
+      [
+        "Set",
+        "Any type (values only)",
+        "Yes",
+        "Yes"
+      ],
+      [
+        "WeakMap",
+        "Objects only",
+        "No",
+        "No"
+      ],
+      [
+        "WeakSet",
+        "Objects only",
+        "No",
+        "No"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Structure",
+      "Keys/values",
+      "Iterable?",
+      "Prevents garbage collection?"
+    ]
+  }
+]
+```

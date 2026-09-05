@@ -1,0 +1,111 @@
+---
+id: "e9d0e5f6-5502-4072-bf90-a41668390e1d"
+title: "Updating Documents"
+path: "mongodb/updating-documents"
+status: "published"
+meta_title: "Updating Documents | Learn Computer Academy"
+meta_description: "Changing existing documents with updateOne() and updateMany(), and the $set, $inc, $push, and $unset update operators."
+sort_order: 8
+updated_at: "2026-08-18T10:11:23.586573+00:00"
+---
+
+```json
+[
+  {
+    "id": "-N78XkGRRPgU",
+    "html": "<p>Changing existing data uses <code>updateOne()</code> or <code>updateMany()</code>, paired with <b>update operators</b> that describe exactly what should change.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SbS-txJBT5B6",
+    "alt": "An isometric illustration of a pencil editing a highlighted field inside a document icon, with a small refresh arrow",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "updateOne() and updateMany() change fields on existing documents.",
+    "publicId": "docs/img/mongodb/update-hero"
+  },
+  {
+    "id": "ofNoUvUygEC5",
+    "text": "$set — Change a Field's Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "set-change-a-fields-value"
+  },
+  {
+    "id": "jO9s7lyYB_jj",
+    "code": "db.users.updateOne(\n  { name: \"Karan Mehta\" },\n  { $set: { age: 23 } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "8bJ5TC47uSZ2",
+    "text": "$inc — Increase or Decrease a Number",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inc-increase-or-decrease-a-number"
+  },
+  {
+    "id": "gZIQ8n0ZzF_d",
+    "html": "<p><code>$inc</code> adds (or, with a negative number, subtracts) a value to a numeric field — useful for counters, without needing to read the current value first:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0VWf2ouo9WLU",
+    "code": "db.products.updateOne(\n  { name: \"Notebook\" },\n  { $inc: { stock: -1 } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "SdQ1aUn4SdO-",
+    "text": "$push — Add to an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "push-add-to-an-array"
+  },
+  {
+    "id": "k6EMB2AGvHSJ",
+    "code": "db.users.updateOne(\n  { name: \"Karan Mehta\" },\n  { $push: { skills: \"TypeScript\" } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "Pj46SfcqyClT",
+    "text": "$unset — Remove a Field",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unset-remove-a-field"
+  },
+  {
+    "id": "LGRUOvlFIEcI",
+    "code": "db.users.updateOne(\n  { name: \"Karan Mehta\" },\n  { $unset: { temporaryFlag: \"\" } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "3rm-6DU2dLKO",
+    "text": "updateMany() — Every Matching Document",
+    "type": "heading",
+    "level": 2,
+    "anchor": "updatemany-every-matching-document"
+  },
+  {
+    "id": "8oZcIglWoHf-",
+    "code": "db.users.updateMany(\n  { isActive: false },\n  { $set: { status: \"archived\" } }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "8ykylVfGJ8yc",
+    "html": "<p>Forgetting the update operator and writing <code>{ age: 23 }</code> instead of <code>{ $set: { age: 23 } }</code> <b>replaces the entire document</b> with just <code>{ age: 23 }</code>, deleting every other field. Always wrap changes in an operator like <code>$set</code>.</p>",
+    "type": "callout",
+    "title": "A missing operator replaces the whole document",
+    "variant": "warning"
+  }
+]
+```

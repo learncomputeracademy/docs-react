@@ -5,51 +5,71 @@ path: "programming/strings"
 status: "published"
 meta_title: "Strings | Learn Computer Academy"
 sort_order: 11
-updated_at: "2026-07-25T08:16:50.421311+00:00"
+updated_at: "2026-08-18T14:27:47.265021+00:00"
 ---
 
 ```json
 [
   {
-    "id": "_g263U3a3uPi",
+    "id": "nG_BTVdJicHt",
     "html": "<p>A string is text — a sequence of characters wrapped in quotes. Strings are one of the most-used data types, since almost every program deals with text somewhere: names, messages, file paths, URLs.</p>",
     "type": "richtext"
   },
   {
-    "id": "NCV9JxdNvQa9",
+    "id": "WYnvwY21D_bB",
     "text": "Creating a string",
     "type": "heading",
     "level": 2,
     "anchor": "creating-a-string"
   },
   {
-    "id": "C71_a6vRRWr3",
+    "id": "MdFK4WwYAlsG",
     "code": "let greeting = \"Hello, world!\";\nlet single = 'Single quotes work too';",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$greeting = \"Hello, world!\";\n$single = 'Single quotes work too';",
+        "language": "php"
+      },
+      {
+        "code": "greeting = \"Hello, world!\"\nsingle = 'Single quotes work too'",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "Ew272AUhMeRs",
+    "id": "MSQSsVXBhipM",
     "text": "Joining strings",
     "type": "heading",
     "level": 2,
     "anchor": "joining-strings"
   },
   {
-    "id": "XR4y0uqNepG4",
+    "id": "OcUmGqdGPtsZ",
     "code": "let first = \"Ada\";\nlet last = \"Lovelace\";\nlet fullName = first + \" \" + last;\n\nconsole.log(fullName); // \"Ada Lovelace\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$first = \"Ada\";\n$last = \"Lovelace\";\n$fullName = $first . \" \" . $last;\n\necho $fullName; // \"Ada Lovelace\"",
+        "language": "php"
+      },
+      {
+        "code": "first = \"Ada\"\nlast = \"Lovelace\"\nfull_name = first + \" \" + last\n\nprint(full_name)  # \"Ada Lovelace\"",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "IQ57NTWL0tAH",
+    "id": "2xPiB4exDLXQ",
     "text": "Useful string properties and methods",
     "type": "heading",
     "level": 2,
     "anchor": "useful-string-properties-and-methods"
   },
   {
-    "id": "fZ4hL_XS_r6g",
+    "id": "-VTq2EWf9xyP",
     "rows": [
       [
         "<code>.length</code>",
@@ -80,22 +100,32 @@ updated_at: "2026-07-25T08:16:50.421311+00:00"
     ]
   },
   {
-    "id": "5-8MnxmQZp3B",
+    "id": "rBCi34sOiJ-c",
     "text": "Template literals",
     "type": "heading",
     "level": 2,
     "anchor": "template-literals"
   },
   {
-    "id": "e1FttSo3H-Bx",
+    "id": "_Wl_Q4nj0QoD",
     "html": "<p>Backticks let you embed variables directly inside a string, instead of joining pieces with <code>+</code>.</p>",
     "type": "richtext"
   },
   {
-    "id": "O0hM6uKMaax8",
+    "id": "VAn9uODkcQLm",
     "code": "let name = \"Ada\";\nlet age = 28;\n\nconsole.log(`${name} is ${age} years old.`);\n// \"Ada is 28 years old.\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$name = \"Ada\";\n$age = 28;\n\necho \"$name is $age years old.\";\n// \"Ada is 28 years old.\"",
+        "language": "php"
+      },
+      {
+        "code": "name = \"Ada\"\nage = 28\n\nprint(f\"{name} is {age} years old.\")\n# \"Ada is 28 years old.\"",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

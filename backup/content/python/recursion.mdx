@@ -1,0 +1,120 @@
+---
+id: "c337013d-54cc-49b3-9cc3-67e5af35d634"
+title: "Recursion"
+path: "python/recursion"
+status: "published"
+meta_title: "Python Recursion | Learn Computer Academy"
+meta_description: "A function calling itself to solve a smaller version of the same problem — the base case, the call stack it builds, and Python's recursion limit."
+sort_order: 31
+updated_at: "2026-09-03T04:52:50.628983+00:00"
+---
+
+```json
+[
+  {
+    "id": "9S9l6rteCKIT",
+    "html": "<p>Recursion is a function solving a problem by calling itself with a smaller version of that same problem, until it reaches a version simple enough to answer directly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AUNd_tYdcpXa",
+    "text": "A Basic Example — Factorial",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-example-factorial"
+  },
+  {
+    "id": "ksviyTaRroe5",
+    "code": "def factorial(n):\n    if n <= 1:\n        return 1              # base case — stops the recursion\n    return n * factorial(n - 1)   # recursive case\n\nfactorial(5)   # 5 * 4 * 3 * 2 * 1 = 120",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "kWhnbFeKWB6z",
+    "text": "The Base Case Is Not Optional",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-base-case-is-not-optional"
+  },
+  {
+    "id": "sxs8Sx19opuI",
+    "code": "def count_down(n):\n    # Missing base case — this never stops on its own\n    print(n)\n    count_down(n - 1)\n# count_down(5) eventually raises:\n# RecursionError: maximum recursion depth exceeded",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "YGvrsWnXk_AJ",
+    "html": "<p>Every recursive function needs a base case that's actually reachable — a base case that never triggers fails exactly the same way as no base case at all.</p>",
+    "type": "callout",
+    "title": "The most common recursion bug",
+    "variant": "warning"
+  },
+  {
+    "id": "QpQ35pfaOVZ3",
+    "text": "Python's Recursion Limit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pythons-recursion-limit"
+  },
+  {
+    "id": "rNiX5noxLJZq",
+    "html": "<p>Unlike some languages, Python enforces a default limit (usually 1000) on how deep a recursive call chain can go, specifically to catch runaway recursion before it crashes the interpreter.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MGRCwLMX-UOU",
+    "code": "import sys\nprint(sys.getrecursionlimit())   # 1000, by default\n\n# Raising it is possible but rarely the right fix —\n# it usually means the problem should be solved with a loop instead\nsys.setrecursionlimit(3000)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "EZNCUEJiRMv2",
+    "text": "A Classic Recursive Problem — Fibonacci",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-classic-recursive-problem-fibonacci"
+  },
+  {
+    "id": "VoM4P0DGXGV8",
+    "code": "def fibonacci(n):\n    if n <= 1:\n        return n\n    return fibonacci(n - 1) + fibonacci(n - 2)\n\n[fibonacci(i) for i in range(8)]\n# [0, 1, 1, 2, 3, 5, 8, 13]",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "kRSgmoe0-0EU",
+    "text": "Recursion vs. a Loop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "recursion-vs-a-loop"
+  },
+  {
+    "id": "GyhBEXwjjNsb",
+    "rows": [
+      [
+        "Often reads more naturally for a naturally recursive problem (traversing a tree, nested data)",
+        "Usually faster and uses less memory for a simple repeated task"
+      ],
+      [
+        "Each call adds a call stack frame — deep recursion can hit Python's recursion limit",
+        "No stack depth concern regardless of how many iterations"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Recursion",
+      "A loop"
+    ]
+  },
+  {
+    "id": "XWqoynZa75Ir",
+    "html": "<p>The Fibonacci example above recalculates the same values repeatedly — genuinely slow past small inputs. The earlier @functools.lru_cache decorator (from the Decorators lesson) fixes this specific problem by caching each result the first time it's computed.</p>",
+    "type": "callout",
+    "title": "A real optimization for recursive functions",
+    "variant": "tip"
+  }
+]
+```

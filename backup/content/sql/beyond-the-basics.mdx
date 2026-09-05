@@ -1,0 +1,348 @@
+---
+id: "f6345d52-f566-4ac8-866f-8dd93ef570a4"
+title: "Beyond the Basics"
+path: "sql/beyond-the-basics"
+status: "published"
+meta_title: "SQL Beyond the Basics — Views, Indexes, Procedures, Triggers | Learn Computer Academy"
+meta_description: "VIEW, INDEX, STORED PROCEDURE, TRIGGER, and EXPLAIN — five tools that sit past the beginner track, worth knowing exist once the fundamentals feel natural."
+sort_order: 16
+updated_at: "2026-07-29T06:31:09.26722+00:00"
+---
+
+```json
+[
+  {
+    "id": "gNQWViWERbsi",
+    "html": "<p>These five tools sit past the beginner track — worth knowing exist, worth reaching for once everything covered so far in this section feels natural. This closes out the SQL section.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DkqkD8mZH2ui",
+    "text": "VIEW",
+    "type": "heading",
+    "level": 2,
+    "anchor": "view"
+  },
+  {
+    "id": "BwZYzH7tS7XA",
+    "html": "<p>A saved query you can <code>SELECT</code> from like a virtual table — the underlying data isn't duplicated, and the query re-runs every time you use it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gdYGJ8NQEufa",
+    "code": "CREATE VIEW view_name AS\n  SELECT ...;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "4f_RGh-Upsoj",
+    "code": "CREATE VIEW HighEarners AS\nSELECT name, department, salary\nFROM Employee\nWHERE salary > 70000;\n\nSELECT * FROM HighEarners;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "hRj7zT0RguYr",
+    "rows": [
+      [
+        "Alice",
+        "HR",
+        "75000"
+      ],
+      [
+        "Priya",
+        "IT",
+        "82000"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "name",
+      "department",
+      "salary"
+    ],
+    "caption": "Result: HighEarners"
+  },
+  {
+    "id": "1GAHHEaliw8Z",
+    "html": "<ul><li>HighEarners can be queried exactly like a table, but nothing is duplicated on disk — every SELECT re-executes the underlying query.</li><li>Because it re-runs live, the view automatically stays in sync whenever the Employee table changes.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "nMx4LdMCEV6Y",
+    "html": "<ul><li>Assuming a view is cached — most views re-execute their query every single time; they don't store a snapshot.</li><li>Stacking views on top of views several layers deep, which makes performance hard to reason about.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "aAivrQq2Rp3R",
+    "text": "INDEX",
+    "type": "heading",
+    "level": 2,
+    "anchor": "index"
+  },
+  {
+    "id": "63HBqv5PID6U",
+    "html": "<p>A lookup structure built on one or more columns that lets the engine jump straight to matching rows instead of scanning the whole table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YLhgTpaUNMs7",
+    "code": "CREATE INDEX index_name\nON table_name (column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "a-3ngOM7ZpTb",
+    "code": "CREATE INDEX idx_employee_department\nON Employee (department);\n\nEXPLAIN SELECT * FROM Employee\nWHERE department = 'IT';",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "NxsLFIlfok7B",
+    "rows": [
+      [
+        "ALL",
+        "NULL",
+        "5,000"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "type",
+      "key",
+      "rows"
+    ],
+    "caption": "EXPLAIN — before the index"
+  },
+  {
+    "id": "QBoe0AbwvJyJ",
+    "rows": [
+      [
+        "ref",
+        "idx_employee_department",
+        "12"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "type",
+      "key",
+      "rows"
+    ],
+    "caption": "EXPLAIN — after the index"
+  },
+  {
+    "id": "6JqgEdabm34n",
+    "html": "<ul><li><code>type: ALL</code> means a full table scan — every one of the 5,000 rows gets checked.</li><li><code>type: ref</code> means the engine used <code>idx_employee_department</code> to jump directly to the ~12 matching rows instead.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ac3HEv97xRSs",
+    "alt": "Diagram comparing a full table scan without an index against a direct index lookup that jumps straight to matching rows",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "An index lets the engine jump straight to matches instead of checking every row.",
+    "publicId": "docs/img/sql/beyond-the-basics-1"
+  },
+  {
+    "id": "wJ-VeVccEdzp",
+    "html": "<ul><li>Indexing every column \"just in case,\" which slows down every INSERT/UPDATE without helping reads that never use them.</li><li>Indexing a low-cardinality column (like a boolean flag) that the optimizer often skips anyway.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "wpy9WopMnwGx",
+    "text": "STORED PROCEDURE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stored-procedure"
+  },
+  {
+    "id": "06opkjcQ6Rp5",
+    "html": "<p>A saved block of SQL logic you can call by name, optionally passing parameters — the logic lives once in the database instead of being repeated in every app.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7nXsxA-caVxi",
+    "code": "CREATE PROCEDURE name(params)\nBEGIN\n  ...\nEND;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Dnkbzn4qpVg9",
+    "code": "CREATE PROCEDURE GiveRaise(IN emp_id INT, IN amount DECIMAL(10,2))\nBEGIN\n  UPDATE Employee\n  SET salary = salary + amount\n  WHERE id = emp_id;\nEND;\n\nCALL GiveRaise(1, 5000.00);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "wqZYReVUPkmm",
+    "html": "<ul><li><code>CALL</code> runs the procedure by name, passing <code>emp_id</code> and <code>amount</code> as parameters.</li><li>Because the logic lives in the database, every application calling GiveRaise behaves identically — no copy-pasted business logic.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "yNfVF-Li-OJ1",
+    "html": "<ul><li>Putting heavy business logic in procedures, which is harder to version-control and unit-test than application code.</li><li>Forgetting that in some engines a procedure runs with the permissions of whoever defined it, not the caller.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "rI-Dp15Kys42",
+    "text": "TRIGGER",
+    "type": "heading",
+    "level": 2,
+    "anchor": "trigger"
+  },
+  {
+    "id": "Qne018KN3urG",
+    "html": "<p>A block of SQL that fires automatically when a specific table event — an <code>INSERT</code>, <code>UPDATE</code>, or <code>DELETE</code> — happens, with no application code involved.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GrdoWYlL2520",
+    "code": "CREATE TRIGGER name\n{BEFORE|AFTER} {INSERT|UPDATE|DELETE} ON table\nFOR EACH ROW\n  statement;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "hFxwVdukP0Ol",
+    "code": "CREATE TRIGGER LogSalaryChange\nAFTER UPDATE ON Employee\nFOR EACH ROW\nINSERT INTO SalaryLog (employee_id, old_salary, new_salary)\nVALUES (OLD.id, OLD.salary, NEW.salary);\n\nUPDATE Employee SET salary = 70000 WHERE id = 1;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "669v5k1mK2ul",
+    "rows": [
+      [
+        "1",
+        "65000",
+        "70000"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "employee_id",
+      "old_salary",
+      "new_salary"
+    ],
+    "caption": "Result: SalaryLog (new row appears automatically)"
+  },
+  {
+    "id": "DX74QxqKBj7p",
+    "html": "<ul><li>The trigger fires the instant the UPDATE runs — nothing in the application had to call it.</li><li><code>OLD</code> and <code>NEW</code> give the trigger access to both the row's previous and new values in the same statement.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "WJ_baRq1_3ag",
+    "html": "<ul><li>Stacking multiple triggers on the same event, making execution order hard to predict.</li><li>Using a trigger for logic that would be clearer, and easier to test, as ordinary application code.</li></ul>",
+    "type": "callout",
+    "title": "Common Mistakes",
+    "variant": "warning"
+  },
+  {
+    "id": "Xsso554WENX0",
+    "text": "Performance Basics — EXPLAIN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "performance-basics-explain"
+  },
+  {
+    "id": "KOkJWBNQj9lM",
+    "html": "<p><code>EXPLAIN</code> shows how the engine actually plans to run a query — whether it scans everything or uses an index — before you spend time guessing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fjZZbKJZ2E3y",
+    "code": "EXPLAIN SELECT * FROM Employee\nWHERE department = 'IT';",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "14sCPLbUKsJ8",
+    "rows": [
+      [
+        "1",
+        "SIMPLE",
+        "Employee",
+        "ALL",
+        "NULL",
+        "5,000"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "id",
+      "select_type",
+      "table",
+      "type",
+      "key",
+      "rows"
+    ],
+    "caption": "EXPLAIN output"
+  },
+  {
+    "id": "i1wSA5CQxFbk",
+    "html": "<ul><li><code>type: ALL</code> and <code>key: NULL</code> together mean no index is being used — every row gets scanned.</li><li>Running EXPLAIN again after adding an index confirms whether the optimizer actually decided to use it — creating an index doesn't guarantee it will be.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Aq-0WdcBPbqE",
+    "html": "<p>Adding an index and never running <code>EXPLAIN</code> to confirm it's actually being used.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "1N8edKrl34nc",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "BTGM67xorNw6",
+    "rows": [
+      [
+        "VIEW",
+        "A saved, reusable query that behaves like a table"
+      ],
+      [
+        "INDEX",
+        "Faster lookups on columns you filter or join on often"
+      ],
+      [
+        "STORED PROCEDURE",
+        "Reusable SQL logic, called by name from any application"
+      ],
+      [
+        "TRIGGER",
+        "SQL that runs automatically on a table event"
+      ],
+      [
+        "EXPLAIN",
+        "Shows how a query actually runs, before you guess"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "-VJPDTH7G1mN",
+    "html": "<p>You don't need to master these five to write useful SQL — everything up through Common Table Expressions covers the fundamentals thoroughly. These are worth knowing exist, and worth coming back to once the rest feels natural.</p>",
+    "type": "callout",
+    "title": "You Don’t Need These on Day One",
+    "variant": "tip"
+  },
+  {
+    "id": "Klx7yNeqkwj7",
+    "html": "<p>This closes out the SQL section — from a single <code>SELECT</code> statement all the way to indexes, procedures, and triggers. Everything here builds directly on the four families covered early on: DDL, DML, DCL, and TCL are the foundation every one of these later lessons assumed.</p>",
+    "type": "richtext"
+  }
+]
+```

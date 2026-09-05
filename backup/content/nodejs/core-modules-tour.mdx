@@ -1,0 +1,86 @@
+---
+id: "20c82a27-fcdd-450d-8391-c5a649a56a91"
+title: "A Tour of Core Modules"
+path: "nodejs/core-modules-tour"
+status: "published"
+meta_title: "Node.js Core Modules Tour | Learn Computer Academy"
+meta_description: "A quick map of the modules Node.js ships with built in, before covering the most important ones in depth."
+sort_order: 6
+updated_at: "2026-08-05T05:47:54.353272+00:00"
+---
+
+```json
+[
+  {
+    "id": "lrTf8_e7lBug",
+    "html": "<p>Node.js ships with dozens of built-in modules — no <code>npm install</code> needed, just <code>require()</code> them by name. This lesson is a map of the ones worth knowing exist before the next few lessons cover the most-used ones properly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-f7_mB6JlKp9",
+    "rows": [
+      [
+        "<code>fs</code>",
+        "Reading and writing files"
+      ],
+      [
+        "<code>path</code>",
+        "Building and parsing file paths safely across operating systems"
+      ],
+      [
+        "<code>os</code>",
+        "Information about the computer Node is running on"
+      ],
+      [
+        "<code>http</code>",
+        "Creating web servers and making HTTP requests"
+      ],
+      [
+        "<code>events</code>",
+        "The EventEmitter class most of Node's async APIs are built on"
+      ],
+      [
+        "<code>crypto</code>",
+        "Hashing, encryption, and generating random values"
+      ],
+      [
+        "<code>url</code>",
+        "Parsing and building URLs"
+      ],
+      [
+        "<code>util</code>",
+        "Small helper functions used throughout Node itself"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Module",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "4HPucyVmBANg",
+    "text": "Checking What's Available",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-whats-available"
+  },
+  {
+    "id": "aRfQa_yqZjAt",
+    "html": "<p>Every built-in module is documented on <a href=\"https://nodejs.org/api/\" target=\"_blank\" rel=\"noopener noreferrer\">nodejs.org/api</a> — that page is the authoritative reference for exactly what each one can do; nothing here tries to replace it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "m4MyCVS1X12c",
+    "html": "<p>Newer Node versions prefix built-in modules with <code>node:</code>, e.g. <code>require('node:fs')</code>. It's optional but makes it instantly clear, when reading someone else's code, that a name refers to a built-in module rather than an installed package.</p>",
+    "type": "callout",
+    "title": "The node: prefix",
+    "variant": "tip"
+  },
+  {
+    "id": "cwwGoU4v6iO8",
+    "html": "<p>The next four lessons work through <code>fs</code>, <code>path</code>/<code>os</code>, and then <code>http</code> — the module that turns everything so far into an actual running server.</p>",
+    "type": "richtext"
+  }
+]
+```

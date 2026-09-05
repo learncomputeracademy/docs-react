@@ -1,0 +1,143 @@
+---
+id: "9fad8a96-d057-4f44-bd33-9a11262354f3"
+title: "Working with JSON"
+path: "python/working-with-json"
+status: "published"
+meta_title: "Python JSON Handling | Learn Computer Academy"
+meta_description: "Converting a Python dict or list to JSON and back with the built-in json module — the standard format for a config file or an API response."
+sort_order: 34
+updated_at: "2026-09-03T04:52:51.481787+00:00"
+---
+
+```json
+[
+  {
+    "id": "76nuIRzJYKHO",
+    "html": "<p>JSON is the standard format for exchanging data — an API response, a config file, data saved between program runs. Python's built-in <code>json</code> module handles converting between it and Python's own dicts and lists.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hNaUdPOTNhxd",
+    "text": "Python to JSON — json.dumps()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "python-to-json-jsondumps"
+  },
+  {
+    "id": "8HFRrDMlkxZS",
+    "code": "import json\n\nuser = {'name': 'Sam', 'age': 28, 'active': True}\njson_string = json.dumps(user)\nprint(json_string)\n# {\"name\": \"Sam\", \"age\": 28, \"active\": true}",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "8lrDf3Ds52xc",
+    "text": "Pretty-Printing for Readability",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pretty-printing-for-readability"
+  },
+  {
+    "id": "3YOtnyB_d4pe",
+    "code": "print(json.dumps(user, indent=2))",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "FQ0Wv92Jagah",
+    "text": "JSON to Python — json.loads()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "json-to-python-jsonloads"
+  },
+  {
+    "id": "RS6XNgbxpyqF",
+    "code": "json_string = '{\"name\": \"Sam\", \"age\": 28}'\nuser = json.loads(json_string)\nprint(user['name'])   # Sam — a regular Python dict now",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "AIX_hsENNm5k",
+    "text": "Reading and Writing JSON Files",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-and-writing-json-files"
+  },
+  {
+    "id": "OGc65AgCQLLF",
+    "code": "# Writing\nwith open('user.json', 'w') as f:\n    json.dump(user, f, indent=2)\n\n# Reading\nwith open('user.json') as f:\n    user = json.load(f)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "dI07T_J4d67L",
+    "html": "<p><code>dump()</code>/<code>load()</code> (no \"s\") work directly with an open file; <code>dumps()</code>/<code>loads()</code> (with an \"s\", for \"string\") work with a Python string already in memory.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XOwBy6Da4z86",
+    "text": "Python Types vs. JSON Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "python-types-vs-json-types"
+  },
+  {
+    "id": "_08Lp2D_Ksjm",
+    "rows": [
+      [
+        "dict",
+        "object"
+      ],
+      [
+        "list, tuple",
+        "array"
+      ],
+      [
+        "str",
+        "string"
+      ],
+      [
+        "int, float",
+        "number"
+      ],
+      [
+        "True / False",
+        "true / false"
+      ],
+      [
+        "None",
+        "null"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Python",
+      "JSON"
+    ]
+  },
+  {
+    "id": "2_ZYLrMXpE1X",
+    "text": "Handling Invalid JSON",
+    "type": "heading",
+    "level": 2,
+    "anchor": "handling-invalid-json"
+  },
+  {
+    "id": "A0lhHMhrpSpF",
+    "code": "try:\n    data = json.loads('{invalid json}')\nexcept json.JSONDecodeError as e:\n    print(f'Invalid JSON: {e}')",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "epI7KXH_cAD9",
+    "html": "<p>A tuple converts to a JSON array and comes back as a Python list, not a tuple — JSON has no tuple type of its own, so that distinction is lost in the round trip.</p>",
+    "type": "callout",
+    "title": "A one-way conversion for tuples",
+    "variant": "warning"
+  }
+]
+```

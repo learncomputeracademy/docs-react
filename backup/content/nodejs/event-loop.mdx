@@ -1,0 +1,84 @@
+---
+id: "cae8e1ea-3d65-418a-9f5d-eb045f77307f"
+title: "The Event Loop"
+path: "nodejs/event-loop"
+status: "published"
+meta_title: "The Node.js Event Loop | Learn Computer Academy"
+meta_description: "How Node.js runs on a single thread yet still handles thousands of connections at once, without one slow request blocking the rest."
+sort_order: 10
+updated_at: "2026-08-05T05:47:55.617535+00:00"
+---
+
+```json
+[
+  {
+    "id": "-nXpp94DED-2",
+    "html": "<p>The server in the last lesson can handle many browsers hitting it at the same time, without waiting for one request to finish before starting the next. This lesson explains how — and why Node was designed this way in the first place.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9KANjML9KQM8",
+    "text": "One Thread, Not Many",
+    "type": "heading",
+    "level": 2,
+    "anchor": "one-thread-not-many"
+  },
+  {
+    "id": "V3G0jRz00yEe",
+    "html": "<p>Many server platforms handle concurrent requests by starting a new thread — a separate line of execution — for each one. Node does the opposite: your JavaScript code runs on a <b>single thread</b>. Only one line of your code executes at any instant, ever.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hpvKj_F4ukiJ",
+    "text": "So How Does It Handle Many Requests?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "so-how-does-it-handle-many-requests"
+  },
+  {
+    "id": "Vcyawu7EGFKq",
+    "html": "<p>The trick is that most of what a server spends time on isn't actually computing — it's <i>waiting</i>: waiting for a file to finish reading off disk, waiting for a database to respond, waiting for another server's API to reply. Node hands that waiting off to the operating system in the background, and immediately moves on to the next piece of code, rather than sitting idle until the wait is over.</p><p>When the wait finishes — the file is read, the database replies — Node queues up the callback you provided, and runs it as soon as the single thread is free.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G0iwiObMa7OZ",
+    "alt": "Diagram of the Node.js event loop showing the call stack running JavaScript, a callback queue waiting, and background operations like file reads and network requests feeding completed callbacks back into the queue",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Slow operations run in the background; the event loop pulls their callbacks back onto the single thread once they finish.",
+    "publicId": "docs/img/nodejs/event-loop-1"
+  },
+  {
+    "id": "RXBfosBXr9cp",
+    "text": "Why This Matters in Practice",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-in-practice"
+  },
+  {
+    "id": "r_YbtAIN6yAL",
+    "html": "<p>This is why the previous lesson's server can serve a second visitor while the first visitor's request is still being handled — as long as the handling involves waiting (for a file, a database, a network call) rather than heavy computation, the single thread is free to work on other requests during that wait.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PviVZ0_kNG7h",
+    "html": "<p>The flip side: genuinely heavy <i>computation</i> — sorting a huge array, running a complex calculation — blocks that one thread completely while it runs, and <i>every other request has to wait</i>, since there's no second thread to pick up the slack. Node is excellent at juggling many waiting operations; it is a poor fit for CPU-heavy work.</p>",
+    "type": "callout",
+    "title": "What can still block the thread",
+    "variant": "warning"
+  },
+  {
+    "id": "4mS33vv_B-x-",
+    "text": "The Takeaway",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-takeaway"
+  },
+  {
+    "id": "g_fnQ3InUC9p",
+    "html": "<p>You rarely write \"event loop\" code directly — it runs automatically, underneath every callback, promise, and <code>async</code>/<code>await</code> you write. But understanding that it's there explains a lot: why Node.js code is written the way it is, why blocking file operations are discouraged in servers, and why the next several lessons on events, callbacks, and promises all matter as much as they do.</p>",
+    "type": "richtext"
+  }
+]
+```

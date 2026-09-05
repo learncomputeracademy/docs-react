@@ -1,0 +1,132 @@
+---
+id: "b70e05c6-0d93-4e50-8a28-94ba3fc31d82"
+title: "The Parts of a Domain"
+path: "hosting/the-parts-of-a-domain"
+status: "published"
+meta_title: "The Parts of a Domain Name | Learn Computer Academy"
+meta_description: "Breaking down blog.example.co.in into its actual named parts — subdomain, second-level domain, and top-level domain — and what each one means."
+sort_order: 5
+updated_at: "2026-08-05T13:35:31.392448+00:00"
+---
+
+```json
+[
+  {
+    "id": "DPDugAQ0w8O-",
+    "html": "<p>A domain like <code>blog.example.co.in</code> looks like one string, but it is built from named, nested parts, read right to left. Knowing the parts makes DNS records, in a later lesson, far easier to understand.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KyxCFr5Grsta",
+    "alt": "Isometric diagram labelling the parts of a domain name blog.example.com from right to left: top-level domain, second-level domain, and subdomain, each as a stacked labelled block",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Read right to left: the top-level domain, then the name you registered, then any subdomain in front of it.",
+    "publicId": "docs/img/hosting/domain-parts-1"
+  },
+  {
+    "id": "hcMJz9WuVSn2",
+    "text": "The Parts, Right to Left",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-parts-right-to-left"
+  },
+  {
+    "id": "eqcf3o4UnRpd",
+    "rows": [
+      [
+        "Top-level domain (TLD)",
+        ".com",
+        "The broadest category, assigned by a global authority — covered in depth next lesson"
+      ],
+      [
+        "Second-level domain (SLD)",
+        "example",
+        "The actual name you register and pay for"
+      ],
+      [
+        "Subdomain",
+        "blog.",
+        "A free, optional prefix you create yourself, pointing anywhere you like"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Part",
+      "In blog.example.com",
+      "What it is"
+    ]
+  },
+  {
+    "id": "9DIgUrpjX4Cz",
+    "html": "<p>You register the second-level domain plus the top-level domain together — <code>example.com</code> as a unit. Everything in front of that, like <code>blog.</code> or <code>shop.</code>, is a subdomain you create for free, entirely under your own control, once you own the base domain.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rsl4WisDlZqa",
+    "text": "What Subdomains Are Actually For",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-subdomains-are-actually-for"
+  },
+  {
+    "id": "y57Jmw4t1N9H",
+    "html": "<p>A subdomain is a free way to split your site into logically separate sections that can even point at entirely different hosting:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f-WrHcByo7ro",
+    "rows": [
+      [
+        "www.example.com",
+        "The conventional address for the main site — often set to behave identically to the bare domain"
+      ],
+      [
+        "blog.example.com",
+        "A separate blog, sometimes on entirely different software or hosting"
+      ],
+      [
+        "shop.example.com",
+        "A separate store platform"
+      ],
+      [
+        "api.example.com",
+        "A backend API, served separately from the main website"
+      ],
+      [
+        "mail.example.com",
+        "Often used for webmail access"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Subdomain",
+      "Common use"
+    ]
+  },
+  {
+    "id": "sRM_4xmIRGNb",
+    "html": "<p>Because each subdomain can point anywhere independently, a single domain can quietly be serving several completely different platforms behind the scenes — a marketing site on one host, a blog on another, an API on a third — while looking like one seamless site to a visitor.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iOrZHYRGVibm",
+    "text": "www or Not?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "www-or-not"
+  },
+  {
+    "id": "k2B49Dbk7IsS",
+    "html": "<p><code>www.example.com</code> and the bare <code>example.com</code> are, technically, two different addresses — <code>www</code> is just a conventional subdomain, left over from the early web. Most sites configure both to work and redirect to one consistent version, so a visitor never notices the difference. Picking one as canonical and redirecting the other is a small, standard setup step covered in the connecting-a-domain lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tX_ZrxNqUeU1",
+    "html": "<p>A domain can technically be registered with more than one dot before the TLD in some cases — <code>example.co.in</code> is a real pattern, not a typo, covered in the next lesson on TLD types. The parts described here still apply; the base registered name is just slightly longer.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,86 @@
+---
+id: "d2923011-6817-4f43-9373-6fd39a1aac00"
+title: "Widgets and Widget-Ready Sidebars"
+path: "wordpress/widgets-and-sidebars"
+status: "published"
+meta_title: "WordPress Widgets and Sidebars | Learn Computer Academy"
+meta_description: "Registering a widget-ready area in a theme, and outputting it in a template — the classic-theme way to give an editor a drag-and-drop content area."
+sort_order: 30
+updated_at: "2026-09-03T04:11:00.610321+00:00"
+---
+
+```json
+[
+  {
+    "id": "Mgk6TYHS2ncA",
+    "html": "<p>A <b>widget area</b> (also called a \"sidebar\" in the WordPress API, regardless of where it's actually placed on the page) is a region a theme defines, that an editor can then fill with content blocks from the WordPress admin — without touching any code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6uVYMf4tIpdh",
+    "text": "Registering a Widget Area",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-a-widget-area"
+  },
+  {
+    "id": "nrcXE3SHzcOQ",
+    "code": "// functions.php\nfunction wgh_register_sidebars() {\n    register_sidebar([\n        'name'          => 'Blog Sidebar',\n        'id'            => 'blog-sidebar',\n        'before_widget' => '<div class=\"widget %2$s\">',\n        'after_widget'  => '</div>',\n        'before_title'  => '<h3 class=\"widget-title\">',\n        'after_title'   => '</h3>',\n    ]);\n}\nadd_action('widgets_init', 'wgh_register_sidebars');",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bQeOphzGHp_q",
+    "text": "Outputting It in a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "outputting-it-in-a-template"
+  },
+  {
+    "id": "Fv0TvEJnKmUb",
+    "html": "<p>Wrapped in a check for whether the area actually has any widgets placed in it — an empty sidebar shouldn't render an empty wrapper element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DuLtJ9O4Kzkc",
+    "code": "<?php if (is_active_sidebar('blog-sidebar')) : ?>\n    <aside class=\"sidebar\">\n        <?php dynamic_sidebar('blog-sidebar'); ?>\n    </aside>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ga9ABUyBqf0h",
+    "text": "before_widget and before_title — What They're For",
+    "type": "heading",
+    "level": 2,
+    "anchor": "before_widget-and-before_title-what-theyre-for"
+  },
+  {
+    "id": "zFhlz7Qpbjcd",
+    "html": "<p>Every widget an editor drags into this area gets automatically wrapped in the HTML defined by these four settings — a consistent container and heading structure without the theme needing to know in advance which widgets will be used.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xQUNsLD6Tywt",
+    "text": "Registering More Than One Area",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-more-than-one-area"
+  },
+  {
+    "id": "wWEvJ8zswlE0",
+    "code": "function wgh_register_sidebars() {\n    register_sidebar(['name' => 'Blog Sidebar', 'id' => 'blog-sidebar']);\n    register_sidebar(['name' => 'Footer Column 1', 'id' => 'footer-1']);\n    register_sidebar(['name' => 'Footer Column 2', 'id' => 'footer-2']);\n}\nadd_action('widgets_init', 'wgh_register_sidebars');",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ssJPKJNLcZa_",
+    "html": "<p>Since WordPress 5.8, a widget area can also hold blocks (the same block editor used for post content), not just the older classic widgets — <code>register_sidebar()</code> itself is unchanged either way.</p>",
+    "type": "callout",
+    "title": "Widgets and the block editor",
+    "variant": "note"
+  }
+]
+```

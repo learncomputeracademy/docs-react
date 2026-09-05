@@ -1,0 +1,110 @@
+---
+id: "71e43d82-0b93-4808-8da7-75669e1fc9f4"
+title: "Updating State: Objects and Arrays"
+path: "react/updating-state"
+status: "published"
+meta_title: "Updating Object and Array State in React | Learn Computer Academy"
+meta_description: "Why React state must be treated as immutable, and the spread-operator patterns for updating objects and arrays without mutating them."
+sort_order: 10
+updated_at: "2026-07-31T11:24:38.171214+00:00"
+---
+
+```json
+[
+  {
+    "id": "-PfM1PIjomKO",
+    "html": "<p>Updating a number or string in state is straightforward — <code>setCount(count + 1)</code>. Objects and arrays need one more rule: React state must never be <b>mutated</b> directly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "puOIs2tyMpWI",
+    "text": "Why Mutation Breaks React",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-mutation-breaks-react"
+  },
+  {
+    "id": "w77EWO0HtSQQ",
+    "html": "<p>React decides whether to re-render partly by checking if the state value is a <i>different</i> object than before. Mutating the existing object in place keeps it the exact same object reference — React can't tell anything changed, and silently skips the re-render:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5z3RqPbWRF_X",
+    "code": "function Profile() {\n  const [user, setUser] = useState({ name: 'Priya', age: 21 });\n\n  function haveBirthday() {\n    user.age = user.age + 1; // mutates the existing object — DOES NOT re-render\n    setUser(user);            // same reference as before, React sees no change\n  }\n\n  return <button onClick={haveBirthday}>{user.name} is {user.age}</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "JO5PoYbqUBrq",
+    "text": "The Fix: Spread and Replace",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-fix-spread-and-replace"
+  },
+  {
+    "id": "MyjKOtGzgsWK",
+    "html": "<p>Create a <i>new</i> object (or array) with the change applied, using the spread operator from the <a href=\"/javascript/es6-and-modern-features/\">JavaScript ES6 lesson</a>, and pass that new object to the setter:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2wjWwcgnxptV",
+    "code": "function haveBirthday() {\n  setUser({ ...user, age: user.age + 1 }); // a new object, one field changed\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "k3WOtfoFu5Tw",
+    "html": "<p><code>{ ...user, age: user.age + 1 }</code> copies every field from <code>user</code> into a brand-new object, then overwrites <code>age</code> — a genuinely new reference React can compare against the old one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kEb79_J5u8_h",
+    "text": "Updating Arrays the Same Way",
+    "type": "heading",
+    "level": 2,
+    "anchor": "updating-arrays-the-same-way"
+  },
+  {
+    "id": "r3wv0LH_EQSF",
+    "rows": [
+      [
+        "Add an item",
+        "items.push(newItem)",
+        "setItems([...items, newItem])"
+      ],
+      [
+        "Remove an item",
+        "items.splice(i, 1)",
+        "setItems(items.filter((_, idx) => idx !== i))"
+      ],
+      [
+        "Update an item",
+        "items[i].done = true",
+        "setItems(items.map((item, idx) => idx === i ? { ...item, done: true } : item))"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Task",
+      "Don't",
+      "Do"
+    ]
+  },
+  {
+    "id": "gnFm4Rodqn4F",
+    "code": "function TodoList() {\n  const [todos, setTodos] = useState([\n    { id: 1, text: 'Learn React', done: false },\n  ]);\n\n  function toggleTodo(id) {\n    setTodos(todos.map((todo) =>\n      todo.id === id ? { ...todo, done: !todo.done } : todo\n    ));\n  }\n\n  return (\n    <ul>\n      {todos.map((todo) => (\n        <li key={todo.id} onClick={() => toggleTodo(todo.id)}>\n          {todo.done ? '✓' : '○'} {todo.text}\n        </li>\n      ))}\n    </ul>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "KrGdtRJCrDGB",
+    "html": "<p>Array methods split cleanly into two groups: <code>map()</code>, <code>filter()</code>, and the spread operator (<code>[...arr]</code>) all return a <b>new</b> array, safe for state. <code>push()</code>, <code>splice()</code>, <code>sort()</code>, and direct index assignment (<code>arr[0] = x</code>) all mutate the <b>existing</b> array — never use these directly on state.</p>",
+    "type": "callout",
+    "title": "Non-mutating vs. mutating array methods",
+    "variant": "tip"
+  }
+]
+```

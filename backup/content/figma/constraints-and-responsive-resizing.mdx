@@ -1,0 +1,98 @@
+---
+id: "7d2fd7a3-0d29-484e-8123-9ee0d66b3424"
+title: "Constraints and Responsive Resizing"
+path: "figma/constraints-and-responsive-resizing"
+status: "published"
+meta_title: "Constraints and Responsive Resizing | Learn Computer Academy"
+meta_description: "How Constraints control what happens to a layer when its parent Frame is resized — pinning, stretching, and centering elements responsively."
+sort_order: 11
+updated_at: "2026-08-17T13:42:33.28663+00:00"
+---
+
+```json
+[
+  {
+    "id": "WXY_pfibwHKC",
+    "html": "<p>Resize a Frame and every child inside it needs to know what to do — stay put, stretch, or move. <b>Constraints</b> are the setting that decides this, per layer, per axis (horizontal and vertical are set independently).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bMgVYGNbbYUU",
+    "alt": "A small rectangle inside a Frame with a \"Left + Right\" horizontal constraint applied, shown with dashed guide lines connecting it to both side edges of the Frame, and the Design panel's Constraints dropdowns visible",
+    "type": "image",
+    "width": 1568,
+    "height": 717,
+    "caption": "A \"Left + Right\" constraint — dashed lines show the element staying pinned to both edges as the Frame resizes.",
+    "publicId": "docs/img/figma/constraints-demo"
+  },
+  {
+    "id": "I0X4t6tcdDh7",
+    "text": "The Constraint Options",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-constraint-options"
+  },
+  {
+    "id": "4S9Nh5h8LRal",
+    "rows": [
+      [
+        "Left / Right / Top / Bottom",
+        "Keeps a fixed distance from that one edge; the layer doesn't resize"
+      ],
+      [
+        "Left + Right (or Top + Bottom)",
+        "Pins both edges — the layer stretches to fill the growing/shrinking space"
+      ],
+      [
+        "Center",
+        "Keeps the layer centered, at a fixed distance from the midpoint"
+      ],
+      [
+        "Scale",
+        "Resizes the layer proportionally to the Frame's own resize"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Constraint",
+      "Behavior when the Frame resizes"
+    ]
+  },
+  {
+    "id": "ODyiRuFv9VZe",
+    "text": "A Concrete Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-concrete-example"
+  },
+  {
+    "id": "9kDAMX33LfKd",
+    "html": "<p>A header bar with a logo on the left and a search box that should stretch: the logo gets a <b>Left</b> constraint (stays put), and the search box gets <b>Left + Right</b> (grows and shrinks with the header). Get this wrong and the search box either stays a fixed width forever or the logo drifts away from the edge as the screen resizes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vPhy2Jmb-IYy",
+    "text": "Constraints vs. Auto Layout",
+    "type": "heading",
+    "level": 2,
+    "anchor": "constraints-vs-auto-layout"
+  },
+  {
+    "id": "3WAUYGLaCKrk",
+    "html": "<p>Constraints and Auto Layout solve a similar problem from different angles. Constraints answer \"what happens when THIS Frame resizes\" for children placed freely inside it — useful for a single fixed-size screen like a specific device mockup. Auto Layout (covered earlier in this course) actively arranges and resizes a whole group of children based on their content. Real files use both: Auto Layout for the parts that should flow, Constraints for the parts that should just pin in place.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mqeN59lLiwjY",
+    "text": "Testing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-it"
+  },
+  {
+    "id": "1yqY3oAx_cNx",
+    "html": "<p>Select the parent Frame and manually drag one of its resize handles — every child's constraint behavior plays out live on the canvas, no prototype or preview needed. This is the fastest way to catch a wrong constraint before it becomes a real bug.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,160 @@
+---
+id: "6996ecc4-c733-416e-a86a-e5e30f7b6b58"
+title: "Databases & Tables"
+path: "sql/databases-and-tables"
+status: "published"
+meta_title: "Databases & Tables | Learn Computer Academy"
+meta_description: "How to create a database, switch between databases, and see what already exists — the structural basics every SQL session starts with."
+sort_order: 2
+updated_at: "2026-07-29T06:31:05.032201+00:00"
+---
+
+```json
+[
+  {
+    "id": "_6ouWVhFN4mU",
+    "html": "<p>Before you can query anything, you need a database to hold it and a table shaped to fit your data. This lesson covers the handful of commands you'll run before writing a single <code>SELECT</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u6xjBkt834gd",
+    "text": "CREATE DATABASE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "create-database"
+  },
+  {
+    "id": "EIr4FIPY9FLD",
+    "html": "<p>Creates a new, empty database on the server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jmaRGm36SY57",
+    "code": "CREATE DATABASE database_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "RhM1ECCHPsrx",
+    "code": "CREATE DATABASE CompanyDB;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "51M4wmj_Xfld",
+    "html": "<ul><li>Reserves a named space for tables, views, and other objects.</li><li>Does not select the database for use — you still need to switch to it with <code>USE</code>.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "jCE2hUFIDyhG",
+    "html": "<p>Creating a database with the same name as an existing one without checking first.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "1wf2WYg3MZX3",
+    "text": "USE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "use"
+  },
+  {
+    "id": "aI3SFoI1-IO-",
+    "html": "<p>Switches the active database for the current session.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HZpkWsuNxSNZ",
+    "code": "USE database_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "4GS2IKU35LcU",
+    "code": "USE CompanyDB;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "jdsLczXZKcAY",
+    "html": "<p>All statements that follow run against this database until you switch again.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wJMIh__65osw",
+    "html": "<p>Running a query against the wrong database because <code>USE</code> was never called first.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "9M-OLjHFLpm8",
+    "text": "SHOW DATABASES / TABLES",
+    "type": "heading",
+    "level": 2,
+    "anchor": "show-databases-tables"
+  },
+  {
+    "id": "haCxJudxMSiA",
+    "html": "<p>Lists the databases on the server, or the tables inside the current one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZQg351vfmM3L",
+    "code": "SHOW DATABASES;\nSHOW TABLES;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "QAof2H0X1GBW",
+    "rows": [
+      [
+        "Employee"
+      ],
+      [
+        "Department"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tables_in_CompanyDB"
+    ],
+    "caption": "SHOW TABLES;"
+  },
+  {
+    "id": "ibQRQEKG_Ju2",
+    "html": "<p>A quick way to see what already exists before writing a query against it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nN6G11ZBsTzN",
+    "html": "<p>Assuming <code>SHOW TABLES</code> works identically across every database engine — the exact syntax varies between MySQL, PostgreSQL, and others.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "JOolQa8_Kcuv",
+    "text": "Data Types — a Quick Pointer",
+    "type": "heading",
+    "level": 2,
+    "anchor": "data-types-a-quick-pointer"
+  },
+  {
+    "id": "a_Bhw84q9cMu",
+    "html": "<p>Every column is given a <b>type</b> that constrains what it can store and how much room it takes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y4LK1AGVbI1H",
+    "html": "<ul><li>Numbers, text, dates, and flags each have their own type family.</li><li>The next lesson covers sizing each of them for a real, memory-conscious schema — not just which type to use, but which specific size.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "fY84-AnSGDBj",
+    "html": "<p>With a database and the idea of typed columns in place, the next lesson goes deep on choosing the right type and size for every column you'll ever define.</p>",
+    "type": "richtext"
+  }
+]
+```

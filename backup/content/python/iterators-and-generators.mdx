@@ -1,0 +1,122 @@
+---
+id: "781880f2-0143-408c-986a-4f2da8037e9e"
+title: "Iterators and Generators"
+path: "python/iterators-and-generators"
+status: "published"
+meta_title: "Python Iterators and Generators | Learn Computer Academy"
+meta_description: "How Python's for loops actually work under the hood, and using yield to produce values one at a time instead of building a whole list in memory."
+sort_order: 25
+updated_at: "2026-08-04T11:39:33.789832+00:00"
+---
+
+```json
+[
+  {
+    "id": "gT1TeXKlmW9m",
+    "html": "<p>Every <code>for</code> loop you've written in this section has relied on a mechanism worth understanding directly: Python's <b>iterator</b> protocol. A <b>generator</b> is a simple, common way to build your own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JAwOwugHaRzD",
+    "text": "What \"Iterable\" Actually Means",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-iterable-actually-means"
+  },
+  {
+    "id": "xbnsG8IsW9zV",
+    "html": "<p>Lists, tuples, dictionaries, and strings are all <b>iterable</b> — <code>for x in ...</code> works on all of them because each knows how to produce its items one at a time when asked, via <code>iter()</code> and <code>next()</code> under the hood:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3cSBWpo14CFT",
+    "code": "numbers = [1, 2, 3]\niterator = iter(numbers)\nprint(next(iterator))  # 1\nprint(next(iterator))  # 2\nprint(next(iterator))  # 3\n# next(iterator)       # StopIteration — nothing left",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "8a9xcN2fqLVC",
+    "html": "<p>A <code>for</code> loop is really just this pattern, wrapped in convenient syntax — it calls <code>next()</code> repeatedly until it runs out.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XaxnxZllF0UD",
+    "text": "The Problem Generators Solve",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-generators-solve"
+  },
+  {
+    "id": "T6OMT-IQq-VS",
+    "html": "<p>Building a full list to loop over it once wastes memory if the list is huge, or impossible if it's infinite. A <b>generator function</b> — using <code>yield</code> instead of <code>return</code> — produces values one at a time, on demand, without ever holding the whole sequence in memory at once:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3kOQw_rGAIMT",
+    "code": "def count_up_to(n):\n    i = 1\n    while i <= n:\n        yield i\n        i += 1\n\nfor number in count_up_to(5):\n    print(number)  # 1, 2, 3, 4, 5 — computed one at a time, not built as a list first",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "NkJQTjmWvaW-",
+    "alt": "Isometric diagram contrasting two approaches: on the left, a full stack of blocks being built all at once before use; on the right, a single block being produced, used, and replaced one at a time in a continuous small loop",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A regular function builds the whole result up front; a generator produces one value at a time, on demand.",
+    "publicId": "docs/img/python/generators-1"
+  },
+  {
+    "id": "6ARu8BVM-qN-",
+    "text": "Generator Expressions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "generator-expressions"
+  },
+  {
+    "id": "ba1_1WomeMtc",
+    "html": "<p>A generator expression is the lazy cousin of the list comprehension from earlier in this section — swap the square brackets for parentheses:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0wdR9SLjaaZO",
+    "code": "squares_list = [n ** 2 for n in range(1000000)]   # builds all million values right now\nsquares_gen  = (n ** 2 for n in range(1000000))   # builds nothing yet — values come one at a time",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "_XuTaLQgxttw",
+    "html": "<p>Use a list when you need to loop over the data more than once, check its length, or index into it. Reach for a generator when you're processing a large or open-ended sequence just once, in order — reading a huge file line by line is a classic real-world case.</p>",
+    "type": "callout",
+    "title": "List vs. generator — when each makes sense",
+    "variant": "tip"
+  },
+  {
+    "id": "ebTA185mpNjr",
+    "text": "A Generator Only Runs Once",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-generator-only-runs-once"
+  },
+  {
+    "id": "7uSIc856VaKF",
+    "html": "<p>This is the gotcha that catches almost everyone the first time: once a generator has been fully looped over, it's exhausted — looping over it again produces nothing, silently, with no error:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Pn9kBi5UwMKM",
+    "code": "squares = (n ** 2 for n in range(3))\n\nprint(list(squares))  # [0, 1, 4]\nprint(list(squares))  # [] — already exhausted, nothing left to produce",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "HlLY_ajKoxaM",
+    "html": "<p>A list can be looped over as many times as you like; a generator is single-use by design. If you need the data more than once, either convert it to a list (<code>list(...)</code>) or build a fresh generator each time you need it.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,139 @@
+---
+id: "1f5a975f-ed6f-4aa4-a450-5cc8154d900e"
+title: "The Loop and Core Template Tags"
+path: "wordpress/the-loop"
+status: "published"
+meta_title: "The Loop and Core Template Tags | Learn Computer Academy"
+meta_description: "How WordPress's Loop actually works, and the template tags used inside it to output a post's title, content, and other data."
+sort_order: 6
+updated_at: "2026-07-30T14:23:25.933878+00:00"
+---
+
+```json
+[
+  {
+    "id": "4UgmzFYEysmk",
+    "html": "<p>Every template that shows post or page content — <code>index.php</code>, <code>page.php</code>, <code>single.php</code>, and more — does it through the same pattern, called <b>the Loop</b>. It's not a special WordPress feature so much as a naming convention for a specific, always-the-same <code>while</code> loop.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3mHGBakwK-Fw",
+    "text": "The Basic Shape",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-basic-shape"
+  },
+  {
+    "id": "i-n3C9ZP0NRN",
+    "code": "<?php if ( have_posts() ) : ?>\n    <?php while ( have_posts() ) : the_post(); ?>\n\n        <h1><?php the_title(); ?></h1>\n        <?php the_content(); ?>\n\n    <?php endwhile; ?>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "CI2c2SGXZWgM",
+    "html": "<p><code>have_posts()</code> checks whether there's another post left to show. <code>the_post()</code> advances to it and sets up all the \"current post\" data that the tags inside the loop read from. On a single page this only runs once; on an archive or the homepage, it runs once per post in the list.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d-jj3vIHMZ-A",
+    "text": "Template Tags Used Inside the Loop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "template-tags-used-inside-the-loop"
+  },
+  {
+    "id": "wysyd8gbX7Mf",
+    "html": "<p>These only work <i>inside</i> the Loop — call them outside it and there's no \"current post\" for them to read from:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tQITQbvZUCSA",
+    "rows": [
+      [
+        "<code>the_title()</code>",
+        "The post/page title"
+      ],
+      [
+        "<code>the_content()</code>",
+        "The full post/page content"
+      ],
+      [
+        "<code>the_excerpt()</code>",
+        "A short auto-generated (or manually set) summary"
+      ],
+      [
+        "<code>the_permalink()</code>",
+        "The post/page's URL"
+      ],
+      [
+        "<code>the_ID()</code>",
+        "The post/page's numeric ID — useful for passing to other functions"
+      ],
+      [
+        "<code>get_the_date()</code>",
+        "The publish date, formatted (returns rather than outputs, so it's wrapped in <code>echo</code>)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tag",
+      "Outputs"
+    ]
+  },
+  {
+    "id": "WadsAr9xuvUQ",
+    "text": "Conditional Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "conditional-tags"
+  },
+  {
+    "id": "S-QtxSQID66G",
+    "html": "<p>Conditional tags answer \"what kind of page is this?\" and work anywhere in a template, not just inside the Loop — they're what makes a single <code>header.php</code> able to behave differently across the whole site:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r1ZBdYak1Xyu",
+    "rows": [
+      [
+        "<code>is_front_page()</code>",
+        "The site's configured homepage is being shown"
+      ],
+      [
+        "<code>is_home()</code>",
+        "The main blog listing is being shown (same as <code>is_front_page()</code> unless a static homepage is set)"
+      ],
+      [
+        "<code>is_single()</code>",
+        "A single blog post is being shown"
+      ],
+      [
+        "<code>is_page()</code>",
+        "A standalone page is being shown"
+      ],
+      [
+        "<code>is_archive()</code>",
+        "Any archive listing — category, tag, date, or custom taxonomy — is being shown"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tag",
+      "True when"
+    ]
+  },
+  {
+    "id": "VSS5fmablQ_9",
+    "html": "<p><code>is_home()</code> and <code>is_front_page()</code> trip people up constantly. They're identical only when a site's homepage <i>is</i> the blog listing. The moment a site uses a static page as its homepage (Settings → Reading), the two split apart — <code>is_front_page()</code> follows that setting, <code>is_home()</code> always means \"the blog listing,\" wherever it ends up living.</p>",
+    "type": "callout",
+    "title": "is_home() vs. is_front_page()",
+    "variant": "tip"
+  },
+  {
+    "id": "zPZR3gYKGHOJ",
+    "html": "<p>With posts and pages actually rendering, the next lesson steps back and looks at how WordPress decided which template file to use in the first place — the template hierarchy.</p>",
+    "type": "richtext"
+  }
+]
+```

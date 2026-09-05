@@ -1,0 +1,105 @@
+---
+id: "693f87dd-d0f3-444d-a29a-d38302a67000"
+title: "Your First Component"
+path: "react/first-component"
+status: "published"
+meta_title: "Your First React Component | Learn Computer Academy"
+meta_description: "Writing, exporting, and importing a function component — the basic building block of every React application."
+sort_order: 4
+updated_at: "2026-07-31T11:24:35.665369+00:00"
+---
+
+```json
+[
+  {
+    "id": "AshznyU6CJKh",
+    "html": "<p>A <b>component</b> is a JavaScript function that returns JSX. That's the entire definition — everything else you'll learn in this section is what you can do with that one idea.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4E8r6ajz65_8",
+    "text": "A Minimal Component",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-minimal-component"
+  },
+  {
+    "id": "B4ojWypU2B58",
+    "code": "function Welcome() {\n  return <h1>Hello, world!</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "CutCi5qvuYQy",
+    "html": "<p>Component names <b>must</b> start with a capital letter — <code>Welcome</code>, not <code>welcome</code>. React uses this exact rule to tell a component apart from a regular HTML tag; <code>&lt;welcome /&gt;</code> would be treated as an (invalid) HTML element, not your component.</p>",
+    "type": "callout",
+    "title": "Capitalize component names — always",
+    "variant": "warning"
+  },
+  {
+    "id": "ELvmDFK4Y5w5",
+    "text": "Using a Component",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-component"
+  },
+  {
+    "id": "3_ecNYnKVwHE",
+    "html": "<p>Once defined, a component is used like any other JSX tag:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-1DRh5zo6p_k",
+    "code": "function App() {\n  return (\n    <div>\n      <Welcome />\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "aBMX5zV8o4s3",
+    "text": "One Component Per File, Exported",
+    "type": "heading",
+    "level": 2,
+    "anchor": "one-component-per-file-exported"
+  },
+  {
+    "id": "FTTpQSubWw6A",
+    "html": "<p>Real React projects put each component in its own file, using the ES module <code>export</code>/<code>import</code> you met in the <a href=\"/javascript/module-import-export/\">JavaScript Modules lesson</a>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gcDn3uls4Mpm",
+    "code": "// Welcome.jsx\nexport default function Welcome() {\n  return <h1>Hello, world!</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "MfIWe7vE7H_P",
+    "code": "// App.jsx\nimport Welcome from './Welcome';\n\nexport default function App() {\n  return (\n    <div>\n      <Welcome />\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "R99nNeFY6PqS",
+    "text": "Components Can Use Other Components",
+    "type": "heading",
+    "level": 2,
+    "anchor": "components-can-use-other-components"
+  },
+  {
+    "id": "0VCI5O4OcSpw",
+    "html": "<p>This is the whole idea in practice — small pieces combine into bigger ones:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5F2jlQLAF41x",
+    "code": "function Header() {\n  return <h1>My Site</h1>;\n}\n\nfunction Footer() {\n  return <p>&copy; 2026</p>;\n}\n\nfunction App() {\n  return (\n    <div>\n      <Header />\n      <p>Page content goes here.</p>\n      <Footer />\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

@@ -1,0 +1,117 @@
+---
+id: "51c2a1e9-a864-4b06-87c8-98793775b338"
+title: "CSS Variables (Custom Properties)"
+path: "css/variables"
+status: "published"
+meta_title: "CSS Variables | Learn Computer Academy"
+meta_description: "Store a reusable value once with a CSS custom property, and update it everywhere it's used by changing it in a single place."
+sort_order: 42
+updated_at: "2026-09-03T03:54:08.60067+00:00"
+---
+
+```json
+[
+  {
+    "id": "vLFgaQnoH6KQ",
+    "html": "<hr><p>A CSS variable (formally called a custom property) lets a value — a color, a spacing size, a font — be defined once and reused throughout a stylesheet, updated everywhere at once from a single place.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "4Aub7DJZmaYN",
+    "text": "Defining a Variable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-a-variable"
+  },
+  {
+    "id": "lv6rRGxgJr2c",
+    "html": "<p>A variable name always starts with two dashes. Defining it on <code>:root</code> makes it available everywhere on the page.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "62-3HJgCAdPV",
+    "code": ":root {\n  --brand-color: #3366ff;\n  --spacing-unit: 8px;\n  --font-heading: 'Poppins', sans-serif;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "BtWqmKvAS44h",
+    "text": "Using a Variable — var()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-variable-var"
+  },
+  {
+    "id": "fzhtCTfw84kZ",
+    "code": ".button {\n  background-color: var(--brand-color);\n  padding: var(--spacing-unit);\n}\nh1 {\n  font-family: var(--font-heading);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "xeSrVjr_11H9",
+    "text": "A Fallback Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-fallback-value"
+  },
+  {
+    "id": "wDjRxR6z9GKo",
+    "html": "<p><code>var()</code> accepts a second argument — used if the variable isn't defined.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AHw2wXJlUg8r",
+    "code": ".button {\n  color: var(--text-color, black);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "tObUU4XwP6UW",
+    "text": "Scoping a Variable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "scoping-a-variable"
+  },
+  {
+    "id": "yatXn-2_WZ8n",
+    "html": "<p>A variable defined inside a specific selector, rather than <code>:root</code>, is only available within that element and its children.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "c3sMK-4dekc8",
+    "code": ".dark-card {\n  --card-bg: #1a1a1a;\n  --card-text: white;\n\n  background-color: var(--card-bg);\n  color: var(--card-text);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "B18yxXN2xyKX",
+    "text": "Why This Beats a Preprocessor Variable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-beats-a-preprocessor-variable"
+  },
+  {
+    "id": "90qZG4qsPbU4",
+    "html": "<p>Unlike a Sass variable, a CSS custom property is live in the browser — it can be read and changed with JavaScript, and it responds instantly to a media query or a class toggle, without a rebuild step.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hZ1V531rcADa",
+    "code": "document.documentElement.style.setProperty('--brand-color', '#ff3366')",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "bDDor3qQi1pK",
+    "html": "<p>A common real use: define color and spacing variables once at <code>:root</code>, then override just a handful of them inside a <code>.dark-theme</code> class to build a dark mode without duplicating every rule.</p>",
+    "type": "callout",
+    "title": "A practical pattern",
+    "variant": "tip"
+  }
+]
+```

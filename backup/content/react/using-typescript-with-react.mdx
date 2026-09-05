@@ -1,0 +1,142 @@
+---
+id: "36a6d34e-5ed4-4960-b0a5-eb8caedc093a"
+title: "Using TypeScript with React"
+path: "react/using-typescript-with-react"
+status: "published"
+meta_title: "Using TypeScript with React | Learn Computer Academy"
+meta_description: "Typing component props, state, and events in a React component — the practical patterns, assuming basic TypeScript familiarity."
+sort_order: 27
+updated_at: "2026-09-03T04:34:24.491176+00:00"
+---
+
+```json
+[
+  {
+    "id": "D-4Y4wnTxY0w",
+    "html": "<p>This lesson assumes basic TypeScript syntax is already familiar — types, interfaces, generics — and focuses specifically on the patterns unique to typing a React component. A <code>.tsx</code> file extension (instead of <code>.jsx</code>) is what tells the TypeScript compiler a file contains JSX.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A8xRvp2cX89x",
+    "text": "Typing Props",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-props"
+  },
+  {
+    "id": "dYlYNr3qM1dc",
+    "code": "interface ButtonProps {\n  label: string\n  onClick: () => void\n  disabled?: boolean   // the ? makes this prop optional\n}\n\nfunction Button({ label, onClick, disabled }: ButtonProps) {\n  return (\n    <button onClick={onClick} disabled={disabled}>\n      {label}\n    </button>\n  )\n}",
+    "type": "code",
+    "language": "tsx",
+    "runnable": false
+  },
+  {
+    "id": "XsjhKPTaRTgv",
+    "text": "Typing children",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-children"
+  },
+  {
+    "id": "LIlbV9UdRRYF",
+    "html": "<p>React's built-in <code>ReactNode</code> type covers anything valid as JSX children — text, elements, fragments, or nothing at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5Kl0Hjn_njf9",
+    "code": "import type { ReactNode } from 'react'\n\ninterface CardProps {\n  title: string\n  children: ReactNode\n}\n\nfunction Card({ title, children }: CardProps) {\n  return (\n    <div className=\"card\">\n      <h3>{title}</h3>\n      {children}\n    </div>\n  )\n}",
+    "type": "code",
+    "language": "tsx",
+    "runnable": false
+  },
+  {
+    "id": "uRCaxH3xCbzh",
+    "text": "Typing useState",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-usestate"
+  },
+  {
+    "id": "JI3lxVBaz9zT",
+    "html": "<p>TypeScript usually infers the type from the initial value — an explicit type argument is only needed when the initial value doesn't fully describe every state the variable can hold.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iSAiQ1wqqVAx",
+    "code": "const [count, setCount] = useState(0)              // inferred as number\nconst [name, setName] = useState('')                // inferred as string\n\n// Needs an explicit type — starts as null, but will later hold a User\nconst [user, setUser] = useState<User | null>(null)",
+    "type": "code",
+    "language": "tsx",
+    "runnable": false
+  },
+  {
+    "id": "kjUPGi2HrDxI",
+    "text": "Typing Event Handlers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-event-handlers"
+  },
+  {
+    "id": "hTIL5QKV53j9",
+    "html": "<p>React provides typed versions of DOM events, prefixed with <code>React.</code> — <code>event.target</code> is then correctly typed too, instead of being <code>any</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FbopQvvtqQ-3",
+    "code": "function SearchBox() {\n  const [query, setQuery] = useState('')\n\n  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {\n    setQuery(event.target.value)\n  }\n\n  return <input value={query} onChange={handleChange} />\n}",
+    "type": "code",
+    "language": "tsx",
+    "runnable": false
+  },
+  {
+    "id": "VmGlHt0c7IEi",
+    "text": "Typing useRef for a DOM Element",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-useref-for-a-dom-element"
+  },
+  {
+    "id": "nRtzCphGjrA0",
+    "code": "function TextInput() {\n  const inputRef = useRef<HTMLInputElement>(null)\n\n  function focus() {\n    inputRef.current?.focus()   // ?. because it starts as null\n  }\n\n  return <input ref={inputRef} />\n}",
+    "type": "code",
+    "language": "tsx",
+    "runnable": false
+  },
+  {
+    "id": "nVFsWQ_vzDZX",
+    "rows": [
+      [
+        "Props",
+        "An interface, destructured in the function's parameter"
+      ],
+      [
+        "children",
+        "The ReactNode type"
+      ],
+      [
+        "useState",
+        "Usually inferred; use useState<T>() when the initial value doesn't cover every possible state"
+      ],
+      [
+        "Event handlers",
+        "React.ChangeEvent<HTMLInputElement>, React.MouseEvent<HTMLButtonElement>, etc."
+      ],
+      [
+        "useRef to a DOM element",
+        "useRef<HTMLInputElement>(null), then optional-chain with ?."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "What",
+      "How to type it"
+    ]
+  },
+  {
+    "id": "tz60P94x13P-",
+    "html": "<p>Most tooling that scaffolds a React project (including Vite) offers a TypeScript template out of the box — starting a new project with it from day one avoids retrofitting types onto existing JavaScript later.</p>",
+    "type": "callout",
+    "title": "Starting a project already typed",
+    "variant": "tip"
+  }
+]
+```

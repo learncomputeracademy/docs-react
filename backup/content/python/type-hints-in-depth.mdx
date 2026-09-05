@@ -1,0 +1,146 @@
+---
+id: "caaba38a-4b9f-426d-8c9d-c3accfd55775"
+title: "Type Hints in Depth"
+path: "python/type-hints-in-depth"
+status: "published"
+meta_title: "Python Type Hints | Learn Computer Academy"
+meta_description: "Beyond a basic -> int — typing a list, an optional value, several possible types, and checking it all with mypy."
+sort_order: 36
+updated_at: "2026-09-03T04:52:52.037066+00:00"
+---
+
+```json
+[
+  {
+    "id": "cuFx8yK9SyDj",
+    "html": "<p>The earlier Functions lesson used a basic type hint like <code>-&gt; int</code>. This lesson covers the fuller typing system — Python never enforces these at runtime on its own, but they document intent and let a separate tool catch real mistakes before the code even runs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FjsDnOy8FC-l",
+    "text": "Basic Type Hints, Reviewed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-type-hints-reviewed"
+  },
+  {
+    "id": "U5BO6ZWK7v6c",
+    "code": "def greet(name: str) -> str:\n    return f'Hello, {name}!'\n\nage: int = 28\nprice: float = 19.99\nis_active: bool = True",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "FxC9jrgzcAO1",
+    "text": "Typing a Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-a-collection"
+  },
+  {
+    "id": "i31t5PfBeHvD",
+    "code": "names: list[str] = ['Sam', 'Alex']\nscores: dict[str, int] = {'Sam': 90, 'Alex': 85}\ncoordinates: tuple[float, float] = (12.5, 45.2)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "3_MWjAaKpZx7",
+    "text": "Optional — a Value That Might Be None",
+    "type": "heading",
+    "level": 2,
+    "anchor": "optional-a-value-that-might-be-none"
+  },
+  {
+    "id": "wtfMl7_TfhAV",
+    "code": "from typing import Optional\n\ndef find_user(user_id: int) -> Optional[str]:\n    # Returns a username, or None if not found\n    ...\n\n# Python 3.10+ shorthand, no import needed:\ndef find_user(user_id: int) -> str | None:\n    ...",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "40DIIB0u0epR",
+    "text": "Union — More Than One Possible Type",
+    "type": "heading",
+    "level": 2,
+    "anchor": "union-more-than-one-possible-type"
+  },
+  {
+    "id": "exXdEy1iohum",
+    "code": "def process(value: int | str) -> str:\n    return str(value)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "gBVvy98Bpsr_",
+    "text": "Typing a Function Passed as an Argument",
+    "type": "heading",
+    "level": 2,
+    "anchor": "typing-a-function-passed-as-an-argument"
+  },
+  {
+    "id": "yrHJfh_1oR7w",
+    "code": "from typing import Callable\n\ndef apply(func: Callable[[int], int], value: int) -> int:\n    return func(value)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "dEWTJeandqSm",
+    "text": "Checking Types with mypy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-types-with-mypy"
+  },
+  {
+    "id": "LPYoB7O2Yxip",
+    "html": "<p>Python itself never checks these hints while running — <code>mypy</code>, run separately, catches a mismatch before the code even executes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hMF2lcbqyxCH",
+    "code": "pip install mypy\nmypy my_script.py\n# my_script.py:5: error: Argument 1 to \"greet\" has incompatible type \"int\"; expected \"str\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ornS1f3XnJEU",
+    "rows": [
+      [
+        "list[str]",
+        "A list containing only strings"
+      ],
+      [
+        "dict[str, int]",
+        "A dict with string keys and integer values"
+      ],
+      [
+        "Optional[str] / str | None",
+        "A string, or None"
+      ],
+      [
+        "int | str",
+        "Either an int or a string"
+      ],
+      [
+        "Callable[[int], int]",
+        "A function taking an int and returning an int"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Hint",
+      "Means"
+    ]
+  },
+  {
+    "id": "CjBUcQsjM_Ew",
+    "html": "<p>Type hints are optional documentation, not enforcement — running the code with a \"wrong\" type still works fine unless something like mypy is run separately to check. Their value is catching a real class of bugs before runtime, and making a function's expected inputs obvious to anyone reading it.</p>",
+    "type": "callout",
+    "title": "What Python itself actually does with these",
+    "variant": "note"
+  }
+]
+```

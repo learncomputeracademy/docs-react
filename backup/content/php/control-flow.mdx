@@ -1,0 +1,103 @@
+---
+id: "ab6f3d52-29af-47e0-9f6c-9c5c024b94c2"
+title: "If, Else, and Switch"
+path: "php/control-flow"
+status: "published"
+meta_title: "PHP If, Else, and Switch | Learn Computer Academy"
+meta_description: "PHP's conditional statements — if, else, elseif, switch, and the ternary and null coalescing shortcuts."
+sort_order: 14
+updated_at: "2026-07-30T09:08:38.692221+00:00"
+---
+
+```json
+[
+  {
+    "id": "rU66TvBMvKgy",
+    "html": "<p>Conditionals let a script make decisions — the same idea from <a href=\"/programming/if-statements/\">Intro to Programming</a>, with PHP's syntax and a couple of PHP-specific shortcuts worth knowing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IYIe1uOrd1G3",
+    "text": "if, elseif, else",
+    "type": "heading",
+    "level": 2,
+    "anchor": "if-elseif-else"
+  },
+  {
+    "id": "OL7RqwJrLY9D",
+    "code": "<?php\n  $score = 72;\n  if ($score >= 90) {\n    echo \"Grade: A\";\n  } elseif ($score >= 75) {\n    echo \"Grade: B\";\n  } elseif ($score >= 60) {\n    echo \"Grade: C\";\n  } else {\n    echo \"Grade: F\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "sewnyizlWOyI",
+    "html": "<p>Note PHP uses <code>elseif</code> as one word (though <code>else if</code> as two words also works) — a small but common source of typos coming from other languages.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VcjVdoeNNb66",
+    "text": "switch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "switch"
+  },
+  {
+    "id": "96gq4S8b-0_d",
+    "html": "<p>Cleaner than a long <code>elseif</code> chain when comparing one value against several exact possibilities:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SCyaRcuj1o39",
+    "code": "<?php\n  $day = \"Mon\";\n  switch ($day) {\n    case \"Mon\":\n    case \"Tue\":\n    case \"Wed\":\n    case \"Thu\":\n    case \"Fri\":\n      echo \"Weekday\";\n      break;\n    case \"Sat\":\n    case \"Sun\":\n      echo \"Weekend\";\n      break;\n    default:\n      echo \"Not a valid day\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "_P8WqRtlyHqv",
+    "html": "<p>Forgetting <code>break;</code> is one of the most common <code>switch</code> mistakes — without it, execution \"falls through\" into the next case instead of stopping. Stacking cases with no code between them (like Mon through Fri above) is a deliberate, valid use of that fall-through behavior; forgetting a break where you didn't mean to is the bug.</p>",
+    "type": "callout",
+    "title": "Don't forget break;",
+    "variant": "warning"
+  },
+  {
+    "id": "lGTDcDrlxRAo",
+    "text": "The Ternary Shortcut",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-ternary-shortcut"
+  },
+  {
+    "id": "EfuShrEX14H2",
+    "html": "<p>A compact one-line <code>if/else</code> for simple cases:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uhgJKx4rdsv6",
+    "code": "<?php\n  $age = 20;\n  $status = ($age >= 18) ? \"adult\" : \"minor\";\n  echo $status; // \"adult\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "DbRgRzknN4qh",
+    "text": "Null Coalescing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "null-coalescing"
+  },
+  {
+    "id": "SMdQleeV9kyK",
+    "html": "<p><code>??</code> returns the left side if it's set and not <code>null</code>, otherwise the right side — extremely common when reading data that might not exist, like a form field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QCqh-wmM-7P3",
+    "code": "<?php\n  $name = $_GET[\"name\"] ?? \"Guest\";\n  echo $name; // \"Guest\" if no ?name= was in the URL\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

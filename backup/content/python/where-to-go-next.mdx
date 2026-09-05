@@ -1,0 +1,135 @@
+---
+id: "1ba11ace-e329-40c8-a8e6-74407998f689"
+title: "Where to Go Next"
+path: "python/where-to-go-next"
+status: "published"
+meta_title: "Python: Where to Go Next | Learn Computer Academy"
+meta_description: "Virtual environments and pip in practice, and a pointer to the frameworks and libraries built on top of core Python — Flask, Django, and pandas."
+sort_order: 37
+updated_at: "2026-09-03T04:52:52.242637+00:00"
+---
+
+```json
+[
+  {
+    "id": "cK5tGDeY1MAY",
+    "html": "<p>This section has covered core Python — the part that stays the same no matter which of the domains from the first lesson you go on to work in. This closing lesson covers one practical workflow habit, and points toward what comes next.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "J2n_npW9579W",
+    "text": "Virtual Environments — Practical, Not Optional",
+    "type": "heading",
+    "level": 2,
+    "anchor": "virtual-environments-practical-not-optional"
+  },
+  {
+    "id": "amEAT8FdG65G",
+    "html": "<p>Different projects often need different, sometimes conflicting, versions of the same package. A <b>virtual environment</b> gives each project its own isolated set of installed packages, instead of one shared pile for your entire machine:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Rjp8s1D6RIkE",
+    "code": "python3 -m venv myproject-env      # create it, once per project\nsource myproject-env/bin/activate  # activate it (Windows: myproject-env\\Scripts\\activate)\npip install requests               # installs only into this project's environment\ndeactivate                          # done for now",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "iDdNqPEAX2kf",
+    "html": "<p>Real Python projects create a virtual environment as one of the very first steps, before installing anything with pip. It's not a language feature, just a strong, near-universal convention — worth building the habit early.</p>",
+    "type": "callout",
+    "title": "Do this from your very first real project",
+    "variant": "tip"
+  },
+  {
+    "id": "WeoS0yyr-Qi-",
+    "text": "What Comes Next, by Domain",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-comes-next-by-domain"
+  },
+  {
+    "id": "T6ejhoeL_Sld",
+    "rows": [
+      [
+        "Build web applications",
+        "Flask (small, flexible) or Django (larger, more built-in structure)"
+      ],
+      [
+        "Work with data",
+        "pandas (data analysis), NumPy (numerical computing)"
+      ],
+      [
+        "Do machine learning / AI",
+        "scikit-learn, PyTorch, TensorFlow"
+      ],
+      [
+        "Automate tasks",
+        "The standard library alone often covers this — os, shutil, subprocess"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "If you want to...",
+      "Look at"
+    ]
+  },
+  {
+    "id": "99meeiEAhTeT",
+    "html": "<p>None of these are covered in this section on purpose — each is substantial enough to deserve its own dedicated learning path once core Python feels comfortable, and picking one before you're ready to use it well tends to slow learning down rather than speed it up.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sVvVydYFriL5",
+    "text": "Where the Official Docs Help",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-the-official-docs-help"
+  },
+  {
+    "id": "XH-AVzlySJYi",
+    "html": "<p>This section can't track every detail of a language that keeps evolving. The <a href=\"https://docs.python.org/3/\" target=\"_blank\" rel=\"noopener noreferrer\">official Python documentation</a> is the authoritative, always-current reference — worth bookmarking, and worth reaching for whenever you need something more exhaustive than a lesson here provides.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AuKQ99uVoClP",
+    "text": "A Few Habits Worth Building Early",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-habits-worth-building-early"
+  },
+  {
+    "id": "zbHlhF06evlU",
+    "rows": [
+      [
+        "pytest",
+        "Writing automated tests — catches a broken function before a user does"
+      ],
+      [
+        "black",
+        "Automatic code formatting — one consistent style, no debate needed"
+      ],
+      [
+        "ruff",
+        "Fast linting — flags unused imports, likely bugs, and style issues as you write"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "RTdxNjlXOeX_",
+    "html": "<p>None of these are required to write working Python, and none are covered elsewhere in this section — they're mentioned here because real, professional Python codebases use all three routinely, and picking them up early is far cheaper than retrofitting them onto a large project later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rTJnBNq4o1ll",
+    "html": "<p>The fundamentals in this section — data types, control flow, functions, OOP, files, and databases — are the same whichever direction you take from here.</p>",
+    "type": "richtext"
+  }
+]
+```

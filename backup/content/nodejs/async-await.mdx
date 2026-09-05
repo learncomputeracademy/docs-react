@@ -1,0 +1,101 @@
+---
+id: "c4c272ad-041e-4f32-ace7-d604ebd39766"
+title: "Async/Await in Node.js"
+path: "nodejs/async-await"
+status: "published"
+meta_title: "Async/Await in Node.js | Learn Computer Academy"
+meta_description: "Write Node.js's promise-based code with async/await instead of .then() chains, and handle errors with try/catch."
+sort_order: 14
+updated_at: "2026-08-05T05:47:56.900543+00:00"
+---
+
+```json
+[
+  {
+    "id": "Qo0u0oLZokVV",
+    "html": "<p><code>async</code>/<code>await</code> is the syntax most real Node.js code is written with today. It doesn't replace promises — every <code>async</code> function still returns one — it just gives you a way to write promise-based code that reads top to bottom, like ordinary synchronous code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BCnkbHIZlRyq",
+    "text": "The Callback-Hell Example, Once More",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-callback-hell-example-once-more"
+  },
+  {
+    "id": "51BlPWP_Txvu",
+    "html": "<p>The same three-file read from the last two lessons, this time with <code>async</code>/<code>await</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Nj547GJhVorN",
+    "code": "const fs = require('fs/promises')\n\nasync function loadAllData() {\n  const userData = await fs.readFile('user.json', 'utf8')\n  const settingsData = await fs.readFile('settings.json', 'utf8')\n  const prefData = await fs.readFile('preferences.json', 'utf8')\n  console.log('All data loaded')\n}\n\nloadAllData()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "yPP8NMBeoOyO",
+    "html": "<p>Compare this to the nested version two lessons back — same three operations, now reading as a plain sequence of statements instead of a pyramid.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DkAmmYny6C7h",
+    "text": "Error Handling With try/catch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "error-handling-with-trycatch"
+  },
+  {
+    "id": "pRWl86o7oANB",
+    "html": "<p><code>.catch()</code> is replaced by an ordinary <code>try</code>/<code>catch</code> block wrapped around the <code>await</code> calls:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "l0kR2-ymC2CM",
+    "code": "async function loadAllData() {\n  try {\n    const userData = await fs.readFile('user.json', 'utf8')\n    const settingsData = await fs.readFile('settings.json', 'utf8')\n    console.log('All data loaded')\n  } catch (err) {\n    console.error('Something failed:', err)\n  }\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "j4xHefAq0k-C",
+    "text": "Still Use Promise.all() for Parallel Work",
+    "type": "heading",
+    "level": 2,
+    "anchor": "still-use-promiseall-for-parallel-work"
+  },
+  {
+    "id": "S89ep26akpE4",
+    "html": "<p><code>await</code>ing three calls one after another still runs them in sequence — <code>async</code>/<code>await</code> is just syntax over promises, it doesn't change when things actually run. To get the parallel behavior from the last lesson, <code>await</code> a single <code>Promise.all()</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f4YvYhzVLO65",
+    "code": "async function loadAllData() {\n  const [userData, settingsData, prefData] = await Promise.all([\n    fs.readFile('user.json', 'utf8'),\n    fs.readFile('settings.json', 'utf8'),\n    fs.readFile('preferences.json', 'utf8'),\n  ])\n  console.log('All data loaded')\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "b9err-YE7Jd4",
+    "html": "<p>An <code>await</code> only pauses the function it's written inside — it never blocks the rest of the program the way a <code>Sync</code> method does. Other requests keep being handled by the event loop while one function is paused on an <code>await</code>.</p>",
+    "type": "callout",
+    "title": "await pauses a function, not the whole program",
+    "variant": "warning"
+  },
+  {
+    "id": "OlGzMyRqLlh6",
+    "text": "A Note on Top-Level await",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-note-on-top-level-await"
+  },
+  {
+    "id": "1LC7FtMvLc-9",
+    "html": "<p>Modern Node also allows <code>await</code> directly in a file's top-level code — no wrapping <code>async</code> function needed — but only in ES Modules (the previous lesson on <code>import</code>/<code>export</code>). It's convenient for quick scripts; inside real application code, wrapping logic in named <code>async</code> functions, as above, stays clearer.</p>",
+    "type": "richtext"
+  }
+]
+```

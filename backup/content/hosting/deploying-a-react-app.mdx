@@ -1,0 +1,103 @@
+---
+id: "879ee843-5a4b-404f-8092-4e8d90b187b5"
+title: "Deploying a React App"
+path: "hosting/deploying-a-react-app"
+status: "published"
+meta_title: "Deploying a React App | Learn Computer Academy"
+meta_description: "React builds down to static files, which is why it deploys through the Git-based cloud workflow — a start-to-finish walkthrough, including the routing wrinkle that catches beginners."
+sort_order: 27
+updated_at: "2026-08-05T13:35:38.789368+00:00"
+---
+
+```json
+[
+  {
+    "id": "HcHl2xs7_ccT",
+    "html": "<p>This is the direct, practical version of an idea introduced in the static-hosting lesson: a React app, once built, is just static files — HTML, CSS, and JavaScript — which is why it deploys through the Git-based cloud workflow covered earlier in this category, not through FTP.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RfzOGRgqCXB4",
+    "text": "What \"Building\" Actually Produces",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-building-actually-produces"
+  },
+  {
+    "id": "yhSLRS1ZYUFR",
+    "code": "npm run build\n# produces a folder (commonly \"build\" or \"dist\") full of\n# plain HTML, CSS, and JS — no React-specific server needed to serve it",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "8EentVY8qUXN",
+    "html": "<p>That output folder is a fully static site in every sense covered in the static-hosting lesson — it could, in principle, be uploaded via plain FTP like any other static project. In practice, almost nobody does that by hand.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6X5kf4ARerd2",
+    "text": "The Walkthrough",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-walkthrough"
+  },
+  {
+    "id": "365yzq7ketF9",
+    "html": "<ol><li>Push your React project to a Git repository.</li><li>Connect that repository to a cloud/static hosting platform.</li><li>The platform detects it's a React project, runs <code>npm run build</code> automatically, and serves the output.</li><li>You get a free URL immediately, on the platform's own subdomain.</li><li>Connect your own domain, if you have one, per the pointing-a-domain-at-hosting lesson.</li></ol><p>From this point on, every push to your repository's main branch redeploys automatically — exactly the Git-based deployment workflow covered earlier, with nothing React-specific about the mechanism itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TtuHNzuFNuWn",
+    "alt": "Isometric diagram showing React source code being pushed to a repository, an automatic build step turning it into plain static file icons, and those files appearing live on a browser",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The build step is what turns React source into the plain static files a browser actually receives.",
+    "publicId": "docs/img/hosting/deploy-react-1"
+  },
+  {
+    "id": "juMp-chKjX1a",
+    "text": "The Routing Wrinkle",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-routing-wrinkle"
+  },
+  {
+    "id": "oxA5zDGiXFNJ",
+    "html": "<p>A React app using client-side routing (moving between pages without a full reload) needs one specific server configuration to work correctly once deployed: every URL path needs to serve the same <code>index.html</code> file, letting React's own router handle which content to show based on the URL, rather than the server looking for a matching physical file at each path and returning a 404 when it doesn't find one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YaH24kVIMRp-",
+    "html": "<p>Without this configuration, the homepage works fine, but refreshing the browser on any other page — or sharing a direct link to one — produces a 404 error, because the server looked for a file at that exact path and found nothing. Most cloud hosting platforms handle this automatically for a recognised React project; if using plain static hosting without that detection, this needs to be configured explicitly, usually through a small redirect or rewrite rule the platform's documentation will name directly.</p>",
+    "type": "callout",
+    "title": "Client-side routing needs a specific server rule",
+    "variant": "warning"
+  },
+  {
+    "id": "QI42iXQTrbVA",
+    "text": "Environment Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "environment-variables"
+  },
+  {
+    "id": "ICDsx1dIEVlF",
+    "html": "<p>A React app often needs configuration that differs between local development and production — an API URL, for instance. These are set through the hosting platform's dashboard rather than hardcoded, covered properly in the environment-variables-and-secrets lesson later in this category — the same underlying idea as a database password, just for a different kind of value.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pz6rKpx5AIOO",
+    "text": "Verifying It Actually Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-it-actually-worked"
+  },
+  {
+    "id": "ZtLRXh0k_xrh",
+    "html": "<p>Beyond checking the homepage, specifically test navigating to an inner route and then refreshing the browser on it — that single action is the most reliable way to catch the routing wrinkle before a real visitor does.</p>",
+    "type": "richtext"
+  }
+]
+```

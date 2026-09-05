@@ -1,0 +1,119 @@
+---
+id: "3f3c1863-31a7-412f-94a5-5ae62f0e5cb1"
+title: "Installing MongoDB & MongoDB Atlas"
+path: "mongodb/installing-mongodb-atlas"
+status: "published"
+meta_title: "Installing MongoDB & MongoDB Atlas | Learn Computer Academy"
+meta_description: "Two ways to get a working MongoDB database: installing it locally, or using MongoDB Atlas, the free hosted cloud option most beginners should start with."
+sort_order: 2
+updated_at: "2026-08-18T10:11:21.431303+00:00"
+---
+
+```json
+[
+  {
+    "id": "OZ8jh3x-G8-F",
+    "html": "<p>You need somewhere for MongoDB to actually run before any of the commands in this course do anything. There are two practical routes, and most learners are better off starting with the second one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JzpcMlb1Go-8",
+    "alt": "An isometric illustration of a laptop connecting via a cloud icon to a green database cylinder, representing MongoDB Atlas cloud hosting",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "MongoDB Atlas hosts the database for you — no local install required.",
+    "publicId": "docs/img/mongodb/installing-hero"
+  },
+  {
+    "id": "OjmD4o8NzuTi",
+    "text": "Option 1: MongoDB Atlas (Recommended for Beginners)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "option-1-mongodb-atlas-recommended-for-beginners"
+  },
+  {
+    "id": "VvDN6cPPVVSv",
+    "html": "<p><b>MongoDB Atlas</b> is MongoDB's own official cloud hosting service, with a free tier (\"M0\") that is more than enough for learning and small projects. Nothing installs on your computer.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2SvH5YxPx-2p",
+    "rows": [
+      [
+        "1",
+        "Create a free account at mongodb.com/cloud/atlas"
+      ],
+      [
+        "2",
+        "Create a free M0 cluster (pick a region close to you)"
+      ],
+      [
+        "3",
+        "Under Database Access, create a database user with a password"
+      ],
+      [
+        "4",
+        "Under Network Access, allow your current IP address (or 0.0.0.0/0 while learning)"
+      ],
+      [
+        "5",
+        "Click Connect → Drivers, and copy the connection string"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Step",
+      "What you do"
+    ]
+  },
+  {
+    "id": "YvPUZYrz0J7e",
+    "html": "<p>The connection string looks like this — you will use it throughout this course, including from Node.js later:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pnPKRjw71VA1",
+    "code": "mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "Tvr1Wl9EYlvI",
+    "text": "Option 2: Installing MongoDB Locally",
+    "type": "heading",
+    "level": 2,
+    "anchor": "option-2-installing-mongodb-locally"
+  },
+  {
+    "id": "GjvQiY-Z1zT0",
+    "html": "<p>If you would rather run MongoDB on your own machine, download <b>MongoDB Community Server</b> from mongodb.com for your operating system, then also install <b>mongosh</b>, the command-line shell used to talk to it (covered in the next lesson). A local install connects with a simpler connection string:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yqe_xDJWWx4n",
+    "code": "mongodb://localhost:27017",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "TQby3ZsVmHq5",
+    "text": "MongoDB Compass — A Visual Option",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mongodb-compass-a-visual-option"
+  },
+  {
+    "id": "vFn1wUN0GvXf",
+    "html": "<p>Alongside the shell, <b>MongoDB Compass</b> is a free desktop GUI for browsing databases, collections, and documents without typing commands. It is optional — everything in this course works from the command line — but useful for visually inspecting data while learning.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iA4IGovK80aD",
+    "html": "<p>This course's examples assume Atlas, since it needs no local install and matches what most teams actually use in production. Everywhere you see a connection string, substitute your own Atlas string if you went that route.</p>",
+    "type": "callout",
+    "title": "This course assumes Atlas by default",
+    "variant": "tip"
+  }
+]
+```

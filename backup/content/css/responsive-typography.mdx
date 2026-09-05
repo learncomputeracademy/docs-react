@@ -1,0 +1,96 @@
+---
+id: "e56bacce-0612-425f-894c-b7ab714c7227"
+title: "Responsive Typography"
+path: "css/responsive-typography"
+status: "published"
+meta_title: "Responsive Typography | Learn Computer Academy"
+meta_description: "Making text size actually scale with the screen — viewport units, rem-based scaling, and fluid typography with clamp()."
+sort_order: 48
+updated_at: "2026-09-03T03:54:10.295297+00:00"
+---
+
+```json
+[
+  {
+    "id": "IkBcLZqBAHil",
+    "html": "<hr><p>A heading sized comfortably for a desktop screen often looks oversized on a phone, and a size tuned for mobile looks small on a desktop. Responsive typography is about text that scales smoothly between the two, instead of needing a separate media query for every breakpoint.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "z5F3gu_-S8vv",
+    "text": "The Old Way — a Media Query Per Breakpoint",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-old-way-a-media-query-per-breakpoint"
+  },
+  {
+    "id": "T7OIqanCovyO",
+    "code": "h1 { font-size: 24px; }\n@media (min-width: 768px) {\n  h1 { font-size: 32px; }\n}\n@media (min-width: 1200px) {\n  h1 { font-size: 48px; }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "m4jqn2IJm2Ae",
+    "html": "<p>This works, but jumps in visible steps rather than scaling smoothly, and needs a new rule for every new breakpoint.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IuY5SOBc_RAa",
+    "text": "Viewport Units",
+    "type": "heading",
+    "level": 2,
+    "anchor": "viewport-units"
+  },
+  {
+    "id": "EBP9WagjEmZr",
+    "html": "<p><code>vw</code> (viewport width) scales continuously with screen size, but with no minimum or maximum — text can become unreadably small or huge at extreme sizes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3tVx8RoFoyvw",
+    "code": "h1 {\n  font-size: 5vw;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "0FaALdaHAIur",
+    "text": "The Fluid Approach — clamp()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-fluid-approach-clamp"
+  },
+  {
+    "id": "GkOgtlZ-2l1w",
+    "html": "<p>Combining a viewport unit with <code>clamp()</code> (from the earlier CSS Functions lesson) scales smoothly, with a safe floor and ceiling.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ECt31UKKQS7Y",
+    "code": "h1 {\n  font-size: clamp(1.75rem, 4vw + 1rem, 3.5rem);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "CpSVAqytGX0j",
+    "text": "Why rem, Not px, for the Min and Max",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-rem-not-px-for-the-min-and-max"
+  },
+  {
+    "id": "panhtCUv2Snj",
+    "html": "<p>Using <code>rem</code> for the fixed ends of a <code>clamp()</code> respects a user's browser font-size setting, unlike a fixed <code>px</code> value — a real accessibility difference for anyone who's increased their default text size.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RLFyOo9MV2eu",
+    "html": "<p>This site's Clamp tool generates a value like the one above from a simple min-size/max-size/viewport-range form — worth using directly rather than tuning the numbers by hand.</p>",
+    "type": "callout",
+    "title": "The fast path to a good value",
+    "variant": "tip"
+  }
+]
+```

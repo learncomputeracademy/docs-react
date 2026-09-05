@@ -1,0 +1,168 @@
+---
+id: "55a9548f-fe04-423c-b8d7-64524dd674b5"
+title: "CSS Grid"
+path: "css/grid"
+status: "published"
+meta_title: "CSS Grid | Learn Computer Academy"
+meta_description: "The grid layout model — defining rows and columns explicitly, placing items precisely, and building responsive layouts without media queries."
+sort_order: 37
+updated_at: "2026-09-03T03:54:07.075828+00:00"
+---
+
+```json
+[
+  {
+    "id": "VGYLskPkydC1",
+    "html": "<hr><p>Where flexbox arranges items along one direction, CSS Grid is two-dimensional — it defines rows and columns at the same time, and places items anywhere in that grid.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "B-j0GqUzJzkO",
+    "text": "Creating a Grid Container",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-grid-container"
+  },
+  {
+    "id": "or_EfhhLqBG8",
+    "code": ".container {\n  display: grid;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "nmAV_TfiGC9G",
+    "text": "grid-template-columns and grid-template-rows",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grid-template-columns-and-grid-template-rows"
+  },
+  {
+    "id": "ugD3oEYWFvZE",
+    "html": "<p>Defines the number and size of columns and rows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PWe8oKosUieN",
+    "code": ".container {\n  display: grid;\n  grid-template-columns: 200px 200px 200px;\n  grid-template-rows: 100px 100px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "gZlio79MeUGY",
+    "text": "The fr Unit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-fr-unit"
+  },
+  {
+    "id": "shJeMqaxXb0P",
+    "html": "<p><code>fr</code> represents a fraction of the available space — much more flexible than fixed pixel widths.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bw3zuBujdRDv",
+    "code": ".container {\n  grid-template-columns: 1fr 2fr 1fr;    /* middle column is twice as wide */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "5us6xPtfWPZ5",
+    "text": "repeat() and minmax()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "repeat-and-minmax"
+  },
+  {
+    "id": "GzfmMR3-E0ti",
+    "html": "<p><code>repeat()</code> avoids typing the same value over and over. <code>minmax()</code> gives a track a minimum and maximum size.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3f8VUQy2HjYG",
+    "code": ".container {\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "BGOpZIp7oBo7",
+    "text": "gap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "gap"
+  },
+  {
+    "id": "CCytPM1u7uzS",
+    "code": ".container {\n  display: grid;\n  gap: 16px;              /* row and column gap */\n  gap: 16px 24px;         /* row gap, column gap */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "9Rsmv7hFAeFU",
+    "text": "Placing Items — grid-column and grid-row",
+    "type": "heading",
+    "level": 2,
+    "anchor": "placing-items-grid-column-and-grid-row"
+  },
+  {
+    "id": "WzjpHwnwX0O2",
+    "html": "<p>An item can span multiple columns or rows by specifying start and end lines.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F3g5dWuAJIo3",
+    "code": ".item-featured {\n  grid-column: 1 / 3;    /* starts at line 1, ends at line 3 — spans 2 columns */\n  grid-row: 1 / 3;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "vtNdE1TuRfaT",
+    "text": "Naming Areas — grid-template-areas",
+    "type": "heading",
+    "level": 2,
+    "anchor": "naming-areas-grid-template-areas"
+  },
+  {
+    "id": "erL3f9U-m6Qp",
+    "html": "<p>Named areas make a layout's structure readable at a glance.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6v1O1cZzR8UG",
+    "code": ".container {\n  display: grid;\n  grid-template-columns: 200px 1fr;\n  grid-template-areas:\n    \"sidebar header\"\n    \"sidebar content\";\n}\n.sidebar { grid-area: sidebar; }\n.header  { grid-area: header; }\n.content { grid-area: content; }",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "7HmPEQGX9nHA",
+    "rows": [
+      [
+        "Grid",
+        "The layout needs rows and columns together — a page shell, a card gallery, a form grid"
+      ],
+      [
+        "Flexbox",
+        "Items flow in one direction and need to distribute or align along it — a navbar, a button group"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Grid vs. Flexbox",
+      "Use when"
+    ]
+  },
+  {
+    "id": "AM2pFxlpZaEo",
+    "html": "<p>This site's Grid Generator tool (under Tools) builds a grid visually and outputs the CSS — a good way to see grid-template-areas take shape without writing it by hand first.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

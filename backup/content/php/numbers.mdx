@@ -1,0 +1,98 @@
+---
+id: "d57cfe42-1002-4345-be7e-6de4a913d7ab"
+title: "Numbers and Math Functions"
+path: "php/numbers"
+status: "published"
+meta_title: "PHP Numbers and Math | Learn Computer Academy"
+meta_description: "Working with integers and floats in PHP, plus the built-in math functions for rounding, random numbers, and more."
+sort_order: 10
+updated_at: "2026-07-30T09:08:37.192798+00:00"
+---
+
+```json
+[
+  {
+    "id": "FBoxGltILeRN",
+    "html": "<p>PHP handles integers (<code>int</code>) and decimals (<code>float</code>, also called <code>double</code>) as separate types, and provides a set of built-in functions for the operations that come up constantly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UrbS_lXY-rO7",
+    "text": "Rounding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rounding"
+  },
+  {
+    "id": "QoJSc1J4FbTr",
+    "rows": [
+      [
+        "round($n)",
+        "Rounds to the nearest whole number",
+        "round(4.5) → 5"
+      ],
+      [
+        "round($n, $decimals)",
+        "Rounds to a set number of decimal places",
+        "round(3.14159, 2) → 3.14"
+      ],
+      [
+        "floor($n)",
+        "Always rounds down",
+        "floor(4.9) → 4"
+      ],
+      [
+        "ceil($n)",
+        "Always rounds up",
+        "ceil(4.1) → 5"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "What it does",
+      "Example"
+    ]
+  },
+  {
+    "id": "dmUx0FSApLHI",
+    "text": "Other Common Math Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "other-common-math-functions"
+  },
+  {
+    "id": "j2SS0l_G_20U",
+    "code": "<?php\n  echo abs(-7);        // 7 — absolute value\n  echo max(3, 9, 2);   // 9 — largest of the arguments\n  echo min(3, 9, 2);   // 2 — smallest of the arguments\n  echo pow(2, 10);     // 1024 — same as 2 ** 10\n  echo sqrt(64);        // 8\n  echo rand(1, 100);   // a random integer between 1 and 100\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "AsZ2gTh1xqy-",
+    "text": "Formatting Numbers for Display",
+    "type": "heading",
+    "level": 2,
+    "anchor": "formatting-numbers-for-display"
+  },
+  {
+    "id": "6OGApXBQ04zZ",
+    "html": "<p><code>number_format()</code> is worth knowing specifically — it's the standard way to turn a raw number into something readable, with thousands separators and a fixed number of decimals:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A1Bg1LDW7Oyy",
+    "code": "<?php\n  echo number_format(1234567.891, 2); // \"1,234,567.89\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Cz3diSWqrJzB",
+    "html": "<p>Division always returns a <code>float</code> in PHP unless both operands are integers and divide evenly (<code>10 / 2</code> gives the int <code>5</code>, but <code>10 / 3</code> gives a float). Use the modulus operator <code>%</code> from the Operators lesson if you specifically need the integer remainder.</p>",
+    "type": "callout",
+    "title": "Division and floats",
+    "variant": "note"
+  }
+]
+```

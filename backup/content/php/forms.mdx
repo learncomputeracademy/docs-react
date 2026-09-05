@@ -1,0 +1,84 @@
+---
+id: "8bc55425-259d-45ea-80a5-7a2ed081ceb1"
+title: "Handling Forms"
+path: "php/forms"
+status: "published"
+meta_title: "Handling Forms in PHP | Learn Computer Academy"
+meta_description: "Processing an HTML form submission in PHP with $_GET and $_POST — the most common thing server-side PHP actually does."
+sort_order: 19
+updated_at: "2026-07-30T09:08:40.459381+00:00"
+---
+
+```json
+[
+  {
+    "id": "L9Dze5dNdVKz",
+    "html": "<p>Processing a form submission is one of the single most common things PHP is used for — a visitor fills in fields, submits, and PHP reads what they typed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wC4HQW_RPoXQ",
+    "text": "GET vs. POST Forms",
+    "type": "heading",
+    "level": 2,
+    "anchor": "get-vs-post-forms"
+  },
+  {
+    "id": "Zv3R8Xu6Cyhy",
+    "html": "<p>An HTML <code>&lt;form&gt;</code>'s <code>method</code> attribute decides which superglobal PHP receives the data in. <b>GET</b> puts the data visibly in the URL (good for search, filters — anything shareable or bookmarkable); <b>POST</b> sends it hidden in the request body (required for anything sensitive, or that changes data, like a login or a purchase).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OMo3wtTr9nXa",
+    "code": "<form action=\"process.php\" method=\"post\">\n  <input type=\"text\" name=\"username\">\n  <input type=\"email\" name=\"email\">\n  <button type=\"submit\">Submit</button>\n</form>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "W0Oar8KPVuy2",
+    "text": "Reading the Submitted Data",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-the-submitted-data"
+  },
+  {
+    "id": "ZO_4etUJpqmB",
+    "code": "<?php\n  // process.php\n  $username = $_POST[\"username\"] ?? \"\";\n  $email = $_POST[\"email\"] ?? \"\";\n\n  if ($username && $email) {\n    echo \"Thanks, $username! We'll email you at $email.\";\n  } else {\n    echo \"Please fill in both fields.\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "r86qdXXfNaP2",
+    "html": "<p>The <code>?? \"\"</code> pattern from the Control Flow lesson matters here specifically: if someone reaches <code>process.php</code> directly, without submitting the form, <code>$_POST[\"username\"]</code> won't exist at all — reading it without a fallback would produce a warning instead of a clean, handled case.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "funWX2basqM0",
+    "text": "A Form That Submits to Itself",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-form-that-submits-to-itself"
+  },
+  {
+    "id": "9pbgbTNI2BPx",
+    "html": "<p>A common, simpler pattern for small scripts: one file that shows the form <i>and</i> processes it, checking the request method to decide which:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RDZy3Nj851fi",
+    "code": "<?php\n  if ($_SERVER[\"REQUEST_METHOD\"] === \"POST\") {\n    $name = $_POST[\"name\"] ?? \"\";\n    echo \"Hello, $name!\";\n  } else {\n?>\n    <form method=\"post\">\n      <input type=\"text\" name=\"name\">\n      <button type=\"submit\">Submit</button>\n    </form>\n<?php\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "vs1UUIGduOgk",
+    "html": "<p>Nothing here checks whether <code>$name</code> actually contains something safe to display or store — that's deliberate, to keep this lesson focused on the mechanics of receiving form data. The PHP and MySQL lessons later in this section cover the specific, most important case: never building a database query by directly pasting form data into it.</p>",
+    "type": "callout",
+    "title": "Validation is coming, in context",
+    "variant": "note"
+  }
+]
+```

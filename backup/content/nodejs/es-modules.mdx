@@ -1,0 +1,136 @@
+---
+id: "3d3fd85f-4f29-468e-a6f0-94b1664e6127"
+title: "ES Modules in Node.js"
+path: "nodejs/es-modules"
+status: "published"
+meta_title: "ES Modules in Node.js | Learn Computer Academy"
+meta_description: "Use import and export instead of require() in Node.js — the modern module syntax and how to turn it on."
+sort_order: 4
+updated_at: "2026-08-05T05:47:53.718297+00:00"
+---
+
+```json
+[
+  {
+    "id": "AahRLvbTNryj",
+    "html": "<p>The previous lesson used <code>require()</code> and <code>module.exports</code> — CommonJS. Node also supports <b>ES Modules</b>, the <code>import</code>/<code>export</code> syntax you may already recognize from writing browser JavaScript. They do the same job with different syntax, and Node needs to be told which one a project is using.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tw54LVGBKc2B",
+    "text": "Turning It On",
+    "type": "heading",
+    "level": 2,
+    "anchor": "turning-it-on"
+  },
+  {
+    "id": "IULJIQwYqlj1",
+    "html": "<p>By default, Node treats every <code>.js</code> file as CommonJS. To use <code>import</code>/<code>export</code> instead, add this to <code>package.json</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mxxasFP47sJD",
+    "code": "{\n  \"type\": \"module\"\n}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "JZ1wnhlVgXih",
+    "html": "<p>(<code>package.json</code> is covered properly in the next lesson — for now, it's enough to know this one field switches the whole project's module style.)</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kV0Iv50VdY_R",
+    "text": "Exporting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exporting"
+  },
+  {
+    "id": "6xCWArkZ6YV6",
+    "code": "// math.js\nexport function add(a, b) {\n  return a + b\n}\n\nexport function multiply(a, b) {\n  return a * b\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "_VmAypLmGbJ3",
+    "text": "Importing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "importing"
+  },
+  {
+    "id": "nU5VlMjMUz1_",
+    "code": "// app.js\nimport { add, multiply } from './math.js'\n\nconsole.log(add(2, 3))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "VIFHw-rum5V7",
+    "html": "<p>One real difference from CommonJS: ES Module imports need the <b>full filename</b>, including <code>.js</code>. Leaving it off, out of CommonJS habit, is the single most common mistake when switching.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UAKCSx3KhK4B",
+    "text": "Default Exports",
+    "type": "heading",
+    "level": 2,
+    "anchor": "default-exports"
+  },
+  {
+    "id": "UvzEk6rE8lza",
+    "html": "<p>Just like in browser JavaScript, a file can have one <code>default</code> export alongside any number of named ones:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VBLYvZX1iSCN",
+    "code": "// greet.js\nexport default function greet(name) {\n  return `Hello, ${name}!`\n}\n\n// app.js — no curly braces for a default import\nimport greet from './greet.js'\nconsole.log(greet('Priya'))",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "SJuvVBFalgBb",
+    "text": "Which One Should You Use?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "which-one-should-you-use"
+  },
+  {
+    "id": "hmzMofyGB_ZN",
+    "rows": [
+      [
+        "Syntax",
+        "require() / module.exports",
+        "import / export"
+      ],
+      [
+        "File extension needed?",
+        "No",
+        "Yes, always"
+      ],
+      [
+        "Where it's common",
+        "Older Node projects, some npm packages",
+        "New projects, matches browser JS syntax"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "CommonJS",
+      "ES Modules"
+    ]
+  },
+  {
+    "id": "PnDwS3ormv_G",
+    "html": "<p>For a brand-new project, ES Modules is the more consistent choice — it's the same syntax you already use in the browser. You'll still run into CommonJS constantly, though, since a huge number of existing npm packages are written with it. The rest of this course uses CommonJS, since it works with zero configuration and is what you'll see most often in tutorials and existing code.</p>",
+    "type": "callout",
+    "title": "Which this course uses",
+    "variant": "tip"
+  }
+]
+```

@@ -1,0 +1,121 @@
+---
+id: "79f97dd6-810a-4916-ad81-3afb7dcd0a97"
+title: "Displaying SCF Fields in Templates"
+path: "wordpress/scf-display-fields"
+status: "published"
+meta_title: "Displaying SCF Fields in Templates | Learn Computer Academy"
+meta_description: "get_field() vs. the_field(), and what each field type actually returns when you read it back in a template."
+sort_order: 20
+updated_at: "2026-07-30T14:23:30.550146+00:00"
+---
+
+```json
+[
+  {
+    "id": "msjvLxe-3T-G",
+    "html": "<p>Every custom field created in the last lesson is just sitting in the database until a template actually reads it back out. Two functions do that, and the choice between them comes down to one question: do you need to <i>use</i> the value, or just <i>print</i> it?</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fyDa5268pfDj",
+    "text": "the_field() vs. get_field()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the_field-vs-get_field"
+  },
+  {
+    "id": "P7ACX_FpCwoM",
+    "code": "<?php the_field( 'client_name' ); ?>\n\n<?php $client = get_field( 'client_name' ); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "I6gYvbJMs94x",
+    "rows": [
+      [
+        "<code>the_field()</code>",
+        "You just want the value echoed straight into the page, right where you call it — the field-level equivalent of <code>the_title()</code>"
+      ],
+      [
+        "<code>get_field()</code>",
+        "You need the value in a variable first — to check it, format it, or pass it to another function"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Use it when"
+    ]
+  },
+  {
+    "id": "VZZ59qzZpIaM",
+    "html": "<p>In practice, <code>get_field()</code> covers nearly everything, since even simple output usually wants an <code>if</code> check first (below). <code>the_field()</code> is really only for the simplest, always-present case.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jd7k7MHHLPqt",
+    "text": "What Each Type Returns",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-each-type-returns"
+  },
+  {
+    "id": "IvB-4EGpDqLw",
+    "html": "<p>A field's type decides the shape of the value <code>get_field()</code> hands back — this is the part that trips people up first:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9Q7bh9kR8K5o",
+    "rows": [
+      [
+        "Text / Textarea / Number",
+        "A plain string or number — safe to echo directly (after escaping)"
+      ],
+      [
+        "True / False",
+        "A plain PHP boolean — use directly in an <code>if</code>"
+      ],
+      [
+        "Image",
+        "An array by default — <code>['url'], ['alt'], ['width'], ['height'], ['ID']</code>, among others"
+      ],
+      [
+        "Link",
+        "An array — <code>['url'], ['title'], ['target']</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Field Type",
+      "Return value"
+    ]
+  },
+  {
+    "id": "SH7AQwQiGiFf",
+    "text": "A Realistic Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-realistic-example"
+  },
+  {
+    "id": "x7IgrhrOE_8j",
+    "code": "<?php $client = get_field( 'client_name' ); ?>\n<?php if ( $client ) : ?>\n    <p>Client: <?php echo esc_html( $client ); ?></p>\n<?php endif; ?>\n\n<?php $photo = get_field( 'featured_photo' ); ?>\n<?php if ( $photo ) : ?>\n    <img src=\"<?php echo esc_url( $photo['url'] ); ?>\" alt=\"<?php echo esc_attr( $photo['alt'] ); ?>\">\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "gdhy065nYZnX",
+    "html": "<p>Custom fields are almost never required — an editor can always leave one blank. Every read should be checked before it's used, the same way <code>$client</code> and <code>$photo</code> are checked above. Skipping the check doesn't crash the page outright, but it does produce empty <code>&lt;img&gt;</code> tags and stray labels with nothing after them on any post where the field was left blank.</p>",
+    "type": "callout",
+    "title": "Fields are optional — always check before using",
+    "variant": "warning"
+  },
+  {
+    "id": "fmabBlKLvM70",
+    "html": "<p>With a way to both write and read structured data, the next lesson covers the field type built specifically for <i>repeating</i> structured data — a gallery of images, a list of features, anything that isn't just one value.</p>",
+    "type": "richtext"
+  }
+]
+```

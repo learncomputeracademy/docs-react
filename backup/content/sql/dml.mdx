@@ -1,0 +1,227 @@
+---
+id: "85839cd0-6727-44e8-b40c-ce94fba2c41e"
+title: "DML — Data Manipulation Language"
+path: "sql/dml"
+status: "published"
+meta_title: "SQL DML — Data Manipulation Language | Learn Computer Academy"
+meta_description: "SELECT, aliases, INSERT, UPDATE, and DELETE — the SQL commands you'll type the most, for reading and changing the rows inside a table."
+sort_order: 5
+updated_at: "2026-07-29T06:31:05.960539+00:00"
+---
+
+```json
+[
+  {
+    "id": "RfEwFAYrqYEj",
+    "html": "<p><b>DML</b> statements are how you read and change the rows inside a table — the commands you'll type the most, by far.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-3wgBqCHxZzk",
+    "text": "SELECT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "select"
+  },
+  {
+    "id": "izT38moyPOdZ",
+    "html": "<p>Retrieves records from one or more tables.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qT2cQo_a3sdK",
+    "code": "SELECT columns FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "V5Scy1t3RFjH",
+    "code": "SELECT * FROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "qbBrp-7CQeMe",
+    "rows": [
+      [
+        "1",
+        "John",
+        "65000"
+      ],
+      [
+        "2",
+        "Alice",
+        "70000"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "id",
+      "name",
+      "salary"
+    ],
+    "caption": "Result"
+  },
+  {
+    "id": "pNO9T6ZOcBHe",
+    "html": "<ul><li>Returns every row and every column.</li><li>The most frequently used SQL statement by far.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "TnOk4yQHjbVv",
+    "html": "<p>Using <code>SELECT *</code> in production code instead of naming the columns actually needed.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "OB-PTCMIBkwV",
+    "text": "Aliases (AS)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "aliases-as"
+  },
+  {
+    "id": "ydxIhsCcRZ88",
+    "html": "<p>Gives a column or table a temporary, more readable name for the result set.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JjKKBvBFHc8z",
+    "code": "SELECT column AS alias FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "dHGWPj4CTwX6",
+    "code": "SELECT name AS EmployeeName, salary AS MonthlySalary\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "al114ZWFy5Eh",
+    "html": "<ul><li>Creates a temporary display name — the underlying column is unchanged.</li><li>Makes calculated columns and joined results easier to read.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "BtOR0pO-0akx",
+    "html": "<p>Referencing an alias inside the same <code>SELECT</code>'s <code>WHERE</code> clause, where it isn't yet available.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "DWeLiROJ7Xwo",
+    "text": "INSERT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "insert"
+  },
+  {
+    "id": "rVJGQjELowYL",
+    "html": "<p>Adds a new row to a table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xVyb_P6Ah8gz",
+    "code": "INSERT INTO table_name (columns)\nVALUES (values);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "wPuAUYEm_luX",
+    "code": "INSERT INTO Employee (name, department, salary)\nVALUES ('John', 'IT', 65000);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "v_rf6_JFjKWl",
+    "html": "<ul><li>Adds one new row to the table.</li><li>Does not affect any existing records.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "D071z2xyMFLQ",
+    "html": "<p>Leaving out a required column with no default, causing a constraint error.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "APEMEvr72r0t",
+    "text": "UPDATE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "update"
+  },
+  {
+    "id": "06bKDNENPUBR",
+    "html": "<p>Changes the values of existing rows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tmQ__ZzNLLGU",
+    "code": "UPDATE table_name\nSET column = value\nWHERE condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "HMY1TXEzcNpv",
+    "code": "UPDATE Employee\nSET salary = 70000\nWHERE id = 1;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Fx_oNdBXq2Hi",
+    "html": "<ul><li>Updates only the rows matching the WHERE condition.</li><li>Always use WHERE — omitting it updates every row in the table.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "u3sjMUjchAPC",
+    "html": "<p>Running <code>UPDATE</code> without a <code>WHERE</code> clause and rewriting the whole table.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "GSA1HerrW-9t",
+    "text": "DELETE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "delete"
+  },
+  {
+    "id": "uxIlDN0WJNvP",
+    "html": "<p>Removes specific rows from a table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_SLUi8HzqUdP",
+    "code": "DELETE FROM table_name\nWHERE condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "lHshZTeJmlwF",
+    "code": "DELETE FROM Employee\nWHERE id = 1;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "NuTFVdS9iI-w",
+    "html": "<ul><li>Deletes only the rows that match the condition.</li><li>The table structure remains intact for future inserts.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "QisGVOZOJKxg",
+    "html": "<p>Confusing <code>DELETE</code> (row-level, DML) with <code>DROP</code> or <code>TRUNCATE</code> (table-level, DDL) — see the DDL lesson.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "C--EzjO8hxpb",
+    "html": "<p>DML is the family you'll reach for constantly once your tables exist. The next lesson covers DCL — the much smaller family that controls who is allowed to run any of these commands at all.</p>",
+    "type": "richtext"
+  }
+]
+```

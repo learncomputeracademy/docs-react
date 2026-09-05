@@ -1,0 +1,117 @@
+---
+id: "75971431-1bf7-4fb9-b36e-ebe7e3c73b73"
+title: "Installing Node.js"
+path: "nodejs/setup"
+status: "published"
+meta_title: "Installing Node.js | Learn Computer Academy"
+meta_description: "Install Node.js, confirm it worked, and run your first script with the node command and the interactive REPL."
+sort_order: 2
+updated_at: "2026-08-05T05:47:53.066096+00:00"
+---
+
+```json
+[
+  {
+    "id": "2BaICmRBEZvQ",
+    "html": "<p>Node.js is a program you install on your computer, the same way you'd install any other application. Once it's installed, you get two new commands in your terminal: <code>node</code> and <code>npm</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s9zFUY_ALnMD",
+    "text": "Installing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing"
+  },
+  {
+    "id": "uhGm4hc5TbgX",
+    "html": "<p>Download the installer from <a href=\"https://nodejs.org\" target=\"_blank\" rel=\"noopener noreferrer\">nodejs.org</a>. You'll see two options — always pick the one labeled <b>LTS</b> (Long-Term Support). It's the version that's had the most testing and is what most real projects run in production; the other option changes too often to be worth the risk while you're learning.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WocGihR7hWcT",
+    "text": "Confirming It Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "confirming-it-worked"
+  },
+  {
+    "id": "gPmYzgRk4ncc",
+    "html": "<p>Open a terminal and run:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gURz6k-Qckqk",
+    "code": "node --version\nnpm --version",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ImIKgUCX1X4x",
+    "html": "<p>Both commands should print a version number. If you see \"command not found\" instead, the installer likely needs your terminal restarted, or on Windows, a system restart, before the new commands are recognized.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7vgmHuwimvMu",
+    "text": "Running Your First Script",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-your-first-script"
+  },
+  {
+    "id": "GHhTE8H01qUm",
+    "html": "<p>Create a file called <code>hello.js</code> with one line:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pU4EplzvOIEJ",
+    "code": "console.log(\"Hello from Node.js\")",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "G06PgNnU55By",
+    "html": "<p>Then run it from the terminal, in the same folder:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TmrmYH3bOIX2",
+    "code": "node hello.js",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "A44BwQFcID6O",
+    "html": "<p>That's the entire workflow: write JavaScript in a file, hand the file to <code>node</code>, and it runs — no browser, no HTML page, nothing else involved.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TcVc91ezILYr",
+    "text": "The REPL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-repl"
+  },
+  {
+    "id": "hphXjDb7uogS",
+    "html": "<p>Running <code>node</code> with no filename drops you into the <b>REPL</b> (Read-Eval-Print Loop) — a prompt where you can type JavaScript one line at a time and see the result immediately. It's useful for quickly testing a small piece of code without creating a file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x5URpPgitifn",
+    "code": "$ node\n> 2 + 2\n4\n> \"hello\".toUpperCase()\n'HELLO'\n> .exit",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "HxTDpO2yroU9",
+    "html": "<p>Type <code>.exit</code>, or press <code>Ctrl+C</code> twice, to leave the REPL.</p>",
+    "type": "callout",
+    "variant": "tip"
+  }
+]
+```

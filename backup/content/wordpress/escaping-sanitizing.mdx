@@ -1,0 +1,101 @@
+---
+id: "ef2089f1-8722-4aec-a11c-5151144a3921"
+title: "Escaping & Sanitizing Output"
+path: "wordpress/escaping-sanitizing"
+status: "published"
+meta_title: "Escaping & Sanitizing Output | Learn Computer Academy"
+meta_description: "Why every value a template echoes needs to pass through an escaping function first, and which one to use for which context."
+sort_order: 24
+updated_at: "2026-07-30T14:23:31.808784+00:00"
+---
+
+```json
+[
+  {
+    "id": "Y3ol8HB09clT",
+    "html": "<p>Every earlier lesson's code examples already used <code>esc_html()</code>, <code>esc_attr()</code>, and <code>esc_url()</code> without fully explaining why. This lesson covers the reason directly: escaping is what stands between a theme and a genuinely serious security hole.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lk-YEyEct-PI",
+    "text": "The Problem",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem"
+  },
+  {
+    "id": "M8unqqLerflJ",
+    "html": "<p>Any value that ultimately comes from user input — a custom field, a comment, a URL parameter, a title someone typed into the editor — could theoretically contain HTML or JavaScript instead of plain text. Echo it straight into a page without escaping, and that code doesn't just display as text; it executes. That's a <b>Cross-Site Scripting (XSS)</b> vulnerability, and it's the single most common security issue in hand-written WordPress themes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rKq6DLyZy0_I",
+    "text": "Escaping on Output",
+    "type": "heading",
+    "level": 2,
+    "anchor": "escaping-on-output"
+  },
+  {
+    "id": "rz5VrpnddTSL",
+    "html": "<p>Escaping converts a value into a form that's always safe to display in a specific context — the function to use depends entirely on <i>where</i> the value is going:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SAtW9DgLsr6I",
+    "rows": [
+      [
+        "<code>esc_html()</code>",
+        "Plain text between HTML tags — <code>&lt;p&gt;&lt;?php echo esc_html( $x ); ?&gt;&lt;/p&gt;</code>"
+      ],
+      [
+        "<code>esc_attr()</code>",
+        "A value inside an HTML attribute — <code>alt=\"&lt;?php echo esc_attr( $x ); ?&gt;\"</code>"
+      ],
+      [
+        "<code>esc_url()</code>",
+        "A URL, in an <code>href</code> or <code>src</code>"
+      ],
+      [
+        "<code>wp_kses_post()</code>",
+        "Content that's allowed to contain <i>some</i> HTML (bold, links, and so on) — used for rich content like <code>the_content()</code>, which handles this internally already"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Use for"
+    ]
+  },
+  {
+    "id": "L7WZa1fg_EZ-",
+    "code": "<a href=\"<?php echo esc_url( $link ); ?>\" title=\"<?php echo esc_attr( $title ); ?>\">\n    <?php echo esc_html( $label ); ?>\n</a>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "-e-A7V-C5-iF",
+    "html": "<p>Every single one of these functions is used correctly in every code example across this entire section, on purpose — go back and look at any of them again with this in mind, and the pattern (escape everything, choose the function by context) is already there, repeated dozens of times.</p>",
+    "type": "callout",
+    "title": "This has been the pattern all along",
+    "variant": "warning"
+  },
+  {
+    "id": "k18Zfx-vrQ9m",
+    "text": "When It's Safe to Skip",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-its-safe-to-skip"
+  },
+  {
+    "id": "JeTd2hZoum8A",
+    "html": "<p>The one common exception: values that came from your own code, never from any kind of input — a hardcoded string, a number from <code>count()</code>. Escaping those isn't wrong, just unnecessary. When in doubt about where a value originated, escape it; the cost of an unneeded <code>esc_html()</code> call is nothing, and the cost of a missing one on real user input is a security bug.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x7HOeUWX4AdX",
+    "html": "<p>With output secured, the next lesson collects a handful of smaller, genuinely useful <code>functions.php</code> utilities that come up in almost every real theme build.</p>",
+    "type": "richtext"
+  }
+]
+```

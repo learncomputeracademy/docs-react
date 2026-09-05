@@ -1,0 +1,124 @@
+---
+id: "641f298b-99f0-482e-9e03-7b74c42c3841"
+title: "HEAD and Detached HEAD"
+path: "git/head-and-detached-head"
+status: "published"
+meta_title: "Git HEAD and Detached HEAD | Learn Computer Academy"
+meta_description: "What HEAD actually points to — the concept behind the conflict markers, resets, and checkouts from earlier lessons — and what \"detached HEAD\" means."
+sort_order: 21
+updated_at: "2026-09-03T05:30:34.393939+00:00"
+---
+
+```json
+[
+  {
+    "id": "6f9ijJViToua",
+    "html": "<p><code>HEAD</code> has appeared several times already — the earlier Merge Conflicts lesson's <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> marker, and <code>git reset --soft HEAD~1</code> from Undoing Changes. This lesson explains what it actually is.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5oCIWfRAwggy",
+    "text": "HEAD Is a Pointer to \"Right Now\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "head-is-a-pointer-to-right-now"
+  },
+  {
+    "id": "fW-fqFkMKV_P",
+    "html": "<p><code>HEAD</code> points to whatever commit is currently checked out — normally, that means it points to the tip of the current branch, which itself points to the latest commit.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5EzeQFnpmyZV",
+    "code": "cat .git/HEAD\n# ref: refs/heads/main\n\n# HEAD -> main -> the latest commit on main",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "5kOgbi2pvD2q",
+    "text": "Referring to Commits Relative to HEAD",
+    "type": "heading",
+    "level": 2,
+    "anchor": "referring-to-commits-relative-to-head"
+  },
+  {
+    "id": "_F7-KwF1D3D7",
+    "rows": [
+      [
+        "HEAD",
+        "The current commit"
+      ],
+      [
+        "HEAD~1",
+        "One commit before HEAD"
+      ],
+      [
+        "HEAD~3",
+        "Three commits before HEAD"
+      ],
+      [
+        "HEAD^",
+        "The direct parent of HEAD — equivalent to HEAD~1 for a normal commit"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Reference",
+      "Means"
+    ]
+  },
+  {
+    "id": "ejOWneprCpo6",
+    "text": "Detached HEAD — Checking Out a Specific Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "detached-head-checking-out-a-specific-commit"
+  },
+  {
+    "id": "pwTbYrgX9GmS",
+    "html": "<p>Normally HEAD points to a branch. Checking out a specific commit directly (rather than a branch name) detaches HEAD from any branch — it now points straight at that one commit instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JwvSgkVHFKck",
+    "code": "git checkout a1b2c3d\n# Note: switching to 'a1b2c3d'.\n# You are in 'detached HEAD' state...",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "xEEDStZS1Ync",
+    "text": "Why This Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters"
+  },
+  {
+    "id": "8KDuA4DfOGFI",
+    "html": "<p>Looking around in detached HEAD state — checking old file contents, testing something — is completely safe. The risk is committing new changes while detached: those commits exist, but aren't on any branch, and become genuinely hard to find again once something else is checked out.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Of5-0ojY04EK",
+    "html": "<p>A commit made in detached HEAD state, with no branch pointing to it, can effectively be lost once HEAD moves elsewhere — Git eventually garbage-collects commits nothing references. To keep work made in this state, create a branch from it before switching away.</p>",
+    "type": "callout",
+    "title": "The real risk of detached HEAD",
+    "variant": "warning"
+  },
+  {
+    "id": "IZWnYDh-7lmS",
+    "text": "Getting Back to Safety",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-back-to-safety"
+  },
+  {
+    "id": "TBH-_YB9JYZr",
+    "code": "# If changes made in detached HEAD are worth keeping, save them to a branch first:\ngit switch -c rescue-branch\n\n# Otherwise, just return to a normal branch:\ngit switch main",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  }
+]
+```

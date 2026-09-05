@@ -1,0 +1,100 @@
+---
+id: "f0f2f081-7b4c-464b-ae65-000685469581"
+title: "Introduction to Express.js"
+path: "nodejs/express-intro"
+status: "published"
+meta_title: "Introduction to Express.js | Learn Computer Academy"
+meta_description: "Rebuild the http-module server with Express, and see exactly what a web framework saves you from writing by hand."
+sort_order: 19
+updated_at: "2026-08-05T05:47:58.512362+00:00"
+---
+
+```json
+[
+  {
+    "id": "TXi_IYpdtPQg",
+    "html": "<p>The <code>if</code>/<code>else</code> chain checking <code>req.url</code> in the http-server lesson works, but it doesn't scale — a real site has dozens of routes, needs to read data out of the URL, and has to handle several HTTP methods per route. <b>Express</b> is a package, installed with <code>npm</code>, that handles all of this for you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "w06c1FGb9y2a",
+    "text": "Installing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-it"
+  },
+  {
+    "id": "8r_qOJO7IHph",
+    "code": "npm install express",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "yzox1ARsPELd",
+    "text": "The Same Server, With Express",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-same-server-with-express"
+  },
+  {
+    "id": "m_VpnQH0JzzC",
+    "html": "<p>Compare this to the raw <code>http</code> version from earlier in the course:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X6UuLF9pHw6T",
+    "code": "const express = require('express')\nconst app = express()\n\napp.get('/', (req, res) => {\n  res.send('Welcome home')\n})\n\napp.get('/about', (req, res) => {\n  res.send('About this site')\n})\n\napp.listen(3000, () => {\n  console.log('Server running at http://localhost:3000')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "b1b8ZUZR--kW",
+    "html": "<p>No manual <code>req.url</code> checking, no manually calling <code>writeHead()</code> and <code>end()</code> — <code>app.get(path, handler)</code> registers a route directly, and <code>res.send()</code> figures out the right <code>Content-Type</code> on its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OdpAkpnorC83",
+    "text": "What Express Actually Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-express-actually-is"
+  },
+  {
+    "id": "jQQb-z-MpFed",
+    "html": "<p>Underneath, Express is still built on the same <code>http</code> module from earlier in this course — it isn't a replacement for what you've learned, it's a much friendlier layer on top of it. Everything about <code>req</code> and <code>res</code> you already know still applies; Express just adds convenience methods like <code>res.send()</code> and <code>res.json()</code> around them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vy8jmIWVpZA2",
+    "text": "A 404 for Anything Else",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-404-for-anything-else"
+  },
+  {
+    "id": "O1bm83bhimkQ",
+    "code": "app.use((req, res) => {\n  res.status(404).send('Not found')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "dmT-2WRE4_Lr",
+    "html": "<p>Placed after every other route, this catches any request that didn't match one of them above it — Express checks routes in the order they're defined, top to bottom.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "igXkukNkx-0l",
+    "html": "<p>Express isn't part of Node.js itself — it's the single most widely used third-party package for building servers in Node, but it's a normal npm dependency like any other, not something built in.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "mJhCV1N9WASj",
+    "html": "<p>The next few lessons build this out properly: multiple routes, middleware, and reading data the browser sends along with a request.</p>",
+    "type": "richtext"
+  }
+]
+```

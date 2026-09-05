@@ -1,0 +1,138 @@
+---
+id: "ee1f7d79-4c23-4fa6-969b-fea7dc3e2f1b"
+title: "CSS Animations"
+path: "css/animations"
+status: "published"
+meta_title: "CSS Animations | Learn Computer Academy"
+meta_description: "Build multi-step animations with @keyframes, running automatically or in a loop — beyond what a simple transition can do."
+sort_order: 40
+updated_at: "2026-09-03T03:54:08.016151+00:00"
+---
+
+```json
+[
+  {
+    "id": "gz5fagjzkWD_",
+    "html": "<hr><p>A transition only animates between two states — from A to B. A CSS animation, built with <code>@keyframes</code>, can move through several steps, repeat, and run automatically without needing a hover or click to trigger it.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "zdVhd936UyXg",
+    "text": "Defining Keyframes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-keyframes"
+  },
+  {
+    "id": "kINaZNk_SYyW",
+    "html": "<p><code>@keyframes</code> names a sequence of steps, from <code>0%</code> (start) to <code>100%</code> (end).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OiwbDXHP3VoZ",
+    "code": "@keyframes slide-in {\n  0% {\n    opacity: 0;\n    transform: translateX(-50px);\n  }\n  100% {\n    opacity: 1;\n    transform: translateX(0);\n  }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "jTmDfKYTTUJW",
+    "text": "Applying an Animation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "applying-an-animation"
+  },
+  {
+    "id": "zWgWdYxg8_tS",
+    "code": ".card {\n  animation-name: slide-in;\n  animation-duration: 0.5s;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "X31FNWYjZnUz",
+    "text": "The Animation Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-animation-properties"
+  },
+  {
+    "id": "Gm4v0Uc_XY6Q",
+    "rows": [
+      [
+        "animation-name",
+        "Which @keyframes rule to run"
+      ],
+      [
+        "animation-duration",
+        "How long one cycle takes"
+      ],
+      [
+        "animation-timing-function",
+        "The speed curve, same values as transitions"
+      ],
+      [
+        "animation-delay",
+        "How long to wait before starting"
+      ],
+      [
+        "animation-iteration-count",
+        "How many times it repeats — a number, or \"infinite\""
+      ],
+      [
+        "animation-direction",
+        "normal, reverse, alternate (back and forth)"
+      ],
+      [
+        "animation-fill-mode",
+        "Whether the element keeps the first/last keyframe's styles before/after running"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Controls"
+    ]
+  },
+  {
+    "id": "SahHxWMF3eNl",
+    "text": "The Shorthand",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-shorthand"
+  },
+  {
+    "id": "0iLbQp6xGUuP",
+    "code": ".spinner {\n  animation: spin 1s linear infinite;\n  /* name, duration, timing-function, iteration-count */\n}\n\n@keyframes spin {\n  from { transform: rotate(0deg); }\n  to   { transform: rotate(360deg); }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "cJjFWp1hXWFS",
+    "text": "Multiple Steps",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-steps"
+  },
+  {
+    "id": "AETo4xD1y8-U",
+    "html": "<p>Any percentage between 0% and 100% can define a step.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N0mPtVRxbS6M",
+    "code": "@keyframes pulse {\n  0%   { transform: scale(1); }\n  50%  { transform: scale(1.1); }\n  100% { transform: scale(1); }\n}\n.badge {\n  animation: pulse 2s ease-in-out infinite;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "ScIHfUD7IL5s",
+    "html": "<p>This site's Animation tool (under Tools) provides a visual keyframe/easing editor and outputs the exact CSS shown here — a faster way to preview timing curves than guessing values.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

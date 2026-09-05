@@ -1,0 +1,83 @@
+---
+id: "e32f2a2c-0cd4-4447-a3b8-79b97700c0cc"
+title: "Putting a CDN in Front of Your Hosting"
+path: "hosting/cdn-in-front-of-your-hosting"
+status: "published"
+meta_title: "Putting a CDN in Front of Your Hosting | Learn Computer Academy"
+meta_description: "A free CDN in front of cheap hosting often outperforms expensive hosting alone. The practical mechanics of adding one, and what to check afterward."
+sort_order: 30
+updated_at: "2026-08-05T13:35:39.881299+00:00"
+---
+
+```json
+[
+  {
+    "id": "li3zFKhI3WDg",
+    "html": "<p>Adding a CDN does not usually mean replacing your hosting — it means placing a CDN in front of the hosting you already have, so that it handles serving your content while your original server becomes the backup source it occasionally checks in with.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zg1gp3W_atQh",
+    "text": "The Practical Mechanics",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-practical-mechanics"
+  },
+  {
+    "id": "Gk5Y8wf2OdUk",
+    "html": "<p>Setting one up commonly follows one of two patterns: DNS-level (the most common for a standalone CDN service — you change your domain's nameservers, per the connecting-a-domain lesson, to the CDN provider's, and it sits transparently between every visitor and your actual server), or built-in (many cloud and static hosting platforms, covered earlier, include a CDN automatically by default, with nothing separate to configure at all).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yxS0OWCRcmO1",
+    "alt": "Isometric diagram showing a visitor icon connecting to a nearby CDN edge server, which is shown checking back to a single origin server icon only occasionally, with most requests served directly from the edge",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The CDN serves most requests directly from the edge, only checking back to your original server when it needs to.",
+    "publicId": "docs/img/hosting/cdn-setup-1"
+  },
+  {
+    "id": "MEL3M8Ax43F0",
+    "text": "Caching, and What It Means for Updates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "caching-and-what-it-means-for-updates"
+  },
+  {
+    "id": "Ba1D6cYLRe39",
+    "html": "<p>A CDN stores a copy of your content and serves that copy for a period of time before checking your original server again — this is <b>caching</b>, and it is exactly why a CDN is fast: most requests never have to travel back to the original server at all. The trade-off is that a change to your site does not appear everywhere instantly — cached copies at each edge location need to expire or be manually cleared, a step usually called a <b>purge</b> or <b>cache invalidation</b>, offered as a button or an API call in most CDN dashboards.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5jVUSTiAl7LM",
+    "html": "<p>After updating a site sitting behind a CDN and not seeing the change, check for a stale cached copy before assuming the deployment itself failed — a manual purge, where the platform offers one, resolves this immediately, and is a genuinely common step to forget.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "NF9DgxyWSjhb",
+    "text": "The Real Cost Argument",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-real-cost-argument"
+  },
+  {
+    "id": "Dq08XhQ9BUAq",
+    "html": "<p>This is where the \"cheap hosting plus a free CDN\" combination genuinely earns its place: most of your traffic's bandwidth and server load moves to the CDN's edge network, which frequently means a modest, inexpensive hosting plan can comfortably serve a much larger audience than it could unassisted — often outperforming a considerably more expensive hosting plan running with no CDN at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VhG_das5pAjO",
+    "text": "What a CDN Does Not Fix",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-cdn-does-not-fix"
+  },
+  {
+    "id": "3LdGtmF7TJYJ",
+    "html": "<p>A CDN speeds up delivering content, but it cannot speed up a slow database query or inefficient server-side logic — those still run entirely on your original server, on every single request that reaches it, exactly as before. A CDN complements good backend performance; it does not replace the need for it.</p>",
+    "type": "richtext"
+  }
+]
+```

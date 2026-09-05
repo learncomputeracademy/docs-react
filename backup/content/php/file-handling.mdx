@@ -1,0 +1,95 @@
+---
+id: "8834184c-4359-48a5-8ea9-40696f4a0402"
+title: "File Handling"
+path: "php/file-handling"
+status: "published"
+meta_title: "PHP File Handling | Learn Computer Academy"
+meta_description: "Reading from and writing to files on the server with PHP's file functions."
+sort_order: 27
+updated_at: "2026-07-30T09:08:43.241096+00:00"
+---
+
+```json
+[
+  {
+    "id": "yK-FJgvi3We_",
+    "html": "<p>Because PHP runs on the server, it can read and write files sitting on that same server — logs, cached data, simple text-based storage without needing a full database.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NmcwY6XGW2G_",
+    "text": "Reading an Entire File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-an-entire-file"
+  },
+  {
+    "id": "p5Ryatan0cCV",
+    "code": "<?php\n  $content = file_get_contents(\"notes.txt\");\n  echo $content;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ijBMntd_rUiD",
+    "text": "Writing to a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "writing-to-a-file"
+  },
+  {
+    "id": "khrTx1tKovDE",
+    "code": "<?php\n  file_put_contents(\"notes.txt\", \"Hello, file!\");         // overwrites\n  file_put_contents(\"notes.txt\", \"\\nAnother line.\", FILE_APPEND); // appends instead\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "6olX6nJ5S9yX",
+    "text": "Reading Line by Line",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-line-by-line"
+  },
+  {
+    "id": "8iWlDc51I2uv",
+    "html": "<p>For a large file, reading it all into memory at once with <code>file_get_contents()</code> is wasteful — opening it as a handle and reading one line at a time is more efficient:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OXI48M09A8a1",
+    "code": "<?php\n  $handle = fopen(\"notes.txt\", \"r\");\n  while (($line = fgets($handle)) !== false) {\n    echo $line;\n  }\n  fclose($handle);\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "HxKYuYizxb-M",
+    "html": "<p>Always call <code>fclose()</code> once you're done with a file handle opened via <code>fopen()</code> — leaving files open unnecessarily can lock them from other processes and leak resources on a long-running server.</p>",
+    "type": "callout",
+    "title": "Always close what you fopen()",
+    "variant": "warning"
+  },
+  {
+    "id": "dQf4UZ1BW8qm",
+    "text": "Checking Before You Act",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-before-you-act"
+  },
+  {
+    "id": "vlCdFe0Y9Vuv",
+    "code": "<?php\n  if (file_exists(\"notes.txt\")) {\n    echo \"File exists.\";\n  }\n\n  if (is_writable(\"notes.txt\")) {\n    echo \"File can be written to.\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bzrVzz2J3e5e",
+    "html": "<p>Any path used with these functions should never come directly from user input without careful validation — a visitor-controlled file path is a serious security risk (an attacker could potentially read or overwrite files well outside what you intended). This becomes especially relevant once file uploads are involved.</p>",
+    "type": "callout",
+    "title": "Never trust a user-supplied file path",
+    "variant": "note"
+  }
+]
+```

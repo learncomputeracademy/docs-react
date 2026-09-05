@@ -1,0 +1,110 @@
+---
+id: "37491946-a97b-4b16-8658-c97fe0534486"
+title: "Page Speed & Core Web Vitals"
+path: "seo/page-speed"
+status: "published"
+meta_title: "Page Speed and Core Web Vitals | Learn Computer Academy"
+meta_description: "The three Core Web Vitals metrics, their published thresholds, and the changes that most often make a slow page fast."
+sort_order: 18
+updated_at: "2026-08-05T07:22:04.7716+00:00"
+---
+
+```json
+[
+  {
+    "id": "zxJlyiq6v0VQ",
+    "html": "<p>How fast a page loads and how smoothly it responds are part of how search engines judge page experience — and independently, they decide whether people stay long enough to read anything. Google publishes a specific set of metrics for this, the <b>Core Web Vitals</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4CPUFboC0w53",
+    "text": "The Three Metrics",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-three-metrics"
+  },
+  {
+    "id": "xZDV8WvKprgC",
+    "rows": [
+      [
+        "<b>LCP</b> — Largest Contentful Paint",
+        "How long until the main content is visible",
+        "2.5 seconds or less"
+      ],
+      [
+        "<b>INP</b> — Interaction to Next Paint",
+        "How quickly the page responds when someone interacts",
+        "200 milliseconds or less"
+      ],
+      [
+        "<b>CLS</b> — Cumulative Layout Shift",
+        "How much content jumps around while loading",
+        "0.1 or less"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Metric",
+      "Measures",
+      "Good"
+    ]
+  },
+  {
+    "id": "U8RGrF0D1cbh",
+    "html": "<p>These thresholds are published by Google, which is why they can be quoted precisely — unlike most ranking specifics. INP replaced an earlier metric, First Input Delay, in 2024; older material still referring to FID is out of date.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aCd7rgdAcGqd",
+    "alt": "Diagram illustrating the three Core Web Vitals: a page painting its main content, a click responding quickly, and a layout shifting as an image loads",
+    "type": "image",
+    "width": 1344,
+    "height": 752,
+    "caption": "Loading speed, responsiveness, and visual stability — measured separately because they fail separately.",
+    "publicId": "docs/img/seo/page-speed-1"
+  },
+  {
+    "id": "_xKQoUB7fuKk",
+    "text": "What Usually Causes Each",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-usually-causes-each"
+  },
+  {
+    "id": "k3FFTcndFLWs",
+    "html": "<p><b>Poor LCP</b> is nearly always a large image or a slow server response. The single most common cause is an uncompressed hero image at the top of the page.</p><p><b>Poor INP</b> is JavaScript. When the main thread is busy executing scripts, it cannot respond to a tap — the page looks loaded but does not react. Large frameworks, heavy third-party scripts, and analytics or chat widgets are common contributors.</p><p><b>Poor CLS</b> is content appearing and pushing other content down: images without <code>width</code> and <code>height</code>, ads or embeds inserted after load, and web fonts swapping in at a different size than the fallback.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xaHQc2g7bumf",
+    "text": "The Changes With the Biggest Effect",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-changes-with-the-biggest-effect"
+  },
+  {
+    "id": "Zqx1eKDsnC3z",
+    "html": "<ol><li><b>Compress and resize images.</b> Almost always the largest single win, and the easiest.</li><li><b>Set width and height on every image.</b> Fixes CLS directly, costs nothing.</li><li><b>Remove third-party scripts you do not need.</b> Each one is someone else's code executing on your page, on their schedule. Audit what is actually there — sites accumulate these.</li><li><b>Lazy-load below-the-fold images</b>, but never the top one.</li><li><b>Serve modern image formats</b> — WebP or AVIF over JPEG and PNG.</li><li><b>Enable caching and compression on the server.</b> Usually a configuration change rather than a code change.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "tMLxA39Dgp9W",
+    "text": "Measuring It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "measuring-it"
+  },
+  {
+    "id": "cpbVAe1adbKi",
+    "html": "<p>Two kinds of data, and the difference matters:</p><ul><li><b>Lab data</b> — a single test run in controlled conditions. Lighthouse in browser developer tools and PageSpeed Insights both provide this. Useful for diagnosis, because it tells you exactly what is slow.</li><li><b>Field data</b> — measurements from real visitors on real devices and connections. Search Console's Core Web Vitals report shows this. It is what actually reflects your visitors' experience.</li></ul><p>A page can score well in a lab test and poorly in the field, usually because real users are on slower devices and networks than the machine running the test.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0ve8LhrynLqm",
+    "html": "<p>Speed is a genuine ranking consideration, but a modest one — it will not lift a page above a substantially more relevant competitor. The stronger argument for fixing it is that slow pages lose visitors before they read anything, which no amount of ranking can compensate for.</p>",
+    "type": "callout",
+    "title": "Keep it in proportion",
+    "variant": "note"
+  }
+]
+```

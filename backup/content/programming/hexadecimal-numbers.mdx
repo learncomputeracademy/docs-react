@@ -5,25 +5,25 @@ path: "programming/hexadecimal-numbers"
 status: "published"
 meta_title: "Hexadecimal Numbers | Learn Computer Academy"
 sort_order: 18
-updated_at: "2026-07-25T08:16:50.923672+00:00"
+updated_at: "2026-08-18T14:27:48.520278+00:00"
 ---
 
 ```json
 [
   {
-    "id": "7qg4vDfa1Z1U",
+    "id": "SLlWFTfeatUl",
     "html": "<p>Hexadecimal (\"hex\" for short) is a number system with 16 digits: 0–9, then A–F standing in for 10–15. It's widely used in programming because it maps neatly onto binary — one hex digit represents exactly 4 bits — while being much more compact and readable than a long string of 0s and 1s.</p>",
     "type": "richtext"
   },
   {
-    "id": "W95Dwcj91DoU",
+    "id": "lh52uXctdXrz",
     "text": "The hex digits",
     "type": "heading",
     "level": 2,
     "anchor": "the-hex-digits"
   },
   {
-    "id": "HUFvY1XYl1OZ",
+    "id": "SPX1R6zXMDvZ",
     "rows": [
       [
         "9",
@@ -61,29 +61,39 @@ updated_at: "2026-07-25T08:16:50.923672+00:00"
     ]
   },
   {
-    "id": "sMmlazHf7USs",
+    "id": "lUQgYHH-ZeJ4",
     "text": "Where you've already seen hex",
     "type": "heading",
     "level": 2,
     "anchor": "where-youve-already-seen-hex"
   },
   {
-    "id": "KLVffpvPxbIW",
+    "id": "QVTmE6WLQvqd",
     "html": "<p>If you've worked with CSS colors, you've used hexadecimal already — a color like <code>#FF8A30</code> is three hex pairs, one each for red, green, and blue (each pair ranges from <code>00</code> to <code>FF</code>, i.e. 0–255).</p>",
     "type": "richtext"
   },
   {
-    "id": "_tBuazLPTsu-",
+    "id": "dsvXcNarsq3Z",
     "text": "Converting in code",
     "type": "heading",
     "level": 2,
     "anchor": "converting-in-code"
   },
   {
-    "id": "BUQgeLXs00t6",
+    "id": "S8CylWo2BM69",
     "code": "let decimal = parseInt(\"FF\", 16);\nconsole.log(decimal); // 255\n\nlet hex = (255).toString(16);\nconsole.log(hex); // \"ff\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$decimal = hexdec(\"FF\");\necho $decimal; // 255\n\n$hex = dechex(255);\necho $hex; // \"ff\"",
+        "language": "php"
+      },
+      {
+        "code": "decimal = int(\"FF\", 16)\nprint(decimal)  # 255\n\nhex_value = hex(255)[2:]  # hex() gives \"0xff\" — slice off the prefix\nprint(hex_value)  # \"ff\"",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

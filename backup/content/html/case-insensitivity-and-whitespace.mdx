@@ -1,0 +1,95 @@
+---
+id: "b598b3b1-3c49-4500-a454-b42127c01854"
+title: "HTML Case Sensitivity & Whitespace"
+path: "html/case-insensitivity-and-whitespace"
+status: "published"
+meta_title: "HTML Case Sensitivity & Whitespace | Learn Computer Academy"
+meta_description: "Why HTML tags work in any case but lowercase is standard, and why the browser collapses extra spaces and line breaks."
+sort_order: 38
+updated_at: "2026-09-03T03:43:14.717758+00:00"
+---
+
+```json
+[
+  {
+    "id": "bKHSn_5FZVTA",
+    "html": "<hr><p>Two small quirks of HTML surprise a lot of beginners: tag names don't care about capitalization, and extra spaces in your code often just... disappear in the output.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "2P6vArz5i31j",
+    "text": "HTML Is Case-Insensitive",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-is-case-insensitive"
+  },
+  {
+    "id": "4nk9--mGYdhI",
+    "html": "<p><code>&lt;P&gt;</code>, <code>&lt;p&gt;</code>, and <code>&lt;P&gt;</code> all mean the same thing to a browser. Attribute names work the same way.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "danNFyAxExlr",
+    "code": "<P>This works.</P>\n<p>So does this.</p>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "pd-NhSJD3awW",
+    "html": "<p>The <a href=\"https://www.w3.org\">W3C</a> recommends lowercase in HTML, and it's required in stricter formats like XHTML. Every example on this site uses lowercase for that reason.</p>",
+    "type": "callout",
+    "title": "Works either way — lowercase is the convention",
+    "variant": "note"
+  },
+  {
+    "id": "Pl0zzQwCtTyf",
+    "text": "HTML Collapses Whitespace",
+    "type": "heading",
+    "level": 2,
+    "anchor": "html-collapses-whitespace"
+  },
+  {
+    "id": "e8DXcPoS9gkO",
+    "html": "<p>A browser reduces any sequence of spaces, tabs, and line breaks down to a single space when displaying text. Indenting your code for readability never changes how it renders.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EqA0ds1GPGPT",
+    "code": "<p>This       paragraph\ncontains a lot of  spacing\nand line breaks.</p>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "eixUmEDCDVvi",
+    "html": "<p>The browser output is: <i>This paragraph contains a lot of spacing and line breaks.</i></p>",
+    "type": "richtext"
+  },
+  {
+    "id": "czhI63WKYp_k",
+    "text": "When Whitespace Needs to Be Preserved",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-whitespace-needs-to-be-preserved"
+  },
+  {
+    "id": "0grbttxUAT1F",
+    "rows": [
+      [
+        "A single space that never collapses",
+        "&amp;nbsp;"
+      ],
+      [
+        "Whitespace exactly as typed — code, ASCII art, poetry",
+        "The &lt;pre&gt; tag"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Need",
+      "Use"
+    ]
+  }
+]
+```

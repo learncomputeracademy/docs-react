@@ -1,0 +1,127 @@
+---
+id: "f51659a6-f141-4b05-9810-48a1773f9679"
+title: "Memory Management and Garbage Collection"
+path: "javascript/memory-management-and-garbage-collection"
+status: "published"
+meta_title: "JavaScript Memory Management | Learn Computer Academy"
+meta_description: "How JavaScript allocates and frees memory automatically, and the common patterns that accidentally prevent memory from ever being freed."
+sort_order: 35
+updated_at: "2026-09-03T04:17:12.901161+00:00"
+---
+
+```json
+[
+  {
+    "id": "4Re9cTFfpEta",
+    "html": "<hr><p>Unlike some languages, JavaScript never requires manually freeing memory — a <b>garbage collector</b> does it automatically. Understanding roughly how it decides what to free explains most real-world memory leaks.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "EP2swotrCYnx",
+    "text": "The Memory Lifecycle",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-memory-lifecycle"
+  },
+  {
+    "id": "Vk4ndVKLAM4M",
+    "rows": [
+      [
+        "Allocate",
+        "Memory is reserved when a value is created — a variable, an object, a function"
+      ],
+      [
+        "Use",
+        "The program reads and writes to that memory"
+      ],
+      [
+        "Release",
+        "The garbage collector frees the memory once nothing can reach it anymore"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Step",
+      "What happens"
+    ]
+  },
+  {
+    "id": "TMgmwaoSVtdA",
+    "text": "Reachability — How the Garbage Collector Decides",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reachability-how-the-garbage-collector-decides"
+  },
+  {
+    "id": "h-r0R02QuyQ4",
+    "html": "<p>An object is kept in memory as long as it's <b>reachable</b> — reachable directly or indirectly from a \"root\" (global variables, the current call stack). The instant nothing references an object anymore, it becomes eligible for collection.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1tu2oHHhrxRZ",
+    "code": "let user = { name: 'Sam' }   // the object is reachable via 'user'\nuser = null                    // nothing references the object anymore —\n                                // eligible for garbage collection",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "wEIc7PjHpCUP",
+    "text": "A Common Leak — Forgotten Timers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-leak-forgotten-timers"
+  },
+  {
+    "id": "PYK_fGQDaFyA",
+    "html": "<p>A running <code>setInterval</code> keeps everything its callback references reachable, indefinitely, until explicitly cleared — even if the code that created it is long gone.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9JQj59nM3yRO",
+    "code": "// LEAK — this interval, and everything it closes over, never gets freed\nfunction startPolling() {\n  const data = fetchLargeDataset()\n  setInterval(() => {\n    console.log(data.length)\n  }, 1000)\n}\n\n// FIXED — store the interval ID and clear it when it's no longer needed\nfunction startPolling() {\n  const data = fetchLargeDataset()\n  const intervalId = setInterval(() => {\n    console.log(data.length)\n  }, 1000)\n  return () => clearInterval(intervalId)\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "5xgDVss1EPML",
+    "text": "A Common Leak — Detached DOM References",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-leak-detached-dom-references"
+  },
+  {
+    "id": "OPFECHjVV8u0",
+    "html": "<p>A removed DOM element still can't be garbage collected if a variable somewhere still references it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bsGurQPuptHE",
+    "code": "let cachedButton = document.querySelector('#submit')\ncachedButton.remove()   // removed from the page, but NOT freed —\n                        // cachedButton still references it\n\ncachedButton = null     // now it can actually be collected",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "9rxA2y3E7TQS",
+    "text": "A Common Leak — Forgotten Event Listeners",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-leak-forgotten-event-listeners"
+  },
+  {
+    "id": "_Mv2l9z4recY",
+    "code": "element.addEventListener('click', handleClick)\n// If element is removed from the DOM without also calling:\nelement.removeEventListener('click', handleClick)\n// the listener (and anything handleClick closes over) can stay in memory",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "cNXIZFfQ6O2J",
+    "html": "<p>The Memory tab in browser DevTools can take a heap snapshot and compare it over time — a growing number of detached DOM nodes between snapshots is the clearest practical sign of a real leak.</p>",
+    "type": "callout",
+    "title": "Checking for a leak in practice",
+    "variant": "tip"
+  }
+]
+```

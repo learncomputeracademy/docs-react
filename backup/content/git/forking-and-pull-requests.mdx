@@ -1,0 +1,137 @@
+---
+id: "5ec5ef7a-9040-4f3a-b750-601f2dca54aa"
+title: "Forking and Pull Requests"
+path: "git/forking-and-pull-requests"
+status: "published"
+meta_title: "GitHub Forking and Pull Requests | Learn Computer Academy"
+meta_description: "Contributing to a project without direct write access — forking a repository, making changes, and opening a pull request for review."
+sort_order: 14
+updated_at: "2026-09-03T05:26:42.995818+00:00"
+---
+
+```json
+[
+  {
+    "id": "hSqlI33cbLeu",
+    "html": "<p>A <b>fork</b> is a personal copy of someone else's repository, made on GitHub — the standard way to contribute to a project without needing direct write access to the original.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZcOHJur89J23",
+    "text": "The Contribution Flow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-contribution-flow"
+  },
+  {
+    "id": "0CHQzv3Nzn2x",
+    "rows": [
+      [
+        "1. Fork",
+        "Click \"Fork\" on the original repo — GitHub creates a full copy under your own account"
+      ],
+      [
+        "2. Clone your fork",
+        "git clone your-fork-url — work on it locally, just like any other repository"
+      ],
+      [
+        "3. Branch and commit",
+        "Create a branch for the change, commit as usual — the earlier branching lessons apply directly"
+      ],
+      [
+        "4. Push to your fork",
+        "git push — sends the commits to your copy, not the original"
+      ],
+      [
+        "5. Open a pull request",
+        "From GitHub, propose merging your fork's branch into the original repository"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Step",
+      "What happens"
+    ]
+  },
+  {
+    "id": "Cdxl_blM6Ru3",
+    "text": "What a Pull Request Actually Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-pull-request-actually-is"
+  },
+  {
+    "id": "B--jOYk7_AQ5",
+    "html": "<p>A <b>pull request</b> (PR) is a request to merge one branch into another, with a diff view, a comment thread, and (often) automated checks — the review step before code becomes part of the main project.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Tg46RbK1Zhck",
+    "text": "Reading a Pull Request Page",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-pull-request-page"
+  },
+  {
+    "id": "S0TjZ3TzC0aT",
+    "rows": [
+      [
+        "Conversation tab",
+        "The description and every comment on the PR"
+      ],
+      [
+        "Commits tab",
+        "Every individual commit included in the PR"
+      ],
+      [
+        "Files changed tab",
+        "A full diff of every file touched — the same +/- format from the earlier git diff lesson"
+      ],
+      [
+        "Merge button",
+        "Available once checks pass and (usually) a reviewer approves"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Section",
+      "Shows"
+    ]
+  },
+  {
+    "id": "UFhJSE-KfHpk",
+    "text": "Keeping a Fork Updated",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-a-fork-updated"
+  },
+  {
+    "id": "KUc-TVWgrnMA",
+    "html": "<p>The original repository keeps moving after a fork is made — pulling in its new changes keeps a fork from falling behind.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zctI-5Oz7mls",
+    "code": "git remote add upstream https://github.com/original-owner/repo-name.git\ngit fetch upstream\ngit merge upstream/main",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "pbxnkj1TrqNy",
+    "html": "<p>A pull request doesn't need to be \"finished\" before opening it — a draft PR, opened early with a clear note that it's a work in progress, is a completely normal and welcomed way to get early feedback on direction before investing more time.</p>",
+    "type": "callout",
+    "title": "Opening a PR early is fine",
+    "variant": "tip"
+  },
+  {
+    "id": "xBPzvAxJOy8M",
+    "alt": "A real, merged pull request on a public GitHub repository, showing the conversation, commits, and files-changed tabs",
+    "type": "image",
+    "width": 1567,
+    "height": 525,
+    "caption": "A real merged pull request — the review step before code becomes part of a project.",
+    "publicId": "docs/img/git/pull-request"
+  }
+]
+```

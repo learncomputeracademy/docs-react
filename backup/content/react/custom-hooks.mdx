@@ -1,0 +1,91 @@
+---
+id: "a0b3ae5c-50e9-46bf-a137-8fb0b42d3944"
+title: "Custom Hooks"
+path: "react/custom-hooks"
+status: "published"
+meta_title: "Custom Hooks in React | Learn Computer Academy"
+meta_description: "Extracting reusable stateful logic into your own custom hooks, built from useState and useEffect."
+sort_order: 18
+updated_at: "2026-07-31T11:24:41.562331+00:00"
+---
+
+```json
+[
+  {
+    "id": "6SpsaPo8QgZZ",
+    "html": "<p>The Fetching Data lesson's loading/error/data pattern is useful — and also something you'd end up retyping in every component that fetches anything. A <b>custom hook</b> extracts that logic into a reusable function, exactly the same reason you'd extract any repeated logic into a regular function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fas5NTwXz80L",
+    "text": "A Hook Is Just a Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-hook-is-just-a-function"
+  },
+  {
+    "id": "_QKG9Vf7p0cM",
+    "html": "<p>The only real rule: its name starts with <code>use</code>. That's what lets React (and the linter) verify the Rules of Hooks are being followed — hooks can only be called at the top level of a component or another hook, never inside a condition, loop, or nested function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gmBlJhYbPLwx",
+    "text": "Extracting useFetch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "extracting-usefetch"
+  },
+  {
+    "id": "8AGYgER2PTEd",
+    "code": "function useFetch(url) {\n  const [data, setData] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    let ignore = false;\n    setLoading(true);\n\n    fetch(url)\n      .then((res) => res.json())\n      .then((json) => {\n        if (!ignore) setData(json);\n      })\n      .catch((err) => {\n        if (!ignore) setError(err.message);\n      })\n      .finally(() => {\n        if (!ignore) setLoading(false);\n      });\n\n    return () => {\n      ignore = true;\n    };\n  }, [url]);\n\n  return { data, loading, error };\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "u-hRcB6nZKHP",
+    "html": "<p>This is line-for-line the same logic from the Fetching Data lesson — just wrapped in a function of its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pWnR7diIrspp",
+    "text": "Using It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-it"
+  },
+  {
+    "id": "DahryDzsxpyT",
+    "code": "function UserProfile({ userId }) {\n  const { data: user, loading, error } = useFetch(`/api/users/${userId}`);\n\n  if (loading) return <p>Loading...</p>;\n  if (error) return <p>Error: {error}</p>;\n  return <h1>{user.name}</h1>;\n}\n\nfunction PostList() {\n  const { data: posts, loading } = useFetch('/api/posts'); // same hook, reused\n  if (loading) return <p>Loading...</p>;\n  return <ul>{posts.map((p) => <li key={p.id}>{p.title}</li>)}</ul>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "seab-VdZzhPw",
+    "html": "<p>Both components get their own independent call to <code>useFetch</code> — same as two <code>useState</code> calls never sharing state, calling a custom hook twice creates two completely separate instances of its internal state.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pbaHmVV86Te9",
+    "text": "A Simpler Example: useToggle",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-simpler-example-usetoggle"
+  },
+  {
+    "id": "OOFRe1sUM8kB",
+    "code": "function useToggle(initialValue = false) {\n  const [value, setValue] = useState(initialValue);\n  const toggle = () => setValue((v) => !v);\n  return [value, toggle];\n}\n\nfunction Menu() {\n  const [isOpen, toggleOpen] = useToggle();\n  return <button onClick={toggleOpen}>{isOpen ? 'Close' : 'Open'}</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "EDVJwONrvqT1",
+    "html": "<p>Extract a custom hook once the same stateful logic shows up in a second component — not before. A one-off <code>useState</code> call doesn't need its own hook; the win comes specifically from not repeating logic that would otherwise be copy-pasted.</p>",
+    "type": "callout",
+    "title": "Extract on the second use, not the first",
+    "variant": "tip"
+  }
+]
+```

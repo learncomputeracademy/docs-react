@@ -1,0 +1,98 @@
+---
+id: "ac22f11b-83d5-49cf-8715-941214119bfa"
+title: "useRef"
+path: "react/useref"
+status: "published"
+meta_title: "The useRef Hook in React | Learn Computer Academy"
+meta_description: "Accessing a real DOM node directly, and storing a value that persists between renders without causing a re-render, with useRef."
+sort_order: 19
+updated_at: "2026-07-31T11:24:41.870328+00:00"
+---
+
+```json
+[
+  {
+    "id": "gT_aDelgsiXt",
+    "html": "<p><code>useRef</code> solves two unrelated problems that happen to share one hook: reaching a real DOM element directly, and holding a value across renders that changing shouldn't trigger a re-render for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EnnvLzUvDw2l",
+    "text": "Accessing a DOM Node",
+    "type": "heading",
+    "level": 2,
+    "anchor": "accessing-a-dom-node"
+  },
+  {
+    "id": "JoI97Qz7Hnig",
+    "html": "<p>Sometimes you need the actual DOM element — focusing an input, measuring an element's size, integrating a non-React library. Attaching a ref to a JSX element gives you exactly that:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wBDustPNh4NT",
+    "code": "function SearchBox() {\n  const inputRef = useRef(null);\n\n  function focusInput() {\n    inputRef.current.focus(); // .current is the real <input> DOM node\n  }\n\n  return (\n    <div>\n      <input ref={inputRef} />\n      <button onClick={focusInput}>Focus the input</button>\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "G0VyuNUvXMCV",
+    "html": "<p><code>inputRef.current</code> is <code>null</code> until React actually renders the <code>&lt;input&gt;</code>, then becomes the real DOM node — the same <code>HTMLInputElement</code> you'd get from <code>document.querySelector</code> in the <a href=\"/javascript/dom/\">JavaScript DOM lesson</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "b9x2CYQyawrG",
+    "text": "A Value That Survives Renders, Without Triggering One",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-value-that-survives-renders-without-triggering-one"
+  },
+  {
+    "id": "dkja0VzWuODp",
+    "html": "<p>This is the part that trips people up coming from <code>useState</code>: changing <code>ref.current</code> does <b>not</b> cause a re-render. That's a feature, not a limitation — for something like tracking an interval ID or a previous value, you specifically don't want a re-render every time it changes:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9hZzTcnSfHdR",
+    "code": "function Stopwatch() {\n  const [running, setRunning] = useState(false);\n  const intervalRef = useRef(null);\n\n  function start() {\n    setRunning(true);\n    intervalRef.current = setInterval(() => {\n      console.log('tick');\n    }, 1000);\n  }\n\n  function stop() {\n    setRunning(false);\n    clearInterval(intervalRef.current); // reading it back later, no re-render involved either way\n  }\n\n  return <button onClick={running ? stop : start}>{running ? 'Stop' : 'Start'}</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "4S5Wkxq-2di5",
+    "text": "useRef vs. useState",
+    "type": "heading",
+    "level": 2,
+    "anchor": "useref-vs-usestate"
+  },
+  {
+    "id": "ikjuLxubkJil",
+    "rows": [
+      [
+        "useState",
+        "Yes",
+        "Anything the UI should visibly reflect"
+      ],
+      [
+        "useRef",
+        "No",
+        "DOM access, or a value the component needs to remember but never displays directly"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Changing it triggers a re-render?",
+      "Use for"
+    ]
+  },
+  {
+    "id": "uIIBLDoJmkRH",
+    "html": "<p>Reading or writing <code>ref.current</code> during render (not inside an event handler or an effect) is a mistake to watch for — since it doesn't trigger a re-render, the UI can silently get out of sync with what the ref actually holds. Keep ref reads/writes inside handlers and effects.</p>",
+    "type": "callout",
+    "title": "Don't read/write refs during render",
+    "variant": "warning"
+  }
+]
+```

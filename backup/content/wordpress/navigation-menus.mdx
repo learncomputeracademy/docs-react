@@ -1,0 +1,110 @@
+---
+id: "8dce0582-3af6-46c5-87fa-117ae0037a04"
+title: "Navigation Menus In Depth"
+path: "wordpress/navigation-menus"
+status: "published"
+meta_title: "Navigation Menus In Depth | Learn Computer Academy"
+meta_description: "Registering multiple menu locations, outputting a menu with wp_nav_menu, and marking the current page's link as active."
+sort_order: 11
+updated_at: "2026-07-30T14:23:27.65126+00:00"
+---
+
+```json
+[
+  {
+    "id": "8335IrgRT4na",
+    "html": "<p>WordPress separates \"where a menu can appear\" (defined by the theme) from \"what's in that menu\" (defined by whoever's managing the site) — which is what lets a client rearrange their own navigation without ever touching a template file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VZAi5xo7CkXT",
+    "text": "Registering Menu Locations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "registering-menu-locations"
+  },
+  {
+    "id": "nTi-W1gMtIXP",
+    "code": "<?php\nfunction mytheme_menus() {\n    register_nav_menus( [\n        'primary' => __( 'Primary Menu', 'mytheme' ),\n        'footer'  => __( 'Footer Menu', 'mytheme' ),\n    ] );\n}\nadd_action( 'after_setup_theme', 'mytheme_menus' );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Zi3FgMwtf8XG",
+    "html": "<p>Each entry is a location <b>slug</b> (<code>primary</code>, <code>footer</code> — referenced in template code) paired with a human-readable label (shown in the admin, where an editor assigns an actual menu to that slot from <b>Appearance → Menus</b>).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "elRNoT0oNpjd",
+    "text": "Outputting a Menu",
+    "type": "heading",
+    "level": 2,
+    "anchor": "outputting-a-menu"
+  },
+  {
+    "id": "wU8cSZQONp3i",
+    "code": "<?php\nwp_nav_menu( [\n    'theme_location' => 'primary',\n    'container'      => false,\n    'menu_class'     => 'primary-menu',\n    'fallback_cb'    => false,\n] );\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "QdpUe20HGc2H",
+    "rows": [
+      [
+        "theme_location",
+        "Which registered slot to output — must match a key from <code>register_nav_menus()</code>"
+      ],
+      [
+        "container",
+        "<code>false</code> skips the extra wrapping <code>&lt;div&gt;</code> WordPress adds by default"
+      ],
+      [
+        "menu_class",
+        "The CSS class on the output <code>&lt;ul&gt;</code>"
+      ],
+      [
+        "fallback_cb",
+        "<code>false</code> means \"output nothing if no menu is assigned yet\" — the alternative default tries to guess a menu from your pages, which is rarely what a finished site wants"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Argument",
+      "What it does"
+    ]
+  },
+  {
+    "id": "QsvqwlNaQZD4",
+    "text": "Highlighting the Current Page",
+    "type": "heading",
+    "level": 2,
+    "anchor": "highlighting-the-current-page"
+  },
+  {
+    "id": "hQoh9YGPC37C",
+    "html": "<p>WordPress already adds a <code>current-menu-item</code> class to whichever link matches the page being viewed — no extra code needed for that part. If your CSS framework expects a different class name (commonly <code>active</code>), a filter renames it without touching the menu markup itself:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W0ETvldB2i8w",
+    "code": "<?php\nfunction mytheme_nav_active_class( $classes, $item ) {\n    if ( in_array( 'current-menu-item', $classes, true ) ) {\n        $classes[] = 'active';\n    }\n    return $classes;\n}\nadd_filter( 'nav_menu_css_class', 'mytheme_nav_active_class', 10, 2 );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "FYQABloETUmJ",
+    "html": "<p>Until at least one menu is assigned to a location in <b>Appearance → Menus</b>, <code>wp_nav_menu()</code> with <code>fallback_cb: false</code> simply outputs nothing — that's expected, not a bug. Assign a menu before judging whether the navigation code actually works.</p>",
+    "type": "callout",
+    "title": "Nothing shows until a menu is assigned",
+    "variant": "tip"
+  },
+  {
+    "id": "ZgtFw2J971Oz",
+    "html": "<p>Menus handled, the next lesson looks at the Customizer — WordPress's built-in, live-preview settings screen, and a lightweight alternative to a full custom fields setup for small site-wide options.</p>",
+    "type": "richtext"
+  }
+]
+```

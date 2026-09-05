@@ -1,0 +1,102 @@
+---
+id: "805e8ee1-f5cf-4cad-a106-ed62bb7500e9"
+title: "MongoDB with Node.js"
+path: "mongodb/mongodb-with-nodejs"
+status: "published"
+meta_title: "MongoDB with Node.js | Learn Computer Academy"
+meta_description: "Connecting a Node.js application to MongoDB using the official driver, and running your first query from application code."
+sort_order: 18
+updated_at: "2026-08-18T10:11:27.299088+00:00"
+---
+
+```json
+[
+  {
+    "id": "cxsDWkwqXPTL",
+    "html": "<p>Everything so far ran directly in <code>mongosh</code>. Real applications talk to MongoDB from application code instead — this lesson connects a <a href=\"/nodejs/introduction\">Node.js</a> app to MongoDB using the official <code>mongodb</code> driver.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uKfRjsUGXTsi",
+    "alt": "An isometric illustration of the Node.js hexagon logo connected by a cable to a green MongoDB database cylinder",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The official mongodb driver connects a Node.js application to a database.",
+    "publicId": "docs/img/mongodb/nodejs-hero"
+  },
+  {
+    "id": "65Yn98_U3KA3",
+    "text": "Installing the Driver",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-the-driver"
+  },
+  {
+    "id": "gpxBvTcPeJuh",
+    "code": "npm install mongodb",
+    "type": "code",
+    "language": "bash",
+    "runnable": true
+  },
+  {
+    "id": "eQxnCQ4KpIpx",
+    "text": "Connecting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "connecting"
+  },
+  {
+    "id": "1JiHavNLq1wi",
+    "code": "import { MongoClient } from \"mongodb\"\n\nconst uri = \"mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/\"\nconst client = new MongoClient(uri)\n\nasync function main() {\n  await client.connect()\n  console.log(\"Connected to MongoDB\")\n}\n\nmain()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "GspVSF1kqwEx",
+    "text": "Running a Query",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-a-query"
+  },
+  {
+    "id": "V-yjFie2Nrg7",
+    "html": "<p>Get a reference to a database and collection, then use the same method names you already know from <code>mongosh</code> — <code>find()</code>, <code>insertOne()</code>, <code>updateOne()</code>, and the rest all exist on the driver, as async functions:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6jbi90yQRnH6",
+    "code": "const db = client.db(\"learningMongo\")\nconst users = db.collection(\"users\")\n\nconst allUsers = await users.find().toArray()\nconsole.log(allUsers)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "ARVoFC7Vh95_",
+    "text": "Closing the Connection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "closing-the-connection"
+  },
+  {
+    "id": "_rWyVKamGF-4",
+    "html": "<p>In a short script, close the connection when done. In a long-running web server, you typically connect once at startup and keep the connection open for the app's lifetime instead:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YxFfBoQcHN4f",
+    "code": "await client.close()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "FJb-h-O9txiN",
+    "html": "<p>Never hardcode a connection string containing a real username and password directly in a committed file. Store it in an environment variable instead — see this site's <a href=\"/nodejs/process-and-env\">process & Environment Variables</a> lesson.</p>",
+    "type": "callout",
+    "title": "Never commit real credentials",
+    "variant": "warning"
+  }
+]
+```

@@ -1,0 +1,109 @@
+---
+id: "7e6bac7d-33a9-4d59-b8a8-eba16ae5bfb5"
+title: "Aggregation Pipeline — Introduction"
+path: "mongodb/aggregation-pipeline-introduction"
+status: "published"
+meta_title: "Aggregation Pipeline — Introduction | Learn Computer Academy"
+meta_description: "What the MongoDB aggregation pipeline is, and how $match, $group, and $project chain together to transform data."
+sort_order: 15
+updated_at: "2026-08-18T10:11:26.182056+00:00"
+---
+
+```json
+[
+  {
+    "id": "lTLBTzgjeWwB",
+    "html": "<p><code>find()</code> retrieves documents. The <b>aggregation pipeline</b> transforms them — filtering, grouping, reshaping, and computing new values, all in one operation made of chained <b>stages</b>, each one feeding its output into the next.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hRhICPhFU8v_",
+    "alt": "A left-to-right flow diagram showing three connected stage boxes labeled $match, $group, and $project, with documents flowing through arrows between them, narrowing at each stage",
+    "type": "image",
+    "width": 500,
+    "height": 115,
+    "caption": "Each aggregation stage takes the previous stage's output as its own input.",
+    "publicId": "docs/img/mongodb/aggregation-pipeline-stages"
+  },
+  {
+    "id": "yiAiDQf178jE",
+    "text": "The Pipeline Shape",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-pipeline-shape"
+  },
+  {
+    "id": "4ONesVI1-MXJ",
+    "html": "<p>Call <code>aggregate()</code> with an array of stage objects — each object's key is the stage operator, starting with <code>$</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5hHCyQknOMSP",
+    "code": "db.orders.aggregate([\n  { $match: { status: \"completed\" } },\n  { $group: { _id: \"$customerId\", total: { $sum: \"$amount\" } } },\n  { $project: { customerId: \"$_id\", total: 1, _id: 0 } }\n])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "GyvUkPZZtSiB",
+    "text": "$match — Filter Documents",
+    "type": "heading",
+    "level": 2,
+    "anchor": "match-filter-documents"
+  },
+  {
+    "id": "7EtxbzLHvLVI",
+    "html": "<p><code>$match</code> works like a <code>find()</code> query, and is usually the first stage — filtering early means every following stage processes fewer documents:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "z-Xb7a5uQ2d-",
+    "code": "{ $match: { status: \"completed\" } }",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ycXBabN9cyoq",
+    "text": "$group — Combine Documents",
+    "type": "heading",
+    "level": 2,
+    "anchor": "group-combine-documents"
+  },
+  {
+    "id": "PiMIYK2XM7WM",
+    "html": "<p><code>$group</code> collapses many documents into one per distinct value of <code>_id</code>, computing a value for each group with an accumulator like <code>$sum</code>, <code>$avg</code>, <code>$max</code>, or <code>$count</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "g2khmxVbB30x",
+    "code": "{ $group: { _id: \"$customerId\", total: { $sum: \"$amount\" } } }",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "ZQIml5uB1En4",
+    "text": "$project — Reshape the Output",
+    "type": "heading",
+    "level": 2,
+    "anchor": "project-reshape-the-output"
+  },
+  {
+    "id": "Ff7_h-VZCGnW",
+    "html": "<p><code>$project</code> works like a projection in <code>find()</code>, but can also compute new fields, not just include or exclude existing ones:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QLBqKEUxsomD",
+    "code": "{ $project: { customerId: \"$_id\", total: 1, _id: 0 } }",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "pZyNlHEmB5dg",
+    "html": "<p>These three stages alone — <code>$match</code>, <code>$group</code>, <code>$project</code> — already cover a large share of real reporting queries: \"total spend per customer,\" \"orders per day,\" \"average rating per product.\"</p>",
+    "type": "callout",
+    "title": "These three stages go a long way",
+    "variant": "note"
+  }
+]
+```

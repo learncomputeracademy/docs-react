@@ -1,0 +1,134 @@
+---
+id: "519116ae-8c9c-4ad5-a022-3079757fde3a"
+title: "Template Engines — Server-Rendered HTML with EJS"
+path: "nodejs/template-engines-with-ejs"
+status: "published"
+meta_title: "Node.js Template Engines — EJS | Learn Computer Academy"
+meta_description: "Rendering HTML on the server with data plugged in, using EJS with Express — for a page that's a traditional server-rendered site rather than an API or a React frontend."
+sort_order: 32
+updated_at: "2026-09-03T04:41:43.45397+00:00"
+---
+
+```json
+[
+  {
+    "id": "c_thIS-7skgQ",
+    "html": "<p>Every earlier lesson in this course either returned JSON (a REST API) or assumed a separate frontend. A <b>template engine</b> is the traditional alternative — the server renders complete HTML pages directly, with data plugged into placeholders.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LHJ8qzr5cVIa",
+    "text": "Setting Up EJS with Express",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-up-ejs-with-express"
+  },
+  {
+    "id": "hhuw2hDMRvRc",
+    "code": "import express from 'express'\nconst app = express()\n\napp.set('view engine', 'ejs')\napp.set('views', './views')   // where template files live",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "ylkG4SwoiErG",
+    "text": "A Basic Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-template"
+  },
+  {
+    "id": "CUOhmJpQqaML",
+    "code": "<!-- views/profile.ejs -->\n<!DOCTYPE html>\n<html>\n<head><title><%= user.name %>'s Profile</title></head>\n<body>\n  <h1>Welcome, <%= user.name %>!</h1>\n  <p>Email: <%= user.email %></p>\n</body>\n</html>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "AtAK5vDv2dGR",
+    "html": "<p><code>&lt;%= value %&gt;</code> outputs a value, automatically escaped for safety (the same escaping concept as the earlier Cybersecurity course's XSS-prevention lesson) — plain text stays plain text even if it contains HTML-looking characters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JOpsROBRemEz",
+    "text": "Rendering the Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rendering-the-template"
+  },
+  {
+    "id": "V5190OJRYCmk",
+    "code": "app.get('/profile/:id', async (req, res) => {\n  const user = await getUser(req.params.id)\n  res.render('profile', { user })\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "K_86WnFTDK7V",
+    "text": "Loops and Conditionals in a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "loops-and-conditionals-in-a-template"
+  },
+  {
+    "id": "34CBKvOacE8K",
+    "code": "<ul>\n  <% products.forEach(function(product) { %>\n    <li><%= product.name %> — $<%= product.price %></li>\n  <% }) %>\n</ul>\n\n<% if (user.isAdmin) { %>\n  <a href=\"/admin\">Admin Panel</a>\n<% } %>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "enumcoXyEKcI",
+    "html": "<p><code>&lt;% ... %&gt;</code> (no <code>=</code>) runs JavaScript logic without outputting anything directly — loops and conditionals use this form.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sb707E2DkWuH",
+    "text": "Reusable Partials",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reusable-partials"
+  },
+  {
+    "id": "GJWfJmsWn4iD",
+    "code": "<!-- views/partials/header.ejs -->\n<header><h1>My Site</h1></header>\n\n<!-- views/profile.ejs -->\n<%- include('partials/header') %>\n<h2>Profile</h2>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "m7LCjntWUsU_",
+    "html": "<p><code>&lt;%- %&gt;</code> (with a dash) outputs raw, unescaped HTML — needed for <code>include()</code> since a partial's own HTML shouldn't be escaped away.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Cadgo12NjBU5",
+    "rows": [
+      [
+        "<%= value %>",
+        "Output a value, HTML-escaped"
+      ],
+      [
+        "<%- html %>",
+        "Output raw HTML, not escaped (used for includes)"
+      ],
+      [
+        "<% code %>",
+        "Run JavaScript logic — no output"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tag",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "0lFM5HpaOzjE",
+    "html": "<p>EJS is one option among several (Pug and Handlebars are common alternatives) — the underlying concept (server-rendered HTML with data plugged in) is the same across all of them, this lesson's syntax is EJS-specific.</p>",
+    "type": "callout",
+    "title": "One of several template engines",
+    "variant": "note"
+  }
+]
+```

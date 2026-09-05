@@ -1,0 +1,121 @@
+---
+id: "2ea472ed-dc09-4291-9f35-4e4f7270ad4d"
+title: "Rebasing vs. Merging"
+path: "git/rebasing"
+status: "published"
+meta_title: "Git Rebase vs Merge | Learn Computer Academy"
+meta_description: "A second way to bring a branch up to date — rewriting its history onto a new base instead of merging — and the one rule about never rebasing shared history."
+sort_order: 18
+updated_at: "2026-09-03T05:20:04.517886+00:00"
+---
+
+```json
+[
+  {
+    "id": "hzlCRUKT1DPt",
+    "html": "<p>The earlier Merging lesson covered one way to combine branches. <b>Rebasing</b> achieves a similar goal — bringing a branch up to date with another — through a genuinely different mechanism, with a different result.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nMXkGigsyj7M",
+    "text": "What Rebase Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-rebase-actually-does"
+  },
+  {
+    "id": "Jy_Gv7zB1j55",
+    "html": "<p>Rather than creating a merge commit joining two histories, rebase replays a branch's commits one by one on top of another branch's latest commit — rewriting history as if the branch had been created from that newer point all along.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qm9ns3FeCjGm",
+    "code": "git switch feature-login\ngit rebase main\n# feature-login's commits are now replayed on top of main's latest commit",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "OoxaXUsPX5qg",
+    "text": "Merge vs. Rebase — the Resulting History",
+    "type": "heading",
+    "level": 2,
+    "anchor": "merge-vs-rebase-the-resulting-history"
+  },
+  {
+    "id": "QpApa9PgKelo",
+    "rows": [
+      [
+        "Preserves exactly what happened, including a merge commit showing where branches joined",
+        "Rewrites history into a single clean, linear line — no merge commit"
+      ],
+      [
+        "Never changes existing commits' hashes",
+        "Changes every rebased commit's hash — they become new commits entirely"
+      ],
+      [
+        "Safe on any branch, shared or not",
+        "Only safe on a branch nobody else has already pulled"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "git merge",
+      "git rebase"
+    ]
+  },
+  {
+    "id": "sIxryYDF4o4c",
+    "text": "The One Rule That Actually Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-one-rule-that-actually-matters"
+  },
+  {
+    "id": "5kWyzwwU9gT4",
+    "html": "<p>Never rebase a commit that's already been pushed and shared with anyone else. Rebase rewrites commit history — a teammate who already pulled the old commits ends up with a repository that looks like it diverged from everyone else's, and untangling it is genuinely painful. Rebase a local, unshared branch freely; never rebase main, or a branch someone else is also working on.</p>",
+    "type": "callout",
+    "title": "Never rebase shared history",
+    "variant": "danger"
+  },
+  {
+    "id": "mL3yLetJJRFT",
+    "text": "A Common, Safe Use — Cleaning Up Before a Pull Request",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-safe-use-cleaning-up-before-a-pull-request"
+  },
+  {
+    "id": "7jDnAyTWlqKU",
+    "code": "# Squash several small \"wip\" commits into fewer, meaningful ones,\n# before opening a pull request — safe because the branch isn't shared yet\ngit rebase -i HEAD~5",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "Tm4tS356Tc0A",
+    "text": "Keeping a Branch Updated — Merge or Rebase?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-a-branch-updated-merge-or-rebase"
+  },
+  {
+    "id": "64dyDjPF-mC6",
+    "rows": [
+      [
+        "A shared branch, or already-pushed commits",
+        "git merge — never rebase these"
+      ],
+      [
+        "A local, not-yet-pushed feature branch, wanting a clean history",
+        "git rebase main is a common, safe choice"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Reasonable choice"
+    ]
+  }
+]
+```

@@ -1,0 +1,125 @@
+---
+id: "d110d2eb-a80a-4237-be4f-2b8f16ea30fa"
+title: "OOP — Encapsulation and Dunder Methods"
+path: "python/oop-encapsulation"
+status: "published"
+meta_title: "Python Encapsulation and Dunder Methods | Learn Computer Academy"
+meta_description: "Controlling access to a class's properties with Python's naming conventions, and customizing built-in behavior with special methods like __str__."
+sort_order: 24
+updated_at: "2026-08-04T11:39:33.431396+00:00"
+---
+
+```json
+[
+  {
+    "id": "_IeAOAxs37z-",
+    "html": "<p>Two more OOP building blocks round out the section: how Python signals \"don't touch this from outside,\" and how to make an object behave well with Python's own built-in functions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FknVo7zws4N7",
+    "text": "Encapsulation — By Convention, Not Enforcement",
+    "type": "heading",
+    "level": 2,
+    "anchor": "encapsulation-by-convention-not-enforcement"
+  },
+  {
+    "id": "EnWCcu6NOkyh",
+    "html": "<p>Some languages have real <code>private</code>/<code>protected</code> keywords the language enforces. Python has no true private properties — instead, a leading underscore is a <b>convention</b> signaling \"internal, don't use this from outside,\" which Python trusts you to respect rather than blocking:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gXo9PEG3HjVr",
+    "code": "class BankAccount:\n    def __init__(self):\n        self._balance = 0  # single underscore: \"internal, please don't touch\"\n\n    def deposit(self, amount):\n        self._balance += amount\n\n    def get_balance(self):\n        return self._balance\n\naccount = BankAccount()\naccount.deposit(500)\nprint(account.get_balance())  # 500\nprint(account._balance)       # 500 — this works! Python doesn't block it, even though the underscore says not to",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "mmLPBJh7tVBl",
+    "html": "<p>A <b>double</b> underscore prefix (<code>__balance</code>) triggers \"name mangling,\" which makes accidental access from outside genuinely awkward, though still not impossible. In practice, a single underscore plus trusting the convention is far more common in real Python code than trying to fully lock a property down.</p>",
+    "type": "callout",
+    "title": "Single underscore is the normal habit",
+    "variant": "note"
+  },
+  {
+    "id": "lK1GAihq8n70",
+    "text": "Dunder (Double-Underscore) Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dunder-double-underscore-methods"
+  },
+  {
+    "id": "iilRMgXQ0J0L",
+    "html": "<p>You already met one — <code>__init__</code>. Python has many more special methods, all following the <code>__name__</code> pattern, that let an object plug into the language's own built-in behavior:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JXcIzgzZcqgK",
+    "code": "class Student:\n    def __init__(self, name):\n        self.name = name\n\n    def __str__(self):\n        return f\"Student: {self.name}\"\n\ns = Student(\"Priya\")\nprint(s)         # \"Student: Priya\" — print() calls __str__ automatically\nprint(str(s))    # same thing",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "ODN5cCY5nKr4",
+    "html": "<p>Without <code>__str__</code>, <code>print(s)</code> would show something unhelpful like <code>&lt;__main__.Student object at 0x...&gt;</code>. Defining it is what controls what gets shown instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "E35NM9mETAvM",
+    "rows": [
+      [
+        "__init__",
+        "Student(...) — creating an instance"
+      ],
+      [
+        "__str__",
+        "print(obj), str(obj)"
+      ],
+      [
+        "__len__",
+        "len(obj)"
+      ],
+      [
+        "__eq__",
+        "obj1 == obj2"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Dunder method",
+      "Lets an object work with"
+    ]
+  },
+  {
+    "id": "wdIqN0RUOzpC",
+    "html": "<p>This section has covered the ones you'll hit constantly. The <a href=\"https://docs.python.org/3/reference/datamodel.html#special-method-names\" target=\"_blank\" rel=\"noopener noreferrer\">full list of special methods is on python.org</a> for anything more advanced.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mvcI2QQ5-bva",
+    "text": "Controlled Access with @property",
+    "type": "heading",
+    "level": 2,
+    "anchor": "controlled-access-with-property"
+  },
+  {
+    "id": "vTVmcE7Uoqeo",
+    "html": "<p><code>@property</code> lets a method be accessed like a plain attribute, with no parentheses — this is how Python builds a getter that can also run validation logic, without callers needing to know it's a method underneath:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u_56iDIiQzo4",
+    "code": "class BankAccount:\n    def __init__(self):\n        self._balance = 0\n\n    @property\n    def balance(self):\n        return self._balance\n\n    @balance.setter\n    def balance(self, value):\n        if value < 0:\n            raise ValueError(\"Balance cannot be negative.\")\n        self._balance = value\n\naccount = BankAccount()\naccount.balance = 500   # looks like a plain attribute, actually calls the setter\nprint(account.balance)  # 500 — looks like a plain attribute, actually calls the getter\n# account.balance = -10 # ValueError — the setter blocks this",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "UMediuq-Qat9",
+    "html": "<p>This gets you the benefit of explicit getter/setter methods without the boilerplate — the calling code stays as simple as a direct attribute, while the class still gets to enforce its own rules.</p>",
+    "type": "richtext"
+  }
+]
+```

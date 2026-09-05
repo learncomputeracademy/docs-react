@@ -1,0 +1,106 @@
+---
+id: "dc4df28c-8347-415d-b840-9976fc5f00d4"
+title: "Concurrency — Threading, asyncio, and the GIL"
+path: "python/concurrency-threading-and-asyncio"
+status: "published"
+meta_title: "Python Concurrency — Threading and asyncio | Learn Computer Academy"
+meta_description: "Why Python's Global Interpreter Lock changes how concurrency works, and the two main tools — threading for I/O-bound waiting, asyncio for many concurrent tasks on one thread."
+sort_order: 32
+updated_at: "2026-09-03T04:52:50.917124+00:00"
+---
+
+```json
+[
+  {
+    "id": "bUz2py70goYH",
+    "html": "<p>Doing more than one thing \"at once\" in Python is shaped by one specific detail most other languages don't have: the <b>GIL</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZIhM30t1r9Qt",
+    "text": "The GIL — the Global Interpreter Lock",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-gil-the-global-interpreter-lock"
+  },
+  {
+    "id": "QTdfrfAMPSdj",
+    "html": "<p>The GIL allows only one thread to execute Python bytecode at a time, even on a multi-core machine — a genuine limitation for CPU-heavy work split across threads, but far less of one for work that spends most of its time <i>waiting</i> (a network request, a file read), since the GIL is released during that wait.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k_CcelyGohcS",
+    "text": "threading — Good for I/O-Bound Waiting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "threading-good-for-io-bound-waiting"
+  },
+  {
+    "id": "jY3Mf7MhxoUL",
+    "code": "import threading\nimport time\n\ndef download(name):\n    print(f'Starting {name}')\n    time.sleep(2)   # stands in for a slow network request\n    print(f'Finished {name}')\n\nthreads = [threading.Thread(target=download, args=(f'file{i}',)) for i in range(3)]\nfor t in threads:\n    t.start()\nfor t in threads:\n    t.join()\n# All 3 \"downloads\" run concurrently — total time ~2s, not ~6s",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "cWaydn3qOn30",
+    "html": "<p>Because of the GIL, adding more threads does not speed up CPU-heavy computation (heavy math, image processing) — only genuinely I/O-bound waiting benefits. multiprocessing (separate processes, each with its own GIL) is the right tool for CPU-heavy parallelism, a topic beyond this lesson.</p>",
+    "type": "callout",
+    "title": "What threading does not fix",
+    "variant": "warning"
+  },
+  {
+    "id": "5y_LGm4Cvl8b",
+    "text": "asyncio — Many Tasks, One Thread",
+    "type": "heading",
+    "level": 2,
+    "anchor": "asyncio-many-tasks-one-thread"
+  },
+  {
+    "id": "NzCtBA8-9Tdy",
+    "html": "<p><code>asyncio</code> handles many waiting operations on a single thread, switching between them whenever one is waiting — no threads at all, similar in spirit to the event loop model from the JavaScript course.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "USI2MWuyqT36",
+    "code": "import asyncio\n\nasync def download(name):\n    print(f'Starting {name}')\n    await asyncio.sleep(2)\n    print(f'Finished {name}')\n\nasync def main():\n    await asyncio.gather(\n        download('file1'),\n        download('file2'),\n        download('file3'),\n    )\n\nasyncio.run(main())\n# Also ~2s total, no threads involved",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "ZcqG4IdShVwV",
+    "html": "<p><code>async def</code> marks a function as a <b>coroutine</b> — it can be paused at an <code>await</code> and resumed later, without blocking anything else. <code>asyncio.gather()</code> runs several coroutines concurrently and waits for all of them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7X9QDGzdhDfB",
+    "text": "threading vs. asyncio",
+    "type": "heading",
+    "level": 2,
+    "anchor": "threading-vs-asyncio"
+  },
+  {
+    "id": "k-WHCqJ-5JL2",
+    "rows": [
+      [
+        "Works with libraries that were never written with async in mind",
+        "Needs libraries built for it specifically (an async database driver, aiohttp instead of requests)"
+      ],
+      [
+        "Real OS threads, some overhead per thread",
+        "Lighter weight — thousands of coroutines are practical, threads are not"
+      ],
+      [
+        "Simpler to reason about for a handful of concurrent tasks",
+        "The standard modern choice for a server handling many concurrent connections"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "threading",
+      "asyncio"
+    ]
+  }
+]
+```

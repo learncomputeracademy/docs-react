@@ -1,0 +1,105 @@
+---
+id: "80a8f9d2-da0f-4452-b433-7e87c1e14b68"
+title: "Finding Documents"
+path: "mongodb/finding-documents"
+status: "published"
+meta_title: "Finding Documents | Learn Computer Academy"
+meta_description: "Querying a collection with find() and findOne(), and matching documents by field value."
+sort_order: 6
+updated_at: "2026-08-18T10:11:22.885414+00:00"
+---
+
+```json
+[
+  {
+    "id": "ics-6fUKGN4N",
+    "html": "<p>Reading data back out uses <code>find()</code>, which returns every matching document, and <code>findOne()</code>, which returns just the first match.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_Oj9JMNnlTzZ",
+    "alt": "An isometric illustration of a magnifying glass hovering over a stack of document icons, highlighting one in green",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "find() and findOne() query a collection for matching documents.",
+    "publicId": "docs/img/mongodb/find-hero"
+  },
+  {
+    "id": "3IfymbcG-ktH",
+    "text": "find() — Every Match",
+    "type": "heading",
+    "level": 2,
+    "anchor": "find-every-match"
+  },
+  {
+    "id": "v4ZTOVdg79qL",
+    "html": "<p>Called with no arguments, <code>find()</code> returns every document in the collection:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gRw1JREhMsow",
+    "code": "db.users.find()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "TQZZz-EEl_fT",
+    "html": "<p>Pass a query object to filter by field value — this returns every document where <code>age</code> is exactly <code>27</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "B8AxvYH8lvtS",
+    "code": "db.users.find({ age: 27 })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "YgkhQDGiur6E",
+    "text": "findOne() — Just the First Match",
+    "type": "heading",
+    "level": 2,
+    "anchor": "findone-just-the-first-match"
+  },
+  {
+    "id": "5ypJA-XRaj-L",
+    "html": "<p>Use <code>findOne()</code> when you expect (or only care about) a single result — it returns one document object directly, not a list:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BUGWqxJs33Ry",
+    "code": "db.users.findOne({ email: \"ananya@example.com\" })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "hRk1TxQqTF-q",
+    "text": "Making Output Readable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "making-output-readable"
+  },
+  {
+    "id": "sPQDo9N2z_8s",
+    "html": "<p>Chain <code>.pretty()</code> in the shell to format results with indentation instead of a single line of JSON:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aAPB4AaAILET",
+    "code": "db.users.find().pretty()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "N9v5I4O8Q6mz",
+    "html": "<p><code>find()</code> actually returns a <b>cursor</b>, not an array — the shell automatically prints the first 20 results and lets you type <code>it</code> to see more. From application code (Node.js, later in this course), you typically convert the cursor to an array with <code>.toArray()</code>.</p>",
+    "type": "callout",
+    "title": "find() returns a cursor",
+    "variant": "note"
+  }
+]
+```

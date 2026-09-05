@@ -1,0 +1,70 @@
+---
+id: "5c765bc6-0a94-479d-b30f-2e7bc319a0c5"
+title: "The WordPress Customizer"
+path: "wordpress/customizer"
+status: "published"
+meta_title: "The WordPress Customizer | Learn Computer Academy"
+meta_description: "Adding a live-preview setting to the Customizer and reading its saved value back inside a template."
+sort_order: 12
+updated_at: "2026-07-30T14:23:27.965968+00:00"
+---
+
+```json
+[
+  {
+    "id": "wYwBOWXi67an",
+    "html": "<p>The <b>Customizer</b> (<b>Appearance → Customize</b>) is WordPress's built-in screen for small, site-wide settings, with a live preview alongside the settings panel. A custom theme can add its own settings to it — a secondary logo, a phone number, a social link — anything that's a single value used site-wide rather than per-page content.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fU-8g23PeHS8",
+    "text": "Adding a Setting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-setting"
+  },
+  {
+    "id": "eInApOoViNSj",
+    "code": "<?php\nfunction mytheme_customize_register( $wp_customize ) {\n    $wp_customize->add_section( 'mytheme_contact', [\n        'title'    => __( 'Contact Info', 'mytheme' ),\n        'priority' => 30,\n    ] );\n\n    $wp_customize->add_setting( 'mytheme_phone' );\n\n    $wp_customize->add_control( 'mytheme_phone', [\n        'label'   => __( 'Phone Number', 'mytheme' ),\n        'section' => 'mytheme_contact',\n        'type'    => 'text',\n    ] );\n}\nadd_action( 'customize_register', 'mytheme_customize_register' );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "KpdlfHAMCnS9",
+    "html": "<p>Three pieces, always in this order: a <b>section</b> to group related settings under a heading, a <b>setting</b> to store the actual value, and a <b>control</b> to give that setting an input field in the panel. An image upload works the same way, using <code>WP_Customize_Image_Control</code> in place of a plain text control.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "t0ER6zubjwP5",
+    "text": "Reading It Back in a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-it-back-in-a-template"
+  },
+  {
+    "id": "P-0ZErx1-uWN",
+    "code": "<?php $phone = get_theme_mod( 'mytheme_phone' ); ?>\n<?php if ( $phone ) : ?>\n    <a href=\"tel:<?php echo esc_attr( preg_replace( '/[^\\d+]/', '', $phone ) ); ?>\"><?php echo esc_html( $phone ); ?></a>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "KvdhLSIPO19p",
+    "html": "<p><code>get_theme_mod()</code> reads whatever was saved — it returns <code>false</code> (or your own chosen default, passed as a second argument) if the setting has never been set, so it's always worth checking before using the value.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NNPtaJ2ZyIlg",
+    "html": "<p>The Customizer is genuinely the right tool for a handful of small, global settings — but it doesn't scale well past that. A settings screen with a dozen fields, repeatable content, or anything more structured belongs in an SCF options page instead, covered later in this section — it's built for exactly that case, with a much richer set of field types.</p>",
+    "type": "callout",
+    "title": "When to reach for SCF instead",
+    "variant": "note"
+  },
+  {
+    "id": "VAlygJBTwRC6",
+    "html": "<p>With the site-wide chrome — header, footer, menus, small settings — all covered, the next lesson closes out this first part of the section: turning off the block editor for good, so every content screen behaves the way the rest of this section has assumed all along.</p>",
+    "type": "richtext"
+  }
+]
+```

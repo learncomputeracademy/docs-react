@@ -1,0 +1,107 @@
+---
+id: "c82548fa-fa88-4fb2-9446-fd7d5f9bb631"
+title: "Git Basics"
+path: "basics/git-basics"
+status: "published"
+meta_title: "Git Basics | Learn Computer Academy"
+meta_description: "What Git actually does, the problem it solves, and the handful of commands — init, add, commit, status, log — worth knowing from day one."
+sort_order: 20
+updated_at: "2026-09-03T06:17:24.81994+00:00"
+---
+
+```json
+[
+  {
+    "id": "LD8h27LlO2W4",
+    "html": "<p>Anyone who has ever saved a file as <code>report_final.docx</code>, then <code>report_final_v2.docx</code>, then <code>report_final_v2_REALLY_FINAL.docx</code> has already felt the exact problem <b>Git</b> exists to solve.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xhBXm4_DmJl4",
+    "text": "The Problem Before Git",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-before-git"
+  },
+  {
+    "id": "zhnw5AMrPlZY",
+    "html": "<p>Manually renaming copies gives you no real history. You can't easily see what actually changed between versions, why it changed, or undo just one specific change without losing everything after it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "k-G47mSMqSGo",
+    "text": "What Git Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-git-actually-does"
+  },
+  {
+    "id": "BJLE_PLQzh7Y",
+    "html": "<p><b>Git</b> is a <b>version control system</b> — a tool that takes a snapshot of your entire project every time you tell it to, and remembers every snapshot forever. Each snapshot is called a <b>commit</b>. You can look at any commit from the project's history, compare two commits, or go back to an earlier one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_ofUAlJVd-9N",
+    "alt": "Isometric diagram of a version control commit history shown as a horizontal chain of four connected snapshot blocks, representing saved versions of a project over time",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Each commit is a saved snapshot in the chain — you can jump to any of them at any time.",
+    "publicId": "docs/img/basics/git-basics-1"
+  },
+  {
+    "id": "bfZfDTvm5IeZ",
+    "text": "Three Core Ideas: Repository, Staging Area, Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "three-core-ideas-repository-staging-area-commit"
+  },
+  {
+    "id": "M1GSDX4fYXf2",
+    "html": "<p>A <b>repository</b> (or \"repo\") is a project folder that Git is tracking. The <b>staging area</b> is where you choose exactly which changed files should go into the next snapshot — you don't have to commit everything at once. A <b>commit</b> is that snapshot, saved permanently with a short message describing what changed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TT64s6vjmr1n",
+    "text": "A Few Commands to Know",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-commands-to-know"
+  },
+  {
+    "id": "Guy90NcP0nJZ",
+    "code": "git init                  # start tracking this folder\ngit status                # what's changed since the last commit?\ngit add .                 # stage every changed file\ngit commit -m \"message\"   # save a snapshot with a message\ngit log                   # see the history of commits",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "Gw_8Gn5pIjlY",
+    "html": "<p>Every one of these is typed in the terminal — this is exactly why Command Line Basics came before this lesson, not after it.</p>",
+    "type": "callout",
+    "title": "You already have the tool for this",
+    "variant": "note"
+  },
+  {
+    "id": "MxeipMEdw-lH",
+    "text": "What Git Is Not",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-git-is-not"
+  },
+  {
+    "id": "8FhUkROoO1Kg",
+    "html": "<p>Git itself lives entirely on your own computer and needs no internet connection — it's just tracking history locally. It is not the same thing as <b>GitHub</b>, a separate website built around Git, which is exactly what the next lesson is about.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xFaBVTdF5ylu",
+    "alt": "An infographic covering Git basics — the problem before version control, what a commit actually is, the three core ideas of repository/staging area/commit, and the commands to know",
+    "type": "image",
+    "width": 1536,
+    "height": 1024,
+    "caption": "The same core loop — modify, stage, commit — taught in full depth in this site's dedicated Git & GitHub course.",
+    "publicId": "docs/img/basics/git-basics-2"
+  }
+]
+```

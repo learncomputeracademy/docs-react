@@ -1,0 +1,112 @@
+---
+id: "2b29813b-64df-4e81-b715-31143f081112"
+title: "CSS Multi-column Layout"
+path: "css/multicolumn-layout"
+status: "published"
+meta_title: "CSS Multi-column Layout | Learn Computer Academy"
+meta_description: "Flow text into newspaper-style columns automatically with column-count and column-width, without a grid or flexbox."
+sort_order: 45
+updated_at: "2026-09-03T03:54:09.439756+00:00"
+---
+
+```json
+[
+  {
+    "id": "7vuY5zlHLFu4",
+    "html": "<hr><p>Multi-column layout flows a block of content — usually text — into multiple newspaper-style columns automatically, without manually splitting it into separate elements.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "B18gT4AHTqbH",
+    "text": "column-count",
+    "type": "heading",
+    "level": 2,
+    "anchor": "column-count"
+  },
+  {
+    "id": "iMy5FUHmJIi_",
+    "code": ".article {\n  column-count: 3;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "wq0VfcvAhZGg",
+    "text": "column-width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "column-width"
+  },
+  {
+    "id": "q53Zvf4ChTbt",
+    "html": "<p>Instead of a fixed number of columns, this sets an ideal width — the browser fits as many columns of roughly that width as the container allows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GQrxfjA1ATEj",
+    "code": ".article {\n  column-width: 200px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "R9iCbriPBjkY",
+    "text": "column-gap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "column-gap"
+  },
+  {
+    "id": "UyeeEzVl_LFx",
+    "code": ".article {\n  column-count: 3;\n  column-gap: 32px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "JkSdMtzEOW1Q",
+    "text": "column-rule",
+    "type": "heading",
+    "level": 2,
+    "anchor": "column-rule"
+  },
+  {
+    "id": "-d4J4XJWfKYd",
+    "html": "<p>Draws a line between columns, styled just like <code>border</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qum7VlIK-Wiw",
+    "code": ".article {\n  column-rule: 1px solid #ccc;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "U9XCkTAd8P5B",
+    "text": "Keeping an Element From Splitting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-an-element-from-splitting"
+  },
+  {
+    "id": "1hr6q_sTf3jX",
+    "html": "<p>Without this, a heading or image can be split awkwardly across two columns.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sf_TFomIQ2t0",
+    "code": ".article h3, .article img {\n  break-inside: avoid;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "jbCaWc0W5V0_",
+    "html": "<p>Multi-column layout suits long-form text (articles, a list of short items) — for arranging distinct UI components, Grid or Flexbox from earlier lessons are almost always the better tool.</p>",
+    "type": "callout",
+    "title": "When to actually reach for this",
+    "variant": "note"
+  }
+]
+```

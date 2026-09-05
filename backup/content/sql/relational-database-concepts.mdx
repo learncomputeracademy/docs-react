@@ -1,0 +1,156 @@
+---
+id: "8e7037e6-d044-4981-8810-e48b5d4cbd7f"
+title: "Relational Databases — Concepts and SQL vs. NoSQL"
+path: "sql/relational-database-concepts"
+status: "published"
+meta_title: "Relational Databases and SQL vs. NoSQL | Learn Computer Academy"
+meta_description: "What actually makes a database \"relational,\" the real benefits and limitations of that model, and how it compares to a NoSQL database."
+sort_order: 21
+updated_at: "2026-09-03T04:30:03.610431+00:00"
+---
+
+```json
+[
+  {
+    "id": "9rbkqa1VukjN",
+    "html": "<p>Every earlier lesson in this course used a relational database without stopping to define what that word means. This lesson is the conceptual grounding — worth reading even after the syntax is comfortable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Cxq75rc1n-vD",
+    "text": "What Makes a Database \"Relational\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-a-database-relational"
+  },
+  {
+    "id": "oSOYrwFRDyo3",
+    "html": "<p>Data is organized into tables (formally called <b>relations</b>), each with a fixed set of columns, and rows related to each other through shared keys — the foreign keys from the earlier Data Constraints lesson are exactly this relationship mechanism in practice.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C91MzpSW25ng",
+    "text": "RDBMS — What the Acronym Means",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rdbms-what-the-acronym-means"
+  },
+  {
+    "id": "ux_-TOHDoo-7",
+    "html": "<p>A <b>Relational Database Management System</b> is the software that stores, organizes, and lets a program query relational data — PostgreSQL, MySQL, SQL Server, and Oracle Database are all RDBMSes; SQL is the language nearly all of them use.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LKuHw7Z1IFA7",
+    "text": "The Real Benefits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-real-benefits"
+  },
+  {
+    "id": "fJ5OlfnbBFFV",
+    "rows": [
+      [
+        "Data integrity",
+        "Constraints (PRIMARY KEY, FOREIGN KEY, CHECK) enforce correctness at the database level, not just in application code"
+      ],
+      [
+        "No duplicate data",
+        "Normalization (organizing data to avoid repeating the same information in multiple places) keeps updates consistent"
+      ],
+      [
+        "A standard query language",
+        "SQL is broadly transferable between different RDBMSes, unlike most NoSQL query APIs"
+      ],
+      [
+        "Strong consistency",
+        "A transaction's ACID guarantees (from the earlier lesson) make the data trustworthy under concurrent use"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Benefit",
+      "Why it matters"
+    ]
+  },
+  {
+    "id": "6hg7LU_jMbb7",
+    "text": "The Real Limitations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-real-limitations"
+  },
+  {
+    "id": "M_qW8onqcjdF",
+    "rows": [
+      [
+        "A fixed schema",
+        "Every row in a table must fit the same column structure — awkward for data that's naturally irregular"
+      ],
+      [
+        "Harder to scale horizontally",
+        "Splitting a relational database across many servers while keeping joins fast is a genuinely hard problem"
+      ],
+      [
+        "Joins get expensive",
+        "A query touching many related tables can slow down significantly as data grows, without careful indexing"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Limitation",
+      "Why it matters"
+    ]
+  },
+  {
+    "id": "6u9xIq9W10_c",
+    "text": "SQL vs. NoSQL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sql-vs-nosql"
+  },
+  {
+    "id": "l-462E6PhpT2",
+    "html": "<p>A <b>NoSQL</b> database (MongoDB, Redis, Cassandra, and others) trades some of the relational model's guarantees for flexibility and easier horizontal scaling — commonly storing documents, key-value pairs, or graphs instead of fixed-schema tables.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wN0KAWASQOcL",
+    "rows": [
+      [
+        "Does the data have a clear, stable structure?",
+        "Yes",
+        "No — it varies row to row"
+      ],
+      [
+        "Do relationships between records matter a lot?",
+        "Yes — joins are a core tool",
+        "Less — data is often self-contained per document"
+      ],
+      [
+        "Is strict consistency (ACID) critical?",
+        "Yes — banking, inventory, anything money-related",
+        "Sometimes acceptable to relax for speed/scale"
+      ],
+      [
+        "Does it need to scale to huge, distributed volume?",
+        "Harder, though modern RDBMSes have improved this",
+        "Often designed for this from the start"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Question",
+      "Favors SQL",
+      "Favors NoSQL"
+    ]
+  },
+  {
+    "id": "x_v81Quf7JLf",
+    "html": "<p>This site's MongoDB course covers the NoSQL side of this comparison in depth — worth a look once the relational model here feels solid, to see the same problems solved a genuinely different way.</p>",
+    "type": "callout",
+    "title": "Where to go next",
+    "variant": "note"
+  }
+]
+```

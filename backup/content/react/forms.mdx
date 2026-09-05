@@ -1,0 +1,98 @@
+---
+id: "3faab196-b6b1-4221-9ac6-d7aa8a2c0d61"
+title: "Forms in React"
+path: "react/forms"
+status: "published"
+meta_title: "React Forms | Learn Computer Academy"
+meta_description: "Building controlled form inputs in React, where state is the single source of truth for what an input displays."
+sort_order: 11
+updated_at: "2026-07-31T11:24:38.464592+00:00"
+---
+
+```json
+[
+  {
+    "id": "KezgCjigvhjg",
+    "html": "<p>An HTML input normally manages its own value internally. In React, the standard pattern — a <b>controlled input</b> — makes state the single source of truth instead, with the input just displaying whatever state says.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EhnUWZiErvaL",
+    "text": "A Controlled Text Input",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-controlled-text-input"
+  },
+  {
+    "id": "5T-v38h2A5Z0",
+    "code": "function NameForm() {\n  const [name, setName] = useState('');\n\n  return (\n    <input\n      value={name}\n      onChange={(e) => setName(e.target.value)}\n    />\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "NmyBKMd60ais",
+    "html": "<p>Every keystroke fires <code>onChange</code>, which updates state, which re-renders the input with the new value — visually instant, but it's genuinely a round trip through state every time, not the browser's own default typing behavior.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MFt2GSs2j2sv",
+    "html": "<p>Setting <code>value</code> without an <code>onChange</code> handler makes the input permanently stuck at that value — typing does nothing, since nothing ever updates the state driving <code>value</code>. This is one of the most common early mistakes with controlled inputs.</p>",
+    "type": "callout",
+    "title": "value needs onChange to actually work",
+    "variant": "warning"
+  },
+  {
+    "id": "jyXbc5KdixqT",
+    "text": "Handling Submission",
+    "type": "heading",
+    "level": 2,
+    "anchor": "handling-submission"
+  },
+  {
+    "id": "UJnSiOLBxMtS",
+    "code": "function NameForm() {\n  const [name, setName] = useState('');\n\n  function handleSubmit(e) {\n    e.preventDefault(); // stop the browser's default full-page reload\n    console.log('Submitted:', name);\n  }\n\n  return (\n    <form onSubmit={handleSubmit}>\n      <input value={name} onChange={(e) => setName(e.target.value)} />\n      <button type=\"submit\">Submit</button>\n    </form>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "EU4i1-uyEvd5",
+    "text": "Multiple Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-fields"
+  },
+  {
+    "id": "eKfNOBIoH8BH",
+    "html": "<p>One <code>useState</code> object with all the fields, updated by field name, is the common pattern once a form grows past one or two inputs:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zx5_dzRVeP-s",
+    "code": "function SignupForm() {\n  const [formData, setFormData] = useState({ name: '', email: '' });\n\n  function handleChange(e) {\n    const { name, value } = e.target;\n    setFormData({ ...formData, [name]: value }); // computed property name, from ES6\n  }\n\n  return (\n    <form>\n      <input name=\"name\" value={formData.name} onChange={handleChange} />\n      <input name=\"email\" value={formData.email} onChange={handleChange} />\n    </form>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "SC2PlSTsgMy5",
+    "html": "<p><code>{ ...formData, [name]: value }</code> is exactly the immutable-update pattern from the previous lesson — a new object, one field replaced, using the <code>name</code> attribute to pick which key to update dynamically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pSyZvdwqRyQL",
+    "text": "Checkboxes and Selects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checkboxes-and-selects"
+  },
+  {
+    "id": "uKdKxHdnZXKq",
+    "code": "function Preferences() {\n  const [subscribed, setSubscribed] = useState(false);\n\n  return (\n    <input\n      type=\"checkbox\"\n      checked={subscribed}\n      onChange={(e) => setSubscribed(e.target.checked)} // checked, not value\n    />\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

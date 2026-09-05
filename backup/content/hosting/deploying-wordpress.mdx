@@ -1,0 +1,83 @@
+---
+id: "5648c090-e63e-48ca-9b14-e2ec7738f8bb"
+title: "Deploying WordPress"
+path: "hosting/deploying-wordpress"
+status: "published"
+meta_title: "Deploying WordPress | Learn Computer Academy"
+meta_description: "The one-click path most students actually use, what it does underneath, and the manual path and migration considerations worth knowing about."
+sort_order: 26
+updated_at: "2026-08-05T13:35:38.485993+00:00"
+---
+
+```json
+[
+  {
+    "id": "CJ8XOW3KQZWo",
+    "html": "<p>WordPress deployment usually means one of two paths: a one-click installer doing the work automatically, or a manual setup that makes visible exactly what that installer is doing underneath — directly relevant to this site's <a href=\"/wordpress/\">WordPress course</a>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "l_yUxyM8TKUR",
+    "text": "Path A — The One-Click Installer",
+    "type": "heading",
+    "level": 2,
+    "anchor": "path-a-the-one-click-installer"
+  },
+  {
+    "id": "qQpPJHxrIpfM",
+    "html": "<p>Nearly every shared host's control panel includes a one-click WordPress installer. It asks for a site title, an admin username and password, and which domain or subdomain to install to — then automatically creates the database, downloads WordPress, and configures the connection between them. For a fresh WordPress site, this is genuinely the easiest and most common real-world path, not a shortcut to graduate from.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DfHQ9QvPnArW",
+    "alt": "Isometric diagram showing a one-click installer button on the left automatically producing a configured database, downloaded WordPress files, and a live site on the right, contrasted with a longer manual path below showing the same three steps done by hand",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The one-click installer automates exactly the steps the manual path does by hand.",
+    "publicId": "docs/img/hosting/deploy-wordpress-1"
+  },
+  {
+    "id": "ZuZdiAkBT0ko",
+    "text": "Path B — Manual Setup",
+    "type": "heading",
+    "level": 2,
+    "anchor": "path-b-manual-setup"
+  },
+  {
+    "id": "v4hsA9abYofH",
+    "html": "<p>Understanding the manual version clarifies what the installer automates, and matters when moving an existing site rather than starting fresh:</p><ol><li>Create a database and database user through the control panel.</li><li>Download WordPress and upload its files via FTP/SFTP.</li><li>Visit the site in a browser, which triggers WordPress's own setup wizard.</li><li>Enter the database connection details when prompted — the same connection-details step from the previous lesson, since WordPress is, underneath, a PHP application with a MySQL database.</li><li>Create the admin account and complete the setup wizard.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "IDuvNH0Hz4wJ",
+    "text": "Migrating an Existing WordPress Site",
+    "type": "heading",
+    "level": 2,
+    "anchor": "migrating-an-existing-wordpress-site"
+  },
+  {
+    "id": "w8yzsoaA7TiC",
+    "html": "<p>Moving a WordPress site already built elsewhere (a local development environment, or between hosts) involves the same underlying database-and-files pattern from the PHP lesson, plus one WordPress-specific wrinkle: the site URL is stored inside the database itself, in specific database rows, not just in a configuration file — so simply moving the files and database as-is often leaves the site pointing at the old address. Dedicated WordPress migration plugins exist specifically to handle this correctly, and are the practical, recommended path rather than editing the database by hand.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VwSKjed8t_3S",
+    "html": "<p>Never edit WordPress core files directly to make a site-specific change — updates will silently overwrite them, undoing your change with no warning. Site-specific changes belong in a theme, a child theme, or a plugin, never in WordPress's own core code. This is a repeated point in this site's WordPress course, and it matters just as much once a site is live as it does in local development.</p>",
+    "type": "callout",
+    "variant": "warning"
+  },
+  {
+    "id": "KiXvirLZPdNC",
+    "text": "The Launch Checklist",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-launch-checklist"
+  },
+  {
+    "id": "tR4_wHDM10JA",
+    "html": "<p>This site's WordPress course has its own dedicated launch-checklist lesson covering WordPress-specific pre-launch steps — search engine visibility settings, permalink structure, and similar — worth reviewing directly alongside this one rather than duplicating it here.</p>",
+    "type": "richtext"
+  }
+]
+```

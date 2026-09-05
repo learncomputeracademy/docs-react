@@ -1,0 +1,121 @@
+---
+id: "34bddc39-f921-4f29-8fda-3317af2a0c51"
+title: "Installing and Configuring Git"
+path: "git/installing-git"
+status: "published"
+meta_title: "Installing and Configuring Git | Learn Computer Academy"
+meta_description: "Getting Git installed on Windows, macOS, and Linux, and the one-time setup — your name and email — every commit will use."
+sort_order: 2
+updated_at: "2026-09-03T05:19:59.498209+00:00"
+---
+
+```json
+[
+  {
+    "id": "zMVF7lRsFs78",
+    "html": "<p>Git runs entirely from the command line — the Windows Command Line and Linux Terminal lessons from the Cybersecurity course are directly useful preparation if either feels unfamiliar.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "q_TRsIukynC-",
+    "text": "Installing Git",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-git"
+  },
+  {
+    "id": "gV45h5P4IDw8",
+    "rows": [
+      [
+        "Windows",
+        "Download and run the installer from git-scm.com — this also installs \"Git Bash,\" a terminal that behaves like Linux's"
+      ],
+      [
+        "macOS",
+        "Comes preinstalled on most systems, or run xcode-select --install, or install via Homebrew: brew install git"
+      ],
+      [
+        "Linux (Debian/Ubuntu)",
+        "sudo apt install git"
+      ],
+      [
+        "Linux (Fedora)",
+        "sudo dnf install git"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "OS",
+      "How"
+    ]
+  },
+  {
+    "id": "F4MEflOrjE9-",
+    "text": "Confirming It Installed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "confirming-it-installed"
+  },
+  {
+    "id": "Ar_ITvCl8ET5",
+    "code": "git --version\n# git version 2.43.0",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "54y92NNT7Y1g",
+    "text": "One-Time Setup — Identity",
+    "type": "heading",
+    "level": 2,
+    "anchor": "one-time-setup-identity"
+  },
+  {
+    "id": "H8y1w7Cw9VfA",
+    "html": "<p>Every commit records who made it — this needs to be set once, globally, before the first commit anywhere.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u2z3srZt5_UH",
+    "code": "git config --global user.name \"Your Name\"\ngit config --global user.email \"you@example.com\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "DtTYqx2Wi_VS",
+    "text": "A Few Other Useful Settings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-other-useful-settings"
+  },
+  {
+    "id": "We8-0I62qgdf",
+    "code": "# Set the default branch name for new repositories to \"main\"\ngit config --global init.defaultBranch main\n\n# Set a default text editor for commit messages (nano, here)\ngit config --global core.editor \"nano\"\n\n# Make Git's output colorful in the terminal\ngit config --global color.ui auto",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "qN9C6-4-Waic",
+    "text": "Checking the Current Configuration",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-the-current-configuration"
+  },
+  {
+    "id": "ot7DJFzqjR_Y",
+    "code": "git config --list\n\n# Check a single value\ngit config user.name",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "uKqaqWoeMG7I",
+    "html": "<p>These settings are stored in a plain text file — ~/.gitconfig — and can be edited directly if preferred over running commands one at a time.</p>",
+    "type": "callout",
+    "title": "Where this actually lives",
+    "variant": "note"
+  }
+]
+```

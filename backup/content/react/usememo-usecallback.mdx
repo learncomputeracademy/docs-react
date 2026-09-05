@@ -1,0 +1,96 @@
+---
+id: "dd66055a-ba69-41ff-b8e1-4fb79d524499"
+title: "useMemo and useCallback"
+path: "react/usememo-usecallback"
+status: "published"
+meta_title: "useMemo and useCallback in React | Learn Computer Academy"
+meta_description: "Memoizing an expensive calculation with useMemo, and a stable function reference with useCallback — and when bothering with either is actually worth it."
+sort_order: 20
+updated_at: "2026-07-31T11:24:42.162031+00:00"
+---
+
+```json
+[
+  {
+    "id": "jX596weNn-Zb",
+    "html": "<p>Both hooks do the same underlying thing — skip redoing work if the inputs haven't changed since last time — applied to two different kinds of value: a calculated result, and a function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wiiiwrPB1T1r",
+    "text": "The Problem: Recalculating on Every Render",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-recalculating-on-every-render"
+  },
+  {
+    "id": "O0pLurnX5bix",
+    "html": "<p>A component function re-runs on every render, which means anything computed inside it gets recomputed every time too — including work that's genuinely expensive and didn't need to change:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TFYlit6IRImB",
+    "code": "function ProductList({ products, filter }) {\n  const filtered = products.filter((p) => p.category === filter); // recalculated every render\n  return <ul>{filtered.map((p) => <li key={p.id}>{p.name}</li>)}</ul>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "fWNRLC2zL-1Z",
+    "text": "useMemo",
+    "type": "heading",
+    "level": 2,
+    "anchor": "usememo"
+  },
+  {
+    "id": "KRFVt0sDoRmc",
+    "html": "<p><code>useMemo</code> caches a calculated value, only recomputing it when something in the dependency array (the same pattern from useEffect) has actually changed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "voEAr9y1HrtS",
+    "code": "function ProductList({ products, filter }) {\n  const filtered = useMemo(\n    () => products.filter((p) => p.category === filter),\n    [products, filter]\n  );\n  return <ul>{filtered.map((p) => <li key={p.id}>{p.name}</li>)}</ul>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "bl724Lwdx2jr",
+    "text": "useCallback",
+    "type": "heading",
+    "level": 2,
+    "anchor": "usecallback"
+  },
+  {
+    "id": "2k2cC_3mHaKD",
+    "html": "<p>A new function is created on every render too, by default — usually harmless, but it matters when that function is passed as a prop to a memoized child component (via <code>React.memo</code>, from the Performance Basics lesson next), since a \"new\" function prop looks like a change even when the logic is identical. <code>useCallback</code> keeps the same function reference across renders unless its dependencies change:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3knn5avCDZpi",
+    "code": "function Parent({ items }) {\n  const handleSelect = useCallback((id) => {\n    console.log('Selected:', id);\n  }, []); // same function reference every render\n\n  return <ExpensiveList items={items} onSelect={handleSelect} />;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "lD4GKZ6bmMOj",
+    "text": "When These Are Actually Worth Using",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-these-are-actually-worth-using"
+  },
+  {
+    "id": "ZINDUvhr-1-A",
+    "html": "<p>Both add real overhead of their own — comparing the dependency array, storing the cached value. For most components, that overhead outweighs any saving, since most calculations and function creations are cheap. Reach for either specifically when a profiler has actually shown a real slowdown, or you know a calculation is genuinely expensive (sorting or filtering a large list) — not as a default habit applied to every value and function.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GQJ2tKZcUIip",
+    "html": "<p>Wrapping everything in <code>useMemo</code>/<code>useCallback</code> \"just in case\" is a common overcorrection — it adds real complexity and its own small performance cost for a benefit that, in most components, doesn't exist. Measure before optimizing.</p>",
+    "type": "callout",
+    "title": "Not a default habit",
+    "variant": "warning"
+  }
+]
+```

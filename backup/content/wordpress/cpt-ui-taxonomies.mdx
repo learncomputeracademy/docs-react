@@ -1,0 +1,96 @@
+---
+id: "e732e957-ff2d-4be6-8c41-a5dcf3078829"
+title: "Custom Taxonomies with CPT UI"
+path: "wordpress/cpt-ui-taxonomies"
+status: "published"
+meta_title: "Custom Taxonomies with CPT UI | Learn Computer Academy"
+meta_description: "Building a custom taxonomy to organize a custom post type, and the hierarchical/non-hierarchical choice that shapes how it behaves."
+sort_order: 16
+updated_at: "2026-07-30T14:23:29.275727+00:00"
+---
+
+```json
+[
+  {
+    "id": "-Qy6avuCoeR7",
+    "html": "<p>Categories and tags are themselves just <b>taxonomies</b> — a general WordPress system for grouping content — built in and pre-attached to posts. A custom post type doesn't get either by default, but CPT UI can attach a brand new taxonomy to it just as easily as it registered the post type itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nhR0JFtfFbIr",
+    "text": "Hierarchical or Not",
+    "type": "heading",
+    "level": 2,
+    "anchor": "hierarchical-or-not"
+  },
+  {
+    "id": "Rpwd2JoR_EED",
+    "html": "<p>Every taxonomy is one of two shapes, chosen when it's created:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "j_bxBDjB5E1v",
+    "rows": [
+      [
+        "Hierarchical",
+        "Categories — can have parent/child terms, shown as checkboxes in the editor",
+        "Nested groupings — \"Web Design\" under \"Services\""
+      ],
+      [
+        "Non-hierarchical",
+        "Tags — flat, no parent/child, shown as a free-form comma-separated field",
+        "Loose labels — skills, keywords, anything without a natural nesting"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Behaves like",
+      "Good for"
+    ]
+  },
+  {
+    "id": "31N--7V1HiA7",
+    "text": "Creating One",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-one"
+  },
+  {
+    "id": "YJJiFvDgTuFi",
+    "html": "<p>From <b>CPT UI → Add/Edit Taxonomies</b>, the process mirrors the post type screen: a taxonomy slug (e.g. <code>project_type</code>), plural and singular labels, the hierarchical/non-hierarchical choice above, and — the one setting that actually connects it to anything — an <b>Attached to Post Types</b> list, where you check off <code>project</code> (or whichever custom post type it should organize).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iTGRmOKofpIU",
+    "html": "<p>A single taxonomy can attach to more than one post type at once, and a single post type can have more than one taxonomy attached — a <code>project</code> post type might reasonably have both a hierarchical <code>project_type</code> taxonomy and a non-hierarchical <code>skill</code> taxonomy at the same time.</p>",
+    "type": "callout",
+    "title": "Attachments aren't one-to-one",
+    "variant": "note"
+  },
+  {
+    "id": "iK7uuXhGc7pX",
+    "text": "Using It in a Template",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-it-in-a-template"
+  },
+  {
+    "id": "FdBGFmEeCmwE",
+    "html": "<p>Once attached, a custom taxonomy works with the same functions categories and tags already use — <code>get_the_terms()</code> to list a post's terms, <code>has_term()</code> to check for a specific one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_k6ukpPvR2bf",
+    "code": "<?php\n$terms = get_the_terms( get_the_ID(), 'project_type' );\nif ( $terms && ! is_wp_error( $terms ) ) {\n    foreach ( $terms as $term ) {\n        echo esc_html( $term->name ) . ' ';\n    }\n}\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "mqhH7gCrYzDk",
+    "html": "<p>With both a post type and a taxonomy registered, the next lesson builds the template files that actually display them — following the exact same template hierarchy pattern from earlier, extended with a custom post type's own naming.</p>",
+    "type": "richtext"
+  }
+]
+```

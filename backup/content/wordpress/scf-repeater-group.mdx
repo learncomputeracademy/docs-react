@@ -1,0 +1,96 @@
+---
+id: "07b4e766-9401-41ef-b542-f639e4b10a67"
+title: "Repeater & Group Fields"
+path: "wordpress/scf-repeater-group"
+status: "published"
+meta_title: "Repeater & Group Fields | Learn Computer Academy"
+meta_description: "Building repeatable rows of structured content with SCF's Repeater field, and bundling related fields together with a Group field."
+sort_order: 21
+updated_at: "2026-07-30T14:23:30.863554+00:00"
+---
+
+```json
+[
+  {
+    "id": "aoXKHSg3N4-P",
+    "html": "<p>Every field type so far stores exactly one value. A <b>Repeater</b> field stores a whole list of them — rows an editor can add, remove, and reorder freely, each containing the same set of sub-fields.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QviZmDQgALU6",
+    "text": "A Repeater in the Editor",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-repeater-in-the-editor"
+  },
+  {
+    "id": "lKGKbNJhSuws",
+    "html": "<p>A \"Features\" repeater on a product, for example, might have two sub-fields per row: <code>feature_title</code> and <code>feature_description</code>. An editor sees an \"Add Row\" button and can end up with three rows, ten rows, or zero — the template code stays exactly the same regardless of how many.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-Zs5LO1Y3Qt2",
+    "alt": "Isometric diagram showing a vertical repeating stack of identical small card modules, each containing a couple of simple field shapes",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A repeater is one set of sub-fields, repeated as many times as an editor adds a row.",
+    "publicId": "docs/img/wordpress/repeater-fields-1"
+  },
+  {
+    "id": "qmDZwxUzgDQq",
+    "text": "Looping Over It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "looping-over-it"
+  },
+  {
+    "id": "V_YW8B-38inF",
+    "code": "<?php if ( have_rows( 'features' ) ) : ?>\n    <ul>\n    <?php while ( have_rows( 'features' ) ) : the_row(); ?>\n        <li>\n            <strong><?php the_sub_field( 'feature_title' ); ?></strong>\n            <?php the_sub_field( 'feature_description' ); ?>\n        </li>\n    <?php endwhile; ?>\n    </ul>\n<?php endif; ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "LH1eFM2F3BzG",
+    "html": "<p>The pattern deliberately echoes the Loop from earlier: <code>have_rows()</code> checks for another row, <code>the_row()</code> advances to it, and <code>the_sub_field()</code> / <code>get_sub_field()</code> read a sub-field from the current row — the same <code>the_</code>/<code>get_</code> split as regular fields, just scoped to one row at a time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VmjmhKN5i6zM",
+    "text": "Group Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "group-fields"
+  },
+  {
+    "id": "u5ujCRkZwhK7",
+    "html": "<p>A <b>Group</b> field looks similar but solves a different problem — it bundles a fixed, non-repeating set of related sub-fields under one field, mostly to keep a large field group organized rather than to repeat anything:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "doJZXtQ8sOAa",
+    "code": "<?php $address = get_field( 'company_address' ); ?>\n<p><?php echo esc_html( $address['street'] ); ?>, <?php echo esc_html( $address['city'] ); ?></p>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "VcqsChfgkuXg",
+    "html": "<p><code>get_field()</code> on a Group returns one array with every sub-field as a key — no looping needed, since there's always exactly one of it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RTyex7-2Z1MW",
+    "html": "<p>Repeaters can technically be nested inside each other, but it's worth resisting past one level. A repeater-inside-a-repeater is a genuinely awkward editing experience for whoever fills it in — if the data needs that much structure, a second custom post type (linked with a Post Object or Relationship field) is usually the better fit.</p>",
+    "type": "callout",
+    "title": "Keep repeaters shallow",
+    "variant": "tip"
+  },
+  {
+    "id": "pxgTOpgE1HnT",
+    "html": "<p>With structured, repeatable content covered, the next lesson looks at data that doesn't belong to any single post at all — site-wide settings, using an SCF options page.</p>",
+    "type": "richtext"
+  }
+]
+```

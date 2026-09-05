@@ -1,0 +1,91 @@
+---
+id: "70e427a5-5079-4ce6-b913-7095ccde31ac"
+title: "Prototypes and Prototypal Inheritance"
+path: "javascript/prototypes-and-prototypal-inheritance"
+status: "published"
+meta_title: "Prototypes and Prototypal Inheritance | Learn Computer Academy"
+meta_description: "What the class keyword is actually built on top of — the prototype chain that lets one object inherit properties and methods from another."
+sort_order: 31
+updated_at: "2026-09-03T04:17:11.704838+00:00"
+---
+
+```json
+[
+  {
+    "id": "Bf4ph_zDyBpk",
+    "html": "<hr><p>The earlier Classes and OOP lesson used the <code>class</code> keyword — but underneath it, JavaScript objects don't use classes the way other languages do. They use <b>prototypes</b>, and <code>class</code> is really a friendlier syntax built on top of that older system.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fHBfB9nf0_6o",
+    "text": "Every Object Has a Prototype",
+    "type": "heading",
+    "level": 2,
+    "anchor": "every-object-has-a-prototype"
+  },
+  {
+    "id": "YDrjAGN6d_wA",
+    "html": "<p>An object's prototype is another object it automatically looks up properties and methods on, when it doesn't have one of its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eowvXVOOKbgZ",
+    "code": "const animal = {\n  eats: true,\n}\n\nconst rabbit = Object.create(animal)   // rabbit's prototype is animal\nrabbit.jumps = true\n\nconsole.log(rabbit.jumps)   // true — rabbit's own property\nconsole.log(rabbit.eats)    // true — found on animal, its prototype",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "LXQlWgYj2Hcq",
+    "text": "The Prototype Chain",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-prototype-chain"
+  },
+  {
+    "id": "hl0DgKTIg0CM",
+    "html": "<p>If a property isn't found on the prototype either, JavaScript keeps looking up the prototype's own prototype, and so on, until it reaches <code>null</code> — this chain is why it's called <b>prototypal</b> inheritance.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zwXenfnv-sBU",
+    "text": "Where a Constructor Function's Methods Actually Live",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-a-constructor-functions-methods-actually-live"
+  },
+  {
+    "id": "FWNnWNFpZPjf",
+    "code": "function Dog(name) {\n  this.name = name\n}\n\nDog.prototype.bark = function () {\n  console.log(`${this.name} says woof!`)\n}\n\nconst rex = new Dog('Rex')\nrex.bark()   // \"Rex says woof!\" — found on Dog.prototype, not on rex itself",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "E4iF3r82IW7v",
+    "text": "class Is Prototypes, With Cleaner Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "class-is-prototypes-with-cleaner-syntax"
+  },
+  {
+    "id": "gIPFGtTeCq8G",
+    "html": "<p>A <code>class</code> method is stored on the prototype exactly the same way — <code>class</code> doesn't replace the prototype system, it's a more readable way to write to it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-mB6tT878gQt",
+    "code": "class Dog {\n  constructor(name) {\n    this.name = name\n  }\n  bark() {\n    console.log(`${this.name} says woof!`)\n  }\n}\n\n// Behind the scenes, bark() lives on Dog.prototype — same as before\nconsole.log(typeof Dog.prototype.bark)   // \"function\"",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "vePWAZqTzPOg",
+    "html": "<p>Every object created from a class or constructor function shares one copy of each method on the prototype — this is why methods (unlike properties set in the constructor) don't take extra memory per object.</p>",
+    "type": "callout",
+    "title": "Why methods live on the prototype, not each object",
+    "variant": "note"
+  }
+]
+```

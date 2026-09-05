@@ -1,0 +1,111 @@
+---
+id: "42dad28b-a20e-4f7c-a004-77db5ac5d5fc"
+title: "Recursion in JavaScript"
+path: "javascript/recursion"
+status: "published"
+meta_title: "Recursion in JavaScript | Learn Computer Academy"
+meta_description: "A function calling itself to solve a smaller version of the same problem — the base case, the call stack it builds, and when to reach for it."
+sort_order: 30
+updated_at: "2026-09-03T04:17:11.357873+00:00"
+---
+
+```json
+[
+  {
+    "id": "IUzuAMFJxhwu",
+    "html": "<hr><p>Recursion is a function solving a problem by calling itself with a smaller version of that same problem, until it reaches a version simple enough to answer directly.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "T_gDPO7Vynv7",
+    "text": "A Basic Example — Factorial",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-example-factorial"
+  },
+  {
+    "id": "-4kVBR6rwkNR",
+    "code": "function factorial(n) {\n  if (n <= 1) {\n    return 1          // base case — stops the recursion\n  }\n  return n * factorial(n - 1)   // recursive case\n}\n\nfactorial(5)   // 5 * 4 * 3 * 2 * 1 = 120",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "ZPxsFRWuqJvt",
+    "text": "The Base Case Is Not Optional",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-base-case-is-not-optional"
+  },
+  {
+    "id": "7ZnJBTjateYZ",
+    "html": "<p>Without a condition that stops it, a recursive function calls itself forever — or more precisely, until the call stack runs out of room.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8NV9SSVPyKV1",
+    "code": "function countDown(n) {\n  // Missing base case — this never stops on its own\n  console.log(n)\n  countDown(n - 1)\n}\n// countDown(5) eventually throws:\n// \"Maximum call stack size exceeded\"",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "W6UaqiIBDZEu",
+    "html": "<p>Every recursive function needs a base case that's actually reachable — a base case that never triggers (a wrong comparison, an argument that never converges toward it) fails exactly the same way as no base case at all.</p>",
+    "type": "callout",
+    "title": "The most common recursion bug",
+    "variant": "warning"
+  },
+  {
+    "id": "dSV_eZYa_vuA",
+    "text": "What the Call Stack Looks Like",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-the-call-stack-looks-like"
+  },
+  {
+    "id": "N38pJmJnBuP-",
+    "html": "<p>Each recursive call adds a new frame to the call stack (from the earlier Event Loop lesson) — the function doesn't actually finish until every deeper call it made has returned.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CiKyeGfRNNB9",
+    "code": "factorial(3)\n// factorial(3) calls factorial(2)\n//   factorial(2) calls factorial(1)\n//     factorial(1) returns 1\n//   factorial(2) returns 2 * 1 = 2\n// factorial(3) returns 3 * 2 = 6",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "i1DiMDGbQGE8",
+    "text": "Recursion vs. a Loop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "recursion-vs-a-loop"
+  },
+  {
+    "id": "UhR9woi-vTgt",
+    "rows": [
+      [
+        "Often reads more naturally for a problem that's naturally recursive (traversing a tree, nested data)",
+        "Usually faster and uses less memory for a simple repeated task"
+      ],
+      [
+        "Each call adds a call stack frame — deep recursion can hit a stack size limit",
+        "No stack depth concern regardless of how many iterations"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Recursion",
+      "A loop"
+    ]
+  },
+  {
+    "id": "DzyjwbinKmh7",
+    "html": "<p>This site's Recursion tool (under Tools) visualizes the call tree unwinding step by step for a piece of code — a clearer way to see what \"each call waits for the next\" actually looks like than tracing it by hand.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

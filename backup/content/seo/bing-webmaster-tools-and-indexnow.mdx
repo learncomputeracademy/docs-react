@@ -1,0 +1,99 @@
+---
+id: "47926540-bf05-4cb0-aef0-80535260a4c5"
+title: "Bing Webmaster Tools & IndexNow"
+path: "seo/bing-webmaster-tools-and-indexnow"
+status: "published"
+meta_title: "Bing Webmaster Tools and IndexNow | Learn Computer Academy"
+meta_description: "The search engines beyond Google, and IndexNow — a protocol that lets you tell them about a changed page immediately instead of waiting to be crawled."
+sort_order: 21
+updated_at: "2026-08-05T07:22:06.098435+00:00"
+---
+
+```json
+[
+  {
+    "id": "fv1n9oSIJkAQ",
+    "html": "<p>Google is not the only search engine, and it is not the only one worth setting up for. <b>Bing Webmaster Tools</b> is the equivalent free toolset for Bing, and it comes with something Google does not offer: a way to push updates rather than wait to be crawled.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rwbcbY2cl2Nk",
+    "text": "Why Bother With Bing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-bother-with-bing"
+  },
+  {
+    "id": "UozyrWMk567D",
+    "html": "<p>Bing has a smaller share of search than Google, but three things make it worth the setup time, which is minimal:</p><ul><li>Bing's index also powers other search experiences, so coverage extends further than the Bing site itself.</li><li>Bing Webmaster Tools imports your site directly from Search Console, so setup is often a couple of clicks rather than a fresh verification.</li><li>It reports its own crawl and index data, which sometimes surfaces problems Google's tools have not flagged.</li></ul><p>The reports mirror Search Console's closely — queries and clicks, crawl status, index coverage, sitemap submission — so nothing new has to be learned.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "783JjSKKIZz9",
+    "text": "IndexNow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "indexnow"
+  },
+  {
+    "id": "XHa1Aj_40xNB",
+    "html": "<p>Normally, discovery is passive: you publish, and eventually a crawler comes back, notices the change, and updates the index. <b>IndexNow</b> inverts that. It is an open protocol that lets a site notify participating search engines the moment a URL is added, changed, or deleted.</p><p>It is supported by Bing, Yandex, Seznam, and Naver. <b>Google does not participate</b> — this is worth being clear about, because material that implies otherwise is common. For Google, the tools remain your sitemap and the URL Inspection tool.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JwH9IqP9VFcv",
+    "text": "How It Works",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-it-works"
+  },
+  {
+    "id": "TAWabNEap3co",
+    "html": "<p>The mechanism is deliberately simple. You generate a key, host it as a plain text file at your site root so the engines can verify you control the domain, and then POST a list of changed URLs whenever something changes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZwZn7zOoUFXf",
+    "code": "{\n  \"host\": \"example.com\",\n  \"key\": \"your-generated-key-here\",\n  \"keyLocation\": \"https://example.com/your-generated-key-here.txt\",\n  \"urlList\": [\n    \"https://example.com/guides/laptop-buying-guide\",\n    \"https://example.com/guides/new-article\"\n  ]\n}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "lsmS6A5ZYrcQ",
+    "html": "<p>That JSON is posted to the IndexNow endpoint. There is no account, no dashboard, and no authentication beyond the key file — hosting the file at the stated location <i>is</i> the proof of ownership.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F-ZQ1m3s-xbH",
+    "text": "Where It Fits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-it-fits"
+  },
+  {
+    "id": "OyZmMiz90uNd",
+    "html": "<p>IndexNow is worth wiring into the publishing process itself rather than running by hand: when a page is published, edited, or deleted, the notification goes out automatically as part of that action. Done that way it costs nothing ongoing and never gets forgotten.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R5mBghcZYXS0",
+    "html": "<p>This site does exactly that. Publishing or editing a lesson triggers a webhook that regenerates the affected page and, in the same step, submits its URL to IndexNow. The key file sits at the site root, and a separate one-off script exists for submitting every URL in the sitemap in bulk — useful once, when the integration was first added.</p>",
+    "type": "callout",
+    "title": "How this site does it",
+    "variant": "note"
+  },
+  {
+    "id": "CgSmZ_4i3kBM",
+    "text": "A Cautionary Case Study",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-cautionary-case-study"
+  },
+  {
+    "id": "XarUI9Hisxeo",
+    "html": "<p>This site is also a useful example of the opposite problem. Before it was rebuilt, it ran for years on its previous platform with no Search Console property, no sitemap, no canonical tags — and, as it turned out, a <code>noindex</code> tag on every single page, left in place from an earlier stage and never removed.</p><p>The site was live, the content was real and useful, and essentially none of it was in Google's index. Not because of competition or content quality, but because nothing had ever asked to be indexed, and one stray tag was actively asking not to be.</p><p>The lesson generalises: a site can be entirely invisible for reasons that have nothing to do with ranking. Before optimising anything, confirm that your pages are actually eligible to appear — which is precisely what the tools in this lesson and the last one are for.</p>",
+    "type": "richtext"
+  }
+]
+```

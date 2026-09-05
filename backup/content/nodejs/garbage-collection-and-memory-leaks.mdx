@@ -1,0 +1,128 @@
+---
+id: "8810bd34-1e0b-4ad6-8487-a0fcb1df0258"
+title: "Garbage Collection and Memory Leaks in Node.js"
+path: "nodejs/garbage-collection-and-memory-leaks"
+status: "published"
+meta_title: "Node.js Garbage Collection and Memory Leaks | Learn Computer Academy"
+meta_description: "How Node frees memory automatically, and the Node-specific patterns — a growing cache, a forgotten listener, a global array — that quietly prevent it from doing so."
+sort_order: 33
+updated_at: "2026-09-03T04:41:43.754434+00:00"
+---
+
+```json
+[
+  {
+    "id": "AGd9yEZ30DX6",
+    "html": "<p>Node uses the same V8 JavaScript engine as Chrome, and the same automatic memory management from the earlier JavaScript course's Memory Management lesson — memory is freed once nothing references it anymore. A long-running server makes a leak's consequences far more visible than a browser tab ever does.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ceTtKlHfmPz5",
+    "text": "Why This Matters More on a Server",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-more-on-a-server"
+  },
+  {
+    "id": "m91Q38-Z_tWL",
+    "html": "<p>A browser tab gets closed and its memory reclaimed completely, often within minutes. A Node server is meant to run for days or weeks — a slow leak that's invisible in a five-minute test becomes a crash from running out of memory after enough traffic.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KZdqWOwCeeq3",
+    "text": "A Common Leak — an Ever-Growing Cache",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-leak-an-ever-growing-cache"
+  },
+  {
+    "id": "GV5j6XqpXjW7",
+    "code": "// LEAK — this Map never removes anything, growing forever\nconst cache = new Map()\n\napp.get('/users/:id', async (req, res) => {\n  if (!cache.has(req.params.id)) {\n    cache.set(req.params.id, await getUser(req.params.id))\n  }\n  res.json(cache.get(req.params.id))\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "1oSEpifODSbz",
+    "code": "// FIXED — an actual cache needs an eviction strategy\nimport { LRUCache } from 'lru-cache'\nconst cache = new LRUCache({ max: 500 })   // keeps at most 500 entries",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "1Rw-2S9wK6B6",
+    "text": "A Common Leak — Event Listeners That Are Never Removed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-leak-event-listeners-that-are-never-removed"
+  },
+  {
+    "id": "DTJgcL8p5UGM",
+    "code": "// LEAK — a new listener added on every request, none ever removed\napp.get('/subscribe', (req, res) => {\n  eventEmitter.on('update', (data) => {\n    res.write(data)\n  })\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "KLD2slNAhnYq",
+    "html": "<p>Node prints a warning after 10 listeners accumulate on the same event by default — a \"MaxListenersExceededWarning\" in the console is a strong hint a listener is being added somewhere it's never being removed.</p>",
+    "type": "callout",
+    "title": "A built-in early warning",
+    "variant": "warning"
+  },
+  {
+    "id": "pJEzMpUhhYQ5",
+    "text": "Watching Memory Usage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "watching-memory-usage"
+  },
+  {
+    "id": "h3pygIIMRaa1",
+    "code": "console.log(process.memoryUsage())\n// { rss: ..., heapTotal: ..., heapUsed: ..., external: ... }\n// heapUsed climbing steadily over time, under steady load, is the signature of a leak",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "4M9XqCEwrSzY",
+    "text": "Using --inspect to Investigate",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using---inspect-to-investigate"
+  },
+  {
+    "id": "BMboia7I82uv",
+    "code": "node --inspect server.js\n# Then open chrome://inspect in Chrome to attach DevTools —\n# the Memory tab can take a heap snapshot, the same tool used\n# for browser-side leak hunting in the earlier JavaScript lesson",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "znv0SQZoOs_G",
+    "rows": [
+      [
+        "An unbounded cache (a plain object or Map that only grows)",
+        "Use an actual cache with a size limit and eviction (LRU)"
+      ],
+      [
+        "Event listeners added repeatedly, never removed",
+        "Call .removeListener() / .off() when done, or use .once() for a one-time listener"
+      ],
+      [
+        "A module-level array or object that keeps accumulating",
+        "Clear or bound it explicitly, or scope it to a request instead of the module"
+      ],
+      [
+        "A forgotten setInterval",
+        "Store the interval ID and clearInterval() it when no longer needed"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Common source",
+      "Fix"
+    ]
+  }
+]
+```

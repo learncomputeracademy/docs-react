@@ -1,0 +1,120 @@
+---
+id: "a17edecd-429e-428f-8f61-23c46a8e976f"
+title: "Introduction to Custom WordPress Theme Development"
+path: "wordpress/introduction"
+status: "published"
+meta_title: "Introduction to Custom WordPress Theme Development | Learn Computer Academy"
+meta_description: "What building a custom WordPress theme actually means, why this section skips the block editor and page builders, and the three plugins that carry the workload instead."
+sort_order: 1
+updated_at: "2026-07-30T14:23:24.141711+00:00"
+---
+
+```json
+[
+  {
+    "id": "4YziVyU-vUhM",
+    "html": "<p>WordPress powers a huge share of the websites on the internet, but there are two very different ways to build with it. One is dragging blocks or page-builder widgets onto a page and never opening a code editor. The other — what this section teaches — is writing the actual PHP template files yourself, so you control exactly what a theme does, down to the last detail.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AIT3TKk-iBAU",
+    "text": "What Makes a Theme \"Custom\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-a-theme-custom"
+  },
+  {
+    "id": "NJga12BHxNwG",
+    "html": "<p>A WordPress <b>theme</b> is the set of files that decides how a site looks and how its content is arranged on the page. An off-the-shelf theme from the WordPress theme directory is built to work for thousands of different sites at once, which means it's full of settings, options, and compromises it has to make to stay generic.</p><p>A <b>custom theme</b> is built for one site. Every template file exists because that specific site needs it, and nothing else is in the way. That's the trade you're making by learning to build one by hand: more work up front, in exchange for a site that does exactly what it needs to and nothing more.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "z626FNs7M0Iz",
+    "text": "Why This Section Skips the Block Editor",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-section-skips-the-block-editor"
+  },
+  {
+    "id": "DbGs2eLI1NHP",
+    "html": "<p>Since WordPress 5.0, the default way to write a page has been the <b>block editor</b> (also called Gutenberg) — a drag-and-drop interface for arranging content in blocks, built directly into the pages and posts screens. It's genuinely useful for a lot of sites, especially ones a non-technical owner needs to edit themselves without any help.</p><p>It's a poor fit for custom theme work, though. A block-based page stores its layout as HTML markup mixed into the post content itself, which fights against a theme built to control layout through its own PHP templates instead. This section builds themes the other way: content stays simple (plain text and structured custom fields), and the <b>theme's PHP files</b> — not the editor — decide how everything is laid out and displayed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Z_kJwaOCpTEv",
+    "html": "<p>Page builder plugins like Elementor and Divi solve a similar problem a different way — visual, drag-and-drop page building, but as a plugin layered on top of any theme. They're useful tools and worth knowing about, but they're a separate skill from what this section teaches. Here, the theme's own PHP code is what controls the page.</p>",
+    "type": "callout",
+    "title": "What about Elementor or Divi?",
+    "variant": "note"
+  },
+  {
+    "id": "JDjQL9tKiaPw",
+    "text": "The Toolkit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-toolkit"
+  },
+  {
+    "id": "O1IRTUh9h2CE",
+    "html": "<p>Three plugins do almost all of the heavy lifting for the kind of custom theme this section builds:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Xe2c9AiE3Jmb",
+    "rows": [
+      [
+        "Classic Editor",
+        "Replaces the block editor with the older, plain content editor",
+        "Keeps post content simple — plain text, not layout markup — so the theme's templates stay in charge of layout"
+      ],
+      [
+        "CPT UI",
+        "Registers custom post types and custom taxonomies through an admin screen, no PHP required",
+        "Lets a theme model real content types — \"Projects,\" \"Team Members,\" \"Testimonials\" — instead of stretching regular posts to fit"
+      ],
+      [
+        "Secure Custom Fields (SCF)",
+        "Adds structured custom fields (text, images, repeaters, and more) to any content type",
+        "Gives editors real structured fields to fill in, and gives templates a reliable, typed way to read that data back out"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Plugin",
+      "What it does",
+      "Why it's used here"
+    ]
+  },
+  {
+    "id": "Ux31RnhNCcf5",
+    "html": "<p>None of these are strictly required — WordPress can register post types and custom fields with plain PHP code alone — but all three are genuinely the practical, real-world way this kind of theme gets built, and they're what the rest of this section uses throughout.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sloYOhCByWGb",
+    "alt": "Isometric diagram of a browser request reaching a server running WordPress, PHP template files and a database producing a finished page, and that page being sent back to the browser",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A custom theme is PHP files deciding what a page looks like — not blocks, not a page builder.",
+    "publicId": "docs/img/wordpress/introduction-1"
+  },
+  {
+    "id": "DzIjebs3dtv0",
+    "text": "What You Should Already Know",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-you-should-already-know"
+  },
+  {
+    "id": "sdk-NIoBfCDj",
+    "html": "<p>This section assumes you're already comfortable with HTML, CSS, and PHP's own syntax — variables, conditionals, loops, and functions. If PHP itself still feels shaky, it's worth spending time in the <a href=\"/php/introduction/\">PHP section</a> first; everything from here on assumes that part is second nature, and focuses purely on how WordPress uses PHP to build a site.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fALt1nBvpyl8",
+    "html": "<p>The next lesson gets an actual WordPress install running locally, so every example from here on is something you can build and click through yourself.</p>",
+    "type": "richtext"
+  }
+]
+```

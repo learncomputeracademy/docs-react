@@ -1,0 +1,93 @@
+---
+id: "aec0d45b-21ae-4dfe-a583-3fdf394e4115"
+title: "CSS Font Shorthand"
+path: "css/font-shorthand"
+status: "published"
+meta_title: "CSS Font Shorthand | Learn Computer Academy"
+meta_description: "Set style, weight, size, line-height, and family in a single font property, and the exact order that syntax requires."
+sort_order: 47
+updated_at: "2026-09-03T03:54:10.010019+00:00"
+---
+
+```json
+[
+  {
+    "id": "jlMqzTJ0MzlD",
+    "html": "<hr><p>Rather than five separate declarations, the <code>font</code> shorthand sets several font properties at once — but it has a strict required order.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "viglId_uVfQV",
+    "text": "The Longhand Version",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-longhand-version"
+  },
+  {
+    "id": "-OOc3dsRPgq3",
+    "code": "p {\n  font-style: italic;\n  font-weight: bold;\n  font-size: 18px;\n  line-height: 1.5;\n  font-family: Arial, sans-serif;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "MTYicgk5aZ6V",
+    "text": "The Shorthand Version",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-shorthand-version"
+  },
+  {
+    "id": "qSRyJwa7I7RN",
+    "code": "p {\n  font: italic bold 18px/1.5 Arial, sans-serif;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "IiL9Xox7tqvQ",
+    "text": "The Required Order",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-required-order"
+  },
+  {
+    "id": "5HDus2t2LBTV",
+    "rows": [
+      [
+        "1",
+        "font-style",
+        "Optional"
+      ],
+      [
+        "2",
+        "font-weight",
+        "Optional"
+      ],
+      [
+        "3",
+        "font-size / line-height",
+        "font-size required, line-height optional (with a slash)"
+      ],
+      [
+        "4",
+        "font-family",
+        "Required — must be listed last"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Order",
+      "Value",
+      "Required?"
+    ]
+  },
+  {
+    "id": "03nKUrUGOx7i",
+    "html": "<p><code>font-size</code> and <code>font-family</code> are the only two parts that can't be skipped — leaving either out makes the whole shorthand invalid, silently falling back to default font styling.</p>",
+    "type": "callout",
+    "title": "The two required parts",
+    "variant": "warning"
+  }
+]
+```

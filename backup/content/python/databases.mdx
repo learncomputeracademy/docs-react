@@ -1,0 +1,165 @@
+---
+id: "8bcf0ee2-e2ed-45d8-847a-d59f62c5b755"
+title: "Python and Databases"
+path: "python/databases"
+status: "published"
+meta_title: "Python and Databases | Learn Computer Academy"
+meta_description: "Connecting Python to a database with sqlite3 and MySQL connectors, running queries safely, and why prepared statements matter here too."
+sort_order: 27
+updated_at: "2026-08-04T11:39:34.3356+00:00"
+---
+
+```json
+[
+  {
+    "id": "6sV7aDn3PxGK",
+    "html": "<p>This is where Python's ability to store and retrieve real data becomes practical. If you haven't looked at the <a href=\"/sql/intro/\">Introduction to SQL</a> lesson yet, this is the right point to do it — from here on, this lesson assumes you know what a table, row, and basic <code>SELECT</code> statement are.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "aypEaMZANxNw",
+    "text": "sqlite3: Built Into Python",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sqlite3-built-into-python"
+  },
+  {
+    "id": "iB5Z1cU-_7tP",
+    "html": "<p>Python's standard library includes <code>sqlite3</code> — a connector for SQLite, a simple database stored in a single file, no separate server or extension needed. It's the easiest way to start:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jj1vEv_tmZQC",
+    "code": "import sqlite3\n\nconn = sqlite3.connect(\"school.db\")\ncursor = conn.cursor()\n\ncursor.execute(\"SELECT name, course FROM students\")\nfor row in cursor.fetchall():\n    print(row)\n\nconn.close()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "XqIsx4azwNBR",
+    "text": "Connecting to MySQL",
+    "type": "heading",
+    "level": 2,
+    "anchor": "connecting-to-mysql"
+  },
+  {
+    "id": "MFOigWxmlgSS",
+    "html": "<p>For MySQL specifically — the same database this site's own <a href=\"/sql/\">SQL section</a> teaches — a third-party package handles the connection, installed with pip (from the Modules and Imports lesson):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iWpjdPurLiQp",
+    "code": "pip install mysql-connector-python",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "LvB0f6YcFPhf",
+    "code": "import mysql.connector\n\ntry:\n    conn = mysql.connector.connect(\n        host=\"localhost\",\n        user=\"root\",\n        password=\"\",\n        database=\"school\",\n    )\n    print(\"Connected successfully.\")\nexcept mysql.connector.Error as e:\n    print(f\"Connection failed: {e}\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "v5ZPK4L_ssTA",
+    "html": "<p>Wrapping the connection in <code>try</code>/<code>except</code> (from the Exception Handling lesson) matters here — a database can be temporarily unreachable for reasons unrelated to your code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xUBjd86Xf7Cq",
+    "alt": "Isometric diagram showing a Python script icon connected through a small key/plug connector shape to a cylindrical database icon, illustrating a secure connection between a script and a database",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A connector library sits between a Python script and a database, whether SQLite or MySQL.",
+    "publicId": "docs/img/python/databases-1"
+  },
+  {
+    "id": "NO5IjfA7Krkv",
+    "text": "Parameterized Queries — the Safe Way to Use Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "parameterized-queries-the-safe-way-to-use-variables"
+  },
+  {
+    "id": "A7LhNY7bM8W9",
+    "html": "<p>Never build a query by directly gluing a variable into the SQL string — this matters in every language that talks to a database, Python included. Python's database connectors use <code>%s</code> placeholders instead of gluing variables in directly:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qUdJTK98-F3j",
+    "code": "cursor = conn.cursor()\n\n# NEVER do this:\n# cursor.execute(f\"SELECT * FROM students WHERE name = '{name}'\")\n\n# Do this instead:\ncursor.execute(\"SELECT * FROM students WHERE name = %s\", (name,))\nresult = cursor.fetchone()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "BqvfuceF_Tj4",
+    "html": "<p>Gluing a variable directly into a SQL string opens the door to <b>SQL injection</b> — a visitor entering something like <code>anything' OR '1'='1</code> could rewrite your query's logic entirely. Parameterized queries close this off completely, because the database driver itself keeps data and code separate — this is not something to skip \"for simple cases,\" ever.</p>",
+    "type": "callout",
+    "title": "This is not optional",
+    "variant": "warning"
+  },
+  {
+    "id": "Xopqh6PXjDzF",
+    "text": "INSERT, UPDATE, and DELETE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "insert-update-and-delete"
+  },
+  {
+    "id": "ax2LaCKHRY2q",
+    "code": "# INSERT\ncursor.execute(\"INSERT INTO students (name, course) VALUES (%s, %s)\", (\"Priya\", \"Web Development\"))\nconn.commit()  # writes are not saved until you commit\n\n# UPDATE\ncursor.execute(\"UPDATE students SET course = %s WHERE name = %s\", (\"Graphic Design\", \"Priya\"))\nconn.commit()\n\n# DELETE\ncursor.execute(\"DELETE FROM students WHERE name = %s\", (\"Priya\",))\nconn.commit()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "9xZdm_av7AWv",
+    "html": "<p><code>conn.commit()</code> is worth flagging specifically: Python's connectors require an explicit <code>commit()</code> after a write, or the change won't actually be saved — writes aren't committed automatically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LFweutNPShI8",
+    "text": "Fetching One Row vs. Many",
+    "type": "heading",
+    "level": 2,
+    "anchor": "fetching-one-row-vs-many"
+  },
+  {
+    "id": "T-k_HnucaD1b",
+    "html": "<p>The sqlite3 example earlier used <code>fetchall()</code> — the cursor actually offers three ways to pull back results, and picking the right one avoids loading more into memory than you need:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xSt_pQzPodoX",
+    "rows": [
+      [
+        "cursor.fetchone()",
+        "A single row (or None if there are no more) — use when you expect exactly one result"
+      ],
+      [
+        "cursor.fetchmany(n)",
+        "Up to n rows at once — useful for paging through a large result set in chunks"
+      ],
+      [
+        "cursor.fetchall()",
+        "Every remaining row, as a list — fine for small result sets, wasteful for huge ones"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Returns"
+    ]
+  },
+  {
+    "id": "jZ9szqHil50-",
+    "code": "cursor.execute(\"SELECT * FROM students WHERE name = %s\", (\"Priya\",))\nstudent = cursor.fetchone()  # a single row, since names should be unique here\nprint(student)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  }
+]
+```

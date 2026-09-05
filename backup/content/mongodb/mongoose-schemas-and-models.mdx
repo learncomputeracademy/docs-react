@@ -1,0 +1,109 @@
+---
+id: "f0d8252f-3783-4b1e-8fd4-c0fee00416d9"
+title: "Mongoose — Schemas & Models"
+path: "mongodb/mongoose-schemas-and-models"
+status: "published"
+meta_title: "Mongoose — Schemas & Models | Learn Computer Academy"
+meta_description: "Using Mongoose, the most popular MongoDB library for Node.js, to define schemas and models and perform CRUD with a cleaner, structured API."
+sort_order: 19
+updated_at: "2026-08-18T10:11:27.61209+00:00"
+---
+
+```json
+[
+  {
+    "id": "ZqmycrAAqZ6Z",
+    "html": "<p><b>Mongoose</b> is a library built on top of the official driver that adds schemas, models, and validation to MongoDB from Node.js — it is the most widely used way teams actually work with MongoDB in real applications.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "21OHWAggAc8O",
+    "alt": "An isometric illustration of a blueprint-style schema diagram being used as a mold to stamp out identical document shapes",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A Mongoose schema defines the shape every document in a model should follow.",
+    "publicId": "docs/img/mongodb/mongoose-hero"
+  },
+  {
+    "id": "kgAG9gEjMGRz",
+    "text": "Installing and Connecting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-and-connecting"
+  },
+  {
+    "id": "o4DY6CXpMaME",
+    "code": "npm install mongoose",
+    "type": "code",
+    "language": "bash",
+    "runnable": true
+  },
+  {
+    "id": "BP0EjKi2EPok",
+    "code": "import mongoose from \"mongoose\"\n\nawait mongoose.connect(\"mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/learningMongo\")",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "DMIxpxOyW43-",
+    "text": "Defining a Schema",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-a-schema"
+  },
+  {
+    "id": "QafKzx8jCaaF",
+    "html": "<p>A <b>schema</b> describes the shape of a document — its fields, their types, and rules like <code>required</code> or a default value:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sVmvLPo9koz4",
+    "code": "import { Schema } from \"mongoose\"\n\nconst userSchema = new Schema({\n  name: { type: String, required: true },\n  email: { type: String, required: true, unique: true },\n  age: { type: Number, default: 18 },\n  isActive: { type: Boolean, default: true }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "Xel_Q4P5M-kX",
+    "text": "Creating a Model",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-model"
+  },
+  {
+    "id": "Bx1UY0wC0eGh",
+    "html": "<p>A <b>model</b> is a class built from a schema, giving you a real JavaScript interface for a collection — Mongoose automatically pluralizes and lowercases the name for the actual MongoDB collection (<code>\"User\"</code> becomes the <code>users</code> collection):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EJ__H72ZAVXy",
+    "code": "const User = mongoose.model(\"User\", userSchema)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "WSyQ8F6-cxEK",
+    "text": "CRUD with a Model",
+    "type": "heading",
+    "level": 2,
+    "anchor": "crud-with-a-model"
+  },
+  {
+    "id": "3nN-TC27zhPu",
+    "code": "// Create\nconst newUser = await User.create({ name: \"Rahul Verma\", email: \"rahul@example.com\" })\n\n// Read\nconst users = await User.find({ isActive: true })\n\n// Update\nawait User.updateOne({ name: \"Rahul Verma\" }, { $set: { age: 25 } })\n\n// Delete\nawait User.deleteOne({ name: \"Rahul Verma\" })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "HLj1FdNLNfC_",
+    "html": "<p>Mongoose methods largely mirror the raw driver's CRUD method names, so everything from earlier lessons transfers directly — the real value Mongoose adds is the schema, validation, and default values sitting in front of every write.</p>",
+    "type": "callout",
+    "title": "CRUD method names carry over from the raw driver",
+    "variant": "tip"
+  }
+]
+```

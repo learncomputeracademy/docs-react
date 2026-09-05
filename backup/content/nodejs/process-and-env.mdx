@@ -1,0 +1,136 @@
+---
+id: "9e1fc3f9-0576-4ec1-a412-ae8f8fc265da"
+title: "process & Environment Variables"
+path: "nodejs/process-and-env"
+status: "published"
+meta_title: "Node.js process and Environment Variables | Learn Computer Academy"
+meta_description: "Read command-line arguments and environment variables with the global process object, and keep secrets like API keys out of your source code."
+sort_order: 17
+updated_at: "2026-08-05T05:47:57.89871+00:00"
+---
+
+```json
+[
+  {
+    "id": "nb6k_2DFhank",
+    "html": "<p><code>process</code> is a global object, always available with no <code>require()</code> needed, that represents the currently running Node program itself — information about it, and ways to control it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kR3VnQCzTqmj",
+    "text": "Command-Line Arguments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "command-line-arguments"
+  },
+  {
+    "id": "w6mHXd2VmZAe",
+    "html": "<p><code>process.argv</code> is an array of everything typed on the command line:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ADrSFdmHALBQ",
+    "code": "node app.js hello world",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "AjFEUjyaN2BK",
+    "code": "console.log(process.argv)\n// ['/path/to/node', '/path/to/app.js', 'hello', 'world']",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "VbrEGK0kaZaj",
+    "html": "<p>The first two entries are always the path to Node itself and the path to the script — actual arguments start at index 2:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kRafjz9gnmFM",
+    "code": "const args = process.argv.slice(2)\nconsole.log(args)  // ['hello', 'world']",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "zbUkvtUelCZU",
+    "text": "Environment Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "environment-variables"
+  },
+  {
+    "id": "moQGXPeIrvWq",
+    "html": "<p><code>process.env</code> is an object holding <b>environment variables</b> — values set outside the program, by the operating system or whoever launches it, rather than hardcoded in the source:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ALkrVCaY-bIp",
+    "code": "console.log(process.env.HOME)  // e.g. /home/priya\nconsole.log(process.env.NODE_ENV)  // e.g. 'production', or undefined",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "NMfNNcpq8DOI",
+    "code": "PORT=4000 node app.js",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ddKf8rFRUxhx",
+    "code": "const port = process.env.PORT || 3000\nconsole.log(`Using port ${port}`)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "xRos0KScMGa8",
+    "text": "Why This Matters: Secrets",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-secrets"
+  },
+  {
+    "id": "U9JGrpmfEMjD",
+    "html": "<p>Database passwords, API keys, and similar secrets should never be written directly into a source file — anyone who can see the code (a teammate, a public repository, an AI code review tool) sees the secret too. Environment variables solve this: the secret lives outside the code, and the code just reads whatever <code>process.env</code> happens to hold at runtime.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X3l5Rzm3LnrR",
+    "code": "const apiKey = process.env.API_KEY\nif (!apiKey) {\n  throw new Error('API_KEY environment variable is required')\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "XIHxl-LBUfXE",
+    "html": "<p>A hardcoded secret that gets committed to version control is extremely hard to fully remove — even deleting it later, it stays in the project's history forever unless that history is rewritten. Reading it from <code>process.env</code> from the start avoids the problem entirely.</p>",
+    "type": "callout",
+    "title": "Never hardcode a secret",
+    "variant": "warning"
+  },
+  {
+    "id": "10saxMjhpt0l",
+    "text": "Exiting the Program",
+    "type": "heading",
+    "level": 2,
+    "anchor": "exiting-the-program"
+  },
+  {
+    "id": "dppLeKVB8Pea",
+    "html": "<p><code>process.exit(code)</code> ends the program immediately. <code>0</code> means success; any other number signals an error to whatever launched the script:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8u6GzTHpXnPq",
+    "code": "if (!apiKey) {\n  console.error('Missing API_KEY')\n  process.exit(1)\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  }
+]
+```

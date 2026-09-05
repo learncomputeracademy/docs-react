@@ -1,0 +1,105 @@
+---
+id: "9181a160-5ee1-4638-bb0f-3fcb5cfa02a4"
+title: "Projections"
+path: "mongodb/projections"
+status: "published"
+meta_title: "Projections | Learn Computer Academy"
+meta_description: "Choosing which fields a query returns, using a projection as the second argument to find()."
+sort_order: 11
+updated_at: "2026-08-18T10:11:24.689144+00:00"
+---
+
+```json
+[
+  {
+    "id": "fcByBWTZf3aT",
+    "html": "<p>By default, a query returns every field in a matching document. A <b>projection</b> — the second argument to <code>find()</code> — lets you choose exactly which fields come back, reducing how much data crosses the network for no reason.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bsuMexpnFDn2",
+    "alt": "An isometric illustration of a document with some fields highlighted green and others dimmed gray, representing selected vs excluded fields",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A projection selects which fields a query actually returns.",
+    "publicId": "docs/img/mongodb/projections-hero"
+  },
+  {
+    "id": "EuJUYpKSvZSi",
+    "text": "Including Specific Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "including-specific-fields"
+  },
+  {
+    "id": "AiBUOuFqmYyM",
+    "html": "<p>Set a field to <code>1</code> to include it. Once you include at least one field this way, only explicitly included fields (plus <code>_id</code>, unless excluded) come back:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eR0HkduotIm0",
+    "code": "db.users.find(\n  { isActive: true },\n  { name: 1, email: 1 }\n)\n// Returns only _id, name, and email — nothing else",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "6jggxRTn6-Tn",
+    "text": "Excluding Specific Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "excluding-specific-fields"
+  },
+  {
+    "id": "YMl6g-tne2uN",
+    "html": "<p>Set a field to <code>0</code> to exclude it instead, keeping everything else:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "I8NePp064y2N",
+    "code": "db.users.find(\n  {},\n  { passwordHash: 0 }\n)\n// Returns every field except passwordHash",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "ZWQrE0b8g-2y",
+    "text": "Excluding _id",
+    "type": "heading",
+    "level": 2,
+    "anchor": "excluding-_id"
+  },
+  {
+    "id": "zEXF9YS7RF2U",
+    "html": "<p><code>_id</code> is the one field always included by default even in an inclusion projection — turn it off explicitly if you don't need it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fBclb_OGXeyc",
+    "code": "db.users.find(\n  {},\n  { name: 1, email: 1, _id: 0 }\n)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "GXcCiIRwih7R",
+    "html": "<p>You cannot mix inclusion (<code>1</code>) and exclusion (<code>0</code>) in the same projection, except for <code>_id</code> — pick one direction per query. <code>{ name: 1, email: 0 }</code> throws an error.</p>",
+    "type": "callout",
+    "title": "Cannot mix 1 and 0 (except _id)",
+    "variant": "warning"
+  },
+  {
+    "id": "0HI9bYSIHqli",
+    "text": "Why This Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters"
+  },
+  {
+    "id": "y-TT1tHfWxD9",
+    "html": "<p>Beyond reducing network traffic, projections are the standard way to keep sensitive fields like password hashes out of results your application code sends to a browser — leaving them out at the query level is safer than remembering to strip them later.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,135 @@
+---
+id: "9a365504-0067-40dd-9dcf-894ba5de30c8"
+title: "Anatomy of a WordPress Theme"
+path: "wordpress/theme-anatomy"
+status: "published"
+meta_title: "Anatomy of a WordPress Theme | Learn Computer Academy"
+meta_description: "The files WordPress actually requires for something to count as a theme, and the fuller set of files a real custom theme ends up with."
+sort_order: 3
+updated_at: "2026-07-30T14:23:24.945112+00:00"
+---
+
+```json
+[
+  {
+    "id": "7U0WD39aB4ML",
+    "html": "<p>A WordPress theme is, at its simplest, just a folder of files inside <code>wp-content/themes/</code>. What makes WordPress recognize that folder as a theme — and let you activate it from <b>Appearance → Themes</b> — comes down to two specific files.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZI4Hioki152C",
+    "text": "The Only Two Required Files",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-only-two-required-files"
+  },
+  {
+    "id": "zmK1utBx9rKj",
+    "html": "<p><code>style.css</code> is the one file every theme must have, and not for its CSS — WordPress reads a comment block at the very top of it to get the theme's name, author, and version:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tdy8guAAOBRZ",
+    "code": "/*\nTheme Name: My Custom Theme\nTheme URI: https://example.com/\nAuthor: Your Name\nDescription: A custom theme built from scratch.\nVersion: 1.0.0\nRequires PHP: 7.4\nText Domain: my-custom-theme\n*/",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "IE4wVbBJce3W",
+    "html": "<p>The second required piece is a template file capable of rendering <i>something</i> — in practice this is always <code>index.php</code>, since it also doubles as WordPress's catch-all fallback (more on that in the template hierarchy lesson). A folder with just these two files is technically a valid, activatable theme, even though it would look identical on every single page.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bQhT5CPYRdKm",
+    "text": "The Files a Real Theme Has",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-files-a-real-theme-has"
+  },
+  {
+    "id": "YlEeoRQr2uD-",
+    "html": "<p>In practice, a working custom theme has quite a few more files, each with a specific job:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0MEE9oRBs79J",
+    "rows": [
+      [
+        "style.css",
+        "Theme metadata (above) — often the main stylesheet too, though enqueuing separate files is common (see the enqueuing lesson)"
+      ],
+      [
+        "functions.php",
+        "Theme setup and custom logic — effectively a plugin that's scoped to this theme"
+      ],
+      [
+        "header.php",
+        "The opening HTML shared by every page — <code>&lt;head&gt;</code>, site header, navigation"
+      ],
+      [
+        "footer.php",
+        "The closing HTML shared by every page — footer content, closing tags"
+      ],
+      [
+        "index.php",
+        "The universal fallback template — WordPress falls back to this when nothing more specific matches"
+      ],
+      [
+        "page.php",
+        "Template for standalone pages"
+      ],
+      [
+        "single.php",
+        "Template for individual blog posts"
+      ],
+      [
+        "404.php",
+        "Shown when no content matches the requested URL"
+      ],
+      [
+        "screenshot.png",
+        "Theme preview shown in Appearance → Themes — not required, but every real theme has one"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "File",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "R1Zlhlv1_2v2",
+    "text": "Creating the Folder",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-the-folder"
+  },
+  {
+    "id": "CtbDk64OUokj",
+    "html": "<p>Create a new folder inside <code>wp-content/themes/</code>, named after your theme (lowercase, hyphenated — this becomes the theme's <b>slug</b>, referenced throughout PHP code and used for text translations). Add <code>style.css</code> with the header comment above and a bare <code>index.php</code>, and the theme already shows up — and can be activated — in <b>Appearance → Themes</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xc3OFCh4bw7C",
+    "alt": "Isometric diagram of an open folder containing several labeled theme file icons, representing a WordPress theme's folder structure",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A theme's folder — this lesson's list is the shape almost every custom theme grows into.",
+    "publicId": "docs/img/wordpress/theme-anatomy-1"
+  },
+  {
+    "id": "0PiLRKbqGFnX",
+    "html": "<p><code>screenshot.png</code> should be 1200×900 pixels (a 4:3 ratio) — WordPress crops anything else, sometimes awkwardly. It's cosmetic only, but worth getting right once rather than fixing later.</p>",
+    "type": "callout",
+    "title": "Screenshot dimensions",
+    "variant": "tip"
+  },
+  {
+    "id": "I2lWnq0YZvqD",
+    "html": "<p>Every remaining lesson in this section fills in one of these files properly, starting with <code>functions.php</code> — the file that sets up everything else.</p>",
+    "type": "richtext"
+  }
+]
+```

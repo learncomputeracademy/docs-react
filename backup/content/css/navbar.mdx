@@ -4,8 +4,8 @@ title: "CSS Navbar"
 path: "css/navbar"
 status: "published"
 meta_title: "CSS Navbar | Learn Computer Academy"
-sort_order: 23
-updated_at: "2026-07-25T05:59:07.753006+00:00"
+sort_order: 29
+updated_at: "2026-08-18T08:03:08.694955+00:00"
 ---
 
 ```json
@@ -23,9 +23,22 @@ updated_at: "2026-07-25T05:59:07.753006+00:00"
     "anchor": "demo-navigation-bars"
   },
   {
+    "id": "ZigOz-RbE9Eo",
+    "alt": "A navigation bar mockup showing three link states side by side — an active link with an underline, a hovered link with a background pill, and default muted links",
+    "type": "image",
+    "width": 712,
+    "height": 168,
+    "caption": "The three states every nav link needs: default, :hover, and active-page.",
+    "publicId": "docs/img/css/navbar-example"
+  },
+  {
     "id": "Ksn8Jjt0_oJH",
-    "html": "<p>Vertical</p>\n<ul class=\"vertical ex\">\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a href=\"javascript:void(0)\">Contact</a></li>\n                                          <li><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<p>Horizontal</p>\n<ul class=\"horizontal\">\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a href=\"javascript:void(0)\">Contact</a></li>\n                                          <li class=\"rightli\" style=\"float:right\"><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<br>\n<ul class=\"horizontal gray\">\n                                          <li><a href=\"javascript:void(0)\">Home</a></li>\n                                          <li><a href=\"javascript:void(0)\">News</a></li>\n                                          <li><a class=\"active\" href=\"javascript:void(0)\">Contact</a></li>\n                                          <li class=\"rightli\" style=\"float:right\"><a href=\"javascript:void(0)\">About</a></li>\n                                        </ul>\n<hr>",
-    "type": "richtext"
+    "mode": "web",
+    "type": "tryit",
+    "files": {
+      "css": "ul.vertical {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n  width: 90%;\n  background-color: #f1f1f1;\n}\nul.vertical li a {\n  display: block;\n  color: #000;\n  padding: 8px 0 8px 16px;\n  text-decoration: none;\n}\nul.vertical a.active {\n  background-color: #0054D1;\n  color: white;\n}\nul.vertical li a:hover:not(.active) {\n  background-color: #555;\n  color: white;\n}\nul.horizontal {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n  overflow: hidden;\n  background-color: #333;\n}\nul.horizontal li {\n  float: left;\n}\nul.horizontal li a {\n  display: inline-block;\n  color: white;\n  text-align: center;\n  padding: 14px 16px;\n  text-decoration: none;\n}\nul.horizontal li a.active {\n  background-color: #0054D1;\n}\nul.horizontal li a:hover:not(.active) {\n  background-color: #000;\n}\nul.gray {\n  border: 1px solid #e7e7e7;\n  background-color: #f3f3f3;\n}\nul.gray li a {\n  display: block;\n  color: #666;\n  text-align: center;\n  padding: 14px 16px;\n  text-decoration: none;\n}\nul.gray li a.active {\n  color: white;\n  background-color: #008CBA;\n}\nul.gray li a:hover:not(.active) {\n  background-color: #ddd;\n}",
+      "html": "<p>Vertical</p>\n<ul class=\"vertical\">\n  <li><a class=\"active\" href=\"#\">Home</a></li>\n  <li><a href=\"#\">News</a></li>\n  <li><a href=\"#\">Contact</a></li>\n  <li><a href=\"#\">About</a></li>\n</ul>\n\n<p style=\"margin-top:24px\">Horizontal</p>\n<ul class=\"horizontal\">\n  <li><a class=\"active\" href=\"#\">Home</a></li>\n  <li><a href=\"#\">News</a></li>\n  <li><a href=\"#\">Contact</a></li>\n  <li style=\"float:right\"><a href=\"#\">About</a></li>\n</ul>\n\n<br>\n<ul class=\"horizontal gray\">\n  <li><a href=\"#\">Home</a></li>\n  <li><a href=\"#\">News</a></li>\n  <li><a class=\"active\" href=\"#\">Contact</a></li>\n  <li style=\"float:right\"><a href=\"#\">About</a></li>\n</ul>"
+    }
   },
   {
     "id": "dS0aZdN06Ip2",

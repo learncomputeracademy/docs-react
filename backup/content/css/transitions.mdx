@@ -1,0 +1,114 @@
+---
+id: "83f6859f-84eb-49a1-9cb3-73606bca1514"
+title: "CSS Transitions"
+path: "css/transitions"
+status: "published"
+meta_title: "CSS Transitions | Learn Computer Academy"
+meta_description: "Animate a property change smoothly over time with the transition property, instead of it happening instantly."
+sort_order: 39
+updated_at: "2026-09-03T03:54:07.714489+00:00"
+---
+
+```json
+[
+  {
+    "id": "sh6HFHNHcw-H",
+    "html": "<hr><p>Without a transition, a CSS property change (like a hover changing a background color) happens instantly. The <code>transition</code> property makes it animate smoothly over a set duration instead.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "fbi8-Zv3c6yx",
+    "text": "A Basic Transition",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-transition"
+  },
+  {
+    "id": "Oh2xpWPPKqeX",
+    "code": ".button {\n  background-color: blue;\n  transition: background-color 0.3s;\n}\n.button:hover {\n  background-color: darkblue;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "pkP2tJDDqIeF",
+    "text": "The Four Longhand Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-longhand-properties"
+  },
+  {
+    "id": "GAQzNM0ttKB7",
+    "rows": [
+      [
+        "transition-property",
+        "Which property animates — or \"all\" for every property that changes"
+      ],
+      [
+        "transition-duration",
+        "How long the animation takes"
+      ],
+      [
+        "transition-timing-function",
+        "The speed curve — ease, linear, ease-in, ease-out, ease-in-out"
+      ],
+      [
+        "transition-delay",
+        "How long to wait before starting"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Property",
+      "Controls"
+    ]
+  },
+  {
+    "id": "3v-BvI82RX8K",
+    "code": ".button {\n  transition-property: background-color, transform;\n  transition-duration: 0.3s;\n  transition-timing-function: ease-in-out;\n  transition-delay: 0s;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "jHP9ppkKVV8P",
+    "text": "The Shorthand",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-shorthand"
+  },
+  {
+    "id": "CfnN5bfgwf_5",
+    "html": "<p>All four values in one line, in the same order as the table above.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G1CVMH3fSBUT",
+    "code": ".button {\n  transition: background-color 0.3s ease-in-out 0s;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "DehR32RbNWmw",
+    "text": "Transitioning Multiple Properties",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transitioning-multiple-properties"
+  },
+  {
+    "id": "_OuhSpZXpWe7",
+    "code": ".card {\n  transition: transform 0.3s, box-shadow 0.3s;\n}\n.card:hover {\n  transform: translateY(-4px);\n  box-shadow: 0 8px 16px rgba(0,0,0,0.2);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "sxiy1Z6MYM1G",
+    "html": "<p>A transition needs a state change to trigger it — usually <code>:hover</code>, <code>:focus</code>, or a class toggled by JavaScript. Without a trigger, nothing animates.</p>",
+    "type": "callout",
+    "title": "What actually starts a transition",
+    "variant": "note"
+  }
+]
+```

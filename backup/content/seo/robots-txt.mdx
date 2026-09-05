@@ -1,0 +1,89 @@
+---
+id: "c5979753-1626-438b-bd66-29bed961b1f0"
+title: "robots.txt"
+path: "seo/robots-txt"
+status: "published"
+meta_title: "robots.txt Explained | Learn Computer Academy"
+meta_description: "What robots.txt controls, what it does not control, and the common mistake that accidentally hides an entire site from search engines."
+sort_order: 12
+updated_at: "2026-08-05T07:22:02.434419+00:00"
+---
+
+```json
+[
+  {
+    "id": "8M2tGcQTAfKM",
+    "html": "<p><code>robots.txt</code> is a plain text file at the root of a site — <code>example.com/robots.txt</code> — that tells crawlers which parts of the site they should not request. It is the first thing most crawlers look for when they arrive.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "E3hJ4c_a_Brp",
+    "text": "The Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-syntax"
+  },
+  {
+    "id": "DwC_v_c8aL8l",
+    "code": "# Applies to all crawlers\nUser-agent: *\nDisallow: /admin/\nDisallow: /cart/\nDisallow: /search?\n\n# Where the sitemap lives\nSitemap: https://example.com/sitemap.xml",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "OO7bktqHll_u",
+    "html": "<ul><li><code>User-agent</code> — which crawler the following rules apply to. <code>*</code> means all of them.</li><li><code>Disallow</code> — a path prefix crawlers should not request.</li><li><code>Allow</code> — an exception carved out of a broader <code>Disallow</code>.</li><li><code>Sitemap</code> — where your sitemap is. Covered in the next lesson.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "FSbcUe-AbCnb",
+    "text": "What It Is Actually For",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-it-is-actually-for"
+  },
+  {
+    "id": "qtVFhFi_xumv",
+    "html": "<p>The genuine uses are narrower than people assume:</p><ul><li>Keeping crawlers out of areas with no value in search — admin panels, checkout flows, internal search result pages</li><li>Preventing crawlers from wasting effort on infinite URL patterns, such as filtered listings with endless parameter combinations</li><li>Pointing crawlers at your sitemap</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "ub93cSXDgVVV",
+    "html": "<p><b>robots.txt does not make a page private and does not reliably keep it out of search results.</b> It asks well-behaved crawlers not to <i>fetch</i> a URL. A blocked page can still appear in results if other sites link to it, because the engine knows the address exists even though it has not read the content. To keep a page out of the index, use a <code>noindex</code> meta tag — and note that a page blocked in robots.txt can never be seen to <i>have</i> that tag, since the crawler is not allowed to read it.</p>",
+    "type": "callout",
+    "title": "The most misunderstood point in SEO",
+    "variant": "warning"
+  },
+  {
+    "id": "jXRYEljaU5wL",
+    "text": "The Catastrophic Mistake",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-catastrophic-mistake"
+  },
+  {
+    "id": "kwEmVTUlOqAp",
+    "code": "User-agent: *\nDisallow: /",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "-evzkVC7LbCx",
+    "html": "<p>Those two lines ask every crawler to stay away from the entire site. This is a completely legitimate configuration for a staging or development site — and it is disastrous when it reaches production, which happens more often than it should, usually because a staging file was copied across during a launch.</p><p>Checking <code>yoursite.com/robots.txt</code> immediately after any launch or migration takes ten seconds and catches this before it costs months.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-Elxk1KKj4Rx",
+    "text": "Keeping Private Things Private",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keeping-private-things-private"
+  },
+  {
+    "id": "ExYwUh1qzqbQ",
+    "html": "<p>robots.txt is publicly readable by anyone. Listing <code>Disallow: /secret-admin-panel/</code> in it announces the existence of that path to the whole world. Anything genuinely sensitive needs authentication, not a crawler directive.</p>",
+    "type": "richtext"
+  }
+]
+```

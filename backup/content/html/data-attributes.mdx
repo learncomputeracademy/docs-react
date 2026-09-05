@@ -1,0 +1,84 @@
+---
+id: "63e13166-e69a-43cc-9c0c-e6da14646e73"
+title: "HTML Data Attributes"
+path: "html/data-attributes"
+status: "published"
+meta_title: "HTML Data Attributes | Learn Computer Academy"
+meta_description: "How data-* attributes let you store extra information on an HTML element, readable from CSS and JavaScript, without inventing a non-standard attribute."
+sort_order: 39
+updated_at: "2026-09-03T03:43:15.062305+00:00"
+---
+
+```json
+[
+  {
+    "id": "BfZ_y-S83TX9",
+    "html": "<hr><p>Sometimes an element needs to carry extra information that isn't meant for the user to see directly, but is meant for your own CSS or JavaScript to read. That's exactly what data attributes are for.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9zLlN11dpTtn",
+    "text": "The data-* Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-data--syntax"
+  },
+  {
+    "id": "g6i_5FvGr15X",
+    "html": "<p>Any attribute name starting with <code>data-</code> is valid HTML and always safe to add — the browser ignores it visually, and never confuses it with a built-in attribute.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "P8n38lgrbWTQ",
+    "code": "<article\n  id=\"post-33\"\n  data-author-id=\"42\"\n  data-category=\"frontend\">\n  ...\n</article>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "tc-VAadL_GrZ",
+    "text": "Reading a Data Attribute in JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-data-attribute-in-javascript"
+  },
+  {
+    "id": "uALWuXIF90Ye",
+    "html": "<p>Every data attribute is available on an element's <code>dataset</code> property, with the name converted to camelCase.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JuFSGUmkDj6x",
+    "code": "const article = document.querySelector('#post-33')\narticle.dataset.authorId    // \"42\"\narticle.dataset.category    // \"frontend\"",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "FvW-ndeVUmX_",
+    "text": "Reading a Data Attribute in CSS",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-data-attribute-in-css"
+  },
+  {
+    "id": "cYB6MZwbySPs",
+    "html": "<p>A data attribute can also be selected and even displayed directly in CSS, using an attribute selector.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "li48tQDMSwx6",
+    "code": "article[data-category=\"frontend\"] {\n  border-left: 4px solid blue;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "LFe2YPJ6TKAp",
+    "html": "<p>Data attributes are the standard way to attach custom information to an element — avoid inventing your own non-standard attribute names, which older browsers and validators may reject.</p>",
+    "type": "callout",
+    "title": "Why not just make up an attribute",
+    "variant": "note"
+  }
+]
+```

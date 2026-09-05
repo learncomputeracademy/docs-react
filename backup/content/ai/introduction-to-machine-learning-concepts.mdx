@@ -1,0 +1,155 @@
+---
+id: "1620bcca-f6ec-4dd6-a75f-a29ca446395a"
+title: "Introduction to Machine Learning Concepts"
+path: "ai/introduction-to-machine-learning-concepts"
+status: "published"
+meta_title: "Introduction to Machine Learning Concepts | Learn Computer Academy"
+meta_description: "Supervised, unsupervised, and reinforcement learning explained conceptually — training and testing, overfitting, neural networks, and a real classifier trained live."
+sort_order: 17
+updated_at: "2026-09-03T06:44:38.237729+00:00"
+---
+
+```json
+[
+  {
+    "id": "rqB2LGqjXdSq",
+    "html": "<p>Earlier lessons described machine learning in general terms. This lesson goes into the actual categories machine learning falls into — conceptually, with no heavy mathematics required.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U3rRw7n1qssZ",
+    "text": "Supervised Learning",
+    "type": "heading",
+    "level": 2,
+    "anchor": "supervised-learning"
+  },
+  {
+    "id": "LiH7d1tXHwyY",
+    "html": "<p>The model trains on <b>labelled</b> data — pairs of input and correct output — and learns to map one to the other. It splits into two kinds of problem:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "q9s98UXOQCPE",
+    "rows": [
+      [
+        "Classification",
+        "A category",
+        "Spam or not spam; cat or dog; disease present or not"
+      ],
+      [
+        "Regression",
+        "A number",
+        "Predicting a house price; predicting delivery time; predicting an exam score from hours studied"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Kind",
+      "What the output is",
+      "Examples"
+    ]
+  },
+  {
+    "id": "mJ82tcsCMUTQ",
+    "html": "<p>A classic teaching example is the Titanic survival dataset — predicting who survived based on age, gender, and ticket class. It's a good example precisely because you already have intuitions to test (\"women and children first\" — does the data actually confirm that?).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XZwjfTaqNtZc",
+    "text": "Unsupervised Learning",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unsupervised-learning"
+  },
+  {
+    "id": "7Y9xS1lbNV9F",
+    "html": "<p>No labels this time — the model finds hidden structure in data on its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gTGZtsg_f8Tm",
+    "html": "<ul><li><b>Clustering</b> — grouping similar items together. For example, grouping thousands of customers by purchase behaviour without knowing anything about who they are demographically.</li><li><b>Dimensionality reduction</b> — compressing data with many measured features down to the few that actually capture most of the useful information.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "-l7ZRDKL8SoY",
+    "text": "Reinforcement Learning",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reinforcement-learning"
+  },
+  {
+    "id": "2HXmuUQqWywf",
+    "html": "<p>An AI agent learns by trial and error — taking actions in an environment and receiving rewards or penalties based on the outcome. This is how systems learn to play games at a superhuman level, how some robots learn to walk, and how recommendation systems learn which content keeps someone engaged.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "llDuHBBoIHp3",
+    "alt": "Infographic comparing three types of machine learning side by side — supervised learning trained on labelled input-output pairs, unsupervised learning finding hidden structure in unlabelled data, and reinforcement learning improving through trial-and-error rewards and penalties",
+    "type": "image",
+    "width": 1344,
+    "height": 576,
+    "caption": "Three different ways to learn from data, not three difficulty levels.",
+    "publicId": "docs/img/ai/introduction-to-machine-learning-concepts-1"
+  },
+  {
+    "id": "3eVmkzcilVx1",
+    "text": "Training, Testing, and the Overfitting Trap",
+    "type": "heading",
+    "level": 2,
+    "anchor": "training-testing-and-the-overfitting-trap"
+  },
+  {
+    "id": "8AjvSdJNAQIE",
+    "html": "<p>Data is normally split into a <b>training set</b> (what the model actually learns from) and a separate <b>test set</b> it never sees during training — used afterward to check whether it actually learned general patterns rather than just memorising the training examples.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ziYUJ1LYVWph",
+    "html": "<p><b>Overfitting</b> is when a model performs great on training data but poorly on new data — it memorised specifics instead of learning the underlying pattern, like a student who memorises answers to last year's exam questions instead of understanding the subject. <b>Underfitting</b> is the opposite problem: the model is too simple to capture the pattern at all, performing poorly on both training and test data.</p>",
+    "type": "callout",
+    "title": "Two Ways Training Can Go Wrong",
+    "variant": "warning"
+  },
+  {
+    "id": "_uWJZsMTzmYg",
+    "text": "Neural Networks, Without the Maths",
+    "type": "heading",
+    "level": 2,
+    "anchor": "neural-networks-without-the-maths"
+  },
+  {
+    "id": "l21Uw8i5r6Qr",
+    "html": "<p>A neural network is organised into layers of simple mathematical units (\"neurons\"). Data enters at the first layer, passes through one or more \"hidden\" layers that combine it in increasingly abstract ways, and a final layer produces the output — a category, a number, or a probability for each possible answer. You don't need to understand the maths inside each neuron to have a working mental model: more layers and more neurons generally let a network learn more complex patterns, at the cost of needing more data and more computing power to train.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BF_kyswygsuZ",
+    "text": "Watching a Real Classifier Train",
+    "type": "heading",
+    "level": 2,
+    "anchor": "watching-a-real-classifier-train"
+  },
+  {
+    "id": "esCxkG0ldWxj",
+    "html": "<p>This is genuinely one of the more satisfying things to see happen: a real neural network, trained live, for free, in a browser.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sv8WG-6rVfup",
+    "code": "import tensorflow as tf\nfrom tensorflow import keras\n\n# Load 60,000 labelled images across 10 categories\n(x_train, y_train), (x_test, y_test) = keras.datasets.cifar10.load_data()\nx_train, x_test = x_train / 255.0, x_test / 255.0  # scale pixel values\n\nmodel = keras.Sequential([\n    keras.layers.Flatten(input_shape=(32, 32, 3)),\n    keras.layers.Dense(128, activation='relu'),\n    keras.layers.Dropout(0.2),          # helps reduce overfitting\n    keras.layers.Dense(10, activation='softmax'),\n])\n\nmodel.compile(optimizer='adam',\n              loss='sparse_categorical_crossentropy',\n              metrics=['accuracy'])\n\nhistory = model.fit(x_train, y_train, epochs=10, validation_split=0.1)\n\ntest_loss, test_acc = model.evaluate(x_test, y_test, verbose=0)\nprint(f\"Test accuracy: {test_acc*100:.1f}%\")",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "3L0rNKZPstYN",
+    "html": "<p>Watch the accuracy number as training runs: it typically starts around 35% after the first pass through the data and climbs toward 55% by the tenth. That may not sound impressive, but random guessing across 10 categories would only score about 10% — and this is a genuinely simple network with no advanced techniques applied.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tRl28aCHZsbJ",
+    "html": "<p>You now understand the shape of machine learning as a field. The next lesson zooms in on the specific technology this whole section has been building toward: large language models and RAG, in real depth.</p>",
+    "type": "richtext"
+  }
+]
+```

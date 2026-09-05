@@ -5,66 +5,86 @@ path: "programming/variables"
 status: "published"
 meta_title: "Variables | Learn Computer Academy"
 sort_order: 2
-updated_at: "2026-07-25T08:16:49.764739+00:00"
+updated_at: "2026-08-18T14:27:45.654083+00:00"
 ---
 
 ```json
 [
   {
-    "id": "KV9DucS7Do-I",
+    "id": "xnQyxZHU8TIF",
     "html": "<p>A variable is a named container for a value. Instead of writing the number <code>25</code> everywhere in your code, you can store it once in a variable and refer to it by name — which makes code easier to read and easier to change.</p>",
     "type": "richtext"
   },
   {
-    "id": "Mvv0CucTHVT6",
+    "id": "j150UeFWNqfo",
     "text": "Declaring a variable",
     "type": "heading",
     "level": 2,
     "anchor": "declaring-a-variable"
   },
   {
-    "id": "3BHLVf6Qz9jd",
+    "id": "MDxjQCnKeYNE",
     "html": "<p>In JavaScript, you declare a variable with <code>let</code> and give it a value with <code>=</code>:</p>",
     "type": "richtext"
   },
   {
-    "id": "Zae1opyVUpUp",
+    "id": "DJj1RIuMtYvE",
     "code": "let score = 0;\nlet playerName = \"Alex\";\n\nconsole.log(score);       // 0\nconsole.log(playerName);  // Alex",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$score = 0;\n$playerName = \"Alex\";\n\necho $score . \"\\n\";       // 0\necho $playerName . \"\\n\";  // Alex",
+        "language": "php"
+      },
+      {
+        "code": "score = 0\nplayer_name = \"Alex\"\n\nprint(score)        # 0\nprint(player_name)  # Alex",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "0Xa8bWthq0BD",
+    "id": "Lk8yKOhakInN",
     "text": "Variables can change",
     "type": "heading",
     "level": 2,
     "anchor": "variables-can-change"
   },
   {
-    "id": "jqemOpTVaneD",
+    "id": "Sy13ympPjPA0",
     "html": "<p>The whole point of a variable is that its value can change while the program runs — that's where the name comes from.</p>",
     "type": "richtext"
   },
   {
-    "id": "P9iMRxVLMJMY",
+    "id": "oQ0O0Y8wMl9k",
     "code": "let score = 0;\nscore = 10;\nscore = score + 5;\n\nconsole.log(score); // 15",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$score = 0;\n$score = 10;\n$score = $score + 5;\n\necho $score; // 15",
+        "language": "php"
+      },
+      {
+        "code": "score = 0\nscore = 10\nscore = score + 5\n\nprint(score)  # 15",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "Sfd8Kh4Kquas",
+    "id": "ipyAwKetTipY",
     "text": "Naming rules",
     "type": "heading",
     "level": 2,
     "anchor": "naming-rules"
   },
   {
-    "id": "JaE844FHj948",
+    "id": "OeE-FNEACcLa",
     "html": "<p>A variable name must start with a letter, <code>_</code>, or <code>$</code> — not a digit — and can't contain spaces. Good names describe what the value is for.</p>",
     "type": "richtext"
   },
   {
-    "id": "Jqbww43a-x1Z",
+    "id": "Le6jiekx6Egg",
     "rows": [
       [
         "userAge",
@@ -86,7 +106,7 @@ updated_at: "2026-07-25T08:16:49.764739+00:00"
     ]
   },
   {
-    "id": "GfLwsxoukXmx",
+    "id": "Mz3Y5HMmnHem",
     "html": "<p>JavaScript variable names are case-sensitive: <code>score</code> and <code>Score</code> are two different variables.</p>",
     "type": "callout",
     "variant": "note"

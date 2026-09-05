@@ -1,0 +1,146 @@
+---
+id: "84ecc446-dc38-48e1-9114-6c985d62b62e"
+title: "How AI Learns — Machine Learning, Deep Learning & LLMs"
+path: "ai/how-ai-learns"
+status: "published"
+meta_title: "How AI Learns — Machine Learning, Deep Learning & LLMs | Learn Computer Academy"
+meta_description: "How large language models like ChatGPT actually learn to write — training data, next-token prediction, RLHF, inference, and why AI sometimes \"hallucinates.\""
+sort_order: 2
+updated_at: "2026-07-29T09:14:44.9534+00:00"
+---
+
+```json
+[
+  {
+    "id": "bKtZx6daBAo6",
+    "html": "<p>The previous lesson covered machine learning at a high level: data in, patterns found, predictions out. This lesson goes one level deeper into the specific technology behind tools like ChatGPT, Gemini, and Claude — <b>Large Language Models (LLMs)</b> — and explains exactly how they \"learn\" to write.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7EVdY6ZdY9oN",
+    "text": "Step 1: Training Data",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-1-training-data"
+  },
+  {
+    "id": "7dCpFM3EpHAB",
+    "html": "<p>LLMs are trained on enormous text datasets — a huge volume of text pulled from the internet, books, Wikipedia, code repositories, and academic papers. Text is broken into <b>tokens</b>, roughly ¾ of a word each (\"Hello\" is one token, \"ChatGPT\" is about two) — the largest models are trained on datasets measured in the trillions of tokens.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "STOueNh_kYcS",
+    "text": "Step 2: Learning by Predicting the Next Word",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-2-learning-by-predicting-the-next-word"
+  },
+  {
+    "id": "6ycrEwDGZrsZ",
+    "html": "<p>Training works by hiding the last word of a sentence and asking the model to guess it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2HGJf7hH-qKj",
+    "code": "Input:  \"The capital of France is ___\"\n\nModel predicts: \"Paris\"  → correct, reinforced\n                \"Berlin\" → wrong, corrected\n                \"Rome\"   → wrong, corrected",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "97q1Qc4Z1smL",
+    "html": "<p>This happens billions of times across trillions of examples. Each time the model is wrong, it slightly adjusts its internal settings — called <b>parameters</b> — to make a better guess next time. After enough repetitions, the model has effectively compressed the patterns of human language into those parameters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nuWpRppYc4rs",
+    "text": "Step 3: Teaching It to Be Helpful (RLHF)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-3-teaching-it-to-be-helpful-rlhf"
+  },
+  {
+    "id": "AqjVSnlNsLDo",
+    "html": "<p>Raw training alone produces a model that completes text — not necessarily one that's helpful, polite, or safe to talk to. That extra layer comes from <b>Reinforcement Learning from Human Feedback (RLHF)</b>: human reviewers rate the model's responses (\"helpful and safe\" vs. \"harmful or wrong\"), and the model is trained further to produce the kind of response people actually preferred. This step, not the raw internet text, is what makes ChatGPT feel conversational and well-mannered rather than just predicting whatever text is statistically likely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "P2ziTuF-IzAf",
+    "text": "Step 4: What Happens When You Chat (Inference)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-4-what-happens-when-you-chat-inference"
+  },
+  {
+    "id": "BOhFSM56GYE2",
+    "html": "<p>When you type a message, the model generates its reply one token at a time — each one chosen probabilistically, as the statistically most likely next token given everything before it, not looked up as a \"correct\" answer. This explains two things you may have noticed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4DtRJJSF98lN",
+    "html": "<ul><li>Asking the exact same question twice can give slightly different answers.</li><li>The model can sound completely confident while being factually wrong — because it's generating a plausible-sounding sequence of words, not checking a fact database.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "l1JfZOiDrOZy",
+    "alt": "Colorful infographic showing an AI language model predicting the next word in the sentence \"The capital of France is\", with Paris highlighted as the highest-probability correct answer among lower-probability alternatives",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "At every step, the model is choosing the statistically most likely next word — not looking one up.",
+    "publicId": "docs/img/ai/how-ai-learns-1"
+  },
+  {
+    "id": "aHUfahBQJtYr",
+    "html": "<p>An LLM is not a database that looks facts up. It's an extremely sophisticated pattern-completion engine — the same way you could complete \"Mary had a little ___\" without consulting a database, just from having seen the pattern before. This is exactly why LLMs are so good at writing and so unreliable at precise arithmetic or obscure facts.</p>",
+    "type": "callout",
+    "title": "The Mental Model That Actually Matters",
+    "variant": "tip"
+  },
+  {
+    "id": "0Lq1YRu-CH6Y",
+    "text": "Key Terms to Know",
+    "type": "heading",
+    "level": 2,
+    "anchor": "key-terms-to-know"
+  },
+  {
+    "id": "Pvp2zZZ2Oq_n",
+    "rows": [
+      [
+        "Token",
+        "The smallest chunk of text a model processes — roughly ¾ of a word."
+      ],
+      [
+        "Context window",
+        "How much text a model can \"see\" at once. Beyond this limit, it effectively forgets earlier parts of the conversation."
+      ],
+      [
+        "Parameters",
+        "The internal numbers adjusted during training — often numbering in the billions for large models. Roughly, more parameters means more capacity to learn patterns."
+      ],
+      [
+        "Temperature",
+        "A setting controlling randomness. Low temperature picks the most likely word every time (repetitive, predictable); higher temperature allows more variety and creativity."
+      ],
+      [
+        "Fine-tuning",
+        "Taking an already-trained model and training it further on a narrow, specific dataset — like a general doctor taking extra training to specialise in one field."
+      ],
+      [
+        "Hallucination",
+        "When a model states something factually wrong with total confidence — a direct result of predicting likely text rather than verifying facts."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Term",
+      "What it means"
+    ]
+  },
+  {
+    "id": "gwJy0OmGoln1",
+    "html": "<p>Understanding this — that an LLM predicts rather than knows — is the single most useful mental model for using AI tools well. The next lesson puts it to practical use: comparing the major AI models available today and knowing which one actually fits a given task.</p>",
+    "type": "richtext"
+  }
+]
+```

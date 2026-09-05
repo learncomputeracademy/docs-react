@@ -1,0 +1,110 @@
+---
+id: "91337307-9bed-4555-886a-ef87c21a7c21"
+title: "Rest and Spread Operators"
+path: "javascript/rest-and-spread-operators"
+status: "published"
+meta_title: "JavaScript Rest and Spread Operators | Learn Computer Academy"
+meta_description: "The same ... syntax doing two opposite jobs — collecting multiple values into an array, or expanding an array into individual values."
+sort_order: 34
+updated_at: "2026-09-03T04:17:12.60573+00:00"
+---
+
+```json
+[
+  {
+    "id": "59Buql9em9Fr",
+    "html": "<hr><p>The <code>...</code> syntax does one of two opposite things depending on where it's used: <b>rest</b> collects several values into one array, <b>spread</b> expands one array (or object) into several values.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "9ICgy-rvQ9CE",
+    "text": "Rest Parameters — Collecting Function Arguments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rest-parameters-collecting-function-arguments"
+  },
+  {
+    "id": "bYQGZPVHGnoF",
+    "html": "<p>Gathers any number of remaining arguments into a real array — a modern replacement for the older, array-like <code>arguments</code> object.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YLG8MXudeTrU",
+    "code": "function sum(...numbers) {\n  return numbers.reduce((total, n) => total + n, 0)\n}\n\nsum(1, 2, 3)        // 6\nsum(1, 2, 3, 4, 5)  // 15",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "t2SnovhlCjdp",
+    "text": "Rest in Destructuring",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rest-in-destructuring"
+  },
+  {
+    "id": "o-cojHFfDf17",
+    "code": "const [first, ...rest] = [10, 20, 30, 40]\nfirst   // 10\nrest    // [20, 30, 40]\n\nconst { name, ...otherFields } = { name: 'Sam', age: 28, city: 'Delhi' }\notherFields   // { age: 28, city: 'Delhi' }",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "6sH7BEZhZCq7",
+    "text": "Spread — Expanding an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "spread-expanding-an-array"
+  },
+  {
+    "id": "Qbc-K1XWt96c",
+    "code": "const a = [1, 2, 3]\nconst b = [4, 5, 6]\nconst combined = [...a, ...b]\n// [1, 2, 3, 4, 5, 6]\n\nMath.max(...a)   // 3 — spreads the array into separate arguments",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "mhHqLIXzIQvd",
+    "text": "Spread — Copying and Merging Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "spread-copying-and-merging-objects"
+  },
+  {
+    "id": "wVZQP2PZG-gQ",
+    "code": "const defaults = { theme: 'light', fontSize: 16 }\nconst userPrefs = { fontSize: 20 }\n\nconst settings = { ...defaults, ...userPrefs }\n// { theme: 'light', fontSize: 20 } — later keys override earlier ones",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "W_hAFVM1Z0AY",
+    "rows": [
+      [
+        "...args in a function parameter list",
+        "Rest — collects arguments into an array"
+      ],
+      [
+        "...arr inside an array or function call",
+        "Spread — expands an array into individual values"
+      ],
+      [
+        "...obj inside an object literal",
+        "Spread — copies an object's own properties"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Context",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "8fQyoRBt1m1P",
+    "html": "<p>Object spread (<code>{ ...original, updatedField: value }</code>) is the standard way to update state immutably in React and similar frameworks — worth being comfortable with this syntax before that course.</p>",
+    "type": "callout",
+    "title": "Where this shows up next",
+    "variant": "tip"
+  }
+]
+```

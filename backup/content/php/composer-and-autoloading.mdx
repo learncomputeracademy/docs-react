@@ -1,0 +1,140 @@
+---
+id: "d32aaab6-7994-4ac3-8938-46a7ea0ec0cb"
+title: "Composer and Autoloading"
+path: "php/composer-and-autoloading"
+status: "published"
+meta_title: "PHP Composer and Autoloading | Learn Computer Academy"
+meta_description: "PHP's package manager — installing a library, managing dependencies, and letting classes load automatically without a manual require for each one."
+sort_order: 38
+updated_at: "2026-09-03T04:05:25.046535+00:00"
+---
+
+```json
+[
+  {
+    "id": "lScfmHVpZYiT",
+    "html": "<p><b>Composer</b> is PHP's standard package manager — it installs and manages external libraries, and (just as usefully) handles loading a project's own classes automatically, without a manual <code>require</code> for every file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SGWvpt4HNJ6U",
+    "text": "Installing a Package",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-a-package"
+  },
+  {
+    "id": "yaIH6a3_eXwB",
+    "code": "composer require guzzlehttp/guzzle",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "CH6nQpVnFsK5",
+    "html": "<p>This downloads the package into a <code>vendor/</code> folder and records it (with its version) in a <code>composer.json</code> file, so the exact same dependencies can be reinstalled anywhere.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GIwvZrr81Dq4",
+    "text": "composer.json",
+    "type": "heading",
+    "level": 2,
+    "anchor": "composerjson"
+  },
+  {
+    "id": "6X5-hmtz0iDB",
+    "code": "{\n    \"require\": {\n        \"guzzlehttp/guzzle\": \"^7.0\"\n    },\n    \"autoload\": {\n        \"psr-4\": {\n            \"App\\\\\": \"app/\"\n        }\n    }\n}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "IHEH4Y_Pa5uN",
+    "text": "Using an Installed Package",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-an-installed-package"
+  },
+  {
+    "id": "Tmm7If4n1L1P",
+    "html": "<p>One line, at the top of the entry file, loads every installed package's classes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3TK3SH4GyRd6",
+    "code": "require 'vendor/autoload.php';\n\nuse GuzzleHttp\\Client;\n\n$client = new Client();",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "EisIgL2mY9Tr",
+    "text": "Autoloading a Project's Own Classes — PSR-4",
+    "type": "heading",
+    "level": 2,
+    "anchor": "autoloading-a-projects-own-classes-psr-4"
+  },
+  {
+    "id": "qNH4Np-BTQUW",
+    "html": "<p>The <code>\"App\\\\\": \"app/\"</code> line in <code>composer.json</code> above tells Composer that any class in the <code>App</code> namespace lives in the <code>app/</code> folder, following the same path — no manual <code>require</code> needed for a project's own files either.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wUBzfcCZuOi0",
+    "code": "// app/Models/User.php\nnamespace App\\Models;\n\nclass User {\n    // ...\n}\n\n// anywhere else in the project, after 'vendor/autoload.php':\nuse App\\Models\\User;\n$user = new User();   // Composer finds and loads the file automatically",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "N5bXpcj97Fvt",
+    "html": "<p>After adding or moving a class, running <code>composer dump-autoload</code> rebuilds the autoloader's internal class map.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7tnufE2ydeYp",
+    "code": "composer dump-autoload",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "guUqHh8H_-ji",
+    "rows": [
+      [
+        "composer init",
+        "Creates a new composer.json for a project"
+      ],
+      [
+        "composer require <package>",
+        "Installs a package and adds it to composer.json"
+      ],
+      [
+        "composer install",
+        "Installs everything listed in composer.json — used when cloning a project"
+      ],
+      [
+        "composer update",
+        "Updates packages to their latest allowed versions"
+      ],
+      [
+        "composer dump-autoload",
+        "Rebuilds the autoloader after adding/moving classes"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "3hvUIzgI5Dk-",
+    "html": "<p>Packagist (packagist.org) is the official package registry Composer searches — worth checking there before writing something from scratch that a well-maintained package already solves.</p>",
+    "type": "callout",
+    "title": "Where packages come from",
+    "variant": "tip"
+  }
+]
+```

@@ -1,0 +1,248 @@
+---
+id: "ae7b6c6f-e1b0-4aa4-b399-7ed82d5a7265"
+title: "File and Folder Basics"
+path: "basics/file-and-folder-basics"
+status: "published"
+meta_title: "File and Folder Basics | Learn Computer Academy"
+meta_description: "What files, folders, extensions, and paths actually are — the everyday concepts every terminal command and every line of code depends on."
+sort_order: 18
+updated_at: "2026-09-03T06:17:21.729867+00:00"
+---
+
+```json
+[
+  {
+    "id": "h6W0w1bSDuZP",
+    "html": "<p>Before you open a code editor or a terminal, it helps to be completely comfortable with two ideas you already use every day without thinking about them: <b>files</b> and <b>folders</b>. Coding just makes you interact with them more directly than clicking icons does.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "b3bzk3Rcb6tV",
+    "text": "What a File Actually Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-file-actually-is"
+  },
+  {
+    "id": "0mZ4CV_dvcT8",
+    "html": "<p>A <b>file</b> is simply a named container of data saved on your computer's storage. Every file's name has two parts: the part you choose, and an <b>extension</b> — the letters after the last dot — that tells your computer what kind of data is inside.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "09n-rYQI32DE",
+    "text": "File Extensions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "file-extensions"
+  },
+  {
+    "id": "JKDdZCZUHrmk",
+    "html": "<p>The extension is how your operating system decides which program should open a file. Rename a photo from <code>.jpg</code> to <code>.txt</code> and the image data doesn't change, but your computer will suddenly try to open it as if it were plain text.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OBZ_rY-UkkNH",
+    "rows": [
+      [
+        ".txt",
+        "Plain text, no formatting"
+      ],
+      [
+        ".html",
+        "A web page"
+      ],
+      [
+        ".css",
+        "Styling rules for a web page"
+      ],
+      [
+        ".js",
+        "JavaScript code"
+      ],
+      [
+        ".py",
+        "Python code"
+      ],
+      [
+        ".jpg / .png",
+        "An image"
+      ],
+      [
+        ".pdf",
+        "A formatted document"
+      ],
+      [
+        ".zip",
+        "A compressed bundle of other files"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Extension",
+      "What it usually means"
+    ]
+  },
+  {
+    "id": "AX9JOnbrZdAV",
+    "text": "Folders (Directories)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "folders-directories"
+  },
+  {
+    "id": "CF6fpJzfFkI0",
+    "html": "<p>A <b>folder</b> — also called a <b>directory</b> — doesn't hold data itself; it holds other files and folders. Folders can nest inside folders indefinitely, which is what lets you organize thousands of files into a structure you can actually navigate.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xu6BLt-XK94p",
+    "alt": "Isometric diagram of a computer file system showing a main folder opening into nested subfolders, each containing document, image, and code file icons",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Folders nest inside folders — a project folder might hold an images folder and a styles folder, each with their own files.",
+    "publicId": "docs/img/basics/file-and-folder-basics-1"
+  },
+  {
+    "id": "EL94QVkTlwuO",
+    "text": "Special Folders Every Operating System Has",
+    "type": "heading",
+    "level": 2,
+    "anchor": "special-folders-every-operating-system-has"
+  },
+  {
+    "id": "5RzP_g0GsIAQ",
+    "html": "<p>Every user account has one main <b>home folder</b> — <code>C:\\Users\\YourName</code> on Windows, <code>/Users/YourName</code> on macOS, <code>/home/yourname</code> on Linux — and a standard set of folders live inside it: <b>Desktop</b>, <b>Documents</b>, <b>Downloads</b>, <b>Pictures</b>. Almost every app's save dialog, and a fresh terminal window, both start you off inside this home folder.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p0N4WuaxwCJp",
+    "alt": "Isometric diagram of a home folder icon with four arrows radiating out to smaller folders representing Desktop, Documents, Downloads, and Pictures",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Desktop, Documents, Downloads, and Pictures all live inside your one home folder — they're not special beyond being created for you automatically.",
+    "publicId": "docs/img/basics/file-and-folder-basics-2"
+  },
+  {
+    "id": "ABbNi2A_Nmjc",
+    "html": "<p><b>Downloads</b> is worth knowing well specifically: it's where every browser saves a file by default, so it's usually the very first place to look for anything you just downloaded, before assuming it's missing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LevSazYWOTZR",
+    "text": "Paths — How You Point at a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "paths-how-you-point-at-a-file"
+  },
+  {
+    "id": "KcwFsa42Wlix",
+    "html": "<p>A <b>path</b> is the full address of a file or folder — the sequence of folders you'd click through to reach it, written as text instead. An <b>absolute path</b> starts from the very top of the drive; a <b>relative path</b> starts from wherever you currently are.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mAkac-FArQL1",
+    "code": "Absolute path:\nC:\\Users\\Rahul\\projects\\my-site\\index.html\n\nRelative path (from inside my-site):\n.\\images\\logo.png",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "QosL25hh6wCc",
+    "html": "<p>Windows separates folders with a backslash <code>\\</code>. macOS and Linux — and every web browser — use a forward slash <code>/</code>. This matters the moment you write a path inside actual code, like an <code>&lt;img src=\"images/logo.png\"&gt;</code> tag.</p>",
+    "type": "callout",
+    "title": "One character, two operating systems",
+    "variant": "note"
+  },
+  {
+    "id": "G5zCdndb0Edz",
+    "html": "<p>The very top of a path is called the <b>root</b> — <code>C:\\</code> on Windows, or a single <code>/</code> on macOS and Linux. Every absolute path on that drive starts from there, the same way every address in a city ultimately starts from the city itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ltrj8_tMXIx9",
+    "text": "Naming Files Well (Especially for Code)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "naming-files-well-especially-for-code"
+  },
+  {
+    "id": "tJDYv5j58_O-",
+    "html": "<p>A file name like <code>My Project Notes.txt</code> works fine when you click it, but the space in the middle causes real friction the moment you type that name instead — in a terminal, or inside code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nvGiFzxJzAnU",
+    "code": "cd My Documents\ncd : Cannot find path 'My'\n\ncd \"My Documents\"\n(works — the quotes tell the terminal it's one name, not two)",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "78ObqV7qL5Gm",
+    "html": "<p>This is why almost every real project uses lowercase names with hyphens instead of spaces — <code>my-project-notes.txt</code>, <code>project-notes.txt</code> — and avoids characters like <code>&amp;</code>, <code>#</code>, or <code>%</code> that mean something special to a terminal or a web browser. It's a habit worth building before it costs you a confusing error.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OC8yi1AIp1wd",
+    "text": "File Size — Reading the Numbers",
+    "type": "heading",
+    "level": 2,
+    "anchor": "file-size-reading-the-numbers"
+  },
+  {
+    "id": "Qb9T_MX3ju1a",
+    "html": "<p>File sizes are measured in bytes, but almost never shown as raw bytes — they're grouped into kilobytes (KB), megabytes (MB), and gigabytes (GB), each about a thousand times bigger than the last.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2eNrCRLWnSQ-",
+    "rows": [
+      [
+        "KB (kilobyte)",
+        "A short text file or a simple icon"
+      ],
+      [
+        "MB (megabyte)",
+        "A song, or a handful of photos"
+      ],
+      [
+        "GB (gigabyte)",
+        "A movie, or several thousand photos"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Unit",
+      "Roughly holds"
+    ]
+  },
+  {
+    "id": "ojon5wCm2Gya",
+    "html": "<p>Knowing this scale helps a size number mean something instantly — a 4 KB download finishing before you can blink and a 4 GB one taking several minutes aren't a coincidence, they're a thousand-times difference in actual data.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M5dfuBcdq6hI",
+    "text": "Why This Matters Before You Write Any Code",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-before-you-write-any-code"
+  },
+  {
+    "id": "CzPbfzm_XzuB",
+    "html": "<p>Every time a program saves a file, imports another file, or loads an image, it's working with a path — not a name you clicked on. Being fluent with files, folders, and paths now means the next few lessons — using a terminal, and later writing actual code — will make sense immediately instead of feeling like a second new skill on top of the first.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NaL-0HafT7mP",
+    "alt": "An infographic covering file and folder basics — what a file actually is, common file extensions, how folders nest, absolute vs. relative paths, and file naming rules for code",
+    "type": "image",
+    "width": 1536,
+    "height": 1024,
+    "caption": "The building blocks every later lesson on this site assumes — files, extensions, folders, and paths.",
+    "publicId": "docs/img/basics/file-and-folder-basics-3"
+  }
+]
+```

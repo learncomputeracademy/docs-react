@@ -1,0 +1,96 @@
+---
+id: "8398dd3b-874a-4215-be2c-a8983e7f376b"
+title: "Error Handling"
+path: "php/error-handling"
+status: "published"
+meta_title: "PHP Error Handling | Learn Computer Academy"
+meta_description: "Handling problems gracefully in PHP with try, catch, and throw, instead of letting a script crash outright."
+sort_order: 22
+updated_at: "2026-07-30T09:08:41.461125+00:00"
+---
+
+```json
+[
+  {
+    "id": "7J82QTcxyB9f",
+    "html": "<p>Things go wrong at runtime — a file might not exist, a value from a form might not be what was expected. PHP's <code>try</code>/<code>catch</code> lets a script handle that gracefully instead of crashing outright.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JzQWnU9Yx3ru",
+    "text": "try and catch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "try-and-catch"
+  },
+  {
+    "id": "kSXOAJbWvBdH",
+    "code": "<?php\n  function divide($a, $b) {\n    if ($b === 0) {\n      throw new Exception(\"Cannot divide by zero.\");\n    }\n    return $a / $b;\n  }\n\n  try {\n    echo divide(10, 0);\n  } catch (Exception $e) {\n    echo \"Error: \" . $e->getMessage();\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "catBJr62VRDy",
+    "html": "<p><code>throw</code> raises an exception; the nearest surrounding <code>catch</code> block that matches its type intercepts it, and the script keeps running from there instead of stopping.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hA2t69_nGT1m",
+    "text": "finally",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finally"
+  },
+  {
+    "id": "to6rgXBXeHX3",
+    "html": "<p>Code inside <code>finally</code> always runs, whether an exception was thrown or not — useful for cleanup that must happen either way, like closing a file:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_9KT___G51A6",
+    "code": "<?php\n  try {\n    echo divide(10, 2);\n  } catch (Exception $e) {\n    echo \"Error: \" . $e->getMessage();\n  } finally {\n    echo \"\\nDone.\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "CURo7RhuCTz3",
+    "text": "Catching Specific Exception Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "catching-specific-exception-types"
+  },
+  {
+    "id": "06hyG_ISYYs3",
+    "html": "<p>PHP has several built-in exception types, and you can catch a more specific one before a general <code>Exception</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bUe10SZarMAw",
+    "code": "<?php\n  try {\n    $result = 10 / 0; // DivisionByZeroError, not a regular Exception\n  } catch (DivisionByZeroError $e) {\n    echo \"Specifically caught: \" . $e->getMessage();\n  } catch (Exception $e) {\n    echo \"General error: \" . $e->getMessage();\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "_vH-tjLh22B2",
+    "html": "<p>Order matters when catching multiple types — PHP checks <code>catch</code> blocks top to bottom and uses the first one that matches, so a specific type should always come before a more general one that would otherwise catch it first.</p>",
+    "type": "callout",
+    "title": "Specific catch blocks go first",
+    "variant": "note"
+  },
+  {
+    "id": "H9oLWsbNZ8N4",
+    "text": "Why This Matters for Real Sites",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters-for-real-sites"
+  },
+  {
+    "id": "jrg2hgCnsLmc",
+    "html": "<p>An uncaught error on a live PHP site can expose a raw error message — sometimes including file paths or database details — directly to a visitor. Wrapping risky operations (file access, database queries, anything talking to something outside your own script) in <code>try</code>/<code>catch</code> is what turns that into a clean, controlled message instead.</p>",
+    "type": "richtext"
+  }
+]
+```

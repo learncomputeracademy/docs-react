@@ -1,0 +1,129 @@
+---
+id: "78e129b8-5946-43a3-aafe-891dad20aefc"
+title: "Concurrency Beyond the Event Loop — Child Processes, Worker Threads, and Cluster"
+path: "nodejs/concurrency-child-process-worker-threads-cluster"
+status: "published"
+meta_title: "Node.js Concurrency — Child Process, Worker Threads, Cluster | Learn Computer Academy"
+meta_description: "Three ways Node uses more than its one main thread — running another program, offloading CPU-heavy work, and using every CPU core for a server."
+sort_order: 29
+updated_at: "2026-09-03T04:41:42.535628+00:00"
+---
+
+```json
+[
+  {
+    "id": "WJxFilfCo0Od",
+    "html": "<p>The earlier Event Loop lesson explained why Node handles many requests on a single thread — that works well because most server work is <i>waiting</i> (on a file, a database, a network response), not <i>computing</i>. These three tools cover the cases where that single thread genuinely isn't enough.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3ZXNbeD5lV67",
+    "text": "child_process — Running Another Program",
+    "type": "heading",
+    "level": 2,
+    "anchor": "child_process-running-another-program"
+  },
+  {
+    "id": "4ECMTdi2qbLT",
+    "html": "<p>Runs a separate operating-system process — another program entirely, not more JavaScript on the same thread.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MO7WDzidXniF",
+    "code": "import { exec } from 'child_process'\n\nexec('ls -la', (err, stdout, stderr) => {\n  if (err) throw err\n  console.log(stdout)\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "MSLrJLnaUs_M",
+    "html": "<ul><li>Common uses: running a shell command, converting a file with an external tool (like ImageMagick or ffmpeg), or spawning another script.</li><li>The new process runs fully independently — Node's own event loop stays free while it works.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "XI8Q4ddB6LST",
+    "text": "worker_threads — Offloading CPU-Heavy JavaScript",
+    "type": "heading",
+    "level": 2,
+    "anchor": "worker_threads-offloading-cpu-heavy-javascript"
+  },
+  {
+    "id": "7Elcfxh-o4ON",
+    "html": "<p>Unlike <code>child_process</code>, a worker thread runs more JavaScript, in a real OS thread separate from the main one — for CPU-intensive work (heavy computation, image processing, large data transformation) that would otherwise block the event loop for everyone.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "44a1PTOSrihS",
+    "code": "// worker.js\nimport { parentPort, workerData } from 'worker_threads'\n\nfunction heavyComputation(n) {\n  let result = 0\n  for (let i = 0; i < n; i++) result += i\n  return result\n}\n\nparentPort.postMessage(heavyComputation(workerData))",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "w1BthbzufO2G",
+    "code": "// main.js\nimport { Worker } from 'worker_threads'\n\nconst worker = new Worker('./worker.js', { workerData: 1_000_000_000 })\nworker.on('message', (result) => {\n  console.log('Result:', result)\n})\n// The main thread — and the server's ability to handle other requests —\n// stays responsive while this runs",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "GT45gRZC8KYt",
+    "html": "<p>Running heavy synchronous computation directly on the main thread (instead of a worker) blocks every request the server is handling — this is the actual failure mode \"Node is single-threaded\" warnings are about.</p>",
+    "type": "callout",
+    "title": "What worker_threads actually prevents",
+    "variant": "warning"
+  },
+  {
+    "id": "VL5VtbMYjTcI",
+    "text": "cluster — Using Every CPU Core",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cluster-using-every-cpu-core"
+  },
+  {
+    "id": "VxxquOTcn3gH",
+    "html": "<p>A single Node process only ever uses one CPU core. <code>cluster</code> forks multiple copies of the whole application — one per core — with a built-in load balancer distributing incoming requests between them.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AfmjF3xYb4CW",
+    "code": "import cluster from 'cluster'\nimport os from 'os'\n\nif (cluster.isPrimary) {\n  const cpuCount = os.cpus().length\n  for (let i = 0; i < cpuCount; i++) {\n    cluster.fork()\n  }\n} else {\n  // This code runs in each worker process — the actual server\n  startServer()\n}",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "5Pyjq_9_lUQ8",
+    "rows": [
+      [
+        "child_process",
+        "A separate OS process, any program",
+        "Running a shell command or external tool"
+      ],
+      [
+        "worker_threads",
+        "More JavaScript, a separate OS thread",
+        "CPU-heavy computation that would block the event loop"
+      ],
+      [
+        "cluster",
+        "Multiple copies of the whole app, one per CPU core",
+        "Using every core on a multi-core server for more throughput"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "Runs",
+      "Use for"
+    ]
+  },
+  {
+    "id": "-U2kKkeBpn-Z",
+    "html": "<p>Tools like PM2 (covered in this site's Hosting & Deployment course) manage clustering and process restarts automatically — worth knowing the underlying cluster module conceptually, even when a tool handles it in practice.</p>",
+    "type": "callout",
+    "title": "What most real projects actually use",
+    "variant": "note"
+  }
+]
+```

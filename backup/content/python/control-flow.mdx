@@ -1,0 +1,125 @@
+---
+id: "7f61d133-b901-452c-91fe-ec6fcedc85a3"
+title: "If, Elif, Else"
+path: "python/control-flow"
+status: "published"
+meta_title: "Python If, Elif, Else | Learn Computer Academy"
+meta_description: "Python's conditional statements — if, elif, else, and the ternary and walrus shortcuts."
+sort_order: 14
+updated_at: "2026-08-04T11:39:30.529272+00:00"
+---
+
+```json
+[
+  {
+    "id": "wV2qfHAfReuN",
+    "html": "<p>Conditionals let a script make decisions — the same idea from <a href=\"/programming/if-statements/\">Intro to Programming</a>, with Python's indentation-based syntax and no parentheses required around the condition.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0vywbW0Kxqr3",
+    "text": "if, elif, else",
+    "type": "heading",
+    "level": 2,
+    "anchor": "if-elif-else"
+  },
+  {
+    "id": "tk9TsgI6m3G4",
+    "code": "score = 72\nif score >= 90:\n    print(\"Grade: A\")\nelif score >= 75:\n    print(\"Grade: B\")\nelif score >= 60:\n    print(\"Grade: C\")\nelse:\n    print(\"Grade: F\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "wcJfU3U2CLzV",
+    "html": "<p>Python spells the middle case <code>elif</code> — not <code>elseif</code> and not <code>else if</code> as two words. This is one of the most common typos when you're getting used to Python's syntax.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KMt_KLI-HM_d",
+    "text": "No switch Statement",
+    "type": "heading",
+    "level": 2,
+    "anchor": "no-switch-statement"
+  },
+  {
+    "id": "87gB4XT5ZO0r",
+    "html": "<p>Python has no <code>switch</code> statement the way many other languages do (a genuine <code>match</code> statement was added in Python 3.10, but a long <code>elif</code> chain remains the more common, portable way to write this):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mYwAYn9_vJgo",
+    "code": "day = \"Mon\"\nif day in (\"Mon\", \"Tue\", \"Wed\", \"Thu\", \"Fri\"):\n    print(\"Weekday\")\nelif day in (\"Sat\", \"Sun\"):\n    print(\"Weekend\")\nelse:\n    print(\"Not a valid day\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "bvafhA10FMr3",
+    "html": "<p><code>in (...)</code> — checking whether a value is one of several — is the idiomatic Python way to check a value against a list of options.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "acZFCh0rfaw-",
+    "text": "The Ternary Shortcut",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-ternary-shortcut"
+  },
+  {
+    "id": "kOSUIBhUZ86Y",
+    "html": "<p>A compact one-line <code>if/else</code>, with the condition placed in the middle:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1D-1ZkiBD4iF",
+    "code": "age = 20\nstatus = \"adult\" if age >= 18 else \"minor\"\nprint(status)  # \"adult\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Iv4bOuj8kJa_",
+    "text": "Truthiness in Practice",
+    "type": "heading",
+    "level": 2,
+    "anchor": "truthiness-in-practice"
+  },
+  {
+    "id": "b2EWpTulgL5S",
+    "html": "<p>Because of Python's truthy/falsy rules (from the Type Conversion lesson), checking whether a list or string is empty rarely needs a length check:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fddbK5l0k6_z",
+    "code": "items = []\nif items:\n    print(\"Has items\")\nelse:\n    print(\"Empty\")  # this runs — an empty list is falsy",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "MXtGiE1sX1OM",
+    "text": "The Walrus Operator",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-walrus-operator"
+  },
+  {
+    "id": "ZAlIcpJ_kUST",
+    "html": "<p><code>:=</code> — nicknamed the <b>walrus operator</b> for its resemblance to a pair of eyes and tusks — assigns a value <i>and</i> returns it in the same expression, added in Python 3.8. Its most common use is avoiding calling the same thing twice:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "h8pktpnXBV2O",
+    "code": "# Without the walrus — calling len() twice:\nnames = [\"Priya\", \"Amit\", \"Sara\"]\nif len(names) > 2:\n    print(f\"{len(names)} names\")\n\n# With the walrus — computed once, used twice:\nif (count := len(names)) > 2:\n    print(f\"{count} names\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "QLIbWaBlb0JG",
+    "html": "<p>It's a small convenience, not a feature you'll need constantly — reach for it when the same value would otherwise be computed twice in an <code>if</code> condition and its body.</p>",
+    "type": "richtext"
+  }
+]
+```

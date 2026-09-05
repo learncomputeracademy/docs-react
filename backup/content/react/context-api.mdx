@@ -1,0 +1,93 @@
+---
+id: "13ac8078-20b3-4cea-9ce5-c798be490daf"
+title: "The Context API"
+path: "react/context-api"
+status: "published"
+meta_title: "The React Context API | Learn Computer Academy"
+meta_description: "Sharing state across many components without passing props through every level in between — the Context API and useContext."
+sort_order: 17
+updated_at: "2026-07-31T11:24:41.275212+00:00"
+---
+
+```json
+[
+  {
+    "id": "6txHxNRvhgwE",
+    "html": "<p>Lifting state up works well when the components that need to share data are close together. It breaks down when a value — the current theme, the logged-in user, the selected language — is needed by components scattered deep across the tree, with layers of unrelated components in between that would have to pass it through for no reason of their own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6YrOcieLRp-V",
+    "text": "The Problem: Prop Drilling",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-prop-drilling"
+  },
+  {
+    "id": "VDkC13ylH0BD",
+    "code": "function App() {\n  const [theme, setTheme] = useState('light');\n  return <Page theme={theme} />;\n}\nfunction Page({ theme }) {\n  return <Sidebar theme={theme} />; // Page never actually uses theme itself\n}\nfunction Sidebar({ theme }) {\n  return <Avatar theme={theme} />; // neither does Sidebar\n}\nfunction Avatar({ theme }) {\n  return <img className={theme} />; // only this one actually needs it\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "8lZ7awvDuY9T",
+    "html": "<p>This chain — passing a prop through components that don't use it themselves, purely to reach one that does — is called <b>prop drilling</b>. It works, but it makes every component in the middle depend on something that isn't really its concern.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "F_xJhFandSR4",
+    "alt": "Isometric diagram split into two halves: on the left, a prop passed manually through a tall stack of nested boxes labeled prop drilling; on the right, the same value delivered directly from a top-level provider straight to one deeply nested box via context",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Prop drilling passes a value through every layer in between; context skips straight to whichever component actually needs it.",
+    "publicId": "docs/img/react/context-1"
+  },
+  {
+    "id": "5bf5_kJj-7_K",
+    "text": "Creating and Providing Context",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-and-providing-context"
+  },
+  {
+    "id": "Vk_oEsI6Cy03",
+    "code": "import { createContext, useState, useContext } from 'react';\n\nconst ThemeContext = createContext(null);\n\nfunction App() {\n  const [theme, setTheme] = useState('light');\n  return (\n    <ThemeContext.Provider value={theme}>\n      <Page />\n    </ThemeContext.Provider>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "Irw0kRdquvo3",
+    "text": "Reading Context with useContext",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-context-with-usecontext"
+  },
+  {
+    "id": "uBOmQwGtMBoV",
+    "html": "<p>Any component anywhere inside the <code>Provider</code> can read the value directly — no props passed through the components in between at all:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TRzvix2fuZFc",
+    "code": "function Page() {\n  return <Sidebar />; // no theme prop needed here anymore\n}\nfunction Sidebar() {\n  return <Avatar />; // or here\n}\nfunction Avatar() {\n  const theme = useContext(ThemeContext); // reads it directly\n  return <img className={theme} />;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "fyeRF9WugWB6",
+    "text": "When to Reach for Context",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-to-reach-for-context"
+  },
+  {
+    "id": "8MQL9XnQM8gs",
+    "html": "<p>Context is the right tool for genuinely global, rarely-changing values — theme, logged-in user, current locale. For state that's only shared between two or three closely related components, lifting state up (the earlier lesson) is usually simpler and keeps the data flow easier to trace. Reaching for context by default, everywhere, trades one problem (prop drilling) for another (hard-to-trace implicit dependencies).</p>",
+    "type": "richtext"
+  }
+]
+```

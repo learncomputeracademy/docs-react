@@ -1,0 +1,124 @@
+---
+id: "12475d2d-35b3-402e-9834-5e0094309a80"
+title: "Deploying PHP with a Database"
+path: "hosting/deploying-php-with-a-database"
+status: "published"
+meta_title: "Deploying a PHP Site with a Database | Learn Computer Academy"
+meta_description: "A start-to-finish walkthrough for deploying a PHP project that needs a live MySQL database, including the connection-details step every student trips on."
+sort_order: 25
+updated_at: "2026-08-05T13:35:38.066971+00:00"
+---
+
+```json
+[
+  {
+    "id": "FYGCRXKcvHNg",
+    "html": "<p>A PHP project with a database — the kind built across this site's <a href=\"/php/\">PHP</a> and <a href=\"/sql/\">SQL</a> courses — needs one more piece than a static site: a real, live database on the server, not just uploaded files.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eF2VzbsiNVEE",
+    "text": "What You Need",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-you-need"
+  },
+  {
+    "id": "8ymmZEQmKFIu",
+    "html": "<p>Shared hosting, per the choosing-hosting-for-your-stack lesson — it is built around exactly this combination. You'll use the control panel's file manager or FTP for the code, and its database tools for the database itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JIcUgzNRuOwv",
+    "text": "The Walkthrough",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-walkthrough"
+  },
+  {
+    "id": "0eF-J68T6xRh",
+    "html": "<ol><li><b>Create a database</b> through your host's control panel — this generates a database name, and usually a dedicated database username and password, separate from your hosting login.</li><li><b>Import your database structure and data</b>, typically through phpMyAdmin's import feature, uploading a <code>.sql</code> file exported from your local development database.</li><li><b>Upload your PHP files</b> via FTP/SFTP or the control panel's file manager, into <code>public_html</code>.</li><li><b>Update your database connection details in the code</b> — this is the step almost everyone forgets, covered next.</li><li><b>Test the live site</b>, specifically any page or feature that touches the database.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "ypPcxe5MXmvq",
+    "alt": "Isometric diagram showing PHP files being uploaded to a server folder on the left, and a separate database icon being filled from an imported SQL file on the right, with a small connecting line labelled credentials linking the two",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Two separate things have to land correctly: the code, and the database — connected by credentials that must match.",
+    "publicId": "docs/img/hosting/deploy-php-1"
+  },
+  {
+    "id": "b-URQLNUImxW",
+    "text": "The Step Almost Everyone Forgets",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-step-almost-everyone-forgets"
+  },
+  {
+    "id": "Hwagmd4dxAc-",
+    "html": "<p>Your local development database and your live server's database are two entirely different databases, with different connection details — a different host, username, password, and often a different database name entirely. Code that worked locally will fail on the live server until the connection details in your code are updated to match the live database's actual credentials, not your local ones.</p>",
+    "type": "callout",
+    "title": "Local and live database credentials are always different",
+    "variant": "warning"
+  },
+  {
+    "id": "k1Mcjk03XbEy",
+    "code": "// A pattern worth using specifically to avoid this trap —\n// keep credentials in one place, changed once per environment,\n// rather than hardcoded and forgotten in multiple files\n$host = 'localhost'; // usually correct on shared hosting itself\n$dbname = 'youraccount_dbname'; // shared hosts often prefix this with your account name\n$username = 'youraccount_dbuser';\n$password = 'the-password-you-set-when-creating-it';",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Dhu_DPHdCRTj",
+    "html": "<p>Shared hosts commonly prefix both the database name and username with your account name — a detail that trips up students expecting the exact name they typed when creating it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VPQpfZTcR16h",
+    "text": "Common Failure Points",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-failure-points"
+  },
+  {
+    "id": "i88L_MGImfnY",
+    "rows": [
+      [
+        "A blank white page",
+        "A PHP error with error display turned off — check your host's error log"
+      ],
+      [
+        "\"Access denied for user\"",
+        "Wrong database username or password in your connection code"
+      ],
+      [
+        "Site loads but no data appears",
+        "Database imported but empty, or connected to the wrong database name"
+      ],
+      [
+        "Works on some pages, not others",
+        "A specific query or table missing from the imported database"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Symptom",
+      "Likely cause"
+    ]
+  },
+  {
+    "id": "_0mcwSRod15Z",
+    "text": "Verifying It Actually Worked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "verifying-it-actually-worked"
+  },
+  {
+    "id": "v3-H5YWCLnOf",
+    "html": "<p>Per this category's pipeline standard: check that a page reading from the database actually shows real data, that a form writing to the database actually saves something (check it in phpMyAdmin afterward), and check your host's error log for anything unexpected — most control panels expose this directly.</p>",
+    "type": "richtext"
+  }
+]
+```

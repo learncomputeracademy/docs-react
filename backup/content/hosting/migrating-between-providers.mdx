@@ -1,0 +1,95 @@
+---
+id: "05581178-aeaf-4b2d-a105-daf130a2e322"
+title: "Migrating Between Providers"
+path: "hosting/migrating-between-providers"
+status: "published"
+meta_title: "How to Migrate a Website Between Hosts | Learn Computer Academy"
+meta_description: "Moving a live site to a new host or registrar without downtime or lost email — the order of operations that actually matters."
+sort_order: 38
+updated_at: "2026-08-05T13:35:42.670882+00:00"
+---
+
+```json
+[
+  {
+    "id": "InN3r5CwRR7f",
+    "html": "<p>Outgrowing a host, chasing a better price, or simply switching providers is common — this lesson covers how to do it without the site or its email going down in the process.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uZ-IxGmiPAhl",
+    "text": "Two Separate Migrations, Often Confused",
+    "type": "heading",
+    "level": 2,
+    "anchor": "two-separate-migrations-often-confused"
+  },
+  {
+    "id": "JodQmnMpX9Uj",
+    "rows": [
+      [
+        "Domain transfer",
+        "Moving a domain's registration from one registrar to another — the domain itself does not change, only who you renew it through"
+      ],
+      [
+        "Hosting migration",
+        "Moving a site's actual files and database to a new hosting provider — the domain can stay registered exactly where it is throughout"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Migration",
+      "What actually moves"
+    ]
+  },
+  {
+    "id": "1myHc25b35it",
+    "html": "<p>These are independent — a domain can be registered with one company while hosting lives with a completely different one, exactly as established in the domain-hosting-email-are-separate lesson early in this category. Most moves only require one of the two, not both.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KYn_l9hFEENM",
+    "text": "The Safe Order of Operations for a Hosting Migration",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-safe-order-of-operations-for-a-hosting-migration"
+  },
+  {
+    "id": "SSsVKxurMNLj",
+    "html": "<ol><li>Set up the site on the new host, fully, without touching the domain's DNS yet — old and new both exist at this point, but only the old one is publicly reachable.</li><li>Test the new copy thoroughly using the new host's temporary URL, or by editing your own computer's hosts file to preview it before DNS changes.</li><li>Copy over the database, if any, as close to the cutover as possible so nothing entered on the old site in between is lost.</li><li>Update the DNS records (per the connecting-a-domain lesson) to point at the new host.</li><li>Wait for propagation, keeping the old host active and untouched throughout — do not cancel or delete it yet.</li><li>Confirm the new site is live and correct for visitors before cancelling the old hosting plan.</li></ol>",
+    "type": "richtext"
+  },
+  {
+    "id": "MRM0ZbrsqIt9",
+    "alt": "Isometric diagram showing a website being copied from an old server icon to a new server icon while a domain nameplate above both still points to the old server, with a dotted arrow showing the DNS switch happening only after the copy completes",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The domain keeps pointing at the old host until the new one is verified working.",
+    "publicId": "docs/img/hosting/migration-1"
+  },
+  {
+    "id": "CvBHcaLBRhRe",
+    "text": "Why This Order Prevents Downtime",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-order-prevents-downtime"
+  },
+  {
+    "id": "25aRcY9sMVP1",
+    "html": "<p>DNS propagation, covered earlier in this category, means a change is never instant across every visitor — pointing DNS at a new host before it is fully ready and tested guarantees some visitors see a broken site during that window. Keeping the old host live and untouched until the new one is confirmed working removes that risk entirely; the old copy is the fallback for the exact period propagation is unpredictable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "23iTICKfEeBA",
+    "text": "Email During a Migration",
+    "type": "heading",
+    "level": 2,
+    "anchor": "email-during-a-migration"
+  },
+  {
+    "id": "sQgyJsmxH4q_",
+    "html": "<p>If email is hosted separately from the website (the common case, per the earlier email lesson), it is entirely unaffected by a hosting migration — only the A/CNAME records controlling the website change, not the MX records controlling mail. Email only needs attention here if the migration specifically involves switching email providers too, in which case it follows this same safe-order principle on its own MX records.</p>",
+    "type": "richtext"
+  }
+]
+```

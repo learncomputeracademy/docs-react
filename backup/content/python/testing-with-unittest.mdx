@@ -1,0 +1,136 @@
+---
+id: "29d87d52-24f1-42f1-9056-ea9190461f11"
+title: "Testing Python Code with unittest"
+path: "python/testing-with-unittest"
+status: "published"
+meta_title: "Testing Python with unittest | Learn Computer Academy"
+meta_description: "Writing automated tests with Python's own built-in unittest module — no extra package required — plus assert statements and test discovery."
+sort_order: 33
+updated_at: "2026-09-03T04:52:51.202368+00:00"
+---
+
+```json
+[
+  {
+    "id": "uLt4DhdFaWLf",
+    "html": "<p>Python ships its own testing framework built in — <code>unittest</code> — so a first real test needs no extra package at all. (pytest, mentioned in this site's Where to Go Next lesson, is a popular third-party alternative with a lighter syntax, worth exploring once the underlying ideas are comfortable.)</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pvl9ITdQfDsa",
+    "text": "A First Test",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-first-test"
+  },
+  {
+    "id": "U5Mz7oy3DgpJ",
+    "code": "# test_math.py\nimport unittest\n\ndef add(a, b):\n    return a + b\n\nclass TestAdd(unittest.TestCase):\n    def test_sums_two_numbers(self):\n        self.assertEqual(add(2, 3), 5)\n\nif __name__ == '__main__':\n    unittest.main()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "JTVUR-cFlJGY",
+    "code": "python -m unittest test_math.py\n# .\n# ----------------------------------------------------------------------\n# Ran 1 test in 0.000s\n# OK",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "h9aSUppsrshL",
+    "text": "The Common Assertion Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-common-assertion-methods"
+  },
+  {
+    "id": "YbXmfCAYvQbW",
+    "rows": [
+      [
+        "assertEqual(a, b)",
+        "a == b"
+      ],
+      [
+        "assertNotEqual(a, b)",
+        "a != b"
+      ],
+      [
+        "assertTrue(x)",
+        "x is truthy"
+      ],
+      [
+        "assertIsNone(x)",
+        "x is None"
+      ],
+      [
+        "assertRaises(ExceptionType)",
+        "A block of code raises the given exception"
+      ],
+      [
+        "assertIn(item, container)",
+        "item is found inside container"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Checks"
+    ]
+  },
+  {
+    "id": "nUPQlJXrvsq2",
+    "text": "Testing That an Exception Is Raised",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-that-an-exception-is-raised"
+  },
+  {
+    "id": "FuLl4miWLINU",
+    "code": "def divide(a, b):\n    if b == 0:\n        raise ValueError('Cannot divide by zero')\n    return a / b\n\nclass TestDivide(unittest.TestCase):\n    def test_raises_on_zero(self):\n        with self.assertRaises(ValueError):\n            divide(10, 0)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "L0XnyLq8Ayml",
+    "text": "setUp and tearDown",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setup-and-teardown"
+  },
+  {
+    "id": "Syc-EZDQqKBV",
+    "html": "<p>Run automatically before and after every test method in a class — useful for repeated preparation, like creating a fresh object each time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xCltuu4_peuN",
+    "code": "class TestShoppingCart(unittest.TestCase):\n    def setUp(self):\n        self.cart = ShoppingCart()   # a fresh cart before every test\n\n    def test_starts_empty(self):\n        self.assertEqual(len(self.cart.items), 0)\n\n    def test_add_item(self):\n        self.cart.add('apple')\n        self.assertIn('apple', self.cart.items)",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "yLLlQFEPFoqA",
+    "text": "Running Every Test in a Project",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-every-test-in-a-project"
+  },
+  {
+    "id": "e0MYlTJdOD3Q",
+    "code": "python -m unittest discover\n# Finds and runs every file matching test_*.py automatically",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zH0vCshBbIre",
+    "html": "<p>A test suite that only exercises the \"happy path\" (valid input, expected success) misses most real bugs — deliberately write at least one test for bad input, an edge case (an empty list, a zero), or an expected exception.</p>",
+    "type": "callout",
+    "title": "Test the failure cases too",
+    "variant": "tip"
+  }
+]
+```

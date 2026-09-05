@@ -1,0 +1,110 @@
+---
+id: "fedf1483-de00-4120-9211-5bb4fcf43776"
+title: "Building AI Agents"
+path: "ai/building-ai-agents"
+status: "published"
+meta_title: "Building AI Agents | Learn Computer Academy"
+meta_description: "What actually separates an AI agent from a chatbot — the ReAct pattern behind how agents reason and act, and the frameworks used to build them."
+sort_order: 19
+updated_at: "2026-09-03T06:44:38.075807+00:00"
+---
+
+```json
+[
+  {
+    "id": "1DoGZSeKqvR6",
+    "html": "<p>Every AI use covered so far responds to what you say. An <b>agent</b> goes further — it can take actions, not just generate text, which is the difference this lesson is really about.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0K0HmOpuS5dc",
+    "text": "What Makes Something an Agent",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-something-an-agent"
+  },
+  {
+    "id": "fsUJwKWaslYx",
+    "html": "<p>A basic chatbot waits for your input and replies. An agent can additionally:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "seDJHDPh5XGV",
+    "html": "<ul><li>Use tools — search the web, run code, read files, call other APIs</li><li>Plan multi-step tasks — break \"answer this\" into \"first find X, then calculate Y, then summarise Z\"</li><li>Remember across sessions using external memory, not just the current conversation</li><li>Operate with less human input at every single step</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "gpT-tWIOw2kf",
+    "text": "The ReAct Pattern: How Agents Actually Reason",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-react-pattern-how-agents-actually-reason"
+  },
+  {
+    "id": "pjgOJdH1Pb7f",
+    "html": "<p>Most agents follow a loop called <b>ReAct</b> — short for Reasoning and Acting — repeatedly thinking, acting, and observing the result until it has enough to answer:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dNEncC4HTw2s",
+    "code": "User: \"What is the current weather here, and should I carry an umbrella tomorrow?\"\n\nAgent THOUGHT: \"I need current weather data. I'll use the weather tool.\"\nAgent ACTION: search_weather(\"current location\")\nAgent OBSERVATION: \"Tomorrow: 80% chance of rain, warm and humid.\"\nAgent THOUGHT: \"I now have what I need to answer.\"\nAgent FINAL ANSWER: \"There's an 80% chance of rain tomorrow — yes,\ncarry an umbrella. It'll be warm and humid.\"",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "4nCFGwQzi5wA",
+    "alt": "Colorful circular infographic showing the ReAct loop an AI agent follows: thought, action, observation, cycling until a final answer is reached",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "An agent repeats thought → action → observation until it has enough to give a final answer.",
+    "publicId": "docs/img/ai/building-ai-agents-1"
+  },
+  {
+    "id": "Ir44OyqmZA-9",
+    "html": "<p>The important shift here is that the model isn't just producing an answer directly — it's deciding what information it needs, going and getting it through a tool, and only then answering. That's what separates \"acting\" from \"generating text about acting.\"</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oGwjW32b4r6S",
+    "text": "Frameworks Used to Build Agents",
+    "type": "heading",
+    "level": 2,
+    "anchor": "frameworks-used-to-build-agents"
+  },
+  {
+    "id": "rLMjKbP_cJZr",
+    "rows": [
+      [
+        "Function calling / tools API",
+        "A cleaner, more direct way most major AI providers offer to let a model call predefined functions and use their results — usually the simplest starting point."
+      ],
+      [
+        "LangChain",
+        "A widely used framework for building more complex LLM applications, covered practically in the automation lesson — powerful, but with a steeper learning curve."
+      ],
+      [
+        "n8n / Make.com",
+        "No-code visual workflow tools that connect AI to other services without writing code at all — a genuinely accessible way to build real automation without a developer background."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "08b_hgnM9fbR",
+    "html": "<p>An agent that can take real actions — sending emails, spending money, modifying data — needs real safeguards: clear limits on what it's allowed to do, human approval for anything consequential, and monitoring for when it goes wrong. More autonomy means more that can go wrong unsupervised, not just more that gets done.</p>",
+    "type": "callout",
+    "title": "More Autonomy Means More Responsibility",
+    "variant": "warning"
+  },
+  {
+    "id": "9NlMkaDwWddg",
+    "html": "<p>You've now covered building genuinely capable AI systems. The next three lessons step back from building to using AI well in the wider world — where it shows up across industries, how to build a career around it, and how to use it responsibly.</p>",
+    "type": "richtext"
+  }
+]
+```

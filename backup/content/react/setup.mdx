@@ -1,0 +1,103 @@
+---
+id: "dd821a84-9bdb-4a1e-92ae-5a97a6d20562"
+title: "Setting Up a React Project"
+path: "react/setup"
+status: "published"
+meta_title: "Setting Up a React Project | Learn Computer Academy"
+meta_description: "Creating a new React project with Vite, the current standard tooling, and running it for the first time."
+sort_order: 2
+updated_at: "2026-07-31T11:24:34.863584+00:00"
+---
+
+```json
+[
+  {
+    "id": "BAe0rJDFkjxf",
+    "html": "<p>Unlike plain HTML/CSS/JS, React isn't something you can just link with a <code>&lt;script&gt;</code> tag for real, ongoing development — it works best with a build tool that handles JSX and modern JavaScript. <b>Vite</b> is the current standard choice for starting a new React project.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PSUNZwJFIez8",
+    "text": "Prerequisites",
+    "type": "heading",
+    "level": 2,
+    "anchor": "prerequisites"
+  },
+  {
+    "id": "is4XpRblHlzv",
+    "html": "<p>You'll need <a href=\"https://nodejs.org\" target=\"_blank\" rel=\"noopener noreferrer\">Node.js</a> installed — it provides <code>npm</code>, the package manager used to install React and the build tooling.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-JR8DcRx2odG",
+    "code": "node --version\nnpm --version",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "ZB1gWExsGOyo",
+    "text": "Creating a New Project",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-new-project"
+  },
+  {
+    "id": "6c-I2vpNTF56",
+    "code": "npm create vite@latest my-react-app -- --template react\ncd my-react-app\nnpm install\nnpm run dev",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "UmedY6qkM5QK",
+    "html": "<p><code>npm run dev</code> starts a local development server, usually at <code>http://localhost:5173</code>, and reloads the page automatically whenever you save a file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X3AAvNF_LwBC",
+    "text": "What Got Created",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-got-created"
+  },
+  {
+    "id": "OW4TtOtnICGn",
+    "rows": [
+      [
+        "src/main.jsx",
+        "The entry point — renders the root App component into the actual HTML page"
+      ],
+      [
+        "src/App.jsx",
+        "The root component — you'll spend most of your time here and in files you create alongside it"
+      ],
+      [
+        "index.html",
+        "The one real HTML file — contains a single empty <div>, which React fills in"
+      ],
+      [
+        "package.json",
+        "Lists installed packages and scripts (like npm run dev)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "File/folder",
+      "What it's for"
+    ]
+  },
+  {
+    "id": "rPUj8T7i0PiA",
+    "html": "<p><b>Create React App</b>, an older tool you'll still see referenced in a lot of existing tutorials and Stack Overflow answers, is no longer the recommended way to start a new project — it's been officially deprecated. Vite is faster and is what this section, and most current React learning material, uses.</p>",
+    "type": "callout",
+    "title": "Not Create React App",
+    "variant": "note"
+  },
+  {
+    "id": "7nWVhHW5iEhW",
+    "html": "<p>With a project actually running, the next lesson looks at JSX — the syntax you'll see inside every component from here on.</p>",
+    "type": "richtext"
+  }
+]
+```

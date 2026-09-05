@@ -1,0 +1,102 @@
+---
+id: "f3708f8e-9cbf-4614-a74d-172a48de84af"
+title: "OOP — Polymorphism and Type Declarations"
+path: "php/oop-polymorphism"
+status: "published"
+meta_title: "PHP Polymorphism and Type Declarations | Learn Computer Academy"
+meta_description: "Calling the same method on different object types and getting each one's own correct behavior — and the type declarations that make code relying on this safe."
+sort_order: 37
+updated_at: "2026-09-03T04:05:24.755784+00:00"
+---
+
+```json
+[
+  {
+    "id": "5zQ6FaLpyOij",
+    "html": "<p><b>Polymorphism</b> means code can call the same method name on different types of objects, and each one runs its own version — the earlier Interfaces lesson already builds this in practice; this lesson names the concept and covers the type declarations that make it safe to rely on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q2yn0VUhyv7Z",
+    "text": "Polymorphism in Practice",
+    "type": "heading",
+    "level": 2,
+    "anchor": "polymorphism-in-practice"
+  },
+  {
+    "id": "lszpan7P60Oh",
+    "code": "interface Shape {\n    public function area(): float;\n}\n\nclass Circle implements Shape {\n    public function __construct(private float $radius) {}\n    public function area(): float {\n        return pi() * $this->radius ** 2;\n    }\n}\n\nclass Rectangle implements Shape {\n    public function __construct(private float $width, private float $height) {}\n    public function area(): float {\n        return $this->width * $this->height;\n    }\n}\n\nfunction printArea(Shape $shape): void {\n    echo $shape->area() . PHP_EOL;\n}\n\nprintArea(new Circle(5));\nprintArea(new Rectangle(4, 6));\n// printArea doesn't know or care which shape it received —\n// each one calculates its own area() correctly",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ksavo0IlSCgz",
+    "text": "Why the Type Hint Matters Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-the-type-hint-matters-here"
+  },
+  {
+    "id": "_GbrT8A7Bzez",
+    "html": "<p>The <code>Shape $shape</code> parameter type is what makes this safe — PHP guarantees anything passed in has an <code>area()</code> method, without <code>printArea</code> needing to check what kind of shape it received.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1-ChltW8Eok5",
+    "text": "Type Declarations — A Fuller Picture",
+    "type": "heading",
+    "level": 2,
+    "anchor": "type-declarations-a-fuller-picture"
+  },
+  {
+    "id": "g7HY63ti4tc1",
+    "rows": [
+      [
+        "Parameter type",
+        "function area(Shape $shape)"
+      ],
+      [
+        "Return type",
+        "function area(): float"
+      ],
+      [
+        "Property type",
+        "private float $radius;"
+      ],
+      [
+        "Union type — more than one allowed",
+        "function process(int|string $id)"
+      ],
+      [
+        "Nullable type",
+        "function find(int $id): ?User"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Where",
+      "Example"
+    ]
+  },
+  {
+    "id": "Q-7z_32GITDR",
+    "text": "A Brief Note on Dependency Injection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-brief-note-on-dependency-injection"
+  },
+  {
+    "id": "DtukduDQdE-m",
+    "html": "<p>Type-hinting an interface, as <code>printArea(Shape $shape)</code> does, is also the foundation of <b>dependency injection</b> — a class that depends on an interface rather than one specific class can have any matching implementation \"injected\" into it, which is what makes swapping a real database for a test double possible without changing the class itself. It's a full topic on its own, worth knowing the name and the idea now.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oSMzZJ4gGRwD",
+    "html": "<p>PHP checks types at runtime, not compile time — a wrong type still causes an error, just when that line of code actually runs rather than before the script starts.</p>",
+    "type": "callout",
+    "title": "PHP's typing is runtime-checked",
+    "variant": "note"
+  }
+]
+```

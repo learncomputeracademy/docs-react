@@ -1,0 +1,110 @@
+---
+id: "098f07b5-c4a7-4fcc-bd51-de0216690e0e"
+title: "CSS Accessibility & Performance Basics"
+path: "css/css-accessibility-and-performance"
+status: "published"
+meta_title: "CSS Accessibility & Performance | Learn Computer Academy"
+meta_description: "CSS-specific habits that respect motion sensitivity and keyboard users, plus a few common performance mistakes worth avoiding."
+sort_order: 49
+updated_at: "2026-09-03T03:54:10.571857+00:00"
+---
+
+```json
+[
+  {
+    "id": "mZhfy0UpNFCp",
+    "html": "<hr><p>Most accessibility work is HTML's job (covered in the HTML course's accessibility lesson), but a handful of things are specifically CSS's responsibility — and a few common CSS habits quietly hurt page performance.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "HVIsZ5Ott0NA",
+    "text": "Respecting Reduced Motion",
+    "type": "heading",
+    "level": 2,
+    "anchor": "respecting-reduced-motion"
+  },
+  {
+    "id": "VQhA6XnySCo-",
+    "html": "<p>Some users set their OS to reduce motion — for vestibular disorders, or simple preference. Wrapping animations in this media query respects that setting.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rg--T6UDjUdS",
+    "code": "@media (prefers-reduced-motion: reduce) {\n  * {\n    animation-duration: 0.01ms !important;\n    transition-duration: 0.01ms !important;\n  }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "nH4IaOdk6dj2",
+    "text": "Never Remove focus Without Replacing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "never-remove-focus-without-replacing-it"
+  },
+  {
+    "id": "NRLCm3AmYQJS",
+    "html": "<p>A keyboard user relies on the visible focus outline to know where they are on the page. Removing it without a replacement makes the page unusable by keyboard.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "p6Ox5ptWmGPp",
+    "code": "/* Bad — removes the only visible sign of focus */\n:focus {\n  outline: none;\n}\n\n/* Good — replaces it with a clearer custom style */\n:focus-visible {\n  outline: 2px solid blue;\n  outline-offset: 2px;\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "WnJR7aAMkFpi",
+    "text": "Color Contrast",
+    "type": "heading",
+    "level": 2,
+    "anchor": "color-contrast"
+  },
+  {
+    "id": "WKqsaaO4Z0cU",
+    "html": "<p>Light gray text on a white background might look clean, but is genuinely unreadable for many users. A contrast ratio of at least 4.5:1 for normal text is the standard accessibility guideline (WCAG AA).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QRD_BGDC5qiM",
+    "text": "A Few Common Performance Mistakes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-common-performance-mistakes"
+  },
+  {
+    "id": "CeMK7FtuGMt0",
+    "rows": [
+      [
+        "Deeply nested or overly specific selectors",
+        "Slower for the browser to match against every element"
+      ],
+      [
+        "Animating width, height, or top/left",
+        "Forces the browser to recalculate layout every frame"
+      ],
+      [
+        "Animating transform and opacity instead",
+        "The browser can composite these on the GPU without recalculating layout"
+      ],
+      [
+        "Loading every font weight \"just in case\"",
+        "Each unused weight is wasted download size"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Habit",
+      "Why it costs something"
+    ]
+  },
+  {
+    "id": "Q8qlk1UeZk5U",
+    "html": "<p>The single most impactful performance swap: animate <code>transform</code>/<code>opacity</code> instead of <code>width</code>/<code>height</code>/<code>top</code>/<code>left</code> wherever the same visual effect is achievable either way.</p>",
+    "type": "callout",
+    "title": "The one habit worth remembering",
+    "variant": "tip"
+  }
+]
+```

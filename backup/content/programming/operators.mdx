@@ -5,30 +5,30 @@ path: "programming/operators"
 status: "published"
 meta_title: "Operators | Learn Computer Academy"
 sort_order: 6
-updated_at: "2026-07-25T08:16:50.049032+00:00"
+updated_at: "2026-08-18T14:27:46.378474+00:00"
 ---
 
 ```json
 [
   {
-    "id": "sVnbyklKmIiP",
+    "id": "q99WD1AHRciT",
     "html": "<p>Operators are the symbols that do work on values — adding numbers, comparing them, combining true/false conditions. This lesson covers the five kinds you'll use constantly.</p>",
     "type": "richtext"
   },
   {
-    "id": "74DseG538zOs",
+    "id": "OtmeTDLLCPzX",
     "text": "Arithmetic Operators",
     "type": "heading",
     "level": 2,
     "anchor": "arithmetic-operators"
   },
   {
-    "id": "65gF4ySr4JVh",
+    "id": "XpDc_1O1GFU0",
     "html": "<p>Used for math.</p>",
     "type": "richtext"
   },
   {
-    "id": "AK8mzCkVriGn",
+    "id": "F7_D9WckV_Uz",
     "rows": [
       [
         "+",
@@ -64,37 +64,47 @@ updated_at: "2026-07-25T08:16:50.049032+00:00"
     ]
   },
   {
-    "id": "oFE58RoBdxpV",
+    "id": "elBZB4xZKhpz",
     "text": "Assignment Operators",
     "type": "heading",
     "level": 2,
     "anchor": "assignment-operators"
   },
   {
-    "id": "AdzKejobueUB",
+    "id": "PLAjcpV3-nua",
     "html": "<p>Used to give a variable a value, often combined with a calculation.</p>",
     "type": "richtext"
   },
   {
-    "id": "IDJm84zvFcxa",
+    "id": "V3hkc-MY7EfA",
     "code": "let score = 10;\nscore += 5;  // same as: score = score + 5\nconsole.log(score); // 15",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$score = 10;\n$score += 5;  // same as: $score = $score + 5\necho $score; // 15",
+        "language": "php"
+      },
+      {
+        "code": "score = 10\nscore += 5  # same as: score = score + 5\nprint(score)  # 15",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "Mr0HFnIHDt13",
+    "id": "spxzoxGEw1zP",
     "text": "Comparison Operators",
     "type": "heading",
     "level": 2,
     "anchor": "comparison-operators"
   },
   {
-    "id": "04ouXwhuIfHx",
+    "id": "B17Vd5o7jj89",
     "html": "<p>Compare two values and produce <code>true</code> or <code>false</code>.</p>",
     "type": "richtext"
   },
   {
-    "id": "3VMKnInvkA8T",
+    "id": "T6_QkYvyPH5M",
     "rows": [
       [
         "===",
@@ -124,25 +134,35 @@ updated_at: "2026-07-25T08:16:50.049032+00:00"
     ]
   },
   {
-    "id": "yD0QUsfMVxlK",
+    "id": "397Jku2yz7oh",
     "code": "console.log(5 === 5);   // true\nconsole.log(5 === \"5\"); // false — different types\nconsole.log(7 > 3);     // true",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\nvar_dump(5 === 5);   // true\nvar_dump(5 === \"5\"); // false — different types\nvar_dump(7 > 3);     // true",
+        "language": "php"
+      },
+      {
+        "code": "print(5 == 5)    # True\nprint(5 == \"5\")  # False — different types, Python never coerces here\nprint(7 > 3)     # True",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "h2uVF7EaxNsy",
+    "id": "y_Qqo3rAansz",
     "text": "Logical Operators",
     "type": "heading",
     "level": 2,
     "anchor": "logical-operators"
   },
   {
-    "id": "XsRHSjUC_y_U",
+    "id": "3O8c9m8FUN64",
     "html": "<p>Combine or invert true/false values.</p>",
     "type": "richtext"
   },
   {
-    "id": "vbu_89S9E9P8",
+    "id": "b6Q0jQFrEJkw",
     "rows": [
       [
         "&&",
@@ -168,25 +188,35 @@ updated_at: "2026-07-25T08:16:50.049032+00:00"
     ]
   },
   {
-    "id": "0hUPeCDxYJct",
+    "id": "IwT_nl6Xc1Wq",
     "text": "Bitwise Operators",
     "type": "heading",
     "level": 2,
     "anchor": "bitwise-operators"
   },
   {
-    "id": "cZ-Msx9tPM7M",
+    "id": "DKIbYiTPNK_B",
     "html": "<p>Work directly on the binary representation of numbers, bit by bit. You will use these far less often than the operators above, but they show up in low-level code, graphics, and permission flags.</p>",
     "type": "richtext"
   },
   {
-    "id": "3djLulSyNbqX",
+    "id": "9aCJGOIORLFt",
     "code": "console.log(5 & 1);  // 1  — AND on the underlying bits\nconsole.log(5 | 2);  // 7  — OR on the underlying bits",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\necho 5 & 1;  // 1  — AND on the underlying bits\necho 5 | 2;  // 7  — OR on the underlying bits",
+        "language": "php"
+      },
+      {
+        "code": "print(5 & 1)  # 1  — AND on the underlying bits\nprint(5 | 2)  # 7  — OR on the underlying bits",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "Ak3AcPJTtddV",
+    "id": "onUk0KKGDxSi",
     "html": "<p>Bitwise operators make a lot more sense after the <a href=\"/programming/binary-numbers\">Binary Numbers</a> lesson — it's fine to skim this section for now and come back to it.</p>",
     "type": "callout",
     "variant": "tip"

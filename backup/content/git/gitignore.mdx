@@ -1,0 +1,134 @@
+---
+id: "6b1b92c5-8afe-4afa-80ce-1facef092e75"
+title: "The .gitignore File"
+path: "git/gitignore"
+status: "published"
+meta_title: "The .gitignore File | Learn Computer Academy"
+meta_description: "Telling Git which files to never track — dependencies, secrets, and build output that don't belong in a repository's history."
+sort_order: 5
+updated_at: "2026-09-03T05:20:00.518577+00:00"
+---
+
+```json
+[
+  {
+    "id": "a_zsj-UjicAc",
+    "html": "<p>Not every file in a project folder belongs in Git — installed dependencies, build output, and secrets should never be tracked. A <code>.gitignore</code> file tells Git which files or folders to ignore entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U1Rup259Ux-4",
+    "text": "A Basic .gitignore",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-gitignore"
+  },
+  {
+    "id": "6ZGOycomcNvg",
+    "code": "# .gitignore\nnode_modules/\n.env\n*.log\ndist/\n.DS_Store",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "2tLX0OchG5YV",
+    "text": "Common Patterns",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-patterns"
+  },
+  {
+    "id": "h3sAY6T7M9QK",
+    "rows": [
+      [
+        "node_modules/",
+        "A specific folder, anywhere in the project"
+      ],
+      [
+        "*.log",
+        "Every file ending in .log"
+      ],
+      [
+        ".env",
+        "A specific filename"
+      ],
+      [
+        "/build",
+        "Only a build folder at the project root, not one nested deeper"
+      ],
+      [
+        "!important.log",
+        "An exception — un-ignores one specific file that would otherwise match a pattern above it"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Pattern",
+      "Matches"
+    ]
+  },
+  {
+    "id": "A-VhIzklq-7E",
+    "text": "What Actually Belongs in .gitignore",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-actually-belongs-in-gitignore"
+  },
+  {
+    "id": "hpDq73xd5GuW",
+    "rows": [
+      [
+        "Dependencies",
+        "node_modules/, vendor/ — reinstalled from package.json/composer.json instead"
+      ],
+      [
+        "Secrets",
+        ".env — from the earlier PHP/Node lessons on environment variables"
+      ],
+      [
+        "Build output",
+        "dist/, build/ — regenerated from source, not source itself"
+      ],
+      [
+        "Editor/OS files",
+        ".DS_Store, .vscode/, Thumbs.db"
+      ],
+      [
+        "Logs and caches",
+        "*.log, .cache/"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Category",
+      "Example"
+    ]
+  },
+  {
+    "id": "Kj-m17wsmgQ1",
+    "text": "A File Already Tracked Won't Be Ignored Automatically",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-file-already-tracked-wont-be-ignored-automatically"
+  },
+  {
+    "id": "xIVXAq-i7TyO",
+    "html": "<p>Adding a pattern to .gitignore only affects files Git doesn't already know about — a file already committed keeps being tracked until explicitly removed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JiUuzhOcOVSX",
+    "code": "# Stop tracking a file, but keep it on disk\ngit rm --cached .env\ngit commit -m \"Stop tracking .env\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "JNLJsvwAmUXL",
+    "html": "<p>If a secret (an API key, a password) was ever committed, adding it to .gitignore afterward does NOT remove it from history — it's still recoverable from any earlier commit. Rotating the exposed secret immediately is the actual fix; removing it from history entirely is a separate, more advanced operation.</p>",
+    "type": "callout",
+    "title": "A leaked secret needs rotating, not just ignoring",
+    "variant": "danger"
+  }
+]
+```

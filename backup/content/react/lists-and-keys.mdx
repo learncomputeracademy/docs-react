@@ -1,0 +1,96 @@
+---
+id: "e545dccc-1bb7-4a8e-b00d-48ca5d3cd3cb"
+title: "Rendering Lists and Keys"
+path: "react/lists-and-keys"
+status: "published"
+meta_title: "Rendering Lists and Keys in React | Learn Computer Academy"
+meta_description: "Rendering a list of components from an array with .map(), and why React requires a unique key on each item."
+sort_order: 6
+updated_at: "2026-07-31T11:24:36.819446+00:00"
+---
+
+```json
+[
+  {
+    "id": "tDE7Btu59i6m",
+    "html": "<p>Most real interfaces show a list of something — products, comments, lessons. React renders lists with plain JavaScript's <code>.map()</code>, the array method from the <a href=\"/javascript/arrays/\">JavaScript Arrays lesson</a>, not a special template loop syntax.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AuMydIfW3oX1",
+    "text": "Mapping Data to JSX",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mapping-data-to-jsx"
+  },
+  {
+    "id": "vC3bzr_mLpl6",
+    "code": "function FruitList() {\n  const fruits = ['apple', 'banana', 'mango'];\n\n  return (\n    <ul>\n      {fruits.map((fruit) => (\n        <li>{fruit}</li>\n      ))}\n    </ul>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "HOjccTiIzyVF",
+    "html": "<p>The curly braces around <code>.map(...)</code> work exactly like embedding any other expression, from the JSX lesson — <code>.map()</code> here returns an array of <code>&lt;li&gt;</code> elements, and React renders an array of elements just fine.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jSosa4Vmbfvx",
+    "text": "The key Prop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-key-prop"
+  },
+  {
+    "id": "klhEOWbElS7-",
+    "html": "<p>Running the code above logs a console warning: <i>\"Each child in a list should have a unique key prop.\"</i> React needs a stable <code>key</code> on each item to correctly track which item is which across re-renders — without it, React can only guess by position, which causes real bugs when a list gets reordered, filtered, or has an item removed from the middle.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FHZrO5LEV7Km",
+    "code": "function FruitList() {\n  const fruits = ['apple', 'banana', 'mango'];\n\n  return (\n    <ul>\n      {fruits.map((fruit) => (\n        <li key={fruit}>{fruit}</li>\n      ))}\n    </ul>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "snZgo1W1dp_U",
+    "text": "What Makes a Good key",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-a-good-key"
+  },
+  {
+    "id": "COVvsyln7mph",
+    "html": "<p>A <code>key</code> needs to be a string or number that's unique among siblings, and stable across re-renders — a database ID or a slug is ideal:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GC2NQqYkt-Rw",
+    "code": "function StudentList({ students }) {\n  return (\n    <ul>\n      {students.map((student) => (\n        <li key={student.id}>{student.name}</li>\n      ))}\n    </ul>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "4R0ytRp46dnA",
+    "html": "<p>Using the array <b>index</b> as a key (<code>fruits.map((fruit, i) => &lt;li key={i}&gt;)</code>) works, but only safely when the list never reorders, filters, or has items inserted/removed anywhere but the end. Reordering with index keys causes React to mismatch state to the wrong item after the reorder — a real, easy-to-miss bug. Use a real, stable ID whenever the data has one.</p>",
+    "type": "callout",
+    "title": "Index as key is a trap, not a shortcut",
+    "variant": "warning"
+  },
+  {
+    "id": "RUM_NpxIwyEe",
+    "text": "key Is Not a Prop the Component Receives",
+    "type": "heading",
+    "level": 2,
+    "anchor": "key-is-not-a-prop-the-component-receives"
+  },
+  {
+    "id": "L92zXfwGe_x7",
+    "html": "<p><code>key</code> is metadata for React itself, not something your component can read — <code>props.key</code> is always <code>undefined</code>. If a component needs the same value for its own logic, pass it again under a different name.</p>",
+    "type": "richtext"
+  }
+]
+```

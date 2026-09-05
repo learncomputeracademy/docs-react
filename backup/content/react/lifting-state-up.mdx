@@ -1,0 +1,91 @@
+---
+id: "065a8fd9-b25b-4013-bce7-73c9be1800bb"
+title: "Lifting State Up"
+path: "react/lifting-state-up"
+status: "published"
+meta_title: "Lifting State Up in React | Learn Computer Academy"
+meta_description: "Sharing state between sibling components by moving it to their closest common parent — React's standard pattern for coordinated components."
+sort_order: 14
+updated_at: "2026-07-31T11:24:40.106778+00:00"
+---
+
+```json
+[
+  {
+    "id": "qsutGe3iU5TS",
+    "html": "<p>State lives inside one component by default, invisible to every other component — including its own siblings. When two components need to share or coordinate on the same piece of state, the standard fix is <b>lifting state up</b>: moving it to their closest common parent.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jG9MFePZew-1",
+    "text": "The Problem",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem"
+  },
+  {
+    "id": "7wFoPW2FFwUX",
+    "html": "<p>Two sibling components, each with their own separate state, can't see or affect each other at all:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5keAva8r8x5h",
+    "code": "function TemperatureInput() {\n  const [value, setValue] = useState('');\n  return <input value={value} onChange={(e) => setValue(e.target.value)} />;\n}\n\nfunction App() {\n  return (\n    <div>\n      <TemperatureInput />\n      <TemperatureInput /> {/* Completely separate state — they can't stay in sync */}\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "UpubuOSHCiio",
+    "text": "The Fix: Move State to the Parent",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-fix-move-state-to-the-parent"
+  },
+  {
+    "id": "7ORUOrJxCNx3",
+    "html": "<p>Move the <code>useState</code> call up to <code>App</code>, and pass both the value and a way to change it down as props:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XwCFOoDntLPf",
+    "code": "function TemperatureInput({ value, onChange }) {\n  return <input value={value} onChange={(e) => onChange(e.target.value)} />;\n}\n\nfunction App() {\n  const [temperature, setTemperature] = useState('');\n\n  return (\n    <div>\n      <TemperatureInput value={temperature} onChange={setTemperature} />\n      <p>Current: {temperature}</p> {/* Now this can see it too */}\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "2GZJAmWCBZEn",
+    "html": "<p><code>TemperatureInput</code> no longer owns any state at all — it just displays whatever <code>value</code> it's given, and reports changes upward through <code>onChange</code>. A component like this, with no state of its own, is often called a <b>controlled component</b> — the same idea as a controlled form input from the earlier Forms lesson, generalized to any component.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QyPOXvAwKGyT",
+    "alt": "Isometric diagram showing a parent component box at the top holding a piece of state, with an arrow labeled props flowing down to two child component boxes, and a second arrow labeled callback flowing back up from one child to the parent",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "State lives in the shared parent; data flows down as props, changes flow back up through callback functions.",
+    "publicId": "docs/img/react/lifting-state-up-1"
+  },
+  {
+    "id": "YdlP7ZpZE5Qm",
+    "text": "Data Down, Events Up",
+    "type": "heading",
+    "level": 2,
+    "anchor": "data-down-events-up"
+  },
+  {
+    "id": "ubKeTUBSXRoj",
+    "html": "<p>This is the general shape of how data moves through a React tree, and it's worth naming explicitly: <b>data flows down</b> through props, and <b>changes flow up</b> through callback functions passed as props. React deliberately has no built-in way for a child to directly reach up and change a parent's state — this one-way flow is what keeps a large component tree's behavior traceable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "v8TysfOaIwrj",
+    "html": "<p>The Context API lesson later in this section covers the other tool for sharing state — useful specifically when lifting state up would mean passing props through many layers of components that don't otherwise need them.</p>",
+    "type": "callout",
+    "title": "When lifting state up isn't enough",
+    "variant": "note"
+  }
+]
+```

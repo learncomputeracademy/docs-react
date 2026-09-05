@@ -1,0 +1,153 @@
+---
+id: "ae934d30-e11a-4e37-a602-8d69dbaae0fc"
+title: "Design Systems & Component Thinking"
+path: "css/design-systems-and-component-thinking"
+status: "published"
+meta_title: "Design Systems & Component Thinking | Learn Computer Academy"
+meta_description: "What a design system actually is, how design tokens turn colors/spacing/type into reusable values, and atomic design — the concepts behind every consistent, professional-looking site."
+sort_order: 50
+updated_at: "2026-09-03T06:56:41.475641+00:00"
+---
+
+```json
+[
+  {
+    "id": "Hv6xCwKu-MRU",
+    "html": "<p>Ever noticed how a well-built site's buttons, spacing, and colors all feel like they belong to the same family, no matter which page you're on? That consistency isn't an accident — it comes from thinking in <b>design systems</b> rather than styling each page from scratch.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cxJIX7fuByvz",
+    "text": "What Is a Design System?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-a-design-system"
+  },
+  {
+    "id": "V4xuorzF0TDq",
+    "html": "<p>A <b>design system</b> is a single source of truth for how a product looks and behaves — a shared set of colors, type sizes, spacing values, and reusable components that every page pulls from, instead of every page (or every developer) picking its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vdoe6_8Bb2iY",
+    "html": "<p>Without one, it's easy to end up with fourteen shades of \"almost blue\" scattered across a site, each one hand-picked in a different CSS file. A design system is what prevents that drift.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DtGCO7-FBr68",
+    "html": "<p>A design system is broader than a \"component library.\" A component library is the actual code (buttons, cards, modals you can import). A design system also includes the rules, values, and guidelines behind those components — the library is one output of the system, not the whole thing.</p>",
+    "type": "callout",
+    "title": "Design System vs. Component Library",
+    "variant": "note"
+  },
+  {
+    "id": "TejISV1AqDxw",
+    "text": "Design Tokens — Values Instead of Guesses",
+    "type": "heading",
+    "level": 2,
+    "anchor": "design-tokens-values-instead-of-guesses"
+  },
+  {
+    "id": "t-_LnNX_aJH4",
+    "html": "<p><b>Design tokens</b> are the named, reusable values a design system is built from — a color, a spacing size, a font size — defined once and referenced everywhere, instead of typed fresh in every stylesheet.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YeewUffU3Ags",
+    "html": "<p>In CSS, tokens are usually built with <a href=\"/css/variables\">custom properties</a>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FSO0ylxOEfU0",
+    "code": ":root {\n  --color-primary: #2563eb;\n  --color-text: #1f2937;\n  --space-sm: 0.5rem;\n  --space-md: 1rem;\n  --space-lg: 2rem;\n  --font-size-body: 1rem;\n  --font-size-heading: 1.75rem;\n}\n\n.button {\n  background: var(--color-primary);\n  padding: var(--space-sm) var(--space-md);\n  font-size: var(--font-size-body);\n}",
+    "type": "code",
+    "language": "css"
+  },
+  {
+    "id": "cGXotHKbpxYa",
+    "html": "<p>Change <code>--color-primary</code> once and every button, link, and highlight that references it updates together — the same idea behind dark mode toggles, and the reason design tokens matter far beyond just looking tidy.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vmUx_sl9iYsq",
+    "rows": [
+      [
+        "Color",
+        "Brand colors, text colors, background colors, functional colors (error red, success green)"
+      ],
+      [
+        "Typography",
+        "Font family, font sizes on a consistent scale, line height, font weight"
+      ],
+      [
+        "Spacing",
+        "A fixed scale (e.g. 4px, 8px, 16px, 32px) used for all margin/padding instead of arbitrary numbers"
+      ],
+      [
+        "Layout",
+        "Breakpoints, grid columns, container max-widths"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Token category",
+      "Typical values"
+    ]
+  },
+  {
+    "id": "SKkNHRSU_Os2",
+    "text": "Atomic Design — Building Up From the Smallest Pieces",
+    "type": "heading",
+    "level": 2,
+    "anchor": "atomic-design-building-up-from-the-smallest-pieces"
+  },
+  {
+    "id": "HtjshCDTAyDH",
+    "html": "<p><b>Atomic design</b> is a way of thinking about UI in layers, from smallest to largest — a useful mental model for organising components in any codebase, not just a specific tool.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RWFCw9ESQoTm",
+    "rows": [
+      [
+        "Atoms",
+        "The smallest pieces — a single button, an input field, a label. Can't be broken down further and still be useful."
+      ],
+      [
+        "Molecules",
+        "A few atoms combined for one purpose — a search bar is an input atom plus a button atom."
+      ],
+      [
+        "Organisms",
+        "Several molecules combined into a distinct section — a header with a logo, a nav, and a search bar."
+      ],
+      [
+        "Templates / Pages",
+        "Organisms arranged into an actual page layout, filled with real content."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Layer",
+      "Example"
+    ]
+  },
+  {
+    "id": "smq45d76EnR-",
+    "html": "<p>The payoff: a \"Button\" built once, styled from tokens, gets reused across every form, every card, and every modal in the whole site — instead of being redesigned, slightly differently, every time it's needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rREFqTrBYP6_",
+    "text": "Where This Leaves You",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-leaves-you"
+  },
+  {
+    "id": "EdhN1s0Lhtgw",
+    "html": "<p>You don't need a formal design-system tool or a whole team to benefit from this thinking. Even a small personal project gets more consistent the moment you define your colors, spacing, and type sizes as variables once and reuse them everywhere, and build a button or a card as one reusable piece instead of retyping its styles on every page.</p>",
+    "type": "richtext"
+  }
+]
+```

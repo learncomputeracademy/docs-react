@@ -1,0 +1,93 @@
+---
+id: "dbac1c01-ac4e-4075-8796-a55d4552c279"
+title: "OOP — Namespaces"
+path: "php/oop-namespaces"
+status: "published"
+meta_title: "PHP Namespaces | Learn Computer Academy"
+meta_description: "Organizing classes into named groups to avoid naming collisions, especially once a project uses external packages."
+sort_order: 35
+updated_at: "2026-09-03T04:05:24.173586+00:00"
+---
+
+```json
+[
+  {
+    "id": "DW7ZYZmC2aPx",
+    "html": "<p>As soon as a project has more than a handful of classes — or uses any external package (covered in the Composer lesson ahead) — two classes with the same name is a real risk. A <b>namespace</b> prevents that collision.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jpVudvXF9lcJ",
+    "text": "Declaring a Namespace",
+    "type": "heading",
+    "level": 2,
+    "anchor": "declaring-a-namespace"
+  },
+  {
+    "id": "LdxZKbjh597e",
+    "html": "<p>A namespace declaration must be the very first statement in a PHP file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-X4GJAEzHP_x",
+    "code": "<?php\nnamespace App\\Models;\n\nclass User {\n    // this class's full name is App\\Models\\User\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "5ssbte7WtJC9",
+    "text": "Why This Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-matters"
+  },
+  {
+    "id": "y094evtzOyHE",
+    "code": "<?php\nnamespace App\\Models;\nclass User { /* ... */ }\n\nnamespace App\\Auth;\nclass User { /* ... */ }   // a completely different class,\n                            // fully named App\\Auth\\User —\n                            // no naming conflict at all",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "7b4I9P6efOCQ",
+    "text": "Using a Class from Another Namespace — use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-a-class-from-another-namespace-use"
+  },
+  {
+    "id": "2fT7R3XWevZq",
+    "code": "<?php\nnamespace App\\Controllers;\n\nuse App\\Models\\User;\n\n$user = new User();   // resolves to App\\Models\\User",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "uxjA1bo461cE",
+    "text": "Aliasing with as",
+    "type": "heading",
+    "level": 2,
+    "anchor": "aliasing-with-as"
+  },
+  {
+    "id": "RoEzrVSC1k7w",
+    "html": "<p>Useful when two classes from different namespaces would otherwise share the same short name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gUImM084Vc7n",
+    "code": "use App\\Models\\User;\nuse App\\Legacy\\User as LegacyUser;\n\n$user = new User();\n$oldUser = new LegacyUser();",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "QvnO1s4hwQs_",
+    "html": "<p>The convention followed by nearly every modern PHP project — and the one Composer's autoloading (next lesson) expects — is one namespace matching the folder structure: <code>App\\Models\\User</code> lives in <code>app/Models/User.php</code>.</p>",
+    "type": "callout",
+    "title": "Namespaces usually mirror folders",
+    "variant": "tip"
+  }
+]
+```

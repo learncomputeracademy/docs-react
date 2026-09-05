@@ -1,0 +1,113 @@
+---
+id: "7710342c-bec6-495a-9f2d-fd5939c2905c"
+title: "Introduction to Node.js"
+path: "nodejs/introduction"
+status: "published"
+meta_title: "Introduction to Node.js | Learn Computer Academy"
+meta_description: "What Node.js actually is, why JavaScript can run outside a browser at all, and what kinds of programs people build with it."
+sort_order: 1
+updated_at: "2026-08-05T05:47:52.5457+00:00"
+---
+
+```json
+[
+  {
+    "id": "_Togpc-lxlm1",
+    "html": "<p>Every JavaScript program you've written so far runs inside a browser — a webpage loads it, and the browser's built-in JavaScript engine executes it. <b>Node.js</b> takes that same engine out of the browser entirely, so JavaScript can run directly on a computer, as its own standalone program.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "V4ItPTN2u0dO",
+    "text": "The Engine Underneath",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-engine-underneath"
+  },
+  {
+    "id": "4vDxwNWvPGuh",
+    "html": "<p>Every browser has a JavaScript engine buried inside it — Chrome's is called <b>V8</b>. V8's job is to read JavaScript code and turn it into instructions the computer can actually run. It doesn't care where the code came from; it just executes it.</p><p>Node.js is built around that same V8 engine, wrapped with extra tools for things a browser deliberately doesn't allow: reading and writing files, listening for network connections, talking to a database. The language is identical — the same variables, functions, and syntax you already know — only what it's <i>allowed to touch</i> changes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JO9vdZ4cZeTl",
+    "alt": "Diagram showing the same V8 JavaScript engine running inside a browser on one side and inside Node.js on a server on the other side",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Node.js runs the same JavaScript engine as your browser — just without a browser around it.",
+    "publicId": "docs/img/nodejs/introduction-1"
+  },
+  {
+    "id": "MLy0WvyhRZMZ",
+    "text": "Browser JavaScript vs. Node.js",
+    "type": "heading",
+    "level": 2,
+    "anchor": "browser-javascript-vs-nodejs"
+  },
+  {
+    "id": "bCi6nYkaSs5V",
+    "html": "<p>The two environments give JavaScript access to different things, because they solve different problems.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0RvkUBzyZLOQ",
+    "rows": [
+      [
+        "Browser JavaScript",
+        "Inside a webpage",
+        "The page's HTML/CSS (the DOM), browser APIs",
+        "The computer's file system, arbitrary network ports"
+      ],
+      [
+        "Node.js",
+        "Directly on a computer",
+        "Files, the file system, network connections, environment variables",
+        "A DOM — there is no page or window to manipulate"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Runs where",
+      "Can access",
+      "Cannot access"
+    ]
+  },
+  {
+    "id": "lhbP6MmfBZYY",
+    "html": "<p>This is why a Node.js program can never call <code>document.querySelector()</code> — there's no document. And why browser JavaScript can never read a file from your hard drive directly — letting a random webpage do that would be a serious security problem.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AJHx-0CAbqSi",
+    "text": "What People Build With It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-people-build-with-it"
+  },
+  {
+    "id": "CniFq_g5qBXq",
+    "html": "<p>Because Node.js can read files, open network connections, and keep a program running indefinitely, it's well suited to exactly the things a browser can't do:</p><ul><li><b>Web servers</b> — a program that listens for incoming requests and sends back a webpage, an image, or data.</li><li><b>APIs</b> — a server that a website (or a mobile app) can ask for data over the network.</li><li><b>Command-line tools</b> — the <code>npm</code> command you'll use in the next lesson is itself written in Node.js.</li><li><b>Build tools</b> — many of the tools that bundle and optimize websites before they're published run on Node.js behind the scenes.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "BeubBthD5SvC",
+    "html": "<p>Node.js isn't a language — it's a <i>runtime</i>. The language is still JavaScript. Node.js is the program that runs it outside a browser, plus the extra built-in tools that make that useful.</p>",
+    "type": "callout",
+    "title": "Runtime, not a language",
+    "variant": "note"
+  },
+  {
+    "id": "LX1zDYykTYTC",
+    "text": "Where This Fits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-fits"
+  },
+  {
+    "id": "qCsJwGvu1Lv2",
+    "html": "<p>You've already used JavaScript to make a webpage interactive on the visitor's side. Node.js is what lets that same language sit on the <i>other</i> side — the server — deciding what to send a visitor before their browser ever sees it. The rest of this course builds that up piece by piece: running scripts, organizing code into modules, reading files, and eventually building a real server that responds to requests.</p>",
+    "type": "richtext"
+  }
+]
+```

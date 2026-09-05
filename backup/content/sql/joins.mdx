@@ -1,0 +1,211 @@
+---
+id: "d9765c1e-ad0a-4ec1-be55-9e551921989f"
+title: "Joins"
+path: "sql/joins"
+status: "published"
+meta_title: "SQL Joins | Learn Computer Academy"
+meta_description: "INNER, LEFT, RIGHT, and FULL JOIN explained — how to combine rows from two or more tables based on a related column, most often a foreign key."
+sort_order: 11
+updated_at: "2026-07-29T06:31:07.77033+00:00"
+---
+
+```json
+[
+  {
+    "id": "t08zFQ-ShOAM",
+    "html": "<p>Joins combine rows from two or more tables based on a related column, most often a foreign key. This is where relational databases really earn the \"relational\" in their name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EJnnupOiHmg0",
+    "text": "INNER JOIN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inner-join"
+  },
+  {
+    "id": "3Bxt07MGBr5c",
+    "html": "<p>Returns only rows that have a match in both tables.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "41II1SGaIUMT",
+    "code": "SELECT columns\nFROM tableA\nINNER JOIN tableB ON condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "iH4Wr0bYtjUZ",
+    "code": "SELECT e.name, d.department_name\nFROM Employee e\nINNER JOIN Department d\nON e.department_id = d.id;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Xm7ozww4UaJE",
+    "html": "<ul><li>Returns matching records only.</li><li>The most commonly used join type.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RjfvIkYngkK6",
+    "html": "<p>Joining on the wrong column and silently multiplying rows.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "BseeJv1ZYQsA",
+    "text": "LEFT JOIN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "left-join"
+  },
+  {
+    "id": "Zc_YCJh5Kwmo",
+    "html": "<p>Returns every row from the left table, matched rows from the right.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rrUpuYF3N_dZ",
+    "code": "SELECT columns\nFROM tableA\nLEFT JOIN tableB ON condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "K0DFUFzAITwR",
+    "code": "SELECT e.name, d.department_name\nFROM Employee e\nLEFT JOIN Department d\nON e.department_id = d.id;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "_2t1jrJWgE6g",
+    "html": "<ul><li>Every row from Employee appears, even without a department match.</li><li>Unmatched columns from Department come back as NULL.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "1zCcGZFMZETy",
+    "html": "<p>Expecting a <code>LEFT JOIN</code> to exclude unmatched left-side rows — it never does, that's the entire point of a LEFT JOIN.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "II4TVGZg2K0m",
+    "text": "RIGHT JOIN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "right-join"
+  },
+  {
+    "id": "ZO-ci6SIiEud",
+    "html": "<p>Returns every row from the right table, matched rows from the left.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dV2_kNDfGJsQ",
+    "code": "SELECT columns\nFROM tableA\nRIGHT JOIN tableB ON condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "pB82tgNh-ORa",
+    "code": "SELECT e.name, d.department_name\nFROM Employee e\nRIGHT JOIN Department d\nON e.department_id = d.id;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "bs_L7avs-X0n",
+    "html": "<ul><li>Every row from Department appears, even with no matching employees.</li><li>The mirror image of a LEFT JOIN.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qk9VYnGYud95",
+    "html": "<p>Using <code>RIGHT JOIN</code> out of habit when a LEFT JOIN with the table order swapped would read more clearly.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "iISUmuIrkod9",
+    "text": "FULL JOIN",
+    "type": "heading",
+    "level": 2,
+    "anchor": "full-join"
+  },
+  {
+    "id": "u3dbEPDwnxLG",
+    "html": "<p>Returns all rows from both tables, matched or not.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "irHzsMuylGAN",
+    "code": "SELECT columns\nFROM tableA\nFULL JOIN tableB ON condition;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "CDO6PufSdJN6",
+    "code": "SELECT e.name, d.department_name\nFROM Employee e\nFULL JOIN Department d\nON e.department_id = d.id;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "3bdFaxkQgUa-",
+    "html": "<ul><li>Combines every row from both tables.</li><li>Non-matching sides come back as NULL.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "a7ll8i-nYV9q",
+    "html": "<p>Not every database engine supports <code>FULL JOIN</code> natively — MySQL does not, for example, and needs a workaround.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "sTzsy1gBsxZI",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "HTQr4AbvZBlN",
+    "rows": [
+      [
+        "INNER JOIN",
+        "Only rows that match in both tables"
+      ],
+      [
+        "LEFT JOIN",
+        "Every left-table row, matched right-table data or NULL"
+      ],
+      [
+        "RIGHT JOIN",
+        "Every right-table row, matched left-table data or NULL"
+      ],
+      [
+        "FULL JOIN",
+        "Every row from both tables, matched or not"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Join type",
+      "Returns"
+    ]
+  },
+  {
+    "id": "7BW0_bccNk8I",
+    "alt": "Venn diagram comparing INNER, LEFT, RIGHT, and FULL JOIN, showing which region of two overlapping tables each join type returns",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The shaded region is what each join type actually returns — the rest is left out.",
+    "publicId": "docs/img/sql/joins-1"
+  },
+  {
+    "id": "21AGLwmhmpGl",
+    "html": "<p>Joins let you pull related data together from separate tables. The next lesson moves from combining tables to summarizing values within them, with SQL's built-in functions.</p>",
+    "type": "richtext"
+  }
+]
+```

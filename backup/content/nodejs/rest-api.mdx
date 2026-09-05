@@ -1,0 +1,116 @@
+---
+id: "8d097ecf-709a-4e95-9c04-45ccf608eba6"
+title: "Building a REST API"
+path: "nodejs/rest-api"
+status: "published"
+meta_title: "Building a REST API with Node.js | Learn Computer Academy"
+meta_description: "Put routing, middleware, and JSON bodies together into a complete REST API with all four CRUD operations."
+sort_order: 23
+updated_at: "2026-08-05T05:47:59.815242+00:00"
+---
+
+```json
+[
+  {
+    "id": "YxF4wxybCRw-",
+    "html": "<p>Every piece needed is already covered — routes, HTTP methods, route parameters, JSON bodies. This lesson combines them into a complete, working <b>REST API</b>: a set of URLs that let another program create, read, update, and delete data over HTTP.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BIVcD00C6qhB",
+    "text": "What \"REST\" Means Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-rest-means-here"
+  },
+  {
+    "id": "Jy2JmqLfDZG2",
+    "html": "<p>REST is a set of conventions, not a library or a piece of code. The core idea: a URL identifies a <i>resource</i> (a product, a user, an order), and the HTTP method says what to <i>do</i> to it. <code>/products/7</code> is always \"product number 7\" — whether you're reading it, replacing it, or deleting it depends on the method, not the URL.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o1PF5eASDFcV",
+    "alt": "Diagram showing a client sending GET, POST, PUT, and DELETE requests to the same /products URL pattern, with a Node.js API translating each into an operation on a data store",
+    "type": "image",
+    "width": 1344,
+    "height": 752,
+    "caption": "The same URL pattern, four different HTTP methods, four different operations on the same resource.",
+    "publicId": "docs/img/nodejs/rest-api-1"
+  },
+  {
+    "id": "uPoczG7J17TZ",
+    "text": "The Four Operations — CRUD",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-operations-crud"
+  },
+  {
+    "id": "DcYIiy7I1md1",
+    "html": "<p>For simplicity, this example keeps products in an in-memory array rather than a real database — the next lesson replaces this with an actual one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_KZZKLhduLEe",
+    "code": "const express = require('express')\nconst app = express()\napp.use(express.json())\n\nlet products = [\n  { id: 1, name: 'Laptop Stand', price: 25 },\n  { id: 2, name: 'Wireless Mouse', price: 15 },\n]\n\n// READ all\napp.get('/products', (req, res) => {\n  res.json(products)\n})\n\n// READ one\napp.get('/products/:id', (req, res) => {\n  const product = products.find(p => p.id === Number(req.params.id))\n  if (!product) return res.status(404).json({ error: 'Product not found' })\n  res.json(product)\n})\n\n// CREATE\napp.post('/products', (req, res) => {\n  const newProduct = { id: products.length + 1, ...req.body }\n  products.push(newProduct)\n  res.status(201).json(newProduct)\n})\n\n// UPDATE\napp.put('/products/:id', (req, res) => {\n  const product = products.find(p => p.id === Number(req.params.id))\n  if (!product) return res.status(404).json({ error: 'Product not found' })\n  Object.assign(product, req.body)\n  res.json(product)\n})\n\n// DELETE\napp.delete('/products/:id', (req, res) => {\n  products = products.filter(p => p.id !== Number(req.params.id))\n  res.status(204).end()\n})\n\napp.listen(3000)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "rBTARfi-ysjm",
+    "text": "Status Codes That Match the Outcome",
+    "type": "heading",
+    "level": 2,
+    "anchor": "status-codes-that-match-the-outcome"
+  },
+  {
+    "id": "WdEO3Gm56LXT",
+    "rows": [
+      [
+        "200",
+        "OK",
+        "A successful GET or PUT"
+      ],
+      [
+        "201",
+        "Created",
+        "A successful POST that added something new"
+      ],
+      [
+        "204",
+        "No Content",
+        "A successful DELETE — nothing meaningful to send back"
+      ],
+      [
+        "404",
+        "Not Found",
+        "A requested product ID that doesn't exist"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Code",
+      "Meaning",
+      "Used above for"
+    ]
+  },
+  {
+    "id": "AsRMEZ3WGp6c",
+    "html": "<p>Always check for a missing resource before working with it, as every handler above does with <code>if (!product)</code>. Skipping that check means a request for a nonexistent ID crashes the handler trying to read a property off <code>undefined</code>, instead of returning a clean 404.</p>",
+    "type": "callout",
+    "variant": "tip"
+  },
+  {
+    "id": "h7ZOPTPNP1Z5",
+    "text": "This Is a Foundation, Not the Whole Picture",
+    "type": "heading",
+    "level": 2,
+    "anchor": "this-is-a-foundation-not-the-whole-picture"
+  },
+  {
+    "id": "fKwurgFN51Wn",
+    "html": "<p>A real API adds more on top of this: validating that <code>req.body</code> actually contains what's expected before using it, authentication so not just anyone can delete a product, and — the next lesson's topic — a real database instead of an array that resets every time the server restarts.</p>",
+    "type": "richtext"
+  }
+]
+```

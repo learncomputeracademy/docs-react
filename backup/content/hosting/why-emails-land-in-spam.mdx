@@ -1,0 +1,113 @@
+---
+id: "def2a4eb-4944-4afd-be7c-7c3047aec775"
+title: "Why Emails Land in Spam"
+path: "hosting/why-emails-land-in-spam"
+status: "published"
+meta_title: "Why Emails Land in Spam | Learn Computer Academy"
+meta_description: "Deliverability is a trust problem, not a technical one — the DNS records and habits that get email from your domain into the inbox instead of spam."
+sort_order: 34
+updated_at: "2026-08-05T13:35:41.331732+00:00"
+---
+
+```json
+[
+  {
+    "id": "sxo1sp72ve1m",
+    "html": "<p>A working mail server is not the same as reliable delivery. This lesson covers <b>deliverability</b> — why mail from a brand-new domain routinely lands in spam, and the records that fix it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HGX3UZGLwnqR",
+    "text": "Deliverability Is a Trust Problem",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deliverability-is-a-trust-problem"
+  },
+  {
+    "id": "Cahh7N4A70ck",
+    "html": "<p>Every major mail provider (Gmail, Outlook, and the rest) runs incoming mail through spam filters that score it on sender reputation before it ever reaches an inbox. A domain with no history, no verification records, and no sending pattern to judge looks exactly like what spam typically looks like — new, unverified, unpredictable — regardless of how legitimate the actual content is.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5C2p_obt8gUn",
+    "text": "The Three Verification Records",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-three-verification-records"
+  },
+  {
+    "id": "Ak2NL-brBJA5",
+    "rows": [
+      [
+        "SPF",
+        "Which mail servers are allowed to send mail claiming to be from your domain — a receiving server checks the sending server against this list"
+      ],
+      [
+        "DKIM",
+        "A cryptographic signature added to outgoing mail, proving it genuinely came from your domain and was not altered in transit"
+      ],
+      [
+        "DMARC",
+        "A policy telling receiving servers what to do when SPF or DKIM fails — reject the mail, quarantine it as spam, or merely report the failure"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Record",
+      "What it proves"
+    ]
+  },
+  {
+    "id": "gAVmGg1Bzjk9",
+    "html": "<p>All three are TXT records, added to the same DNS panel covered in the connecting-a-domain lesson, and your email provider (from the previous lesson) supplies the exact values — this is not something to construct by hand.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YG7pF1P6h9BW",
+    "alt": "Isometric diagram showing an email envelope passing through three checkpoint gates labelled SPF, DKIM, and DMARC before reaching an inbox tray, with a rejected envelope diverted to a spam folder icon",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Three checks a receiving mail server runs before deciding inbox or spam.",
+    "publicId": "docs/img/hosting/spam-1"
+  },
+  {
+    "id": "WXIzddi-MYfN",
+    "text": "Reputation Beyond the Records",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reputation-beyond-the-records"
+  },
+  {
+    "id": "9iqAePMd9wuJ",
+    "html": "<p>Correct records are necessary but not sufficient. Ongoing sending behavior matters just as much: a sudden volume spike, a high bounce rate from sending to invalid addresses, or a high complaint rate (recipients marking mail as spam) all damage a domain's reputation over time, independent of whether SPF and DKIM technically pass.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "L8AD1I98s9V0",
+    "text": "A New Domain Starts With No Reputation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-new-domain-starts-with-no-reputation"
+  },
+  {
+    "id": "8GWhk3wvRK1u",
+    "html": "<p>This is why a brand-new domain sending its first bulk email often lands in spam even with every record configured correctly — reputation is built over time by consistent, low-complaint sending, not established instantly by DNS records alone. It is a genuine reason to expect early friction, not a sign that something is misconfigured.</p>",
+    "type": "callout",
+    "title": "New domains need time, not just correct records",
+    "variant": "note"
+  },
+  {
+    "id": "q6dCIuVnlYGr",
+    "text": "Transactional vs. Bulk Mail",
+    "type": "heading",
+    "level": 2,
+    "anchor": "transactional-vs-bulk-mail"
+  },
+  {
+    "id": "MLyNIQ6hY_g5",
+    "html": "<p>A contact-form notification or a password-reset email (transactional mail, sent one at a time in response to a user action) behaves very differently from a newsletter sent to a large list at once (bulk mail) — mail providers watch for the volume and pattern differences, and bulk sending is held to a noticeably stricter reputation standard. A dedicated transactional-email service is a common, worthwhile choice specifically for the contact-form and account-notification mail a website sends, separate from whatever handles a newsletter, if one exists at all.</p>",
+    "type": "richtext"
+  }
+]
+```

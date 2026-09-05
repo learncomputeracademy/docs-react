@@ -1,0 +1,158 @@
+---
+id: "aa5fd0d9-f7b6-4685-953b-fca4af36a41c"
+title: "Writing Code That Lasts — Clean Code & Basic OOP"
+path: "programming/clean-code-and-basic-oop"
+status: "published"
+meta_title: "Writing Code That Lasts — Clean Code & Basic OOP | Learn Computer Academy"
+meta_description: "Clean code habits every beginner should build early — meaningful names, small functions, DRY, YAGNI — plus the four core ideas of object-oriented programming, explained simply."
+sort_order: 20
+updated_at: "2026-09-03T06:56:40.517988+00:00"
+---
+
+```json
+[
+  {
+    "id": "o5a6QNuaDHZp",
+    "html": "<p>Everything so far has been about making code <i>work</i>. This lesson is about something just as important: making code that other people — including future you — can still understand six months later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ugr5FGQWpXYB",
+    "html": "<p>Code you write once and never touch again can be messy and it won't matter. Real programs get read, changed, and debugged far more often than they get written the first time. A little discipline now saves a lot of confusion later.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BFAlaKBouIBR",
+    "text": "Clean Code Habits",
+    "type": "heading",
+    "level": 2,
+    "anchor": "clean-code-habits"
+  },
+  {
+    "id": "WppHy5_hA5uH",
+    "html": "<p>None of these require new syntax — they're just habits.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "O5bNRm3u84FJ",
+    "rows": [
+      [
+        "Meaningful names over comments",
+        "A variable named <code>daysUntilExpiry</code> explains itself. A variable named <code>d</code> with a comment next to it can drift out of sync with the comment — the name never can."
+      ],
+      [
+        "Keep functions small",
+        "A function that does one clear thing is easy to test, reuse, and reason about. A function doing five things is really five functions wearing a trench coat."
+      ],
+      [
+        "Be consistent",
+        "Pick one naming style and one indentation style and stick to it throughout a project — consistency makes code predictable to read even in parts you've never seen before."
+      ],
+      [
+        "DRY — Don't Repeat Yourself",
+        "If the same logic is copy-pasted in three places, a bug fix has to happen in three places too, and it's easy to miss one."
+      ],
+      [
+        "YAGNI — You Aren't Gonna Need It",
+        "Don't build flexibility or features for a future that might never come — it adds complexity today for a maybe that may never happen."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Habit",
+      "Why it matters"
+    ]
+  },
+  {
+    "id": "dOAO4wEtbW_l",
+    "html": "<p>Compare these two versions of the same idea:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_N7dpG0Q__za",
+    "code": "// Hard to follow\nfunction calc(a, b, t) {\n  return t === 1 ? a + b : a - b;\n}\n\n// Clean\nfunction combineAmounts(amountA, amountB, operation) {\n  return operation === 'add'\n    ? amountA + amountB\n    : amountA - amountB;\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "orUWBSn6CL0I",
+    "html": "<p>Same logic, same length — but the second version tells you what it does without needing a comment.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HJQJRKpW0TSb",
+    "text": "What Is Object-Oriented Programming?",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-is-object-oriented-programming"
+  },
+  {
+    "id": "1cqqt0Dq1znZ",
+    "html": "<p><b>Object-oriented programming (OOP)</b> is a way of organising code around \"objects\" — bundles of related data and the functions that work on that data — instead of writing one long list of steps. Most modern languages (JavaScript, Python, Java, C#) support it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pxAgY5YCJx9_",
+    "html": "<p>Think of a <code>Car</code> object: it has data (color, speed, fuel level) and behaviour (accelerate, brake, refuel) bundled together, instead of that data floating around loose and a pile of separate functions operating on it from a distance.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Fvizo0OyFeSc",
+    "text": "The Four Core Ideas",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-four-core-ideas"
+  },
+  {
+    "id": "Ft_14kiFnyDE",
+    "rows": [
+      [
+        "Encapsulation",
+        "Bundling an object's data with the functions that operate on it, and hiding the internal details other code doesn't need to see."
+      ],
+      [
+        "Abstraction",
+        "Exposing only what's necessary to use something, hiding how it works underneath — you can drive a car without knowing how the engine is built."
+      ],
+      [
+        "Inheritance",
+        "A new object type can reuse and extend an existing one — a <code>SportsCar</code> can inherit everything a <code>Car</code> already has, and add its own extras."
+      ],
+      [
+        "Polymorphism",
+        "Different object types can respond to the same instruction in their own way — <code>car.makeSound()</code> and <code>truck.makeSound()</code> both exist, but do different things."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Idea",
+      "What it means"
+    ]
+  },
+  {
+    "id": "adzdcd0j4qYw",
+    "code": "class Car {\n  constructor(brand) {\n    this.brand = brand;\n    this.speed = 0;\n  }\n  accelerate() {\n    this.speed += 10;\n  }\n}\n\nclass SportsCar extends Car {  // inheritance\n  accelerate() {                // polymorphism — its own version\n    this.speed += 25;\n  }\n}\n\nconst civic = new Car('Honda');\nconst ferrari = new SportsCar('Ferrari');\ncivic.accelerate();\nferrari.accelerate();\nconsole.log(civic.speed, ferrari.speed); // 10, 25",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "MhH-wvX5RIa_",
+    "html": "<p>You don't need to master OOP to be productive — plenty of real, working code is written without classes at all. But recognising these four words when they come up (in a job interview, in another language's documentation, in a codebase you join) is worth having early.</p>",
+    "type": "callout",
+    "title": "You Don't Need to Use This Everywhere",
+    "variant": "note"
+  },
+  {
+    "id": "p8O1t79r7zu0",
+    "text": "Where This Leaves You",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-leaves-you"
+  },
+  {
+    "id": "g3v8JU1yqyQx",
+    "html": "<p>Clean code habits and basic OOP won't make a program run any differently — the computer doesn't care about your variable names. They make a difference to the next person reading the code, who is very often you.</p>",
+    "type": "richtext"
+  }
+]
+```

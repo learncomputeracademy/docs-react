@@ -1,0 +1,131 @@
+---
+id: "5bf09274-e043-471c-acdd-31edf4cc4399"
+title: "Type Conversion"
+path: "python/type-conversion"
+status: "published"
+meta_title: "Python Type Conversion | Learn Computer Academy"
+meta_description: "Converting values between types in Python with int(), str(), float(), and bool() — required, since Python won't do it automatically."
+sort_order: 6
+updated_at: "2026-08-04T11:39:28.173495+00:00"
+---
+
+```json
+[
+  {
+    "id": "dIl0883SOdA1",
+    "html": "<p>Since Python doesn't auto-convert types, converting between them deliberately is something you'll do constantly — especially when reading text input that needs to become a number.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5FR_bu36O9Hs",
+    "text": "The Conversion Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-conversion-functions"
+  },
+  {
+    "id": "CHk6Z07YpPpG",
+    "code": "age_text = \"21\"\nage = int(age_text)      # 21, as an actual int\nprice = float(\"19.99\")   # 19.99\ntext = str(42)            # \"42\"\nflag = bool(1)            # True",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "3v2URjf51Rzj",
+    "text": "A Common Real Pattern",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-real-pattern"
+  },
+  {
+    "id": "rBEw0q4FTYIB",
+    "html": "<p>Anything typed by a user — via <code>input()</code>, a form, a file — arrives as a string, even if it looks like a number. Converting it is not optional if you want to do math with it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3n38XhsXuzV6",
+    "code": "age_text = input(\"How old are you? \")\nage = int(age_text)\nprint(f\"Next year you'll be {age + 1}.\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "6ty-LULAThCB",
+    "html": "<p><code>int(\"21 years\")</code> raises a <code>ValueError</code> — Python's <code>int()</code> demands the entire string be a valid number; it won't quietly read just the leading digits and ignore the rest. Wrap conversions of untrusted input in <code>try</code>/<code>except</code> (covered in the Exception Handling lesson) rather than assuming they'll succeed.</p>",
+    "type": "callout",
+    "title": "int() is strict, not forgiving",
+    "variant": "warning"
+  },
+  {
+    "id": "xqcKqr8dTtmb",
+    "text": "Truthy and Falsy Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "truthy-and-falsy-values"
+  },
+  {
+    "id": "mXgsIKms5vxu",
+    "html": "<p>Casting anything to <code>bool</code> follows a specific set of rules, which Python applies inside every <code>if</code> statement too:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f-EI_7blyX3G",
+    "rows": [
+      [
+        "0, 0.0",
+        "False"
+      ],
+      [
+        "\"\" (empty string)",
+        "False"
+      ],
+      [
+        "[], (), {}, set() — any empty collection",
+        "False"
+      ],
+      [
+        "None",
+        "False"
+      ],
+      [
+        "Any other number or non-empty value",
+        "True"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Value",
+      "Casts to bool as"
+    ]
+  },
+  {
+    "id": "XtPGBgcKdGbN",
+    "html": "<p>One thing worth flagging specifically: in Python, the string <code>\"0\"</code> is <b>truthy</b> — it's a non-empty string, full stop, with no special-casing for what it contains.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yUthnvJLSGfl",
+    "text": "Converting Between Collections",
+    "type": "heading",
+    "level": 2,
+    "anchor": "converting-between-collections"
+  },
+  {
+    "id": "1DpMES1f-vXJ",
+    "html": "<p>The same <code>int()</code>/<code>str()</code> pattern works for collection types too — <code>list()</code>, <code>tuple()</code>, <code>set()</code>, and <code>dict()</code> each build one collection type from another:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pjXuy04W0FHR",
+    "code": "numbers = [1, 2, 2, 3]\nunique = set(numbers)      # {1, 2, 3} — a set, so duplicates disappear\nback_to_list = list(unique) # a list again, order not guaranteed to match the original",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "NVNRdfuwzEgi",
+    "html": "<p>Converting to a set and back is a fast, common trick for removing duplicates from a list.</p>",
+    "type": "richtext"
+  }
+]
+```

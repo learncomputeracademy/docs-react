@@ -1,0 +1,98 @@
+---
+id: "526b4674-9403-46df-89eb-68b7274f3f15"
+title: "Aggregation — Common Stages"
+path: "mongodb/aggregation-common-stages"
+status: "published"
+meta_title: "Aggregation — Common Stages | Learn Computer Academy"
+meta_description: "$sort, $limit, $unwind, and $lookup — the aggregation stages that sort results, cap them, flatten arrays, and join across collections."
+sort_order: 16
+updated_at: "2026-08-18T10:11:26.575275+00:00"
+---
+
+```json
+[
+  {
+    "id": "dYD1dIgDFpWy",
+    "html": "<p>Beyond <code>$match</code>, <code>$group</code>, and <code>$project</code>, a handful of other stages cover most remaining real-world aggregation needs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KZJPIrY_826R",
+    "alt": "An isometric illustration of documents from two separate collection stacks being merged together by a connecting bridge, representing a database join",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "$lookup joins documents from two different collections inside the aggregation pipeline.",
+    "publicId": "docs/img/mongodb/aggregation-stages-hero"
+  },
+  {
+    "id": "6HTQKnto753k",
+    "text": "$sort and $limit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sort-and-limit"
+  },
+  {
+    "id": "zWub_zxVdXJI",
+    "html": "<p>Work exactly like their <code>find()</code> equivalents, as pipeline stages — commonly placed after <code>$group</code> to order and cap a computed result:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Fc5Tm4aY7C3G",
+    "code": "db.orders.aggregate([\n  { $group: { _id: \"$customerId\", total: { $sum: \"$amount\" } } },\n  { $sort: { total: -1 } },\n  { $limit: 5 }\n])\n// Top 5 customers by total spend",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "ucLbPS9o80zm",
+    "text": "$unwind — Flatten an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unwind-flatten-an-array"
+  },
+  {
+    "id": "Cvyc9VNuLK__",
+    "html": "<p><code>$unwind</code> takes a document with an array field and outputs one document per array element — necessary before you can <code>$group</code> by individual items inside that array:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u6H64T-8y_n3",
+    "code": "// A document with tags: [\"sale\", \"featured\"]\n// becomes two documents, one per tag, after $unwind\ndb.products.aggregate([\n  { $unwind: \"$tags\" },\n  { $group: { _id: \"$tags\", count: { $sum: 1 } } }\n])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "hLv04tTUEoQF",
+    "text": "$lookup — Join Another Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "lookup-join-another-collection"
+  },
+  {
+    "id": "MMZgfJhFd9NV",
+    "html": "<p><code>$lookup</code> is MongoDB's equivalent of a SQL JOIN — it pulls in matching documents from a different collection based on a shared field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "barwddh7d-gQ",
+    "code": "db.posts.aggregate([\n  {\n    $lookup: {\n      from: \"authors\",\n      localField: \"authorId\",\n      foreignField: \"_id\",\n      as: \"authorInfo\"\n    }\n  }\n])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "D3Nd8YY2XJz7",
+    "html": "<p>The result adds an <code>authorInfo</code> array field to each post, containing the matching author document(s) — this is exactly the operation the referencing pattern from the schema-design lesson is built to support.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qXHwvbsO3vZh",
+    "html": "<p>Stage order matters for correctness, not just style — <code>$match</code> before <code>$group</code> filters the input; <code>$match</code> after <code>$group</code> filters the computed results. Putting filters as early as possible in the pipeline is also the standard performance habit.</p>",
+    "type": "callout",
+    "title": "Put $match as early as the logic allows",
+    "variant": "tip"
+  }
+]
+```

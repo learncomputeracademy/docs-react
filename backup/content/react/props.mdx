@@ -1,0 +1,101 @@
+---
+id: "233fd250-6d05-4e15-b572-1a23597326bd"
+title: "Props"
+path: "react/props"
+status: "published"
+meta_title: "React Props | Learn Computer Academy"
+meta_description: "Passing data into a component with props — how a single component becomes reusable with different data."
+sort_order: 5
+updated_at: "2026-07-31T11:24:36.255808+00:00"
+---
+
+```json
+[
+  {
+    "id": "ZRrHSCZ6qF09",
+    "html": "<p><b>Props</b> (short for \"properties\") are how data gets passed into a component — the mechanism that turns one component definition into something reusable with different data each time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "emfp3K10ZjVn",
+    "text": "Passing and Reading Props",
+    "type": "heading",
+    "level": 2,
+    "anchor": "passing-and-reading-props"
+  },
+  {
+    "id": "Pb2Y_6fOYx2X",
+    "code": "function Welcome(props) {\n  return <h1>Hello, {props.name}!</h1>;\n}\n\nfunction App() {\n  return (\n    <div>\n      <Welcome name=\"Priya\" />\n      <Welcome name=\"Amit\" />\n    </div>\n  );\n}\n// Renders: Hello, Priya! and Hello, Amit! — same component, different data",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "CRhGWQ0AnhiM",
+    "html": "<p>Props arrive as a single object — <code>{name: \"Priya\"}</code> for the first call above — with one key per attribute you passed on the JSX tag.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EtulOOqIBcEh",
+    "text": "Destructuring Props",
+    "type": "heading",
+    "level": 2,
+    "anchor": "destructuring-props"
+  },
+  {
+    "id": "DeojMC2Q8QRA",
+    "html": "<p>Real React code almost always destructures props directly in the function signature, using the <a href=\"/javascript/es6-and-modern-features/\">destructuring</a> you already know from JavaScript:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2fy_yZYEsrRy",
+    "code": "function Welcome({ name }) {\n  return <h1>Hello, {name}!</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "cmO_Tk19eGII",
+    "text": "Props Are Read-Only",
+    "type": "heading",
+    "level": 2,
+    "anchor": "props-are-read-only"
+  },
+  {
+    "id": "IRvRJJeAYhqn",
+    "html": "<p>A component must never modify the props it receives — they belong to whichever component passed them in. This isn't just a style rule; React relies on props being unchanged to know when a re-render is actually needed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FxHpJQhtxYau",
+    "code": "function Welcome({ name }) {\n  // name = \"Someone else\"; // Never do this — props are read-only\n  return <h1>Hello, {name}!</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "rS8Tu4xtJgOK",
+    "text": "The children Prop",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-children-prop"
+  },
+  {
+    "id": "buzRr4gzkYf9",
+    "html": "<p>Whatever's placed between a component's opening and closing tags is automatically passed in as a special prop called <code>children</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vWbvrQMwIFcL",
+    "code": "function Card({ children }) {\n  return <div className=\"card\">{children}</div>;\n}\n\nfunction App() {\n  return (\n    <Card>\n      <p>This paragraph becomes the Card's children.</p>\n    </Card>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "6sQqqW9p9JHf",
+    "html": "<p>The Component Composition lesson later in this section builds on <code>children</code> a lot further — it's one of the most useful patterns in the whole language.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,94 @@
+---
+id: "0ecc63b7-3749-4b7d-bc6d-68699127c715"
+title: "Smart Animate and Micro-interactions"
+path: "figma/smart-animate-and-micro-interactions"
+status: "published"
+meta_title: "Smart Animate and Micro-interactions | Learn Computer Academy"
+meta_description: "How Figma's Smart Animate transition creates real animation between two frames by matching layer names, and what makes a layer \"animatable.\""
+sort_order: 14
+updated_at: "2026-08-17T13:42:34.157052+00:00"
+---
+
+```json
+[
+  {
+    "id": "z9BSLiQ4DYkB",
+    "html": "<p>Every prototype connection covered so far jumps instantly (or fades) between two Frames. <b>Smart Animate</b> is a transition type that instead genuinely animates the difference between them — a card growing, a menu sliding in, a color fading — without any keyframe timeline or code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "HmFpRrxGolw2",
+    "alt": "Two Frames side by side, each containing an orange rectangle named identically — a small square in the first Frame and a larger rectangle in the second — set up as the \"before\" and \"after\" states for a Smart Animate transition",
+    "type": "image",
+    "width": 441,
+    "height": 104,
+    "caption": "Two states of the same named layer, \"Card\" — small in Frame 1, large in Frame 2. Smart Animate interpolates every difference between them automatically.",
+    "publicId": "docs/img/figma/smart-animate-cards"
+  },
+  {
+    "id": "Yv14p9DCt-nY",
+    "text": "The One Rule That Makes It Work",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-one-rule-that-makes-it-work"
+  },
+  {
+    "id": "5H-3QfusnUEA",
+    "html": "<p>Smart Animate matches layers <b>by name</b> across the two connected Frames. A layer called \"Card\" in Frame 1 and a layer also called \"Card\" in Frame 2 are treated as the same object — Figma animates every difference between them (position, size, rotation, color, corner radius) automatically. Rename either layer and the match breaks, and that piece snaps instead of animating.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EpAUTAtPlpHH",
+    "text": "Setting the Transition",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-the-transition"
+  },
+  {
+    "id": "tiquqZ4SbAH9",
+    "html": "<p>Create a prototype connection between the two Frames (covered in the Prototyping lesson) exactly as before, then open the transition dropdown on that connection and choose <b>Smart Animate</b> instead of the default Instant/Dissolve options. An easing curve and duration become available once it's selected.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CkLKdNit8Zym",
+    "text": "What Counts as \"the Same Layer\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-counts-as-the-same-layer"
+  },
+  {
+    "id": "6wsQC11aa25R",
+    "rows": [
+      [
+        "Same layer name, different position",
+        "Different layer names, even if visually identical"
+      ],
+      [
+        "Same layer name, different size",
+        "A layer that exists in one Frame but not the other"
+      ],
+      [
+        "Same layer name, different color/opacity",
+        "A layer nested at a different depth in the layer tree"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Matches (animates)",
+      "Doesn't match (snaps or breaks)"
+    ]
+  },
+  {
+    "id": "AUd6G87hyJY_",
+    "text": "Real Uses",
+    "type": "heading",
+    "level": 2,
+    "anchor": "real-uses"
+  },
+  {
+    "id": "jLudWKYGHpQ_",
+    "html": "<p>Smart Animate is how most of the small \"delight\" moments in real apps get prototyped before a developer builds them for real: a card expanding when tapped, a tab indicator sliding to the selected tab, a button subtly growing on press. None of it requires more than naming layers consistently across states.</p>",
+    "type": "richtext"
+  }
+]
+```

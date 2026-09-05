@@ -1,0 +1,141 @@
+---
+id: "93679e31-f3d4-4b92-b50d-f7f1e8290f96"
+title: "GitHub Pages — Free Static Site Hosting"
+path: "git/github-pages"
+status: "published"
+meta_title: "GitHub Pages | Learn Computer Academy"
+meta_description: "Turning a repository into a live website for free, directly from GitHub — perfect for a portfolio, project documentation, or a static project."
+sort_order: 25
+updated_at: "2026-09-03T05:30:36.014495+00:00"
+---
+
+```json
+[
+  {
+    "id": "kVN63Skn-bq5",
+    "html": "<p><b>GitHub Pages</b> hosts a static site (plain HTML/CSS/JS — the same kind covered in this site's HTML and CSS courses) directly from a repository, free, with a real URL — no separate hosting account needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pjz0HoXBIDfd",
+    "text": "Enabling It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "enabling-it"
+  },
+  {
+    "id": "5POQuLdCi6t0",
+    "html": "<p>From a repository's Settings → Pages, choose a source — either a specific branch (commonly a dedicated <code>gh-pages</code> branch, or <code>main</code>) and folder, or a GitHub Actions workflow for a build step.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-KK4zqioMveE",
+    "text": "The Simplest Setup",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-simplest-setup"
+  },
+  {
+    "id": "D3wDTvgEVgP3",
+    "code": "my-portfolio/\n├── index.html\n├── style.css\n└── script.js",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "bourn0fKKutx",
+    "html": "<p>Push these files to the branch configured in Pages settings, and the site is live within a minute or two at:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ng20t68tXQ68",
+    "code": "https://username.github.io/my-portfolio/",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "M20XjeYtWGaN",
+    "text": "A User/Organization Site vs. a Project Site",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-userorganization-site-vs-a-project-site"
+  },
+  {
+    "id": "L-TgqTfCE9vB",
+    "rows": [
+      [
+        "User site (one per account)",
+        "Must be exactly username.github.io",
+        "https://username.github.io/"
+      ],
+      [
+        "Project site (unlimited)",
+        "Any repository name",
+        "https://username.github.io/repository-name/"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Site type",
+      "Repository name",
+      "URL"
+    ]
+  },
+  {
+    "id": "4zgLE6rrEsoZ",
+    "text": "Custom Domains",
+    "type": "heading",
+    "level": 2,
+    "anchor": "custom-domains"
+  },
+  {
+    "id": "70nZTEnl_Iwa",
+    "html": "<p>A domain already owned (from the earlier Hosting & Deployment course's DNS lessons) can point at a GitHub Pages site instead of a traditional host — a CNAME file in the repository plus a DNS record at the domain registrar.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "m0RfErdxgjII",
+    "code": "# CNAME file, at the root of the repository\nwww.example.com",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "3oW8nRn2iOgg",
+    "text": "What GitHub Pages Can't Do",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-github-pages-cant-do"
+  },
+  {
+    "id": "8Eq9qdf1QqbW",
+    "rows": [
+      [
+        "Plain HTML, CSS, JavaScript",
+        "PHP, Python, Node.js, or any server-side code"
+      ],
+      [
+        "A React/Vue app, built to static files first",
+        "A database connection"
+      ],
+      [
+        "Client-side API calls to another service",
+        "Anything needing a real backend running continuously"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Works fine",
+      "Doesn't work"
+    ]
+  },
+  {
+    "id": "BkHvrr-FKu25",
+    "html": "<p>Every static project across this site's courses — a portfolio page, a completed CSS/JS project, this course's own example projects — is deployable on GitHub Pages in minutes, and pairs directly with the public-GitHub-profile advice from the Career Skills course.</p>",
+    "type": "callout",
+    "title": "The most common real use for a student",
+    "variant": "tip"
+  }
+]
+```

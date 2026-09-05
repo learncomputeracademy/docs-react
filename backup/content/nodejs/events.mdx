@@ -1,0 +1,95 @@
+---
+id: "17f44b88-0908-45a5-bf26-46b3c1b321f3"
+title: "Events & EventEmitter"
+path: "nodejs/events"
+status: "published"
+meta_title: "Node.js Events and EventEmitter | Learn Computer Academy"
+meta_description: "Use the built-in EventEmitter class to build code that reacts to named events — the pattern much of Node itself is built on."
+sort_order: 11
+updated_at: "2026-08-05T05:47:55.943528+00:00"
+---
+
+```json
+[
+  {
+    "id": "UohZmk6O3Ag3",
+    "html": "<p>You've used events before in browser JavaScript — <code>button.addEventListener('click', ...)</code>. Node has its own version of the same idea, built around a class called <b>EventEmitter</b>, and a lot of Node's own built-in APIs are built on top of it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "y4Jlo8-ruSrh",
+    "text": "Creating an Emitter",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-an-emitter"
+  },
+  {
+    "id": "NFmO6HeZPuVl",
+    "code": "const EventEmitter = require('events')\n\nconst emitter = new EventEmitter()",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "Y0syotgRrULu",
+    "text": "Listening and Emitting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "listening-and-emitting"
+  },
+  {
+    "id": "ZPH9JJ-qf-Su",
+    "html": "<p><code>on()</code> registers a function to run when a named event happens. <code>emit()</code> triggers it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "riIZxrqLgKnB",
+    "code": "emitter.on('greet', (name) => {\n  console.log(`Hello, ${name}!`)\n})\n\nemitter.emit('greet', 'Priya')  // logs: Hello, Priya!",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "J78J2RNTF-Fk",
+    "html": "<p>Any extra arguments passed to <code>emit()</code> get forwarded to every listener. And a single event can have more than one listener — all of them run, in the order they were registered.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TnybAw2RGMW6",
+    "text": "A Practical Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-example"
+  },
+  {
+    "id": "L4bSKs-E1egt",
+    "code": "const EventEmitter = require('events')\n\nclass OrderSystem extends EventEmitter {\n  placeOrder(item) {\n    console.log(`Order placed: ${item}`)\n    this.emit('order-placed', item)\n  }\n}\n\nconst orders = new OrderSystem()\n\norders.on('order-placed', (item) => {\n  console.log(`Sending confirmation email for: ${item}`)\n})\n\norders.on('order-placed', (item) => {\n  console.log(`Updating inventory for: ${item}`)\n})\n\norders.placeOrder('Laptop Stand')",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "zrLjJL4_XOkX",
+    "html": "<p>The <code>placeOrder</code> method doesn't need to know anything about emails or inventory — it just announces that an order happened. Anything that cares can listen for it. New behavior can be added later just by attaching another <code>on()</code> listener, with no changes to <code>placeOrder</code> itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vJosp4_GChsv",
+    "text": "Why This Pattern Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-pattern-matters"
+  },
+  {
+    "id": "4N5WG_BaXL2m",
+    "html": "<p>This is exactly the shape Node itself uses internally. A file stream emits <code>'data'</code> as chunks arrive and <code>'end'</code> when it's done; an HTTP server emits <code>'request'</code> for every incoming request. Understanding <code>EventEmitter</code> here makes those built-in APIs — covered in the next several lessons — far less mysterious.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wTLJjOMxkDFC",
+    "html": "<p>An event name is just a string you choose — there's no fixed list. <code>'order-placed'</code> works because both the emitter and the listener agree to use that exact spelling; a typo in either place means the listener silently never runs.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

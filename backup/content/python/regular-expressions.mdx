@@ -1,0 +1,171 @@
+---
+id: "d8f1c444-6180-4390-9be8-2446dd0c275e"
+title: "Regular Expressions"
+path: "python/regular-expressions"
+status: "published"
+meta_title: "Python Regular Expressions | Learn Computer Academy"
+meta_description: "Pattern matching in text with the re module — searching, matching, and replacing text that follows a shape rather than an exact string."
+sort_order: 30
+updated_at: "2026-09-03T04:52:50.174051+00:00"
+---
+
+```json
+[
+  {
+    "id": "4tXgJDlnV4Xg",
+    "html": "<p>A regular expression (<b>regex</b>) describes a pattern of text rather than an exact string — matching \"any email address\" or \"any phone number,\" not one specific value. Python's built-in <code>re</code> module handles all of it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZI3wlT_Zo7Pe",
+    "text": "Basic Matching",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-matching"
+  },
+  {
+    "id": "3lspwV7Tt4oI",
+    "code": "import re\n\ntext = 'My phone number is 555-1234'\nmatch = re.search(r'\\d{3}-\\d{4}', text)\n\nif match:\n    print(match.group())   # 555-1234",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "7Q1DjnQntWdQ",
+    "text": "Common Pattern Symbols",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-pattern-symbols"
+  },
+  {
+    "id": "rKo-Kgi1j3Lx",
+    "rows": [
+      [
+        "\\d",
+        "Any digit (0-9)"
+      ],
+      [
+        "\\w",
+        "Any word character (letter, digit, underscore)"
+      ],
+      [
+        "\\s",
+        "Any whitespace"
+      ],
+      [
+        ".",
+        "Any single character"
+      ],
+      [
+        "*",
+        "Zero or more of the previous character"
+      ],
+      [
+        "+",
+        "One or more of the previous character"
+      ],
+      [
+        "?",
+        "Zero or one of the previous character (optional)"
+      ],
+      [
+        "{n}",
+        "Exactly n repetitions"
+      ],
+      [
+        "^  $",
+        "Start of string / end of string"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Symbol",
+      "Matches"
+    ]
+  },
+  {
+    "id": "x0VCw7uBoo9f",
+    "text": "Finding Every Match",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finding-every-match"
+  },
+  {
+    "id": "sGT8gK4_84PI",
+    "code": "text = 'Contact us at sam@example.com or admin@test.org'\nemails = re.findall(r'[\\w.]+@[\\w.]+', text)\nprint(emails)   # ['sam@example.com', 'admin@test.org']",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "-bKI05ZmNV2L",
+    "text": "Replacing Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "replacing-text"
+  },
+  {
+    "id": "KWmnDvQKDwol",
+    "code": "text = 'Call 555-1234 or 555-5678'\nmasked = re.sub(r'\\d{3}-\\d{4}', 'XXX-XXXX', text)\nprint(masked)   # Call XXX-XXXX or XXX-XXXX",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "hNyfSvT5H40B",
+    "text": "Capturing Groups",
+    "type": "heading",
+    "level": 2,
+    "anchor": "capturing-groups"
+  },
+  {
+    "id": "7pCV_erXHYfc",
+    "html": "<p>Parentheses mark a part of the match worth pulling out separately.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "x7K68YU6QUb_",
+    "code": "match = re.search(r'(\\w+)@(\\w+)\\.com', 'sam@example.com')\nprint(match.group(1))   # sam\nprint(match.group(2))   # example",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Ktu-v-aPMwpM",
+    "rows": [
+      [
+        "re.search()",
+        "Finds the first match anywhere in the string"
+      ],
+      [
+        "re.match()",
+        "Checks only at the very start of the string"
+      ],
+      [
+        "re.findall()",
+        "Returns every match as a list"
+      ],
+      [
+        "re.sub()",
+        "Replaces every match with new text"
+      ],
+      [
+        "re.split()",
+        "Splits a string wherever the pattern matches"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "NcBEh-YYYayq",
+    "html": "<p>A regex that becomes genuinely unreadable is a sign to reconsider it — a few named steps of plain string methods, or a dedicated parsing library for something structured like HTML, is often the better choice for complex cases.</p>",
+    "type": "callout",
+    "title": "When not to reach for regex",
+    "variant": "tip"
+  }
+]
+```

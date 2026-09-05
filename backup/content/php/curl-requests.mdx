@@ -1,0 +1,111 @@
+---
+id: "9fd7b3b6-9c86-40cf-8ddb-55c534a3807b"
+title: "Making HTTP Requests with cURL"
+path: "php/curl-requests"
+status: "published"
+meta_title: "PHP cURL Requests | Learn Computer Academy"
+meta_description: "Calling another server's API from PHP with cURL — GET and POST requests, sending JSON, and reading the response."
+sort_order: 40
+updated_at: "2026-09-03T04:05:25.617254+00:00"
+---
+
+```json
+[
+  {
+    "id": "04LPWBwZsCDM",
+    "html": "<p>A PHP script often needs to talk to another service — a payment provider, a weather API, a third-party service's data. <b>cURL</b> is PHP's built-in way to make that outgoing HTTP request.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "oisBhW7UZI6a",
+    "text": "A Basic GET Request",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-get-request"
+  },
+  {
+    "id": "y-B9lVPMSCe8",
+    "code": "$ch = curl_init('https://api.example.com/users');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\n\n$response = curl_exec($ch);\ncurl_close($ch);\n\n$data = json_decode($response, true);",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "0pp4Bs5dFB2i",
+    "text": "Common curl_setopt() Options",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-curl_setopt-options"
+  },
+  {
+    "id": "PDU7cuL3YD1b",
+    "rows": [
+      [
+        "CURLOPT_RETURNTRANSFER",
+        "Returns the response as a string instead of printing it directly"
+      ],
+      [
+        "CURLOPT_POST",
+        "Sends the request as POST instead of GET"
+      ],
+      [
+        "CURLOPT_POSTFIELDS",
+        "The data to send in a POST request"
+      ],
+      [
+        "CURLOPT_HTTPHEADER",
+        "An array of custom headers, like Content-Type or Authorization"
+      ],
+      [
+        "CURLOPT_TIMEOUT",
+        "Maximum seconds to wait before giving up"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Option",
+      "What it does"
+    ]
+  },
+  {
+    "id": "7gikOlimRLK3",
+    "text": "A POST Request, Sending JSON",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-post-request-sending-json"
+  },
+  {
+    "id": "RGzeQvW91HCr",
+    "code": "$payload = json_encode(['name' => 'Sam', 'email' => 'sam@example.com']);\n\n$ch = curl_init('https://api.example.com/users');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_POST, true);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, $payload);\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n    'Content-Type: application/json',\n    'Authorization: Bearer ' . $apiToken,\n]);\n\n$response = curl_exec($ch);\n$statusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);\ncurl_close($ch);",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "iajKSWqJ0pDV",
+    "text": "Checking for a Connection Error",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-for-a-connection-error"
+  },
+  {
+    "id": "yQ833H27sQ6m",
+    "html": "<p>A network failure — a timeout, a DNS error — needs to be checked for separately from a bad HTTP status code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_VkDF54dyb2B",
+    "code": "if (curl_errno($ch)) {\n    echo 'cURL error: ' . curl_error($ch);\n} elseif ($statusCode !== 200) {\n    echo \"Request failed with status $statusCode\";\n}",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "yAFg6AKUlfVZ",
+    "html": "<p>The Guzzle package (installed via Composer, from the earlier lesson) wraps cURL in a much friendlier API and is the standard choice for a real project — raw cURL is still worth understanding since it's what Guzzle itself uses underneath.</p>",
+    "type": "callout",
+    "title": "Guzzle, for real projects",
+    "variant": "tip"
+  }
+]
+```

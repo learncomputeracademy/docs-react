@@ -1,0 +1,140 @@
+---
+id: "ffa05989-3750-480f-8ec3-bf47c2fe8472"
+title: "Data Constraints — FOREIGN KEY, UNIQUE, NOT NULL, CHECK"
+path: "sql/data-constraints"
+status: "published"
+meta_title: "SQL Data Constraints | Learn Computer Academy"
+meta_description: "The rules a table enforces on its own data beyond PRIMARY KEY — a foreign key linking tables, uniqueness, required values, and custom conditions."
+sort_order: 17
+updated_at: "2026-09-03T04:30:02.147558+00:00"
+---
+
+```json
+[
+  {
+    "id": "_kUs_QNT3PMs",
+    "html": "<p>The earlier DDL lesson's <code>CREATE TABLE</code> examples used <b>PRIMARY KEY</b> to uniquely identify each row. Four more constraints enforce rules on the data itself — the database refuses any change that would break them, rather than trusting the application to check.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JZPe7pkft_-B",
+    "text": "FOREIGN KEY — Linking Two Tables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "foreign-key-linking-two-tables"
+  },
+  {
+    "id": "pAsWmQgqZkB3",
+    "html": "<p>Ensures a column's value must already exist as a primary key in another table — the mechanism that actually connects related tables together.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "boEBVjrRwe2c",
+    "code": "CREATE TABLE orders (\n  id INT PRIMARY KEY,\n  customer_id INT,\n  FOREIGN KEY (customer_id) REFERENCES customers(id)\n);\n\n-- This INSERT fails if customer_id 99 doesn't exist in customers\nINSERT INTO orders (id, customer_id) VALUES (1, 99);",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "pVsFKf6sPA0L",
+    "html": "<ul><li>Prevents an order from ever referencing a customer that doesn't exist.</li><li>Also blocks deleting a customer who still has orders, unless the table explicitly allows it (e.g. <code>ON DELETE CASCADE</code>).</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "uUjeLtE3d8OT",
+    "html": "<p>Forgetting a foreign key doesn't cause an immediate error — it just silently allows \"orphaned\" rows that reference nothing, discovered much later as confusing bugs.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "67SUwPXPcpdO",
+    "text": "UNIQUE — No Duplicate Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unique-no-duplicate-values"
+  },
+  {
+    "id": "LRDNVBOlb77C",
+    "code": "CREATE TABLE users (\n  id INT PRIMARY KEY,\n  email VARCHAR(255) UNIQUE\n);\n\n-- Fails on the second row — the email already exists\nINSERT INTO users (id, email) VALUES (1, 'sam@example.com');\nINSERT INTO users (id, email) VALUES (2, 'sam@example.com');",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "a2ji8wFmcSIo",
+    "html": "<ul><li>Unlike PRIMARY KEY, a table can have several UNIQUE columns.</li><li>Unlike PRIMARY KEY, a UNIQUE column can allow one NULL value (behavior varies slightly by database).</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "L_VicEX6yMD1",
+    "text": "NOT NULL — A Value Is Required",
+    "type": "heading",
+    "level": 2,
+    "anchor": "not-null-a-value-is-required"
+  },
+  {
+    "id": "5LntzW1Qx0g5",
+    "code": "CREATE TABLE users (\n  id INT PRIMARY KEY,\n  email VARCHAR(255) NOT NULL\n);\n\n-- Fails — email is required\nINSERT INTO users (id) VALUES (1);",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "EHw_Lc9URHkG",
+    "html": "<p>A column with no NOT NULL constraint silently accepts NULL — a very common source of \"why is this field empty\" bugs traced back to a missing constraint, not application logic.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "8CgLPscI_lhX",
+    "text": "CHECK — A Custom Condition",
+    "type": "heading",
+    "level": 2,
+    "anchor": "check-a-custom-condition"
+  },
+  {
+    "id": "LBmOzUogH81w",
+    "html": "<p>Enforces any boolean condition on a column's value — the most flexible constraint.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1-9qdSjBmUGj",
+    "code": "CREATE TABLE products (\n  id INT PRIMARY KEY,\n  price DECIMAL(10,2) CHECK (price > 0),\n  quantity INT CHECK (quantity >= 0)\n);\n\n-- Fails — price must be positive\nINSERT INTO products (id, price, quantity) VALUES (1, -10, 5);",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "1IhGrDj2F27W",
+    "rows": [
+      [
+        "PRIMARY KEY",
+        "Uniquely identifies each row, never NULL (covered in the earlier DDL lesson)"
+      ],
+      [
+        "FOREIGN KEY",
+        "A value must exist as a primary key in another table"
+      ],
+      [
+        "UNIQUE",
+        "No two rows share the same value in this column"
+      ],
+      [
+        "NOT NULL",
+        "A value is required — cannot be left empty"
+      ],
+      [
+        "CHECK",
+        "A custom condition the value must satisfy"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Constraint",
+      "Enforces"
+    ]
+  }
+]
+```

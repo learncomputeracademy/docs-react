@@ -1,0 +1,131 @@
+---
+id: "d346c41f-7180-4c5d-8f15-8ec2ea538017"
+title: "WordPress Hooks — Actions and Filters"
+path: "wordpress/wordpress-hooks-actions-and-filters"
+status: "published"
+meta_title: "WordPress Hooks — Actions and Filters | Learn Computer Academy"
+meta_description: "The system behind almost every functions.php snippet in this course — how actions and filters work, and how to define a custom hook of your own."
+sort_order: 27
+updated_at: "2026-09-03T04:10:59.614747+00:00"
+---
+
+```json
+[
+  {
+    "id": "_yGGd-7hKEsq",
+    "html": "<p>Nearly every earlier lesson's <code>functions.php</code> code used <code>add_action()</code> — enqueuing assets, registering a menu, setting up theme support — without fully explaining the system underneath it. This lesson covers that system directly: WordPress's <b>hooks</b>, the mechanism that lets a theme (or plugin) run code at a specific point without editing WordPress's own core files.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d6pPhp8Rnw7y",
+    "text": "Two Kinds of Hooks",
+    "type": "heading",
+    "level": 2,
+    "anchor": "two-kinds-of-hooks"
+  },
+  {
+    "id": "h5IDdP4UCjpq",
+    "rows": [
+      [
+        "Action",
+        "Run some code at a specific point — no return value expected",
+        "add_action()"
+      ],
+      [
+        "Filter",
+        "Modify a piece of data and hand it back — always returns a value",
+        "add_filter()"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Hook type",
+      "Purpose",
+      "Registered with"
+    ]
+  },
+  {
+    "id": "hTsm7QZjFNkZ",
+    "text": "An Action — Run Code at a Specific Moment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "an-action-run-code-at-a-specific-moment"
+  },
+  {
+    "id": "axZv29uk7vfi",
+    "code": "// functions.php\nfunction wgh_setup_theme() {\n    add_theme_support('post-thumbnails');\n}\nadd_action('after_setup_theme', 'wgh_setup_theme');",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "dGrjpzEUEfDy",
+    "html": "<p><code>after_setup_theme</code> is the hook name — a specific moment WordPress reaches during every page load. <code>add_action()</code> attaches <code>wgh_setup_theme</code> to run at that exact moment.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LBYkKBAmw1iu",
+    "text": "A Filter — Modify a Value and Return It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-filter-modify-a-value-and-return-it"
+  },
+  {
+    "id": "eXk1KyFBnLYX",
+    "html": "<p>Unlike an action, a filter's function always receives a value and must return one — often the same value, changed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7mva9XgTIopg",
+    "code": "// Shorten every post excerpt to 15 words instead of the default 55\nfunction wgh_shorter_excerpt($length) {\n    return 15;\n}\nadd_filter('excerpt_length', 'wgh_shorter_excerpt');",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "t_J1FPkEjClS",
+    "text": "Defining a Custom Hook — do_action() and apply_filters()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-a-custom-hook-do_action-and-apply_filters"
+  },
+  {
+    "id": "c0sHWIV0-qQ9",
+    "html": "<p>Themes and plugins don't just use WordPress's built-in hooks — they can define their own, letting other code (a child theme, a plugin) extend a specific point without editing the original file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-92K_ufittb0",
+    "code": "// Inside your theme's header.php, right after <body>\ndo_action('wgh_after_body_open');\n\n// Anywhere else — a child theme's functions.php, for example —\n// this now runs automatically at that exact point:\nadd_action('wgh_after_body_open', function () {\n    echo '<div class=\"announcement-bar\">Free shipping this week!</div>';\n});",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "ELMB0w0xdSmk",
+    "text": "Removing a Hooked Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "removing-a-hooked-function"
+  },
+  {
+    "id": "KFEgyxm1Kjes",
+    "html": "<p><code>remove_action()</code> and <code>remove_filter()</code> undo a hook — useful when a parent theme's behavior needs to be disabled from a child theme, covered in the next lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MVUKPR_uOIRw",
+    "code": "remove_action('wp_head', 'wp_generator');   // hides the WordPress version number from the page source",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "xGNYlZxkCJyv",
+    "html": "<p>A fast way to spot which hook to use for a given task: search the specific WordPress or plugin function's entry on developer.wordpress.org — its \"Hooks\" section lists every action and filter that fires inside it.</p>",
+    "type": "callout",
+    "title": "Finding the right hook name",
+    "variant": "tip"
+  }
+]
+```

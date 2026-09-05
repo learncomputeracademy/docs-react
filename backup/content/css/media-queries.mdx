@@ -1,0 +1,146 @@
+---
+id: "94a61e21-8bd2-498c-a6a7-6fbcbc9e3864"
+title: "CSS Media Queries & Responsive Design"
+path: "css/media-queries"
+status: "published"
+meta_title: "CSS Media Queries | Learn Computer Academy"
+meta_description: "Apply different CSS depending on screen size, orientation, or color scheme with @media — the core tool behind a responsive layout."
+sort_order: 41
+updated_at: "2026-09-03T03:54:08.317219+00:00"
+---
+
+```json
+[
+  {
+    "id": "XGFff1IQkZOl",
+    "html": "<hr><p>A media query applies a block of CSS only when a condition is true — most commonly, the width of the browser window. This is the core mechanism behind a site that looks right on both a phone and a desktop.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "a5OSnKrq3mKD",
+    "text": "Basic Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-syntax"
+  },
+  {
+    "id": "CADMZQieHGHj",
+    "code": "@media (max-width: 768px) {\n  .sidebar {\n    display: none;\n  }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "3KVovL7_Uedd",
+    "text": "min-width vs. max-width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "min-width-vs-max-width"
+  },
+  {
+    "id": "wCWHB1jPUO2i",
+    "rows": [
+      [
+        "(max-width: 768px)",
+        "The viewport is 768px wide or narrower"
+      ],
+      [
+        "(min-width: 768px)",
+        "The viewport is 768px wide or wider"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Query",
+      "Applies when..."
+    ]
+  },
+  {
+    "id": "BW7zrYQ57Vu0",
+    "text": "Mobile-First: Building with min-width",
+    "type": "heading",
+    "level": 2,
+    "anchor": "mobile-first-building-with-min-width"
+  },
+  {
+    "id": "T_uNU6hsOE7B",
+    "html": "<p>Writing the base styles for small screens first, then adding <code>min-width</code> queries to enhance the layout for larger screens, is the modern recommended approach — it means a phone never downloads styles meant to be overridden.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "n2fB_fOuTESJ",
+    "code": ".container {\n  display: block;    /* base: stacked, for mobile */\n}\n\n@media (min-width: 768px) {\n  .container {\n    display: flex;    /* enhanced: side by side, for tablet and up */\n  }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "_MMNBD-XCVM0",
+    "text": "Common Breakpoints",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-breakpoints"
+  },
+  {
+    "id": "6o3qVZL_6sXm",
+    "rows": [
+      [
+        "480px",
+        "Small phones"
+      ],
+      [
+        "768px",
+        "Tablets"
+      ],
+      [
+        "1024px",
+        "Small laptops"
+      ],
+      [
+        "1280px+",
+        "Desktops"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Breakpoint",
+      "Roughly targets"
+    ]
+  },
+  {
+    "id": "QHr_y1KTujKa",
+    "text": "Other Useful Media Features",
+    "type": "heading",
+    "level": 2,
+    "anchor": "other-useful-media-features"
+  },
+  {
+    "id": "EGnb869TRaIz",
+    "code": "@media (orientation: landscape) { /* wider than tall */ }\n@media (prefers-color-scheme: dark) { /* user has dark mode on */ }\n@media (prefers-reduced-motion: reduce) { /* user asked for less motion */ }",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "r-hSVVCdSpNV",
+    "text": "Combining Conditions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "combining-conditions"
+  },
+  {
+    "id": "ReTN0404k4_S",
+    "code": "@media (min-width: 768px) and (orientation: landscape) {\n  .layout { grid-template-columns: 1fr 1fr; }\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "s5UuYyp6pGnf",
+    "html": "<p>Don't forget the viewport meta tag in the page's <code>&lt;head&gt;</code> — without <code>&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;</code>, mobile browsers render at a fake desktop width and media queries never trigger as expected.</p>",
+    "type": "callout",
+    "title": "The tag every responsive page needs",
+    "variant": "note"
+  }
+]
+```

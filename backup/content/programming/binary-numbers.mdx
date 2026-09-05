@@ -5,30 +5,30 @@ path: "programming/binary-numbers"
 status: "published"
 meta_title: "Binary Numbers | Learn Computer Academy"
 sort_order: 17
-updated_at: "2026-07-25T08:16:50.850641+00:00"
+updated_at: "2026-08-18T14:27:48.34494+00:00"
 ---
 
 ```json
 [
   {
-    "id": "e8db8uYoTIMG",
+    "id": "ErhMuYInNJwP",
     "html": "<p>Binary is a number system that uses only two digits, 0 and 1 — compared to the decimal system you use every day, which has ten digits (0–9). It's the number system computers use internally, because a bit only has two possible states.</p>",
     "type": "richtext"
   },
   {
-    "id": "uyof0OfaARVa",
+    "id": "viHrfw8CePDO",
     "text": "How binary counting works",
     "type": "heading",
     "level": 2,
     "anchor": "how-binary-counting-works"
   },
   {
-    "id": "tpdw_d0ajF3M",
+    "id": "UE2ltQQa9QaX",
     "html": "<p>In decimal, each position represents a power of 10 (1, 10, 100, ...). In binary, each position represents a power of 2 (1, 2, 4, 8, ...).</p>",
     "type": "richtext"
   },
   {
-    "id": "k_FQHaSmgz-c",
+    "id": "_v3tHnuLlVN5",
     "rows": [
       [
         "0000",
@@ -69,30 +69,50 @@ updated_at: "2026-07-25T08:16:50.850641+00:00"
     ]
   },
   {
-    "id": "3WgrnBm2mvPB",
+    "id": "Ui9bsm5WY1NA",
     "text": "Converting binary to decimal in code",
     "type": "heading",
     "level": 2,
     "anchor": "converting-binary-to-decimal-in-code"
   },
   {
-    "id": "txCgtDohQ2WG",
+    "id": "DhxnfDKPJgKU",
     "code": "let decimal = parseInt(\"1010\", 2);\nconsole.log(decimal); // 10",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$decimal = bindec(\"1010\");\necho $decimal; // 10",
+        "language": "php"
+      },
+      {
+        "code": "decimal = int(\"1010\", 2)\nprint(decimal)  # 10",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "XiGKMbZAJqs9",
+    "id": "KMEXEMCzXBkL",
     "text": "Converting decimal to binary in code",
     "type": "heading",
     "level": 2,
     "anchor": "converting-decimal-to-binary-in-code"
   },
   {
-    "id": "nEY5h9lwLgtw",
+    "id": "v5LDZjbyQrqu",
     "code": "let binary = (10).toString(2);\nconsole.log(binary); // \"1010\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$binary = decbin(10);\necho $binary; // \"1010\"",
+        "language": "php"
+      },
+      {
+        "code": "binary = bin(10)[2:]  # bin() gives \"0b1010\" — slice off the prefix\nprint(binary)  # \"1010\"",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

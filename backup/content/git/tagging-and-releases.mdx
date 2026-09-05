@@ -1,0 +1,122 @@
+---
+id: "3aeffd1c-ecdd-410a-8f17-d08581c0ffc6"
+title: "Tagging and GitHub Releases"
+path: "git/tagging-and-releases"
+status: "published"
+meta_title: "Git Tagging and GitHub Releases | Learn Computer Academy"
+meta_description: "Marking a specific commit as a version — v1.0.0 — with a Git tag, and turning that into a downloadable GitHub Release with notes."
+sort_order: 23
+updated_at: "2026-09-03T05:30:35.423696+00:00"
+---
+
+```json
+[
+  {
+    "id": "vgE6FB4WZQjW",
+    "html": "<p>A <b>tag</b> marks one specific commit permanently — most commonly to record a release version, so \"v1.0.0\" always points to the exact commit that was actually shipped.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IjYZ23f_9oV3",
+    "text": "Creating a Tag",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-tag"
+  },
+  {
+    "id": "Fllji4UA958m",
+    "code": "# A lightweight tag — just a name pointing to a commit\ngit tag v1.0.0\n\n# An annotated tag — includes a message, author, and date (recommended for releases)\ngit tag -a v1.0.0 -m \"First stable release\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "z6BPp4E0Jc6s",
+    "text": "Listing and Viewing Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "listing-and-viewing-tags"
+  },
+  {
+    "id": "4pICFIsV-Fey",
+    "code": "git tag\n# v1.0.0\n\ngit show v1.0.0\n# Shows the tag's message and the commit it points to",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "k2NcJB387LAU",
+    "text": "Pushing Tags",
+    "type": "heading",
+    "level": 2,
+    "anchor": "pushing-tags"
+  },
+  {
+    "id": "U0aQv7VcgoPV",
+    "html": "<p>Tags aren't included in a normal <code>git push</code> — they need to be pushed explicitly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Uc68fKfpnz9C",
+    "code": "git push origin v1.0.0\n\n# Push every tag at once\ngit push origin --tags",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "aKSPGd15EUm5",
+    "text": "Checking Out a Tag",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-out-a-tag"
+  },
+  {
+    "id": "SMkiUnXD-UyU",
+    "code": "git checkout v1.0.0\n# Same detached HEAD situation as checking out any specific commit —\n# from the earlier HEAD lesson",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "RcdGxSRdNN-T",
+    "text": "Turning a Tag into a GitHub Release",
+    "type": "heading",
+    "level": 2,
+    "anchor": "turning-a-tag-into-a-github-release"
+  },
+  {
+    "id": "yI-ar6j7_Es0",
+    "html": "<p>On GitHub, a <b>Release</b> is a tag with release notes, and optionally downloadable files attached (a compiled binary, a build artifact) — created from a repository's \"Releases\" section, usually based on an existing tag.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5Z7Cutzp37WY",
+    "rows": [
+      [
+        "Just a name pointing to a commit",
+        "A tag, plus formatted release notes and optional file attachments"
+      ],
+      [
+        "Works with any Git host, or no host at all",
+        "A GitHub-specific feature built on top of tags"
+      ],
+      [
+        "git tag -a / git push origin <tag>",
+        "Created through GitHub's web interface or gh CLI"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "A plain Git tag",
+      "A GitHub Release"
+    ]
+  },
+  {
+    "id": "WZtHm9st0iLj",
+    "html": "<p>GitHub can auto-generate release notes from the commits and merged PRs between two tags — a genuinely useful starting point that saves writing a changelog from scratch.</p>",
+    "type": "callout",
+    "title": "Auto-generated release notes",
+    "variant": "tip"
+  }
+]
+```

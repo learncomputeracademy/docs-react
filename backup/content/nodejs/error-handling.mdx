@@ -1,0 +1,103 @@
+---
+id: "211dd852-9fb1-44f2-ac8c-c857186af1bd"
+title: "Error Handling in Node.js"
+path: "nodejs/error-handling"
+status: "published"
+meta_title: "Error Handling in Node.js | Learn Computer Academy"
+meta_description: "Handle errors in synchronous code, callbacks, and promises correctly in Node.js, and prevent one unhandled error from crashing the whole server."
+sort_order: 18
+updated_at: "2026-08-05T05:47:58.202606+00:00"
+---
+
+```json
+[
+  {
+    "id": "vk63SZEbxhP-",
+    "html": "<p>You've already handled errors throughout this course — checking <code>err</code> in a callback, wrapping <code>await</code> in <code>try</code>/<code>catch</code>. This lesson pulls those together and covers the one Node-specific consequence of getting it wrong: an unhandled error can bring down the <i>entire</i> server, not just the one request that caused it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Il6w5Lur4sAm",
+    "text": "Synchronous Errors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "synchronous-errors"
+  },
+  {
+    "id": "ApGWMWR4O90g",
+    "code": "try {\n  const data = JSON.parse('not valid json')\n} catch (err) {\n  console.error('Failed to parse:', err.message)\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "NNT4VK3HGLym",
+    "html": "<p>Ordinary <code>try</code>/<code>catch</code> — nothing Node-specific here, this works the same as any other JavaScript.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1HtCk8dLwfd8",
+    "text": "Callback Errors — Always Check err",
+    "type": "heading",
+    "level": 2,
+    "anchor": "callback-errors-always-check-err"
+  },
+  {
+    "id": "CrIiDUfuZ21x",
+    "html": "<p>An error in a callback-style function doesn't throw — it arrives as the callback's first argument, and <code>try</code>/<code>catch</code> around the call does nothing to catch it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RKTipn-RMDaA",
+    "code": "fs.readFile('missing.txt', 'utf8', (err, data) => {\n  if (err) {\n    console.error('Read failed:', err.message)\n    return  // stop here — data is undefined\n  }\n  console.log(data)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "X-RhzevsnyNJ",
+    "text": "Promise and async/await Errors",
+    "type": "heading",
+    "level": 2,
+    "anchor": "promise-and-asyncawait-errors"
+  },
+  {
+    "id": "9aAEk6iHAW7p",
+    "code": "async function loadConfig() {\n  try {\n    const data = await fs.readFile('config.json', 'utf8')\n    return JSON.parse(data)\n  } catch (err) {\n    console.error('Failed to load config:', err.message)\n    return null\n  }\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "-2pFF8vn01Lo",
+    "text": "Why an Unhandled Error Is Worse in Node",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-an-unhandled-error-is-worse-in-node"
+  },
+  {
+    "id": "JsZBh3H5AGg_",
+    "html": "<p>A single Node process is usually handling many requests from many different visitors at once. An error that escapes every <code>try</code>/<code>catch</code> — thrown but never caught — crashes the <b>entire process</b>, which means every visitor currently being served loses their connection, not just the one whose request triggered the error.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3aFtEMe2lrEr",
+    "code": "const server = http.createServer((req, res) => {\n  try {\n    const result = riskyOperation(req)\n    res.end(result)\n  } catch (err) {\n    console.error(err)\n    res.writeHead(500)\n    res.end('Internal Server Error')\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "2-mWQPieR_gX",
+    "html": "<p>Wrapping request handling in <code>try</code>/<code>catch</code> like this is what keeps one bad request from taking the whole server down — it turns a process crash into a single failed response.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kNeKQJVpDRqE",
+    "html": "<p>A common real-world gap: a request handler wraps its own logic in <code>try</code>/<code>catch</code>, but calls an <code>async</code> function inside it without <code>await</code>ing it. If that function later rejects, the rejection happens outside the <code>try</code> block entirely and goes unhandled. Always <code>await</code> an async call you want a surrounding <code>try</code>/<code>catch</code> to actually catch.</p>",
+    "type": "callout",
+    "title": "A gotcha worth watching for",
+    "variant": "warning"
+  }
+]
+```

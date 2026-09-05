@@ -1,0 +1,95 @@
+---
+id: "f24a6510-dca5-454b-b0d3-d1bb9724e1f9"
+title: "AI Automation — LangChain, RAG & No-Code Tools"
+path: "ai/ai-automation-langchain-rag-no-code"
+status: "published"
+meta_title: "AI Automation — LangChain, RAG & No-Code Tools | Learn Computer Academy"
+meta_description: "Building a chatbot that answers questions from your own documents with LangChain and RAG, analysing images with code, and automating workflows without code."
+sort_order: 16
+updated_at: "2026-09-03T06:44:38.323169+00:00"
+---
+
+```json
+[
+  {
+    "id": "krMiHKtYiNed",
+    "html": "<p>The last lesson called a general-purpose AI model. This lesson connects AI to your own data and chains several steps together — the pattern behind most real AI applications.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y8xkTjd9wgOW",
+    "text": "Understanding Images With Code",
+    "type": "heading",
+    "level": 2,
+    "anchor": "understanding-images-with-code"
+  },
+  {
+    "id": "y8n7BT0_NfNy",
+    "html": "<p>Some AI models accept an image alongside text. Sent together with the right instruction, this can automate genuinely tedious work — like writing product descriptions from photos for an online shop:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_PtqkpapuYfy",
+    "code": "import base64\nfrom openai import OpenAI\nclient = OpenAI(api_key=\"YOUR_API_KEY_HERE\")\n\nwith open(\"product.jpg\", \"rb\") as image_file:\n    image_data = base64.b64encode(image_file.read()).decode(\"utf-8\")\n\nresponse = client.chat.completions.create(\n    model=\"gpt-4o\",\n    messages=[{\n        \"role\": \"user\",\n        \"content\": [\n            {\"type\": \"image_url\", \"image_url\": {\"url\": f\"data:image/jpeg;base64,{image_data}\"}},\n            {\"type\": \"text\", \"text\": \"Describe this product in 2 sentences for an online listing, then list 3 key features as bullet points.\"}\n        ]\n    }]\n)\n\nprint(response.choices[0].message.content)",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "rDZCU26Fw6Oh",
+    "html": "<p>A small shop adding new products regularly could use exactly this to turn a batch of photos into draft listings in minutes instead of an evening of manual writing.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MVCeZVPVtk0R",
+    "text": "Building a Document Q&A Chatbot (RAG)",
+    "type": "heading",
+    "level": 2,
+    "anchor": "building-a-document-qa-chatbot-rag"
+  },
+  {
+    "id": "6KD8aU_AHINe",
+    "html": "<p>A regular chatbot only knows what it was trained on — it has never seen your specific PDF, brochure, or FAQ document. <b>Retrieval-Augmented Generation (RAG)</b>, covered conceptually in the next lesson, fixes this. Here's what actually building one looks like using a toolkit called <b>LangChain</b>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iH3qvwc7doQ4",
+    "code": "from langchain_community.document_loaders import PyPDFLoader\nfrom langchain.text_splitter import RecursiveCharacterTextSplitter\nfrom langchain_openai import OpenAIEmbeddings, ChatOpenAI\nfrom langchain_community.vectorstores import FAISS\nfrom langchain.chains import RetrievalQA\n\n# 1. Load the document\nloader = PyPDFLoader(\"course-brochure.pdf\")\ndocuments = loader.load()\n\n# 2. Split it into small overlapping chunks\nsplitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)\nchunks = splitter.split_documents(documents)\n\n# 3. Convert chunks into searchable vectors and store them\nembeddings = OpenAIEmbeddings()\nvectorstore = FAISS.from_documents(chunks, embeddings)\n\n# 4. Build a chain that retrieves relevant chunks, then asks the AI\nqa_chain = RetrievalQA.from_chain_type(\n    llm=ChatOpenAI(model=\"gpt-4o-mini\", temperature=0),\n    retriever=vectorstore.as_retriever(search_kwargs={\"k\": 3}),\n)\n\n# 5. Ask a question — answered only from the document's contents\nresult = qa_chain.invoke({\"query\": \"What are the course fees?\"})\nprint(result[\"result\"])",
+    "type": "code",
+    "language": "python"
+  },
+  {
+    "id": "ricoghsgtZdj",
+    "html": "<p>The AI now answers using only information that actually exists in your document — not its general training data. This exact pattern is how a hospital could let staff ask natural-language questions against its own protocols, or how a company builds a support bot that only ever answers from its own documentation.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "S9uY8BvoLl9z",
+    "text": "No-Code Automation Tools",
+    "type": "heading",
+    "level": 2,
+    "anchor": "no-code-automation-tools"
+  },
+  {
+    "id": "AUZdkO4vEixQ",
+    "html": "<p>Not every automation needs custom code. Tools like <b>n8n</b> and <b>Make.com</b> let you visually connect AI to other apps — \"when a new form response arrives, send it to an AI model to summarise, then post the summary to a messaging channel\" — built by dragging and connecting blocks rather than writing a script. These are worth knowing about specifically because they let a non-developer build real automations that would otherwise need custom code.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3mRXjm4G5j_2",
+    "text": "Running Models Yourself, Without an API",
+    "type": "heading",
+    "level": 2,
+    "anchor": "running-models-yourself-without-an-api"
+  },
+  {
+    "id": "5icoF6TymFCo",
+    "html": "<p>The open-source, run-it-yourself option covered earlier in this section — <b>Ollama</b> for local models — applies here too: for privacy-sensitive documents or high-volume automation where API costs add up, running an open model on your own hardware avoids sending data to an outside service entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "043mpVJCUEcd",
+    "html": "<p>You've now connected AI to real documents and chained multiple steps together — genuinely production-shaped skills. The next lesson steps back to the concepts underneath all of this: machine learning fundamentals.</p>",
+    "type": "richtext"
+  }
+]
+```

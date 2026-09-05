@@ -1,0 +1,214 @@
+---
+id: "77aff6b9-6e2f-4549-96db-f429ae658426"
+title: "Window Functions"
+path: "sql/window-functions"
+status: "published"
+meta_title: "SQL Window Functions | Learn Computer Academy"
+meta_description: "ROW_NUMBER, RANK, DENSE_RANK, NTILE, and LAG/LEAD — calculating across a set of related rows without collapsing them into one, the way GROUP BY does."
+sort_order: 13
+updated_at: "2026-07-29T06:31:08.375157+00:00"
+---
+
+```json
+[
+  {
+    "id": "1lA8VW_Sd2jN",
+    "html": "<p>Window functions calculate across a set of related rows without collapsing them into one, the way <code>GROUP BY</code> does. Every input row keeps its place in the output — the function just adds a calculated value alongside it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SKWC_n4Eg8wm",
+    "text": "ROW_NUMBER()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "row_number"
+  },
+  {
+    "id": "pWtbdEU51MgT",
+    "html": "<p>Assigns a unique, sequential number to each row within a window.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LEqLrPOGD2aJ",
+    "code": "ROW_NUMBER() OVER (ORDER BY column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "l5g2gI6KbXgG",
+    "code": "SELECT name, salary,\nROW_NUMBER() OVER (ORDER BY salary DESC) AS rank\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "V6U8J86iUiwz",
+    "html": "<ul><li>Assigns unique row numbers.</li><li>No two rows ever share the same number, even on ties.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "91nAmn5H1cZ8",
+    "html": "<p>Forgetting to <code>PARTITION BY</code> when the numbering should restart per group instead of running across the whole result.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "akcZP0OVSaEz",
+    "text": "RANK()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rank"
+  },
+  {
+    "id": "I0Mlk-boDPfU",
+    "html": "<p>Ranks rows, giving the same rank to ties and skipping the next number.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BfqrjrEZ7NOG",
+    "code": "RANK() OVER (ORDER BY column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "9rFK3yXGTda8",
+    "code": "SELECT name, salary,\nRANK() OVER (ORDER BY salary DESC) AS rank\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "_AxZmVGkm_oh",
+    "html": "<ul><li>Equal values receive the same rank.</li><li>The next rank is skipped to account for the tie (1, 2, 2, 4...).</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "lEfxXAQgT9nx",
+    "html": "<p>Expecting <code>RANK</code> to produce consecutive numbers when ties exist — it deliberately doesn't.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "HFyYVLFu_yBK",
+    "text": "DENSE_RANK()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "dense_rank"
+  },
+  {
+    "id": "6jNxO2T-Evya",
+    "html": "<p>Like RANK, but never skips a number after a tie.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fTOlDhi2WQaI",
+    "code": "DENSE_RANK() OVER (ORDER BY column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "YJkc6Zfy5RmE",
+    "code": "SELECT name, salary,\nDENSE_RANK() OVER (ORDER BY salary DESC) AS rank\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "dAm330t5QX7w",
+    "html": "<ul><li>Equal values receive the same rank.</li><li>No numbers are skipped afterward (1, 2, 2, 3...).</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "-N9xSXbEax1t",
+    "html": "<p>Using <code>DENSE_RANK</code> when standard competition ranking (with gaps, i.e. <code>RANK</code>) was actually intended.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "5xhoyGFQy578",
+    "alt": "Table comparing how ROW_NUMBER, RANK, and DENSE_RANK number the same five rows differently when two rows tie on value",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The same tie between two rows produces three different numbering results, depending on which function you use.",
+    "publicId": "docs/img/sql/window-functions-1"
+  },
+  {
+    "id": "NlfxZXADkCnH",
+    "text": "NTILE()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ntile"
+  },
+  {
+    "id": "BABM-rGlkNav",
+    "html": "<p>Splits rows into a fixed number of roughly equal groups.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MtkWroa18IAR",
+    "code": "NTILE(n) OVER (ORDER BY column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "8YVy2xeyNWpc",
+    "code": "SELECT name, salary,\nNTILE(4) OVER (ORDER BY salary DESC) AS quartile\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "S-c3LNZBLFNs",
+    "html": "<ul><li>Splits rows into equal-sized groups.</li><li>Useful for quartiles, percentiles, or bucketed segments.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "LmsKdVqpAhBv",
+    "html": "<p>Assuming every group has exactly the same size when the row count doesn't divide evenly by <code>n</code>.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "yRAcwTratp81",
+    "text": "LAG() / LEAD()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "lag-lead"
+  },
+  {
+    "id": "AWU1UoEsm1Ko",
+    "html": "<p>Reads a value from a previous or following row without a self-join.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a8raKvT0d3ei",
+    "code": "LAG(column) OVER (ORDER BY column);\nLEAD(column) OVER (ORDER BY column);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Hgy2NNAR5gKS",
+    "code": "SELECT name, salary,\nLAG(salary) OVER (ORDER BY hire_date) AS prev_salary\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "jMBwIGavnsM9",
+    "html": "<ul><li>LAG accesses the previous row's value; LEAD accesses the next.</li><li>Useful for comparisons and trend analysis across ordered rows.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "RdxOj2OpMn_D",
+    "html": "<p>Forgetting <code>ORDER BY</code> inside <code>OVER()</code>, which makes \"previous\" and \"next\" row undefined.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "f0mtylyFEePK",
+    "html": "<p>Window functions are one of the more advanced tools in this section — the next lesson covers another: subqueries, a query nested inside another query.</p>",
+    "type": "richtext"
+  }
+]
+```

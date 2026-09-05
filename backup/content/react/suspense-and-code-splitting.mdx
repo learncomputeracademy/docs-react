@@ -1,0 +1,96 @@
+---
+id: "6a929c69-d775-4081-8e4f-d10641100c00"
+title: "Suspense and Code-Splitting with React.lazy"
+path: "react/suspense-and-code-splitting"
+status: "published"
+meta_title: "Suspense and Code-Splitting | Learn Computer Academy"
+meta_description: "Loading a component only when it's actually needed with React.lazy, and showing a fallback while it loads with Suspense."
+sort_order: 26
+updated_at: "2026-09-03T04:34:24.157299+00:00"
+---
+
+```json
+[
+  {
+    "id": "kujUmOtcW-MJ",
+    "html": "<p>By default, a React app's entire JavaScript bundle downloads before anything renders — including code for parts of the app a visitor might never open. <b>Code-splitting</b> breaks the bundle into pieces loaded on demand, and <b>Suspense</b> is how React shows a fallback while a piece is still loading.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vOVIBa_-gsi9",
+    "text": "React.lazy — Loading a Component on Demand",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reactlazy-loading-a-component-on-demand"
+  },
+  {
+    "id": "DfJ0kojPLaxp",
+    "html": "<p>Instead of a normal <code>import</code>, <code>React.lazy</code> takes a function that dynamically imports a component — that import only actually happens the first time the component is rendered.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6Krv0Vb6H0X1",
+    "code": "import { lazy } from 'react'\n\nconst SettingsPage = lazy(() => import('./SettingsPage'))",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "SWO472qCyouo",
+    "text": "Wrapping It in Suspense",
+    "type": "heading",
+    "level": 2,
+    "anchor": "wrapping-it-in-suspense"
+  },
+  {
+    "id": "ib8WBXsNR2bL",
+    "html": "<p>A lazily-loaded component needs a <code>&lt;Suspense&gt;</code> boundary somewhere above it — its <code>fallback</code> prop is what shows while the component's code is still downloading.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QZBt9casXxvg",
+    "code": "import { lazy, Suspense } from 'react'\n\nconst SettingsPage = lazy(() => import('./SettingsPage'))\n\nfunction App() {\n  return (\n    <Suspense fallback={<p>Loading settings...</p>}>\n      <SettingsPage />\n    </Suspense>\n  )\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "wEoixMbSN1qS",
+    "text": "A Practical Use — Splitting by Route",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-practical-use-splitting-by-route"
+  },
+  {
+    "id": "plYpUxfd8MGD",
+    "html": "<p>The most common real use: pairing lazy-loaded components with React Router (from the earlier lesson), so a route's code only downloads when a visitor actually navigates to it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OURQNqjFkuOG",
+    "code": "import { lazy, Suspense } from 'react'\nimport { Routes, Route } from 'react-router-dom'\n\nconst Dashboard = lazy(() => import('./Dashboard'))\nconst Settings = lazy(() => import('./Settings'))\n\nfunction App() {\n  return (\n    <Suspense fallback={<p>Loading...</p>}>\n      <Routes>\n        <Route path=\"/dashboard\" element={<Dashboard />} />\n        <Route path=\"/settings\" element={<Settings />} />\n      </Routes>\n    </Suspense>\n  )\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "xMlwoizAY2bn",
+    "text": "One Suspense Boundary Can Cover Several Components",
+    "type": "heading",
+    "level": 2,
+    "anchor": "one-suspense-boundary-can-cover-several-components"
+  },
+  {
+    "id": "JKovhaeL2x2x",
+    "html": "<p>A single <code>&lt;Suspense&gt;</code> shows its fallback until every lazy component inside it has finished loading — useful for treating a group of related pieces as one loading unit rather than showing several separate spinners.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ozvN_M-54omV",
+    "html": "<p>Suspense also has a newer, more advanced use — suspending on data fetching itself, not just lazy component loading — supported by some data-fetching libraries and React's own newer APIs. That deeper use is beyond this lesson's scope; code-splitting is the well-established, universally supported case.</p>",
+    "type": "callout",
+    "title": "Suspense goes further than this lesson covers",
+    "variant": "note"
+  }
+]
+```

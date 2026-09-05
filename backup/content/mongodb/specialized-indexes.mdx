@@ -1,0 +1,113 @@
+---
+id: "8db0b90b-35e5-4150-91c4-4d6f2d78aa96"
+title: "Specialized Indexes — Text, Geospatial, and TTL"
+path: "mongodb/specialized-indexes"
+status: "published"
+meta_title: "MongoDB Specialized Indexes | Learn Computer Academy"
+meta_description: "Three index types beyond single-field and compound — full-text search, location-based queries, and documents that automatically expire."
+sort_order: 25
+updated_at: "2026-09-03T04:59:12.998761+00:00"
+---
+
+```json
+[
+  {
+    "id": "0FFxb_XUwYjV",
+    "html": "<p>The earlier Indexes lesson covered single-field, compound, and unique indexes — all speeding up an exact or range match. These three types solve genuinely different problems.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "v2SsSG5mktbD",
+    "text": "Text Indexes — Full-Text Search",
+    "type": "heading",
+    "level": 2,
+    "anchor": "text-indexes-full-text-search"
+  },
+  {
+    "id": "vt-LXuVHgaqK",
+    "html": "<p>Enables searching for words within a text field, rather than matching it exactly — the same kind of search a site's search bar typically needs.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kzXsPn6hyze7",
+    "code": "db.articles.createIndex({ title: 'text', body: 'text' })\n\ndb.articles.find({ $text: { $search: 'mongodb indexing' } })\n// Matches articles containing \"mongodb\" or \"indexing\" anywhere in title or body,\n// ranked by relevance",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "vk7kz9xodQK6",
+    "html": "<p>A collection can only have one text index, though it can cover multiple fields at once (as above). For search needs beyond this — typo tolerance, weighted relevance tuning — MongoDB Atlas Search (mentioned in the PDF this lesson is based on) is the fuller tool; this covers the built-in basics.</p>",
+    "type": "callout",
+    "title": "The limits of a text index",
+    "variant": "note"
+  },
+  {
+    "id": "Mc5dv42xKZGy",
+    "text": "Geospatial Indexes — Location Queries",
+    "type": "heading",
+    "level": 2,
+    "anchor": "geospatial-indexes-location-queries"
+  },
+  {
+    "id": "78XzG7OLbMrY",
+    "html": "<p>Speeds up queries about location — finding everything within a distance of a point, or inside a boundary.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RyPg1DrQhdag",
+    "code": "db.stores.createIndex({ location: '2dsphere' })\n\ndb.stores.insertOne({\n  name: 'Downtown Store',\n  location: { type: 'Point', coordinates: [-73.99, 40.73] }   // [longitude, latitude]\n})\n\n// Find stores within 5km of a point\ndb.stores.find({\n  location: {\n    $near: {\n      $geometry: { type: 'Point', coordinates: [-73.99, 40.73] },\n      $maxDistance: 5000   // meters\n    }\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "Ff7UjF2Twnog",
+    "html": "<p>GeoJSON coordinates are [longitude, latitude] — the reverse of the [latitude, longitude] order many mapping APIs use. Swapping them silently produces a working query pointed at the wrong place on Earth.</p>",
+    "type": "callout",
+    "title": "A common ordering mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "S7-0Gh0IsNiX",
+    "text": "TTL Indexes — Documents That Expire Automatically",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ttl-indexes-documents-that-expire-automatically"
+  },
+  {
+    "id": "-NIZFhLd9iZb",
+    "html": "<p>A <b>TTL (Time To Live)</b> index deletes a document automatically once a date field passes a set age — useful for session data, temporary tokens, or logs that shouldn't accumulate forever.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ASw1MyIY3Qgu",
+    "code": "db.sessions.createIndex(\n  { createdAt: 1 },\n  { expireAfterSeconds: 3600 }   // deleted 1 hour after createdAt\n)\n\ndb.sessions.insertOne({\n  userId: 'abc123',\n  createdAt: new Date(),   // this document self-deletes in 1 hour\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "mkJfGHFhDehA",
+    "rows": [
+      [
+        "Text",
+        "Searching for words within a text field"
+      ],
+      [
+        "Geospatial (2dsphere)",
+        "Finding documents by location — nearby, within an area"
+      ],
+      [
+        "TTL",
+        "Automatically deleting documents after a set time"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Index type",
+      "Use for"
+    ]
+  }
+]
+```

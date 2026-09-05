@@ -1,0 +1,144 @@
+---
+id: "073d5a9a-4b2a-428c-bdb6-47328c403b64"
+title: "Undoing Changes — checkout, reset, revert"
+path: "git/undoing-changes"
+status: "published"
+meta_title: "Undoing Changes in Git | Learn Computer Academy"
+meta_description: "Three different ways to undo something in Git, each for a different situation — discarding an uncommitted edit, rewinding history, and safely undoing a shared commit."
+sort_order: 9
+updated_at: "2026-09-03T05:20:01.769482+00:00"
+---
+
+```json
+[
+  {
+    "id": "qtHoaLDHz2Fi",
+    "html": "<p>Git offers several distinct ways to undo something — picking the right one depends on exactly what needs undoing, and whether it's already been shared with anyone else.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d59mUm4oVkIS",
+    "text": "Discarding an Uncommitted Change",
+    "type": "heading",
+    "level": 2,
+    "anchor": "discarding-an-uncommitted-change"
+  },
+  {
+    "id": "2b2xuPGE0EDm",
+    "code": "# Discard changes to one file, back to the last commit\ngit checkout -- index.html\n# or, the newer equivalent:\ngit restore index.html",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "DbMcTWLT0QHC",
+    "html": "<p>This permanently discards the uncommitted change — there's no undo for an undo here. Worth double-checking git diff first to see exactly what would be lost.</p>",
+    "type": "callout",
+    "title": "This one is irreversible",
+    "variant": "warning"
+  },
+  {
+    "id": "zkMIPOMoyVzo",
+    "text": "Unstaging a File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "unstaging-a-file"
+  },
+  {
+    "id": "dHPW8lz4yRPM",
+    "code": "# Move a staged file back to just \"modified\" — the change itself is kept\ngit restore --staged index.html",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "qSjirQ3KcqFz",
+    "text": "git reset — Rewinding History",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-reset-rewinding-history"
+  },
+  {
+    "id": "10PblkMFUgoE",
+    "html": "<p>Moves the current branch pointer backward, with three levels of how much gets undone along with it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UrmKxUYc7FmJ",
+    "rows": [
+      [
+        "git reset --soft HEAD~1",
+        "The last commit is undone, but its changes stay staged"
+      ],
+      [
+        "git reset --mixed HEAD~1 (the default)",
+        "The last commit is undone, changes stay in the working folder but unstaged"
+      ],
+      [
+        "git reset --hard HEAD~1",
+        "The last commit AND its changes are both gone entirely"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Reset type",
+      "What happens to the changes"
+    ]
+  },
+  {
+    "id": "X0W7sBN-daCf",
+    "html": "<p>git reset --hard discards work with no recovery through normal means. Never run it without being certain — and never on a commit that's already been pushed and shared with others, covered below.</p>",
+    "type": "callout",
+    "title": "The most dangerous command in this lesson",
+    "variant": "danger"
+  },
+  {
+    "id": "Gf0MbyEe1lv1",
+    "text": "git revert — Safely Undoing a Shared Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-revert-safely-undoing-a-shared-commit"
+  },
+  {
+    "id": "qPuQa83_wnO0",
+    "html": "<p>Rather than erasing a commit from history, <code>revert</code> creates a brand-new commit that undoes its changes — the original commit stays in history, which is exactly what's needed once a commit has already been pushed and others may have it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "c0ghlScZf95Z",
+    "code": "git revert a1b2c3d\n# Creates a new commit that undoes commit a1b2c3d's changes",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "TmXQ3RnulozU",
+    "text": "Choosing the Right Tool",
+    "type": "heading",
+    "level": 2,
+    "anchor": "choosing-the-right-tool"
+  },
+  {
+    "id": "n2RXZfhnMJNC",
+    "rows": [
+      [
+        "An uncommitted change, not staged yet",
+        "git restore"
+      ],
+      [
+        "A commit made locally, never pushed or shared",
+        "git reset"
+      ],
+      [
+        "A commit already pushed and possibly shared with others",
+        "git revert — never reset a shared commit"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Use"
+    ]
+  }
+]
+```

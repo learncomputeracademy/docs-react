@@ -1,0 +1,147 @@
+---
+id: "8d302d16-1e4d-48a6-8b54-ca5c21d5f55b"
+title: "Virtual Environments"
+path: "python/virtual-environments"
+status: "published"
+meta_title: "Python Virtual Environments | Learn Computer Academy"
+meta_description: "Keeping each project's installed packages isolated from every other project's, using Python's own built-in venv module."
+sort_order: 35
+updated_at: "2026-09-03T04:52:51.755952+00:00"
+---
+
+```json
+[
+  {
+    "id": "apNpTGBEHPj8",
+    "html": "<p>Installing a package with <code>pip</code> (from the earlier Modules and Imports lesson) normally installs it globally — shared across every Python project on the machine. A <b>virtual environment</b> gives one project its own isolated set of installed packages instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1YFpP5YROYQr",
+    "text": "Why This Actually Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-actually-matters"
+  },
+  {
+    "id": "NSVm18KrcVsa",
+    "html": "<p>Project A needs version 1 of a library; Project B needs version 2 — installed globally, only one can be satisfied at a time. A virtual environment per project makes this a non-issue.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vBGXCRqwBrGJ",
+    "text": "Creating One — venv",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-one-venv"
+  },
+  {
+    "id": "2gi1--McMsbI",
+    "html": "<p><code>venv</code> is built into Python — no separate install needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YmuTRv6fbnMB",
+    "code": "python -m venv venv\n# Creates a \"venv\" folder holding an isolated Python installation",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "nC5DRpR3OOia",
+    "text": "Activating It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "activating-it"
+  },
+  {
+    "id": "5tG7RC5CX5p8",
+    "code": "# macOS / Linux\nsource venv/bin/activate\n\n# Windows\nvenv\\Scripts\\activate\n\n# The terminal prompt changes to show it's active, e.g.:\n(venv) $",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "J4GnQz2T7d0S",
+    "html": "<p>Once active, <code>pip install</code> only affects this environment — not the system-wide Python or any other project's environment.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "od9bjsEANk9Y",
+    "code": "(venv) $ pip install requests\n# Installed only inside this project's venv folder",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "b_AyYu2wTodV",
+    "text": "Deactivating",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deactivating"
+  },
+  {
+    "id": "pC3LhSuEQ7vt",
+    "code": "(venv) $ deactivate",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "QExIzk0X1DN1",
+    "text": "Recording and Reinstalling Dependencies",
+    "type": "heading",
+    "level": 2,
+    "anchor": "recording-and-reinstalling-dependencies"
+  },
+  {
+    "id": "b7i2yAWX6K05",
+    "html": "<p>A <code>requirements.txt</code> file lists exactly what a project needs, so a teammate — or a deployment server — can recreate the same environment.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RUrHjxmSE0MB",
+    "code": "# Save the current environment's packages to a file\npip freeze > requirements.txt\n\n# On another machine, recreate it\npython -m venv venv\nsource venv/bin/activate\npip install -r requirements.txt",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "MQD-5nzwUz8H",
+    "rows": [
+      [
+        "python -m venv venv",
+        "Creates a new virtual environment"
+      ],
+      [
+        "source venv/bin/activate (or venv\\Scripts\\activate on Windows)",
+        "Activates it for the current terminal session"
+      ],
+      [
+        "deactivate",
+        "Returns to the system-wide Python"
+      ],
+      [
+        "pip freeze > requirements.txt",
+        "Records exactly what's installed"
+      ],
+      [
+        "pip install -r requirements.txt",
+        "Reinstalls everything a requirements.txt lists"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "OPYA-NphXk9n",
+    "html": "<p>The venv folder itself should never be committed to version control — it's regenerated from requirements.txt on any machine. Add it to .gitignore from the start of a project.</p>",
+    "type": "callout",
+    "title": "What not to commit",
+    "variant": "warning"
+  }
+]
+```

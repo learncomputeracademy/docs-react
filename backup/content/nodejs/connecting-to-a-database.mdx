@@ -1,0 +1,149 @@
+---
+id: "4fcbeca8-774d-41ef-abb1-aa94dac50d29"
+title: "Connecting to a Database"
+path: "nodejs/connecting-to-a-database"
+status: "published"
+meta_title: "Connecting Node.js to a Database | Learn Computer Academy"
+meta_description: "Replace an in-memory array with a real database in a Node.js API, using a driver package and async/await."
+sort_order: 24
+updated_at: "2026-08-05T05:48:00.132792+00:00"
+---
+
+```json
+[
+  {
+    "id": "zqKH15OMWmRR",
+    "html": "<p>The REST API two lessons back stores products in a plain array — data that vanishes the instant the server restarts. A real application stores data in a <b>database</b> instead, so it survives restarts and can be shared safely across many requests at once.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KK-kQhnCyHt-",
+    "alt": "Diagram showing a Node.js application connected to a database, with the application sending SQL queries and the database returning result rows",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The Node.js app sends queries through a driver package; the database sends rows back.",
+    "publicId": "docs/img/nodejs/database-1"
+  },
+  {
+    "id": "125buTs1PQ06",
+    "text": "The Driver Package",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-driver-package"
+  },
+  {
+    "id": "-F2_I3gfhMsn",
+    "html": "<p>Node.js has no built-in database support — connecting to one requires an npm package written for that specific database. A couple of common ones:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "tYb8JUG73Co9",
+    "rows": [
+      [
+        "PostgreSQL",
+        "<code>pg</code>"
+      ],
+      [
+        "MySQL",
+        "<code>mysql2</code>"
+      ],
+      [
+        "SQLite",
+        "<code>better-sqlite3</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Database",
+      "Common driver package"
+    ]
+  },
+  {
+    "id": "FdRoio5-tQn5",
+    "html": "<p>The examples below use <code>pg</code> for PostgreSQL — the pattern (connect, then query with placeholders) looks nearly identical with the others, just with a different package name.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "PNnqDW6_1hHo",
+    "text": "Connecting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "connecting"
+  },
+  {
+    "id": "cKTMMFNUzrOa",
+    "code": "const { Pool } = require('pg')\n\nconst pool = new Pool({\n  host: process.env.DB_HOST,\n  user: process.env.DB_USER,\n  password: process.env.DB_PASSWORD,\n  database: process.env.DB_NAME,\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "OJmpbroGJNLg",
+    "html": "<p>Notice every value comes from <code>process.env</code>, not a hardcoded string — exactly the pattern from the earlier lesson on environment variables. A database password is precisely the kind of secret that should never appear directly in a source file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2bYq58-faM5c",
+    "text": "Querying",
+    "type": "heading",
+    "level": 2,
+    "anchor": "querying"
+  },
+  {
+    "id": "yhw7VFXqHrbA",
+    "html": "<p>Every query method returns a promise, so it fits naturally with <code>async</code>/<code>await</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VWbV6TjM-oWa",
+    "code": "app.get('/products', async (req, res) => {\n  try {\n    const result = await pool.query('SELECT * FROM products')\n    res.json(result.rows)\n  } catch (err) {\n    console.error(err)\n    res.status(500).json({ error: 'Database query failed' })\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "qKNTxtMLrcTO",
+    "text": "Never Build a Query With String Concatenation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "never-build-a-query-with-string-concatenation"
+  },
+  {
+    "id": "UXTxmBB8iW-u",
+    "html": "<p>A value from a request must never be inserted directly into a query string:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "e4F8mz19b0fk",
+    "code": "// NEVER do this\nconst id = req.params.id\nawait pool.query(`SELECT * FROM products WHERE id = ${id}`)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "h7C1cTzIzH5-",
+    "html": "<p>A visitor who sends a crafted <code>id</code> value instead of a number can use this to run arbitrary SQL against the database — a <b>SQL injection</b> attack. Use a placeholder instead, and pass the value as a separate parameter:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DTw1FBSBWAC9",
+    "code": "const id = req.params.id\nconst result = await pool.query('SELECT * FROM products WHERE id = $1', [id])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "_R8b5r1YLxSE",
+    "html": "<p>The driver handles escaping the value safely — this single habit is the difference between a normal query and an exploitable one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "5LWFfAlO0HXJ",
+    "html": "<p>This lesson only covers connecting Node to a database that already exists. Writing the SQL itself — <code>SELECT</code>, <code>WHERE</code>, joins, and everything else in a query — is covered in full in this site's <a href=\"/sql/\">SQL course</a>.</p>",
+    "type": "callout",
+    "title": "Where the SQL syntax itself is taught",
+    "variant": "warning"
+  }
+]
+```

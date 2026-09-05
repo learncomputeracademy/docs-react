@@ -1,0 +1,141 @@
+---
+id: "d54ed462-96a8-4a36-a193-140f991d4867"
+title: "Canonical Tags & Duplicate Content"
+path: "seo/canonical-tags"
+status: "published"
+meta_title: "Canonical Tags and Duplicate Content | Learn Computer Academy"
+meta_description: "How the same content ends up at several URLs without anyone intending it, and how a canonical tag tells search engines which one counts."
+sort_order: 14
+updated_at: "2026-08-05T07:22:03.379718+00:00"
+---
+
+```json
+[
+  {
+    "id": "L7jpq6WrA1t5",
+    "html": "<p>Search engines want one URL per piece of content. Websites, left alone, produce several — usually by accident. A <b>canonical tag</b> is how you say \"several addresses reach this content; this one is the real one\".</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SqlCBeY3DObl",
+    "text": "How Duplicates Happen Accidentally",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-duplicates-happen-accidentally"
+  },
+  {
+    "id": "vs1I-fVUUshH",
+    "html": "<p>Nobody sets out to publish the same page four times. It happens structurally:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0zsE2EV11PJm",
+    "code": "https://example.com/product\nhttps://example.com/product/\nhttp://example.com/product\nhttps://www.example.com/product\nhttps://example.com/product?ref=newsletter\nhttps://example.com/product?colour=blue",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "kL5kfT3hbub4",
+    "html": "<p>To a person these are obviously the same page. To a search engine they are six distinct addresses that happen to return identical content — and it has to decide which to index and which to ignore.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Re7RbM1uDSBI",
+    "text": "Why It Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-it-matters"
+  },
+  {
+    "id": "zx8Ho5l1LmRI",
+    "html": "<p>Two consequences, both quiet:</p><ul><li><b>Signals get split.</b> If some sites link to the <code>www</code> version and others to the non-<code>www</code>, the value is divided between two addresses instead of accumulating on one.</li><li><b>The engine picks for you.</b> Left with no guidance it will choose a version to show, and it may not be the one you would have chosen.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ys-k-KlFiaIu",
+    "alt": "Diagram showing several different URL variations all converging with arrows onto a single canonical URL",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Several addresses reach the same content; the canonical tag names which one counts.",
+    "publicId": "docs/img/seo/canonical-tags-1"
+  },
+  {
+    "id": "885GyQ7YGYLb",
+    "text": "The Canonical Tag",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-canonical-tag"
+  },
+  {
+    "id": "BRy5p45Muqh5",
+    "code": "<head>\n  <link rel=\"canonical\" href=\"https://example.com/product\">\n</head>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "LsJ0DiLxBtEL",
+    "html": "<p>Placed in the <code>&lt;head&gt;</code> of every variant, this says: whatever address you reached this by, treat <code>https://example.com/product</code> as the one that counts. Signals consolidate there, and that is the version shown in results.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8BXbzXH6Zkb9",
+    "html": "<p>A page should carry a canonical tag pointing at <b>itself</b> when it is the canonical version. This is normal and correct — a self-referencing canonical removes ambiguity when the page is reached through a tracking parameter or an alternative path.</p>",
+    "type": "callout",
+    "title": "Self-referencing canonicals",
+    "variant": "note"
+  },
+  {
+    "id": "5iE3ePHMxOdM",
+    "text": "Getting It Wrong",
+    "type": "heading",
+    "level": 2,
+    "anchor": "getting-it-wrong"
+  },
+  {
+    "id": "CSlJYMkOdlLh",
+    "html": "<ul><li><b>Pointing every page at the homepage.</b> A surprisingly common configuration error, and it effectively tells search engines that no other page on the site is worth indexing.</li><li><b>Canonical pointing at a redirecting or missing URL.</b> The signal is discarded.</li><li><b>Contradicting yourself.</b> A canonical saying one thing while a redirect, sitemap entry, or internal links say another. Engines resolve contradictions on their own terms.</li><li><b>Using canonical when you mean noindex.</b> They are different tools: canonical consolidates duplicates, <code>noindex</code> removes a page from results entirely.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "_oJEqcmr2MbU",
+    "text": "Related Situations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "related-situations"
+  },
+  {
+    "id": "qpxQjF6NpmzQ",
+    "rows": [
+      [
+        "Same content at several URLs",
+        "<code>rel=\"canonical\"</code>"
+      ],
+      [
+        "Page permanently moved",
+        "301 redirect"
+      ],
+      [
+        "Page should not be in results at all",
+        "<code>noindex</code> meta tag"
+      ],
+      [
+        "Same content in several languages",
+        "<code>hreflang</code>, plus canonical per language"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Situation",
+      "Right tool"
+    ]
+  },
+  {
+    "id": "uSLamMCw_8T-",
+    "html": "<p>A site serving the same content in more than one language — as this site does in English and Bengali — uses <code>hreflang</code> to tell engines the pages are translations of one another rather than duplicates, so the right language version is shown to the right person.</p>",
+    "type": "richtext"
+  }
+]
+```

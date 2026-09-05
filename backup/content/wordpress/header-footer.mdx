@@ -1,0 +1,111 @@
+---
+id: "2736a787-7548-478c-8285-2e9e1c5cd9d7"
+title: "Building header.php and footer.php"
+path: "wordpress/header-footer"
+status: "published"
+meta_title: "Building header.php and footer.php | Learn Computer Academy"
+meta_description: "The two files shared by every page in a theme — what wp_head() and wp_footer() actually do, and why skipping them breaks plugins."
+sort_order: 5
+updated_at: "2026-07-30T14:23:25.606521+00:00"
+---
+
+```json
+[
+  {
+    "id": "lBVuu24BadYQ",
+    "html": "<p>Almost every page a theme renders shares the same opening and closing markup — the <code>&lt;head&gt;</code>, the site header and navigation at the top, the footer at the bottom. Rather than repeating that in every template file, it lives in exactly two places: <code>header.php</code> and <code>footer.php</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jMkiGZkvDcnR",
+    "text": "A Minimal header.php",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-minimal-headerphp"
+  },
+  {
+    "id": "pZ_I_k1ri77c",
+    "code": "<!DOCTYPE html>\n<html <?php language_attributes(); ?>>\n<head>\n<meta charset=\"<?php bloginfo( 'charset' ); ?>\">\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n<?php wp_head(); ?>\n</head>\n<body <?php body_class(); ?>>\n\n<header id=\"site-header\">\n    <a href=\"<?php echo esc_url( home_url( '/' ) ); ?>\"><?php bloginfo( 'name' ); ?></a>\n</header>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "tGjuiagStDZw",
+    "html": "<p>Three functions here matter more than the rest of the markup:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "xQpuo0NXosC9",
+    "rows": [
+      [
+        "<code>wp_head()</code>",
+        "Fires a hook that WordPress core, every plugin, and SEO tools all attach to — stylesheets, meta tags, tracking scripts, and more all get injected here"
+      ],
+      [
+        "<code>body_class()</code>",
+        "Outputs a set of CSS classes describing the current page (<code>home</code>, <code>single-post</code>, <code>page-id-12</code>, and more) — useful for page-specific styling without extra PHP logic"
+      ],
+      [
+        "<code>language_attributes()</code>",
+        "Outputs the correct <code>lang</code> and text-direction attributes for the site's configured language"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "What it does"
+    ]
+  },
+  {
+    "id": "zzLDL5TkBcoT",
+    "text": "A Minimal footer.php",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-minimal-footerphp"
+  },
+  {
+    "id": "-ZGJ0Ci3TN8m",
+    "code": "<footer id=\"site-footer\">\n    <p>&copy; <?php echo esc_html( date( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?></p>\n</footer>\n\n<?php wp_footer(); ?>\n</body>\n</html>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "cxvDi2ykqUl_",
+    "html": "<p><code>wp_footer()</code> is <code>wp_head()</code>'s counterpart — plugins that need to output JavaScript near the closing <code>&lt;/body&gt;</code> tag (most of them, for performance reasons) hook in here instead of the head.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iVAI5CRCBgq7",
+    "html": "<p>Never leave out <code>wp_head()</code> or <code>wp_footer()</code>. Plugins genuinely depend on both firing on every page — leaving one out doesn't just look wrong, it silently breaks plugin functionality with no obvious error message pointing at the cause.</p>",
+    "type": "callout",
+    "title": "These two hooks are not optional",
+    "variant": "warning"
+  },
+  {
+    "id": "NacESEGWdhcl",
+    "text": "Including Them from Other Templates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "including-them-from-other-templates"
+  },
+  {
+    "id": "gaO8iXwkeYM5",
+    "html": "<p>Every other template file starts with <code>get_header()</code> and ends with <code>get_footer()</code> — WordPress functions that simply include the matching file:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jneNiBZX7TkY",
+    "code": "<?php get_header(); ?>\n\n<p>Page-specific content goes here.</p>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "l-SOTKZzSmkk",
+    "html": "<p>With the shared shell in place, the next lesson looks at what actually goes between <code>get_header()</code> and <code>get_footer()</code> — the Loop, the piece of code that outputs a post or page's actual content.</p>",
+    "type": "richtext"
+  }
+]
+```

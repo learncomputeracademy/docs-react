@@ -1,0 +1,126 @@
+---
+id: "cf39ea65-edc2-464f-a1c5-7a23f02f2936"
+title: "Comparison & Logical Query Operators"
+path: "mongodb/query-operators"
+status: "published"
+meta_title: "Comparison & Logical Query Operators | Learn Computer Academy"
+meta_description: "Filtering documents with $gt, $lt, $in, $and, $or, and the other query operators that go beyond exact-match."
+sort_order: 7
+updated_at: "2026-08-18T10:11:23.197473+00:00"
+---
+
+```json
+[
+  {
+    "id": "OrBuG1as2lCu",
+    "html": "<p>Matching an exact value only gets you so far. <b>Query operators</b> — always written with a leading <code>$</code> — let you filter by ranges, sets, and combinations of conditions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bI5kZ7dLGfEm",
+    "alt": "An isometric illustration of a funnel filtering colored document shapes, with mathematical comparison symbols floating around it",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Query operators filter documents by range, set membership, and logical combinations.",
+    "publicId": "docs/img/mongodb/operators-hero"
+  },
+  {
+    "id": "d6RMsO8UH8iP",
+    "text": "Comparison Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comparison-operators"
+  },
+  {
+    "id": "AtWFyAeNH3c9",
+    "rows": [
+      [
+        "$gt",
+        "Greater than"
+      ],
+      [
+        "$gte",
+        "Greater than or equal to"
+      ],
+      [
+        "$lt",
+        "Less than"
+      ],
+      [
+        "$lte",
+        "Less than or equal to"
+      ],
+      [
+        "$ne",
+        "Not equal to"
+      ],
+      [
+        "$in",
+        "Matches any value in a given array"
+      ],
+      [
+        "$nin",
+        "Matches none of the values in a given array"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "u2VMzslnQf6r",
+    "code": "// Users older than 25\ndb.users.find({ age: { $gt: 25 } })\n\n// Users whose role is one of these three\ndb.users.find({ role: { $in: [\"admin\", \"editor\", \"moderator\"] } })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "hBFd0XBE1rN1",
+    "text": "Logical Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "logical-operators"
+  },
+  {
+    "id": "0UpyzPmVYEbE",
+    "html": "<p><code>$and</code> and <code>$or</code> combine multiple conditions. In practice, listing two fields in the same object is already an implicit <code>$and</code> — the explicit operator is mainly needed when combining multiple conditions <b>on the same field</b>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "72muuGzhGOUy",
+    "code": "// Implicit AND — age > 20 AND role = \"editor\"\ndb.users.find({ age: { $gt: 20 }, role: \"editor\" })\n\n// Explicit OR — role is admin OR age is over 60\ndb.users.find({\n  $or: [\n    { role: \"admin\" },\n    { age: { $gt: 60 } }\n  ]\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "ouzN_-tXgffg",
+    "text": "Element and Existence Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "element-and-existence-operators"
+  },
+  {
+    "id": "yYHEDYt6bLfb",
+    "html": "<p><code>$exists</code> checks whether a field is present at all — genuinely useful in MongoDB, since not every document is guaranteed to have every field:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DWeIg2BV8oMb",
+    "code": "db.users.find({ phoneNumber: { $exists: true } })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "SNUOdlFe8n1G",
+    "html": "<p>All of these operators combine freely inside one query — you are not limited to using just one at a time. A real query filtering \"active editors aged 20–35\" would use <code>$gte</code>, <code>$lte</code>, and an implicit <code>$and</code> together in a single object.</p>",
+    "type": "callout",
+    "title": "Operators combine freely",
+    "variant": "tip"
+  }
+]
+```

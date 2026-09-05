@@ -1,0 +1,135 @@
+---
+id: "7660c04d-e702-4767-9855-65341745a254"
+title: "Computer Memory"
+path: "basics/computer-memory"
+status: "published"
+meta_title: "Computer Memory | Learn Computer Academy"
+meta_description: "RAM, ROM, and cache explained — the three kinds of primary memory a computer uses while it works, and why each one exists."
+sort_order: 6
+updated_at: "2026-09-02T08:13:43.020364+00:00"
+---
+
+```json
+[
+  {
+    "id": "Hj6oMEIr8lSE",
+    "html": "<p>The <a href=\"/basics/computer-hardware\">Computer Hardware</a> lesson introduced RAM as the computer's fast, temporary working space. This lesson goes further into <b>memory</b> as a whole — the kinds of storage a computer's processor reaches for constantly while it works, as opposed to the long-term storage covered in the next lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a2SpURhObqoD",
+    "text": "Primary Memory vs. Secondary Storage",
+    "type": "heading",
+    "level": 2,
+    "anchor": "primary-memory-vs-secondary-storage"
+  },
+  {
+    "id": "4v9wFwoBuvQb",
+    "html": "<p>Computing draws a line between <b>primary memory</b> — memory the processor can use directly and instantly, built to be fast — and <b>secondary storage</b> — where files live permanently, built to be large and affordable rather than fast. RAM, ROM, and cache are all primary memory. Hard drives, SSDs, and pen drives are secondary storage, covered in the next lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lB_AN7_0yRSR",
+    "text": "RAM: Fast but Temporary",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ram-fast-but-temporary"
+  },
+  {
+    "id": "3_hk5BQpD-iP",
+    "html": "<p>As covered in the hardware lesson, <b>RAM</b> (Random Access Memory) holds whatever the CPU is actively working with — open apps, open documents, anything in use right now. It is fast, but <b>volatile</b>, meaning everything inside it disappears the instant the power turns off. More RAM generally lets a computer keep more programs open at once without slowing down.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eq2Nbbt1N3fV",
+    "text": "ROM: Permanent Instructions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rom-permanent-instructions"
+  },
+  {
+    "id": "Z4RKAS1daNb7",
+    "html": "<p><b>ROM</b> (Read-Only Memory) is the opposite of RAM in almost every way. It is <b>non-volatile</b> — its contents survive with the power off — but it is designed to be written once (or rarely) and then just read, over and over, never changed during normal use. A computer's ROM chip holds the small startup program that runs the instant you press the power button, before the operating system has even loaded, checking the hardware and locating where to load the rest of the system from.</p><p>A few related terms you may come across: <b>PROM</b> (Programmable ROM) can be written to once after manufacturing; <b>EPROM</b> and <b>EEPROM</b> can be erased and rewritten a limited number of times using special methods — useful for updating a device's built-in startup software without replacing the chip entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "b8jvUcWHBk5L",
+    "text": "Cache: Memory Built for Speed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cache-memory-built-for-speed"
+  },
+  {
+    "id": "RPShqAwmK-WF",
+    "html": "<p><b>Cache</b> (pronounced \"cash\") is a very small, very fast slice of memory sitting even closer to the CPU than RAM — often built directly into the processor chip itself. Its job is to hold the small pieces of data and instructions the CPU is most likely to need next, so it does not have to wait for the comparatively slower trip to RAM every single time.</p><p>Cache is typically organized in layers — <b>L1</b> (smallest and fastest, closest to the CPU core), <b>L2</b>, and <b>L3</b> (larger but slightly slower) — each one trading some speed for more capacity. You do not need to memorize these layers to use a computer well; the idea to keep is simply that cache is the fastest, smallest layer of memory a computer has.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2o7DINwpkDKZ",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "kJxyNyWUeZci",
+    "rows": [
+      [
+        "Cache",
+        "Fastest",
+        "No",
+        "Holds what the CPU needs right now"
+      ],
+      [
+        "RAM",
+        "Fast",
+        "No",
+        "Holds whatever is currently open or running"
+      ],
+      [
+        "ROM",
+        "Slower",
+        "Yes",
+        "Holds the fixed startup instructions"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Speed",
+      "Keeps data without power?",
+      "Typical job"
+    ]
+  },
+  {
+    "id": "GHkQo_CVUiWs",
+    "alt": "Diagram comparing cache, RAM, and ROM memory chips arranged from fastest to slowest",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Cache, RAM, and ROM all serve the processor directly, but trade speed, size, and permanence differently.",
+    "publicId": "docs/img/basics/computer-memory-1"
+  },
+  {
+    "id": "fqVQZt-SemjX",
+    "html": "<p>It is easy to confuse \"memory\" and \"storage\" because both hold data — the difference this lesson and the last one both point to is speed and permanence. Memory (RAM, ROM, cache) is what the processor touches directly while working; storage (covered next) is where files actually live long-term.</p>",
+    "type": "callout",
+    "title": "Memory Is Not the Same as Storage",
+    "variant": "note"
+  },
+  {
+    "id": "KEMxD2AREAwe",
+    "html": "<p>The next lesson looks at secondary storage in detail — hard drives, SSDs, pen drives, and cloud storage — the devices that keep your files safe even when the computer is completely switched off.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yQL2qcQce3Fu",
+    "alt": "An infographic comparing computer memory types — RAM, ROM, and cache as primary memory, alongside HDD, SSD, NVMe, and other secondary storage — ordered by speed",
+    "type": "image",
+    "width": 1536,
+    "height": 1024,
+    "caption": "The different types of memory that help a computer think, work, and remember.",
+    "publicId": "docs/img/basics/computer-memory"
+  }
+]
+```

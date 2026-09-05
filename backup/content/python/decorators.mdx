@@ -1,0 +1,112 @@
+---
+id: "6e5e8233-3d6e-44dd-b1c9-3f431ccc3417"
+title: "Decorators"
+path: "python/decorators"
+status: "published"
+meta_title: "Python Decorators | Learn Computer Academy"
+meta_description: "A function that wraps another function to add behavior without changing its code — the @ syntax, and why it's used constantly in real Python."
+sort_order: 28
+updated_at: "2026-09-03T04:52:49.559518+00:00"
+---
+
+```json
+[
+  {
+    "id": "BDNxXzDnZYxX",
+    "html": "<p>The earlier OOP lesson used <code>@property</code> without explaining the mechanism behind it. A <b>decorator</b> is a function that takes another function, wraps it with extra behavior, and returns the wrapped version — the <code>@</code> syntax is just a convenient way to apply one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4kjZehuE9tHY",
+    "text": "A Decorator Without the @ Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-decorator-without-the-syntax"
+  },
+  {
+    "id": "0ut4bb1wZEY_",
+    "code": "def shout(func):\n    def wrapper():\n        result = func()\n        return result.upper()\n    return wrapper\n\ndef greet():\n    return 'hello'\n\nloud_greet = shout(greet)\nprint(loud_greet())   # HELLO",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "IjWh4QfsDOGF",
+    "text": "The Same Thing, with @ Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-same-thing-with-syntax"
+  },
+  {
+    "id": "LgiXK8i5GDeT",
+    "code": "def shout(func):\n    def wrapper():\n        result = func()\n        return result.upper()\n    return wrapper\n\n@shout\ndef greet():\n    return 'hello'\n\nprint(greet())   # HELLO — @shout applied automatically",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "IN7-qSCQO3x6",
+    "html": "<p><code>@shout</code> above <code>def greet():</code> is exactly equivalent to writing <code>greet = shout(greet)</code> right after defining it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DCqcWfsEes0w",
+    "text": "Handling Arguments — *args and **kwargs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "handling-arguments-args-and-kwargs"
+  },
+  {
+    "id": "-5zT4pnT0h1X",
+    "html": "<p>A real decorator needs to pass through whatever arguments the wrapped function actually takes, without knowing them in advance.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "g7MwjWIhFI8n",
+    "code": "import time\n\ndef timer(func):\n    def wrapper(*args, **kwargs):\n        start = time.time()\n        result = func(*args, **kwargs)\n        print(f'{func.__name__} took {time.time() - start:.4f}s')\n        return result\n    return wrapper\n\n@timer\ndef slow_add(a, b):\n    time.sleep(1)\n    return a + b\n\nslow_add(2, 3)   # prints: slow_add took 1.0003s",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "dpZaOgqYwx5l",
+    "text": "Common Built-in Decorators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-built-in-decorators"
+  },
+  {
+    "id": "Zi54zOktOvLR",
+    "rows": [
+      [
+        "@property",
+        "Lets a method be accessed like an attribute — covered in the earlier OOP lesson"
+      ],
+      [
+        "@staticmethod",
+        "Marks a method that doesn't use self at all"
+      ],
+      [
+        "@classmethod",
+        "Passes the class itself (cls) instead of an instance"
+      ],
+      [
+        "@functools.lru_cache",
+        "Caches a function's return value for repeated calls with the same arguments"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Decorator",
+      "What it does"
+    ]
+  },
+  {
+    "id": "UH_MhmcuR4PJ",
+    "html": "<p>A decorator is one of the cleanest ways to add cross-cutting behavior — logging, timing, caching, access checks — without repeating that logic inside every function it applies to.</p>",
+    "type": "callout",
+    "title": "Why this pattern is everywhere in real code",
+    "variant": "tip"
+  }
+]
+```

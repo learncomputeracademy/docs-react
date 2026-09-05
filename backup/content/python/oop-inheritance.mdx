@@ -1,0 +1,106 @@
+---
+id: "1aa37d20-2882-4773-b81b-3f7df136f4d1"
+title: "OOP — Inheritance and Polymorphism"
+path: "python/oop-inheritance"
+status: "published"
+meta_title: "Python OOP: Inheritance and Polymorphism | Learn Computer Academy"
+meta_description: "Sharing behavior between classes with inheritance, and letting different classes respond to the same method call in their own way."
+sort_order: 23
+updated_at: "2026-08-04T11:39:33.164062+00:00"
+---
+
+```json
+[
+  {
+    "id": "Zokz79G6jDhx",
+    "html": "<p>These two features are what make classes genuinely powerful once you have more than one related class.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3P3ftEDeaVHU",
+    "text": "Inheritance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "inheritance"
+  },
+  {
+    "id": "GtxTWMV9N-iK",
+    "html": "<p><b>Inheritance</b> lets one class build on another, reusing its properties and methods instead of rewriting them — Python's syntax for this is putting the parent class name in parentheses:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "l40hK59OVL0U",
+    "code": "class Person:\n    def __init__(self, name):\n        self.name = name\n\n    def greet(self):\n        return f\"Hi, I'm {self.name}.\"\n\nclass Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)  # reuse Person's constructor\n        self.course = course\n\ns = Student(\"Amit\", \"Graphic Design\")\nprint(s.greet())  # \"Hi, I'm Amit.\" — inherited from Person, unchanged",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "j261m9T5XAKg",
+    "html": "<p><code>super()</code> gives access to the parent class's own version of a method, most commonly used to reuse its <code>__init__</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "S5BzJtgT1g6G",
+    "text": "Overriding a Method",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overriding-a-method"
+  },
+  {
+    "id": "H9ZS4KrqNAMF",
+    "html": "<p>A subclass can also replace a parent's method entirely by defining one with the same name — no special keyword needed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "E2Y3k5lIoOmo",
+    "code": "class Student(Person):\n    def __init__(self, name, course):\n        super().__init__(name)\n        self.course = course\n\n    def greet(self):  # overrides Person.greet completely\n        return f\"Hi, I'm {self.name}, studying {self.course}.\"\n\ns = Student(\"Amit\", \"Graphic Design\")\nprint(s.greet())  # \"Hi, I'm Amit, studying Graphic Design.\" — Student's version runs, not Person's",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "pofqSc9dhxqP",
+    "html": "<p><code>super().greet()</code> would still be available inside the override if you wanted to build on the parent's version rather than fully replace it — the same <code>super()</code> used above for <code>__init__</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jdbpdlw18o5R",
+    "text": "Polymorphism",
+    "type": "heading",
+    "level": 2,
+    "anchor": "polymorphism"
+  },
+  {
+    "id": "4I58Yej8he14",
+    "html": "<p><b>Polymorphism</b> means different classes can implement the same method name in their own way, and calling code doesn't need to know which exact class it's working with:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a5JvHNrWU4RT",
+    "code": "class Dog:\n    def speak(self):\n        return \"Woof!\"\n\nclass Cat:\n    def speak(self):\n        return \"Meow!\"\n\nfor animal in [Dog(), Cat()]:\n    print(animal.speak())  # \"Woof!\" then \"Meow!\" — same call, different behavior",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "naKggSihiYaG",
+    "html": "<p>Notice <code>Dog</code> and <code>Cat</code> here aren't related by inheritance at all — Python doesn't require a shared parent class or interface for this to work, and doesn't check ahead of time that a method exists before calling it. This looser style is often called <b>duck typing</b>: \"if it walks like a duck and quacks like a duck\" — if an object has a <code>.speak()</code> method, Python is happy to call it, regardless of the object's actual class.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9-FiKnhsGzSi",
+    "text": "Checking Types When It Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-types-when-it-matters"
+  },
+  {
+    "id": "Wug8qi9_9Tcc",
+    "code": "print(isinstance(s, Student))  # True\nprint(isinstance(s, Person))   # True — Student is also a Person, via inheritance",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  }
+]
+```

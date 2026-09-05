@@ -1,0 +1,118 @@
+---
+id: "4aadee4a-0998-4a8e-88bb-2e26a59ed66c"
+title: "Google Search Console"
+path: "seo/google-search-console"
+status: "published"
+meta_title: "Google Search Console | Learn Computer Academy"
+meta_description: "The free tool that shows what Google actually sees on your site — how to set it up and which reports are worth your attention."
+sort_order: 20
+updated_at: "2026-08-05T07:22:05.461383+00:00"
+---
+
+```json
+[
+  {
+    "id": "He9HAYSgRq6Q",
+    "html": "<p>Everything so far in this course has been about what you do to a site. <b>Google Search Console</b> is how you find out whether any of it worked. It is free, it is the only source of this data, and it reports things nothing else can tell you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zO-34on3DARx",
+    "text": "Setting It Up",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-it-up"
+  },
+  {
+    "id": "lpoTusgh1DeP",
+    "html": "<p>Add your site as a property and prove you control it. The verification options are:</p><ul><li><b>DNS record</b> — add a TXT record at your domain registrar. Verifies the whole domain including all subdomains, which is why it is generally the best choice.</li><li><b>HTML file</b> — upload a file to your site root.</li><li><b>HTML tag</b> — add a meta tag to your homepage.</li><li><b>Google Analytics or Tag Manager</b> — if either is already installed.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "CM5_ilwAzR2F",
+    "html": "<p><code>http://</code> and <code>https://</code>, and <code>www</code> and non-<code>www</code>, count as <b>separate properties</b> unless you verify at the domain level with DNS. A common source of confusion is looking at a property that receives none of your actual traffic and concluding the site has no visitors.</p>",
+    "type": "callout",
+    "variant": "warning"
+  },
+  {
+    "id": "UQFrKHzrPIqZ",
+    "text": "The Performance Report",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-performance-report"
+  },
+  {
+    "id": "GmBA-UbctHJJ",
+    "html": "<p>This is the one most people use, and it answers questions no other tool can:</p><ul><li><b>Queries</b> — the actual phrases people searched before seeing your site. This is real data, not an estimate, and it regularly reveals terms you never targeted.</li><li><b>Impressions</b> — how often your pages appeared in results.</li><li><b>Clicks</b> — how often someone clicked through.</li><li><b>Average position</b> — where you typically appeared.</li></ul><p>The most useful pattern to look for: pages with many impressions and few clicks. Those are ranking but not being chosen — usually a title and meta description problem, which is a much easier fix than trying to rank higher.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vT0Lu7cJlFwk",
+    "text": "The Pages Report",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-pages-report"
+  },
+  {
+    "id": "ZQcXM_2ATvMF",
+    "html": "<p>This is where the crawling-versus-indexing distinction from earlier becomes concrete. It splits your URLs into indexed and not-indexed, and for the not-indexed ones it gives a reason — discovered but not crawled, crawled but not indexed, blocked by robots.txt, marked <code>noindex</code>, duplicate without a canonical, and so on.</p><p>When a page is not appearing in search, this report tells you which of those situations you are in, which determines the fix.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mrEyG-4ImJcm",
+    "text": "Other Reports Worth Knowing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "other-reports-worth-knowing"
+  },
+  {
+    "id": "n8trCY7XHiB8",
+    "rows": [
+      [
+        "Sitemaps",
+        "Whether your sitemap was read, and how many of its URLs were indexed"
+      ],
+      [
+        "Core Web Vitals",
+        "Real-visitor speed data, grouped into good / needs improvement / poor"
+      ],
+      [
+        "Enhancements",
+        "Whether your structured data is valid and which rich results it qualifies for"
+      ],
+      [
+        "Links",
+        "Which sites link to you, and which of your pages they link to"
+      ],
+      [
+        "Manual actions",
+        "Whether a human reviewer has penalised the site — normally empty, and worth checking if traffic collapses"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Report",
+      "Tells you"
+    ]
+  },
+  {
+    "id": "ucL7LSSa8kZc",
+    "text": "The URL Inspection Tool",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-url-inspection-tool"
+  },
+  {
+    "id": "0090i_PiO0ze",
+    "html": "<p>Paste any URL from your site and it reports that specific page: whether it is indexed, when it was last crawled, which canonical Google chose, whether the mobile version renders correctly, and any structured data found. It also offers a \"Request indexing\" button, which nudges a new or updated page into the crawl queue.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TwOHRjejz18s",
+    "html": "<p>Search Console only reports data from the point of verification onward — it does not backfill history. That makes setting it up an early task rather than one you get to eventually. A site running for two years without it has two years of unrecoverable data.</p>",
+    "type": "callout",
+    "title": "Set it up sooner rather than later",
+    "variant": "note"
+  }
+]
+```

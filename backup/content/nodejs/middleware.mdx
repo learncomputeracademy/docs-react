@@ -1,0 +1,121 @@
+---
+id: "388e105a-3f96-48a4-8b95-90f0e40e2d0d"
+title: "Middleware"
+path: "nodejs/middleware"
+status: "published"
+meta_title: "Express.js Middleware | Learn Computer Academy"
+meta_description: "Run shared logic — logging, authentication, parsing — in front of every route with Express middleware, instead of repeating it in each handler."
+sort_order: 21
+updated_at: "2026-08-05T05:47:59.178842+00:00"
+---
+
+```json
+[
+  {
+    "id": "A8dsW1d_HFO2",
+    "html": "<p><b>Middleware</b> is a function that runs <i>before</i> a route's handler, with the chance to inspect or modify the request, and then either pass it along or stop it there. It's how Express handles anything that needs to happen on more than one route without repeating the code in every handler.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bTosyoRysi4M",
+    "alt": "Diagram showing an incoming HTTP request passing through a chain of middleware functions in sequence before reaching the final route handler",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A request passes through each middleware function in order before reaching its route handler.",
+    "publicId": "docs/img/nodejs/middleware-1"
+  },
+  {
+    "id": "N9OOiSMWzc_i",
+    "text": "The Shape of Middleware",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-shape-of-middleware"
+  },
+  {
+    "id": "nrYz36dapKMW",
+    "html": "<p>A middleware function takes three parameters — <code>req</code>, <code>res</code>, and one more: <code>next</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nekPJ79Vk0oN",
+    "code": "function logger(req, res, next) {\n  console.log(`${req.method} ${req.url}`)\n  next()\n}\n\napp.use(logger)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "kO4tP2oGN0rM",
+    "html": "<p>Calling <code>next()</code> passes control to whatever comes after — the next middleware, or the matching route's own handler. <b>Forget to call it</b>, and the request just hangs — the browser waits forever for a response that never comes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WmuDqn_hAR6Q",
+    "text": "Built-in Middleware",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-middleware"
+  },
+  {
+    "id": "z21tfE85wzQK",
+    "html": "<p>Express ships with some middleware already included. <code>express.json()</code> is the most common — it reads a JSON request body and makes it available as <code>req.body</code>. The next lesson covers it in full.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nGBfem7mIeZr",
+    "code": "app.use(express.json())",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "YbozTCYNt0QB",
+    "text": "Applying Middleware to One Route Only",
+    "type": "heading",
+    "level": 2,
+    "anchor": "applying-middleware-to-one-route-only"
+  },
+  {
+    "id": "Cii7Bbgr63yb",
+    "html": "<p><code>app.use()</code> applies to every route that follows it. To scope middleware to a single route, pass it as an extra argument:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G5t4iwfN6Hpr",
+    "code": "function requireLogin(req, res, next) {\n  if (!req.headers.authorization) {\n    return res.status(401).send('Login required')\n  }\n  next()\n}\n\napp.get('/dashboard', requireLogin, (req, res) => {\n  res.send('Welcome to your dashboard')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "io3MABVI8SrI",
+    "html": "<p>This is why route handlers themselves take the same <code>(req, res)</code> shape — a route handler is really just the last middleware in the chain, the one that doesn't call <code>next()</code> and instead sends the response.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Kgx5y8f_OTiW",
+    "text": "Error-Handling Middleware",
+    "type": "heading",
+    "level": 2,
+    "anchor": "error-handling-middleware"
+  },
+  {
+    "id": "cq52Gw_68wSI",
+    "html": "<p>A middleware function with <b>four</b> parameters instead of three is treated specially by Express — it only runs when something earlier calls <code>next(error)</code> or throws:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IL2jBRcrGEtf",
+    "code": "app.use((err, req, res, next) => {\n  console.error(err.stack)\n  res.status(500).send('Something went wrong')\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "wLgvgvXYqW-c",
+    "html": "<p>This kind of middleware always goes <b>last</b>, after every route — Express matches middleware in the order it's registered, so an error handler placed earlier would never see requests that come after it.</p>",
+    "type": "callout",
+    "variant": "tip"
+  }
+]
+```

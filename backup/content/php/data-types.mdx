@@ -1,0 +1,121 @@
+---
+id: "c46b41a5-6546-4950-9eaf-d851c3e071b0"
+title: "Data Types"
+path: "php/data-types"
+status: "published"
+meta_title: "PHP Data Types | Learn Computer Academy"
+meta_description: "PHP's eight data types — string, int, float, bool, array, object, null, and callable — and PHP's \"type juggling\" between them."
+sort_order: 5
+updated_at: "2026-07-30T09:08:35.452226+00:00"
+---
+
+```json
+[
+  {
+    "id": "EzOWo7eRIeZE",
+    "html": "<p>PHP has eight data types. You'll use most of them constantly; a couple (<code>object</code>, <code>callable</code>) get their own dedicated lessons later in this section.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cUJqv3D03ndp",
+    "rows": [
+      [
+        "string",
+        "Text",
+        "\"Hello\""
+      ],
+      [
+        "int",
+        "Whole numbers",
+        "42"
+      ],
+      [
+        "float",
+        "Decimal numbers",
+        "3.14"
+      ],
+      [
+        "bool",
+        "true or false",
+        "true"
+      ],
+      [
+        "array",
+        "An ordered collection of values",
+        "[1, 2, 3]"
+      ],
+      [
+        "object",
+        "An instance of a class",
+        "new Person()"
+      ],
+      [
+        "null",
+        "No value at all",
+        "null"
+      ],
+      [
+        "callable",
+        "A reference to a function",
+        "strtoupper(...)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Holds",
+      "Example"
+    ]
+  },
+  {
+    "id": "6l0S_HFJBCBx",
+    "text": "Checking a Variable's Type",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-a-variables-type"
+  },
+  {
+    "id": "WAbIKGP8pDV0",
+    "html": "<p><code>gettype()</code> tells you what type a variable currently holds — useful while learning, and occasionally in real debugging:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qVyJw2CcV1dd",
+    "code": "<?php\n  $x = 42;\n  echo gettype($x); // \"integer\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "XRHiAfj9mK7B",
+    "text": "Type Juggling",
+    "type": "heading",
+    "level": 2,
+    "anchor": "type-juggling"
+  },
+  {
+    "id": "r0jDpdghzhFv",
+    "html": "<p>PHP automatically converts between types when an operation needs it to — this is called <b>type juggling</b>. Add a string that looks like a number to an actual number, and PHP converts the string for you:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1vSLsv07oft-",
+    "code": "<?php\n  $result = \"5\" + 3;  // 8 (the string \"5\" is converted to an int)\n  echo $result;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "KzBg-OHwzMAH",
+    "html": "<p>This is convenient, but it can also produce surprising results if you're not paying attention — <code>\"5 apples\" + 3</code> throws a warning in modern PHP rather than silently guessing. The next lesson, Type Casting, covers how to convert between types <i>deliberately</i>, instead of leaving it to PHP's automatic rules.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "luLRA0hkNa2J",
+    "html": "<p><code>null</code> is not the same as an empty string <code>\"\"</code>, and it isn't the same as <code>0</code> or <code>false</code> either — even though PHP will treat all of them as \"falsy\" in certain comparisons. <code>null</code> specifically means <i>no value was ever set</i>. This distinction matters more once you start working with databases, where a missing value and an empty one mean genuinely different things.</p>",
+    "type": "callout",
+    "title": "null is its own thing",
+    "variant": "warning"
+  }
+]
+```

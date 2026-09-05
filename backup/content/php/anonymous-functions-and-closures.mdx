@@ -1,0 +1,143 @@
+---
+id: "bff70f8d-067b-466d-a496-82521a94b58f"
+title: "Anonymous Functions, Closures, and Callbacks"
+path: "php/anonymous-functions-and-closures"
+status: "published"
+meta_title: "PHP Anonymous Functions and Closures | Learn Computer Academy"
+meta_description: "Functions without a name, closures that capture outside variables, callback functions passed as arguments, recursion, and variadic parameters."
+sort_order: 31
+updated_at: "2026-09-03T04:05:22.927803+00:00"
+---
+
+```json
+[
+  {
+    "id": "jRmo8Eq37je3",
+    "html": "<p>The earlier Functions lesson covered named functions and arrow functions. This one covers functions used as values — passed around, stored in variables, and passed into other functions.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EsCBx85c3pw0",
+    "text": "Anonymous Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "anonymous-functions"
+  },
+  {
+    "id": "K0zWjpYUkwtg",
+    "html": "<p>A function with no name, assigned directly to a variable or passed inline.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3zrUjHxo4rvD",
+    "code": "$greet = function ($name) {\n    return \"Hello, $name!\";\n};\n\necho $greet('Sam');   // Hello, Sam!",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bn2NmE58NE9X",
+    "text": "Closures — Capturing Outside Variables with use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "closures-capturing-outside-variables-with-use"
+  },
+  {
+    "id": "NPrpfKiWfO7d",
+    "html": "<p>An anonymous function normally can't see variables from outside its own body — <code>use</code> explicitly imports one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fzP2nzV5q8E3",
+    "code": "$taxRate = 0.08;\n\n$addTax = function ($price) use ($taxRate) {\n    return $price * (1 + $taxRate);\n};\n\necho $addTax(100);   // 108",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "PIesyFwwtm4e",
+    "text": "Callback Functions — Passing a Function as an Argument",
+    "type": "heading",
+    "level": 2,
+    "anchor": "callback-functions-passing-a-function-as-an-argument"
+  },
+  {
+    "id": "Dvh40wz0ZJ0c",
+    "html": "<p>Several built-in PHP functions accept a function as an argument, to run once per item.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "guwMS4PuiKe5",
+    "code": "$numbers = [1, 2, 3, 4, 5];\n\n$doubled = array_map(function ($n) {\n    return $n * 2;\n}, $numbers);\n// [2, 4, 6, 8, 10]\n\n$evens = array_filter($numbers, function ($n) {\n    return $n % 2 === 0;\n});\n// [2, 4]",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "HfkRcwT7cN0s",
+    "html": "<p>The arrow functions from the earlier Functions lesson (<code>fn($n) => $n * 2</code>) work as callbacks too, and automatically capture outside variables without needing <code>use</code> — often the shorter choice for a simple one-line callback.</p>",
+    "type": "callout",
+    "title": "Arrow functions as a shortcut",
+    "variant": "tip"
+  },
+  {
+    "id": "ThmpH5tGDRNT",
+    "text": "Recursion — A Function Calling Itself",
+    "type": "heading",
+    "level": 2,
+    "anchor": "recursion-a-function-calling-itself"
+  },
+  {
+    "id": "a8qVQoYveLQh",
+    "code": "function factorial(int $n): int {\n    if ($n <= 1) {\n        return 1;\n    }\n    return $n * factorial($n - 1);\n}\n\necho factorial(5);   // 120",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "tmpyFuGaKVgw",
+    "html": "<p>Every recursive function needs a base case — a condition that stops it calling itself. Without one, it recurses until PHP runs out of memory.</p>",
+    "type": "callout",
+    "title": "Always have a base case",
+    "variant": "warning"
+  },
+  {
+    "id": "iM9_nOC_gB5M",
+    "text": "Variadic Functions — Accepting Any Number of Arguments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "variadic-functions-accepting-any-number-of-arguments"
+  },
+  {
+    "id": "ufoi5EVzU1R6",
+    "html": "<p>A parameter prefixed with <code>...</code> collects every remaining argument into an array.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EoaVkje-ulec",
+    "code": "function sum(...$numbers): int {\n    return array_sum($numbers);\n}\n\necho sum(1, 2, 3);        // 6\necho sum(1, 2, 3, 4, 5);  // 15",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "FStRIH_Tmbop",
+    "text": "Named Arguments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "named-arguments"
+  },
+  {
+    "id": "C9BQe9Zatq_9",
+    "html": "<p>Arguments can be passed by parameter name instead of position — useful for a function with several optional parameters, so it's clear at the call site what each value means.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GaFglkgclKzi",
+    "code": "function makeUser(string $name, string $role = 'user', bool $active = true) {\n    // ...\n}\n\nmakeUser(name: 'Sam', active: false);\n// role keeps its default value, active is explicitly set — order doesn't matter",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

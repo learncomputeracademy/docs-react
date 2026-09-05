@@ -1,0 +1,127 @@
+---
+id: "287599cb-5b43-4b63-9ec6-3f112a35ad68"
+title: "How Search Engines Work"
+path: "seo/how-search-engines-work"
+status: "published"
+meta_title: "How Search Engines Work | Learn Computer Academy"
+meta_description: "Crawling, indexing, and ranking are three separate stages — understanding where a page is stuck is the foundation of every SEO decision."
+sort_order: 2
+updated_at: "2026-08-05T07:21:57.696421+00:00"
+---
+
+```json
+[
+  {
+    "id": "_ANoDFcR60U6",
+    "html": "<p>Almost every SEO problem is really a problem at one of three stages. A search engine has to <b>find</b> your page, <b>store and understand</b> it, and then <b>choose</b> it for a particular search. These are separate steps, and a page can fail at any one of them for completely different reasons.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MJY-nZk7o8_S",
+    "alt": "Diagram showing the three stages of search: a crawler following links to discover pages, an index storing and organising them, and a ranking stage ordering results for a query",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Crawling, indexing, and ranking are three separate stages — a page can fail at any one.",
+    "publicId": "docs/img/seo/how-search-engines-work-1"
+  },
+  {
+    "id": "7k_z3qATiunw",
+    "text": "Stage 1 — Crawling",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stage-1-crawling"
+  },
+  {
+    "id": "nc7kVeNYakwB",
+    "html": "<p>Search engines run programs, usually called <b>crawlers</b> or <b>spiders</b>, that move around the web following links. A crawler arrives at a page, reads it, notes every link on it, and adds those links to a list of pages to visit later. Repeated at enormous scale, this is how a search engine discovers what exists.</p><p>The practical consequence: <b>a page nothing links to is very hard to discover.</b> If a page is not linked from anywhere — not from your own navigation, not from another page, not from a sitemap — a crawler has no path to it and may never find it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7DNYFJHFYFhf",
+    "text": "Stage 2 — Indexing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stage-2-indexing"
+  },
+  {
+    "id": "fDWeCgvReI87",
+    "html": "<p>Finding a page is not the same as storing it. After crawling, the engine tries to work out what the page is about — its topic, its content, its language, how it relates to other pages — and stores that in a giant database called the <b>index</b>. Only pages in the index can appear in results.</p><p>A page can be crawled and still not indexed. Common reasons: the engine judged it too thin to be worth storing, it is a near-duplicate of another page, or the page explicitly asked not to be indexed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GNkvzGb4U0wE",
+    "html": "<p>This distinction matters more than almost anything else in this course. \"Google visited my page\" and \"Google will show my page\" are different claims. Search Console (covered later) reports them separately, and confusing the two sends people fixing the wrong problem.</p>",
+    "type": "callout",
+    "title": "Crawled is not indexed",
+    "variant": "warning"
+  },
+  {
+    "id": "bUuoC4k1dclt",
+    "text": "Stage 3 — Ranking",
+    "type": "heading",
+    "level": 2,
+    "anchor": "stage-3-ranking"
+  },
+  {
+    "id": "Nflx2Aynkvrb",
+    "html": "<p>When someone searches, the engine looks through its index for pages that could answer the query, and puts them in an order. That ordering is what people mean by <b>ranking</b>.</p><p>The systems that decide the order are not published, and they change frequently. What is publicly known is broad: engines weigh how well the content matches what the person seems to want, signals of quality and trustworthiness, whether the page works well on the device being used, and how other sites reference it. Anyone claiming to know the precise formula does not.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rKqXG192tBJ6",
+    "text": "Why This Order Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-order-matters"
+  },
+  {
+    "id": "eg9bP-k6VvtJ",
+    "html": "<p>Because the stages are sequential, the fix for \"my page is not showing up\" depends entirely on where it stopped:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dkAWTpPGOFdb",
+    "rows": [
+      [
+        "Never crawled",
+        "The engine has no path to the page",
+        "Internal links, sitemap, robots.txt"
+      ],
+      [
+        "Crawled, not indexed",
+        "Found, but not judged worth storing",
+        "Content quality, duplication, noindex tags"
+      ],
+      [
+        "Indexed, ranks poorly",
+        "Stored, but losing to other pages",
+        "Relevance, content depth, links, speed"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Where it stopped",
+      "What that means",
+      "Where to look"
+    ]
+  },
+  {
+    "id": "d3BcU3uaq21v",
+    "html": "<p>Working on content quality when the real problem is a blocked crawler achieves nothing. Later lessons cover the tools that tell you which stage you are actually stuck at.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Qn70C1sIfOys",
+    "text": "A Note on \"Real Time\"",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-note-on-real-time"
+  },
+  {
+    "id": "JE8yk1XYe_KE",
+    "html": "<p>None of this happens the moment you press publish. A new page has to be discovered, queued, crawled, evaluated, and indexed, and then compete for position — a process measured in days or weeks, not minutes. There are ways to nudge discovery along, covered later in this course, but nothing makes the whole pipeline instant.</p>",
+    "type": "richtext"
+  }
+]
+```

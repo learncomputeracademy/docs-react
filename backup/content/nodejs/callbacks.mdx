@@ -1,0 +1,93 @@
+---
+id: "2ad52630-39af-4640-8758-c558a29fa45c"
+title: "Callbacks"
+path: "nodejs/callbacks"
+status: "published"
+meta_title: "Callbacks in Node.js | Learn Computer Academy"
+meta_description: "What a callback function actually is, why Node.js relies on them so heavily, and the specific problem they eventually run into."
+sort_order: 12
+updated_at: "2026-08-05T05:47:56.267252+00:00"
+---
+
+```json
+[
+  {
+    "id": "5VXTxZFhZykX",
+    "html": "<p>You've already used callbacks several times in this course — <code>fs.readFile()</code>'s last argument, every listener passed to <code>on()</code>. This lesson makes the pattern explicit and names the problem that led to promises, covered next.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "v92VAkVvrcnU",
+    "text": "What a Callback Actually Is",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-callback-actually-is"
+  },
+  {
+    "id": "JW2LPJDFxs3c",
+    "html": "<p>A callback is nothing special — it's just a function passed as an argument to another function, to be called later instead of immediately.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dlKJIcZAbL45",
+    "code": "function processOrder(item, callback) {\n  console.log(`Processing order: ${item}`)\n  callback(item)\n}\n\nprocessOrder('Laptop Stand', (item) => {\n  console.log(`Done processing: ${item}`)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "KnkTcKe_s0VV",
+    "text": "Error-First Callbacks",
+    "type": "heading",
+    "level": 2,
+    "anchor": "error-first-callbacks"
+  },
+  {
+    "id": "Ajv5XdW_iBSh",
+    "html": "<p>Node's own built-in async functions all follow one convention: the callback's <b>first parameter is always an error</b> (or <code>null</code> if nothing went wrong), and the actual result comes after it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "R76570oXIIdu",
+    "code": "fs.readFile('data.txt', 'utf8', (err, data) => {\n  if (err) {\n    console.error('Something went wrong:', err)\n    return\n  }\n  console.log(data)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "O_SR4iQtz5MC",
+    "html": "<p>Checking <code>err</code> first, before touching <code>data</code>, is the convention every Node callback follows — skip the check and a failed read crashes the program on the next line instead of failing gracefully.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ilgGKzrcUyE1",
+    "text": "The Problem: Callback Hell",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-callback-hell"
+  },
+  {
+    "id": "5jQsUeLdfd9w",
+    "html": "<p>One async step calling another quickly nests:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "66vefZyf0x0k",
+    "code": "fs.readFile('user.json', 'utf8', (err, userData) => {\n  if (err) return console.error(err)\n  fs.readFile('settings.json', 'utf8', (err, settingsData) => {\n    if (err) return console.error(err)\n    fs.readFile('preferences.json', 'utf8', (err, prefData) => {\n      if (err) return console.error(err)\n      console.log('All data loaded')\n    })\n  })\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "kiGrb8BIeI2F",
+    "html": "<p>Three steps deep and this is already hard to follow — each step is indented inside the last, error handling repeats at every level, and adding a fourth step means nesting even further. This shape earned its own nickname: <b>callback hell</b>. It doesn't get better with scale; it gets worse.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rdTPwS_UdZU8",
+    "html": "<p>This is the exact problem Promises were invented to solve — flattening this pyramid back into something that reads top to bottom. The next lesson picks up right here.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

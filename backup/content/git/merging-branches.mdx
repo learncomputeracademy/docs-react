@@ -1,0 +1,115 @@
+---
+id: "1bc169e5-deb1-4276-9ff3-9bbac6003f92"
+title: "Merging Branches"
+path: "git/merging-branches"
+status: "published"
+meta_title: "Git Merging Branches | Learn Computer Academy"
+meta_description: "Bringing a branch's changes into another branch — fast-forward merges vs. a real merge commit, and reading what happened afterward."
+sort_order: 7
+updated_at: "2026-09-03T05:20:01.144766+00:00"
+---
+
+```json
+[
+  {
+    "id": "IpZj7-reBFo_",
+    "html": "<p>Once work on a branch is ready, <b>merging</b> brings its changes into another branch — usually back into <code>main</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pZvEDKbRd1Ck",
+    "text": "A Basic Merge",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-merge"
+  },
+  {
+    "id": "OHjfejjNRiEK",
+    "code": "git switch main\ngit merge feature-login\n# Updating a1b2c3d..e5f6g7h\n# Fast-forward\n#  login.php | 20 ++++++++++++++++++\n#  1 file changed, 20 insertions(+)",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "bb8tWm968TcS",
+    "html": "<p>The merge command runs <i>on</i> the branch receiving the changes (<code>main</code>, here), pulling <i>in</i> the named branch (<code>feature-login</code>).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mN1zI9A0Bogs",
+    "text": "Fast-Forward vs. a Real Merge Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "fast-forward-vs-a-real-merge-commit"
+  },
+  {
+    "id": "A-Q1hWCJ04nb",
+    "rows": [
+      [
+        "main hasn't changed since the branch split off",
+        "Both main and the branch have new commits since they split"
+      ],
+      [
+        "Git simply moves main's pointer forward — no new commit created",
+        "Git creates a new commit specifically joining the two histories"
+      ],
+      [
+        "A clean, linear history",
+        "A history showing exactly where branches diverged and rejoined"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Fast-forward merge",
+      "A real merge commit"
+    ]
+  },
+  {
+    "id": "I9U5SKexoWlL",
+    "code": "# Force a real merge commit even when a fast-forward is possible —\n# some teams prefer this for a clearer history of feature branches\ngit merge --no-ff feature-login",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "vSaElee5LY5J",
+    "text": "Deleting the Branch After Merging",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deleting-the-branch-after-merging"
+  },
+  {
+    "id": "n8oRbwxt2mDb",
+    "html": "<p>Once merged, a feature branch has usually done its job — deleting it keeps the branch list from growing indefinitely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "E9BH7gv5ejEf",
+    "code": "git branch -d feature-login",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "3oae1R1F43oS",
+    "text": "Visualizing the Result",
+    "type": "heading",
+    "level": 2,
+    "anchor": "visualizing-the-result"
+  },
+  {
+    "id": "1YwgT_PYWeVD",
+    "code": "git log --oneline --graph --all\n# *   f7g8h9i Merge branch 'feature-login'\n# |\\\n# | * e5f6g7h Add login validation\n# | * d4e5f6g Add login form\n# |/\n# * a1b2c3d Initial commit",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "51239cGkHmCc",
+    "html": "<p>A merge that touches the same lines a branch and main both changed can't be resolved automatically — that's a merge conflict, covered in the next lesson, and it's a completely normal part of working with branches, not a sign something went wrong.</p>",
+    "type": "callout",
+    "title": "What happens next if this doesn't go cleanly",
+    "variant": "note"
+  }
+]
+```

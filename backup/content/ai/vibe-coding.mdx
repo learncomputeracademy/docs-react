@@ -1,0 +1,253 @@
+---
+id: "cb650d66-f376-4581-9df7-aa289913f88a"
+title: "Vibe Coding — Working With AI Coding Tools Well"
+path: "ai/vibe-coding"
+status: "published"
+meta_title: "Vibe Coding — Working With AI Coding Tools Well | Learn Computer Academy"
+meta_description: "How to actually work with AI coding tools like Claude Code, Cursor, and v0 — planning, prompting, context management, debugging, version control, testing, and security habits."
+sort_order: 12
+updated_at: "2026-09-03T06:44:38.631417+00:00"
+---
+
+```json
+[
+  {
+    "id": "G3oS5mrVVUDH",
+    "html": "<p><b>Vibe coding</b> is building software by describing what you want in plain language and letting an AI tool write and edit the code, rather than typing every line yourself. The name comes from just going with the \"vibe\" of an idea and iterating with the AI instead of planning every detail up front.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Sqx7kj7hTaI8",
+    "html": "<p>It works — a lot of real software today is built this way. But \"just describe it and hope\" only gets you so far. Past a small demo, vibe coding without discipline produces code that breaks in ways neither you nor the AI can explain. This lesson is that discipline: a set of habits that make AI-assisted coding actually reliable.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yOgGZT4tK3NK",
+    "text": "The Vibe Coder Mindset",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-vibe-coder-mindset"
+  },
+  {
+    "id": "2mZK4gFzgBVx",
+    "html": "<p>You are still the one responsible for the result. The AI is fast and tireless, but it doesn't know your product, your users, or your standards unless you tell it — and it will confidently produce code that looks right and isn't. Treat it like a very capable junior developer: give clear direction, review the work, and catch problems before they compound.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6-KzhD5DOb6I",
+    "html": "<p>Popular AI coding tools today include <b>Claude Code</b>, ChatGPT, Gemini, Cursor, and Windsurf for general-purpose coding, and <b>v0</b>, Lovable, and Replit for fast frontend/full-app prototyping. This lesson isn't a comparison of them — the habits below apply to whichever one you use.</p>",
+    "type": "callout",
+    "title": "Which Tool?",
+    "variant": "note"
+  },
+  {
+    "id": "l3TZMo7Vwr7n",
+    "text": "Plan Before You Code",
+    "type": "heading",
+    "level": 2,
+    "anchor": "plan-before-you-code"
+  },
+  {
+    "id": "uDZH2UmnfAFH",
+    "html": "<p>The biggest difference between a smooth AI-assisted build and a messy one is whether planning happened first.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2dqvTwg65KjX",
+    "html": "<ul><li>Plan what you actually need (a minimum viable version, then the phases after it) before asking for code.</li><li>Work step by step — build and verify one piece at a time rather than asking for the whole app at once.</li><li>Give the AI examples, not just descriptions: mockups, sample data, reference code, screenshots of a similar UI.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "2qZksJl-3jRW",
+    "html": "<p>For example: tell the tool what you're building, ask it to help refine the idea and break it into phases, then ask it to write that plan into a document. You can point back at that document for the rest of the build instead of re-explaining the idea every session.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dwatm2vG0OYC",
+    "text": "Establish Standards Early",
+    "type": "heading",
+    "level": 2,
+    "anchor": "establish-standards-early"
+  },
+  {
+    "id": "TaJNqF-20e-O",
+    "html": "<p>AI repeats whatever pattern it starts with. If the first few files it writes have a bad habit — inconsistent naming, one giant file instead of small modules, no error handling — every file after that copies the same habit, and it compounds fast.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Yu3sBAnHcDtC",
+    "html": "<ul><li>Pick a popular, well-documented tech stack rather than something new or niche — the AI has seen far more of it in training.</li><li>If you have style or structure preferences, write them down and give them to the AI rather than assuming it will guess.</li><li>Ask explicitly for modular code — smaller files and functions instead of one file that keeps growing.</li><li>Review the AI's first outputs carefully. Catching a bad pattern in file one is cheap; catching it in file thirty is a rewrite.</li><li>Ask the AI to review and refactor the codebase periodically — it will happily keep appending code and skip cleanup unless you ask.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "WXcU_fm8yV7S",
+    "text": "Prompting Practices That Actually Help",
+    "type": "heading",
+    "level": 2,
+    "anchor": "prompting-practices-that-actually-help"
+  },
+  {
+    "id": "vzqWDgU9nr-Y",
+    "rows": [
+      [
+        "One specific task per message",
+        "Five different requests bundled together"
+      ],
+      [
+        "Concrete detail: \"add a submit button that disables while saving\"",
+        "Vague direction: \"make the form better\""
+      ],
+      [
+        "Tell it what NOT to do, based on past mistakes it made",
+        "Assuming it remembers what went wrong last time"
+      ],
+      [
+        "Attach a mockup, file, or sample when one exists",
+        "Describing a visual in words only"
+      ],
+      [
+        "Ask it to \"think it through\" before a genuinely hard problem",
+        "Expecting a first-try correct answer on something tricky"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Do",
+      "Instead of"
+    ]
+  },
+  {
+    "id": "Nux1aAzvA_F7",
+    "html": "<p>A useful framing prompt when it helps: ask the AI to <b>\"act as\"</b> a specific role — a UX researcher, a security reviewer, a senior backend engineer — before asking your actual question. It focuses the kind of answer you get.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ciqk3kmNYo-e",
+    "text": "Keep a Context Document",
+    "type": "heading",
+    "level": 2,
+    "anchor": "keep-a-context-document"
+  },
+  {
+    "id": "AXsLUkhT3cH_",
+    "html": "<p>Most AI coding tools can read a project instructions file automatically — Claude Code uses <code>CLAUDE.md</code>, other tools use similar conventions. Put your stack, conventions, and any recurring instructions there once, instead of repeating them in every conversation.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "K3VkN6r9vmZw",
+    "html": "<p>If you catch yourself typing the same instruction more than once, that's the signal to add it to the document instead. After a long session where the AI learned something useful about your codebase, it can help to ask it to summarise that learning into the document itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GIQC_Pn4BBI_",
+    "text": "Manage Context Deliberately",
+    "type": "heading",
+    "level": 2,
+    "anchor": "manage-context-deliberately"
+  },
+  {
+    "id": "hm348C6bjSjO",
+    "html": "<p>AI tools work from a limited window of recent conversation — the more unrelated stuff is in it, the worse and slower the answers get.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WAOefFKahKe7",
+    "html": "<ul><li>Starting an unrelated task? Clear the conversation or start a new one rather than continuing the old thread.</li><li>If the AI fails after about three attempts at the same problem, stop — start a fresh chat instead of digging deeper into a confused one.</li><li>Clearing context regularly also keeps token costs down, since every message re-sends the whole conversation so far.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "0UTsOYhYtVQ-",
+    "text": "Let AI Debug — But Understand the Fix",
+    "type": "heading",
+    "level": 2,
+    "anchor": "let-ai-debug-but-understand-the-fix"
+  },
+  {
+    "id": "6UvMhcZJV7Hn",
+    "html": "<p>When something breaks, paste the actual error message and the relevant code, and let the AI explain what went wrong before it fixes it. Don't just accept a patch you don't understand — ask for a plain-language explanation if the first one is too technical. If a fix doesn't hold, ask for a list of other possible causes instead of trying random changes.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vG9IKl7dkmUj",
+    "html": "<p>Adding a log line or two near the failing code and re-running it before asking the AI to guess often finds the real cause faster than several rounds of back-and-forth.</p>",
+    "type": "callout",
+    "title": "Add Logs First",
+    "variant": "tip"
+  },
+  {
+    "id": "_Kj-H1vklmmR",
+    "text": "Master Version Control",
+    "type": "heading",
+    "level": 2,
+    "anchor": "master-version-control"
+  },
+  {
+    "id": "f4LDuTSNxrEm",
+    "html": "<p>AI-generated changes can go wrong in ways that are hard to spot at a glance. Git is your safety net — use it like one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TSG6_KvF4PLx",
+    "html": "<ul><li>Start each new feature from a clean, committed state, so a bad AI attempt is easy to throw away.</li><li>Commit after every working step — small, frequent commits, not one giant commit at the end.</li><li>Ask the AI to write the commit message: a short summary of what changed and why. It has full context on what it just did.</li><li>If something goes wrong, revert with Git rather than asking the AI to \"undo\" — its own undo isn't as reliable as a real version history.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "z0YGIzHOBH8-",
+    "html": "<p>Most AI coding tools can run Git and GitHub CLI commands directly when asked — committing, branching, opening a pull request — so you don't have to switch out of the conversation to do it yourself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OHwEagairUmu",
+    "text": "Test What Gets Built",
+    "type": "heading",
+    "level": 2,
+    "anchor": "test-what-gets-built"
+  },
+  {
+    "id": "Y2oFAchnHmrH",
+    "html": "<p>Left alone, an AI tool's default is to write the feature and stop — minimal or no tests. That's exactly backwards for code you didn't write by hand and can't fully verify by reading.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mx7y1JDKeDtW",
+    "html": "<ul><li>Whenever a feature is built, ask for basic tests right away, not \"later.\"</li><li>For anything with a real user flow, ask for end-to-end tests too — they catch a wider class of real breakage than unit tests alone.</li><li>Consider test-driven development for tricky logic: ask for a test first, watch it fail, then ask for the code that makes it pass.</li><li>Found a bug? Ask the AI to write a test that reproduces it before fixing it — that test then guards against the same bug coming back.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "w9iieeJxgdgo",
+    "html": "<p>Once tests exist, refactoring stops being scary — a passing test suite is what tells you a cleanup didn't quietly break something.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KtHEieShktka",
+    "text": "Security: Never Hardcode Secrets",
+    "type": "heading",
+    "level": 2,
+    "anchor": "security-never-hardcode-secrets"
+  },
+  {
+    "id": "fvc30RqkTSUV",
+    "html": "<p>Never let an AI tool put a password, API key, or token directly in your code. If you notice it doing this, stop and ask it to use an environment variable instead — this is one of the most common beginner mistakes, and one of the most dangerous, since a hardcoded secret committed to Git is exposed the moment the repo is shared or pushed anywhere public.</p>",
+    "type": "callout",
+    "title": "The One Rule That Matters Most",
+    "variant": "warning"
+  },
+  {
+    "id": "M0NAc52MNvjC",
+    "html": "<p>Beyond secrets, it's worth explicitly asking the AI to do a security pass on anything handling user input, authentication, or payments before it ships — it won't volunteer this on its own unless asked.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2BozAylJIEKn",
+    "text": "Where This Leaves You",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-leaves-you"
+  },
+  {
+    "id": "PO3fiSDRums7",
+    "html": "<p>None of this replaces understanding what the code does — it's the set of habits that make working with an AI coding tool feel like working with a fast, careful collaborator instead of a slot machine. Plan first, set standards early, prompt specifically, manage context, verify fixes, commit often, test by default, and never let a secret slip into the code. Everything else is picking whichever tool fits the job.</p>",
+    "type": "richtext"
+  }
+]
+```

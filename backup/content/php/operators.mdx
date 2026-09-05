@@ -1,0 +1,149 @@
+---
+id: "a712dd63-9c22-4ef0-b0ad-c33e1d55bf5e"
+title: "Operators"
+path: "php/operators"
+status: "published"
+meta_title: "PHP Operators | Learn Computer Academy"
+meta_description: "PHP's arithmetic, comparison, logical, and string operators — including the crucial difference between == and ===."
+sort_order: 8
+updated_at: "2026-07-30T09:08:36.48921+00:00"
+---
+
+```json
+[
+  {
+    "id": "F9CXcopIQXUo",
+    "html": "<p>Operators combine or compare values. Most will look familiar from other languages — a few of PHP's own quirks are worth flagging specifically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ncOyq7CnKsVW",
+    "text": "Arithmetic Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "arithmetic-operators"
+  },
+  {
+    "id": "6DeMIyOKBnZf",
+    "rows": [
+      [
+        "+",
+        "Addition",
+        "5 + 2 → 7"
+      ],
+      [
+        "-",
+        "Subtraction",
+        "5 - 2 → 3"
+      ],
+      [
+        "*",
+        "Multiplication",
+        "5 * 2 → 10"
+      ],
+      [
+        "/",
+        "Division",
+        "5 / 2 → 2.5"
+      ],
+      [
+        "%",
+        "Modulus (remainder)",
+        "5 % 2 → 1"
+      ],
+      [
+        "**",
+        "Exponent",
+        "5 ** 2 → 25"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Meaning",
+      "Example"
+    ]
+  },
+  {
+    "id": "qSRn--B2x9oJ",
+    "text": "String Concatenation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-concatenation"
+  },
+  {
+    "id": "8GbmyXvdReVG",
+    "html": "<p>PHP uses a dot (<code>.</code>) to join strings together — not <code>+</code>, which is reserved purely for arithmetic:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qIU6hyuhS8-j",
+    "code": "<?php\n  $first = \"Learn\";\n  $second = \"Computer\";\n  echo $first . \" \" . $second; // \"Learn Computer\"\n\n  $greeting = \"Hello, \";\n  $greeting .= \"world!\"; // .= appends, same idea as +=\n  echo $greeting;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "H3f5Xk2I0QlR",
+    "text": "Comparison: == vs. ===",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comparison-vs"
+  },
+  {
+    "id": "zi_mvtU81g1N",
+    "html": "<p>This is the single most important operator distinction in PHP. <code>==</code> compares values only, allowing type juggling first; <code>===</code> compares both value <i>and</code> type, with no conversion at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zRIqrAvOqX7x",
+    "code": "<?php\n  var_dump(0 == \"abc\");   // false in modern PHP (was true pre-8.0 — a famous gotcha)\n  var_dump(0 == \"0\");     // true — \"0\" converts to 0\n  var_dump(0 === \"0\");    // false — different types, no conversion\n  var_dump(\"5\" == 5);     // true\n  var_dump(\"5\" === 5);    // false\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bO_TLg8hlq55",
+    "html": "<p>Default to <code>===</code> (and <code>!==</code> for \"not equal\") unless you have a specific reason to want type juggling. It removes an entire category of subtle bugs before they can happen.</p>",
+    "type": "callout",
+    "title": "Prefer === by default",
+    "variant": "tip"
+  },
+  {
+    "id": "cTUnKXobiVD7",
+    "text": "Logical Operators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "logical-operators"
+  },
+  {
+    "id": "sxiqCoI-SjBY",
+    "rows": [
+      [
+        "&& (or and)",
+        "True only if both sides are true"
+      ],
+      [
+        "|| (or or)",
+        "True if either side is true"
+      ],
+      [
+        "!",
+        "Flips true to false and vice versa"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Meaning"
+    ]
+  },
+  {
+    "id": "L43pxFTruUxl",
+    "code": "<?php\n  $age = 20;\n  $hasId = true;\n  if ($age >= 18 && $hasId) {\n    echo \"Entry allowed.\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

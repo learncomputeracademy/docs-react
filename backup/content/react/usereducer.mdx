@@ -1,0 +1,108 @@
+---
+id: "bd3db4f6-97a9-41d5-881f-2e051c5ac837"
+title: "The useReducer Hook"
+path: "react/usereducer"
+status: "published"
+meta_title: "The useReducer Hook | Learn Computer Academy"
+meta_description: "An alternative to useState for state that updates through well-defined actions — how it works, and when it's worth reaching for over useState."
+sort_order: 25
+updated_at: "2026-09-03T04:34:23.761524+00:00"
+---
+
+```json
+[
+  {
+    "id": "4JndNn3Q_ydz",
+    "html": "<p>The State and Updating State lessons covered <code>useState</code> for most component state. <code>useReducer</code> is an alternative, better suited to state that changes through several distinct, well-defined actions rather than one simple value.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fXuhGFbjDr13",
+    "text": "The Shape of a Reducer",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-shape-of-a-reducer"
+  },
+  {
+    "id": "2qx5l6lKC69h",
+    "html": "<p>A <b>reducer</b> is a function that takes the current state and an <b>action</b>, and returns the new state — the same pattern this course's array <code>.reduce()</code> examples use, just applied to component state.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ie9Fym8CqBbL",
+    "code": "function counterReducer(state, action) {\n  switch (action.type) {\n    case 'increment':\n      return { count: state.count + 1 }\n    case 'decrement':\n      return { count: state.count - 1 }\n    case 'reset':\n      return { count: 0 }\n    default:\n      throw new Error(`Unknown action: ${action.type}`)\n  }\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "lOdSI0eeR0yx",
+    "text": "Using It in a Component",
+    "type": "heading",
+    "level": 2,
+    "anchor": "using-it-in-a-component"
+  },
+  {
+    "id": "Z88AUSSzPOE4",
+    "code": "import { useReducer } from 'react'\n\nfunction Counter() {\n  const [state, dispatch] = useReducer(counterReducer, { count: 0 })\n\n  return (\n    <div>\n      <p>Count: {state.count}</p>\n      <button onClick={() => dispatch({ type: 'increment' })}>+</button>\n      <button onClick={() => dispatch({ type: 'decrement' })}>-</button>\n      <button onClick={() => dispatch({ type: 'reset' })}>Reset</button>\n    </div>\n  )\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "q3t1__-o2stJ",
+    "html": "<p><code>dispatch</code> is the only way to trigger a state change — a component never sets state directly, it describes what happened (the action) and lets the reducer decide the result.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FGIemhZrBZCN",
+    "text": "useState vs. useReducer",
+    "type": "heading",
+    "level": 2,
+    "anchor": "usestate-vs-usereducer"
+  },
+  {
+    "id": "xfYWhyxTPv8e",
+    "rows": [
+      [
+        "State is a single value or a few independent ones",
+        "Several pieces of state update together in response to the same events"
+      ],
+      [
+        "Updates are simple — set this to that",
+        "The next state genuinely depends on the current state and which action fired"
+      ],
+      [
+        "There's no shared logic between different updates",
+        "The same transition logic needs to be testable on its own, separate from the component"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Use useState when...",
+      "Use useReducer when..."
+    ]
+  },
+  {
+    "id": "-AO-gr_zVemV",
+    "html": "<p>A reducer function has no dependency on React at all — it's a plain function taking state and an action, returning new state. That makes it trivial to unit test without rendering anything.</p>",
+    "type": "callout",
+    "title": "Why this is easier to test",
+    "variant": "tip"
+  },
+  {
+    "id": "2oBxwJU2FSW2",
+    "text": "A Common Real Use — a Form with Many Fields",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-common-real-use-a-form-with-many-fields"
+  },
+  {
+    "id": "hmZKGroVBSrm",
+    "code": "function formReducer(state, action) {\n  switch (action.type) {\n    case 'field-changed':\n      return { ...state, [action.field]: action.value }\n    case 'reset':\n      return { name: '', email: '' }\n    default:\n      return state\n  }\n}\n\nfunction SignupForm() {\n  const [form, dispatch] = useReducer(formReducer, { name: '', email: '' })\n\n  return (\n    <input\n      value={form.name}\n      onChange={(e) => dispatch({ type: 'field-changed', field: 'name', value: e.target.value })}\n    />\n  )\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

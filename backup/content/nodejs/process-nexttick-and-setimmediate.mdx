@@ -1,0 +1,110 @@
+---
+id: "0b691f65-8fc5-4b14-8e26-66010212dc6f"
+title: "process.nextTick and setImmediate"
+path: "nodejs/process-nexttick-and-setimmediate"
+status: "published"
+meta_title: "process.nextTick and setImmediate in Node.js | Learn Computer Academy"
+meta_description: "Two Node-specific ways to schedule a callback for \"as soon as possible\" — how they differ from each other and from setTimeout, and the exact order they run in."
+sort_order: 31
+updated_at: "2026-09-03T04:41:43.155867+00:00"
+---
+
+```json
+[
+  {
+    "id": "4zRzazIp8hd7",
+    "html": "<p>The earlier Event Loop lesson covered the general model — the call stack, the task queue. Node adds two more specific scheduling tools on top of that model, both meaning roughly \"run this very soon,\" but not identically.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "H1IjzMgaR1Eg",
+    "text": "process.nextTick — Runs Before Anything Else",
+    "type": "heading",
+    "level": 2,
+    "anchor": "processnexttick-runs-before-anything-else"
+  },
+  {
+    "id": "lFmp_UY5LAo1",
+    "html": "<p>A callback passed to <code>process.nextTick</code> runs immediately after the current operation finishes, before the event loop continues to anything else — even before promise callbacks.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "drlLsxcqdh4J",
+    "code": "console.log('1')\nprocess.nextTick(() => console.log('2 — nextTick'))\nPromise.resolve().then(() => console.log('3 — promise'))\nconsole.log('4')\n\n// Output: 1, 4, 2, 3 — nextTick runs before the promise microtask",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "Di6kiBgUxW3l",
+    "text": "setImmediate — Runs After I/O Events",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setimmediate-runs-after-io-events"
+  },
+  {
+    "id": "0ezWJqJaFHPP",
+    "html": "<p>Scheduled to run in a specific later phase of the event loop, after I/O callbacks (like a completed file read) for that cycle have run.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "e9Zhj3O2L1P6",
+    "code": "const fs = require('fs')\n\nfs.readFile(__filename, () => {\n  setTimeout(() => console.log('timeout'), 0)\n  setImmediate(() => console.log('immediate'))\n})\n\n// Inside an I/O callback, setImmediate consistently runs before\n// a 0ms setTimeout — outside one, the order isn't guaranteed",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "4NnrHRwHHB_u",
+    "text": "Comparing the Three",
+    "type": "heading",
+    "level": 2,
+    "anchor": "comparing-the-three"
+  },
+  {
+    "id": "t8kZD_uQr9SL",
+    "rows": [
+      [
+        "process.nextTick()",
+        "Immediately after the current operation — before anything else, including promises"
+      ],
+      [
+        "Promise .then() / microtask",
+        "After nextTick callbacks, still before the event loop moves on"
+      ],
+      [
+        "setImmediate()",
+        "In the \"check\" phase of the event loop, typically after I/O callbacks"
+      ],
+      [
+        "setTimeout(fn, 0)",
+        "In the timers phase — similar timing to setImmediate, but not guaranteed to be first"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "When it runs"
+    ]
+  },
+  {
+    "id": "U_X4_l_zfE8l",
+    "html": "<p>Calling process.nextTick recursively without a stopping condition starves the entire event loop — nothing else (not I/O, not timers) ever gets a turn, since nextTick callbacks are drained completely before anything else runs.</p>",
+    "type": "callout",
+    "title": "A real footgun with process.nextTick",
+    "variant": "warning"
+  },
+  {
+    "id": "_LGirlna4Gmv",
+    "text": "When Each Is Actually Useful",
+    "type": "heading",
+    "level": 2,
+    "anchor": "when-each-is-actually-useful"
+  },
+  {
+    "id": "rlQDKrrh4LtZ",
+    "html": "<ul><li><code>process.nextTick</code>: ensuring a callback runs after the current synchronous code finishes, but strictly before any I/O or timer — used carefully, and rarely needed in typical application code.</li><li><code>setImmediate</code>: deferring work until after pending I/O has been handled, so it doesn't delay something more time-sensitive.</li></ul>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,93 @@
+---
+id: "06dcd1f9-e313-4084-97bf-1c44be61b966"
+title: "Self Join and Cross Join"
+path: "sql/self-and-cross-joins"
+status: "published"
+meta_title: "SQL Self Join and Cross Join | Learn Computer Academy"
+meta_description: "Two more join types beyond INNER/LEFT/RIGHT/FULL — a table joined to itself, and every possible combination of two tables' rows."
+sort_order: 18
+updated_at: "2026-09-03T04:30:02.569955+00:00"
+---
+
+```json
+[
+  {
+    "id": "vNFTa9HjBT6g",
+    "html": "<p>The earlier Joins lesson covered INNER, LEFT, RIGHT, and FULL — every one of them combining rows from two different tables. These last two joins are a bit different.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "1vXmqDpJJzN4",
+    "text": "SELF JOIN — A Table Joined to Itself",
+    "type": "heading",
+    "level": 2,
+    "anchor": "self-join-a-table-joined-to-itself"
+  },
+  {
+    "id": "HNY7VV0NKzBq",
+    "html": "<p>Not a distinct join type in SQL syntax — any of the earlier joins (usually INNER or LEFT) used on a table paired with itself, under two different aliases. The classic use case: a table where one row references another row in the same table, like an employee referencing their manager.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zs-FJGFF61ey",
+    "code": "CREATE TABLE employees (\n  id INT PRIMARY KEY,\n  name VARCHAR(100),\n  manager_id INT\n);\n\nSELECT\n  e.name AS employee,\n  m.name AS manager\nFROM employees e\nLEFT JOIN employees m ON e.manager_id = m.id;",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "swe223yDcGc3",
+    "html": "<ul><li>The same table appears twice in the FROM/JOIN clauses, each with its own alias (<code>e</code> and <code>m</code> here).</li><li>LEFT JOIN, rather than INNER, keeps employees with no manager (like the CEO) in the results, with a NULL manager.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "CJR36w1I8AwK",
+    "html": "<p>Forgetting to alias the two copies of the table makes it impossible for the query to know which \"id\" or \"name\" is being referred to — this is the one join type where an alias isn't optional.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "QQAMwV4UVyRZ",
+    "text": "CROSS JOIN — Every Combination",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cross-join-every-combination"
+  },
+  {
+    "id": "UF8BbU-uadYQ",
+    "html": "<p>Combines every row in one table with every row in another — no matching condition at all. A table of 3 rows CROSS JOINed with a table of 4 rows produces 12 rows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yaOjMOch-2ea",
+    "code": "SELECT sizes.size, colors.color\nFROM sizes\nCROSS JOIN colors;\n-- If sizes has S/M/L and colors has Red/Blue,\n-- this produces all 6 combinations: S-Red, S-Blue, M-Red, M-Blue, L-Red, L-Blue",
+    "type": "code",
+    "language": "sql",
+    "runnable": false
+  },
+  {
+    "id": "QvpD5ZZgx7cP",
+    "html": "<ul><li>Genuinely useful for generating every combination — a product's size/color variants, a calendar of every date times every store location.</li><li>On two large tables, the row count multiplies fast — a CROSS JOIN on two 10,000-row tables produces 100 million rows.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "x6TYPVBA6NQS",
+    "rows": [
+      [
+        "SELF JOIN",
+        "A regular join (INNER/LEFT/etc.), just on the same table twice"
+      ],
+      [
+        "CROSS JOIN",
+        "Every row × every row — no matching condition"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Join type",
+      "Rows produced"
+    ]
+  }
+]
+```

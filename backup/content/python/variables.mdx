@@ -1,0 +1,157 @@
+---
+id: "82bf7a09-bea3-462c-b712-fc826cf6a470"
+title: "Variables in Python"
+path: "python/variables"
+status: "published"
+meta_title: "Variables in Python | Learn Computer Academy"
+meta_description: "How Python variables work — dynamic typing, naming rules, and the UPPER_CASE convention for values that shouldn't change."
+sort_order: 4
+updated_at: "2026-08-04T11:39:27.534386+00:00"
+---
+
+```json
+[
+  {
+    "id": "mFFLfw-0A4wQ",
+    "html": "<p>A Python variable stores a value you can use and change later — the same idea from <a href=\"/programming/variables/\">Intro to Programming</a>, with Python's own syntax, which is about as minimal as it gets.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Gx1Nf4W5ylJe",
+    "text": "Creating a Variable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-variable"
+  },
+  {
+    "id": "BVIPMJDx34q6",
+    "html": "<p>No <code>$</code> sigil, no keyword — just a name and a value:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Fr1WdAcxA14r",
+    "code": "name = \"Amit\"\nage = 21\nprint(f\"{name} is {age} years old.\")",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "fxFspizOdIhy",
+    "html": "<p>The <code>f</code> before the string in <code>f\"{name} is {age}...\"</code> is an <b>f-string</b> — Python's way of embedding variables directly in a string. You'll look at f-strings properly in the Strings lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0znD-ALb-S06",
+    "text": "Naming Rules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "naming-rules"
+  },
+  {
+    "id": "VPv9y2jEPpkj",
+    "rows": [
+      [
+        "Must start with a letter or underscore (never a number)",
+        "_id — valid, 1id — invalid"
+      ],
+      [
+        "Can contain letters, numbers, and underscores after that",
+        "user_2 — valid"
+      ],
+      [
+        "No spaces or hyphens allowed",
+        "user name — invalid"
+      ],
+      [
+        "Case-sensitive",
+        "Name and name are different variables"
+      ],
+      [
+        "Convention: snake_case, all lowercase",
+        "first_name, not firstName"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Rule",
+      "Example"
+    ]
+  },
+  {
+    "id": "eiWZwKoAmTGB",
+    "html": "<p><code>snake_case</code> (lowercase words joined by underscores) is the standard Python naming convention for variables and functions. <code>camelCase</code> (capitalizing the first letter of each word after the first, like <code>firstName</code>) is common in several other languages, but not in Python. It's a convention, not a rule the language enforces, but real Python code follows it consistently.</p>",
+    "type": "callout",
+    "title": "snake_case, not camelCase",
+    "variant": "note"
+  },
+  {
+    "id": "CtS2dx2bbV2l",
+    "text": "Python Is Dynamically Typed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "python-is-dynamically-typed"
+  },
+  {
+    "id": "LljYG5nURmvm",
+    "html": "<p>You never declare a variable's type — Python figures it out from the value, and a variable can hold a different type later:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7-gGIRJD4uzc",
+    "code": "value = 10       # an integer\nvalue = \"ten\"    # now a string — perfectly legal",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "dsNsW6cXFeK8",
+    "text": "Constants, by Convention Only",
+    "type": "heading",
+    "level": 2,
+    "anchor": "constants-by-convention-only"
+  },
+  {
+    "id": "VgEO2wGzImZ2",
+    "html": "<p>Python has no <code>const</code> keyword and no built-in way to declare a value as fixed — there's no way to make a variable truly unchangeable. Instead, the convention is to name a value that shouldn't be changed in <code>UPPER_SNAKE_CASE</code>, as a signal to anyone reading the code:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JAqtfvoLYipk",
+    "code": "MAX_UPLOAD_SIZE = 5242880  # 5 MB — nothing stops this from being reassigned,\n                            # but the ALL_CAPS name says \"please don't\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "YSdvmCRh4bSX",
+    "text": "Assigning Several Variables at Once",
+    "type": "heading",
+    "level": 2,
+    "anchor": "assigning-several-variables-at-once"
+  },
+  {
+    "id": "opcaT2QXR4Tn",
+    "html": "<p>Python can also assign multiple variables in a single line:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rNCpHL_Y-j_d",
+    "code": "x, y, z = 1, 2, 3\nprint(x, y, z)  # 1 2 3\n\n# Same value to several names at once:\na = b = c = 0\nprint(a, b, c)  # 0 0 0",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "Q0j30BhoA1Xe",
+    "html": "<p>This also produces Python's well-known one-line variable swap, with no temporary third variable needed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Uy_7Lpan0v4p",
+    "code": "a = 1\nb = 2\na, b = b, a\nprint(a, b)  # 2 1",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  }
+]
+```

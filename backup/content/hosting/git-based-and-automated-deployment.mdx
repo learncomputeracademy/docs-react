@@ -1,0 +1,95 @@
+---
+id: "5fa42aba-5d16-4bfb-b619-75c263565e72"
+title: "Git-Based and Automated Deployment"
+path: "hosting/git-based-and-automated-deployment"
+status: "published"
+meta_title: "Git-Based and Automated Deployment | Learn Computer Academy"
+meta_description: "Instead of manually uploading files, connect a Git repository once and let every push deploy automatically. How the modern deployment workflow actually works."
+sort_order: 23
+updated_at: "2026-08-05T13:35:37.379817+00:00"
+---
+
+```json
+[
+  {
+    "id": "_GPkHN-jUyms",
+    "html": "<p>Cloud and managed platforms, covered earlier in this category, typically replace manual file uploads with something more automatic: connect a <b>Git</b> repository once, and every push to it deploys automatically, with no FTP client and no manual file transfer involved at all.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Y9nBfd7fCqxq",
+    "text": "The Basic Workflow",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-basic-workflow"
+  },
+  {
+    "id": "V7qA0OJ-N7jU",
+    "html": "<p>You connect your GitHub (or similar) repository to the hosting platform once, through its dashboard. From then on, the pattern is simply: write code locally, commit it, push it to the repository — and the platform detects the push, builds the project if a build step is needed, and deploys the result automatically, usually within a minute or two.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ujB3o-Vbqd_i",
+    "alt": "Isometric diagram showing a developer pushing code from a laptop to a Git repository icon, with an arrow automatically continuing from the repository to a live deployed website icon, no manual file transfer step shown",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Push to the repository; the platform handles the build and deployment automatically from there.",
+    "publicId": "docs/img/hosting/git-deployment-1"
+  },
+  {
+    "id": "918ZLlUVk32q",
+    "text": "Why This Is a Real Improvement, Not Just a Convenience",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-is-a-real-improvement-not-just-a-convenience"
+  },
+  {
+    "id": "NjsRQpuOiO8m",
+    "html": "<ul><li><b>A history of every deployment.</b> Since deployment tracks Git commits, you can see exactly what changed in each release and roll back to any previous one if something breaks.</li><li><b>Preview deployments.</b> Many platforms build a separate, shareable preview URL for a branch or a pull request, before it ever reaches the live site — a safe way to review a change before it's public.</li><li><b>Fewer manual mistakes.</b> No forgetting to upload one changed file, no accidentally overwriting the wrong folder on the server.</li><li><b>Team-friendly by default.</b> Multiple people pushing to the same repository naturally deploy through the same consistent process, with no separate manual step for each person.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Wsuzv__suC65",
+    "text": "What \"Build\" Means Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-build-means-here"
+  },
+  {
+    "id": "HXdgFXBWr-f8",
+    "html": "<p>For a project that needs one — a React app, most notably — the platform runs the project's build step (turning source code into the static files covered in the static-hosting lesson) automatically as part of deployment, rather than you running it locally and uploading the output by hand. This is exactly the deploying-a-react-app lesson's workflow, described in full shortly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cl5ByC27gemM",
+    "html": "<p>This site itself deploys exactly this way — a push to its repository triggers an automatic build and, per its own architecture described in the project's technical documentation, publishes the updated pages without anyone manually touching a server.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "dWJ7g44fp__P",
+    "text": "Continuous Deployment vs. a Manual Trigger",
+    "type": "heading",
+    "level": 2,
+    "anchor": "continuous-deployment-vs-a-manual-trigger"
+  },
+  {
+    "id": "Oitc3J53ePWj",
+    "html": "<p>Most platforms default to deploying automatically on every push to a specific branch (commonly <code>main</code>) — this is what \"continuous deployment\" means in practice. Some setups instead require a manual click to promote a build to the live site, which trades a little speed for an extra deliberate checkpoint before something goes live — a reasonable choice for a project where an accidental push shouldn't immediately go public.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-gnk5c3mIoeZ",
+    "text": "Where This Fits Among the Other Options",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-fits-among-the-other-options"
+  },
+  {
+    "id": "edXsKHKVPQNM",
+    "html": "<p>Git-based deployment is the default and expected workflow for cloud/managed platforms and React/Node.js projects specifically. Shared hosting for PHP or WordPress can sometimes be configured for it too, but FTP/SFTP and control-panel-based deployment, covered in the previous two lessons, remain far more common there in practice.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,277 @@
+---
+id: "4a202394-2aa3-4c9c-8ae5-9cd1c1de9abb"
+title: "Functions — Aggregate, String, Date, Numeric"
+path: "sql/functions"
+status: "published"
+meta_title: "SQL Functions | Learn Computer Academy"
+meta_description: "COUNT, SUM, AVG, MIN/MAX, plus string, date, and numeric functions — built-in SQL functions that transform or summarize values without procedural code."
+sort_order: 12
+updated_at: "2026-07-29T06:31:08.066829+00:00"
+---
+
+```json
+[
+  {
+    "id": "ov3ZSte0iptd",
+    "html": "<p>Built-in functions transform or summarize values without you writing any procedural logic. This lesson covers the ones you'll reach for constantly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mGcz-HQPLIPy",
+    "text": "COUNT()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "count"
+  },
+  {
+    "id": "_Yau4dLxGtTD",
+    "html": "<p>Counts the number of rows.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MqaPwrhuMUPl",
+    "code": "SELECT COUNT(*) FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "GdRhmLkpLnIJ",
+    "code": "SELECT COUNT(*) FROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "VB5Wz7Ya-Kxr",
+    "html": "<ul><li>Counts total rows.</li><li>NULL handling depends on whether you pass <code>*</code> or a specific column — COUNT(column) skips NULLs in that column, COUNT(*) doesn't.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "V3VSOOd-ORgg",
+    "html": "<p>Using <code>COUNT(column)</code> expecting it to count NULLs — it doesn't.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "RthzcGb8i8pi",
+    "text": "SUM()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sum"
+  },
+  {
+    "id": "fCFfD7JvEe-b",
+    "html": "<p>Adds up all values in a numeric column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jOE51_PTrHp0",
+    "code": "SELECT SUM(column) FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "0Yb3i9KzCbUG",
+    "code": "SELECT SUM(salary) FROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "qVWmkQJIpFs1",
+    "html": "<ul><li>Adds every salary value.</li><li>Ignores NULL values automatically.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "PnOFZk5NhZqK",
+    "html": "<p>Applying <code>SUM</code> to a non-numeric column.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "7BGWEGpo9AR9",
+    "text": "AVG()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "avg"
+  },
+  {
+    "id": "-EkqZLnZpLUX",
+    "html": "<p>Returns the mean of a numeric column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X4S2k3cYWvRf",
+    "code": "SELECT AVG(column) FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "HQMcJu8kPRCD",
+    "code": "SELECT AVG(salary) FROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "l067HzkspJ1R",
+    "html": "<ul><li>Returns the average salary.</li><li>Ignores NULL values in the calculation.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "Z6bOQF4_ARTr",
+    "html": "<p>Forgetting <code>AVG</code> ignores NULLs, which can skew results versus a manual calculation done elsewhere.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "ck8v1Z5N_ikT",
+    "text": "MIN() / MAX()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "min-max"
+  },
+  {
+    "id": "FVR_v29rWaiq",
+    "html": "<p>Returns the smallest or largest value in a column.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "lOe4L_sMXnSN",
+    "code": "SELECT MIN(column), MAX(column) FROM table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "eiQaIuMKWTxF",
+    "code": "SELECT MIN(salary), MAX(salary) FROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Ld_R3-3Pw6TV",
+    "html": "<ul><li>Works with numbers, dates, and text alike.</li><li>Useful for finding ranges at a glance.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "CoMRjFenTqg6",
+    "html": "<p>Calling MIN/MAX per row in application code instead of letting the engine aggregate it in one pass.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "LZ38BppOSi0d",
+    "text": "String Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "string-functions"
+  },
+  {
+    "id": "AOnJKBwY2N6C",
+    "html": "<p>Manipulate text values — casing, joining, trimming, extracting.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T-Rwz1bRnF8w",
+    "code": "UPPER(col) · LOWER(col) · CONCAT(a,b) · SUBSTRING(col,start,len) · TRIM(col) · LENGTH(col)",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "Jew67iEy3ADU",
+    "code": "SELECT UPPER(name), CONCAT(name, ' - ', department)\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "lcJa2G3Reofd",
+    "html": "<ul><li>UPPER/LOWER change case; CONCAT joins strings together.</li><li>SUBSTRING extracts part of a string; TRIM removes leading/trailing spaces.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "TeO9ujO1BtL8",
+    "html": "<p>Comparing strings without normalizing case first, missing matches that a human would consider identical.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "zZMIhcYI68PH",
+    "text": "Date Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "date-functions"
+  },
+  {
+    "id": "Blh7ShBXu2my",
+    "html": "<p>Work with dates and times — current date, differences, arithmetic.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r-vYW1pycfmC",
+    "code": "NOW() · CURDATE() · DATEDIFF(a,b) · DATE_ADD(date, INTERVAL n unit)",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "W0gK8LKWs2wT",
+    "code": "SELECT DATEDIFF(NOW(), hire_date) AS days_employed\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "53NbSwUZZxqU",
+    "html": "<ul><li>NOW()/CURDATE() return the current timestamp or date.</li><li>DATEDIFF and DATE_ADD let you calculate durations and future/past dates.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "dB38T8GsbbKN",
+    "html": "<p>Comparing DATE and DATETIME columns directly without matching precision first.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "HRl9nZL7tRtI",
+    "text": "Numeric Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "numeric-functions"
+  },
+  {
+    "id": "qbm80qD0vOMW",
+    "html": "<p>Perform math on numeric values directly in a query.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TkpRqdj6RAjc",
+    "code": "ROUND(col, n) · ABS(col) · MOD(a, b)",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "TIpRnWRGZ87D",
+    "code": "SELECT ROUND(salary / 12, 2) AS monthly_pay\nFROM Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "gR0XzysmDtxn",
+    "html": "<ul><li>ROUND controls decimal precision; ABS strips a negative sign.</li><li>MOD returns the remainder of division — handy for pagination or cycling values.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "orKy6Q5A3q-U",
+    "html": "<p>Rounding in application code instead of the query, causing display mismatches between the two.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "8RoqedDClF56",
+    "html": "<p>Functions handle the everyday math and text work. The next lesson covers window functions — a related but more powerful tool for calculating across a set of rows without collapsing them into one.</p>",
+    "type": "richtext"
+  }
+]
+```

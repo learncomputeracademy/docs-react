@@ -1,0 +1,97 @@
+---
+id: "4c843a4b-699a-490d-bdf8-73ebd0fdab11"
+title: "Sorting — ORDER BY"
+path: "sql/order-by"
+status: "published"
+meta_title: "SQL Sorting — ORDER BY | Learn Computer Academy"
+meta_description: "ASC and DESC — how ORDER BY controls the sequence SQL results come back in, without changing which rows are returned."
+sort_order: 9
+updated_at: "2026-07-29T06:31:07.184479+00:00"
+---
+
+```json
+[
+  {
+    "id": "nS8RLJna4ebj",
+    "html": "<p><code>ORDER BY</code> controls the sequence results come back in — it doesn't change which rows are returned, only their order.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X0CwaN28kg_q",
+    "text": "ASC",
+    "type": "heading",
+    "level": 2,
+    "anchor": "asc"
+  },
+  {
+    "id": "X6PjJg4RhQIw",
+    "html": "<p>Sorts results from lowest to highest (the default direction).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bY38mohdbaUI",
+    "code": "SELECT * FROM table_name\nORDER BY column ASC;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "pAE_rX68qp_P",
+    "code": "SELECT * FROM Employee\nORDER BY salary ASC;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "w2NhgSYWG8Es",
+    "html": "<ul><li>Sorts salary from lowest to highest.</li><li>Ascending is the default — ASC can be omitted entirely.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "OU7OWr-jlIMD",
+    "html": "<p>Assuming a result's order without specifying <code>ORDER BY</code> on a column that isn't naturally ordered — without it, order is not guaranteed.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "GXJA7tliAWdb",
+    "text": "DESC",
+    "type": "heading",
+    "level": 2,
+    "anchor": "desc"
+  },
+  {
+    "id": "2lURmhfSUJFE",
+    "html": "<p>Sorts results from highest to lowest.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DA2w3GGp6U3O",
+    "code": "SELECT * FROM table_name\nORDER BY column DESC;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "HxeuWy6zyx6x",
+    "code": "SELECT * FROM Employee\nORDER BY salary DESC;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "NcjCqtQu7zWr",
+    "html": "<ul><li>The highest salary appears first.</li><li>Commonly used for rankings and leaderboards.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "j0y1i3klnDN5",
+    "html": "<p>Forgetting <code>DESC</code> applies only to the column it directly follows when sorting by multiple columns.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "NGvxXxrlnL6o",
+    "html": "<p>Sorting is straightforward once you know the two keywords. The next lesson covers something a bit bigger: collapsing rows into summarized groups with GROUP BY and HAVING.</p>",
+    "type": "richtext"
+  }
+]
+```

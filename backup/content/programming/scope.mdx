@@ -5,61 +5,81 @@ path: "programming/scope"
 status: "published"
 meta_title: "Scope | Learn Computer Academy"
 sort_order: 14
-updated_at: "2026-07-25T08:16:50.637184+00:00"
+updated_at: "2026-08-18T14:27:47.803207+00:00"
 ---
 
 ```json
 [
   {
-    "id": "LH1G8vM0aHAC",
+    "id": "ghxZUptcC7_n",
     "html": "<p>Scope determines where in your code a variable can be accessed. A variable declared inside a function generally can't be seen from outside it — that's not a limitation, it's what keeps different parts of a large program from accidentally interfering with each other.</p>",
     "type": "richtext"
   },
   {
-    "id": "AJ4pf7IUMcHb",
+    "id": "E0CxTLVc1Df1",
     "text": "Local scope",
     "type": "heading",
     "level": 2,
     "anchor": "local-scope"
   },
   {
-    "id": "ygSsU9yb5rVt",
+    "id": "NcSsP8O0kTIF",
     "html": "<p>A variable declared inside a function only exists inside that function.</p>",
     "type": "richtext"
   },
   {
-    "id": "MM9NWPyZJAsB",
+    "id": "4OuHpfQlxaaj",
     "code": "function greet() {\n  let message = \"Hello!\";\n  console.log(message); // works fine\n}\n\ngreet();\nconsole.log(message); // ❌ ReferenceError: message is not defined",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\nfunction greet() {\n  $message = \"Hello!\";\n  echo $message; // works fine\n}\n\ngreet();\necho $message; // ❌ Warning: Undefined variable $message",
+        "language": "php"
+      },
+      {
+        "code": "def greet():\n    message = \"Hello!\"\n    print(message)  # works fine\n\ngreet()\nprint(message)  # ❌ NameError: name 'message' is not defined",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "RjpIpeml7B1f",
+    "id": "y4gwcBq05JxT",
     "text": "Global scope",
     "type": "heading",
     "level": 2,
     "anchor": "global-scope"
   },
   {
-    "id": "w-IwM7YiAekM",
+    "id": "tn4QphVXSAy6",
     "html": "<p>A variable declared outside any function is accessible everywhere in the file, including inside functions.</p>",
     "type": "richtext"
   },
   {
-    "id": "LUdGFSh1RYT9",
+    "id": "rLqmGpbvyEZb",
     "code": "let siteName = \"Learn Computer Academy\"; // global\n\nfunction printName() {\n  console.log(siteName); // can read the global variable\n}\n\nprintName(); // \"Learn Computer Academy\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$siteName = \"Learn Computer Academy\"; // global\n\nfunction printName() {\n  global $siteName; // PHP needs this explicitly — unlike JS, a\n                     // function doesn't see outer variables on its own\n  echo $siteName;\n}\n\nprintName(); // \"Learn Computer Academy\"",
+        "language": "php"
+      },
+      {
+        "code": "site_name = \"Learn Computer Academy\"  # global\n\ndef print_name():\n    print(site_name)  # can read the global variable\n\nprint_name()  # \"Learn Computer Academy\"",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "eNrS-7MxHaAO",
+    "id": "YBvizSnkN3dF",
     "text": "Why scope matters",
     "type": "heading",
     "level": 2,
     "anchor": "why-scope-matters"
   },
   {
-    "id": "ENdRC9bUkgiQ",
+    "id": "91cvEycPJp5I",
     "html": "<p>Keeping variables local (rather than making everything global) prevents different parts of a program from stepping on each other's variables by accident — a common source of hard-to-find bugs in larger programs.</p>",
     "type": "richtext"
   }

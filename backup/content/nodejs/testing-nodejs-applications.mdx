@@ -1,0 +1,132 @@
+---
+id: "4818ac42-d1b6-4e4b-b325-439885094e11"
+title: "Testing Node.js Applications"
+path: "nodejs/testing-nodejs-applications"
+status: "published"
+meta_title: "Testing Node.js Applications | Learn Computer Academy"
+meta_description: "Writing automated tests with Node's own built-in test runner — no extra package required — plus testing an Express route."
+sort_order: 27
+updated_at: "2026-09-03T04:41:41.864924+00:00"
+---
+
+```json
+[
+  {
+    "id": "JHVGaze_RdUV",
+    "html": "<p>Node ships its own test runner built in — <code>node:test</code> — so a first real test needs no extra package at all. (Popular external runners like Jest and Vitest add extra features on top of the same core idea, worth exploring later.)</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RDGNLIY0d1Vx",
+    "text": "A First Test",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-first-test"
+  },
+  {
+    "id": "DKjgTBQrI6OA",
+    "code": "// math.test.js\nimport { test } from 'node:test'\nimport assert from 'node:assert'\n\nfunction add(a, b) {\n  return a + b\n}\n\ntest('add() sums two numbers', () => {\n  assert.strictEqual(add(2, 3), 5)\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "sHxBFq04mJq5",
+    "code": "node --test\n# ✔ add() sums two numbers",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "rGA1LPnRmZDG",
+    "text": "Grouping Related Tests",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grouping-related-tests"
+  },
+  {
+    "id": "jIKiB5UweqqW",
+    "code": "import { describe, test } from 'node:test'\nimport assert from 'node:assert'\n\ndescribe('add()', () => {\n  test('sums two positive numbers', () => {\n    assert.strictEqual(add(2, 3), 5)\n  })\n\n  test('handles negative numbers', () => {\n    assert.strictEqual(add(-2, 3), 1)\n  })\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "kvCUYPYWZufG",
+    "text": "Testing Async Code",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-async-code"
+  },
+  {
+    "id": "lh0d2kyoni2m",
+    "code": "test('fetches a user', async () => {\n  const user = await getUser(1)\n  assert.strictEqual(user.name, 'Sam')\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "lWxxatib5mzy",
+    "text": "Testing an Express Route",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-an-express-route"
+  },
+  {
+    "id": "2VjmXTXL9JDY",
+    "html": "<p>Rather than starting a real server on a real port, a request library that can call an Express app directly (like <code>supertest</code>) tests routes without any network involved.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o9KjdZLm3jMe",
+    "code": "import { test } from 'node:test'\nimport assert from 'node:assert'\nimport request from 'supertest'\nimport app from './app.js'\n\ntest('GET /products returns a list', async () => {\n  const response = await request(app).get('/products')\n  assert.strictEqual(response.status, 200)\n  assert.ok(Array.isArray(response.body))\n})",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "AaAgfGEntd8o",
+    "text": "The Common assert Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-common-assert-methods"
+  },
+  {
+    "id": "HSFIxYEbxzhP",
+    "rows": [
+      [
+        "assert.strictEqual(a, b)",
+        "a === b"
+      ],
+      [
+        "assert.deepStrictEqual(a, b)",
+        "a and b have the same structure/values (for objects and arrays)"
+      ],
+      [
+        "assert.ok(value)",
+        "value is truthy"
+      ],
+      [
+        "assert.throws(fn)",
+        "Calling fn throws an error"
+      ],
+      [
+        "assert.rejects(promise)",
+        "An async function's returned promise rejects"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Checks"
+    ]
+  },
+  {
+    "id": "7c5h1DN8lqaj",
+    "html": "<p>A test suite that only ever exercises the \"happy path\" (valid input, success case) misses most real bugs — deliberately write at least one test for what should happen with bad input, a missing field, or an error thrown deep in the code.</p>",
+    "type": "callout",
+    "title": "Test the failure cases too",
+    "variant": "tip"
+  }
+]
+```

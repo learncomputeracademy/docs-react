@@ -1,0 +1,90 @@
+---
+id: "1872209b-031f-4fd5-b4f2-78235983fb47"
+title: "Databases, Collections & Documents"
+path: "mongodb/databases-collections-documents"
+status: "published"
+meta_title: "Databases, Collections & Documents | Learn Computer Academy"
+meta_description: "The three-level structure of MongoDB — databases, collections, and documents — and how BSON differs from plain JSON."
+sort_order: 3
+updated_at: "2026-08-18T10:11:21.840846+00:00"
+---
+
+```json
+[
+  {
+    "id": "YAvAYGYYWYaL",
+    "html": "<p>Every piece of data in MongoDB lives inside this three-level structure: a <b>database</b> contains <b>collections</b>, and each collection contains <b>documents</b>. Understanding this hierarchy makes every command in the rest of this course make sense.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pa3KQGu9_x4_",
+    "alt": "A diagram showing MongoDB's nested hierarchy: a database box containing collection boxes, each containing document boxes with labeled fields",
+    "type": "image",
+    "width": 774,
+    "height": 432,
+    "caption": "Database → Collection → Document → Fields — MongoDB's core structure.",
+    "publicId": "docs/img/mongodb/db-collection-document-hierarchy"
+  },
+  {
+    "id": "VvxzXdXMOEW-",
+    "text": "Database",
+    "type": "heading",
+    "level": 2,
+    "anchor": "database"
+  },
+  {
+    "id": "papePYpVQOwZ",
+    "html": "<p>A <b>database</b> is the top-level container — a single MongoDB server can host many databases, each isolated from the others. A typical project uses one database, e.g. <code>blogApp</code> or <code>shopDB</code>.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9fkLKrLRZ33M",
+    "text": "Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "collection"
+  },
+  {
+    "id": "wsHFv9whUreO",
+    "html": "<p>A <b>collection</b> is a group of related documents, roughly equivalent to a table in SQL — except a collection has no fixed schema by default. A <code>users</code> collection holds user documents, an <code>orders</code> collection holds order documents.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "16NNpis4NU0y",
+    "text": "Document",
+    "type": "heading",
+    "level": 2,
+    "anchor": "document"
+  },
+  {
+    "id": "bLJrmJZ9pZFJ",
+    "html": "<p>A <b>document</b> is a single record, stored as a set of field/value pairs — the MongoDB equivalent of a row. Documents in the same collection are not required to share the same fields, though in practice most documents in a collection do follow a consistent shape by convention.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7ADvtF5bwNPh",
+    "code": "// A document inside the \"users\" collection\n{\n  _id: ObjectId(\"651f2a9e1c4a2b0012a4f8d1\"),\n  name: \"Rahul Verma\",\n  email: \"rahul@example.com\",\n  age: 24,\n  isActive: true\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "nil9Gpq39vCi",
+    "text": "BSON, Not Plain JSON",
+    "type": "heading",
+    "level": 2,
+    "anchor": "bson-not-plain-json"
+  },
+  {
+    "id": "HeH27D7FtKhB",
+    "html": "<p>MongoDB documents look like JSON, but they are actually stored as <b>BSON</b> (\"Binary JSON\") — a binary-encoded format that adds data types JSON does not have natively, like dates, binary data, and the <code>ObjectId</code> type used for <code>_id</code>. You write and read data that looks like JSON; MongoDB handles the BSON conversion for you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "l7-l1zcyz9PK",
+    "html": "<p>Every document gets a unique <code>_id</code> field automatically if you don't supply one — MongoDB generates an <code>ObjectId</code>, a 12-byte value that is effectively guaranteed unique. This is the direct equivalent of a SQL primary key.</p>",
+    "type": "callout",
+    "title": "The _id field",
+    "variant": "note"
+  }
+]
+```

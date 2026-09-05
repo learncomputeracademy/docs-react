@@ -1,0 +1,98 @@
+---
+id: "72fb4466-0d36-4113-b4f4-1a3896cc5787"
+title: "Indexed Arrays"
+path: "php/indexed-arrays"
+status: "published"
+meta_title: "PHP Indexed Arrays | Learn Computer Academy"
+meta_description: "Creating and working with PHP's indexed arrays — ordered lists of values accessed by numeric position."
+sort_order: 11
+updated_at: "2026-07-30T09:08:37.50411+00:00"
+---
+
+```json
+[
+  {
+    "id": "R426ucYb3F0X",
+    "html": "<p>An <b>indexed array</b> is an ordered list of values, each automatically numbered starting from 0 — the same array concept from <a href=\"/programming/arrays/\">Intro to Programming</a>, in PHP's specific syntax.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RSFg1ugn2GWD",
+    "text": "Creating an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-an-array"
+  },
+  {
+    "id": "X_EuDHw6eXk6",
+    "code": "<?php\n  $fruits = [\"apple\", \"banana\", \"mango\"];\n  echo $fruits[0]; // \"apple\"\n  echo $fruits[2]; // \"mango\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "SLVneOO5q7Eu",
+    "html": "<p>The older <code>array(...)</code> syntax still works identically to <code>[...]</code> — you'll see both in real code, but square brackets are the modern standard.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "650Vv4UghCLc",
+    "text": "Modifying an Array",
+    "type": "heading",
+    "level": 2,
+    "anchor": "modifying-an-array"
+  },
+  {
+    "id": "YqUtWfm1EHYi",
+    "code": "<?php\n  $fruits = [\"apple\", \"banana\"];\n  $fruits[] = \"mango\";        // appends to the end\n  $fruits[0] = \"green apple\"; // overwrites index 0\n  unset($fruits[1]);          // removes \"banana\" — leaves a gap in the indexes\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Jg85ETCO7t9f",
+    "html": "<p><code>unset()</code> removes an element but does <b>not</b> renumber the remaining indexes to close the gap. If you need a clean, re-indexed array afterward, wrap it in <code>array_values($fruits)</code>.</p>",
+    "type": "callout",
+    "title": "unset() leaves gaps",
+    "variant": "note"
+  },
+  {
+    "id": "i75m7cXVxTcj",
+    "text": "Counting and Looping",
+    "type": "heading",
+    "level": 2,
+    "anchor": "counting-and-looping"
+  },
+  {
+    "id": "TWj7bnTr1e_5",
+    "code": "<?php\n  $fruits = [\"apple\", \"banana\", \"mango\"];\n  echo count($fruits); // 3\n\n  foreach ($fruits as $fruit) {\n    echo $fruit . \"\\n\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "1iY-gpUWv8oI",
+    "html": "<p><code>foreach</code> is by far the most common way to loop over a PHP array — you'll see it used constantly from here on. The Loops lesson later in this section covers it, and PHP's other loop types, in full.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kTfQhgC-tyLw",
+    "text": "Multi-Dimensional Arrays",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multi-dimensional-arrays"
+  },
+  {
+    "id": "vHlpbyDxD54q",
+    "html": "<p>An array can hold other arrays, letting you model grid-like or nested data:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U5CeS68YD0ue",
+    "code": "<?php\n  $matrix = [\n    [1, 2, 3],\n    [4, 5, 6],\n  ];\n  echo $matrix[1][2]; // 6 — second row, third column\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

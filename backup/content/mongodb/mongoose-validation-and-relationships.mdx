@@ -1,0 +1,107 @@
+---
+id: "0e5f080a-5190-4d06-b983-f3059ea42624"
+title: "Mongoose Validation & Relationships"
+path: "mongodb/mongoose-validation-and-relationships"
+status: "published"
+meta_title: "Mongoose Validation & Relationships | Learn Computer Academy"
+meta_description: "Custom validation rules in a Mongoose schema, and connecting related models with ref and populate()."
+sort_order: 20
+updated_at: "2026-08-18T10:11:27.930373+00:00"
+---
+
+```json
+[
+  {
+    "id": "AKd_Js084kbO",
+    "html": "<p>Beyond the basic field rules from the last lesson, Mongoose supports richer validation and a clean way to work with referenced documents.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TeK-hThqrtZd",
+    "alt": "An isometric illustration of two connected document icons where clicking one expands to reveal the full contents of the other, representing populate() resolving a reference",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "populate() replaces a reference ID with the full document it points to.",
+    "publicId": "docs/img/mongodb/populate-hero"
+  },
+  {
+    "id": "ET3w56m80ZYy",
+    "text": "Built-In Validators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "built-in-validators"
+  },
+  {
+    "id": "CaifNm_lLDb6",
+    "code": "const productSchema = new Schema({\n  name: { type: String, required: true, minlength: 2, maxlength: 100 },\n  price: { type: Number, required: true, min: 0 },\n  category: { type: String, enum: [\"electronics\", \"books\", \"clothing\"] }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "HkXFFJOETofL",
+    "text": "Custom Validators",
+    "type": "heading",
+    "level": 2,
+    "anchor": "custom-validators"
+  },
+  {
+    "id": "nTJkRMvARfiD",
+    "html": "<p>A <code>validate</code> function runs your own logic and returns <code>true</code> or <code>false</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OaQGr5rQLQVY",
+    "code": "const userSchema = new Schema({\n  email: {\n    type: String,\n    required: true,\n    validate: {\n      validator: (value) => /^.+@.+\\..+$/.test(value),\n      message: \"Enter a valid email address\"\n    }\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "HHo4oOsyNjDv",
+    "text": "Referencing Another Model with ref",
+    "type": "heading",
+    "level": 2,
+    "anchor": "referencing-another-model-with-ref"
+  },
+  {
+    "id": "RVnGBicfONYk",
+    "html": "<p>To reference another model — the \"referencing\" pattern from the schema-design lesson — set a field's type to <code>Schema.Types.ObjectId</code> and point <code>ref</code> at the target model's name:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TYbbMyaqFw6a",
+    "code": "const postSchema = new Schema({\n  title: { type: String, required: true },\n  author: { type: Schema.Types.ObjectId, ref: \"User\" }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "Fhk3UVINOAQH",
+    "text": "populate() — Resolving the Reference",
+    "type": "heading",
+    "level": 2,
+    "anchor": "populate-resolving-the-reference"
+  },
+  {
+    "id": "dj42ExBwCPet",
+    "html": "<p>Without <code>populate()</code>, a query returns just the raw <code>ObjectId</code> in the <code>author</code> field. Calling <code>.populate(\"author\")</code> replaces it with the full referenced document — the same result <code>$lookup</code> produces in the aggregation pipeline, with a simpler API:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "f4zfNTYTYBxG",
+    "code": "const post = await Post.findOne({ title: \"Getting Started\" }).populate(\"author\")\nconsole.log(post.author.name)\n// \"Rahul Verma\" — the full User document is now attached",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "C_CnR4x7EuFM",
+    "html": "<p><code>populate()</code> runs as a separate query behind the scenes, joined in application code rather than inside the database — for simple cases this is fine and much easier to read; for complex reporting queries across large collections, the aggregation pipeline's <code>$lookup</code> is usually the faster choice.</p>",
+    "type": "callout",
+    "title": "populate() vs $lookup — different trade-offs",
+    "variant": "note"
+  }
+]
+```

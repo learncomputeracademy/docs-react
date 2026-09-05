@@ -1,0 +1,126 @@
+---
+id: "dc7df65c-f52d-4e9e-92bc-80508e1f4eb9"
+title: "DNS Record Types"
+path: "hosting/dns-record-types"
+status: "published"
+meta_title: "DNS Record Types — A, CNAME, MX, TXT | Learn Computer Academy"
+meta_description: "The handful of DNS record types that do almost everything — A, CNAME, MX, and TXT — with what each one is for and a realistic example set."
+sort_order: 9
+updated_at: "2026-08-05T13:35:32.691387+00:00"
+---
+
+```json
+[
+  {
+    "id": "H1CkP8ld5B-m",
+    "html": "<p>DNS stores information as <b>records</b> — small, typed entries, each answering a specific kind of question. A handful of types cover almost everything a typical website and its email need.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kKr0PPKsHC3o",
+    "text": "The Core Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-core-types"
+  },
+  {
+    "id": "VyazMIWJ3YD_",
+    "rows": [
+      [
+        "A",
+        "\"What IP address does this point to?\"",
+        "Pointing a domain directly at a server's IPv4 address"
+      ],
+      [
+        "AAAA",
+        "Same as A, for IPv6",
+        "The newer, longer-format IP addresses"
+      ],
+      [
+        "CNAME",
+        "\"This name is really just an alias for another name\"",
+        "Pointing a subdomain at another domain, e.g. a hosting platform's address"
+      ],
+      [
+        "MX",
+        "\"Which server handles email for this domain?\"",
+        "Directing email to a mail provider, entirely separate from where the website lives"
+      ],
+      [
+        "TXT",
+        "\"Here is some arbitrary text tied to this domain\"",
+        "Ownership verification, and email authentication (SPF/DKIM, covered in the email lessons)"
+      ],
+      [
+        "NS",
+        "\"These are the nameservers responsible for this domain\"",
+        "Delegating a domain, or a subdomain, to a specific set of nameservers"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Record",
+      "Answers",
+      "Typical use"
+    ]
+  },
+  {
+    "id": "Z1QUjPoQE6OD",
+    "text": "A Record vs. CNAME",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-record-vs-cname"
+  },
+  {
+    "id": "CTkdP_RcfFYe",
+    "html": "<p>These two are the ones that most often confuse beginners. An <b>A record</b> points directly at a numeric IP address. A <b>CNAME record</b> points at another domain name instead, which is then looked up again — an alias pointing at an alias, potentially several layers deep, until something resolves to an actual IP.</p><p>Many hosting platforms (particularly ones with infrastructure that can change IP addresses without notice) ask you to use a CNAME rather than an A record specifically so that if their underlying IP ever changes, your DNS keeps working without you having to update anything.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RWXzr3C7TfDK",
+    "alt": "Isometric diagram showing a simple DNS records table with rows labelled A, CNAME, MX, and TXT, each with a small icon showing what it points to — a server, another domain, a mail icon, and a document",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A handful of record types, each answering one specific kind of question about a domain.",
+    "publicId": "docs/img/hosting/dns-records-1"
+  },
+  {
+    "id": "Wyexv7DG-LQh",
+    "text": "A Realistic Example Set",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-realistic-example-set"
+  },
+  {
+    "id": "Xv45WjrjESMc",
+    "code": "A       @              → 203.0.113.10        (the main domain → hosting)\nCNAME   www            → example.com          (www redirects to the bare domain)\nMX      @              → mail.example.com    (where email for this domain goes)\nTXT     @              → \"v=spf1 include:...\" (email authentication, see the email lessons)\nA       api            → 203.0.113.20        (a separate server for a backend API)",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "W8BozUv8Uqkj",
+    "html": "<p><code>@</code> is the conventional way to refer to the bare domain itself, without a subdomain in front of it, in most DNS control panels.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YA6kpQyxGG43",
+    "text": "Where You Actually Manage These",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-you-actually-manage-these"
+  },
+  {
+    "id": "G7bosdkNMLzM",
+    "html": "<p>DNS records are edited through whichever service holds your domain's nameservers — usually your registrar's control panel, or your hosting provider's, if you pointed your domain's nameservers there. Both are graphical forms in practice: a dropdown for record type, a field for the name, a field for what it points to, and a TTL setting.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OXPY3szoztoY",
+    "html": "<p>A wrong DNS record does not usually announce itself with an obvious error — it just quietly makes something not work: a website that won't load, email that never arrives. When something DNS-related seems broken, checking the actual records against what they should be is almost always the fastest diagnosis, faster than guessing at the cause.</p>",
+    "type": "callout",
+    "variant": "warning"
+  }
+]
+```

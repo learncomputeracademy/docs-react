@@ -1,0 +1,122 @@
+---
+id: "bfae99d1-bc83-48ff-a86b-1aa1f036b119"
+title: "Structured Data"
+path: "seo/structured-data"
+status: "published"
+meta_title: "Structured Data and Schema.org | Learn Computer Academy"
+meta_description: "How JSON-LD and Schema.org let you describe a page in machine-readable terms, and what rich results you can earn with it."
+sort_order: 15
+updated_at: "2026-08-05T07:22:03.740781+00:00"
+---
+
+```json
+[
+  {
+    "id": "g0rPdtH4OIgs",
+    "html": "<p>A search engine reading a recipe page can see text and images, but it cannot reliably tell which number is the cooking time and which is the servings count. <b>Structured data</b> is a way of labelling that information explicitly, in a format built for machines rather than people.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VjSjZWXBjAbT",
+    "text": "Schema.org and JSON-LD",
+    "type": "heading",
+    "level": 2,
+    "anchor": "schemaorg-and-json-ld"
+  },
+  {
+    "id": "GJIJkRqXtB4Q",
+    "html": "<p><b>Schema.org</b> is a shared vocabulary — an agreed set of types (<code>Article</code>, <code>Product</code>, <code>Recipe</code>, <code>Organization</code>, <code>FAQPage</code>, <code>LocalBusiness</code>) and the properties each one can have. It is maintained collaboratively by the major search engines, so the same markup works across all of them.</p><p><b>JSON-LD</b> is the recommended format for expressing it: a block of JSON in a script tag, separate from your visible HTML.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VAhF-9ugoTIF",
+    "code": "<script type=\"application/ld+json\">\n{\n  \"@context\": \"https://schema.org\",\n  \"@type\": \"Article\",\n  \"headline\": \"How to Choose a Laptop for Students\",\n  \"author\": {\n    \"@type\": \"Person\",\n    \"name\": \"Amarta Dey\"\n  },\n  \"datePublished\": \"2026-07-15\",\n  \"dateModified\": \"2026-08-01\",\n  \"image\": \"https://example.com/images/laptop-guide.webp\"\n}\n</script>",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "Bx9t6rHCxWqq",
+    "html": "<p>JSON-LD is preferred over the older alternatives precisely because it sits apart from the markup — you can add, change, or remove it without touching the HTML that renders the page.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_BxKqxMLEuS2",
+    "text": "What You Get From It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-you-get-from-it"
+  },
+  {
+    "id": "iNw5Np0EZY3-",
+    "html": "<p>Structured data is not itself a ranking factor. What it can earn is a <b>rich result</b> — an enhanced appearance in search results:</p><ul><li>Star ratings under a product or review</li><li>FAQ questions expandable directly in results</li><li>Recipe cards with cooking time and images</li><li>Event dates and locations</li><li>Breadcrumb trails instead of a raw URL</li></ul><p>A result that takes up more space and answers more of the question before the click tends to attract more attention than a plain one next to it. That is the practical benefit — visibility, not position.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_0npVAPBqGwb",
+    "html": "<p>Marking up content that is not actually on the page — inventing reviews, adding FAQ markup for questions the page does not answer — is a policy violation and can result in rich results being removed from a site entirely. The markup must describe what is genuinely there.</p>",
+    "type": "callout",
+    "title": "Describe what exists",
+    "variant": "warning"
+  },
+  {
+    "id": "Hd06n4SNNLFm",
+    "text": "Common Types Worth Adding",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-types-worth-adding"
+  },
+  {
+    "id": "45G4dtC8eRk6",
+    "rows": [
+      [
+        "<code>Organization</code>",
+        "Your business identity — name, logo, social profiles"
+      ],
+      [
+        "<code>LocalBusiness</code>",
+        "A physical location, with address and opening hours"
+      ],
+      [
+        "<code>Article</code> / <code>BlogPosting</code>",
+        "Written content, with author and dates"
+      ],
+      [
+        "<code>Product</code>",
+        "Items for sale, with price and availability"
+      ],
+      [
+        "<code>BreadcrumbList</code>",
+        "The page's position in the site hierarchy"
+      ],
+      [
+        "<code>FAQPage</code>",
+        "A page genuinely built around questions and answers"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Use it for"
+    ]
+  },
+  {
+    "id": "T4ygmH7IocnA",
+    "text": "Testing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-it"
+  },
+  {
+    "id": "vsxo5Cvsgq1V",
+    "html": "<p>Structured data is easy to get subtly wrong — a mistyped property name fails silently. Both Google's Rich Results Test and the Schema.org validator will parse a page or a snippet and report errors and warnings. Check the markup when you add it, rather than assuming it worked.</p><p>Search Console also reports structured data problems across a whole site once it is verified, which catches issues introduced later by a template change.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZLZ9vBIFk-wM",
+    "html": "<p>Do not add every type you can. Start with what genuinely describes your site — <code>Organization</code> for almost everyone, plus <code>Article</code> if you publish writing or <code>LocalBusiness</code> if you have a physical location. Markup nobody benefits from is maintenance with no payoff.</p>",
+    "type": "callout",
+    "variant": "tip"
+  }
+]
+```

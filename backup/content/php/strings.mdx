@@ -1,0 +1,128 @@
+---
+id: "ea000fa5-52fe-4dfc-8aff-a3f653e2759d"
+title: "Strings in PHP"
+path: "php/strings"
+status: "published"
+meta_title: "Strings in PHP | Learn Computer Academy"
+meta_description: "Single vs. double quotes, heredoc syntax, and the PHP string functions you'll reach for constantly."
+sort_order: 9
+updated_at: "2026-07-30T09:08:36.80749+00:00"
+---
+
+```json
+[
+  {
+    "id": "RssThFpXruN1",
+    "html": "<p>PHP strings come with a few quoting styles and a large library of built-in functions — this lesson covers the ones you'll actually use day to day.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6b-w7U9c0_g8",
+    "text": "Single Quotes vs. Double Quotes",
+    "type": "heading",
+    "level": 2,
+    "anchor": "single-quotes-vs-double-quotes"
+  },
+  {
+    "id": "gSxFHvBXoWi3",
+    "html": "<p>Single quotes take everything literally; double quotes interpret variables and a handful of escape sequences like <code>\\n</code> (newline):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A5b6dew2Sdu-",
+    "code": "<?php\n  $name = \"Priya\";\n  echo 'Hello, $name';  // literally: Hello, $name\n  echo \"Hello, $name\";  // Hello, Priya\n  echo \"Line one\\nLine two\"; // \\n becomes an actual newline\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "eVi_ZYOytT4r",
+    "html": "<p>When a string has no variables to interpolate, single quotes are marginally faster and a common style choice — but this is a minor detail, not a rule.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ajSwMdcCehql",
+    "text": "Heredoc: Multi-Line Strings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "heredoc-multi-line-strings"
+  },
+  {
+    "id": "sppeV64mfQHm",
+    "html": "<p>For a long block of text with variables mixed in, <b>heredoc</b> syntax avoids piling up quotes and dots:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hMOtfcpAWVHL",
+    "code": "<?php\n  $user = \"Amit\";\n  $message = <<<EOT\n  Hello, $user.\n  Thanks for signing up.\n  EOT;\n  echo $message;\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "nLhMiGXo77Qf",
+    "text": "Common String Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "common-string-functions"
+  },
+  {
+    "id": "X0XAzoIfs52D",
+    "rows": [
+      [
+        "strlen($s)",
+        "Length of a string",
+        "strlen(\"hello\") → 5"
+      ],
+      [
+        "strtoupper($s) / strtolower($s)",
+        "Change case",
+        "strtoupper(\"hi\") → \"HI\""
+      ],
+      [
+        "trim($s)",
+        "Removes whitespace from both ends",
+        "trim(\" hi \") → \"hi\""
+      ],
+      [
+        "str_replace($find, $replace, $s)",
+        "Replace all occurrences",
+        "str_replace(\"cat\", \"dog\", \"I like cat\") → \"I like dog\""
+      ],
+      [
+        "substr($s, $start, $length)",
+        "Extract part of a string",
+        "substr(\"hello\", 1, 3) → \"ell\""
+      ],
+      [
+        "explode($delimiter, $s)",
+        "Split a string into an array",
+        "explode(\",\", \"a,b,c\") → [\"a\",\"b\",\"c\"]"
+      ],
+      [
+        "implode($glue, $array)",
+        "Join an array into a string",
+        "implode(\"-\", [\"a\",\"b\"]) → \"a-b\""
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "What it does",
+      "Example"
+    ]
+  },
+  {
+    "id": "XQMZeb7DKs-8",
+    "html": "<p>PHP has well over a hundred string functions in total — see the full <a href=\"https://www.php.net/manual/en/ref.strings.php\" target=\"_blank\" rel=\"noopener noreferrer\">string function reference on php.net</a> for anything not covered here.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Yns8SC-kWVqk",
+    "html": "<p>PHP array and string indexes both start at <b>0</b>, not 1 — the first character of a string is at position 0. This matches almost every language you're likely to learn next.</p>",
+    "type": "callout",
+    "title": "Strings are zero-indexed too",
+    "variant": "note"
+  }
+]
+```

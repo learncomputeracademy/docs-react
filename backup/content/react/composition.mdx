@@ -1,0 +1,89 @@
+---
+id: "5ef63d2e-e7d1-4283-9ab7-8eb59a675cc8"
+title: "Component Composition"
+path: "react/composition"
+status: "published"
+meta_title: "Component Composition in React | Learn Computer Academy"
+meta_description: "Building flexible components by composing them with the children prop, instead of reaching for inheritance."
+sort_order: 15
+updated_at: "2026-07-31T11:24:40.518282+00:00"
+---
+
+```json
+[
+  {
+    "id": "HRcKmVZpWjGH",
+    "html": "<p>Coming from class-based OOP (the <a href=\"/javascript/classes-oop/\">JavaScript Classes and OOP lesson</a>), reusing behavior across components might suggest inheritance — one component extending another. React deliberately doesn't work that way; <b>composition</b>, building components out of other components, is the idiomatic approach for basically everything.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6Oarmewm1wOs",
+    "text": "Composing with children",
+    "type": "heading",
+    "level": 2,
+    "anchor": "composing-with-children"
+  },
+  {
+    "id": "agLrpcbQ_6ZM",
+    "html": "<p>The <code>children</code> prop from the Props lesson is the main composition tool — a wrapper component that doesn't need to know anything about what's inside it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OMl_bFkfV024",
+    "code": "function Card({ children }) {\n  return <div className=\"card\">{children}</div>;\n}\n\nfunction App() {\n  return (\n    <Card>\n      <h2>Title</h2>\n      <p>Any content at all can go here.</p>\n    </Card>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "UOG0HbPTWa1M",
+    "html": "<p><code>Card</code> works identically whether it wraps a paragraph, a form, or another component entirely — it never needed to know.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OVX_yZrKD2YR",
+    "text": "Multiple Named Slots",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-named-slots"
+  },
+  {
+    "id": "0wDhv7j99U65",
+    "html": "<p>When a component needs more than one distinct content area, passing JSX through regular props (not just <code>children</code>) covers it — any prop can hold JSX, not only strings and numbers:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EU90jiwFCYqv",
+    "code": "function SplitPanel({ left, right }) {\n  return (\n    <div style={{ display: 'flex' }}>\n      <div>{left}</div>\n      <div>{right}</div>\n    </div>\n  );\n}\n\nfunction App() {\n  return (\n    <SplitPanel\n      left={<Sidebar />}\n      right={<MainContent />}\n    />\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "ShLRoZijbfQl",
+    "text": "Specialization Through Composition",
+    "type": "heading",
+    "level": 2,
+    "anchor": "specialization-through-composition"
+  },
+  {
+    "id": "jhlWAUQliM_p",
+    "html": "<p>A more specific component can be built by wrapping a more general one, instead of extending it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rE403pIgEo4X",
+    "code": "function Dialog({ title, children }) {\n  return (\n    <div className=\"dialog\">\n      <h2>{title}</h2>\n      {children}\n    </div>\n  );\n}\n\nfunction WelcomeDialog() {\n  return (\n    <Dialog title=\"Welcome!\">\n      <p>Thanks for signing up.</p>\n    </Dialog>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "Aj5hZhYkwpmZ",
+    "html": "<p>If you find yourself wanting a base component with several near-identical variants, composing a specific component around a general one (as above) is almost always simpler to reason about in React than a class hierarchy would be — there's no chain of parent behavior to trace through, just components calling components.</p>",
+    "type": "callout",
+    "title": "Prefer composition over a class-style hierarchy",
+    "variant": "tip"
+  }
+]
+```

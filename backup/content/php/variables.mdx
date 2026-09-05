@@ -1,0 +1,108 @@
+---
+id: "0b046755-ba2c-40c6-8b7a-8bdebd39d511"
+title: "Variables in PHP"
+path: "php/variables"
+status: "published"
+meta_title: "Variables in PHP | Learn Computer Academy"
+meta_description: "How PHP variables work — the $ sigil, loose typing, and the naming rules every variable has to follow."
+sort_order: 4
+updated_at: "2026-07-30T09:08:35.126146+00:00"
+---
+
+```json
+[
+  {
+    "id": "xmSmcfLB976F",
+    "html": "<p>A PHP variable stores a value you can use and change later — the same idea you met in <a href=\"/programming/variables/\">Intro to Programming</a>, with PHP's own syntax on top.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u7Pxjfccd_U4",
+    "text": "The $ Sigil",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-sigil"
+  },
+  {
+    "id": "VC_9nD47K7et",
+    "html": "<p>Every PHP variable name starts with a dollar sign (<code>$</code>). This isn't optional decoration — it's how PHP tells a variable apart from a function name, a constant, or a keyword.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yRSD9OveTvV7",
+    "code": "<?php\n  $name = \"Amit\";\n  $age = 21;\n  echo \"$name is $age years old.\";\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "hRk6SrmxPf_G",
+    "html": "<p>Notice that variables can be dropped directly inside a double-quoted string and PHP will substitute their value — this is called <b>string interpolation</b>, and it only works with double quotes, not single quotes (you'll look at strings properly in an upcoming lesson).</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DCVSrBItewEH",
+    "text": "Naming Rules",
+    "type": "heading",
+    "level": 2,
+    "anchor": "naming-rules"
+  },
+  {
+    "id": "B821O4swZnhf",
+    "rows": [
+      [
+        "Must start with a letter or underscore (never a number)",
+        "$_id — valid, $1id — invalid"
+      ],
+      [
+        "Can contain letters, numbers, and underscores after that",
+        "$user_2 — valid"
+      ],
+      [
+        "No spaces or hyphens allowed",
+        "$user name — invalid"
+      ],
+      [
+        "Case-sensitive",
+        "$Name and $name are different variables"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Rule",
+      "Example"
+    ]
+  },
+  {
+    "id": "QawFquGujLCk",
+    "text": "PHP Is Loosely Typed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "php-is-loosely-typed"
+  },
+  {
+    "id": "mQWkCxLreJ1a",
+    "html": "<p>You never declare a variable's type in PHP — no <code>int</code>, <code>string</code>, or similar keyword up front. PHP figures out the type from the value you assign, and a variable can hold a completely different type later if you reassign it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "cr6FBcsMEpBB",
+    "code": "<?php\n  $value = 10;       // an integer\n  $value = \"ten\";    // now a string — perfectly legal\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "NnFpuxtCxCRt",
+    "html": "<p>This flexibility is convenient, but it's also a common source of subtle bugs — the next lesson covers PHP's data types properly, including exactly how PHP decides what a value \"really\" is when it needs to.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Trt7lCCdUugz",
+    "html": "<p>PHP variables don't need to be declared before use the way some languages require — assigning a value to <code>$whatever</code> for the first time is enough to create it. There's no separate \"declaration\" step.</p>",
+    "type": "callout",
+    "title": "No separate declaration step",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,85 @@
+---
+id: "f58eca4e-1096-4bb7-b763-222451beeb6e"
+title: "Preparing a Theme for Launch"
+path: "wordpress/launch-checklist"
+status: "published"
+meta_title: "Preparing a Theme for Launch | Learn Computer Academy"
+meta_description: "The last checks worth running through before a custom theme goes live — from debug settings to a final pass over every template."
+sort_order: 26
+updated_at: "2026-07-30T14:23:32.486771+00:00"
+---
+
+```json
+[
+  {
+    "id": "Ossv9GfJZN02",
+    "html": "<p>A theme that works on a local install still needs a final pass before it's genuinely ready for a live site. None of this is complicated, but skipping it is exactly how small, avoidable problems make it to production.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_FNeK6wt7Kk1",
+    "text": "The Checklist",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-checklist"
+  },
+  {
+    "id": "caqPacKP0000",
+    "rows": [
+      [
+        "<code>WP_DEBUG</code> is <code>false</code> in <code>wp-config.php</code>",
+        "A debug-enabled site can print raw PHP errors and warnings straight onto the page — visible to any visitor, and a real information leak"
+      ],
+      [
+        "<code>screenshot.png</code> is a real, current screenshot",
+        "Cosmetic, but the first thing anyone sees in Appearance → Themes"
+      ],
+      [
+        "Every template file was actually tested",
+        "A single post, a page, the homepage, an archive, a 404, and every custom post type's single and archive views — each is a separate file that can fail independently"
+      ],
+      [
+        "No leftover debug code",
+        "Stray <code>var_dump()</code>, <code>print_r()</code>, or <code>console.log()</code> calls left in from development"
+      ],
+      [
+        "Browser console is free of errors",
+        "A broken enqueue or a missing dependency often only shows up here, not visually"
+      ],
+      [
+        "Permalinks were re-saved once",
+        "Settings → Permalinks → Save Changes, to make sure every custom post type and taxonomy's URLs are actually registered"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Check",
+      "Why"
+    ]
+  },
+  {
+    "id": "OnfYpLahidju",
+    "text": "A Final Content Pass",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-final-content-pass"
+  },
+  {
+    "id": "V4LwOPZCmIp2",
+    "html": "<p>With Classic Editor and Gutenberg both out of the picture, it's worth double-checking that every custom field a template reads actually has real, sensible fallback behavior when left blank — an empty options-page phone number shouldn't leave a dangling, empty <code>&lt;a&gt;</code> tag anywhere on the live site.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-6c7kGdthFgk",
+    "html": "<p>If a hosting environment supports it, testing on an actual staging copy of the live server — not just a local install — catches the class of bugs that only show up under real server config: PHP version differences, missing extensions, file permission issues. Worth doing at least once before a genuine launch.</p>",
+    "type": "callout",
+    "title": "Local isn't the same as production",
+    "variant": "tip"
+  },
+  {
+    "id": "eKETehivp1EM",
+    "html": "<p>That's the full path this section set out to cover — from an empty theme folder to a working, custom-built WordPress theme with its own post types, structured content, and settings, built entirely on plain PHP templates and three focused plugins, with no page builder and no block editor anywhere in the way.</p>",
+    "type": "richtext"
+  }
+]
+```

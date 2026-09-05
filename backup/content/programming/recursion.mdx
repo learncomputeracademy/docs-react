@@ -5,43 +5,53 @@ path: "programming/recursion"
 status: "published"
 meta_title: "Recursion | Learn Computer Academy"
 sort_order: 13
-updated_at: "2026-07-25T08:16:50.56945+00:00"
+updated_at: "2026-08-18T14:27:47.619493+00:00"
 ---
 
 ```json
 [
   {
-    "id": "Kush6NKQJ8hx",
+    "id": "GOWuKd6as1l-",
     "html": "<p>Recursion is when a function calls itself to solve a smaller version of the same problem, until it reaches a simple case it can answer directly. It's a different way of expressing repetition than a loop — sometimes more natural, especially for problems that are naturally defined in terms of themselves.</p>",
     "type": "richtext"
   },
   {
-    "id": "iZf5BvJgFBIs",
+    "id": "96svd3GIKrKZ",
     "text": "A classic example: factorial",
     "type": "heading",
     "level": 2,
     "anchor": "a-classic-example-factorial"
   },
   {
-    "id": "-o1A_nV_Dz9E",
+    "id": "Z1b-QFMikH-_",
     "html": "<p>The factorial of a number is that number multiplied by the factorial of the number below it, until you reach 1. For example, <code>4! = 4 × 3 × 2 × 1 = 24</code>.</p>",
     "type": "richtext"
   },
   {
-    "id": "WVDte7UUFfux",
+    "id": "ZBYblp1d0aOH",
     "code": "function factorial(n) {\n  if (n <= 1) {\n    return 1; // base case — stops the recursion\n  }\n  return n * factorial(n - 1); // recursive case\n}\n\nconsole.log(factorial(4)); // 24",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\nfunction factorial($n) {\n  if ($n <= 1) {\n    return 1; // base case — stops the recursion\n  }\n  return $n * factorial($n - 1); // recursive case\n}\n\necho factorial(4); // 24",
+        "language": "php"
+      },
+      {
+        "code": "def factorial(n):\n    if n <= 1:\n        return 1  # base case — stops the recursion\n    return n * factorial(n - 1)  # recursive case\n\nprint(factorial(4))  # 24",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "AL1UqfkrEh12",
+    "id": "Qaz2lrPBUbOM",
     "text": "The two parts every recursive function needs",
     "type": "heading",
     "level": 2,
     "anchor": "the-two-parts-every-recursive-function-needs"
   },
   {
-    "id": "6e9AYm-e_TqI",
+    "id": "UiPpbcDGKXvF",
     "rows": [
       [
         "Base case",
@@ -59,7 +69,7 @@ updated_at: "2026-07-25T08:16:50.56945+00:00"
     ]
   },
   {
-    "id": "Dl6Sl5g9S2bX",
+    "id": "5q2gT47NmKCe",
     "html": "<p>A recursive function with no base case (or one that's never reached) causes a \"stack overflow\" — the program runs out of memory tracking all the pending calls. Every recursive function needs a way to eventually stop.</p>",
     "type": "callout",
     "variant": "warning"

@@ -1,0 +1,133 @@
+---
+id: "47db10ed-b4aa-4348-8a4a-7912ac997346"
+title: "Sessions and Cookies"
+path: "php/sessions-and-cookies"
+status: "published"
+meta_title: "PHP Sessions and Cookies | Learn Computer Academy"
+meta_description: "How PHP remembers a visitor across multiple page loads using $_SESSION and $_COOKIE, and when to use each."
+sort_order: 20
+updated_at: "2026-07-30T09:08:40.767081+00:00"
+---
+
+```json
+[
+  {
+    "id": "l_VjSb5Ri32l",
+    "html": "<p>By default, each web request is completely independent — a server has no memory of who visited a moment ago. <b>Sessions</b> and <b>cookies</b> are the two tools PHP gives you to bridge that gap, and they solve it differently.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dRZJpeW_QSoH",
+    "text": "The Problem They Solve",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-they-solve"
+  },
+  {
+    "id": "q9dlzqF7UsnG",
+    "html": "<p>Without either one, a website couldn't keep you logged in between pages, remember what's in your shopping cart, or recall a language preference. Every request would start from a completely blank slate.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r7y9FkaFSheG",
+    "text": "Cookies: Stored in the Browser",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cookies-stored-in-the-browser"
+  },
+  {
+    "id": "kf6D1PWHFSw7",
+    "html": "<p>A <b>cookie</b> is a small piece of data PHP asks the visitor's browser to store, which the browser then sends back automatically on every future request to that site:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VYs2URqODltX",
+    "code": "<?php\n  // Set a cookie that lasts 30 days\n  setcookie(\"username\", \"Priya\", time() + (30 * 24 * 60 * 60));\n\n  // On a later request:\n  echo $_COOKIE[\"username\"] ?? \"No cookie set\";\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "WfbooiQy6xjJ",
+    "html": "<p><code>setcookie()</code> must be called before <b>any</b> HTML or other output — even a single blank line before <code>&lt;?php</code> in the file is enough to cause a \"headers already sent\" error, since cookies are sent as HTTP headers.</p>",
+    "type": "callout",
+    "title": "Cookies must be set before any output",
+    "variant": "warning"
+  },
+  {
+    "id": "_u2tHnfdKUQl",
+    "text": "Sessions: Stored on the Server",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sessions-stored-on-the-server"
+  },
+  {
+    "id": "oLHqP81mgoHd",
+    "html": "<p>A <b>session</b> keeps data on the <i>server</i> instead, and only sends the visitor a small ID pointing at it — meaning the actual data never passes through the visitor's browser at all, which matters for anything sensitive.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7tZSjrhFFc-a",
+    "code": "<?php\n  session_start(); // must be the very first thing in the script\n\n  $_SESSION[\"username\"] = \"Priya\";\n\n  // On a later request, after session_start() again:\n  echo $_SESSION[\"username\"] ?? \"Not logged in\";\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "h812rL318Pmo",
+    "html": "<p><code>session_start()</code> has the same \"before any output\" requirement as <code>setcookie()</code>, and needs to run on <i>every</i> page that wants access to the session, not just the one that created it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gnp0H3j_shYN",
+    "text": "Which One to Use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "which-one-to-use"
+  },
+  {
+    "id": "ISayDfGwXRaC",
+    "rows": [
+      [
+        "Cookie",
+        "The visitor's browser",
+        "Non-sensitive preferences (theme, language) that should survive even after closing the browser"
+      ],
+      [
+        "Session",
+        "The server",
+        "Login state, cart contents — anything sensitive or that shouldn't be tamperable from the browser"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "Where data lives",
+      "Good for"
+    ]
+  },
+  {
+    "id": "T6X1TC9u_gFT",
+    "alt": "Isometric diagram comparing a cookie stored in a browser icon versus session data stored on a server icon, connected by a small session ID token",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A cookie lives in the browser; a session lives on the server, with only a small ID shared with the browser.",
+    "publicId": "docs/img/php/sessions-cookies-1"
+  },
+  {
+    "id": "CtgAtdHv45xK",
+    "text": "Destroying a Session",
+    "type": "heading",
+    "level": 2,
+    "anchor": "destroying-a-session"
+  },
+  {
+    "id": "hGNhmKHZLuxQ",
+    "code": "<?php\n  session_start();\n  session_destroy(); // used for a \"log out\" action\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  }
+]
+```

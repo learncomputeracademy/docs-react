@@ -1,0 +1,91 @@
+---
+id: "68f010c2-5a8e-44fc-8e00-1e09dbd9efdd"
+title: "Fetching Data from an API"
+path: "react/fetching-data"
+status: "published"
+meta_title: "Fetching Data in React | Learn Computer Academy"
+meta_description: "The useEffect + fetch pattern for loading data from an API, and handling loading and error states."
+sort_order: 13
+updated_at: "2026-07-31T11:24:39.527689+00:00"
+---
+
+```json
+[
+  {
+    "id": "5fcI1YWpQdib",
+    "html": "<p>This is <code>useEffect</code>'s single most common real use: fetching data isn't something a component does <i>during</i> render (render must stay a pure calculation of JSX) — it's a side effect that happens <i>because</i> the component rendered, which is exactly what effects are for.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Srox_Dyv89uT",
+    "text": "The Basic Pattern",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-basic-pattern"
+  },
+  {
+    "id": "Oe7ZOYSb1Hv9",
+    "html": "<p>Three pieces of state — the data itself, whether it's still loading, and any error — plus a <code>fetch</code> call inside an effect, using the <code>fetch()</code> and <code>async</code>/<code>await</code> you already know from the <a href=\"/javascript/fetch-api/\">JavaScript Fetch API lesson</a>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hjBu1vVWTCse",
+    "code": "function UserProfile({ userId }) {\n  const [user, setUser] = useState(null);\n  const [loading, setLoading] = useState(true);\n  const [error, setError] = useState(null);\n\n  useEffect(() => {\n    setLoading(true);\n    fetch(`/api/users/${userId}`)\n      .then((res) => res.json())\n      .then((data) => setUser(data))\n      .catch((err) => setError(err.message))\n      .finally(() => setLoading(false));\n  }, [userId]);\n\n  if (loading) return <p>Loading...</p>;\n  if (error) return <p>Error: {error}</p>;\n  return <h1>{user.name}</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "z_41uPjoLHLA",
+    "html": "<p><code>[userId]</code> as the dependency matters specifically here: without it, the effect only fetches once, ever — switching to a different user's profile would keep showing the first user's data.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Cs0pbG-5AP02",
+    "alt": "Isometric diagram showing a component rendering, an effect firing off a request to a small API server icon, and the response flowing back to update the component's state",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A component renders, an effect fires the request, and the response updates state — which triggers another render.",
+    "publicId": "docs/img/react/fetching-data-1"
+  },
+  {
+    "id": "4uMJqct50_b7",
+    "text": "Handling a Changed or Unmounted Component",
+    "type": "heading",
+    "level": 2,
+    "anchor": "handling-a-changed-or-unmounted-component"
+  },
+  {
+    "id": "Eai8EMq3TG2Z",
+    "html": "<p>If <code>userId</code> changes again before the first request finishes, or the component unmounts entirely, the earlier request's result can still arrive and incorrectly update state that no longer applies. A cleanup flag (from the useEffect lesson) guards against this:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pi4uRA15je3p",
+    "code": "useEffect(() => {\n  let ignore = false;\n  setLoading(true);\n\n  fetch(`/api/users/${userId}`)\n    .then((res) => res.json())\n    .then((data) => {\n      if (!ignore) setUser(data); // skip if this effect is stale\n    })\n    .finally(() => {\n      if (!ignore) setLoading(false);\n    });\n\n  return () => {\n    ignore = true; // marks this specific request as stale\n  };\n}, [userId]);",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "p7tw2Q1Gl3eM",
+    "text": "async Directly Inside useEffect",
+    "type": "heading",
+    "level": 2,
+    "anchor": "async-directly-inside-useeffect"
+  },
+  {
+    "id": "8jjPNJdubsuc",
+    "html": "<p>The effect function itself can't be <code>async</code> (it would return a Promise instead of a cleanup function), so an inner function is the standard workaround:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RiHoU0FTHz16",
+    "code": "useEffect(() => {\n  async function loadUser() {\n    const res = await fetch(`/api/users/${userId}`);\n    const data = await res.json();\n    setUser(data);\n  }\n  loadUser();\n}, [userId]);",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

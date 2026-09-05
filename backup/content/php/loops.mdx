@@ -1,0 +1,117 @@
+---
+id: "b21f3f6d-a913-465e-976c-53908a3568e2"
+title: "Loops"
+path: "php/loops"
+status: "published"
+meta_title: "PHP Loops | Learn Computer Academy"
+meta_description: "PHP's four loop types — for, while, do-while, and foreach — and when to reach for each one."
+sort_order: 15
+updated_at: "2026-07-30T09:08:38.996465+00:00"
+---
+
+```json
+[
+  {
+    "id": "6N8dsdu_mEAc",
+    "html": "<p>PHP has four loop types. <code>foreach</code> is what you'll use for arrays constantly; the other three cover everything else.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AMWuEueBEjWp",
+    "text": "for",
+    "type": "heading",
+    "level": 2,
+    "anchor": "for"
+  },
+  {
+    "id": "aZMmwJddpBtd",
+    "html": "<p>Best when you know exactly how many times to repeat, or need a counter:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "U9WjwwP5tC-4",
+    "code": "<?php\n  for ($i = 1; $i <= 5; $i++) {\n    echo \"Count: $i\\n\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3jyt7uPTWqDh",
+    "text": "while",
+    "type": "heading",
+    "level": 2,
+    "anchor": "while"
+  },
+  {
+    "id": "CsjSvf1JExry",
+    "html": "<p>Repeats as long as a condition stays true — used when you don't know the number of iterations ahead of time:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BthqeJiRKPXl",
+    "code": "<?php\n  $count = 0;\n  while ($count < 3) {\n    echo \"Iteration $count\\n\";\n    $count++;\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "gtnoEvenQJQ4",
+    "text": "do-while",
+    "type": "heading",
+    "level": 2,
+    "anchor": "do-while"
+  },
+  {
+    "id": "iz3G85rEFvWg",
+    "html": "<p>Identical to <code>while</code>, except the condition is checked <i>after</i> the loop body runs — guaranteeing at least one run, even if the condition starts false:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9_yulCdWPR9e",
+    "code": "<?php\n  $count = 10;\n  do {\n    echo \"This runs once, even though $count is not < 3.\\n\";\n  } while ($count < 3);\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "cbwX_LcmyYD-",
+    "text": "foreach",
+    "type": "heading",
+    "level": 2,
+    "anchor": "foreach"
+  },
+  {
+    "id": "oEhyo0Ql9tgO",
+    "html": "<p>Purpose-built for arrays — you already used this in the Indexed Arrays and Associative Arrays lessons:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ien7iqjFydae",
+    "code": "<?php\n  $fruits = [\"apple\", \"banana\", \"mango\"];\n  foreach ($fruits as $index => $fruit) {\n    echo \"$index: $fruit\\n\";\n  }\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "51Rty2OUt3Ox",
+    "text": "break and continue",
+    "type": "heading",
+    "level": 2,
+    "anchor": "break-and-continue"
+  },
+  {
+    "id": "BRR62hea0HZJ",
+    "code": "<?php\n  for ($i = 1; $i <= 10; $i++) {\n    if ($i === 6) break;      // stops the loop entirely\n    if ($i % 2 === 0) continue; // skips this iteration, keeps looping\n    echo $i . \" \";\n  }\n  // Output: 1 3 5\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "Vpk3xX52xNJz",
+    "html": "<p>Reaching for <code>for</code> or <code>while</code> to loop over an array — using a manual counter and <code>$fruits[$i]</code> — works, but <code>foreach</code> is almost always clearer and less error-prone for that specific job. Save <code>for</code>/<code>while</code> for cases that aren't really \"go through this list.\"</p>",
+    "type": "callout",
+    "title": "foreach for arrays, almost always",
+    "variant": "tip"
+  }
+]
+```

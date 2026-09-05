@@ -1,0 +1,92 @@
+---
+id: "b9851483-0bb4-43f7-832b-602b65bbe9ed"
+title: "Template Files for Custom Post Types"
+path: "wordpress/cpt-templates"
+status: "published"
+meta_title: "Template Files for Custom Post Types | Learn Computer Academy"
+meta_description: "Extending the template hierarchy to a custom post type — single-{post-type}.php, archive-{post-type}.php, and taxonomy-{taxonomy}.php."
+sort_order: 17
+updated_at: "2026-07-30T14:23:29.600388+00:00"
+---
+
+```json
+[
+  {
+    "id": "mupEEmHP88XB",
+    "html": "<p>A custom post type slots into the exact same template hierarchy from earlier in this section — it just extends the naming pattern with the post type's own slug.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fmskzk9YcKvV",
+    "rows": [
+      [
+        "A single project",
+        "<code>single-project.php</code> → <code>single.php</code> → <code>index.php</code>"
+      ],
+      [
+        "The projects archive (<code>/projects/</code>)",
+        "<code>archive-project.php</code> → <code>archive.php</code> → <code>index.php</code>"
+      ],
+      [
+        "A project_type term archive",
+        "<code>taxonomy-project_type.php</code> → <code>taxonomy.php</code> → <code>archive.php</code> → <code>index.php</code>"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Requested URL",
+      "Files checked, in order"
+    ]
+  },
+  {
+    "id": "go8g-wdiaROK",
+    "text": "single-project.php",
+    "type": "heading",
+    "level": 2,
+    "anchor": "single-projectphp"
+  },
+  {
+    "id": "Y4-uMZow97u5",
+    "code": "<?php get_header(); ?>\n\n<main>\n<?php while ( have_posts() ) : the_post(); ?>\n    <article>\n        <h1><?php the_title(); ?></h1>\n        <?php if ( has_post_thumbnail() ) : ?>\n            <?php the_post_thumbnail( 'large' ); ?>\n        <?php endif; ?>\n        <?php the_content(); ?>\n    </article>\n<?php endwhile; ?>\n</main>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3oock2gMzwSj",
+    "html": "<p>Nothing here is new — it's the same shape <code>single.php</code> used earlier. WordPress reaches for this file automatically purely because of its name; there's no extra registration step to make it apply only to projects.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "OWoIqPRsOFLq",
+    "text": "archive-project.php",
+    "type": "heading",
+    "level": 2,
+    "anchor": "archive-projectphp"
+  },
+  {
+    "id": "VcKGBf0g2UBg",
+    "code": "<?php get_header(); ?>\n\n<main>\n<h1><?php post_type_archive_title(); ?></h1>\n\n<?php if ( have_posts() ) : ?>\n    <?php while ( have_posts() ) : the_post(); ?>\n        <article>\n            <h2><a href=\"<?php the_permalink(); ?>\"><?php the_title(); ?></a></h2>\n            <?php the_excerpt(); ?>\n        </article>\n    <?php endwhile; ?>\n<?php endif; ?>\n</main>\n\n<?php get_footer(); ?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "OfvcgXjkyd8j",
+    "html": "<p><code>post_type_archive_title()</code> is the post-type equivalent of <code>the_title()</code> for an archive listing — it outputs the plural label set back in CPT UI (\"Projects\"), without hardcoding it into the template.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "so4G8AP-L2Vg",
+    "html": "<p>This file is only ever used if <b>Has Archive</b> was enabled for the post type in CPT UI. If it was left off, <code>/projects/</code> doesn't exist as a route at all, and this file sits unused — worth checking that setting first if an archive page seems to be missing.</p>",
+    "type": "callout",
+    "title": "Requires \"Has Archive\" to be on",
+    "variant": "warning"
+  },
+  {
+    "id": "9SV9ehUhCQuM",
+    "html": "<p>With content types, taxonomies, and their templates all working, this closes out the CPT UI part of the section. From here, the focus shifts to giving those content types real structured data beyond a title and a body — Secure Custom Fields.</p>",
+    "type": "richtext"
+  }
+]
+```

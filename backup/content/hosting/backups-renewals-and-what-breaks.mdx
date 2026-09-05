@@ -1,0 +1,110 @@
+---
+id: "dcc7b59b-f989-41fe-9b57-3c24f07c86c8"
+title: "Backups, Renewals, and What Breaks"
+path: "hosting/backups-renewals-and-what-breaks"
+status: "published"
+meta_title: "Backups and Renewals — What Breaks a Live Site | Learn Computer Academy"
+meta_description: "The ongoing maintenance a live site actually needs — backups, expiry dates, and updates — and what happens when each is neglected."
+sort_order: 37
+updated_at: "2026-08-05T13:35:42.362626+00:00"
+---
+
+```json
+[
+  {
+    "id": "JhJHhaXIzHTp",
+    "html": "<p>A site going live is not the end of the work — a small, recurring set of maintenance tasks keeps it that way. This lesson lists what they are and what actually happens when each one is skipped.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C-uOXFQOyLSi",
+    "text": "Backups",
+    "type": "heading",
+    "level": 2,
+    "anchor": "backups"
+  },
+  {
+    "id": "cC066dCzE38D",
+    "html": "<p>A backup is a separate, restorable copy of a site's files and database, taken on a schedule. Without one, a hacked site, a bad update, or a mistaken deletion has no way back — the site is simply gone or broken until it is rebuilt from scratch, which is often far more expensive in time than the backup ever would have cost.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4hw70HbVf5sF",
+    "rows": [
+      [
+        "Hosting-provider backups",
+        "Often included automatically on managed platforms, sometimes as a paid add-on on shared or VPS hosting — worth confirming rather than assuming"
+      ],
+      [
+        "Application-level backups",
+        "A WordPress backup plugin or similar, exporting the database and files on its own schedule, independent of what the host does"
+      ],
+      [
+        "This site's own approach",
+        "Per this project's own <a href=\"/hosting/\">CLAUDE.md</a> practice, a daily automated job that exports content as versioned files — the same idea applied at the content layer rather than the whole server"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Source",
+      "What it typically covers"
+    ]
+  },
+  {
+    "id": "hHEyV8SKniG1",
+    "alt": "Isometric diagram showing a website server with a clock icon labelled daily backup, an arrow pointing to a stack of separate archived copies of the site stored safely apart from the live server",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A backup is only useful if it is separate from what it is backing up.",
+    "publicId": "docs/img/hosting/backups-1"
+  },
+  {
+    "id": "nf_x1uaVHx5w",
+    "text": "Expiry Dates That Actually Matter",
+    "type": "heading",
+    "level": 2,
+    "anchor": "expiry-dates-that-actually-matter"
+  },
+  {
+    "id": "cJe0LpmRLvKt",
+    "rows": [
+      [
+        "Domain registration",
+        "The domain becomes available for anyone else to register, after a grace period — the single most severe expiry on this list, since it can mean losing the domain entirely"
+      ],
+      [
+        "SSL certificate",
+        "Covered in the HTTPS lesson — visitors see a security warning; modern free certificates renew automatically, but older manual setups do not"
+      ],
+      [
+        "Hosting plan",
+        "The site typically goes offline once a paid plan lapses, though most providers give some warning first"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "What expires",
+      "What happens if it lapses"
+    ]
+  },
+  {
+    "id": "kb-X22jKZxyD",
+    "text": "Updates",
+    "type": "heading",
+    "level": 2,
+    "anchor": "updates"
+  },
+  {
+    "id": "kvr8rNSdpqDJ",
+    "html": "<p>The security-basics lesson in this site's <a href=\"/design/\">design category</a> covers this from the security side; the point here is purely operational — CMS platforms (WordPress especially), plugins, and server software all receive security patches over time, and an unpatched, out-of-date installation is a genuinely common way real sites get compromised. This is ongoing maintenance, not a one-time setup task.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "e12Lc81qZpoE",
+    "html": "<p>None of this is difficult individually — it is easy to overlook precisely because nothing goes wrong for a long stretch, until the one time a backup would have mattered and none exists. Setting a calendar reminder for domain renewal is a genuinely sufficient defense against the most severe item on this list.</p>",
+    "type": "callout",
+    "variant": "note"
+  }
+]
+```

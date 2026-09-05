@@ -1,0 +1,101 @@
+---
+id: "b05438af-6284-4a52-93f5-dc6327d4bd16"
+title: "functions.php — Theme Setup Essentials"
+path: "wordpress/functions-php-setup"
+status: "published"
+meta_title: "functions.php — Theme Setup Essentials | Learn Computer Academy"
+meta_description: "What functions.php is for, the theme-support features every custom theme turns on, and how to hook your own setup code into WordPress safely."
+sort_order: 4
+updated_at: "2026-07-30T14:23:25.282692+00:00"
+---
+
+```json
+[
+  {
+    "id": "dsL0YrynsZO7",
+    "html": "<p><code>functions.php</code> runs automatically on every request, the same way a plugin does — except it's scoped to whichever theme is active. This is where a theme declares what it supports, sets up menus and image sizes, and defines any custom logic the templates will lean on.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "G-X0zm0mNLZX",
+    "text": "Declaring Support with add_theme_support()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "declaring-support-with-add_theme_support"
+  },
+  {
+    "id": "whWZZ-rJnNaY",
+    "html": "<p>WordPress ships with a long list of features a theme can opt into, one call at a time:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "d7Ty2VYn3y7l",
+    "code": "<?php\nfunction mytheme_setup() {\n    add_theme_support( 'title-tag' );\n    add_theme_support( 'post-thumbnails' );\n    add_theme_support( 'custom-logo' );\n    add_theme_support( 'html5', [ 'search-form', 'comment-form', 'comment-list', 'gallery', 'caption' ] );\n}\nadd_action( 'after_setup_theme', 'mytheme_setup' );",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "FQM27AUz6gMr",
+    "rows": [
+      [
+        "title-tag",
+        "Lets WordPress manage the <code>&lt;title&gt;</code> tag itself, instead of the theme writing it by hand"
+      ],
+      [
+        "post-thumbnails",
+        "Featured images — without this, <code>has_post_thumbnail()</code> never returns true"
+      ],
+      [
+        "custom-logo",
+        "A logo upload/crop screen in the Customizer, read back with <code>the_custom_logo()</code>"
+      ],
+      [
+        "html5",
+        "Modern HTML5 markup for the listed elements instead of WordPress's older default markup"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "What it enables"
+    ]
+  },
+  {
+    "id": "fA3bPblmxV1u",
+    "text": "Why after_setup_theme",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-after_setup_theme"
+  },
+  {
+    "id": "uW3gruGr0IzX",
+    "html": "<p>Theme setup code never runs directly at the top level of <code>functions.php</code> — it's wrapped in a function and attached to the <code>after_setup_theme</code> <b>action hook</b>, which WordPress fires once it has finished loading the active theme. Some features (like <code>add_theme_support()</code>) genuinely require this — calling them too early fails silently.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IWNON_vNF1GZ",
+    "html": "<p>Every function you define in <code>functions.php</code> shares one global namespace with WordPress core, every active plugin, and (if it's ever changed) any other theme. Two functions with the same name crash the site with a fatal error. Always prefix your own function names with something specific to the theme — <code>mytheme_setup()</code>, not <code>setup()</code>.</p>",
+    "type": "callout",
+    "title": "Prefix everything",
+    "variant": "warning"
+  },
+  {
+    "id": "iBlyE9hyZn6e",
+    "text": "What Else Lives Here",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-else-lives-here"
+  },
+  {
+    "id": "0SkljAmx-WMp",
+    "html": "<p>Beyond initial setup, <code>functions.php</code> is also where a theme registers navigation menus (a later lesson), enqueues its stylesheets and scripts (also a later lesson), and defines any custom helper functions the template files call. As a theme grows, it's common to split these into separate included files rather than letting one <code>functions.php</code> sprawl — but everything still ultimately loads through it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6-0D473rlZRQ",
+    "html": "<p>The next lesson puts some of this to use directly — building <code>header.php</code> and <code>footer.php</code>, the two files every other template shares.</p>",
+    "type": "richtext"
+  }
+]
+```

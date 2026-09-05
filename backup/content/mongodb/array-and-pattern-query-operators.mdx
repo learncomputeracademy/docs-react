@@ -1,0 +1,131 @@
+---
+id: "946687a3-839f-4138-aca1-2ac856e43e37"
+title: "Array and Pattern Query Operators"
+path: "mongodb/array-and-pattern-query-operators"
+status: "published"
+meta_title: "MongoDB Array and Pattern Query Operators | Learn Computer Academy"
+meta_description: "Querying inside an array field with $all, $elemMatch, and $size, and matching text patterns with $regex — extending the earlier Query Operators lesson."
+sort_order: 22
+updated_at: "2026-09-03T04:59:12.020881+00:00"
+---
+
+```json
+[
+  {
+    "id": "Wj60M1bVsPv3",
+    "html": "<p>The earlier Query Operators lesson covered comparison, logical, and element/existence operators. This lesson covers two more categories: matching inside array fields, and matching text by pattern rather than exact value.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MiZNYXkzXY4u",
+    "text": "$all — Every Value Must Be Present",
+    "type": "heading",
+    "level": 2,
+    "anchor": "all-every-value-must-be-present"
+  },
+  {
+    "id": "wuVeHge3Fje0",
+    "html": "<p>Matches a document whose array field contains every value listed, in any order — unlike a plain array match, which requires an exact match of the whole array.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_uucXb4khWj3",
+    "code": "db.products.find({ tags: { $all: ['electronics', 'sale'] } })\n// Matches a document whose tags array contains BOTH 'electronics' and 'sale',\n// regardless of order or other tags also present",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "GlwKpHnZv0RP",
+    "text": "$elemMatch — One Element Satisfying Multiple Conditions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "elemmatch-one-element-satisfying-multiple-conditions"
+  },
+  {
+    "id": "2XgFjxKGSXI4",
+    "html": "<p>Needed when an array holds objects, and a single element must satisfy several conditions together — without it, conditions could each match a <i>different</i> element.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9VUo8jMlonpQ",
+    "code": "// A product with a reviews array: [{ rating: 5, verified: true }, { rating: 2, verified: false }]\n\n// WITHOUT $elemMatch — matches if ANY review has rating 5 AND ANY review is verified,\n// even if it's not the SAME review\ndb.products.find({ 'reviews.rating': 5, 'reviews.verified': true })\n\n// WITH $elemMatch — requires one single review meeting both conditions\ndb.products.find({\n  reviews: { $elemMatch: { rating: 5, verified: true } }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "RteCi5MKUbf5",
+    "text": "$size — Matching an Array's Length",
+    "type": "heading",
+    "level": 2,
+    "anchor": "size-matching-an-arrays-length"
+  },
+  {
+    "id": "xgseSA3gqWH3",
+    "code": "db.products.find({ tags: { $size: 3 } })\n// Matches only documents whose tags array has exactly 3 elements",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "HKY_L1iYqcSv",
+    "html": "<p>$size only matches an exact length — there's no built-in $size: { $gt: 3 } for \"more than 3.\" A common workaround is a separate stored count field, kept in sync when the array changes.</p>",
+    "type": "callout",
+    "title": "$size has no range version",
+    "variant": "note"
+  },
+  {
+    "id": "C44bv42kVEeV",
+    "text": "$regex — Pattern Matching Text",
+    "type": "heading",
+    "level": 2,
+    "anchor": "regex-pattern-matching-text"
+  },
+  {
+    "id": "fzSi3HBaChjb",
+    "html": "<p>Matches a string field against a regular expression, similar to the pattern matching from the earlier JavaScript course.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "4Q5RxsiuvzTm",
+    "code": "// Names starting with \"Jo\" (case-sensitive)\ndb.users.find({ name: { $regex: /^Jo/ } })\n\n// Case-insensitive, matching anywhere in the string\ndb.users.find({ name: { $regex: /smith/i } })\n\n// Alternative syntax, useful when the pattern is a variable\ndb.users.find({ name: { $regex: '^Jo', $options: 'i' } })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "dNl674fLdDEq",
+    "html": "<p>An unanchored $regex (no ^ at the start) can't use a text index efficiently and scans every document — fine on a small collection, worth watching on a large one. A dedicated text index (covered in the Specialized Indexes lesson) handles large-scale text search better.</p>",
+    "type": "callout",
+    "title": "A performance note",
+    "variant": "warning"
+  },
+  {
+    "id": "BaXksi1RpdTX",
+    "rows": [
+      [
+        "$all",
+        "An array containing every listed value"
+      ],
+      [
+        "$elemMatch",
+        "One array element satisfying multiple conditions together"
+      ],
+      [
+        "$size",
+        "An array with an exact number of elements"
+      ],
+      [
+        "$regex",
+        "A string matching a pattern"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operator",
+      "Matches"
+    ]
+  }
+]
+```

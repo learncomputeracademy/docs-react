@@ -1,0 +1,130 @@
+---
+id: "853b77e0-db6a-47d3-b1e9-e6ecc3f9c534"
+title: "GitHub Issues and Project Boards"
+path: "git/github-issues"
+status: "published"
+meta_title: "GitHub Issues and Project Boards | Learn Computer Academy"
+meta_description: "Tracking bugs, feature requests, and tasks directly inside a GitHub repository — labels, assignees, linking issues to commits, and a lightweight project board."
+sort_order: 15
+updated_at: "2026-09-03T05:26:44.317826+00:00"
+---
+
+```json
+[
+  {
+    "id": "TdKB2FaDQ4F9",
+    "html": "<p>An <b>issue</b> is a tracked item on a repository — a bug report, a feature request, or a task — living alongside the code itself rather than in a separate tool.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KP2lScLxHggD",
+    "text": "Creating an Issue",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-an-issue"
+  },
+  {
+    "id": "hObTthMTT987",
+    "html": "<p>From a repository's Issues tab, \"New issue\" — a title, a description (Markdown supported, same as a README), and optional labels/assignee.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "L8mD1opFipzT",
+    "text": "Organizing Issues",
+    "type": "heading",
+    "level": 2,
+    "anchor": "organizing-issues"
+  },
+  {
+    "id": "FkklzF2FsMNe",
+    "rows": [
+      [
+        "Labels",
+        "Categorize — bug, enhancement, documentation, good first issue"
+      ],
+      [
+        "Assignees",
+        "Who's responsible for it"
+      ],
+      [
+        "Milestones",
+        "Group issues toward a specific release or deadline"
+      ],
+      [
+        "Comments",
+        "Discussion thread, same as a pull request's"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Feature",
+      "Purpose"
+    ]
+  },
+  {
+    "id": "l9VRh6Bt0hoV",
+    "text": "Linking an Issue to a Commit or PR",
+    "type": "heading",
+    "level": 2,
+    "anchor": "linking-an-issue-to-a-commit-or-pr"
+  },
+  {
+    "id": "AW3J7D96hBV_",
+    "html": "<p>A specific phrase in a commit message or pull request description automatically closes the referenced issue once merged.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ONpoeb8HgHvH",
+    "code": "git commit -m \"Fix login validation bug\n\nFixes #42\"",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "k_pwgiejOLfs",
+    "rows": [
+      [
+        "Fixes #42 / Closes #42",
+        "Automatically closes issue #42"
+      ],
+      [
+        "Refs #42 / Relates to #42",
+        "Links to the issue without closing it"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Keyword",
+      "Effect when merged"
+    ]
+  },
+  {
+    "id": "sg1HpbnFM-Xy",
+    "text": "A Lightweight Project Board",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-lightweight-project-board"
+  },
+  {
+    "id": "0M7yK3SW-Kr7",
+    "html": "<p>GitHub Projects turns a repository's issues into a Kanban-style board (To Do / In Progress / Done) — genuinely useful for a small team or a solo developer planning work, without needing a separate tool like Trello.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uQCAsMViHh6g",
+    "html": "<p>Issues labeled \"good first issue\" on a real open-source project are specifically curated to be approachable for a first-time contributor — a practical, low-stakes way to practice the fork-and-pull-request workflow from the previous lesson on a real codebase.</p>",
+    "type": "callout",
+    "title": "A way to practice on a real project",
+    "variant": "tip"
+  },
+  {
+    "id": "LIiysjzUckqX",
+    "alt": "A real public issues list on a large open-source GitHub repository, showing open issue counts, titles, and labels",
+    "type": "image",
+    "width": 1567,
+    "height": 525,
+    "caption": "A real issues list — tracking bugs and feature requests alongside the code itself.",
+    "publicId": "docs/img/git/github-issues"
+  }
+]
+```

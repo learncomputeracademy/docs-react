@@ -1,0 +1,89 @@
+---
+id: "8b4efa1e-41dd-4fcc-9901-cf6422dd9cce"
+title: "Fragments and Portals"
+path: "react/fragments-and-portals"
+status: "published"
+meta_title: "React Fragments and Portals | Learn Computer Academy"
+meta_description: "Grouping elements without adding an extra wrapper DOM node with Fragments, and rendering outside the normal component tree with Portals."
+sort_order: 16
+updated_at: "2026-07-31T11:24:40.897256+00:00"
+---
+
+```json
+[
+  {
+    "id": "xsAcZBCturb6",
+    "html": "<p>Two small, specific tools that solve two unrelated problems: satisfying JSX's one-root-element rule without adding clutter to the page, and rendering something outside where it's written in the component tree.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "8PJDMzhMTmEf",
+    "text": "The Problem Fragments Solve",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-problem-fragments-solve"
+  },
+  {
+    "id": "YhUuMZnvMcxh",
+    "html": "<p>The JSX Syntax lesson showed that a component can only return one root element — the usual fix is wrapping everything in a <code>&lt;div&gt;</code>. But that extra <code>&lt;div&gt;</code> becomes a real element in the actual page, which can break CSS that expects specific parent-child relationships (a CSS grid, for instance, where every direct child matters):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "6rUcHMCoxE25",
+    "code": "function TableRow() {\n  return (\n    <tr>\n      {/* An extra <div> here would be invalid HTML inside a <tr> */}\n    </tr>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "KHzkcqsyqwKw",
+    "text": "Fragment Syntax",
+    "type": "heading",
+    "level": 2,
+    "anchor": "fragment-syntax"
+  },
+  {
+    "id": "Yic-xnnDVE2u",
+    "html": "<p>A <b>Fragment</b> groups elements the same way a <code>&lt;div&gt;</code> would, but leaves no trace in the actual DOM:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7bW_oFDi-W04",
+    "code": "import { Fragment } from 'react';\n\nfunction ItemDetails() {\n  return (\n    <Fragment>\n      <dt>Name</dt>\n      <dd>Priya</dd>\n    </Fragment>\n  );\n}\n\n// The shorthand — used almost everywhere in real code:\nfunction ItemDetails() {\n  return (\n    <>\n      <dt>Name</dt>\n      <dd>Priya</dd>\n    </>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "l2efD5Bj4VNl",
+    "html": "<p>The <code>&lt;&gt;...&lt;/&gt;</code> shorthand can't take a <code>key</code> prop — inside a <code>.map()</code> that needs one (from the Rendering Lists and Keys lesson), use the full <code>&lt;Fragment key={...}&gt;</code> form instead.</p>",
+    "type": "callout",
+    "title": "Shorthand has one limitation",
+    "variant": "note"
+  },
+  {
+    "id": "mjMi9_og45RC",
+    "text": "Portals: Rendering Outside the Tree",
+    "type": "heading",
+    "level": 2,
+    "anchor": "portals-rendering-outside-the-tree"
+  },
+  {
+    "id": "Cck6XjXfNQp9",
+    "html": "<p>A <b>portal</b> renders a component's output into a different DOM node entirely, while it stays in its normal place in the React component tree for everything else (props, context, event bubbling). This solves a real CSS problem: a modal or tooltip nested deep inside a component with <code>overflow: hidden</code> or a constrained <code>z-index</code> can visually escape that container by rendering directly into <code>document.body</code> instead:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Ys9Uu9MZ6QsD",
+    "code": "import { createPortal } from 'react-dom';\n\nfunction Modal({ children }) {\n  return createPortal(\n    <div className=\"modal-overlay\">{children}</div>,\n    document.body\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "h-QtC0q8MC5d",
+    "html": "<p><code>Modal</code> can still be written and used exactly like any other component — <code>&lt;Modal&gt;...&lt;/Modal&gt;</code> — nothing about how it's called changes; only where its markup physically ends up in the DOM does.</p>",
+    "type": "richtext"
+  }
+]
+```

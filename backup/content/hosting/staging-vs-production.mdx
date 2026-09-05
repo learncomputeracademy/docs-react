@@ -1,0 +1,106 @@
+---
+id: "56a9ee39-5676-49fc-a392-e60ab39e399d"
+title: "Staging vs. Production"
+path: "hosting/staging-vs-production"
+status: "published"
+meta_title: "Staging vs. Production Explained | Learn Computer Academy"
+meta_description: "Why real teams never edit the live site directly, and how a staging copy — or a Git-based preview deployment — prevents that."
+sort_order: 35
+updated_at: "2026-08-05T13:35:41.674096+00:00"
+---
+
+```json
+[
+  {
+    "id": "LjYHNr-hhswt",
+    "html": "<p>Everything in this category so far has described getting one copy of a site live. Once that site matters to real users, editing that live copy directly stops being a safe way to work — this lesson covers why, and what replaces it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M0Go6AxlhSDG",
+    "text": "What \"Production\" Means",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-production-means"
+  },
+  {
+    "id": "jVS5TQnhBYAk",
+    "html": "<p><b>Production</b> is simply the term for whatever copy of a site real visitors are currently using. Anything that breaks production is visible immediately, to everyone, with no warning — a typo in a price, a broken checkout button, a page that fails to load.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "A2dkA-3uJNKh",
+    "text": "What \"Staging\" Means",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-staging-means"
+  },
+  {
+    "id": "Ya7RsqaRj1Ol",
+    "html": "<p>A <b>staging</b> environment is a separate, near-identical copy of the site — same code, same hosting setup, usually a separate database with realistic-but-fake data — reachable only at a private or unlisted address, where changes are tested before they ever reach production. A mistake on staging is invisible to real visitors, by design.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "N-M7eqm4iXr4",
+    "alt": "Isometric diagram showing two parallel identical-looking website server stacks side by side, one labelled staging behind a padlock icon accessible only to a developer figure, the other labelled production open to many visitor figures",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Staging and production run the same code — only who can reach them differs.",
+    "publicId": "docs/img/hosting/staging-1"
+  },
+  {
+    "id": "6qEXdweKPSSJ",
+    "text": "How Teams Actually Structure This",
+    "type": "heading",
+    "level": 2,
+    "anchor": "how-teams-actually-structure-this"
+  },
+  {
+    "id": "ak4f3etSSMHv",
+    "rows": [
+      [
+        "A second hosting environment",
+        "A literal second copy of the site, deployed the same way as production, at a subdomain like staging.yourdomain.com"
+      ],
+      [
+        "Git branch environments",
+        "A \"staging\" or \"develop\" branch, separate from the \"main\" branch that production deploys from — merging staging into main is what promotes it to live"
+      ],
+      [
+        "Preview deployments",
+        "Automatic, throwaway environments for every proposed change, covered next — the modern default on most Git-based hosting"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Setup",
+      "How it works"
+    ]
+  },
+  {
+    "id": "5_OwTc-rwS_Y",
+    "text": "Preview Deployments",
+    "type": "heading",
+    "level": 2,
+    "anchor": "preview-deployments"
+  },
+  {
+    "id": "JyXyrZhmVJ2I",
+    "html": "<p>The Git-based deployment lesson mentioned every pull request getting its own temporary URL automatically. That is staging taken to its logical end — not one fixed staging copy shared and possibly fought over by an entire team, but a fresh disposable environment for every single proposed change, deleted once it merges or closes. Most modern cloud and managed platforms covered earlier in this category include this by default at no extra cost.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ebfUVaBlxc58",
+    "text": "A Beginner's Reasonable Middle Ground",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-beginners-reasonable-middle-ground"
+  },
+  {
+    "id": "2dvb1GvwFpxB",
+    "html": "<p>A full staging setup is not always justified for a small personal project with no other collaborators and low stakes if something breaks briefly. But even then, testing changes locally before deploying — running the site on your own computer first, the most basic form of an environment separate from production — is a version of the same discipline, worth adopting well before a project grows to the point where a proper staging environment becomes necessary.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,107 @@
+---
+id: "372808f7-3572-4753-b498-e9f1b03a5db6"
+title: "Cherry-Picking and Amending Commits"
+path: "git/cherry-picking-and-amending"
+status: "published"
+meta_title: "Git Cherry-Pick and Commit --amend | Learn Computer Academy"
+meta_description: "Copying one specific commit onto another branch, and fixing the very last commit's message or contents without creating a new one."
+sort_order: 22
+updated_at: "2026-09-03T05:30:34.805673+00:00"
+---
+
+```json
+[
+  {
+    "id": "tzoICd2ntLLz",
+    "html": "<p>Two small, frequently useful commands for handling commits individually, rather than through a full merge or rebase.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "O5YXPpbti1FZ",
+    "text": "git cherry-pick — Copying One Specific Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-cherry-pick-copying-one-specific-commit"
+  },
+  {
+    "id": "JqKKEHozbmI6",
+    "html": "<p>Applies a single commit from anywhere in the project's history onto the current branch — useful when exactly one fix or change is needed from another branch, not everything on it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "O2qVq3b5ghr3",
+    "code": "git switch main\ngit cherry-pick a1b2c3d\n# Applies commit a1b2c3d's exact changes as a new commit on main",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "U2LemBpvRF6z",
+    "html": "<p>A real use: a bug fix committed on a feature branch also needs to go out immediately on main, without merging the feature branch's unfinished work along with it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_0t1xL7YOBfS",
+    "text": "Cherry-Pick Conflicts",
+    "type": "heading",
+    "level": 2,
+    "anchor": "cherry-pick-conflicts"
+  },
+  {
+    "id": "QeQEnzafV099",
+    "html": "<p>Just like a merge, a cherry-pick can conflict if the target branch has diverged too much — resolved exactly the same way as the earlier Merge Conflicts lesson: edit the file, remove the markers, then continue.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Xotp2f2W9CkV",
+    "code": "# After resolving conflict markers in the affected files:\ngit add .\ngit cherry-pick --continue\n\n# Or abandon the cherry-pick entirely:\ngit cherry-pick --abort",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "9U6Frd_RhaN3",
+    "text": "git commit --amend — Fixing the Last Commit",
+    "type": "heading",
+    "level": 2,
+    "anchor": "git-commit---amend-fixing-the-last-commit"
+  },
+  {
+    "id": "uYTFxMS-t0-f",
+    "html": "<p>Rather than creating a new commit for a typo or a forgotten file, <code>--amend</code> folds a change into the most recent commit instead.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0fGf6iOO8c9P",
+    "code": "# Fix just the commit message\ngit commit --amend -m \"Corrected commit message\"\n\n# Add a forgotten file to the last commit, keeping the same message\ngit add forgotten-file.txt\ngit commit --amend --no-edit",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "eeI6L540mTOI",
+    "html": "<p>--amend rewrites the last commit entirely — it gets a new hash. Exactly the same rule as reset and rebase from earlier lessons: never amend a commit that's already been pushed and possibly pulled by someone else.</p>",
+    "type": "callout",
+    "title": "The same shared-history rule applies here",
+    "variant": "danger"
+  },
+  {
+    "id": "Xh1OFmodIDgE",
+    "rows": [
+      [
+        "git cherry-pick <hash>",
+        "Copying one specific commit onto the current branch"
+      ],
+      [
+        "git commit --amend",
+        "Fixing the message or contents of the most recent, not-yet-shared commit"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "Use for"
+    ]
+  }
+]
+```

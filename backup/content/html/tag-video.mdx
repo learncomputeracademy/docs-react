@@ -5,7 +5,7 @@ path: "html/tag-video"
 status: "published"
 meta_title: "Video Tag | Learn Computer Academy"
 sort_order: 35
-updated_at: "2026-07-27T06:26:21.310804+00:00"
+updated_at: "2026-08-06T07:05:19.579663+00:00"
 ---
 
 ```json
@@ -24,7 +24,7 @@ updated_at: "2026-07-27T06:26:21.310804+00:00"
   },
   {
     "id": "psEzFPhBQ-rT",
-    "html": "<p>Before HTML5, a video could only be played in a browser with a plug-in (like flash).</p>\n<p>The HTML5 <code>&lt;video&gt;</code> element specifies a standard way to embed a video in a web page.</p>\n<video width=\"100%\" height=\"auto\" controls=\"\" autoplay=\"\">\n                                  <source src=\"/assets/img/movie.mp4\" type=\"video/mp4\">\n                                  <source src=\"/assets/img/movie.ogg\" type=\"video/ogg\">\n                                Your browser does not support the video tag.\n                                </video>\n<hr>",
+    "html": "<p>Before HTML5, a video could only be played in a browser with a plug-in (like flash).</p>\n<p>The HTML5 <code>&lt;video&gt;</code> element specifies a standard way to embed a video in a web page.</p>\n<video width=\"100%\" height=\"auto\" controls=\"\" autoplay=\"\">\n                                  <source src=\"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4\" type=\"video/mp4\">\nYour browser does not support the video tag.\n                                </video>\n<hr>",
     "type": "richtext"
   },
   {
@@ -94,20 +94,17 @@ updated_at: "2026-07-27T06:26:21.310804+00:00"
   },
   {
     "id": "5YcDmOY14kNk",
-    "html": "<p>HTML5 defines DOM methods, properties, and events for the <code>&lt;video&gt;</code> element.</p>\n<p>This allows you to load, play, and pause videos, as well as setting duration and volume.</p>\n<p>There are also DOM events that can notify you when a video begins to play, is paused, etc.</p>\n<button onclick=\"playPause()\" class=\"btn btn-primary\">Play/Pause</button>\n<button onclick=\"makeBig()\" class=\"btn btn-primary\">Big</button>\n<button onclick=\"makeSmall()\" class=\"btn btn-primary\">Small</button>\n<button onclick=\"makeNormal()\" class=\"btn btn-primary\">Normal</button>\n<br>\n<br>\n<video id=\"video1\" width=\"420\">\n                                    <source src=\"/assets/img/movie.mp4\" type=\"video/mp4\">\n                                    <source src=\"/assets/img/movie.ogg\" type=\"video/ogg\">\n                                    Your browser does not support HTML5 video.\n                                  </video>",
+    "html": "<p>HTML5 defines DOM methods, properties, and events for the <code>&lt;video&gt;</code> element.</p>\n<p>This allows you to load, play, and pause videos, as well as setting duration and volume.</p>\n<p>There are also DOM events that can notify you when a video begins to play, is paused, etc.</p>",
     "type": "richtext"
   },
   {
     "id": "w-mvMpYnWvHK",
-    "code": "<div style=\"text-align:center\"> \n  <button onclick=\"playPause()\">Play/Pause</button> \n  <button onclick=\"makeBig()\">Big</button>\n  <button onclick=\"makeSmall()\">Small</button>\n  <button onclick=\"makeNormal()\">Normal</button>\n  <br><br>\n  <video id=\"video1\" width=\"420\">\n    <source src=\"movie.mp4\" type=\"video/mp4\">\n    <source src=\"movie.ogg\" type=\"video/ogg\">\n    Your browser does not support HTML5 video.\n  </video>\n</div>",
-    "type": "code",
-    "language": "html"
-  },
-  {
-    "id": "KrkeniUePKGq",
-    "code": "<script> \n    var myVideo = document.getElementById(\"video1\"); \n    function playPause() { \n      if (myVideo.paused) \n        myVideo.play(); \n      else \n        myVideo.pause(); \n    } \n    function makeBig() { \n        myVideo.width = 560; \n    } \n    function makeSmall() { \n        myVideo.width = 320; \n    } \n    function makeNormal() { \n        myVideo.width = 420; \n    } \n</script>",
-    "type": "code",
-    "language": "javascript"
+    "mode": "web",
+    "type": "tryit",
+    "files": {
+      "js": "var myVideo = document.getElementById(\"video1\");\nfunction playPause() {\n  if (myVideo.paused)\n    myVideo.play();\n  else\n    myVideo.pause();\n}\nfunction makeBig() {\n  myVideo.width = 560;\n}\nfunction makeSmall() {\n  myVideo.width = 320;\n}\nfunction makeNormal() {\n  myVideo.width = 420;\n}",
+      "html": "<div style=\"text-align:center\">\n  <button onclick=\"playPause()\">Play/Pause</button>\n  <button onclick=\"makeBig()\">Big</button>\n  <button onclick=\"makeSmall()\">Small</button>\n  <button onclick=\"makeNormal()\">Normal</button>\n  <br><br>\n  <video id=\"video1\" width=\"420\">\n    <source src=\"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4\" type=\"video/mp4\">\n    Your browser does not support HTML5 video.\n  </video>\n</div>"
+    }
   }
 ]
 ```

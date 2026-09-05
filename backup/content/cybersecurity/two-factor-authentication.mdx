@@ -1,0 +1,98 @@
+---
+id: "697e5fbb-8223-4e35-97c2-396dbfaa3da0"
+title: "Setting Up Two-Factor Authentication"
+path: "cybersecurity/two-factor-authentication"
+status: "published"
+meta_title: "Setting Up Two-Factor Authentication | Learn Computer Academy"
+meta_description: "What two-factor authentication actually protects against, the different methods available, and why an authenticator app beats SMS codes."
+sort_order: 8
+updated_at: "2026-09-03T02:43:30.87887+00:00"
+---
+
+```json
+[
+  {
+    "id": "K5b-3RPHTFOa",
+    "html": "<p><b>Two-factor authentication</b> (2FA) requires a second proof of identity beyond a password — usually something a person <i>has</i> (a phone) in addition to something they <i>know</i> (the password). Its entire point: a stolen or leaked password alone is no longer enough to get in.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "r0v5fzLCfbY-",
+    "text": "The Methods, Ranked",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-methods-ranked"
+  },
+  {
+    "id": "w2A8Giu67ENl",
+    "rows": [
+      [
+        "Authenticator app",
+        "A time-based code generated on the phone itself, offline (Google Authenticator, Authy, etc.)",
+        "Strongest common option"
+      ],
+      [
+        "Hardware security key",
+        "A physical USB/NFC key plugged in or tapped to confirm",
+        "Strongest overall, less common for everyday accounts"
+      ],
+      [
+        "SMS text code",
+        "A code sent by text message",
+        "Weakest — vulnerable to SIM-swapping"
+      ],
+      [
+        "Email code",
+        "A code sent to a backup email",
+        "Only as strong as that email account's own security"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "How it works",
+      "Security level"
+    ]
+  },
+  {
+    "id": "DFiHZkOTebvi",
+    "text": "Why SMS Is the Weakest Option",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-sms-is-the-weakest-option"
+  },
+  {
+    "id": "B4qQlr8imTVG",
+    "html": "<p>SMS 2FA can be bypassed through <b>SIM swapping</b> — an attacker convinces a mobile carrier to transfer a phone number to a SIM card they control, often using social engineering against the carrier's support staff rather than any technical hack. Once that succeeds, every SMS code meant for the real owner goes straight to the attacker instead. It's still far better than no 2FA at all, just the weakest option among the real ones.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "CkV68pKII2LJ",
+    "text": "Setting It Up — The General Steps",
+    "type": "heading",
+    "level": 2,
+    "anchor": "setting-it-up-the-general-steps"
+  },
+  {
+    "id": "XUlmCCLVajXT",
+    "html": "<p>Nearly every major service follows the same pattern: open account security settings, find \"Two-Factor Authentication\" or \"2-Step Verification,\" choose an authenticator app as the method, scan the QR code it shows with the authenticator app, and enter the six-digit code it generates to confirm. The service will also offer a set of one-time backup codes at this point.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a-tVgXdsRuty",
+    "html": "<p>Save the backup codes offered during setup somewhere safe and offline — a password manager's secure notes, or printed and stored physically. Losing both the phone with the authenticator app and these codes can mean permanent lockout from an account.</p>",
+    "type": "callout",
+    "title": "Always save the backup codes",
+    "variant": "warning"
+  },
+  {
+    "id": "P3KgVl8OAGQL",
+    "alt": "A real authenticator app (Authy) showing a live, time-limited six-digit two-factor authentication code counting down",
+    "type": "image",
+    "width": 1568,
+    "height": 724,
+    "caption": "A live time-based code from an authenticator app — this is what the second factor in 2FA actually looks like.",
+    "publicId": "docs/img/cybersecurity/two-factor-authentication"
+  }
+]
+```

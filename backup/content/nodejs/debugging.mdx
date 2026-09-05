@@ -1,0 +1,126 @@
+---
+id: "b6166f49-d2f6-4314-81b2-f6362f94aeb7"
+title: "Debugging Node.js Applications"
+path: "nodejs/debugging"
+status: "published"
+meta_title: "Debugging Node.js Applications | Learn Computer Academy"
+meta_description: "Go beyond console.log to find bugs in a Node.js program, using the built-in inspector, Node's own error output, and a few common failure patterns."
+sort_order: 25
+updated_at: "2026-08-05T05:48:00.46349+00:00"
+---
+
+```json
+[
+  {
+    "id": "6DNdl1hpss1z",
+    "html": "<p><code>console.log()</code> has gotten you this far in the course, and it's a legitimate tool — not just a beginner's crutch. This lesson adds a few more, for the situations where scattering <code>console.log()</code> calls stops being enough.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "KZhw-TvDXNfO",
+    "text": "Reading a Stack Trace",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-stack-trace"
+  },
+  {
+    "id": "HmcRNL8zcyHK",
+    "html": "<p>When Node crashes on an uncaught error, it prints a <b>stack trace</b> — not noise to skip past, but a map of exactly where things went wrong:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "qVzc8maux9iB",
+    "code": "TypeError: Cannot read properties of undefined (reading 'name')\n    at getProductName (/app/products.js:12:20)\n    at /app/app.js:8:15",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "8fdsGq3TLF3g",
+    "html": "<p>Read it top to bottom: the error type and message first, then the exact file and line where it happened, then every function call that led there. <code>products.js:12:20</code> means line 12, character 20 — that's where to look first, not the last line of the trace.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ohMsZk9iS3aT",
+    "text": "The Built-in Inspector",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-built-in-inspector"
+  },
+  {
+    "id": "5Ng7QKyYxGbh",
+    "html": "<p>Node ships with a real debugger — no extra package needed. Run a script with <code>--inspect</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kO1nU7Hbmx9H",
+    "code": "node --inspect app.js",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "IX-SqQ9crQ1L",
+    "html": "<p>Then open Chrome and go to <code>chrome://inspect</code> — it connects to the running Node process, and gives you real breakpoints, the ability to step through code line by line, and inspect variables at each point, in the same DevTools you'd already use to debug a webpage.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uZwaWxSw-TKb",
+    "text": "Adding a Breakpoint From Code",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-a-breakpoint-from-code"
+  },
+  {
+    "id": "Ugn9l_rOUlBk",
+    "html": "<p>The <code>debugger</code> keyword pauses execution right there, if a debugger is attached:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9MNCSDAATQ4z",
+    "code": "function calculateTotal(items) {\n  debugger  // execution pauses here when run with --inspect\n  return items.reduce((sum, item) => sum + item.price, 0)\n}",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "lcp0fikmnbn9",
+    "text": "A Few Common Node Bugs",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-common-node-bugs"
+  },
+  {
+    "id": "MRkuUUfMSaBX",
+    "rows": [
+      [
+        "<code>req.body</code> is <code>undefined</code>",
+        "<code>express.json()</code> (or <code>urlencoded()</code>) isn't registered"
+      ],
+      [
+        "A request just hangs forever",
+        "A middleware function never called <code>next()</code>, or a route handler never called <code>res.end()</code>/<code>res.send()</code>"
+      ],
+      [
+        "\"Cannot find module\"",
+        "A typo in a <code>require()</code> path, or the package genuinely isn't installed — check <code>node_modules</code>"
+      ],
+      [
+        "The whole server crashed from one bad request",
+        "An error inside a route handler wasn't wrapped in <code>try</code>/<code>catch</code> — see the error-handling lesson"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Symptom",
+      "Likely cause"
+    ]
+  },
+  {
+    "id": "1t21eSxyX98D",
+    "html": "<p>When a bug isn't obvious, narrow it before reaching for the debugger: comment out code until the error disappears, then add it back piece by piece. It's slower than intuition but it always finds the actual line, and it works on bugs no amount of staring at the code solves.</p>",
+    "type": "callout",
+    "variant": "tip"
+  }
+]
+```

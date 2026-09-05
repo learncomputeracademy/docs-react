@@ -1,0 +1,128 @@
+---
+id: "fe8df15b-ecc4-4dc4-8a56-f62d66d9af32"
+title: "Branching Basics"
+path: "git/branching-basics"
+status: "published"
+meta_title: "Git Branching Basics | Learn Computer Academy"
+meta_description: "Working on a new feature without touching the working project — creating, switching, and listing branches."
+sort_order: 6
+updated_at: "2026-09-03T05:20:00.844787+00:00"
+---
+
+```json
+[
+  {
+    "id": "JGRkoEdSSXIe",
+    "html": "<p>Every commit so far in this course happened on one line of history. A <b>branch</b> lets development split — trying a new feature, fixing a bug, or experimenting — without touching the working version until it's ready.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ylCRkWg_tFcn",
+    "text": "The main Branch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-main-branch"
+  },
+  {
+    "id": "lUTmIqk1Zzij",
+    "html": "<p>A new repository starts with one branch, conventionally named <code>main</code> (older projects sometimes use <code>master</code>) — the project's stable, working line of history.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QyX8QOhx1hc_",
+    "text": "Creating a Branch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-branch"
+  },
+  {
+    "id": "DM84ieikAZT_",
+    "code": "git branch feature-login\n# Creates the branch, but doesn't switch to it yet",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "tww4D4VdN-pO",
+    "text": "Switching Branches",
+    "type": "heading",
+    "level": 2,
+    "anchor": "switching-branches"
+  },
+  {
+    "id": "3MGE8nsbbvrn",
+    "code": "git switch feature-login\n# or, the older equivalent still seen everywhere:\ngit checkout feature-login",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "BbpiRTxI-AuF",
+    "text": "Creating and Switching in One Step",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-and-switching-in-one-step"
+  },
+  {
+    "id": "j1yGvdh8rZoJ",
+    "code": "git switch -c feature-login\n# or\ngit checkout -b feature-login",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "u-oJ7SNfucJ7",
+    "text": "Listing Branches",
+    "type": "heading",
+    "level": 2,
+    "anchor": "listing-branches"
+  },
+  {
+    "id": "eDEerm4ZYCQ8",
+    "code": "git branch\n#   main\n# * feature-login   <- the asterisk marks the current branch",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "haOlhdLuf29z",
+    "text": "Working on a Branch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "working-on-a-branch"
+  },
+  {
+    "id": "T4FxXIb3SXdn",
+    "html": "<p>Commits made while on <code>feature-login</code> only exist on that branch — switching back to <code>main</code> makes those changes disappear from view (not deleted, just not part of main's history) until the branch is merged, covered in the next lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "I-RySKp87Gb-",
+    "code": "git switch feature-login\n# ... make changes, git add, git commit ...\ngit switch main\n# The feature-login commits aren't visible here yet",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "zl_G05bobOjR",
+    "text": "Deleting a Branch",
+    "type": "heading",
+    "level": 2,
+    "anchor": "deleting-a-branch"
+  },
+  {
+    "id": "Wrhj7EDpix5x",
+    "code": "# Safe delete — refuses if the branch has unmerged changes\ngit branch -d feature-login\n\n# Force delete, even with unmerged changes\ngit branch -D feature-login",
+    "type": "code",
+    "language": "bash",
+    "runnable": false
+  },
+  {
+    "id": "JA4AbR5m48a2",
+    "html": "<p>Creating a branch for every real change — even a small one — costs almost nothing and keeps main always in a working state. This habit alone prevents most of the \"I broke everything\" moments a beginner runs into.</p>",
+    "type": "callout",
+    "title": "Branch liberally",
+    "variant": "tip"
+  }
+]
+```

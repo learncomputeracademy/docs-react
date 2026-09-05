@@ -1,0 +1,103 @@
+---
+id: "741df819-279f-4a5a-8aed-27f30c31416e"
+title: "Conditional Rendering"
+path: "react/conditional-rendering"
+status: "published"
+meta_title: "Conditional Rendering in React | Learn Computer Academy"
+meta_description: "Showing or hiding parts of a component with &&, the ternary operator, and early returns."
+sort_order: 7
+updated_at: "2026-07-31T11:24:37.116969+00:00"
+---
+
+```json
+[
+  {
+    "id": "JzKK8qt12YbA",
+    "html": "<p>The JSX Syntax lesson mentioned that only expressions work inside <code>{ }</code>, not statements like <code>if</code>. This lesson covers the expression-based patterns React actually uses to show or hide content.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EXW401PUUD2r",
+    "text": "The && Operator",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-operator"
+  },
+  {
+    "id": "xBJnXmSYADJo",
+    "html": "<p>The most common pattern for \"render this, or render nothing\" — relies on the same short-circuit behavior from the <a href=\"/javascript/control-flow/\">JavaScript lesson</a>: if the left side is falsy, JavaScript never evaluates the right side at all:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "SsKRREt3CIou",
+    "code": "function Notification({ hasUnread }) {\n  return (\n    <div>\n      {hasUnread && <span className=\"badge\">New!</span>}\n    </div>\n  );\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "V2wO6MXs2fjR",
+    "html": "<p><code>{count && <span>...</span>}</code> is a real, common bug: if <code>count</code> is <code>0</code>, React renders the literal number <b>0</b> on the page, since <code>0</code> is falsy but is still a value React knows how to render — it's not the same as rendering nothing. Convert to a real boolean first: <code>{count > 0 && ...}</code>.</p>",
+    "type": "callout",
+    "title": "The 0 && trap",
+    "variant": "warning"
+  },
+  {
+    "id": "dKkMtl0ThtIY",
+    "text": "The Ternary Operator",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-ternary-operator"
+  },
+  {
+    "id": "koHPNaU99ZR4",
+    "html": "<p>For an either/or choice — not \"something or nothing\" — the ternary from the <a href=\"/javascript/control-flow/\">JavaScript Control Flow lesson</a> is the standard tool:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "W9TQKxS-G2IY",
+    "code": "function LoginButton({ isLoggedIn }) {\n  return isLoggedIn ? <button>Log out</button> : <button>Log in</button>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "gPirkNR_gf9_",
+    "text": "Early Returns",
+    "type": "heading",
+    "level": 2,
+    "anchor": "early-returns"
+  },
+  {
+    "id": "qNLeZCCXpx-g",
+    "html": "<p>For more involved logic, returning early from the component function entirely is often clearer than nesting ternaries:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "URIEl-B8yZtS",
+    "code": "function UserGreeting({ user }) {\n  if (!user) {\n    return <p>Please log in.</p>;\n  }\n\n  return <h1>Welcome back, {user.name}!</h1>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  },
+  {
+    "id": "NMjPyTiHrEWj",
+    "text": "Rendering Nothing",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rendering-nothing"
+  },
+  {
+    "id": "ZtdHHYLZYR8l",
+    "html": "<p>Returning <code>null</code> from a component renders nothing at all — no empty <code>&lt;div&gt;</code>, nothing in the DOM:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "O4n6OoX6Bl_Z",
+    "code": "function Warning({ show, message }) {\n  if (!show) return null;\n  return <p className=\"warning\">{message}</p>;\n}",
+    "type": "code",
+    "language": "jsx",
+    "runnable": false
+  }
+]
+```

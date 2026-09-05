@@ -1,0 +1,117 @@
+---
+id: "2e46514d-d116-404a-b064-e4e19709bc6f"
+title: "Building an AI Chatbot for a Website"
+path: "ai/building-an-ai-chatbot-for-a-website"
+status: "published"
+meta_title: "Building an AI Chatbot for a Website | Learn Computer Academy"
+meta_description: "A real, working chatbot widget built with plain HTML/CSS/JS and the OpenAI API — plus the critical security mistake almost every beginner makes with it."
+sort_order: 13
+updated_at: "2026-09-03T06:44:56.416022+00:00"
+---
+
+```json
+[
+  {
+    "id": "tG4esuHT1qS3",
+    "html": "<p>This lesson builds one complete, real feature end to end: a chat widget that can be embedded in any website, backed by an AI model through the OpenAI API. No framework required — just HTML, CSS, and JavaScript.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zEoGvFPs8uAI",
+    "text": "Step 1: The HTML Structure",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-1-the-html-structure"
+  },
+  {
+    "id": "HT3WpF9U4Juv",
+    "html": "<p>A toggle button, a chat window, a message area, and an input box:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fzrqCTLCgX_t",
+    "code": "<button id=\"chatToggle\" onclick=\"toggleChat()\">Chat with AI</button>\n\n<div id=\"chatWindow\" class=\"hidden\">\n  <div id=\"chatHeader\">\n    <span>AI Assistant</span>\n    <button onclick=\"toggleChat()\">✕</button>\n  </div>\n  <div id=\"chatMessages\">\n    <div class=\"msg bot\">Hello! How can I help you today?</div>\n  </div>\n  <div id=\"chatInput\">\n    <input type=\"text\" id=\"userInput\" placeholder=\"Type your message...\"\n           onkeypress=\"if(event.key==='Enter') sendMessage()\">\n    <button onclick=\"sendMessage()\">Send</button>\n  </div>\n</div>",
+    "type": "code",
+    "language": "html"
+  },
+  {
+    "id": "T5ZlLJ-xIgLA",
+    "text": "Step 2: The JavaScript That Talks to the AI",
+    "type": "heading",
+    "level": 2,
+    "anchor": "step-2-the-javascript-that-talks-to-the-ai"
+  },
+  {
+    "id": "8HcubKh6BswA",
+    "html": "<p>This function sends the user's message to the AI model and displays the reply, keeping track of the conversation so the AI has context for follow-up questions:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "UPH7T1pP4UCB",
+    "code": "const SYSTEM_PROMPT = `You are a helpful customer service assistant.\nAnswer questions about our courses, fees, and timings. If you don't\nknow something, say you'll connect the user with a staff member.\nKeep responses under 100 words.`;\n\nlet messageHistory = [{ role: \"system\", content: SYSTEM_PROMPT }];\n\nasync function sendMessage() {\n  const input = document.getElementById('userInput');\n  const userText = input.value.trim();\n  if (!userText) return;\n\n  addMessage(userText, 'user');\n  messageHistory.push({ role: \"user\", content: userText });\n  input.value = '';\n  addMessage('...', 'bot');\n\n  const response = await fetch('/api/chat', {\n    method: 'POST',\n    headers: { 'Content-Type': 'application/json' },\n    body: JSON.stringify({ messages: messageHistory })\n  });\n\n  const data = await response.json();\n  removeTypingIndicator();\n\n  if (data.reply) {\n    addMessage(data.reply, 'bot');\n    messageHistory.push({ role: \"assistant\", content: data.reply });\n  } else {\n    addMessage('Sorry, I had trouble responding. Please try again.', 'bot');\n  }\n}",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "s1EwgMpdCD_T",
+    "html": "<p>Notice this version calls <code>/api/chat</code> on your own server — not OpenAI directly. That's deliberate, and it's the single most important lesson in this entire walkthrough.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nW8RGq2iYgb8",
+    "html": "<p>Putting your AI provider's API key directly in frontend JavaScript means <b>anyone who views the page source can steal it</b> and run up charges on your account. This is one of the most common mistakes beginners make, and it is completely avoidable.</p>",
+    "type": "callout",
+    "title": "Critical Security Mistake — Never Do This",
+    "variant": "danger"
+  },
+  {
+    "id": "qB7MxkxnNQFn",
+    "alt": "Diagram contrasting an insecure setup, where the browser talks directly to the AI provider with the API key exposed in page source, against a secure setup, where the browser talks to your own server and the key stays hidden there",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Never let the browser hold the key. Always proxy through your own server.",
+    "publicId": "docs/img/ai/building-an-ai-chatbot-for-a-website-1"
+  },
+  {
+    "id": "58NDLTEZCXnt",
+    "text": "The Correct Pattern: A Server-Side Proxy",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-correct-pattern-a-server-side-proxy"
+  },
+  {
+    "id": "CPPXBdAaFm5u",
+    "html": "<p>The fix is straightforward: your frontend calls a small script on your own server, and only that server-side script holds the real API key. Here's the same feature done safely in PHP:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s2v-GcikcHkG",
+    "code": "<?php\nheader('Content-Type: application/json');\n\n$data = json_decode(file_get_contents('php://input'), true);\n$userMessage = htmlspecialchars($data['message'] ?? '');\n\n$apiKey = 'YOUR_KEY_HERE'; // Safe — users never see this file's contents\n\n$payload = json_encode([\n  'model' => 'gpt-4o-mini',\n  'messages' => [\n    ['role' => 'system', 'content' => 'You are a helpful assistant.'],\n    ['role' => 'user', 'content' => $userMessage],\n  ],\n  'max_tokens' => 300,\n]);\n\n$ch = curl_init('https://api.openai.com/v1/chat/completions');\ncurl_setopt($ch, CURLOPT_RETURNTRANSFER, true);\ncurl_setopt($ch, CURLOPT_POST, true);\ncurl_setopt($ch, CURLOPT_POSTFIELDS, $payload);\ncurl_setopt($ch, CURLOPT_HTTPHEADER, [\n  'Content-Type: application/json',\n  \"Authorization: Bearer $apiKey\",\n]);\n\necho curl_exec($ch);",
+    "type": "code",
+    "language": "php"
+  },
+  {
+    "id": "4Qc-PnbmPVNx",
+    "html": "<p>The browser only ever talks to your own server. The real key never leaves it. This exact pattern — frontend calls your server, your server calls the AI provider — is how every production AI feature is actually built, regardless of language or framework.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9kqAq2e-FEdd",
+    "text": "Customising and Deploying",
+    "type": "heading",
+    "level": 2,
+    "anchor": "customising-and-deploying"
+  },
+  {
+    "id": "ME8XBVgt2Lhc",
+    "html": "<ul><li>Rewrite the system prompt for your specific use case — it's the single biggest lever over how the chatbot behaves.</li><li>Match the colours and styling to your site's branding.</li><li>Embed the widget in any existing page by including its HTML, CSS, and JS files.</li><li>Deploy the proxy script to any server that runs PHP (or the equivalent in your language of choice) — free static hosts alone won't work, since you need server-side code to hide the key.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "vRBtFPquUi_3",
+    "html": "<p>You've now built a real AI feature the safe, professional way. The next lesson zooms out to the broader web development workflow this fits into.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,133 @@
+---
+id: "768e4604-a5aa-456d-9812-da540eeb5db7"
+title: "Logging in Production"
+path: "nodejs/logging-in-production"
+status: "published"
+meta_title: "Logging in Node.js Production Apps | Learn Computer Academy"
+meta_description: "Why console.log stops being enough once an app is actually running on a server, and the structured logging pattern that replaces it."
+sort_order: 28
+updated_at: "2026-09-03T04:41:42.210886+00:00"
+---
+
+```json
+[
+  {
+    "id": "4PGu3DyrJ0hC",
+    "html": "<p><code>console.log</code> works fine on a local machine, but a real running server needs more: log levels, timestamps, and output that can actually be searched later — usually across thousands of lines a day.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "hdpVgVlQ1hXi",
+    "text": "Where console.log Falls Short",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-consolelog-falls-short"
+  },
+  {
+    "id": "HwXcd50-YIul",
+    "rows": [
+      [
+        "No severity level",
+        "An error and a routine info message look identical"
+      ],
+      [
+        "No timestamp by default",
+        "Impossible to know when something happened after the fact"
+      ],
+      [
+        "Plain text only",
+        "Hard to search or filter at scale — structured (JSON) logs can be queried"
+      ],
+      [
+        "Always prints, even in production",
+        "A real logger can be configured to skip verbose logs outside development"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Problem",
+      "What a real logger solves"
+    ]
+  },
+  {
+    "id": "Rz1UW6i65kLS",
+    "text": "A Structured Logger — winston",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-structured-logger-winston"
+  },
+  {
+    "id": "gfsM21kiE6VY",
+    "code": "import winston from 'winston'\n\nconst logger = winston.createLogger({\n  level: 'info',\n  format: winston.format.json(),\n  transports: [new winston.transports.Console()],\n})\n\nlogger.info('Server started', { port: 3000 })\nlogger.error('Database connection failed', { error: err.message })",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "ZzhS9Zv0U57q",
+    "code": "{\"level\":\"info\",\"message\":\"Server started\",\"port\":3000,\"timestamp\":\"2026-09-03T10:00:00.000Z\"}",
+    "type": "code",
+    "language": "json",
+    "runnable": false
+  },
+  {
+    "id": "kpie5pQFx2mV",
+    "text": "Log Levels",
+    "type": "heading",
+    "level": 2,
+    "anchor": "log-levels"
+  },
+  {
+    "id": "rl5vCcW5ymG7",
+    "rows": [
+      [
+        "error",
+        "Something failed and needs attention"
+      ],
+      [
+        "warn",
+        "Something unexpected, but the app kept working"
+      ],
+      [
+        "info",
+        "Normal, notable events — a server starting, a user signing up"
+      ],
+      [
+        "debug",
+        "Detailed information, usually only enabled during active troubleshooting"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Level",
+      "Use for"
+    ]
+  },
+  {
+    "id": "w8sWvqxv8O1X",
+    "text": "Logging Every Request — morgan",
+    "type": "heading",
+    "level": 2,
+    "anchor": "logging-every-request-morgan"
+  },
+  {
+    "id": "OXb89GpTlVgr",
+    "html": "<p><code>morgan</code> is Express-specific middleware (from the earlier Middleware lesson) that automatically logs every incoming request.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YPKMtdfmSqDN",
+    "code": "import morgan from 'morgan'\napp.use(morgan('combined'))\n// Logs: method, URL, status code, response time, for every request automatically",
+    "type": "code",
+    "language": "js",
+    "runnable": false
+  },
+  {
+    "id": "aVMSJblJKWLR",
+    "html": "<p>Never log a password, a full credit card number, or an API secret — even at the debug level. A log file is often less carefully protected than the database itself, and logs frequently get shipped to third-party monitoring tools.</p>",
+    "type": "callout",
+    "title": "What never belongs in a log",
+    "variant": "warning"
+  }
+]
+```

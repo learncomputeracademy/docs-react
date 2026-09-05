@@ -1,0 +1,121 @@
+---
+id: "8c59a8f8-11ce-4fbb-8242-91d13efe3772"
+title: "TCL — Transaction Control Language"
+path: "sql/tcl"
+status: "published"
+meta_title: "SQL TCL — Transaction Control Language | Learn Computer Academy"
+meta_description: "COMMIT, ROLLBACK, and SAVEPOINT — the SQL commands that manage groups of changes as a single unit, so they either all happen or none do."
+sort_order: 7
+updated_at: "2026-07-29T06:31:06.581367+00:00"
+---
+
+```json
+[
+  {
+    "id": "lYL_iKjVkke4",
+    "html": "<p><b>TCL</b> statements manage groups of changes as a single unit, called a <b>transaction</b> — so a set of related changes either all happen, or none do. This is the last of the four SQL command families.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JN5UNUZEetDq",
+    "text": "COMMIT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "commit"
+  },
+  {
+    "id": "j2RDhaqPtE-G",
+    "html": "<p>Saves all changes made in the current transaction permanently.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "0GkWJiyUleUh",
+    "code": "COMMIT;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "2P-PCQyz19FR",
+    "html": "<ul><li>Makes every change since the last COMMIT permanent.</li><li>Cannot be undone once committed.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "DgY_tUx0Dqba",
+    "html": "<p>Forgetting to <code>COMMIT</code> and losing changes when the session ends.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "IdWGodIDhV4g",
+    "text": "ROLLBACK",
+    "type": "heading",
+    "level": 2,
+    "anchor": "rollback"
+  },
+  {
+    "id": "FOR6v-_c5y1L",
+    "html": "<p>Cancels all uncommitted changes in the current transaction.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "IbFmX40kThB4",
+    "code": "ROLLBACK;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "_kb0x6oUZXY1",
+    "html": "<ul><li>Cancels any changes made since the last COMMIT.</li><li>Returns the database to its previous, safe state.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "B1KCt1UpunAw",
+    "html": "<p>Assuming <code>ROLLBACK</code> can undo changes that were already committed — it can't.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "LUnuuta58cow",
+    "text": "SAVEPOINT",
+    "type": "heading",
+    "level": 2,
+    "anchor": "savepoint"
+  },
+  {
+    "id": "elK2zz--pj3g",
+    "html": "<p>Marks a point inside a transaction that you can roll back to, without undoing everything.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ueaVsL6usnyM",
+    "code": "SAVEPOINT savepoint_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "cLqnNt2UxddP",
+    "code": "SAVEPOINT BeforeUpdate;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "p1kYcY-kcHSh",
+    "html": "<ul><li>Creates a named restore point inside the current transaction.</li><li>A later ROLLBACK TO can return to this point instead of the very start.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "5fErL19aRIUW",
+    "html": "<p>Relying on <code>SAVEPOINT</code> across separate sessions — it only lives within one transaction.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "d_prWHofsr6t",
+    "html": "<p>With all four SQL families covered — DDL, DML, DCL, and TCL — the next set of lessons moves into querying: filtering, sorting, and grouping the data you now know how to define, change, control, and commit.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,247 @@
+---
+id: "1caf3cc7-9c3b-479e-ab08-2d4d293adbf3"
+title: "Advanced Prompt Engineering"
+path: "ai/advanced-prompt-engineering"
+status: "published"
+meta_title: "Advanced Prompt Engineering | Learn Computer Academy"
+meta_description: "Named prompting techniques used professionally — zero-shot, few-shot, chain-of-thought, system prompts, structured output, and negative prompting."
+sort_order: 7
+updated_at: "2026-09-03T06:50:17.661547+00:00"
+---
+
+```json
+[
+  {
+    "id": "jgY4DMZan_Jz",
+    "html": "<p>The five principles from the last lesson cover most everyday prompting. This lesson covers named, more deliberate techniques used in professional and technical work — the same ones companies use when building AI-powered products, not just chatting casually.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YSIEBVYms2uQ",
+    "text": "Zero-Shot Prompting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "zero-shot-prompting"
+  },
+  {
+    "id": "-t3XAavmeUTn",
+    "html": "<p>You give the AI a task with no examples, relying entirely on what it already learned during training. This works well for common, familiar tasks:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uE_SlrDia0D0",
+    "code": "Classify the following customer reviews as Positive, Negative, or Neutral:\n\n\"The product arrived quickly but the packaging was damaged.\"\n\"Absolutely love this! Best purchase I've made.\"\n\"It's okay, nothing special.\"",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "Z6l0jc_inPPX",
+    "html": "<p>Zero-shot fails more often on unusual or highly specific tasks — that's exactly when the next technique helps.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "uC9nZ7CZmPGu",
+    "text": "Few-Shot Prompting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "few-shot-prompting"
+  },
+  {
+    "id": "lcOFTvMUVjH3",
+    "html": "<p>You provide 2–5 example input/output pairs before the real task, showing the model the exact pattern you want:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "BgW4xIMxJsQ-",
+    "code": "Translate English to formal Bengali:\n\nEnglish: \"Please submit your application by Friday.\"\nBengali: \"অনুগ্রহ করে শুক্রবারের মধ্যে আপনার আবেদন জমা দিন।\"\n\nEnglish: \"The meeting has been rescheduled to 3 PM.\"\nBengali: \"সভাটি বিকেল ৩টায় পুনর্নির্ধারিত হয়েছে।\"\n\nEnglish: \"We regret to inform you that your application was unsuccessful.\"\nBengali:",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "AX2LhvwOiIIM",
+    "html": "<p>Use few-shot whenever the model keeps giving inconsistent results or the wrong format — showing examples is far more reliable than describing the format in words.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "72v2-f4wV0Dw",
+    "text": "Chain-of-Thought (CoT) Prompting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "chain-of-thought-cot-prompting"
+  },
+  {
+    "id": "CRz2aPlMavR1",
+    "html": "<p>Telling the model to think step by step before answering dramatically improves accuracy on reasoning, maths, and logic:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZrzjPUsfxTDY",
+    "code": "Without \"think step by step\" (often wrong):\nQ: A train leaves City A at 8 AM going 80 km/h, another leaves City B\nat 10 AM going 100 km/h, and the cities are 1,400 km apart. When do\nthey meet?\nA: [model often guesses wrong]\n\nWith \"think step by step\" (much more accurate):\nQ: [same question]\nThink step by step. Show each calculation.\nA: Step 1: By 10 AM, the first train has travelled 80 × 2 = 160 km...\n[model proceeds correctly]",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "BPnyVes-FP9I",
+    "html": "<p>Add \"think step by step\" or \"show your working\" to any prompt involving reasoning, maths, code debugging, or logical deduction — it consistently and noticeably improves the answer.</p>",
+    "type": "callout",
+    "title": "One Phrase, Consistently Better Answers",
+    "variant": "tip"
+  },
+  {
+    "id": "qH4FJ2c4KyTB",
+    "alt": "Colorful infographic comparing three prompting techniques — zero-shot with no examples, few-shot with 2-3 examples first, and chain-of-thought asking the model to think step by step",
+    "type": "image",
+    "width": 1344,
+    "height": 752,
+    "caption": "Three named techniques, each solving a different kind of prompting problem.",
+    "publicId": "docs/img/ai/advanced-prompt-engineering-1"
+  },
+  {
+    "id": "RAZTV2RArH0k",
+    "text": "System Prompts and Persona Assignment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "system-prompts-and-persona-assignment"
+  },
+  {
+    "id": "pehk99YRL1f7",
+    "html": "<p>A <b>system prompt</b> is an instruction given to the AI before the actual conversation begins, setting its role, personality, and constraints. In a normal chat interface, you can simulate one by putting detailed instructions right at the start of the conversation:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZTyNMPdP5k-3",
+    "code": "You are an expert full-stack web developer. You write clean, secure,\nwell-commented code. You always:\n1. Follow standard security best practices\n2. Validate all user input\n3. Use parameterised queries for any database code\n4. Explain what each code block does in a short comment\n5. Point out security issues in any code I show you\n\nRespond only in code plus a brief explanation. No lengthy introductions.",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "gBUqYIsJCVqI",
+    "html": "<p>The underlying AI model is identical either way — the system prompt is what turns a generic assistant into a specialised tool. This is exactly how companies build AI-powered products: a customer-service bot, a coding assistant, and a writing coach can all be the same base model with a different system prompt.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pbR0IdVc8Bkw",
+    "text": "Structured Output Prompting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "structured-output-prompting"
+  },
+  {
+    "id": "Ysas_eBql7Ab",
+    "html": "<p>Professional workflows often need AI output in a specific format another tool can actually use — not free-flowing prose. Ask for it explicitly:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "P3h6R9CRNxTQ",
+    "code": "Extract the following information from this customer complaint email\nand return it as valid JSON only, with no other text:\n\nEmail: \"Dear support, I ordered a blue kurta (order #A12345) on\n15 June but received a red one. Please replace it immediately.\nMy contact is name@email.com.\"\n\nReturn this exact structure:\n{\n  \"order_number\": \"\",\n  \"issue_type\": \"\",\n  \"product\": \"\",\n  \"customer_email\": \"\",\n  \"priority\": \"low/medium/high\"\n}",
+    "type": "code",
+    "language": "text"
+  },
+  {
+    "id": "yygjy0UheM4r",
+    "html": "<p>This turns an AI assistant from a chat tool into a data-processing step that can feed directly into other software — genuinely useful the moment you're combining AI with any other tool or workflow.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "JHgOWhmFDhTv",
+    "text": "Negative Prompting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "negative-prompting"
+  },
+  {
+    "id": "PRiXld4Fz37q",
+    "html": "<p>Sometimes it's just as important to say what you don't want: \"explain this without using any technical jargon,\" or \"list ideas, but don't include anything that requires a budget.\" Stating a constraint directly is often more reliable than hoping the model infers it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "GeGfADPtwU14",
+    "html": "<p>One more advanced topic — <b>prompt injection</b>, where malicious text hidden inside content an AI processes tries to hijack its instructions — is a real security concern for anyone building AI-powered tools, not just a prompting technique. It's covered properly in this section's lesson on AI security.</p>",
+    "type": "callout",
+    "title": "A Security Topic, Not Just a Prompting Trick",
+    "variant": "warning"
+  },
+  {
+    "id": "igXVgaNV9ZAT",
+    "text": "Controlling Output: Sampling Parameters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "controlling-output-sampling-parameters"
+  },
+  {
+    "id": "nEFjCDI7T1oy",
+    "html": "<p>Beyond the prompt itself, most AI tools — especially when used through an API or a \"playground\" — expose settings that control <i>how</i> the model picks its next word. Knowing these helps explain why the same prompt can give a different answer twice, and lets you dial an AI toward consistency or creativity on purpose.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XoYgxONCcpBv",
+    "rows": [
+      [
+        "Temperature",
+        "Randomness. Low (near 0) gives focused, repeatable answers — good for facts and code. High (near 1-2) gives varied, creative answers — good for brainstorming."
+      ],
+      [
+        "Top-K / Top-P",
+        "How many candidate next-words the model is allowed to consider. Lower values narrow it to the most likely few words; higher values allow more variety."
+      ],
+      [
+        "Max Tokens",
+        "A hard cap on response length. Useful to stop a runaway answer or keep API costs predictable."
+      ],
+      [
+        "Stop Sequences",
+        "Text that tells the model to stop generating the moment it appears — e.g. stopping right after a closing <code>```</code> in a code block."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Setting",
+      "What it controls"
+    ]
+  },
+  {
+    "id": "OkcRL0ahEa0e",
+    "html": "<p>You won't see all of these in every AI chat app — many hide them behind a simple \"creative / balanced / precise\" toggle. But the underlying idea is the same: temperature is the one worth knowing by name, since it's the setting you'll most often see exposed directly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "C1I6Hd6rURgn",
+    "text": "A Few More Reasoning Techniques",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-more-reasoning-techniques"
+  },
+  {
+    "id": "1Uu296PvuC5v",
+    "html": "<p>Chain-of-thought covers most everyday cases. A few related techniques go further for harder problems — worth recognising by name even if you reach for them rarely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bm8RfqXci4Zz",
+    "rows": [
+      [
+        "Step-back prompting",
+        "Ask the model a broader, more general question first (\"what pricing models exist for SaaS products?\"), then use that answer to tackle the specific question. Helps when a direct answer tends to be too narrow or misses context."
+      ],
+      [
+        "Self-consistency",
+        "Ask the same question multiple times (or with slightly different phrasing) and go with the answer that comes up most often. Catches cases where one single attempt happens to reason its way to a wrong answer."
+      ],
+      [
+        "ReAct (Reason + Act)",
+        "The model alternates between reasoning about what to do and actually taking an action — like searching the web or calling a tool — using each result to decide the next step. This is the core idea behind how AI agents work, covered in this course's own agents lesson."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Technique",
+      "What it does"
+    ]
+  },
+  {
+    "id": "rIAqv6sqxUVF",
+    "html": "<p>You now have a genuinely professional prompting toolkit. The next two lessons put all of this to work on one of AI's most visible capabilities: generating images.</p>",
+    "type": "richtext"
+  }
+]
+```

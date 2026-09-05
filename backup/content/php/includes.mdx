@@ -1,0 +1,105 @@
+---
+id: "fd6fa0df-e792-4aab-a779-b0c1837b1217"
+title: "Includes and Requires"
+path: "php/includes"
+status: "published"
+meta_title: "PHP Includes and Requires | Learn Computer Academy"
+meta_description: "Splitting PHP code across multiple files with include, require, and their _once variants, and why that matters for real projects."
+sort_order: 21
+updated_at: "2026-07-30T09:08:41.065783+00:00"
+---
+
+```json
+[
+  {
+    "id": "vrvmuaR4xN3Q",
+    "html": "<p>Real websites are never one giant PHP file — headers, footers, and reusable logic get split into their own files and pulled in wherever they're needed. PHP has four keywords for this, and the differences between them matter.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mjpsPeUO2U_m",
+    "text": "include and require",
+    "type": "heading",
+    "level": 2,
+    "anchor": "include-and-require"
+  },
+  {
+    "id": "347YL4DyHPeF",
+    "html": "<p>Both pull the contents of another PHP file into the current one, as if it had been typed there directly:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DwJpeme0Chao",
+    "code": "// header.php\n<?php\n  $siteName = \"Learn Computer Academy\";\n?>\n<header><h1><?php echo $siteName; ?></h1></header>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "QGtX5pv0RkMQ",
+    "code": "// index.php\n<?php\n  include \"header.php\";\n?>\n<p>Page content goes here.</p>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3diFxy0kjkmH",
+    "html": "<p>The difference is what happens if the file is missing: <code>include</code> raises a warning and the script keeps running; <code>require</code> raises a fatal error and stops the script entirely.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "gyKs-iLmUKf4",
+    "text": "Which One to Use",
+    "type": "heading",
+    "level": 2,
+    "anchor": "which-one-to-use"
+  },
+  {
+    "id": "usAm0WqvLM_w",
+    "rows": [
+      [
+        "include",
+        "Warning, script continues",
+        "Optional pieces — the page still works without it"
+      ],
+      [
+        "require",
+        "Fatal error, script stops",
+        "Essential pieces — the page is broken without it (like a database connection file)"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Keyword",
+      "If the file is missing",
+      "Use for"
+    ]
+  },
+  {
+    "id": "WQpWZ69hvVF0",
+    "text": "The _once Variants",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-_once-variants"
+  },
+  {
+    "id": "ncaGLTF-wLd9",
+    "html": "<p><code>include_once</code> and <code>require_once</code> do the same job, but skip re-including a file that's already been included once during this request — essential for files that define a function or class, since defining the same function twice is a fatal error:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iGP-4uaNynIq",
+    "code": "<?php\n  require_once \"db-connection.php\";\n  require_once \"db-connection.php\"; // silently skipped, no error\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "H1EXrNyAdUJD",
+    "html": "<p>As a practical default: use <code>require_once</code> for anything defining functions or classes, and plain <code>include</code> for optional display fragments like a promotional banner. This single rule covers the vast majority of real cases.</p>",
+    "type": "callout",
+    "title": "A practical default",
+    "variant": "tip"
+  }
+]
+```

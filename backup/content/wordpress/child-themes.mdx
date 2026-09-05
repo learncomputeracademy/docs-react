@@ -1,0 +1,114 @@
+---
+id: "cd394af8-52fe-4a67-97e1-8291a424883e"
+title: "Child Themes"
+path: "wordpress/child-themes"
+status: "published"
+meta_title: "WordPress Child Themes | Learn Computer Academy"
+meta_description: "Customizing or extending an existing theme safely — changes that survive the parent theme's next update."
+sort_order: 29
+updated_at: "2026-09-03T04:11:00.323104+00:00"
+---
+
+```json
+[
+  {
+    "id": "WDNfuJ05T6fm",
+    "html": "<p>Editing a theme's files directly works, until the theme gets updated — every direct edit is silently overwritten. A <b>child theme</b> inherits everything from a parent theme while keeping customizations in a separate folder the update process never touches.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_AIyHyWSL6jh",
+    "text": "A Child Theme's Minimum Files",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-child-themes-minimum-files"
+  },
+  {
+    "id": "nxYgOav6sJv6",
+    "html": "<p>Just two files are required — a stylesheet declaring the relationship, and a functions file.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FfUUj51chUzd",
+    "code": "/* wp-content/themes/my-child-theme/style.css */\n/*\nTheme Name: My Child Theme\nTemplate: wgh-starter\nVersion: 1.0\n*/",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "wunvI_G_QyAM",
+    "html": "<p>The <code>Template:</code> line — matching the parent theme's folder name exactly — is what makes it a child theme rather than a standalone one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iTQcz1kV0zFb",
+    "text": "Loading the Parent's Styles",
+    "type": "heading",
+    "level": 2,
+    "anchor": "loading-the-parents-styles"
+  },
+  {
+    "id": "yVENkIzfIKAt",
+    "html": "<p>A child theme's own <code>style.css</code> replaces the parent's entirely by default — its CSS needs to be loaded explicitly, then the child's own rules enqueued after it to override anything needed.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7_RjJE8BI_Y6",
+    "code": "// wp-content/themes/my-child-theme/functions.php\nfunction wgh_child_enqueue_styles() {\n    wp_enqueue_style('parent-style', get_template_directory_uri() . '/style.css');\n    wp_enqueue_style('child-style', get_stylesheet_uri(), ['parent-style']);\n}\nadd_action('wp_enqueue_scripts', 'wgh_child_enqueue_styles');",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "tuGKSoP-wn9C",
+    "text": "get_template_directory() vs. get_stylesheet_directory()",
+    "type": "heading",
+    "level": 2,
+    "anchor": "get_template_directory-vs-get_stylesheet_directory"
+  },
+  {
+    "id": "45cYZKKjzLA8",
+    "rows": [
+      [
+        "get_template_directory()",
+        "The parent theme's folder"
+      ],
+      [
+        "get_stylesheet_directory()",
+        "The active theme's folder — the child theme, if one is active"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Always points to"
+    ]
+  },
+  {
+    "id": "HdFupw5-7_sj",
+    "text": "Overriding a Single Template File",
+    "type": "heading",
+    "level": 2,
+    "anchor": "overriding-a-single-template-file"
+  },
+  {
+    "id": "u2eo3WNIZVTW",
+    "html": "<p>Placing a file with the exact same name and path in the child theme overrides just that one file — every other template still comes from the parent, unchanged.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MZDBmJEXg8Ig",
+    "code": "my-child-theme/\n├── style.css\n├── functions.php\n└── single.php    ← only this template is overridden; page.php, index.php, etc. still load from the parent",
+    "type": "code",
+    "language": "text",
+    "runnable": false
+  },
+  {
+    "id": "tBJKqyuhkVh2",
+    "html": "<p>A child theme is the standard, safe way to make any change to a theme not built for the site — including a purchased or downloaded theme whose updates need to keep working normally.</p>",
+    "type": "callout",
+    "title": "When to reach for one",
+    "variant": "tip"
+  }
+]
+```

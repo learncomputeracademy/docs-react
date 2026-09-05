@@ -1,0 +1,124 @@
+---
+id: "50ad54a3-3439-4e9f-ae2b-e69455622545"
+title: "Introduction to OOP"
+path: "python/oop-introduction"
+status: "published"
+meta_title: "Introduction to OOP in Python | Learn Computer Academy"
+meta_description: "The basics of object-oriented programming in Python — classes, objects, __init__, and self."
+sort_order: 22
+updated_at: "2026-08-04T11:39:32.803524+00:00"
+---
+
+```json
+[
+  {
+    "id": "PAryRY6yyoPB",
+    "html": "<p>Everything up to this point has been <b>procedural</b> — a script running top to bottom. <b>Object-oriented programming (OOP)</b> groups related data and behavior together into a single unit called an <b>object</b>, with Python's own syntax for it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_Vz03ura_rIR",
+    "text": "Classes and Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "classes-and-objects"
+  },
+  {
+    "id": "ASKv_NzuLEfH",
+    "html": "<p>A <b>class</b> is a blueprint; an <b>object</b> is one actual instance built from it — same relationship as an architectural plan and an actual house built from it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pANU7M_TQekV",
+    "code": "class Student:\n    def __init__(self, name, course):\n        self.name = name\n        self.course = course\n\n    def introduce(self):\n        return f\"Hi, I'm {self.name}, studying {self.course}.\"\n\nstudent1 = Student(\"Priya\", \"Web Development\")\nprint(student1.introduce())  # \"Hi, I'm Priya, studying Web Development.\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "LUePxyqLMHk4",
+    "text": "__init__ and self",
+    "type": "heading",
+    "level": 2,
+    "anchor": "__init__-and-self"
+  },
+  {
+    "id": "gOwnKzMWgILh",
+    "html": "<p><code>__init__</code> is Python's constructor — it runs automatically when <code>Student(...)</code> is called. <code>self</code> refers to \"this particular object\" — Python makes it an explicit first parameter on every method, rather than something implicitly available the way some other languages handle it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iWH08NqA8aa4",
+    "alt": "Isometric diagram showing a class blueprint labeled Student on one side, with dashed arrows producing multiple distinct object instances on the other side, each a similar shape but a different accent color variant",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "A class is the blueprint; each object built from it is a separate, independent instance.",
+    "publicId": "docs/img/python/oop-introduction-1"
+  },
+  {
+    "id": "7XxnLbz9eEj8",
+    "text": "Multiple Independent Objects",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-independent-objects"
+  },
+  {
+    "id": "eU1yMij19K5q",
+    "code": "student2 = Student(\"Amit\", \"Graphic Design\")\n\nprint(student1.name)  # still \"Priya\" — unaffected by student2\nprint(student2.name)  # \"Amit\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "XbTH_3RceUZt",
+    "text": "Properties and Methods, Direct Access",
+    "type": "heading",
+    "level": 2,
+    "anchor": "properties-and-methods-direct-access"
+  },
+  {
+    "id": "Kpf4IgUn35zZ",
+    "html": "<p>Python uses a plain dot for both properties and methods — there's only one access syntax to remember, not a different one for objects vs. everything else:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "-_pwW64vczyL",
+    "code": "print(student1.name)         # property access\nprint(student1.introduce())  # method call",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "-cwUMPn7b7nd",
+    "text": "Class Variables vs. Instance Variables",
+    "type": "heading",
+    "level": 2,
+    "anchor": "class-variables-vs-instance-variables"
+  },
+  {
+    "id": "a7NMT81kcs9d",
+    "html": "<p>Everything so far — <code>self.name</code>, <code>self.course</code> — is an <b>instance variable</b>: its own separate copy per object. A <b>class variable</b>, defined directly inside the class body instead of inside <code>__init__</code>, is shared by every instance:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Zk4XHw3WMUx8",
+    "code": "class Student:\n    school = \"Learn Computer Academy\"  # class variable — one copy, shared by all\n\n    def __init__(self, name):\n        self.name = name  # instance variable — separate per object\n\ns1 = Student(\"Priya\")\ns2 = Student(\"Amit\")\nprint(s1.school, s2.school)  # both \"Learn Computer Academy\" — same shared value",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "_DQal_lpW9er",
+    "html": "<p>Use a class variable for something genuinely shared by every instance (a constant, a shared counter) and an instance variable for anything that varies per object — which, in practice, is most of what a class holds.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "H0pV8yhHs7oW",
+    "html": "<p>The next lesson builds directly on this one, covering <b>inheritance</b> (one class building on another) and <b>polymorphism</b> (different classes responding to the same method call in their own way).</p>",
+    "type": "callout",
+    "title": "More is coming immediately",
+    "variant": "note"
+  }
+]
+```

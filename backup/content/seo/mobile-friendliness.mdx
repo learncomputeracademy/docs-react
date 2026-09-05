@@ -1,0 +1,86 @@
+---
+id: "f7951a3e-33cd-4fd5-bc98-3aa80f56d346"
+title: "Mobile-Friendliness"
+path: "seo/mobile-friendliness"
+status: "published"
+meta_title: "Mobile-Friendliness and Mobile-First Indexing | Learn Computer Academy"
+meta_description: "Why search engines evaluate the mobile version of your site rather than the desktop one, and what that changes about how you build."
+sort_order: 17
+updated_at: "2026-08-05T07:22:04.398046+00:00"
+---
+
+```json
+[
+  {
+    "id": "DZK_NVXB2X18",
+    "html": "<p>Google indexes the web <b>mobile-first</b>: the mobile version of a page is the version used for indexing and ranking. If your site behaves differently on a phone than on a desktop, the phone version is the one that counts.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Z3fomxTVPLtt",
+    "text": "What Mobile-First Indexing Means in Practice",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-mobile-first-indexing-means-in-practice"
+  },
+  {
+    "id": "4MpnDbRt8sb8",
+    "html": "<p>The consequence people miss: content that exists only on the desktop layout is effectively invisible. If a responsive design hides a section on small screens, or a mobile template omits text the desktop one includes, that content is not what the engine is evaluating.</p><p>This makes \"hide it on mobile to save space\" a decision with SEO consequences, not just a layout choice. Collapsing content behind a tap to expand is generally fine — the content is still in the HTML. Removing it from the mobile markup entirely is not.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QGcfwmN3f8ZZ",
+    "html": "<p>The same logic applies to structured data, headings, internal links, and images. Whatever is missing from the mobile version is missing, full stop. Checking your page on a narrow viewport is checking the version that matters.</p>",
+    "type": "callout",
+    "variant": "warning"
+  },
+  {
+    "id": "ptnkiXjjhiGt",
+    "text": "Responsive Design Is the Recommended Approach",
+    "type": "heading",
+    "level": 2,
+    "anchor": "responsive-design-is-the-recommended-approach"
+  },
+  {
+    "id": "9ae4BB7g-PSr",
+    "html": "<p>Serving one set of HTML that adapts through CSS avoids the whole class of problem: there is only one version, so it cannot diverge. It also means one URL per page, which keeps canonicals and links simple.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "9RhtlyCfJ7Sg",
+    "code": "<!-- Required for responsive layouts to work at all -->\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">",
+    "type": "code",
+    "language": "html",
+    "runnable": false
+  },
+  {
+    "id": "Bzyy0QSuyP9I",
+    "html": "<p>Without that viewport tag a mobile browser assumes a desktop-width page and zooms out, producing the tiny unreadable rendering that responsive CSS was meant to prevent. It is one line, and omitting it undoes everything else.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WgQnWXBPeaNL",
+    "text": "What Makes a Page Usable on a Phone",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-makes-a-page-usable-on-a-phone"
+  },
+  {
+    "id": "ZCiloBY348t0",
+    "html": "<ul><li><b>Text readable without zooming.</b> If someone has to pinch to read a paragraph, the font is too small.</li><li><b>Tap targets large enough and spaced apart.</b> Links crowded together get mis-tapped.</li><li><b>No horizontal scrolling.</b> Content wider than the screen is a common symptom of a fixed-width element that never got a responsive treatment — wide tables and code blocks are the usual culprits, and they should scroll inside their own container rather than pushing the page sideways.</li><li><b>Interstitials that do not block the content.</b> A popup covering the page immediately on arrival is bad for people and is explicitly discouraged by search engines.</li><li><b>Forms that work with a touch keyboard.</b> Correct <code>type</code> attributes bring up the right keyboard and save real frustration.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "byxUAn42M6N5",
+    "text": "Testing It",
+    "type": "heading",
+    "level": 2,
+    "anchor": "testing-it"
+  },
+  {
+    "id": "_d2j1l9J-qVw",
+    "html": "<p>Browser developer tools can simulate a narrow viewport, which catches layout problems quickly. But a simulator does not reproduce a real phone's processor speed, network conditions, or touch accuracy — testing on an actual device, ideally a mid-range one on a mobile connection rather than the newest flagship on office Wi-Fi, reveals problems a desktop simulation never will.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,110 @@
+---
+id: "6af88bc2-4f0f-4ffb-b0b0-b8536f4caed7"
+title: "Superglobals Overview"
+path: "php/superglobals"
+status: "published"
+meta_title: "PHP Superglobals | Learn Computer Academy"
+meta_description: "PHP's superglobal arrays — $_GET, $_POST, $_SESSION, $_SERVER, and $_COOKIE — the built-in variables that connect PHP to the web request itself."
+sort_order: 18
+updated_at: "2026-07-30T09:08:40.158479+00:00"
+---
+
+```json
+[
+  {
+    "id": "7FTQC8UrSBQt",
+    "html": "<p>Everything so far has been about variables <i>you</i> create. <b>Superglobals</b> are different — they're built-in associative arrays PHP fills in automatically, carrying information about the actual web request currently being handled. This is where PHP stops being \"just a scripting language\" and starts being specifically a <i>web</i> scripting language.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rn_Mi4C3FMzM",
+    "text": "The Superglobal Family",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-superglobal-family"
+  },
+  {
+    "id": "2utS6dxRMeLX",
+    "rows": [
+      [
+        "$_GET",
+        "Data sent in the URL's query string (?name=value)"
+      ],
+      [
+        "$_POST",
+        "Data sent in a form submission's body"
+      ],
+      [
+        "$_SERVER",
+        "Information about the server and the current request (URL, method, headers)"
+      ],
+      [
+        "$_SESSION",
+        "Data that persists across multiple page visits for one visitor (needs session_start())"
+      ],
+      [
+        "$_COOKIE",
+        "Small pieces of data stored in the visitor's browser between visits"
+      ],
+      [
+        "$_FILES",
+        "Information about any file the visitor uploaded"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Superglobal",
+      "Contains"
+    ]
+  },
+  {
+    "id": "HQHfWLQD5NZ2",
+    "html": "<p>The next several lessons cover the most-used ones — <code>$_GET</code>/<code>$_POST</code>, then <code>$_SESSION</code>/<code>$_COOKIE</code> — in real depth. This lesson is the map before the detail.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "bxVXUcXdP4-F",
+    "text": "Reading a Query String Value",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-query-string-value"
+  },
+  {
+    "id": "akf0UO6A143n",
+    "code": "<?php\n  // If the URL is page.php?name=Priya\n  echo $_GET[\"name\"]; // \"Priya\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qm9ExH6ULWlO",
+    "text": "A Few Useful $_SERVER Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-few-useful-_server-values"
+  },
+  {
+    "id": "_A4WzqupBHX5",
+    "code": "<?php\n  echo $_SERVER[\"REQUEST_METHOD\"]; // \"GET\" or \"POST\"\n  echo $_SERVER[\"PHP_SELF\"];        // the current script's path\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "M42I6-LRhRn_",
+    "alt": "Isometric diagram showing a browser request arriving at a PHP server, with arrows splitting into the $_GET, $_POST, $_SESSION, and $_SERVER superglobal arrays",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Superglobals are how PHP hands you the details of the current request.",
+    "publicId": "docs/img/php/superglobals-1"
+  },
+  {
+    "id": "5aBupzgPQJbP",
+    "html": "<p>Every superglobal holds data that came from <b>outside your script</b> — the visitor, their browser, or the request itself. Never trust it blindly: a value in <code>$_GET</code> or <code>$_POST</code> can be absolutely anything, including something malicious, regardless of what a form was designed to send. Validation and security get their own lesson later in this section.</p>",
+    "type": "callout",
+    "title": "Superglobal data is never trusted by default",
+    "variant": "warning"
+  }
+]
+```

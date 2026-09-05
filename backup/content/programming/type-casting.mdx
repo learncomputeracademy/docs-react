@@ -5,59 +5,89 @@ path: "programming/type-casting"
 status: "published"
 meta_title: "Type Casting | Learn Computer Academy"
 sort_order: 5
-updated_at: "2026-07-25T08:16:49.981168+00:00"
+updated_at: "2026-08-18T14:27:46.206594+00:00"
 ---
 
 ```json
 [
   {
-    "id": "zaPVG-oXWRXL",
+    "id": "XJYeB09iifal",
     "html": "<p>Type casting (also called type conversion) means converting a value from one type to another — turning the text <code>\"42\"</code> into the number <code>42</code>, for example. It matters because a value read from a form, a file, or user input often arrives as text, even when it represents a number.</p>",
     "type": "richtext"
   },
   {
-    "id": "fkU2HYtlmXLS",
+    "id": "adhL-ZUCLZ2Z",
     "text": "Converting text to a number",
     "type": "heading",
     "level": 2,
     "anchor": "converting-text-to-a-number"
   },
   {
-    "id": "CEYQUH7vlclw",
+    "id": "OKtnHGdZw8Do",
     "code": "let input = \"25\";\nlet age = Number(input);\n\nconsole.log(age);         // 25\nconsole.log(age + 5);     // 30 — real addition now, not text joining",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$input = \"25\";\n$age = (int) $input;\n\necho $age;      // 25\necho $age + 5;  // 30 — real addition now, not text joining",
+        "language": "php"
+      },
+      {
+        "code": "input_value = \"25\"\nage = int(input_value)\n\nprint(age)      # 25\nprint(age + 5)  # 30 — real addition now, not text joining",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "2HIZBpTF59at",
+    "id": "i2b8EEdFc3cL",
     "text": "Converting a number to text",
     "type": "heading",
     "level": 2,
     "anchor": "converting-a-number-to-text"
   },
   {
-    "id": "guO8IxkMWRwW",
+    "id": "wNRfFEKs2TTN",
     "code": "let count = 7;\nlet message = \"You have \" + String(count) + \" items.\";\n\nconsole.log(message); // \"You have 7 items.\"",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\n$count = 7;\n$message = \"You have \" . strval($count) . \" items.\";\n\necho $message; // \"You have 7 items.\"",
+        "language": "php"
+      },
+      {
+        "code": "count = 7\nmessage = \"You have \" + str(count) + \" items.\"\n\nprint(message)  # \"You have 7 items.\"",
+        "language": "python"
+      }
+    ]
   },
   {
-    "id": "oyx39rNqoVP_",
+    "id": "ohXmy5VsP2vc",
     "text": "What happens if the conversion fails",
     "type": "heading",
     "level": 2,
     "anchor": "what-happens-if-the-conversion-fails"
   },
   {
-    "id": "5jEDtEdJ3aCz",
+    "id": "UOKpBOzsnXSz",
     "html": "<p>Not every piece of text is a valid number. Converting something that isn't produces a special value called <code>NaN</code> (\"Not a Number\") rather than crashing the program.</p>",
     "type": "richtext"
   },
   {
-    "id": "K_Kj6jApG2Ce",
+    "id": "ouk6brKDpmwm",
     "code": "console.log(Number(\"hello\")); // NaN\nconsole.log(Number(\"42\"));   // 42",
     "type": "code",
-    "language": "javascript"
+    "language": "javascript",
+    "variants": [
+      {
+        "code": "<?php\necho (int) \"hello\"; // 0 — PHP doesn't error, it just returns 0\necho (int) \"42\";    // 42",
+        "language": "php"
+      },
+      {
+        "code": "try:\n    print(int(\"hello\"))  # raises ValueError: invalid literal for int()\nexcept ValueError as e:\n    print(e)\n\nprint(int(\"42\"))  # 42",
+        "language": "python"
+      }
+    ]
   }
 ]
 ```

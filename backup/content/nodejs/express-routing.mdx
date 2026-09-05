@@ -1,0 +1,146 @@
+---
+id: "8eaa2d59-cd9d-4967-91b5-efae82d14a32"
+title: "Routing with Express"
+path: "nodejs/express-routing"
+status: "published"
+meta_title: "Routing with Express.js | Learn Computer Academy"
+meta_description: "Handle different HTTP methods and read dynamic values out of a URL with Express route parameters and query strings."
+sort_order: 20
+updated_at: "2026-08-05T05:47:58.835593+00:00"
+---
+
+```json
+[
+  {
+    "id": "IWrZrisER9Hh",
+    "html": "<p>A <b>route</b> pairs an HTTP method and a URL pattern with a function to run when a request matches both. This lesson covers the pieces beyond the plain <code>app.get()</code> calls from the last lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "s-xcFFhG8cou",
+    "text": "HTTP Methods",
+    "type": "heading",
+    "level": 2,
+    "anchor": "http-methods"
+  },
+  {
+    "id": "4xUw1pMilynj",
+    "html": "<p>Express has a matching method for each HTTP verb:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "RGLaHs03hnNU",
+    "code": "app.get('/products', (req, res) => { /* fetch and list products */ })\napp.post('/products', (req, res) => { /* create a new product */ })\napp.put('/products/:id', (req, res) => { /* replace a product */ })\napp.delete('/products/:id', (req, res) => { /* delete a product */ })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "mY_3VjY3ldA2",
+    "rows": [
+      [
+        "GET",
+        "Reading data — should never change anything on the server"
+      ],
+      [
+        "POST",
+        "Creating something new"
+      ],
+      [
+        "PUT",
+        "Replacing an existing item entirely"
+      ],
+      [
+        "DELETE",
+        "Removing something"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Method",
+      "Conventionally used for"
+    ]
+  },
+  {
+    "id": "AgUQ3HRf0L_X",
+    "text": "Route Parameters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "route-parameters"
+  },
+  {
+    "id": "uNJ8tWVC8G3J",
+    "html": "<p>A colon in a route path captures part of the URL as a named value:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "VgOZlD5cqTV7",
+    "code": "app.get('/products/:id', (req, res) => {\n  res.send(`Product ID: ${req.params.id}`)\n})\n\n// GET /products/42  →  req.params.id is '42'",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "-o73KXPKN7No",
+    "html": "<p>A route can capture more than one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Bgshw1DwGpIN",
+    "code": "app.get('/users/:userId/orders/:orderId', (req, res) => {\n  res.send(`User ${req.params.userId}, order ${req.params.orderId}`)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "hTG2yzTehkKE",
+    "text": "Query Strings",
+    "type": "heading",
+    "level": 2,
+    "anchor": "query-strings"
+  },
+  {
+    "id": "TsUnj7c-0c6D",
+    "html": "<p>Everything after a <code>?</code> in a URL — <code>/search?q=laptop&sort=price</code> — is parsed automatically into <code>req.query</code>:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "MHp2JGfL7r2L",
+    "code": "app.get('/search', (req, res) => {\n  res.send(`Searching for: ${req.query.q}, sorted by: ${req.query.sort}`)\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "rcp_kLci0Su5",
+    "html": "<p>Route parameters (<code>/products/:id</code>) identify a specific resource — usually required for the route to make sense at all. Query strings (<code>?sort=price</code>) are optional modifiers — filters, sorting, pagination — that change how the results come back.</p>",
+    "type": "callout",
+    "title": "Params vs. query strings",
+    "variant": "note"
+  },
+  {
+    "id": "FnvOnRv5wbTD",
+    "text": "Grouping Related Routes with Router",
+    "type": "heading",
+    "level": 2,
+    "anchor": "grouping-related-routes-with-router"
+  },
+  {
+    "id": "wVDIt0ptRuYW",
+    "html": "<p>As routes grow past a handful, <code>express.Router()</code> lets them live in their own file instead of piling up in one:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "yUO4WrwdckWo",
+    "code": "// routes/products.js\nconst express = require('express')\nconst router = express.Router()\n\nrouter.get('/', (req, res) => { res.send('All products') })\nrouter.get('/:id', (req, res) => { res.send(`Product ${req.params.id}`) })\n\nmodule.exports = router\n\n// app.js\nconst productsRouter = require('./routes/products')\napp.use('/products', productsRouter)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "GwQ8pKwOJbuI",
+    "html": "<p>Every path inside <code>routes/products.js</code> is relative to whatever prefix it's mounted at — <code>router.get('/:id')</code> here actually matches <code>/products/:id</code>.</p>",
+    "type": "richtext"
+  }
+]
+```

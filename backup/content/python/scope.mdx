@@ -1,0 +1,127 @@
+---
+id: "2c5395e0-eb05-4512-bbad-c1ee83be22eb"
+title: "Variable Scope"
+path: "python/scope"
+status: "published"
+meta_title: "Python Variable Scope | Learn Computer Academy"
+meta_description: "Where a Python variable is visible from — local vs. global scope, and the global keyword."
+sort_order: 18
+updated_at: "2026-08-04T11:39:31.584509+00:00"
+---
+
+```json
+[
+  {
+    "id": "KOExtfo4rxIp",
+    "html": "<p><b>Scope</b> is where in your code a variable can be seen and used — the same idea from <a href=\"/programming/scope/\">Intro to Programming</a>, with one meaningful wrinkle specific to Python.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "20DTe4BDr41U",
+    "text": "Local Scope",
+    "type": "heading",
+    "level": 2,
+    "anchor": "local-scope"
+  },
+  {
+    "id": "UlZF2eGWT3xi",
+    "html": "<p>A variable created inside a function only exists inside that function:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "fT2Aq15EjgwA",
+    "code": "def set_name():\n    name = \"Priya\"  # local to set_name()\n    print(name)      # works fine here\n\nset_name()\n# print(name)  # NameError — name doesn't exist out here",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "zvo8C4qTHbh9",
+    "text": "Reading a Global Is Automatic",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-a-global-is-automatic"
+  },
+  {
+    "id": "3LhTZQM5LOBl",
+    "html": "<p>A Python function <b>can</b> read a global variable without any special keyword — no import or declaration needed. The <code>global</code> keyword is only required if you want to <i>reassign</i> one, not just read it:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "zBd_MTdDZ9JF",
+    "code": "site_name = \"Learn Computer Academy\"\n\ndef show_name():\n    print(site_name)  # works — reading a global needs nothing special\n\nshow_name()",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "y2qW1D21yu4r",
+    "text": "The global Keyword — Only for Reassignment",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-global-keyword-only-for-reassignment"
+  },
+  {
+    "id": "j5j1l9q7JNUW",
+    "html": "<p>Assigning to a name inside a function makes Python treat it as local by default — <i>even if</i> a global with the same name exists. <code>global</code> is required to override that and reassign the actual global variable:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "FRXIZjEFHFNe",
+    "code": "count = 0\n\ndef increment_broken():\n    count = count + 1  # UnboundLocalError — count is treated as local here,\n                        # and it hasn't been assigned yet at this point\n\ndef increment():\n    global count\n    count = count + 1  # now this correctly modifies the global\n\nincrement()\nprint(count)  # 1",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "jsq7C0QiuxNP",
+    "html": "<p>Relying on <code>global</code> throughout a codebase makes it hard to trace where a value actually comes from. The cleaner, more common pattern is passing the value in as a parameter and returning the new value, rather than mutating a global directly.</p>",
+    "type": "callout",
+    "title": "Prefer parameters over global",
+    "variant": "tip"
+  },
+  {
+    "id": "r6PQGWX0ligv",
+    "text": "Function-Level Scope, Not Block-Level",
+    "type": "heading",
+    "level": 2,
+    "anchor": "function-level-scope-not-block-level"
+  },
+  {
+    "id": "pIft6OJvK0XR",
+    "html": "<p>One more real difference from some languages: a variable created inside an <code>if</code> or <code>for</code> block in Python is <b>not</b> limited to that block — it's visible for the rest of the enclosing function:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "jdB6DinLad3M",
+    "code": "def check(n):\n    if n > 0:\n        result = \"positive\"\n    print(result)  # this works even outside the if block, as long as n > 0 ran\n\ncheck(5)  # \"positive\"",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "RdvY-Ld_6F2Y",
+    "text": "nonlocal for a Function Inside a Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "nonlocal-for-a-function-inside-a-function"
+  },
+  {
+    "id": "zBxRhz9IFSmO",
+    "html": "<p>A function defined inside another function can read its enclosing function's variables automatically — same rule as reading a global. To reassign one, <code>nonlocal</code> is the equivalent of <code>global</code> one level up, rather than jumping all the way to global scope:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "NOksAejG_xTl",
+    "code": "def make_counter():\n    count = 0\n\n    def increment():\n        nonlocal count\n        count += 1\n        return count\n\n    return increment\n\ncounter = make_counter()\nprint(counter())  # 1\nprint(counter())  # 2 — count is remembered between calls",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "fZs7afVsjH3U",
+    "html": "<p>This pattern — a function returning another function that remembers state — is called a <b>closure</b>. It's a genuinely useful trick, but a niche one; don't worry if it takes a re-read to click.</p>",
+    "type": "richtext"
+  }
+]
+```

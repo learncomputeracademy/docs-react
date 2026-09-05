@@ -1,0 +1,111 @@
+---
+id: "fec98b0a-66c2-4c36-abc7-5bfab5943671"
+title: "Connecting with mongosh"
+path: "mongodb/connecting-with-mongosh"
+status: "published"
+meta_title: "Connecting with mongosh | Learn Computer Academy"
+meta_description: "Using mongosh, MongoDB's command-line shell, to connect to a database and run your first commands."
+sort_order: 4
+updated_at: "2026-08-18T10:11:22.243115+00:00"
+---
+
+```json
+[
+  {
+    "id": "GVkBNL_wdpTw",
+    "html": "<p><b>mongosh</b> (\"Mongo Shell\") is MongoDB's official command-line tool for connecting to a database and running commands directly — everything in the CRUD lessons that follow can be typed straight into it.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rYXPN2RtMct7",
+    "alt": "An isometric illustration of a dark terminal window with a green cursor prompt, connected by a line to a database cylinder",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "mongosh — a command-line shell for talking to MongoDB directly.",
+    "publicId": "docs/img/mongodb/mongosh-hero"
+  },
+  {
+    "id": "O4Fuvl1EJyUO",
+    "text": "Connecting",
+    "type": "heading",
+    "level": 2,
+    "anchor": "connecting"
+  },
+  {
+    "id": "GRSfp9AZUSM8",
+    "html": "<p>Open a terminal and run <code>mongosh</code> followed by your connection string (from Atlas or a local install, per the previous lesson):</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "o-x68iZSoQo0",
+    "code": "mongosh \"mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/\"",
+    "type": "code",
+    "language": "bash"
+  },
+  {
+    "id": "FnWm3W-NJhUj",
+    "html": "<p>A successful connection drops you into a prompt like <code>test&gt;</code>, ready to run commands.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "7gxbbgoQTQhy",
+    "text": "Basic Navigation Commands",
+    "type": "heading",
+    "level": 2,
+    "anchor": "basic-navigation-commands"
+  },
+  {
+    "id": "briBtOpxwmf4",
+    "rows": [
+      [
+        "show dbs",
+        "Lists every database on this connection"
+      ],
+      [
+        "use myDatabase",
+        "Switches to (or creates, on first write) a database"
+      ],
+      [
+        "show collections",
+        "Lists every collection in the current database"
+      ],
+      [
+        "db",
+        "Prints the name of the database you are currently using"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "NWDErZbLanRW",
+    "text": "Your First Command",
+    "type": "heading",
+    "level": 2,
+    "anchor": "your-first-command"
+  },
+  {
+    "id": "RiGGOXxtluHy",
+    "html": "<p>Switch to a fresh database and count the documents in a collection that does not exist yet — MongoDB does not error, it simply reports zero:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ftEvBavn_PKk",
+    "code": "use learningMongo\ndb.users.countDocuments()\n// 0",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "jJtGJcLCvEvu",
+    "html": "<p>MongoDB creates databases and collections <b>lazily</b> — nothing actually gets created on disk until you insert the first document into it. Running <code>use someDatabase</code> alone does not create anything yet.</p>",
+    "type": "callout",
+    "title": "Databases and collections appear on first write",
+    "variant": "tip"
+  }
+]
+```

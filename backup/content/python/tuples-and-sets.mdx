@@ -1,0 +1,137 @@
+---
+id: "fce959f9-c9b3-4f89-b867-89383d54f1a0"
+title: "Tuples and Sets"
+path: "python/tuples-and-sets"
+status: "published"
+meta_title: "Python Tuples and Sets | Learn Computer Academy"
+meta_description: "Python's tuple (an ordered, unchangeable collection) and set (an unordered collection of unique values) — when to reach for each."
+sort_order: 11
+updated_at: "2026-08-04T11:39:29.722525+00:00"
+---
+
+```json
+[
+  {
+    "id": "MyPQJ8In_6Kk",
+    "html": "<p>Lists aren't always the right tool. A <b>tuple</b> and a <b>set</b> each trade away one of a list's properties in exchange for something useful.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "kAUVCwXpcBj7",
+    "text": "Tuples: Ordered but Unchangeable",
+    "type": "heading",
+    "level": 2,
+    "anchor": "tuples-ordered-but-unchangeable"
+  },
+  {
+    "id": "Mbp3wYn-UYEM",
+    "html": "<p>A tuple looks like a list but uses parentheses, and once created, its contents can't be changed:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TOram95-gces",
+    "code": "point = (10, 20)\nprint(point[0])  # 10\n\n# point[0] = 5  # TypeError — tuples don't support item assignment",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "3DBbagiIxPA3",
+    "html": "<p>Use a tuple when a fixed, small group of values genuinely shouldn't change after creation — coordinates, an RGB color, a function returning more than one value:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "LV9qlkfPXCee",
+    "code": "def min_max(numbers):\n    return min(numbers), max(numbers)  # returns a tuple\n\nlowest, highest = min_max([4, 9, 1, 7])  # unpacked into two variables\nprint(lowest, highest)  # 1 7",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "MfEkf-BnaIXX",
+    "text": "Sets: Unique, Unordered Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "sets-unique-unordered-values"
+  },
+  {
+    "id": "uYqYEp9ks1RY",
+    "html": "<p>A set automatically discards duplicates and has no guaranteed order — useful whenever \"does this exist\" and \"no repeats\" matter more than sequence:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "mE5wpzvSZqtT",
+    "code": "numbers = {1, 2, 2, 3, 3, 3}\nprint(numbers)  # {1, 2, 3} — duplicates are gone\n\nprint(3 in numbers)  # True — checking membership is very fast on a set",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "q13EzVrNgB-n",
+    "text": "Set Operations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "set-operations"
+  },
+  {
+    "id": "R0a3jFapvtoC",
+    "html": "<p>Sets support the same operations as sets in mathematics — genuinely useful for comparing two collections:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "iAYpwTsW8Erg",
+    "code": "a = {1, 2, 3}\nb = {2, 3, 4}\n\nprint(a | b)  # {1, 2, 3, 4} — union: everything in either\nprint(a & b)  # {2, 3} — intersection: in both\nprint(a - b)  # {1} — difference: in a but not b",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "FYYX1V8rdodr",
+    "text": "Modifying a Set",
+    "type": "heading",
+    "level": 2,
+    "anchor": "modifying-a-set"
+  },
+  {
+    "id": "AcIx5ZbuRqKa",
+    "code": "colors = {\"red\", \"green\"}\ncolors.add(\"blue\")       # adds one item\ncolors.remove(\"red\")     # removes it — raises an error if it isn't there\ncolors.discard(\"purple\") # also removes it, but does nothing if it isn't there",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "k5A-IBHlmnZQ",
+    "html": "<p><code>.discard()</code> is the safer default when you're not sure the item exists — <code>.remove()</code> is for when its absence would itself be a bug worth knowing about.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3R5fl9z6RFhl",
+    "text": "Choosing Between Them",
+    "type": "heading",
+    "level": 2,
+    "anchor": "choosing-between-them"
+  },
+  {
+    "id": "bk0o0X998eI1",
+    "rows": [
+      [
+        "list",
+        "Order matters, you'll change the contents, duplicates are fine"
+      ],
+      [
+        "tuple",
+        "Order matters, the contents should never change"
+      ],
+      [
+        "set",
+        "Order doesn't matter, duplicates should be impossible"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Choose when"
+    ]
+  }
+]
+```

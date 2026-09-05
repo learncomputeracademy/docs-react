@@ -1,0 +1,87 @@
+---
+id: "a657ca2f-b014-4203-b676-dd864e025578"
+title: "Schema Validation"
+path: "mongodb/schema-validation"
+status: "published"
+meta_title: "Schema Validation | Learn Computer Academy"
+meta_description: "Enforcing required fields and data types on a MongoDB collection with $jsonSchema, without giving up its flexible-schema advantages entirely."
+sort_order: 17
+updated_at: "2026-08-18T10:11:26.974359+00:00"
+---
+
+```json
+[
+  {
+    "id": "4bp-26AgucKE",
+    "html": "<p>MongoDB's flexible schema is a strength, but real applications usually still want <i>some</i> guarantees — a <code>users</code> collection where every document is required to have an <code>email</code>. <b>Schema validation</b> lets you enforce exactly the rules you choose, and no more.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "btlJTOJiZnQa",
+    "alt": "An isometric illustration of a document passing through a checkmark-shaped gate, with a rejected document bouncing off a red X-shaped gate beside it",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "Schema validation rejects documents that break rules you define.",
+    "publicId": "docs/img/mongodb/validation-hero"
+  },
+  {
+    "id": "Z_fBGw9uGUyp",
+    "text": "Creating a Collection with Validation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-collection-with-validation"
+  },
+  {
+    "id": "8UclmLBL0O1O",
+    "code": "db.createCollection(\"users\", {\n  validator: {\n    $jsonSchema: {\n      bsonType: \"object\",\n      required: [\"name\", \"email\"],\n      properties: {\n        name: { bsonType: \"string\" },\n        email: { bsonType: \"string\", pattern: \"^.+@.+$\" },\n        age: { bsonType: \"int\", minimum: 0 }\n      }\n    }\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "vw41pT7GREt4",
+    "text": "What Happens on a Violation",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-happens-on-a-violation"
+  },
+  {
+    "id": "bUCu96lgKuFt",
+    "html": "<p>Trying to insert a document that breaks a required rule fails with a validation error instead of being saved:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TrfkLE65qQhd",
+    "code": "db.users.insertOne({ name: \"Test User\" })\n// Error: Document failed validation — \"email\" is required",
+    "type": "code",
+    "language": "javascript"
+  },
+  {
+    "id": "U3m4n2igem7_",
+    "text": "Adding Validation to an Existing Collection",
+    "type": "heading",
+    "level": 2,
+    "anchor": "adding-validation-to-an-existing-collection"
+  },
+  {
+    "id": "ppE8dgP4mGdp",
+    "html": "<p><code>collMod</code> applies a validator to a collection that already exists:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "sClEbhXs87qa",
+    "code": "db.runCommand({\n  collMod: \"users\",\n  validator: {\n    $jsonSchema: {\n      required: [\"email\"]\n    }\n  }\n})",
+    "type": "code",
+    "language": "javascript",
+    "runnable": true
+  },
+  {
+    "id": "2nILm_uetpca",
+    "html": "<p>By default, validation applies to new inserts and updates but does not retroactively check documents already in the collection — existing data that would fail the new rule stays exactly as it is unless it is updated or you set <code>validationLevel: \"strict\"</code>.</p>",
+    "type": "callout",
+    "title": "Existing documents are not checked retroactively",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,151 @@
+---
+id: "e7f302c6-abf9-423a-b4c6-809d9ea94c0d"
+title: "Setting Up a Local WordPress Environment"
+path: "wordpress/local-environment"
+status: "published"
+meta_title: "Setting Up a Local WordPress Environment | Learn Computer Academy"
+meta_description: "Getting a real WordPress install running on your own computer, and installing the three plugins this section builds around."
+sort_order: 2
+updated_at: "2026-07-30T14:23:24.618016+00:00"
+---
+
+```json
+[
+  {
+    "id": "7QVwxXL1HmvF",
+    "html": "<p>Theme development happens against a real, running WordPress site — not a live one. Building and testing directly on a live site risks breaking it for real visitors, and every reload takes a round trip to a server somewhere else. A <b>local environment</b> runs WordPress entirely on your own computer instead, so it's fast, disposable, and safe to break.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "3ZUWtQ1PTfhS",
+    "text": "Picking a Local Server Tool",
+    "type": "heading",
+    "level": 2,
+    "anchor": "picking-a-local-server-tool"
+  },
+  {
+    "id": "FplqgQuqCHNm",
+    "html": "<p>WordPress needs PHP, a MySQL (or MariaDB) database, and a web server to run — normally three separate pieces of software to install and configure by hand. A local WordPress tool bundles all three together and manages them for you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "eW5anzrmAlmW",
+    "rows": [
+      [
+        "Local",
+        "A free, purpose-built app for running WordPress sites locally — one click creates a fresh site with everything already configured. The most direct route for WordPress specifically."
+      ],
+      [
+        "XAMPP / MAMP",
+        "General-purpose local server stacks (PHP + MySQL + Apache) not specific to WordPress — you install WordPress into them yourself. More setup, but useful if you're already running other PHP projects the same way."
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Tool",
+      "What it is"
+    ]
+  },
+  {
+    "id": "VImp-ZcYkTNo",
+    "html": "<p>Either works fine; the rest of this section assumes Local, since it's the fastest path to an actual running site.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DiHxoCem_-Dm",
+    "text": "Creating a Site",
+    "type": "heading",
+    "level": 2,
+    "anchor": "creating-a-site"
+  },
+  {
+    "id": "-GlMw-jirhoG",
+    "html": "<p>After installing Local, creating a site takes three steps: give it a name, accept the default PHP/web server/database versions (recent defaults are fine for everything this section covers), and set an admin username and password. Local then downloads and installs WordPress itself and starts the site running — no manual download, no database setup.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rCXZmPKdcORc",
+    "text": "Finding Your Way Around",
+    "type": "heading",
+    "level": 2,
+    "anchor": "finding-your-way-around"
+  },
+  {
+    "id": "6sKP09yGDVEf",
+    "html": "<p>Every WordPress site has two sides:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "u9zhCuLXqcsy",
+    "rows": [
+      [
+        "The front end",
+        "What a visitor actually sees",
+        "yoursite.local/"
+      ],
+      [
+        "The admin (wp-admin)",
+        "Where you manage content, plugins, and settings",
+        "yoursite.local/wp-admin/"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "",
+      "What it is",
+      "Typical URL"
+    ]
+  },
+  {
+    "id": "Vaw01ERfNmvb",
+    "html": "<p>Log into <code>wp-admin</code> with the admin account created above — that's the screen every remaining step in this section happens from.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Cyw2-3JXapEF",
+    "text": "Installing the Plugins This Section Uses",
+    "type": "heading",
+    "level": 2,
+    "anchor": "installing-the-plugins-this-section-uses"
+  },
+  {
+    "id": "XnBaII-YX2Q0",
+    "html": "<p>From <b>Plugins → Add New</b> in the admin, search for and install (then activate) each of these:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "B-euYUMRb8Fg",
+    "rows": [
+      [
+        "Classic Editor",
+        "\"Classic Editor\""
+      ],
+      [
+        "CPT UI",
+        "\"Custom Post Type UI\""
+      ],
+      [
+        "Secure Custom Fields",
+        "\"Secure Custom Fields\""
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Plugin",
+      "Search term"
+    ]
+  },
+  {
+    "id": "Jfr5ELAM7Tz8",
+    "html": "<p>Secure Custom Fields is the actively-maintained continuation of the plugin most tutorials still call \"ACF\" (Advanced Custom Fields). The two became separate projects after a licensing dispute in 2024 — SCF kept the same function names (<code>get_field()</code>, <code>the_field()</code>, and the rest), so anything written for ACF still applies here, just under a different plugin name.</p>",
+    "type": "callout",
+    "title": "SCF vs. ACF",
+    "variant": "note"
+  },
+  {
+    "id": "-8D2B-d31N8s",
+    "html": "<p>With plugins installed and Classic Editor active, the next lesson opens up the theme's own files and looks at what actually has to exist for WordPress to recognize something as a theme at all.</p>",
+    "type": "richtext"
+  }
+]
+```

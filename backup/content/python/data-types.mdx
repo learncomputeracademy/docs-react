@@ -1,0 +1,163 @@
+---
+id: "271f24da-89d3-4088-bc6b-d8bbc86b1eae"
+title: "Data Types"
+path: "python/data-types"
+status: "published"
+meta_title: "Python Data Types | Learn Computer Academy"
+meta_description: "Python's core built-in data types — str, int, float, bool, None — and a first look at its built-in collections."
+sort_order: 5
+updated_at: "2026-08-04T11:39:27.892623+00:00"
+---
+
+```json
+[
+  {
+    "id": "erXUh82YQ7Yb",
+    "html": "<p>Python has several built-in data types. This lesson covers the simple ones in depth; the collection types (<code>list</code>, <code>tuple</code>, <code>dict</code>, <code>set</code>) get their own dedicated lessons shortly, since each has enough to it to deserve one.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WXa-syA-bUXn",
+    "text": "The Simple Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-simple-types"
+  },
+  {
+    "id": "fW8TR8X9TRAE",
+    "rows": [
+      [
+        "str",
+        "Text",
+        "\"Hello\""
+      ],
+      [
+        "int",
+        "Whole numbers",
+        "42"
+      ],
+      [
+        "float",
+        "Decimal numbers",
+        "3.14"
+      ],
+      [
+        "bool",
+        "True or False",
+        "True"
+      ],
+      [
+        "NoneType",
+        "No value at all",
+        "None"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Holds",
+      "Example"
+    ]
+  },
+  {
+    "id": "kvTB3-bh5Jqd",
+    "html": "<p><code>True</code>, <code>False</code>, and <code>None</code> are capitalized in Python. Many other languages use lowercase <code>true</code>/<code>false</code>/<code>null</code> instead, so this trips up almost everyone coming from another language at least once.</p>",
+    "type": "callout",
+    "title": "Capitalization matters here",
+    "variant": "note"
+  },
+  {
+    "id": "p_ymgZx6NpbI",
+    "text": "Checking a Value's Type",
+    "type": "heading",
+    "level": 2,
+    "anchor": "checking-a-values-type"
+  },
+  {
+    "id": "rxnFdojmz8ge",
+    "code": "x = 42\nprint(type(x))          # <class 'int'>\nprint(isinstance(x, int)) # True",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "HY8TMODBLTmv",
+    "text": "The Collection Types, at a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-collection-types-at-a-glance"
+  },
+  {
+    "id": "4VLxHlN5NDCf",
+    "rows": [
+      [
+        "list",
+        "Yes",
+        "Yes",
+        "Yes"
+      ],
+      [
+        "tuple",
+        "Yes",
+        "No",
+        "Yes"
+      ],
+      [
+        "dict",
+        "Yes (insertion order)",
+        "Yes",
+        "Keys must be unique"
+      ],
+      [
+        "set",
+        "No",
+        "Yes",
+        "No"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Type",
+      "Ordered?",
+      "Changeable?",
+      "Duplicates allowed?"
+    ]
+  },
+  {
+    "id": "0Ec2qCT_i67u",
+    "html": "<p>Each of these gets its own lesson soon. For now, the key thing to notice is that Python has four distinct built-in collection types, each with genuinely different rules — picking the right one for the job matters.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "QXM-pgI8bxjd",
+    "text": "Python Doesn't Auto-Convert Types",
+    "type": "heading",
+    "level": 2,
+    "anchor": "python-doesnt-auto-convert-types"
+  },
+  {
+    "id": "7ADqjRQfCQJ-",
+    "html": "<p>Python raises an error rather than silently guessing when types don't match — this is deliberate, not a limitation:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "nHokGfAC4rOw",
+    "code": "result = \"5\" + 3\n# TypeError: can only concatenate str (not \"int\") to str",
+    "type": "code",
+    "language": "python",
+    "runnable": false
+  },
+  {
+    "id": "TZ9o8OBMJg3z",
+    "html": "<p>The next lesson, Type Conversion, covers converting between types deliberately — which is required here, Python won't do it for you.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "2Zl-kUQiUF_3",
+    "html": "<p><code>None</code>, <code>False</code>, and <code>0</code> are three different values, even though all three are falsy in an <code>if</code> check. <code>None</code> means \"no value was ever set,\" <code>False</code> means \"a boolean, specifically false,\" and <code>0</code> means \"the number zero.\" Mixing them up — for example, using <code>0</code> as a placeholder for \"not set yet\" — makes bugs harder to track down later, since <code>0</code> is a perfectly valid, meaningful number in a lot of code.</p>",
+    "type": "callout",
+    "title": "None, False, and 0 are not the same thing",
+    "variant": "note"
+  }
+]
+```

@@ -1,0 +1,131 @@
+---
+id: "910167ec-58a4-430d-b95d-3d8fcff4fa5b"
+title: "CSS Functions — calc(), min(), max(), clamp()"
+path: "css/functions"
+status: "published"
+meta_title: "CSS Functions | Learn Computer Academy"
+meta_description: "Do math directly inside a CSS value with calc(), and pick the smallest, largest, or a clamped-between value with min(), max(), and clamp()."
+sort_order: 43
+updated_at: "2026-09-03T03:54:08.880415+00:00"
+---
+
+```json
+[
+  {
+    "id": "I3kovqlfSruZ",
+    "html": "<hr><p>These four functions let a CSS value be computed rather than hardcoded — mixing units, reacting to the viewport, or picking between two values based on which is currently larger or smaller.</p><hr>",
+    "type": "richtext"
+  },
+  {
+    "id": "lux9fSTUtZPb",
+    "text": "calc() — Doing Math",
+    "type": "heading",
+    "level": 2,
+    "anchor": "calc-doing-math"
+  },
+  {
+    "id": "qroLcpkV516h",
+    "html": "<p>Mixes different units in one expression — something plain CSS can't do on its own.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "rhwzfLpa7M9z",
+    "code": ".sidebar {\n  width: calc(100% - 250px);\n}\n.box {\n  height: calc(100vh - 80px);\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "wl5YnjbeFYF2",
+    "html": "<p>A space is required around every operator inside <code>calc()</code> — <code>calc(100% -250px)</code> is invalid, <code>calc(100% - 250px)</code> is correct.</p>",
+    "type": "callout",
+    "title": "The most common calc() mistake",
+    "variant": "note"
+  },
+  {
+    "id": "HUql7ci1R3n6",
+    "text": "min() — The Smaller of Two Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "min-the-smaller-of-two-values"
+  },
+  {
+    "id": "t8pnVLDfW-0W",
+    "html": "<p>Picks whichever value is smaller at any given moment — useful for a width that should never exceed a fixed maximum.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "M7ODSx1FUQnv",
+    "code": ".card {\n  width: min(90%, 600px);    /* never wider than 600px, but shrinks below that on small screens */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "nNEQpENBZk8M",
+    "text": "max() — The Larger of Two Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "max-the-larger-of-two-values"
+  },
+  {
+    "id": "tL4WPtJep4DW",
+    "code": ".button {\n  padding: max(12px, 3%);    /* never smaller than 12px */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "TkDaffZYF4Ru",
+    "text": "clamp() — A Value Between a Min and a Max",
+    "type": "heading",
+    "level": 2,
+    "anchor": "clamp-a-value-between-a-min-and-a-max"
+  },
+  {
+    "id": "1btPZU-pFppz",
+    "html": "<p><code>clamp(minimum, preferred, maximum)</code> — the preferred value is used as long as it stays between the min and max.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "AL8wyF-acl8A",
+    "code": ".heading {\n  font-size: clamp(1.5rem, 4vw, 3rem);\n  /* never smaller than 1.5rem, never larger than 3rem,\n     scales with viewport width in between */\n}",
+    "type": "code",
+    "language": "css",
+    "runnable": false
+  },
+  {
+    "id": "j78ljCGRZNtI",
+    "rows": [
+      [
+        "calc()",
+        "The result of a mixed-unit math expression"
+      ],
+      [
+        "min()",
+        "The smallest of the values listed"
+      ],
+      [
+        "max()",
+        "The largest of the values listed"
+      ],
+      [
+        "clamp()",
+        "The preferred value, kept between a min and max"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Function",
+      "Picks"
+    ]
+  },
+  {
+    "id": "MzalWF8WtX6-",
+    "html": "<p>This site's Clamp tool (under Tools) generates a clamp() value from a min/max size and viewport range — the fastest way to get fluid typography sizing right without trial and error.</p>",
+    "type": "callout",
+    "title": "Practice it interactively",
+    "variant": "tip"
+  }
+]
+```

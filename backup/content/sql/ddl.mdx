@@ -1,0 +1,202 @@
+---
+id: "8e44f629-2cc7-4d77-8901-262acab960a6"
+title: "DDL — Data Definition Language"
+path: "sql/ddl"
+status: "published"
+meta_title: "SQL DDL — Data Definition Language | Learn Computer Academy"
+meta_description: "CREATE TABLE, DROP TABLE, TRUNCATE TABLE, and ALTER TABLE — the SQL commands that define and reshape the structure of your database."
+sort_order: 4
+updated_at: "2026-07-29T06:31:05.636187+00:00"
+---
+
+```json
+[
+  {
+    "id": "itnXhXCfZOcl",
+    "html": "<p><b>DDL</b> statements define and reshape the structure of your database: tables, columns, and constraints. This is the first of the four SQL families covered in its own lesson.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "X_k1_3PvnjLj",
+    "text": "CREATE TABLE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "create-table"
+  },
+  {
+    "id": "GoobVyyqbOft",
+    "html": "<p>Creates a new table with a defined set of columns and data types.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "a0shJbmG4fgA",
+    "code": "CREATE TABLE table_name (\n  column datatype constraints\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "cxmfoj7YU_fW",
+    "code": "CREATE TABLE Employee (\n  id INT PRIMARY KEY,\n  name VARCHAR(100),\n  department VARCHAR(50),\n  salary DECIMAL(10,2)\n);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "xwI1F9lM-Gq0",
+    "html": "<ul><li>Creates a new table named Employee, with four typed columns, one marked as the primary key.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "cHDhqR6kk23a",
+    "html": "<p>Forgetting a <code>PRIMARY KEY</code>, which makes rows impossible to uniquely reference.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "60tOiPWBpzgm",
+    "text": "DROP TABLE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "drop-table"
+  },
+  {
+    "id": "UUpfpXWYS80i",
+    "html": "<p>Removes a table permanently — structure and data both.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "_PB5j7ujJcpR",
+    "code": "DROP TABLE table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "zcLLXXji5f3Z",
+    "code": "DROP TABLE Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "WvAZsaBO6Xwk",
+    "html": "<ul><li>Deletes the Employee table permanently.</li><li>Both structure and data are removed — there is no undo.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "5gqypBwUMiaH",
+    "html": "<p>Running <code>DROP TABLE</code> when <code>TRUNCATE</code> (keep structure, clear rows) was actually intended.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "16vviLi7rjJg",
+    "text": "TRUNCATE TABLE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "truncate-table"
+  },
+  {
+    "id": "C61o13lrx5ui",
+    "html": "<p>Deletes every row from a table but keeps the table itself.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "dfgKwvc-TWVx",
+    "code": "TRUNCATE TABLE table_name;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "bGM-rWTeLrjA",
+    "code": "TRUNCATE TABLE Employee;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "xGTgXtqCQnN0",
+    "html": "<ul><li>Removes every record in the table.</li><li>The table structure remains, ready to be filled again.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "3jC-9VW9lVcN",
+    "html": "<p>Using <code>TRUNCATE</code> expecting a <code>WHERE</code> clause to work — it always clears the whole table.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "ho5bRKzXRT77",
+    "text": "ALTER TABLE",
+    "type": "heading",
+    "level": 2,
+    "anchor": "alter-table"
+  },
+  {
+    "id": "YoyTBrPQBdj5",
+    "html": "<p>Modifies the structure of an existing table.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "TrF_oLSnaaz8",
+    "code": "ALTER TABLE table_name ADD | DROP COLUMN | ALTER COLUMN ...;",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "z6pVay8OkYVp",
+    "code": "-- Add a column\nALTER TABLE Employee ADD email VARCHAR(100);\n\n-- Remove a column\nALTER TABLE Employee DROP COLUMN email;\n\n-- Change a data type\nALTER TABLE Employee ALTER COLUMN salary DECIMAL(12,2);",
+    "type": "code",
+    "language": "sql"
+  },
+  {
+    "id": "NxCgFay9e0-_",
+    "html": "<ul><li>Adding a column leaves existing rows untouched — new cells start NULL.</li><li>Dropping a column deletes that column's data permanently.</li><li>Changing a data type preserves existing data when the conversion is compatible.</li></ul>",
+    "type": "richtext"
+  },
+  {
+    "id": "mF28NH5Bg88M",
+    "html": "<p>Narrowing a column's type (e.g. VARCHAR(100) → VARCHAR(10)) and silently truncating data.</p>",
+    "type": "callout",
+    "title": "Common Mistake",
+    "variant": "warning"
+  },
+  {
+    "id": "XbUUAlY_o5i-",
+    "text": "At a Glance",
+    "type": "heading",
+    "level": 2,
+    "anchor": "at-a-glance"
+  },
+  {
+    "id": "42sVeX5fzs6e",
+    "rows": [
+      [
+        "CREATE TABLE",
+        "Builds a new table with typed columns"
+      ],
+      [
+        "DROP TABLE",
+        "Removes a table permanently — structure and data"
+      ],
+      [
+        "TRUNCATE TABLE",
+        "Clears every row, keeps the table structure"
+      ],
+      [
+        "ALTER TABLE",
+        "Adds, removes, or changes columns on an existing table"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Command",
+      "What it does"
+    ]
+  },
+  {
+    "id": "DJ_AucvhMziI",
+    "html": "<p>DDL shapes the structure. The next lesson covers DML — the commands you'll actually type the most, for reading and changing the data inside that structure.</p>",
+    "type": "richtext"
+  }
+]
+```

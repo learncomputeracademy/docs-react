@@ -1,0 +1,112 @@
+---
+id: "032cd2a2-bd05-49b0-892c-24fa8d221dff"
+title: "Functions"
+path: "php/functions"
+status: "published"
+meta_title: "PHP Functions | Learn Computer Academy"
+meta_description: "Defining your own PHP functions — parameters, default values, return types, and arrow functions."
+sort_order: 16
+updated_at: "2026-07-30T09:08:39.296436+00:00"
+---
+
+```json
+[
+  {
+    "id": "3b-IDCYb2pdG",
+    "html": "<p>A function packages up a piece of logic so it can be reused by name instead of retyped — the same idea from <a href=\"/programming/functions/\">Intro to Programming</a>, with PHP's syntax.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "YStl8fax02pY",
+    "text": "Defining and Calling a Function",
+    "type": "heading",
+    "level": 2,
+    "anchor": "defining-and-calling-a-function"
+  },
+  {
+    "id": "uYqZijxNGYKl",
+    "code": "<?php\n  function greet($name) {\n    return \"Hello, $name!\";\n  }\n\n  echo greet(\"Priya\"); // \"Hello, Priya!\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "8msOB1CMcT1G",
+    "text": "Default Parameter Values",
+    "type": "heading",
+    "level": 2,
+    "anchor": "default-parameter-values"
+  },
+  {
+    "id": "ac3h22vQbl57",
+    "code": "<?php\n  function greet($name = \"Guest\") {\n    return \"Hello, $name!\";\n  }\n\n  echo greet();        // \"Hello, Guest!\"\n  echo greet(\"Amit\");  // \"Hello, Amit!\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "bCH-_dJFBAoA",
+    "text": "Type Declarations",
+    "type": "heading",
+    "level": 2,
+    "anchor": "type-declarations"
+  },
+  {
+    "id": "eCGkJAGerhyS",
+    "html": "<p>PHP lets you optionally declare parameter and return types — not required, but a good habit for catching mistakes early:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "pCUItQpgtNrN",
+    "code": "<?php\n  function add(int $a, int $b): int {\n    return $a + $b;\n  }\n\n  echo add(2, 3); // 5\n  // add(\"two\", 3); // TypeError — \"two\" cannot be coerced to an int\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "qSiRNeYKEzKf",
+    "text": "Multiple Return Values via Arrays",
+    "type": "heading",
+    "level": 2,
+    "anchor": "multiple-return-values-via-arrays"
+  },
+  {
+    "id": "F3WZVqgQxkzc",
+    "html": "<p>PHP functions only return one value directly, but that value can be an array — a common way to send back several related pieces of data at once:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "vQQnlzwJ2Ahg",
+    "code": "<?php\n  function minMax(array $numbers): array {\n    return [\"min\" => min($numbers), \"max\" => max($numbers)];\n  }\n\n  $result = minMax([4, 9, 1, 7]);\n  echo $result[\"min\"] . \" / \" . $result[\"max\"]; // \"1 / 9\"\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "1_Ge0l21voy2",
+    "text": "Arrow Functions",
+    "type": "heading",
+    "level": 2,
+    "anchor": "arrow-functions"
+  },
+  {
+    "id": "yEonqBnrxgHb",
+    "html": "<p>A compact syntax for short, single-expression functions — you already saw these with <code>array_map()</code> and <code>array_filter()</code> in the Array Functions lesson:</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "DqVEusfr28w5",
+    "code": "<?php\n  $double = fn($n) => $n * 2;\n  echo $double(5); // 10\n?>",
+    "type": "code",
+    "language": "php",
+    "runnable": false
+  },
+  {
+    "id": "3wI1GrUhSJ5I",
+    "html": "<p>An arrow function (<code>fn</code>) automatically has access to variables from the surrounding scope, without needing to explicitly import them — a regular anonymous function needs a <code>use (...)</code> clause to do the same thing. This is the main practical difference between the two.</p>",
+    "type": "callout",
+    "title": "fn vs. an anonymous function",
+    "variant": "note"
+  }
+]
+```

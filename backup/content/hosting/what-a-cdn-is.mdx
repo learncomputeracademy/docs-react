@@ -1,0 +1,95 @@
+---
+id: "e7422cb5-2549-463f-9989-2d67e889069d"
+title: "What a CDN Is"
+path: "hosting/what-a-cdn-is"
+status: "published"
+meta_title: "What a CDN Is and Why Geography Matters | Learn Computer Academy"
+meta_description: "A single server is physically far from most of your visitors, and distance costs real time. A CDN solves this by copying your content to many locations at once."
+sort_order: 29
+updated_at: "2026-08-05T13:35:39.559219+00:00"
+---
+
+```json
+[
+  {
+    "id": "KxYPd25qu0ZE",
+    "html": "<p>Every hosting type covered so far has one thing in common: your site lives on a server in one physical location. A <b>CDN</b> (content delivery network) addresses a real, physical consequence of that fact — distance costs time.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "EsG84mTDxrQk",
+    "text": "Why Physical Distance Actually Matters",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-physical-distance-actually-matters"
+  },
+  {
+    "id": "HgHG5-HkGhe-",
+    "html": "<p>Data travels over real cables and real infrastructure, at a real, finite speed. A visitor in Kolkata loading a site hosted on a server in the United States genuinely waits longer for the first byte to arrive than a visitor physically near that server does — not because of anything wrong with the code, purely because of the physical distance the request and response have to travel, twice, round trip.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "T5TrE1UunfSb",
+    "text": "What a CDN Actually Does",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-a-cdn-actually-does"
+  },
+  {
+    "id": "tlqMmvVP1HBc",
+    "html": "<p>A CDN keeps copies of your content on servers spread across many physical locations worldwide — commonly called <b>edge locations</b> or points of presence. When someone visits your site, they are automatically served from whichever copy is physically nearest to them, rather than always reaching back to your one original server.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "WetlLLMvdFI0",
+    "alt": "Isometric world map diagram showing one origin server in one location, with several smaller edge server icons distributed across different continents, each connected to nearby visitor icons with short lines instead of one long line back to the origin",
+    "type": "image",
+    "width": 1024,
+    "height": 768,
+    "caption": "The same content, copied to many locations — each visitor reaches the nearest one, not the one original server.",
+    "publicId": "docs/img/hosting/cdn-concept-1"
+  },
+  {
+    "id": "jc8RzcIhO2IY",
+    "text": "What Actually Gets Sped Up",
+    "type": "heading",
+    "level": 2,
+    "anchor": "what-actually-gets-sped-up"
+  },
+  {
+    "id": "S6r41xZJMjmH",
+    "html": "<p>CDNs are most effective for content that does not change per visitor — images, CSS, JavaScript, fonts, and entire static sites, all covered in the static-hosting lesson earlier in this category. This is exactly why a static site is so naturally suited to CDN distribution: with nothing that needs to be computed per request, there is nothing stopping every edge location from holding an identical, ready-to-serve copy.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "Q3tnXVmWjdzM",
+    "text": "Beyond Raw Speed",
+    "type": "heading",
+    "level": 2,
+    "anchor": "beyond-raw-speed"
+  },
+  {
+    "id": "r5z7uwQMBWbn",
+    "html": "<p>A CDN also absorbs a meaningful share of traffic before it ever reaches your actual server — genuinely useful during a sudden traffic spike, and a real, if partial, layer of protection against certain kinds of malicious traffic floods, since the origin server never sees most of it directly.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "wxPx6qOGmzIX",
+    "html": "<p>This connects directly to the SEO course's page-speed lesson: <b>LCP</b> (Largest Contentful Paint), one of the three Core Web Vitals, is measured from the moment a request starts — and physical distance to the server is one of the concrete, fixable things that affects it. A CDN is one of the most direct available fixes for a slow LCP caused by geography rather than code.</p>",
+    "type": "callout",
+    "variant": "note"
+  },
+  {
+    "id": "-xIryjhMJXcX",
+    "text": "Where This Goes Next",
+    "type": "heading",
+    "level": 2,
+    "anchor": "where-this-goes-next"
+  },
+  {
+    "id": "DA9k3z_x0HZs",
+    "html": "<p>The next lesson covers the practical side: how a CDN actually gets put in front of existing hosting, and why it is very often free.</p>",
+    "type": "richtext"
+  }
+]
+```

@@ -1,0 +1,114 @@
+---
+id: "467e83bc-aa8d-4f07-b637-cc4c32f06e04"
+title: "Bulk Operations with bulkWrite()"
+path: "mongodb/bulk-operations"
+status: "published"
+meta_title: "MongoDB Bulk Operations — bulkWrite() | Learn Computer Academy"
+meta_description: "Running many inserts, updates, and deletes in a single database round trip with bulkWrite(), instead of one operation at a time."
+sort_order: 23
+updated_at: "2026-09-03T04:59:12.38119+00:00"
+---
+
+```json
+[
+  {
+    "id": "GbqGfch2AYwH",
+    "html": "<p>Each earlier lesson's insert, update, and delete operations run one at a time — fine for a handful of documents, but a real cost when hundreds or thousands need changing. <code>bulkWrite()</code> batches many operations into a single request to the database.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "XCKoCvNFK9Fc",
+    "text": "A Basic Example",
+    "type": "heading",
+    "level": 2,
+    "anchor": "a-basic-example"
+  },
+  {
+    "id": "eUEcOuWMdo2-",
+    "code": "db.products.bulkWrite([\n  { insertOne: { document: { name: 'Widget', price: 9.99 } } },\n  { updateOne: {\n      filter: { name: 'Gadget' },\n      update: { $set: { price: 14.99 } }\n  } },\n  { deleteOne: { filter: { name: 'Discontinued Item' } } },\n])",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "dMmfVjKyF4Qq",
+    "text": "The Operations bulkWrite Supports",
+    "type": "heading",
+    "level": 2,
+    "anchor": "the-operations-bulkwrite-supports"
+  },
+  {
+    "id": "5-MfbLXRXeFx",
+    "rows": [
+      [
+        "insertOne",
+        "db.collection.insertOne()"
+      ],
+      [
+        "updateOne / updateMany",
+        "db.collection.updateOne() / updateMany()"
+      ],
+      [
+        "replaceOne",
+        "db.collection.replaceOne()"
+      ],
+      [
+        "deleteOne / deleteMany",
+        "db.collection.deleteOne() / deleteMany()"
+      ]
+    ],
+    "type": "table",
+    "header": [
+      "Operation",
+      "Same as"
+    ]
+  },
+  {
+    "id": "AGy-58fqpqoN",
+    "text": "Why This Is Faster",
+    "type": "heading",
+    "level": 2,
+    "anchor": "why-this-is-faster"
+  },
+  {
+    "id": "XVHkO6kTNtmL",
+    "html": "<p>Each individual <code>insertOne()</code>/<code>updateOne()</code> call is its own round trip to the database server. <code>bulkWrite()</code> sends every operation together, cutting network overhead dramatically for a large batch.</p>",
+    "type": "richtext"
+  },
+  {
+    "id": "ZscCHqzv8vrz",
+    "text": "Ordered vs. Unordered Execution",
+    "type": "heading",
+    "level": 2,
+    "anchor": "ordered-vs-unordered-execution"
+  },
+  {
+    "id": "Z4D-f0RoLvO3",
+    "code": "// Default: ordered — stops at the first failure, operations after it don't run\ndb.products.bulkWrite([ /* ... */ ])\n\n// Unordered — keeps going even if one operation fails, runs them faster\n// (not guaranteed to run in the array's order) since they don't depend on each other\ndb.products.bulkWrite([ /* ... */ ], { ordered: false })",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "5An9pUdp5Dnq",
+    "text": "Reading the Result",
+    "type": "heading",
+    "level": 2,
+    "anchor": "reading-the-result"
+  },
+  {
+    "id": "nwKlUmTa535T",
+    "code": "const result = db.products.bulkWrite([ /* ... */ ])\nprint(result.insertedCount)\nprint(result.modifiedCount)\nprint(result.deletedCount)",
+    "type": "code",
+    "language": "javascript",
+    "runnable": false
+  },
+  {
+    "id": "kqrfwK_3WUya",
+    "html": "<p>A common real use: importing a CSV or JSON file of thousands of records — read the file, build one bulkWrite() array of insertOne operations, and send it as a single batch instead of thousands of individual inserts.</p>",
+    "type": "callout",
+    "title": "The classic bulkWrite use case",
+    "variant": "tip"
+  }
+]
+```
