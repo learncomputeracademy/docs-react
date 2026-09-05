@@ -5597,6 +5597,1057 @@ resources total.
 
 ---
 
+## D-106 · Sidebar restructured into named sections, sharing the homepage's grouping
+
+**Date:** 2026-09-02 · **Status:** Active · **Decided by:** user
+
+User asked for a specific grouped sidebar order ("Start Here / Design / Build the web /
+Backend & data / Launch & grow"), which turned out to already exist as `SUBJECT_GROUPS` —
+a presentation-only const local to `home-content.tsx`, driving the homepage subject index,
+independent of `sort_order`. Extracted to shared `lib/subject-groups.ts` so
+`components/sidebar-nav.tsx` could reuse the same source instead of hand-duplicating a
+second copy that would drift. `SidebarNav` now renders one `SidebarGroup` +
+`SidebarGroupLabel` per section (grouping `categories` by the shared const, in its order)
+instead of one flat list; a category not listed in any group still ships in a trailing
+"More" section — same safety net the homepage already had. Verified in both expanded and
+icon-collapsed rail sidebar states. Follow-up request: section labels made visually
+louder (`text-primary`, bold, uppercase, tracking-wide) — user's word was "lightlight",
+read as "highlight".
+
+**Not pushed** — standing rule.
+
+---
+
+## D-107 · Basics infographics, a malware-types table, and two new lessons (Canva, Google Workspace)
+
+**Date:** 2026-09-02 · **Status:** Active · **Decided by:** user
+
+Four separate content requests handled with the same underlying pattern (script-driven,
+idempotent, upsert-on-path — reusing `create-hosting-content.mjs`'s block-builder shape):
+
+1. **14 basics infographics** — user had ChatGPT-generated images sitting in
+   `.extra-images/basic-computer/` from an earlier session, unplaced. Matched each to its
+   chapter by inspection (all 16 images viewed), renamed descriptively, uploaded via
+   `scripts/add-basics-infographics.mjs`. Sharp's WebP re-encode strips EXIF/AI-provenance
+   metadata as a side effect (`sharp` never copies source metadata unless
+   `.withMetadata()` is called) — satisfies "remove AI metadata" with no separate step.
+   One duplicate "Output Devices" image existed; user picked the fuller version, the
+   other stays unused in `.extra-images/`, not deleted.
+2. **Malware-types table** — `basics/cybersecurity-basics`' one-paragraph malware mention
+   (virus/ransomware/spyware only) expanded to an 11-row table, inserted mid-lesson
+   before the Phishing heading, not appended at the end (`scripts/
+   add-malware-types-table.mjs`).
+3. **`design/canva`** — new lesson, last in Graphic Design. Real screenshots only (no
+   Magnific, no ChatGPT) — user's own logged-in Canva account via claude-in-chrome,
+   restricted to public/generic views (template gallery, a freshly-opened template, an
+   empty Brand Kit) to avoid exposing the user's private project thumbnails visible on
+   their dashboard home.
+4. **`office/google-workspace`** — new lesson, last in Office Skills. Same
+   real-screenshot approach; Docs/Sheets/Slides screenshots are freshly-created blank
+   documents (nothing personal to expose), but Drive's file list is the user's real My
+   Drive — the Name column is gaussian-blurred via `sharp` (`extract` the column region →
+   `.blur(25)` → composite back onto the original) before upload, per explicit user
+   instruction. Every other column, and the "Name" header label itself, left legible.
+
+**Real bug found and fixed mid-session**: `getDoc()` is `unstable_cache`-tagged
+`doc:${path}`; a direct Supabase write left the local dev server serving stale HTML for
+`basics/cybersecurity-basics` because that route had already been rendered once (sidebar
+`<Link>` prefetch) before the write. First revalidate attempt passed `path` only (drives
+`revalidatePath`, not the cache tag) and didn't fix it; adding `tag: "doc:<path>"` did.
+Confirmed this is a **local-only** cache bust with zero relation to the Vercel ISR-write
+quota — the standing no-push rule is about production regeneration, not local dev-server
+requests.
+
+**Not pushed** — standing rule.
+
+---
+
+## D-108 · Cybersecurity category planned (18 lessons), build deferred pending user-generated images
+
+**Date:** 2026-09-02 · **Status:** Active, build not started · **Decided by:** user
+
+User asked where a new Cybersecurity topic would go — answered: a new top-level category
+(the existing `basics/cybersecurity-basics` is one lesson, too thin for a real track),
+placed in the "Start Here" sidebar group (`lib/subject-groups.ts`) alongside Computer
+Basics/Office Skills/Intro to Programming/AI, not the career/business-focused "Launch &
+grow" group.
+
+**Image sourcing**: user is low on Magnific credit and explicitly doesn't want it used.
+Agreed alternatives: real screenshots (claude-in-chrome, same restricted-to-public-views
+discipline as D-107's Canva/Workspace lessons) for the 4 genuinely hands-on lessons
+(password manager, 2FA setup, browser privacy settings, Have I Been Pwned), and
+ChatGPT-generated infographics — user's own generation, off Magnific entirely — for 11
+conceptual lessons. **`.extra-images/cybersecurity/PROMPTS.md` written**: a shared style
+guide matching the existing basics-infographic visual template (bold title, colored
+icon panels, "AT A GLANCE" summary), plus one detailed prompt per lesson with a
+pre-chosen filename matching its future slug.
+
+**18-lesson outline** (agreed via a proposal the user approved, then extended): intro →
+**two new CLI-literacy chapters added at the user's request** (Windows Command Line,
+Linux Terminal — for security-relevant commands like `ipconfig`/`ip`, `tasklist`/`ps`;
+new students coming from Computer Basics may have zero terminal exposure, and later
+lessons assume some) → threat landscape → malware deep dive → phishing/social
+engineering → passwords & password managers → 2FA → safe browsing → browser privacy
+settings → email security → mobile device security → Wi-Fi/VPNs → backups → social
+media privacy → checking a breach (Have I Been Pwned) → ransomware/identity-theft
+response → closing (freelancer/small-business angle, ties to the `freelancing`
+category). The two CLI chapters will use `code` blocks (real commands, matching the
+JS/PHP/Python lesson convention) rather than a screenshot or generated image — a plain
+terminal screenshot is thin content, a runnable-looking command block teaches the actual
+syntax.
+
+**Nothing built** — no category row, no lessons, no images uploaded. User is generating
+the 11 ChatGPT images "tomorrow or on a later date"; this session's deliverable was the
+plan and the prompts file only. Pick up at the "Next session" note in `docs/PROGRESS.md`
+Session 78 once images are back.
+
+## D-109 · Cybersecurity category built, text-only — images deferred to a follow-up
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User: "start building cybersecurity, I will create the images later and ask you to add
+them later" — explicit go-ahead to build the category now, decoupled from image
+readiness. Built per the D-108 plan exactly: `cybersecurity` category (sort_order 24),
+`nav_items` row under Docs, all 18 lessons en+bn. Wired into `lib/subject-groups.ts`
+("Start Here"), `lib/nav-megamenu.ts` (Foundations group), `lib/category-icons.tsx`
+(`ShieldCheck`). See Session 79 in `docs/PROGRESS.md` for the full lesson list and
+verification detail.
+
+No images in this pass — 16 of 18 lessons have an image-shaped gap (11 ChatGPT
+infographics, 4 real screenshots) still pending the user; the 2 CLI lessons
+(Windows/Linux) use `code` blocks by design and need nothing; the closing lesson gets no
+image ever. Scripts are idempotent and re-runnable — safe to re-run
+`create-cybersecurity-content.mjs` if content needs a revision before images land.
+
+## D-110 · Cybersecurity — 4 real screenshots captured live, same session
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User: "the rest images such as screenshots and others, can't you create it yourself" —
+asked Claude to capture the 4 real-screenshot lessons directly rather than wait. Chrome
+extension wasn't connected at first (user is on a remote session and couldn't reconnect
+it); reconnected on retry mid-conversation and all 4 captured successfully via
+`scripts/add-cybersecurity-real-screenshots.mjs`.
+
+Source pages, chosen for being public, generic, and carrying no personal data —
+`chrome://settings` itself is blocked from browser automation entirely (the tool refuses
+to navigate browser-internal URLs), and the first real attempt at a Google-owned page
+(`support.google.com`) turned out to be logged into the user's actual Google account,
+showing their real email and a personal security alert — that screenshot was discarded
+unsaved and the source swapped:
+- **password-managers** → Bitwarden's real web vault login screen (vault.bitwarden.com)
+- **two-factor-authentication** → Authy's real product page, showing a live time-based
+  code in its hero mockup
+- **browser-privacy-settings** → a Mozilla Support article explaining Firefox's Privacy
+  and Security panel (closest safe substitute for the blocked chrome://settings)
+- **checking-a-breach** → haveibeenpwned.com, searched with HIBP's own official public
+  test account `account-exists@hibp-integration-tests.com` — a real positive "pwned"
+  result with zero real personal data
+
+All 4 verified live via curl against `localhost:3000` after a per-doc `tag`+`path`
+revalidate. Raw captures kept at `.extra-images/cybersecurity/raw/`. The 11
+ChatGPT-generated infographics remain the user's to produce — see
+`cybersecurity-category-pending` memory.
+
+## D-111 · ui-ux extended with a 10-lesson behavior-design track
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a roadmap.sh "UX Design" PDF and asked whether `ui-ux` covers everything in
+it. It didn't — the PDF is a behavior-design/growth-design roadmap (BJ Fogg's Behavior
+Model, Nir Eyal's Hook Model, Nudge Theory, persuasion mechanics, gamification, Business
+Model Canvas, SWOT, Five Forces, A/B testing), with no overlap against the site's
+22 classical-UX-fundamentals lessons (heuristics, IA, wireframing, accessibility, design
+systems). Asked the user how to handle the gap (fold into `ui-ux`, spin off a separate
+track, or skip) — picked folding it into `ui-ux`.
+
+Built as 10 lessons, sort_order 23-32, en+bn, via
+`scripts/create-ui-ux-behavior-design-content.mjs`. No images — text/table/callout only.
+Deliberately drew an explicit ethics line where the content brushes against
+manipulative/dark-pattern design (a dedicated nudge-vs-dark-pattern test table,
+referenced back from the Hook Model and engagement-mechanics lessons) — this track is
+the site's closest approach to persuasion/growth-hacking content, and every lesson that
+touches it says plainly where honest technique ends and manipulation begins.
+
+## D-112 · html extended with an 8-lesson gap-filling batch
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a second roadmap.sh PDF ("HTML") and asked whether it's all covered. Checked
+actual content, not just tag mentions — `html/blocks` names tags like `<b>`, `<sub>`,
+`<blockquote>`, `<abbr>` in flat lists but never explains any of them, which doesn't
+count as coverage. 8 real gaps found: HTML entities, case-insensitivity/whitespace, data
+attributes, text-formatting tags (b/strong, i/em, sub/sup, pre, del/ins/s),
+quotation/citation tags (blockquote, q, abbr, cite, dfn, address), definition lists,
+including JavaScript, accessibility basics. Verified NOT gaps before excluding: web/HTTP/
+DNS/hosting concepts (Computer Basics, Hosting & Deployment), SEO (dedicated category),
+inline/internal/external CSS (`css/intro`). Priority Hints and CSP-for-iframes judged
+niche and left out.
+
+Built as 8 lessons, sort_order 37-44, en+bn, via `scripts/create-html-gap-content.mjs`.
+Deliberately matched the terse W3Schools-style tone of the rest of the (2026-07 era
+migrated) `html` category rather than this session's newer house style — extending old
+content, not authoring a new course. Bengali matches that category's script-
+transliteration convention too, not the Banglish style used in cybersecurity/ui-ux.
+
+## D-113 · css extended with a 14-lesson gap-filling batch — biggest gap of three PDFs checked
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a third roadmap.sh PDF ("CSS") and asked whether it's all covered. By far the
+biggest gap of the three PDFs checked this session (HTML and ui-ux were the other two,
+D-111/D-112): the `css` category never taught Flexbox, Grid, Transitions, Animations,
+Transforms, Media Queries, CSS Variables, or calc()/clamp() functions at all — despite
+the site shipping dedicated Flexbox Playground / Grid Generator / Animation editor /
+Clamp *tools* built assuming this knowledge. Verified by content, not keyword mentions —
+e.g. `transform:` appeared exactly once, inside `css/align`, as a one-off `translate()`
+centering trick, never taught as a topic.
+
+9 major + 5 minor gaps found. Asked the user how to handle it; picked "build major +
+minor, all ~14" — everything except the PDF's own separate "Continue Learning" advanced
+tracks (Sass, BEM, PostCSS, CSS-in-JS, CSS Modules), which are out of core-CSS scope by
+the PDF's own structure.
+
+Built as 14 lessons, sort_order 36-49, en+bn, via `scripts/create-css-gap-content.mjs`:
+flexbox, grid, transforms, transitions, animations, media-queries, variables, functions,
+attribute-selectors, multicolumn-layout, google-fonts, font-shorthand,
+responsive-typography, css-accessibility-and-performance. Matched the old category's
+terse tone at `css/positioning`-level density (not the 46-62-block outliers like
+`css/text`). New pattern established here: the Flexbox/Grid/Animations/Functions
+lessons each close with a callout pointing at the matching site tool — first time any
+lesson cross-references a `/tools/` page; kept as plain text, no link, since no
+established convention exists yet for that.
+
+## D-114 · php extended with a 12-lesson gap-filling batch — security was the standout gap
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a fourth roadmap.sh PDF ("PHP") and asked whether it's all covered. That PDF
+is really a full Backend Development roadmap — roughly half of it (Laravel/Symfony,
+PHPUnit/Pest, PHPStan/Psalm, Xdebug, ORM, connection pooling, migrations, MySQLi,
+PHP-FPM, opcode caching, PSR-FIG) is tooling/ops scope, out of core-PHP scope by the same
+boundary used for the css batch's Sass/BEM/PostCSS exclusion (D-113).
+
+The standout finding, worth flagging on its own: **no PHP security lesson existed** —
+no SQL injection prevention framed as security (only an incidental "prepared statement"
+mention in mysql-querying), no XSS, no CSRF, no password hashing. Named as the most
+important gap of all four PDFs checked today when presenting findings to the user.
+
+12 gaps found, user picked "build all 12." Built as 12 lessons, sort_order 30-41, en+bn,
+via `scripts/create-php-gap-content.mjs`: match-expression-and-null-safe-operator,
+anonymous-functions-and-closures, php-security-basics (given real depth, not a token
+mention — SQL injection, XSS, CSRF, password_hash/password_verify), oop-static-members,
+oop-traits, oop-namespaces, oop-magic-methods, oop-polymorphism (+ type declarations + a
+brief dependency-injection note), composer-and-autoloading, json-processing,
+curl-requests, environment-variables. Matched this category's own modern house style
+(php was never part of the original Jekyll site, unlike html/css) — verified against
+php/oop-inheritance for both English tone and Bengali transliteration convention.
+
+## D-115 · wordpress extended with 5 lessons, all inside the D-65 scope boundary
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a fifth roadmap.sh PDF ("WordPress") and asked whether it's all covered.
+Unlike the prior four PDF checks this session, `wordpress`'s scope was already
+deliberately locked down by the user (D-65): custom classic theme development only,
+explicitly no Gutenberg/Block themes/FSE, no page builders, no plugin-dev deep dive, no
+security hardening/performance/DevOps. The PDF is a full WordPress developer roadmap;
+nearly all of it is out of that chosen scope on purpose, not a gap — named this
+explicitly when presenting findings so the scope decision wasn't re-litigated.
+
+5 real gaps found **within** the D-65 boundary, verified by content: `add_action()`/
+`add_filter()` are already used incidentally across 4+ existing lessons but the hook
+system itself was never explained (do_action()/apply_filters() for custom hooks) —
+same "used but never taught" pattern as the html/css/php batches (D-112/D-113/D-114).
+Shortcodes, child themes, and widgets/sidebars were missing entirely. Nonces were
+missing as the input-side counterpart to the existing escaping-sanitizing lesson's
+output-side security.
+
+Built as 5 lessons, sort_order 27-31, en+bn, via
+`scripts/create-wordpress-gap-content.mjs`: wordpress-hooks-actions-and-filters,
+shortcodes, child-themes, widgets-and-sidebars, nonces-and-form-security. Matched this
+category's modern house style and Bengali convention, verified against
+wordpress/escaping-sanitizing.
+
+## D-116 · javascript extended with a 7-lesson gap-filling batch — two tools finally get their lessons
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a sixth roadmap.sh PDF ("JavaScript") and asked whether it's all covered.
+Checked actual content, not keyword mentions — e.g. "...args" appeared once,
+incidentally, inside javascript/es6-and-modern-features, never taught as its own topic.
+
+7 gaps found. Two notable: the site ships dedicated Event Loop and Recursion visualizer
+tools (`/tools/event-loop`, `/tools/recursion`) with no lesson anywhere teaching the
+concept either one visualizes — same "tool without a lesson" pattern as the CSS batch's
+Flexbox/Grid/Animation/Clamp tools (D-113). The other five: Map/Set/WeakMap/WeakSet,
+generators/iterators, prototypes and prototypal inheritance (the Classes lesson teaches
+`class` syntax but never the prototype chain underneath), rest/spread operators, and
+memory management/garbage collection (only "memory leak" mentioned in passing, never
+the underlying model).
+
+Built as 7 lessons, sort_order 29-35, en+bn, via
+`scripts/create-javascript-gap-content.mjs`: the-event-loop, recursion,
+prototypes-and-prototypal-inheritance, generators-and-iterators, maps-and-sets,
+rest-and-spread-operators, memory-management-and-garbage-collection. The event-loop and
+recursion lessons each close with a callout pointing at their matching tool, continuing
+the pattern from D-113. Matched the old category's terse tone (javascript was part of
+the original Jekyll site) and Bengali transliteration convention, verified against
+javascript/closures.
+
+## D-117 · Cybersecurity-professional PDF declined; Linux lesson expanded 15→76 blocks and renamed
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared two PDFs together — roadmap.sh "Cyber Security" and "Linux" — asking
+whether the first is covered, and asking to expand the Linux CLI lesson from the
+second "as long as possible," explicitly permitting a URL slug change since the site
+isn't launched.
+
+**Cybersecurity PDF: declined, not built.** Unlike every other PDF checked today
+(D-111 through D-116), it's a full professional/certification roadmap — CompTIA A+/
+Network+/Security+, CEH, SOC analyst tooling, SIEM/SOAR, cloud security architecture,
+pentesting, cryptography internals, incident-response process — a different audience
+than this course's D-108 scope (students/freelancers protecting themselves
+day-to-day). Reported as an audience mismatch, not a gap list; nothing built.
+
+**`cybersecurity/linux-terminal` expanded 15 → 76 blocks, renamed to
+`cybersecurity/linux-command-line`** ("The Linux Command Line — A Practical Deep
+Dive"), via `scripts/expand-linux-lesson.mjs` — an UPDATE on the existing doc row
+(same id/sort_order/category; doc_translations followed automatically), not
+delete+insert. Added: directory hierarchy, file ops, viewing/editing (nano/vim
+basics), redirects & I/O streams, text processing (grep/awk/sed/cut/sort/uniq),
+expanded permissions/ownership, archiving, finding files, expanded process management
+(+ background/foreground jobs), users/groups/sudo, package management (apt/dnf/
+pacman), systemd, environment variables/PATH, expanded networking, disks/filesystems,
+shell scripting basics, troubleshooting/server review, full command reference.
+Deliberately excluded — noted in a closing callout, not silently cut — Docker/
+containers, LVM, deep TCP/IP/Netfilter internals, boot process: DevOps/sysadmin-
+specialist territory outside this course's CLI-literacy scope.
+
+Verified live: new path 200 with content checks passing, old path correctly 404s (no
+redirect needed pre-launch, matches D-59's precedent), sidebar auto-updated to the new
+path, bn confirmed.
+
+## D-118 · sql extended with a 6-lesson gap-filling batch
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a ninth roadmap.sh PDF ("SQL") and asked whether it's all covered. Checked
+actual lesson content and headings, not keyword hits — sql/ddl covers CREATE/DROP/
+TRUNCATE/ALTER with PRIMARY KEY inline but never FOREIGN KEY/UNIQUE/NOT NULL/CHECK;
+sql/joins covers only INNER/LEFT/RIGHT/FULL, never SELF or CROSS.
+
+6 gaps found, user picked "build all 6." Built as 6 lessons, sort_order 17-22, en+bn,
+via `scripts/create-sql-gap-content.mjs`: data-constraints, self-and-cross-joins,
+conditional-expressions (CASE/COALESCE/NULLIF), transactions-acid-and-isolation-levels
+(TCL already covered the commands, never the theory), relational-database-concepts
+(RDBMS/SQL vs NoSQL, links to the MongoDB course), query-optimization-techniques
+(expands beyond-the-basics' light EXPLAIN mention). PIVOT/UNPIVOT and Dynamic SQL
+judged niche/vendor-specific (mostly T-SQL) and left out, matching every other gap
+batch's boundary today. Matched this category's per-topic pattern (intro + example +
+bullet summary + "Common Mistake" callout + closing "At a Glance" table) and Bengali
+convention, verified against sql/tcl.
+
+## D-119 · react extended with 3 core gaps; ecosystem branches declined as intentionally optional
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a tenth roadmap.sh PDF ("React") and asked whether it's all covered. This
+PDF is explicitly an ecosystem/library map — nearly every branch labeled "Personal
+Recommendation," "Alternative Option," or "order not strict" (UI kits, state-management
+libraries, routers, testing frameworks, GraphQL clients, animation libraries,
+meta-frameworks, React Native) — consciously optional by the PDF's own design, same
+boundary pattern as the WordPress/CSS/PHP batches' excluded advanced tracks (D-113,
+D-114, D-115), not gaps.
+
+3 real gaps found within core React: `useReducer` (not covered), Suspense/`React.lazy`
+code-splitting (not covered), using TypeScript with React (only a passing mention in
+react/where-to-go-next, never taught). Render Props and Higher-Order Components judged
+legacy/superseded by hooks for the same use cases — same spirit as the PDF's own note
+that Class Components aren't recommended anymore — and left out.
+
+Built as 3 lessons, sort_order 25-27, en+bn, via `scripts/create-react-gap-content.mjs`:
+usereducer, suspense-and-code-splitting, using-typescript-with-react.
+`react/where-to-go-next` bumped from sort_order 25 to 28 so it stays the closing
+lesson. Matched react/custom-hooks' house style and Bengali convention.
+
+## D-120 · nodejs extended with an 8-lesson gap-filling batch
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared an eleventh roadmap.sh PDF ("Node.js") and asked whether it's all covered.
+Checked actual content — many apparent "ejs" hits turned out to be false positives
+matching "nod**ejs**" inside Cloudinary image publicIds, not the EJS template engine;
+the REST API lesson's one "authentication" mention was a forward-pointing aside, never
+taught.
+
+8 gaps found: authentication (JWT + bcrypt), testing (built-in `node:test`, avoiding a
+Jest-vs-Vitest choice), logging, concurrency beyond the event loop (child_process/
+worker_threads/cluster), HTTP requests (built-in global `fetch`, avoiding an axios
+dependency), process.nextTick/setImmediate, template engines (EJS), garbage
+collection & memory leaks. ORMs judged library-choice territory (matches
+connecting-to-a-database's driver-level approach); pm2 already covered in Hosting &
+Deployment's Node.js lesson; CLI-interactivity packages judged ecosystem-choice, same
+boundary used across today's other PDF checks.
+
+Built as 8 lessons, sort_order 26-33, en+bn, via
+`scripts/create-nodejs-gap-content.mjs`. `nodejs/where-this-leaves-you` bumped from
+sort_order 26 to 34 so it stays last, same pattern as the react batch (D-119). Matched
+nodejs/event-loop's house style and Bengali convention.
+
+## D-121 · python extended with a 9-lesson gap-filling batch
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a twelfth roadmap.sh PDF ("Python") and asked whether it's all covered.
+Checked actual content — `with open` and `import re` both appear constantly but
+neither context managers nor regex were ever taught as topics.
+
+9 gaps found: decorators, context managers, regular expressions, recursion,
+concurrency (threading/asyncio/GIL), testing (built-in `unittest`, mirroring the
+node:test discipline from D-120), JSON handling, virtual environments (a
+where-to-go-next pointer only, never taught), deeper type hints. The PDF's own
+separate "Data Structures & Algorithms" branch judged DSA territory, left out; package
+manager alternatives, formatters, doc generators, and frameworks judged
+ecosystem-choice/tooling, same boundary used across every PDF check today.
+
+Built as 9 lessons, sort_order 28-36, en+bn, via
+`scripts/create-python-gap-content.mjs`: decorators, context-managers,
+regular-expressions, recursion, concurrency-threading-and-asyncio,
+testing-with-unittest, working-with-json, virtual-environments,
+type-hints-in-depth. `python/where-to-go-next` bumped 28→37 and
+`python/practice-projects` bumped 29→38 so practice-projects stays the true final
+capstone — same "keep the closer last" pattern as D-119/D-120. Matched
+python/iterators-and-generators' house style and Bengali convention.
+
+## D-122 · mongodb extended with a 4-lesson gap-filling batch
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User shared a thirteenth roadmap.sh PDF ("MongoDB") and asked whether it's all
+covered. 4 gaps found within app-developer scope: array/pattern query operators
+($all/$elemMatch/$size/$regex — query-operators lesson covers comparison/logical/
+element-existence, never these), bulkWrite(), multi-document transactions (only a
+forward-pointer in where-this-leaves-you before this, with a read/write concerns note
+folded in rather than a separate lesson), specialized indexes (text/geospatial/TTL —
+the indexes lesson covers single-field/compound/unique only). Replica sets, sharding,
+enterprise auth (X.509/Kerberos/LDAP), and encryption judged ops/infra/enterprise
+territory — backup-and-security-basics already covers auth/RBAC at the "basics" level
+its name promises — same boundary used across every PDF check today.
+
+Built as 4 lessons, sort_order 22-25, en+bn, via
+`scripts/create-mongodb-gap-content.mjs`: array-and-pattern-query-operators,
+bulk-operations, transactions, specialized-indexes. `mongodb/where-this-leaves-you`
+bumped 22→26 so it stays the closer, same pattern as D-119/D-120/D-121.
+
+## D-123 · 3 useless "syllabus" stub pages unpublished (css, html, javascript)
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+User asked what `/css/syllabus` is for and to remove it if useless, and to check other
+subjects for the same pattern. Audited all 5 `syllabus`-slugged docs site-wide:
+
+- **css/syllabus** (2 blocks) — a heading plus one sentence pointing to `/css/intro`.
+  Useless.
+- **html/syllabus** (3 blocks, sort_order 1 — top of the HTML sidebar) — a "file/folder
+  structure" heading showing no actual structure. Useless.
+- **javascript/syllabus** (45 blocks, sort_order 1) — the exact dead "Chapter 1,
+  Chapter 2..." table-of-contents pattern D-63 already flagged and unpublished for
+  `react/syllabus` on 2026-07-30 — no links to real lessons, out of sync with the
+  actual lesson structure. Useless for the same reason.
+- **photoshop/syllabus** (9 blocks) — genuinely real content (Photoshop use cases +
+  Windows/Mac system requirements), just misleadingly named. Not useless — left alone;
+  a rename is a separate, smaller task if wanted later.
+- **react/syllabus** — already unpublished per D-63, no action needed.
+
+Verified before touching anything: no other doc links to any of the 3 targets, and no
+`nav_items` row references them — safe to remove with zero dead links left behind.
+
+Unpublished (`status: 'draft'`) via `scripts/unpublish-useless-syllabus-stubs.mjs`, not
+hard-deleted — same D-63 reasoning: `docs_delete_restore_guard` (D-37) requires
+`auth.uid()`, which a service-role script never has, so this script can't hard-delete
+them itself. Unpublishing has the identical effect on the live site (public reads
+require `status = 'published'`) and isn't blocked by that trigger. **Hard-delete via
+`/admin` is still the correct final step for all 4 (css/html/javascript here, react
+from D-63) if the user wants them gone from the admin docs list too, not just
+unpublished.**
+
+Verified live: all 3 URLs now 404, all 3 gone from their category sidebars. Revalidated
+`sidebar:css`/`sidebar:html`/`sidebar:javascript`, `categories-list`, `search-index`,
+and each doc's own tag locally.
+
+## D-124 · New "Git & GitHub" category — 25 lessons, 4 real screenshots, two build passes
+
+**Date:** 2026-09-03 · **Status:** Active · **Decided by:** user
+
+After scanning roadmap.sh's full catalog for content ideas (94 roadmaps, 16
+categories) and discussing where Git & GitHub would fit, user asked to build it —
+explicitly: include other version control systems, no Magnific, claude-in-chrome
+screenshots with personal info hidden.
+
+**New category `git`**, sort_order 25, placed in the "Start Here" sidebar group — a
+fundamental tool needed regardless of which language track a student picks next, same
+reasoning as `programming`'s placement there rather than under a specific language.
+Category, `nav_items` row, and full wiring (`lib/category-icons.tsx` simple-icons Git
+logo, `lib/subject-groups.ts`, `lib/nav-megamenu.ts` Foundations group).
+
+**First pass — 20 lessons** via `scripts/create-git-content.mjs`: the full day-to-day
+loop (init/add/commit, status/diff/log, .gitignore, branching, merging, conflicts,
+undoing changes, stashing), GitHub (intro, remotes, creating a repo, forking/PRs,
+issues, README/Markdown), practice (workflows, rebasing), and a closing lesson on
+other version control systems and Git hosts (SVN, Mercurial, Perforce, CVS; GitLab,
+Bitbucket, Azure DevOps, SourceHut) — directly answering the "other version control
+softwares" part of the request.
+
+**4 real screenshots**, captured live via claude-in-chrome, no Magnific: a repo page
+and a merged PR from octocat/Hello-World (GitHub's own official public demo repo), an
+issues list from microsoft/vscode's public issue tracker — all three fully public,
+zero login or personal data, cropped to exclude even the logged-in top-nav avatar. The
+one unavoidably logged-in screen — "Create a new repository" — had its Owner/username
+field region-blurred via sharp before upload, same recipe as the Google Drive filename
+blur from D-107. Appended via `scripts/add-git-real-screenshots.mjs`.
+
+**Second pass — 5 more lessons.** Mid-build, user sent a second, more detailed
+roadmap.sh "Git and GitHub" PDF ("also use this as your guide"). Audited the 20
+already-built lessons against it after finishing the screenshots — found HEAD/
+detached HEAD (referenced via the `<<<<<<< HEAD` conflict marker since the merge-
+conflicts lesson, never explained), cherry-picking, `git commit --amend`, tagging &
+GitHub Releases, and adding collaborators as real gaps, plus GitHub Pages (ties
+directly to the Hosting & Deployment course). Everything else on that fuller PDF
+(hooks, reflog, bisect, worktree, LFS, submodules, GitHub CLI, Actions/CI-CD, REST/
+GraphQL API, webhooks, Copilot/Codespaces/Sponsors/Classroom, Organizations/Teams)
+matched that PDF's own "Advanced Git Topics" tier — same boundary as every other gap
+batch today, left out. Built via `scripts/create-git-content-batch2.mjs`.
+`where-this-leaves-you` bumped twice (once per batch) to stay the closer.
+
+**Category is 25 lessons total.** Verified live at every stage via curl — category
+page, content checks, closing order, bn translations, all 4 images rendering.
+
+---
+
+## D-125 · 6 of 11 cybersecurity ChatGPT infographics added
+
+User generated the first 6 of 11 planned infographics (per
+`.extra-images/cybersecurity/PROMPTS.md`), delivered as `1.png`-`6.png`. Read and
+visually confirmed each against its prompt (title text matched exactly, no
+ambiguity), renamed to slug names, appended one image block each (en+bn alt/caption)
+to: `why-cybersecurity-matters`, `threat-landscape`, `malware-deep-dive`,
+`phishing-social-engineering`, `safe-browsing`, `email-security`. Built via
+`scripts/add-cybersecurity-infographics.mjs`, same sharp→WebP→Cloudinary pipeline as
+every other image batch this session. `publicId`: `docs/img/cybersecurity/<slug>`
+(no index suffix — first/only image per lesson).
+
+Dry-run clean, real run succeeded for all 6 (1536×1024 each). Revalidated all 6
+`doc:` tags locally, verified live via curl — each lesson now serves its new image.
+
+**5 infographics remain pending from the user**: `mobile-device-security`,
+`wifi-and-vpns`, `backing-up-data`, `social-media-privacy`,
+`ransomware-identity-theft-response` — prompts 7-11 in PROMPTS.md, not yet generated.
+
+---
+
+## D-126 · New "Vibe Coding" lesson added to `ai`; Claude Code roadmap not built
+
+User supplied two roadmap.sh PDFs: `claude-code.pdf` (CLI/agentic-loop reference —
+CLAUDE.md, skills, hooks, subagents, MCP, plugins, headless mode, model config) and
+`vibe-coding.pdf` (workflow discipline — planning, standards, prompting, context
+hygiene, debugging, git, testing, security), asking whether each fit the `ai` course.
+
+**Claude Code roadmap — judged too deep, not built.** Same altitude-mismatch call as
+the earlier computer-science.pdf verdict: hooks/subagents/MCP/plugins is power-user
+dev-tool reference, wrong fit next to "AI Assistants for Everyday Productivity."
+Recommended instead: fold a light "coding agents vs. autocomplete" section into the
+existing `ai/ai-coding-assistants` lesson later, if wanted — not done this pass.
+
+**Vibe Coding roadmap — right altitude, real gap, built as new lesson.** Practical
+and tool-agnostic (applies to Claude Code/Cursor/Copilot/v0/Lovable alike); nothing
+in `ai/ai-in-web-development-workflows` or `ai/ai-coding-assistants` covered *how*
+to work with an AI coding tool, only *what* it can do. New lesson `ai/vibe-coding`:
+what vibe coding is, plan-before-you-code, establishing standards early, prompting
+practices, context document (CLAUDE.md-style), managing context, debugging with AI,
+version control discipline, testing by default, security (never hardcode secrets).
+Named tools in passing only — no comparison/ranking table.
+
+Inserted at sort_order 12 (right after `ai-coding-assistants`), bumping every `ai/*`
+doc from 12 up by one. Built via `scripts/create-vibe-coding-lesson.mjs`.
+
+**Bug caught and fixed during the run:** the bump-loop guard used `sort_order >`
+instead of `>=`, so the doc that started at exactly sort_order 12
+(`building-an-ai-chatbot-for-a-website`) was skipped and collided with the new
+lesson (both at 12). Fixed with one direct update (→13) and corrected the script's
+guard for future re-runs. Verified clean 1-24 contiguous order after the fix.
+
+Revalidated all shifted `doc:` tags plus `sidebar:ai` and `categories-list` (the
+actual tags per `lib/content.ts` — an initial guess of a bare `ai` tag revalidated
+nothing, category page stayed stale until the correct tag was found). Verified live:
+lesson renders en+bn, sidebar/category page shows it in the right position.
+
+---
+
+## D-127 · `advanced-prompt-engineering` extended with sampling params + more techniques
+
+User supplied a third roadmap.sh PDF, `prompt-engineering.pdf`. Compared against
+existing `ai/prompt-engineering-basics` (restaurant analogy, 5 principles, role
+prompting) and `ai/advanced-prompt-engineering` (zero/few-shot, CoT, system prompts,
+structured output, negative prompting, prompt injection already covered via
+callout) — most of the roadmap already lived somewhere in the category.
+
+**Two real gaps, added as new sections to `advanced-prompt-engineering`** (not a new
+lesson — additive to an existing topic): "Controlling Output: Sampling Parameters"
+(temperature, top-K/top-P, max tokens, stop sequences) and "A Few More Reasoning
+Techniques" (step-back prompting, self-consistency, ReAct — the last one explicitly
+tied back to this course's own agents lesson). Inserted right before the lesson's
+closing paragraph, en+bn, via `scripts/extend-advanced-prompt-engineering.mjs`
+(idempotent — checks for the new heading anchor before inserting).
+
+**Judged out of scope, same altitude call as D-126**: fine-tuning vs. prompt
+engineering, prompt debiasing/ensembling, LLM self-evaluation, calibrating LLMs,
+automated eval/unit tests for prompts, prompt versioning, latency/cost optimization,
+AI red teaming — all AI-engineer/production territory, roadmap.sh itself splits
+these into separate specialist roadmaps.
+
+Revalidated `doc:ai/advanced-prompt-engineering`, verified live en+bn.
+
+---
+
+## D-128 · Two capstone lessons from Software Design & Design System roadmaps
+
+User supplied two more roadmap.sh PDFs: `software-design-architecture.pdf` (Clean
+Code, OOP, SOLID, GoF/PoSA patterns, architectural styles/patterns, DDD,
+microservices, CQRS, enterprise patterns) and `design-system.pdf` (design tokens,
+component libraries, atomic design, plus design-systems-team process: governance,
+tooling, contribution guidelines, semantic versioning, release strategy, analytics,
+community meetings).
+
+**Both mostly out of scope** — backend/enterprise architecture and design-systems-team
+process are both a level past this site's audience, same altitude call as every
+other "too deep" roadmap this session. Neither built as a full page.
+
+**Each had one genuinely beginner-appropriate slice, built as a capstone lesson each:**
+
+- `programming/clean-code-and-basic-oop` — "Writing Code That Lasts": clean code
+  habits (meaningful names, small functions, consistency, DRY, YAGNI) + the four OOP
+  pillars (encapsulation, abstraction, inheritance, polymorphism) with a small JS
+  example. Appended at sort_order 20 (category end, after `boolean-algebra`) — no
+  reshuffle needed. Pure Bangla bn, matching this category's convention. Skipped
+  entirely: SOLID, design patterns, all architectural/enterprise content.
+- `css/design-systems-and-component-thinking` — what a design system is (vs. a
+  component library), design tokens (ties directly to `css/variables`), atomic
+  design (atoms→molecules→organisms→pages). Appended at sort_order 50 (category
+  end). Banglish bn, matching this category's convention. Skipped entirely:
+  design-system team process (governance/tooling/versioning/analytics/community).
+
+Built via `scripts/create-clean-code-oop-lesson.mjs` and
+`scripts/create-design-systems-lesson.mjs`. Both dry-ran clean, ran for real,
+revalidated (`doc:` tags + `sidebar:programming` / `sidebar:css`), verified live
+en+bn and in both category listings.
+
+---
+
+## D-129 · Cybersecurity infographics — all 11 of 11 done
+
+User supplied the remaining 5 ChatGPT images (2026-09-04): `mobile-device-security`,
+`wifi-and-vpns`, `backing-up-data`, `social-media-privacy`,
+`ransomware-identity-theft-response`. Filenames were generic ChatGPT timestamps
+(`ChatGPT Image Sep 4, 2026, 01_41_05 PM.png` etc.) — visually confirmed each one
+against its `PROMPTS.md` prompt (#7-11) before renaming; all 5 matched their intended
+lesson exactly, in ascending timestamp order, matching prompt order.
+
+Built `scripts/add-cybersecurity-infographics-2.mjs`, a companion to
+`add-cybersecurity-infographics.mjs` (same sharp WebP re-encode → Cloudinary pipeline).
+One path guess was wrong on the first dry-run — tried `cybersecurity/wifi-vpns`,
+actual slug is `cybersecurity/wifi-and-vpns` — caught by the dry-run's "not found"
+error before any write, fixed, re-ran clean.
+
+Dry-ran clean, ran for real (5/5 succeeded), revalidated `doc:` tags for all 5,
+verified live via curl (image present in all 5 pages' HTML). O-33 closed — the
+Cybersecurity category now has all 4 real screenshots + all 11 ChatGPT infographics.
+`cybersecurity-category-pending` memory to be deleted (fully done, nothing left
+pending).
+
+---
+
+## D-130 · Infographic added to programming/intro
+
+User supplied one ChatGPT infographic (`ChatGPT Image Sep 4, 2026, 01_58_58 PM.png`)
+matching the `programming/intro` lesson exactly (why learn to program, what code
+looks like, section structure, programmer's mindset). Built
+`scripts/add-programming-intro-infographic.mjs`, same sharp WebP re-encode →
+Cloudinary pipeline as the cybersecurity scripts (`docs/img/programming/intro`).
+Dry-ran clean, ran for real, revalidated `doc:programming/intro`, verified live.
+Appended at the bottom, en+bn.
+
+---
+
+## D-131 · 5 new tools — SERP Snippet Previewer + 4 WordPress tools
+
+User asked for a tools-ideas brainstorm ("what kind of new tools can be made... wordpress,
+photoshop/design, freelancing/client work, SEO, career skills"). Confirmed against the live
+`categories` table that all named areas already exist as lesson categories (`wordpress`,
+`photoshop`, `design`, `figma`, `ui-ux`, `seo`, `career`, `freelancing`, `marketing`) with real
+lessons and zero tools — proposed ranked ideas per area, each tied to a specific existing lesson,
+filtered to what's buildable client-only (no backend — flagged the ones that aren't, e.g. Core
+Web Vitals can't measure real pages without a server). User picked: "build all the WordPress
+tool, SERP Snippet Previewer".
+
+Built 5 tools: `/tools/serp-preview`, `/tools/wp-template-hierarchy`, `/tools/wp-hooks-timeline`,
+`/tools/wp-query-builder`, `/tools/wp-enqueue-generator`. Full build notes in `docs/TOOLS.md`'s
+Built section. Highlights:
+
+- **Fact-checked every WordPress tool against this site's own already-published lessons before
+  writing any code** (`wordpress/template-hierarchy`, `wordpress/wordpress-hooks-actions-and-
+  filters`, `wordpress/the-loop`, `wordpress/enqueuing-assets` — fetched and read each one's real
+  blocks first) rather than risk an independently-recalled WordPress-internals detail silently
+  contradicting content the site already teaches. This is what caught, before any code was
+  written, that the Loop lesson uses the global `have_posts()`/`the_post()` form, not `new
+  WP_Query` — so the Query Builder's UI explicitly frames itself as building a *secondary* query,
+  distinct from (not contradicting) what the lesson teaches.
+- **One real bug caught in the live browser pass** on the SERP Previewer: a hidden text-measuring
+  span plus a CSS Grid `1fr` column's default `min-width: auto` together let a long `<pre>` line
+  force that column past its fair share, overflowing the whole page 500px+ past the viewport width
+  (confirmed via `document.documentElement.scrollWidth` vs `clientWidth`, and by walking the DOM to
+  find the exact offending element rather than guessing). Fixed with `min-w-0` on the grid item —
+  the standard, well-documented CSS Grid "automatic minimum size" gotcha. Verified fixed via the
+  same script-based measurement, then confirmed visually.
+- SERP pixel-width truncation is **measured via a real invisible same-font DOM clone**
+  (`getBoundingClientRect`), not a character-count guess — same "measure, don't re-simulate"
+  reasoning as the Clamp tool's iframe measurement (house rule 4) — with an honest disclaimer that
+  Google's actual truncation behavior is dynamic and unpublished, not a fixed rule.
+  `text-[10px]` findings flagged repeatedly by the design-review hook across all 3 new components
+  were confirmed as an existing, already-shipped convention (matches `box-model-demo.tsx`,
+  `contrast-demo.tsx`, `flexbox-demo.tsx`) — not new drift, left as-is.
+
+Full pipeline run: `tsc --noEmit` clean, `rm -rf .next && npm run build` — all 10 new routes
+(`/tools/*` × 5, `/bn/tools/*` × 5) built as static (`○`); grepped `.next/static/` for
+`SUPABASE_SERVICE_ROLE`/`CLOUDINARY_API_SECRET`, zero matches. Live browser pass (dev server) on
+all 5 tools, both the overflow bug and every tool's core interaction (checkbox-resolve on the
+hierarchy visualizer, play/pause on the hooks timeline, preset application on the query builder
+and enqueue generator) verified working after the fix. `lib/tools-index-i18n.ts` (en+bn, 5 new
+entries + `ToolEntry['icon']` union extended), `components/tools-index.tsx` (5 new lucide icons:
+`Search`, `GitBranch`, `ListOrdered`, `Database`, `FileCode2`), and `app/sitemap.ts` (10 new URLs)
+all updated. No lesson content touched — pure new-tool addition.
+
+**Nav:** added to the "Tools" mega-menu submenu via `scripts/add-tools-nav-items.mjs` (dry-run
+clean, ran for real, all 5 inserted at `sort_order` 23-27) — a direct `nav_items` write, same
+pattern D-79 already established (contradicts `docs/TOOLS.md`'s older "admin-panel action, not a
+migration" note; the script path is the one actually in use). Revalidated the `nav` tag, confirmed
+live via curl — all 5 links render in the menu.
+
+**Mega-menu icons** (same session, follow-up ask: "add proper icons"): the 5 new tools were
+rendering with the generic `MoreHorizontal` fallback in the mega-menu — icons there are a separate
+hand-authored `ITEM_META` map in `lib/nav-megamenu.ts`, keyed by url, unrelated to `nav_items` or
+`lib/tools-index-i18n.ts`. Added all 5 (`Search`, `GitBranch`, `ListOrdered`, `Database`,
+`FileCode2` — 2 new imports, `Search`/`GitBranch`/`Database` already in use elsewhere) plus a new
+"SEO & WordPress" `TOOLS_GROUPS` entry so they group together instead of falling into the
+catch-all "More" bucket. Verified via DOM query (`hasSvg` on each mega-menu link) after the
+screenshot tool proved unreliable for this verification (transient CDP timeouts unrelated to the
+app — confirmed via direct `1+1` JS eval returning cleanly mid-"frozen" report).
+
+---
+
+## D-132 · wp-hooks-timeline and wp-query-builder — expanded to "as detailed as possible"
+
+Direct follow-up ask, same session: "make the /tools/wp-hooks-timeline page and
+tools/wp-query-builder page as in detialed as possible. should include everything".
+
+**WordPress Hooks Timeline** — added a second section below the existing 15-hook front-end
+timeline: a categorized **Hook Reference** (6 categories — Save & Update, User & Auth, Admin Area,
+Comments, Widgets & Customizer, Content & Query Filters — ~27 more hooks total), each hook tagged
+Action or Filter with a colour-coded badge, click-to-select detail panel, and a type-aware
+generated snippet (`add_action(...)` vs. `add_filter(...  return $value; )`) — the filter template
+is new; the original single-timeline version only ever needed the action form. Kept as a separate
+browsable-by-category section rather than folded into the fixed timeline, same reasoning as the
+original "common filters" list: these fire on their own trigger, not at one fixed point in every
+request, so a single strict sequence would overclaim.
+
+**WP_Query Args Builder** — went from ~10 args to effectively the full commonly-used `WP_Query`
+surface: post status (multi-checkbox, not just a single select), `paged`/`offset` (with an honest
+warning that combining them is unreliable — WP core itself says so), `ignore_sticky_posts`,
+category/tag include+exclude, a full **Taxonomy Query** builder (add/remove rows, field/operator
+per row, AND/OR relation across rows when >1), author include+exclude, a full **Meta Query**
+builder (same add/remove-row shape, compare + type per row, relation across rows), a **Date
+Query** with two modes (simple year/month/day, or after/before range with inclusive toggle),
+`fields` (all/ids/id=>parent), and 3 performance-cache-disable flags. Codegen now produces
+correctly nested/indented PHP arrays for `tax_query`/`meta_query`/`date_query`, not just a flat
+arg list. Presets went from 5 to 8 (added meta_query, date-range, and taxonomy-filter examples).
+
+Both: `min-w-0` added defensively to every grid column div touched (the query builder's own two
+columns, plus both of the hooks timeline's grid sections) — the exact CSS Grid overflow gotcha
+just fixed on the SERP Previewer (D-131) was a real risk here too, since the query builder's
+`<pre>` output can now genuinely be long single unwrapped lines (nested-array PHP). Added
+`className` support to `components/tools/tool-controls.tsx`'s shared `Section` so `min-w-0` (and
+future one-off overrides) can be applied without wrapping every grid item in an extra div — a
+small, reusable change other tools benefit from too, not scoped to just these two.
+
+Row ids for the new Taxonomy Query / Meta Query "Add Row" buttons use a plain incrementing
+counter (`newRowId()`), called only from client-only event handlers — never at module scope or
+inside `DEFAULT_STATE`/a preset object — the exact `useState(defaultState)` id-generation gotcha
+documented in `docs/TOOLS.md`; preset rows that need a fixed id use a literal string
+(`'meta-preset-1'`, `'tax-preset-1'`) instead.
+
+`tsc --noEmit` clean, full `rm -rf .next && npm run build` clean (both routes still `○` static),
+zero secrets in build output. Live browser pass: both English and Bengali, both new UI sections
+verified via a mix of screenshot and direct DOM/JS-eval checks (the screenshot tool hit repeated
+transient CDP timeouts mid-verification — worked around by confirming page responsiveness and
+correctness via `javascript_tool` queries instead of retrying screenshots in a loop).
+
+---
+
+## D-133 · Typing Test — new standalone app, not under Tools or Docs
+
+User asked to discuss first: "a combination of monkeytype and typingtest.com," standalone in the
+main header menu, not under `/tools`. Proposed a full feature set (5 modes, results graph +
+keyboard heatmap, difficulty ladder, customization, localStorage history) and asked 3 scope
+questions via `AskUserQuestion` before writing any code. Locked answers: **English content only
+for v1** (Bengali word/quote bank explicitly a fast-follow, not forgotten — word list and quote
+bank are original content, not copied from either reference, to sidestep any misattribution/
+copyright risk entirely), **localStorage only, no backend** (matches every `/tools` app's own
+no-DB philosophy, sidesteps the ISR-write freeze by construction — nothing here revalidates a
+page), **full proposed scope**, not a slimmed-down v1.
+
+Built as `/typing-test` + `/bn/typing-test` — a **top-level `nav_items` row** (`parent_id: null`),
+not a Tools submenu entry, appended after Contact Us (sort_order 6) rather than inserted mid-list
+(avoids the sort_order collision class of bug D-126 already hit once this project).
+
+**Architecture**: `lib/typing-test-content.ts` (original word list + quote bank),
+`lib/typing-test-engine.ts` (pure WPM/accuracy/consistency formulas + localStorage history, no
+React), `lib/typing-test-i18n.ts`, `components/typing-test/{typing-test-app,wpm-graph,
+keyboard-heatmap}.tsx`. The WPM graph and heatmap went through the `dataviz` skill first — single-
+series line (no legend needed, hover crosshair per the skill's interactivity rule) and a
+sequential single-hue heatmap, both colored via the site's own `--primary` token (`color-mix()`
+for the heatmap's intensity ramp) rather than a new hardcoded palette, so both are automatically
+correct in dark mode with nothing to validate separately.
+
+**Two real bugs caught in the live browser pass, both fixed**:
+1. **Hydration mismatch** — the initial word list was generated inside a `useState(() =>
+   decorateWords(pickWords(...)))` lazy initializer, which calls `Math.random()` during both the
+   SSR pass and the client's independent hydration pass, producing two different word lists for
+   what must be the same first render. Exact same class of bug already documented and fixed on
+   the Lorem Ipsum Generator (D-87) — fixed the same way: `useState<string[]>([])` on both sides,
+   real word generation moved into a client-only `useEffect` on mount.
+2. **Stale closure in the results/WPM-sampling `setInterval`** — `buildResult`/`endTest` close
+   over `wordIndex`/`typedWords`/`currentInput` via plain function scope and are recreated fresh
+   every render, but the ticking interval is intentionally only set up once per running session
+   (dependency array `[status, startTime]`, so it doesn't drift on every keystroke) — meaning its
+   callback kept calling the *one* `buildResult`/`endTest` closure captured the instant the effect
+   ran, frozen at whatever state existed at that exact moment. Caught by actually finishing a full
+   test in the browser: results showed 1 correct char / lots missed regardless of what was really
+   typed, and the WPM graph monotonically decayed (same frozen numerator ÷ growing elapsed time on
+   every tick) instead of reflecting the real run. Fixed with the standard pattern — `buildResultRef`/
+   `endTestRef`, reassigned to the latest closure every render, read via `.current` inside the
+   interval instead of the closed-over function names directly. Re-verified with a real full-length
+   timed run afterward: results and the graph both tracked correctly.
+
+**Layout follow-up** (same session): user asked for a full-width layout (not the ~1000px tools
+container) and the config bar spread onto one line instead of five stacked centered rows. Widened
+the page shell (`max-w-5xl` → `max-w-[1800px]`), turned the config bar into one `flex-wrap` row
+with `border-l` dividers between clusters (mode / secondary option / punctuation+numbers /
+difficulty), moved the difficulty hint to its own line below so the row itself stays compact, and
+proportionally widened the typing area / results / history containers to use more of the newly
+available space (typing text itself intentionally still capped, not edge-to-edge — unbounded line
+length would hurt readability and typing rhythm, matching how monkeytype itself behaves even on
+ultrawide monitors).
+
+`tsc --noEmit` clean at every step, full `rm -rf .next && npm run build` clean (both routes `○`
+static), zero secrets in build output. User separately asked for more feature ideas — proposed a
+list (code-mode using the site's own `lib/shiki.ts`, weak-key targeted practice from heatmap data,
+blind/focus modes, a structured lessons track, share-as-image, achievement badges) without
+building any of them yet, pending a pick.
+
+---
+
+## D-134 · Typing Test — cursor fix + 4 features (weak keys, focus mode, lessons, share-image)
+
+Follow-up ask, same session. User reported the caret rendering wrong (screenshots showed it stuck
+at the end of the current word regardless of where they actually were in it) and picked 4 of the
+previously-proposed feature ideas to build: **Weak Keys practice**, **Focus mode**, **Structured
+Lessons track**, **Share as image** — plus asked for font-size control and custom/unlimited-time
+typing, on top of continuing to ask for more feature ideas and a UI modernization pass. User also
+said their own dev server is already running at localhost:3000 and not to start a new one each
+time — respected for the rest of this session; verification below is `tsc --noEmit` + live
+browser checks against their running server, not a fresh `npm run build` (which would fight over
+`.next` with a server this session doesn't control), except where noted.
+
+**Cursor bug, real and fixed**: the caret was rendered unconditionally *after* every cell of the
+current word (`{wi === wordIndex && <span className="...caret..." />}` placed after the
+`cells.map()`), so it visually always sat at the end of the word no matter how many characters had
+actually been typed — never moved with `currentInput.length` at all. Fixed by computing
+`caretPos = currentInput.length` and inserting the caret span at that exact index inside the
+`cells.map()` (with an end-of-array fallback for the "typed past the word's length" extra-chars
+case). Verified visually — caret now tracks the real typed position.
+
+**Weak Keys practice**: `lib/typing-test-engine.ts` gained a second, separate localStorage key
+(`typing-test-weak-keys-v1`, distinct from run history) tallying error counts per letter
+*cumulatively across every run*, fed by `recordKeyErrors()` called at the end of every non-Zen
+test. `lib/typing-test-content.ts`'s `pickWeakKeyWords()` weights the word pool by how many of the
+target keys each word contains (a word hitting 2 weak keys surfaces twice as often as one hitting
+1), falling back to the plain random pool if there's no data yet. Gated behind a real minimum
+(`hasEnoughDataForWeakKeyMode`, ≥5 accumulated errors) — the mode shows a locked 🔒 state with an
+explanatory hint rather than being selectable with nothing to target. Verified live: the mode was
+correctly locked on a fresh run, then unlocked itself automatically after a run crossed the
+threshold, without any manual intervention.
+
+**Focus mode**: a `focusMode` toggle in Customize; while `focusMode && status === 'running'`, the
+page header, the lessons-track CTA, and the history/customize panels are hidden — the config bar
+was already hidden while running independent of this. Deliberately scoped to this component's own
+chrome only (title/note/history/customize), not the site's global header nav, which lives in
+`layout.tsx` outside this component's reach and shouldn't disappear anyway (losing site navigation
+mid-test would hurt more than it helps).
+
+**Structured Lessons track**: new standalone flow at `/typing-test/lessons` (+ `/bn`), separate
+from the main app rather than bolted onto it — a lesson is a fixed, hand-authored drill text (not
+a random word-pool pick, which can't guarantee it actually targets the claimed keys), so it needed
+its own lighter runner. `lib/typing-test-lessons.ts` has 10 lessons in the standard progressive
+order (home row → top row → bottom row → full alphabet → capitals → punctuation → numbers → full
+sentences) — all originally authored, not copied from either reference. `components/typing-test/
+lessons-app.tsx` reuses `wordCells`/`calculateWpm`/`calculateAccuracy` from the engine (the same
+refactor point already made for D-131/D-132's shared-logic pattern) but has its own minimal
+state machine — no difficulty modes, no timer, ends when the fixed text is fully typed. Progress
+(`completed`, `bestWpm`, `bestAccuracy` per lesson id) persists to its own localStorage key,
+`typing-test-lesson-progress-v1`. Linked from the main typing-test page header.
+**Known issue, not yet resolved**: `/typing-test/lessons` 404s on the user's currently-running dev
+server — confirmed the route files exist correctly on disk and `tsc` is clean, so this is a Next.js
+dev-server route-manifest staleness issue for a brand-new nested route folder, not a code bug; it
+needs that dev server restarted to pick up the new directory, which per this session's own
+"don't touch my server" instruction was left for the user to do rather than done unilaterally.
+
+**Share as image**: `lib/typing-test-share-image.ts` — `downloadResultImage()` draws a fixed-theme
+(dark, orange-accented) 1200×630 card to an off-screen `<canvas>` (big WPM, accuracy/raw-WPM/
+consistency row, mode/date footer, site branding) and triggers a real `<a download>` click on the
+canvas's PNG data URL — no image-generation API, no new dependency. Verified live: click produced
+no console errors and the download fired (this is a real deployed page, not the Artifact sandbox,
+so `<a download>` genuinely works here).
+
+**Also added**: a font-size slider (14-36px, applied to the typing text via inline style — the
+`fontSize` Customize label already existed in the i18n strings from the original build but had no
+control wired to it) and custom/unlimited time — the duration `SegmentedControl` gained a "∞"
+option (`config.unlimited`, counts up instead of down, never auto-ends, stopped manually with
+Enter — still tracks real accuracy against target words, unlike Zen mode which has no target at
+all) plus a free-typed seconds `<input>` for any custom duration (5-3600s, committed on blur).
+
+`tsc --noEmit` clean after every stage. Live-verified on the user's own running dev server: caret
+fix, weak-keys lock/unlock cycle, unlimited-time counting-up-then-manual-stop-via-Enter, the
+Customize panel's new controls, and the Share Result button — all working with zero console
+errors. `/typing-test/lessons` is the one open item (dev-server restart needed, see above).
+
+---
+
+## D-135 · /typing-test/lessons 404 — real bug, not dev-server staleness (correction to D-134)
+
+D-134 guessed the `/typing-test/lessons` 404 was Next dev's known route-manifest staleness for a
+brand-new nested folder. Wrong — user restarted their dev server and it still 404'd. The actual
+cause: `proxy.ts`'s middleware treats **any** 2-segment path as a docs `[category]/[slug]` lookup
+unless the first segment is literally `'tools'` (a special case the file's own comment already
+documented, written before a second such route existed) — `/typing-test/lessons` isn't `'tools'`,
+so it got treated as category `typing-test` / slug `lessons`, found no matching doc, and got
+rewritten to `/__404__`. Fixed by adding `'typing-test'` to that exemption list alongside
+`'tools'`. Middleware changes hot-reload without a server restart — verified live immediately
+after the edit, no restart needed this time. All 10 lessons render; ran one end-to-end
+(Home Row Basics) successfully, results screen and "Next Lesson" flow both confirmed.
+
+**Second real bug, caught by that same verification run**: the lesson runner's accuracy showed
+**136%** — mathematically impossible. Cause: `lessons-app.tsx`'s `finish()` counts a
+correctly-typed word-boundary space via `correct++`, but the matching `total++` was missing,
+so `correct` could exceed `total` (accuracy = correct/total) whenever spaces made up a large
+enough share of the text — exactly what a short home-row drill's word:space ratio does. Fixed by
+incrementing both together. Checked the main app's own `buildResult()` for the same shape of bug —
+it's actually safe by construction there: its accuracy denominator is `correct + incorrect`, and
+`correct` is literally one of that sum's two terms, so incrementing it can never push the ratio
+past 100% regardless of how many space-bonuses accrue. Verified live: a clean re-typed run showed
+exactly 100%, not over.
+
+Both fixes are two-line, surgical — `tsc --noEmit` clean, live browser re-verification after each,
+zero console errors on repeat page loads (confirmed the one earlier "script tag" console error was
+a one-time artifact of the broken 404 state itself, not a separate bug — it never recurred once
+the middleware fix landed).
+
+---
+
+## D-136 · Typing Test — customizable text colors + persisted Customize settings
+
+User: "There should be an option to change the font color of the typing text because sometimes it
+maynot be visible." The default untyped-text color (`text-muted-foreground/50`, a low-opacity
+gray) is the likely culprit — low-contrast by design (it's meant to visually recede behind the
+already-typed text), but that can wash out entirely depending on monitor/theme. Added two
+`<input type="color">` pickers to Customize — **untyped-text color** and **typed-text color** —
+applied via inline `style` that overrides the default Tailwind class only when a custom value is
+set (`null` = keep the theme default), plus a "Reset to default colors" link that appears only
+when at least one is customized.
+
+**While in there, fixed a real pre-existing gap**: every Customize toggle (sound, smooth caret,
+font size, focus mode) was plain `useState` that silently reset on every page load — nobody wants
+to re-pick their font size every visit. Added `lib/typing-test-engine.ts`'s `loadSettings()`/
+`saveSettings()` (a `typing-test-settings-v1` localStorage key, same shape as history/weak-keys/
+lesson-progress), loaded in the same client-only mount effect as the word list (same hydration-
+safety shape — deterministic defaults on both server and client's first render, real values
+loaded after), saved via a `settingsLoaded`-guarded effect so the load itself doesn't immediately
+overwrite the just-loaded values with in-flight defaults.
+
+**Native `<input type="color">` can't be driven by browser automation** (it opens an OS-level
+dialog outside the page). Verified with `javascript_tool` instead — set the input's value via the
+native property setter (bypasses React's tracked-value wrapper) and dispatched real `input`/
+`change` events, the standard way to test a native form control without the OS picker. Confirmed
+live: the color applied instantly across all pending-text characters, the swatch and "Reset" link
+updated correctly, and — the actual point of persisting settings — the chosen color survived a
+full page reload.
+
+`tsc --noEmit` clean, zero console errors across every check.
+
+---
+
+## D-137 · Typing Test — accent themes, word transition, monkeytype-style capped text view
+
+Three follow-up asks, same session: a few accent color themes, a word-by-word transition, and a
+real complaint — "when i change timing the page becomes too long because the typing text becomes
+too long" — with a specific reference: show it monkeytype-style, only a few lines at a time.
+
+**Accent themes**: 4 presets (orange/blue/green/purple) as click-to-select swatches in Customize.
+Rather than 4 arbitrarily-picked hex values, each is the *same recipe* as the site's own
+`--primary` token in `app/globals.css` (0.171 chroma, 0.57 light / 0.75 dark lightness) with only
+the hue rotated — every accent reads as equally vivid as the shipped default instead of one
+looking duller or more saturated than the others by accident. Applied via an inline
+`style={{'--primary': ..., '--primary-foreground': ...}}` on the page's own outer wrapper div —
+scoped to this app only, not a sitewide theme change — which cascades to every descendant already
+using `var(--primary)`: the shadcn `Button`, the active-word highlight, the caret, the stat tiles,
+even the native range-input `Slider`'s `accent-primary` thumb color, all switch together with zero
+per-component changes needed. Dark/light variant selection reuses the exact same
+`MutationObserver`-on-`document.documentElement.classList` pattern already established by the
+Clamp tool (docs/TOOLS.md). `--primary-foreground` is reused unchanged across every accent — it's
+neutral (near-white / near-black), not hue-dependent, so one pair legitimately covers all four.
+Persisted alongside the rest of Customize (D-136's settings key). Verified live via
+`getComputedStyle(...).getPropertyValue('--primary')` (more reliable than eyeballing a screenshot
+for a CSS custom property) — confirmed the real oklch value switched on click and survived reload.
+
+**Word-by-word transition**: the active word's highlight background gained `transition-colors
+duration-300`, so as `wordIndex` advances the previous word's highlight fades out and the new
+one fades in rather than snapping — paired with a new effect that calls
+`activeWordRef.current.scrollIntoView({block:'center', behavior: smoothCaret ? 'smooth' : 'auto'})`
+on every `wordIndex` change, which is also what makes the capped-height view below actually track
+the current word.
+
+**Capped-height text view — the real bug fix**: previously every word for the whole test (up to
+3000 for a long/unlimited duration) rendered inline in one flex-wrapped paragraph, so the page
+grew as tall as that many words needed to wrap across, exactly matching the user's report. Fixed
+by wrapping the word stream in a `max-height`-constrained `overflow-hidden` div (~5.5 lines' worth,
+computed from the live `fontSize` state so it stays correct if font size changes) with the
+scroll-into-view effect above keeping the active word in view as typing advances — `overflow:
+hidden` still permits *programmatic* scrolling (`scrollIntoView`/`scrollTop`), it only hides the
+scrollbar and blocks manual wheel-scroll, which is exactly the "always exactly N lines, no visible
+scrollbar, advances automatically" monkeytype look being asked for. Iterated once more, live: user
+asked for 5-6 lines (not the initial 3) with the last line or two fading into nothing "so it feels
+like the text is floating up" — added a CSS `mask-image`/`-webkit-mask-image` linear-gradient
+(opaque for the top 70%, fading to fully transparent by the bottom) on the same container. This is
+a fade, not a literal `filter: blur()` — a true blur would need a second layered/duplicated text
+element, meaningfully more complex for the same perceived effect — and reads as the requested
+"dissolving" look without it.
+
+`tsc --noEmit` clean. Live-verified: fade visibely dissolves the last ~1.5 lines, page height is
+now bounded regardless of duration/word-count, active word scrolls smoothly into view as typing
+advances, and all 4 accent swatches switch the real CSS variable and persist across reload.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
@@ -5633,4 +6684,6 @@ resources total.
 | O-29 | ~~Add "CSS Units Converter" to the header nav~~ — **resolved, D-79.** `nav_items` row added via script, `sort_order` 10 (last), shows in local dev now. The `/api/revalidate` webhook call was deliberately skipped (ISR-quota constraint) — production's header nav is stale until quota clears or another nav edit busts the `nav` tag | Live production header doesn't show the new tool yet; everything else does |
 | ~~O-31~~ | ~~Run `supabase/migrations/012-resources-link-health.sql`~~ — **resolved.** User ran it (2026-08-20). `check-resource-links.yml`'s daily Action can now write real status instead of erroring on missing columns | — |
 | O-32 | Wire `revalidateTag('resources')` into `scripts/check-resource-links.mjs` (D-101) once the ISR-quota block is lifted — deliberately left out for now | `/resources` won't reflect any link-health status changes on the live site until this is added (or another resources edit busts the `resources` tag) |
+| ~~O-33~~ | ~~Build the Cybersecurity category~~ — **fully resolved, D-129.** Category, nav, all 18 lessons (en+bn) live. All 4 real screenshots (D-109) + all 11 ChatGPT infographics (D-125, D-129) done | — |
+| O-34 | Hard-delete 4 unpublished "syllabus" stub docs via `/admin` (css/html/javascript from D-123, react from D-63) — a service-role script can't do this itself, blocked by `docs_delete_restore_guard` (D-37) | Nothing broken — all 4 are already unpublished (invisible on the live site), just still sitting in the admin's docs list |
 | O-28 | New bug found in `components/blocks/try-it.tsx` (D-75): a `tryit` block whose CSS does `@import` on a cross-origin stylesheet (tested with both Font Awesome via cdnjs and Google Material Icons) never paints the resulting icons inside the preview iframe, even though the font file itself loads successfully (confirmed 200 status, correct byte count, via network log). Reproduced in gstack's headless browser AND real Chrome; does NOT reproduce in an isolated static-file harness with the identical `srcdoc` string outside the app, including with two such iframes side by side. No CSP present (checked both header and meta tag) to explain it. Root cause unknown — worth a focused debugging session with real devtools access into the sandboxed iframe (blocked from JS inspection here since `sandbox="allow-scripts"` has no `allow-same-origin`) | Blocks using external icon-font demos in Try It blocks (rare — most lessons use plain HTML/CSS/JS with no external font). `css/icons` reverted to plain code blocks rather than ship this broken |

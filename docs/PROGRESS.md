@@ -9,6 +9,694 @@ for picking up work weeks later.
 
 ---
 
+## 2026-09-03 — Session 79 (cont'd 13): 3 useless "syllabus" stub pages removed
+
+**Done**
+- User asked what `/css/syllabus` is for, to remove it if useless, and to check other
+  subjects for the same pattern. Audited all 5 `syllabus`-slugged docs site-wide:
+  css/syllabus (2 blocks, just a sentence pointing to css/intro) and html/syllabus
+  (3 blocks, sits at sort_order 1 — top of the sidebar, a fake "file structure" heading
+  with no structure shown) were useless. javascript/syllabus (45 blocks, also sort_order
+  1) turned out to be the exact dead "Chapter 1, Chapter 2..." table-of-contents stub
+  D-63 already flagged and unpublished for react/syllabus back on 2026-07-30 — same
+  problem, just never caught in the js category. photoshop/syllabus (9 blocks) actually
+  has real content (Photoshop overview + system requirements) — misleadingly named but
+  not useless, left alone.
+- Verified no other doc or nav_items row links to any of the 3 targets before touching
+  anything — zero dead links left behind.
+- Unpublished all 3 (`status: 'draft'`) via
+  `scripts/unpublish-useless-syllabus-stubs.mjs` — same D-63 pattern (hard-delete is
+  blocked for a service-role script by `docs_delete_restore_guard`, unpublishing has
+  the identical live-site effect). Verified live: all 3 URLs 404, gone from their
+  category sidebars. Added O-34 tracking the eventual `/admin` hard-delete for all 4
+  now-unpublished syllabus stubs (css/html/javascript here + react from D-63).
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 15): 4 more ChatGPT infographics added to basics
+
+**Done**
+- User dropped 4 new ChatGPT-generated infographics into `.extra-images/basic-computer/`
+  (File and Folder Basics, Command Line and Terminal Basics, Git Basics, Generations of
+  Computers), asked to identify, rename, and add them with alt text.
+- Read each image, matched by content to 4 lessons in `basics` that already existed
+  (sort_order 18-21, each with its own isometric hero image already) — turned out
+  `basics/file-and-folder-basics`, `basics/command-line-and-terminal-basics`,
+  `basics/git-basics`, and `basics/generations-of-computers` all already existed as
+  real lessons (a `basics/github-basics` lesson exists too, sort_order 21, but no 5th
+  image was supplied for it — left untouched).
+- Renamed all 4 source files to descriptive slugs, ran
+  `scripts/add-basics-infographics-batch2.mjs` (same pipeline as the original
+  add-basics-infographics.mjs — sharp WebP re-encode strips metadata, Cloudinary
+  upload, appended as each lesson's newest image, existing hero images untouched).
+- Verified live via curl: all 4 lessons now show their original image(s) plus the new
+  infographic. Revalidated each doc's own tag locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 14): new "Git & GitHub" category built — 25 lessons, 4 real screenshots
+
+**Done**
+- After discussing content ideas from scanning roadmap.sh's full catalog, user asked
+  where Git & GitHub would fit (answer: "Start Here" — a fundamental tool, not
+  language-specific), then asked to build it, explicitly including other version
+  control systems, no Magnific, claude-in-chrome screenshots with personal info hidden.
+- **New category `git`** (sort_order 25, "Start Here" group) via
+  `scripts/create-git-category.mjs` + `scripts/add-git-nav.mjs` (nav_items row) +
+  wiring: `lib/category-icons.tsx` (simple-icons Git logo), `lib/subject-groups.ts`
+  ("start" group), `lib/nav-megamenu.ts` (Foundations group + GitBranch hint icon).
+- **20 lessons written** via `scripts/create-git-content.mjs`: introduction-to-
+  version-control, installing-git, git-basics-init-add-commit,
+  checking-status-and-history, gitignore, branching-basics, merging-branches,
+  resolving-merge-conflicts, undoing-changes, stashing-changes,
+  introduction-to-github, remotes-clone-push-pull, creating-a-github-repository,
+  forking-and-pull-requests, github-issues, readme-and-markdown, git-workflows,
+  rebasing, other-version-control-systems (SVN/Mercurial/Perforce/CVS + GitLab/
+  Bitbucket/Azure DevOps/SourceHut — the "other version control softwares" the user
+  asked for), where-this-leaves-you.
+- **4 real screenshots** captured live via claude-in-chrome, no Magnific:
+  github-repo-page and pull-request from octocat/Hello-World (GitHub's own public
+  demo repo), github-issues from microsoft/vscode's public issues list — all three
+  fully public, zero login/personal data, cropped to exclude even the logged-in
+  top-nav avatar. The 4th, creating-a-github-repository, is the one unavoidably
+  logged-in screen ("Create a new repository") — the Owner/username field
+  region-blurred via sharp before upload, same recipe as the Google Drive filename
+  blur from D-107. Appended via `scripts/add-git-real-screenshots.mjs`.
+- **Mid-build, user sent a second, more detailed roadmap.sh "Git and GitHub" PDF**
+  ("also use this as your guide") — audited the 20 already-built lessons against it
+  after finishing the screenshots. Found 5 more real gaps: HEAD/detached HEAD
+  (referenced via the `<<<<<<< HEAD` conflict marker since lesson 8, never explained),
+  cherry-picking, `git commit --amend`, tagging & GitHub Releases, adding
+  collaborators, GitHub Pages. Everything else on that fuller PDF (hooks, reflog,
+  bisect, worktree, LFS, submodules, GitHub CLI, Actions/CI-CD, REST/GraphQL API,
+  webhooks, Copilot/Codespaces/Sponsors/Classroom, Organizations/Teams) matched that
+  PDF's own "Advanced Git Topics" tier — same boundary as every other gap batch
+  today, left out. User picked "build all 5."
+- **5 more lessons** via `scripts/create-git-content-batch2.mjs`:
+  head-and-detached-head, cherry-picking-and-amending, tagging-and-releases,
+  adding-collaborators, github-pages. `where-this-leaves-you` bumped 21→26 (had
+  already been bumped once to 21 by the first batch) to stay the closer.
+- **Category is now 25 lessons total.** Verified live throughout: category page,
+  content checks, closing order, bn translations, all 4 images rendering — all
+  confirmed via curl at each stage. Revalidated `nav`, `categories-list`,
+  `sidebar:git`, `search-index`, and every touched doc's own tag locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 12): mongodb extended with 4 gap-filling lessons
+
+**Done**
+- User shared a thirteenth roadmap.sh PDF ("MongoDB"), asked whether it's all covered.
+  4 gaps found within app-developer scope: array/pattern query operators ($all/
+  $elemMatch/$size/$regex), bulkWrite(), multi-document transactions (with a read/
+  write concerns note folded in), specialized indexes (text/geospatial/TTL). Replica
+  sets, sharding, enterprise auth (X.509/Kerberos/LDAP), and encryption judged ops/
+  infra/enterprise territory — same boundary as every PDF check today.
+- User picked "build all 4" over AskUserQuestion.
+- **4 lessons added** to `mongodb` (sort_order 22-25, en+bn) via
+  `scripts/create-mongodb-gap-content.mjs`: array-and-pattern-query-operators,
+  bulk-operations, transactions, specialized-indexes.
+  `mongodb/where-this-leaves-you` bumped 22→26 so it stays the closer (same pattern as
+  react/nodejs/python).
+- Matched this category's house style (mongosh shell syntax) and Bengali convention.
+- Verified live via curl: content checks pass (elemMatch, commitTransaction,
+  2dsphere all found), closing order correct, bn confirmed. Revalidated
+  `sidebar:mongodb`, `search-index`, and where-this-leaves-you's own tag locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 11): python extended with 9 gap-filling lessons
+
+**Done**
+- User shared a twelfth roadmap.sh PDF ("Python"), asked whether it's all covered.
+  Checked actual content — `with open` and `import re` both appear constantly but
+  neither context managers nor regex were ever taught as topics.
+- 9 gaps found: decorators, context managers (`__enter__`/`__exit__`), regular
+  expressions, recursion, concurrency (threading/asyncio/GIL), testing (built-in
+  `unittest`, mirroring the node:test discipline from the Node.js batch), JSON
+  handling, virtual environments (mentioned only as a where-to-go-next pointer, never
+  taught), and deeper type hints. The PDF's own separate "Data Structures &
+  Algorithms" branch (arrays/linked lists/heaps/BST/sorting algorithms) judged DSA
+  territory, distinct from "Learn the Basics" in the PDF's own layout, left out.
+  Package manager alternatives, formatters, doc generators, and frameworks judged
+  ecosystem-choice/tooling, same boundary used across every PDF check today.
+- User picked "build all 9" over AskUserQuestion.
+- **9 lessons added** to `python` (sort_order 28-36, en+bn) via
+  `scripts/create-python-gap-content.mjs`: decorators, context-managers,
+  regular-expressions, recursion, concurrency-threading-and-asyncio,
+  testing-with-unittest, working-with-json, virtual-environments,
+  type-hints-in-depth. `python/where-to-go-next` bumped 28→37 and
+  `python/practice-projects` bumped 29→38 so practice-projects stays the true final
+  capstone lesson — same "keep the closer last" pattern as the react/nodejs batches.
+- Matched this category's established house style (see
+  python/iterators-and-generators) and Bengali transliteration convention.
+- Verified live via curl: content checks pass (functools.lru_cache,
+  requirements.txt, GIL all found), category page shows correct closing order, bn
+  confirmed. Revalidated `sidebar:python`, `search-index`, and both bumped lessons'
+  own tags locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 10): nodejs extended with 8 gap-filling lessons
+
+**Done**
+- User shared an eleventh roadmap.sh PDF ("Node.js"), asked whether it's all covered.
+  Checked actual content, not keyword hits — many apparent "ejs" mentions turned out
+  to be false positives matching "nod**ejs**" inside Cloudinary image publicIds, not
+  the EJS template engine; the REST API lesson's one "authentication" mention was a
+  forward-pointing aside, never actually taught.
+- 8 gaps found: authentication (JWT + bcrypt), testing (taught with Node's own
+  built-in `node:test` rather than picking Jest vs Vitest), logging, concurrency
+  beyond the event loop (child_process/worker_threads/cluster), making HTTP requests
+  (taught with Node 18+'s built-in global `fetch` rather than axios), process.nextTick/
+  setImmediate, template engines (EJS as one concrete example), garbage collection &
+  memory leaks. ORMs judged library-choice territory matching
+  connecting-to-a-database's existing driver-level approach; pm2 already covered in
+  Hosting & Deployment's Node.js lesson; CLI-interactivity packages judged
+  ecosystem-choice, same boundary as UI libraries in earlier PDF checks today.
+- User picked "build all 8" over AskUserQuestion.
+- **8 lessons added** to `nodejs` (sort_order 26-33, en+bn) via
+  `scripts/create-nodejs-gap-content.mjs`: authentication, testing-nodejs-applications,
+  logging-in-production, concurrency-child-process-worker-threads-cluster,
+  making-http-requests-with-fetch, process-nexttick-and-setimmediate,
+  template-engines-with-ejs, garbage-collection-and-memory-leaks.
+  `nodejs/where-this-leaves-you` bumped from sort_order 26 to 34 so it stays the
+  closing lesson (same pattern as the react gap batch).
+- Matched this category's established house style (see nodejs/event-loop) and Bengali
+  transliteration convention.
+- Verified live via curl: content checks pass (jwt.sign, response.ok,
+  MaxListenersExceededWarning all found), category page shows correct closing order,
+  bn confirmed. Revalidated `sidebar:nodejs`, `search-index`, and
+  where-this-leaves-you's own tag locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 9): react extended with 3 core gaps; ecosystem branches declined as intentionally optional
+
+**Done**
+- User shared a tenth roadmap.sh PDF ("React"), asked whether it's all covered. This
+  PDF is explicitly an ecosystem/library map — nearly every branch labeled "Personal
+  Recommendation," "Alternative Option," or "order not strict" (UI kits, state-mgmt
+  libraries, routers, testing frameworks, GraphQL clients, animation libraries,
+  meta-frameworks, React Native) — consciously optional-by-design, same boundary
+  pattern as the WordPress/CSS/PHP gap batches' excluded advanced tracks, not gaps.
+- 3 real gaps found within core React itself: `useReducer` (not covered at all),
+  Suspense/`React.lazy` code-splitting (not covered), using TypeScript with React (only
+  a passing mention in react/where-to-go-next, never taught). Render Props and HOCs
+  judged legacy/superseded by hooks — same spirit as the PDF's own Class Components
+  caveat — and left out.
+- User picked "build all 3" over AskUserQuestion.
+- **3 lessons added** to `react` (sort_order 25-27, en+bn) via
+  `scripts/create-react-gap-content.mjs`: usereducer, suspense-and-code-splitting,
+  using-typescript-with-react. `react/where-to-go-next` bumped from sort_order 25 to
+  28 so it stays the closing lesson.
+- Matched this category's established house style (see react/custom-hooks) and Bengali
+  transliteration convention.
+- Verified live via curl: category page shows correct order (3 new lessons, then Where
+  to Go Next last), content checks pass (dispatch, React.lazy, ReactNode all found), bn
+  confirmed. Revalidated `sidebar:react`, `search-index`, and where-to-go-next's own
+  tag (sort_order changed) locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 8): sql extended with 6 gap-filling lessons
+
+**Done**
+- User shared a ninth roadmap.sh PDF ("SQL"), asked whether it's all covered. Checked
+  actual lesson content and headings, not keyword hits — e.g. sql/ddl covers CREATE/
+  DROP/TRUNCATE/ALTER with PRIMARY KEY inline, but FOREIGN KEY/UNIQUE/NOT NULL/CHECK
+  never appear anywhere; sql/joins covers only INNER/LEFT/RIGHT/FULL, never SELF or
+  CROSS.
+- 6 gaps found — presented to user, picked "build all 6" over AskUserQuestion.
+- **6 lessons added** to `sql` (sort_order 17-22, en+bn) via
+  `scripts/create-sql-gap-content.mjs`: data-constraints (FOREIGN KEY/UNIQUE/NOT NULL/
+  CHECK), self-and-cross-joins, conditional-expressions (CASE/COALESCE/NULLIF),
+  transactions-acid-and-isolation-levels (TCL already covered the commands, never the
+  theory), relational-database-concepts (RDBMS/SQL vs NoSQL — intro-level grounding,
+  links out to the MongoDB course), query-optimization-techniques (expands
+  beyond-the-basics' light EXPLAIN mention into indexing/join/subquery/projection
+  technique). PIVOT/UNPIVOT and Dynamic SQL judged niche/vendor-specific (mostly
+  T-SQL) and left out, same boundary pattern as every other gap batch today.
+- Matched this category's own established per-topic pattern (heading + intro +
+  example + bullet summary + "Common Mistake" warning callout, closing "At a Glance"
+  table — see sql/tcl, sql/ddl, sql/beyond-the-basics) and its Bengali
+  transliteration convention, verified against sql/tcl.
+- Verified live via curl: category page lists new titles, content checks pass
+  (FOREIGN KEY, Serializable both found), bn translation confirmed. Revalidated
+  `sidebar:sql` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 7): Linux lesson massively expanded; cybersecurity-professional PDF declined as out of scope
+
+**Done**
+- User shared a seventh and eighth PDF together — roadmap.sh "Cyber Security" and
+  "Linux" — asked whether the cybersecurity one is covered, and separately asked to
+  expand the Linux CLI lesson using the Linux PDF "as long as possible," explicitly
+  permitting a URL slug change since the site isn't launched yet.
+- **Cybersecurity PDF: declined, not built.** Unlike every other PDF checked today,
+  this one is a full professional/certification roadmap (CompTIA A+/Network+/Security+,
+  CEH, SOC analyst tooling, SIEM/SOAR, cloud security architecture, penetration
+  testing, cryptography internals, incident-response process) — a fundamentally
+  different audience than this site's course, which is scoped for students/freelancers
+  protecting themselves day-to-day (D-108). Reported as an audience mismatch rather
+  than a lesson-by-lesson gap list; nothing built, not treated as a real gap.
+- **cybersecurity/linux-terminal expanded from 15 blocks to 76 blocks** and **renamed**
+  to `cybersecurity/linux-command-line` (title: "The Linux Command Line — A Practical
+  Deep Dive"), via `scripts/expand-linux-lesson.mjs` — an UPDATE on the existing doc row
+  (same id/sort_order/category, doc_translations followed automatically), not a
+  delete+insert. New sections: directory hierarchy, file ops, viewing/editing (cat/
+  less/head/tail/nano/vim basics), redirects & the 3 I/O streams, text processing
+  (grep/awk/sed/cut/sort/uniq), permissions & ownership (expanded), archiving (tar/
+  zip), finding files, process management (expanded, + background/foreground jobs),
+  users & groups (+ sudo), package management (apt/dnf/pacman), systemd service
+  management, environment variables/PATH, networking (expanded), disks/filesystems,
+  shell scripting basics (variables/conditionals/loops), troubleshooting/server review,
+  and a full command reference table. Deliberately excluded (noted in a closing
+  callout, not silently cut): Docker/containers, LVM, deep TCP/IP/Netfilter internals,
+  boot process — DevOps/sysadmin-specialist territory outside this course's CLI-
+  literacy scope.
+- Verified live: new path returns 200 with both content checks passing, **old path
+  correctly 404s** (no redirect needed — site isn't launched, no external links to
+  break, matches D-59's precedent that pre-launch URL changes don't need redirects),
+  sidebar link updated to the new path automatically, bn translation confirmed.
+  Revalidated the old tag, new tag, `sidebar:cybersecurity`, and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 6): javascript extended with 7 gap-filling lessons
+
+**Done**
+- User shared a sixth roadmap.sh PDF ("JavaScript"), asked whether it's all covered.
+  Checked actual content, not keyword mentions — e.g. "...args" appeared once,
+  incidentally, inside javascript/es6-and-modern-features, but rest/spread syntax was
+  never taught as its own topic.
+- 7 gaps found, two notable: the site ships dedicated **Event Loop** and **Recursion**
+  visualizer tools (`/tools/event-loop`, `/tools/recursion`) with no lesson anywhere
+  teaching the concept either one visualizes — same "tool without a lesson" pattern as
+  the CSS batch's Flexbox/Grid/Animation/Clamp tools (D-113). The other five: Map/Set/
+  WeakMap/WeakSet, generators/iterators, prototypes/prototypal inheritance (the Classes
+  lesson teaches `class` syntax but never the prototype chain underneath), rest/spread
+  operators, and memory management/garbage collection (only "memory leak" was mentioned
+  in passing, never the underlying model).
+- User picked "build all 7" over AskUserQuestion.
+- **7 lessons added** to `javascript` (sort_order 29-35, en+bn) via
+  `scripts/create-javascript-gap-content.mjs`: the-event-loop, recursion,
+  prototypes-and-prototypal-inheritance, generators-and-iterators, maps-and-sets,
+  rest-and-spread-operators, memory-management-and-garbage-collection. The event-loop
+  and recursion lessons each close with a callout pointing at their matching site tool.
+- Matched the old category's terse W3Schools-style tone (`<hr>` separators, short
+  paragraphs) since javascript was part of the original Jekyll site, unlike php/
+  wordpress. Bengali matches that category's script-transliteration convention,
+  verified against javascript/closures bn.
+- Verified live via curl: category page lists new titles, content checks pass
+  (microtask, Object.create both found), bn translation confirmed. Revalidated
+  `sidebar:javascript` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 5): wordpress extended with 5 in-scope gap lessons
+
+**Done**
+- User shared a fifth roadmap.sh PDF ("WordPress"), asked whether it's all covered.
+  Unlike the prior four PDF checks, this category's scope was **already deliberately
+  locked down by the user** (D-65): custom classic theme development only — explicitly
+  no Gutenberg/Block themes/FSE, no page builders, no plugin-dev deep dive, no security
+  hardening/performance/DevOps. The PDF is a full WordPress *developer* roadmap; nearly
+  all of it (Block themes, REST API, OOP/Composer for WP, headless WP, multisite,
+  WP-CLI, career growth, hosting) is out of that scope on purpose, not a gap.
+- Still found 5 real gaps **within** the D-65 scope, verified by content: `add_action()`/
+  `add_filter()` are already used incidentally in 4+ existing lessons but the hook
+  system itself (actions vs. filters, `do_action()`/`apply_filters()` for custom hooks)
+  is never explained — same "used but never taught" pattern as the html/css/php gap
+  batches. Shortcodes, child themes, and widgets/sidebars weren't covered at all.
+  Nonces were missing as the input-side counterpart to the existing
+  escaping-sanitizing lesson's output-side security.
+- Presented findings with the D-65 scope explicitly named up front (so the user wasn't
+  re-litigating an already-closed scope decision); picked "build all 5" over
+  AskUserQuestion.
+- **5 lessons added** to `wordpress` (sort_order 27-31, en+bn) via
+  `scripts/create-wordpress-gap-content.mjs`: wordpress-hooks-actions-and-filters,
+  shortcodes, child-themes, widgets-and-sidebars, nonces-and-form-security.
+- Matched this category's own modern house style (moderate prose, code, callouts — see
+  wordpress/escaping-sanitizing) and its Bengali transliteration convention, verified
+  against that same lesson.
+- Verified live via curl: category page lists new titles, content checks pass
+  (apply_filters, wp_verify_nonce both found), bn translation confirmed. Revalidated
+  `sidebar:wordpress` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 4): php extended with 12 gap-filling lessons — security was the standout gap
+
+**Done**
+- User shared a fourth roadmap.sh PDF ("PHP"), asked whether it's all covered. That PDF
+  is really a full Backend Development roadmap for PHP — roughly half of it (Laravel/
+  Symfony, PHPUnit/Pest, PHPStan/Psalm, Xdebug, ORM, connection pooling, migrations,
+  MySQLi, PHP-FPM, opcode caching, PSR-FIG) is tooling/ops scope, judged out of core-PHP
+  scope the same way the CSS batch excluded Sass/BEM/PostCSS.
+- Most important single finding across all four PDF checks today: **no PHP security
+  lesson existed at all** — no SQL injection prevention (beyond an incidental "prepared
+  statement" mention in mysql-querying, never framed as security), no XSS, no CSRF, no
+  password hashing. Flagged as the standout gap when presenting findings.
+- 12 gaps found — presented to user, picked "build all 12" over AskUserQuestion.
+- **12 lessons added** to `php` (sort_order 30-41, en+bn) via
+  `scripts/create-php-gap-content.mjs`: match-expression-and-null-safe-operator,
+  anonymous-functions-and-closures (closures/callbacks/recursion/variadic/named args),
+  php-security-basics (given real depth — SQL injection, XSS, CSRF, password_hash),
+  oop-static-members, oop-traits, oop-namespaces, oop-magic-methods, oop-polymorphism
+  (+ type declarations + a DI note), composer-and-autoloading, json-processing,
+  curl-requests, environment-variables.
+- Matched this category's own modern house style (php/oop-* lessons) since PHP was never
+  part of the original Jekyll site — unlike the html/css gap batches, this is extending
+  2026-07-era newly-authored content, not old migrated content. Bengali matches this
+  category's script-transliteration convention (verified against php/oop-inheritance bn).
+- Verified live via curl: category page lists new titles, content checks pass
+  (password_hash, PSR-4 both found), bn translation confirmed. Revalidated
+  `sidebar:php` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 3): css extended with 14 gap-filling lessons — biggest gap of the three
+
+**Done**
+- User shared a third roadmap.sh PDF ("CSS"), asked whether it's all covered. This was
+  by far the biggest gap of the three PDFs checked this session: the CSS category (35
+  migrated lessons) never taught Flexbox, Grid, Transitions, Animations, Transforms,
+  Media Queries, CSS Variables, or calc()/clamp() functions **at all** — despite the
+  site shipping dedicated Flexbox Playground / Grid Generator / Animation editor / Clamp
+  *tools* that assume this knowledge. Verified by content (e.g. `transform:` only
+  appeared once, inside `css/align`, as a one-off `translate()` centering trick — never
+  taught as its own topic; "attribute selector" was only a passing mention inside
+  `css/form`).
+- 9 major + 5 minor gaps found — presented to user, picked "build major + minor, all
+  ~14" over AskUserQuestion (everything except the PDF's own separate "Continue
+  Learning" advanced tracks — Sass, BEM, PostCSS, CSS-in-JS, CSS Modules — out of
+  core-CSS scope).
+- **14 lessons added** to `css` (sort_order 36-49, en+bn) via
+  `scripts/create-css-gap-content.mjs`: flexbox, grid, transforms, transitions,
+  animations, media-queries, variables, functions (calc/min/max/clamp),
+  attribute-selectors, multicolumn-layout, google-fonts, font-shorthand,
+  responsive-typography, css-accessibility-and-performance. Flexbox/Grid/Animations/
+  Functions lessons each end with a callout pointing at the matching site tool (Flexbox
+  Playground, Grid Generator, Animation editor, Clamp tool) — first time any lesson on
+  the site cross-references a `/tools/` page; no existing convention for this, so it's
+  plain-text mention only, no link, kept minimal.
+- Matched the old category's terse W3Schools-style tone (one heading + one code example
+  per property/value, `<hr>` separators) at a similar density to existing complex
+  lessons like `css/positioning` (not the exhaustive 46-62 block outliers like
+  `css/text`/`css/table`). Bengali matches that category's script-transliteration
+  convention (verified against `css/positioning` bn), same as the HTML gap batch.
+- Verified live via curl: category page lists new titles, content checks pass
+  (justify-content, grid-template-columns, clamp all found), bn translation confirmed.
+  Revalidated `sidebar:css` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd 2): html extended with 8 gap-filling lessons
+
+**Done**
+- User shared a second roadmap.sh PDF ("HTML"), asked whether it's all covered. Checked
+  actual lesson *content* against all 36 migrated HTML lessons (not just tag-name
+  mentions) — found `html/blocks` lists tag names like `<b>`, `<sub>`, `<blockquote>`,
+  `<abbr>` in flat block/inline-element dumps but never explains any of them
+  individually; that counts as not covered. Confirmed NOT gaps (covered elsewhere,
+  verified): how the web/HTTP/DNS/domains/browsers (Computer Basics, Hosting &
+  Deployment), SEO basics (dedicated SEO category), inline/internal/external CSS
+  (verified present in `css/intro`).
+- 8 real gaps found — presented to user, picked "add lessons for all 8" over
+  AskUserQuestion.
+- **8 lessons added** to `html` (sort_order 37-44, en+bn) via
+  `scripts/create-html-gap-content.mjs`: html-entities,
+  case-insensitivity-and-whitespace, data-attributes, text-formatting-tags (b/strong,
+  i/em, sub/sup, pre, del/ins/s), quotation-and-citation-tags (blockquote, q, abbr,
+  cite, dfn, address), definition-lists, including-javascript, accessibility-basics.
+  Priority Hints (`loading=`/`fetchpriority`) and CSP-for-iframes were judged
+  niche/advanced and left out of scope.
+- **Matched the old category's terse W3Schools-style tone** (short paragraphs, `<hr>`
+  separators, small code examples) rather than this session's newer, more discursive
+  style used for brand-new categories — deliberate, since this extends 2026-07-era
+  migrated content rather than authoring a new course. Bengali also matches that
+  category's transliteration convention (technical terms in Bengali script, e.g.
+  ট্যাগ/এলিমেন্ট/সিনট্যাক্স) rather than the Banglish mixed-script style used in newer
+  categories.
+- Verified live via curl: category page lists new titles, view-source shows real body
+  text, bn translation confirmed. Revalidated `sidebar:html` and `search-index` locally.
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79 (cont'd): ui-ux extended with 10 behavior-design lessons
+
+**Done**
+- User shared a roadmap.sh "UX Design" PDF, asked whether the site's `ui-ux` category
+  covers everything in it. It didn't — the PDF is a behavior-design/growth-design track
+  (BJ Fogg's Behavior Model, Nir Eyal's Hook Model, Nudge Theory, persuasion mechanics,
+  gamification, Business Model Canvas, SWOT, Five Forces, A/B testing) with zero overlap
+  against the site's classical-UX-fundamentals 22 lessons. Asked the user via
+  AskUserQuestion how to handle the gap — picked "new lessons inside ui-ux."
+- **10 lessons added** to `ui-ux` (sort_order 23-32, en+bn), via
+  `scripts/create-ui-ux-behavior-design-content.mjs`: understanding-user-behavior,
+  bj-foggs-behavior-model, nir-eyals-hook-model, nudge-theory-and-ethical-persuasion,
+  getting-attention-and-building-trust, behavior-change-strategies,
+  engagement-and-retention-mechanics, business-model-basics-for-designers,
+  competitor-analysis-and-swot, measuring-design-impact-ab-testing. No images this batch
+  — text/table/callout only, matching the rest of the category's density.
+- **Deliberate ethics framing**: this is the site's closest brush with manipulative/
+  dark-pattern territory (persuasion, gamification, habit-forming design), so every
+  lesson that touches it draws an explicit line — a dedicated
+  nudge-theory-and-ethical-persuasion lesson with a concrete "nudge vs. dark pattern"
+  test table, referenced back from the Hook Model and engagement-mechanics lessons.
+- Verified live via curl: category page lists new lesson titles, view-source shows real
+  body text, bn translation confirmed. Revalidated `sidebar:ui-ux` and `search-index`
+  locally (no production hit).
+- Not committed, not pushed — same standing rule as everything else this session.
+
+---
+
+## 2026-09-03 — Session 79: Cybersecurity category built (18 lessons, text-only)
+
+**Done**
+- **Cybersecurity category built end-to-end** (D-108/O-33) — category row
+  (`scripts/create-cybersecurity-category.mjs`, sort_order 24), `nav_items` row under Docs
+  (`scripts/add-cybersecurity-nav.mjs`), and all 18 lessons en+bn
+  (`scripts/create-cybersecurity-content.mjs`): why-cybersecurity-matters,
+  windows-command-line, linux-terminal, threat-landscape, malware-deep-dive,
+  phishing-social-engineering, password-managers, two-factor-authentication,
+  safe-browsing, browser-privacy-settings, email-security, mobile-device-security,
+  wifi-and-vpns, backing-up-data, social-media-privacy, checking-a-breach,
+  ransomware-identity-theft-response, cybersecurity-for-freelancers. Slugs for the 11
+  ChatGPT-image lessons match `.extra-images/cybersecurity/PROMPTS.md` filenames exactly
+  (minus extension) so the follow-up image script can match by slug directly.
+- **Wired into every nav surface**: `lib/subject-groups.ts` ("Start Here" group gained
+  `cybersecurity`), `lib/nav-megamenu.ts` (Foundations mega-menu group + `ITEM_META`
+  entry, `ShieldCheck` icon), `lib/category-icons.tsx` (`cybersecurity: ShieldCheck`).
+- **No images yet** — text-only per the user's request ("start building cybersecurity, I
+  will create the images later and ask you to add them later"). The two CLI-literacy
+  chapters (Windows/Linux) use `code` blocks with real commands instead of images, by
+  design (D-108) — nothing to add there later. The other 16 lessons have an
+  image-shaped gap: 11 wait on user-generated ChatGPT infographics (prompts already
+  written), 4 wait on real screenshots Claude will capture live (password manager, 2FA,
+  browser privacy settings, Have I Been Pwned) — same discipline as
+  `real-screenshot-lessons-privacy` memory. `cybersecurity-for-freelancers` (closing)
+  intentionally gets no image ever.
+- **Verified live** via curl against `localhost:3000` (Chrome extension wasn't connected
+  this session): category page lists all 18 lesson titles, `why-cybersecurity-matters`
+  view-source shows real body text (§3 gate) with correct `<title>`, both CLI lessons'
+  code blocks render (`Get-ChildItem`, `ss -tulnp` both found in HTML), sidebar `<a href>`
+  present for all 18 `/cybersecurity/*` paths, bn translation confirmed on
+  `/bn/cybersecurity/why-cybersecurity-matters`.
+- **Local cache revalidated** (see `local-dev-cache-revalidate-needs-tag` memory) —
+  `nav`, `categories-list`, `sidebar:cybersecurity`, `search-index` tags busted against
+  `localhost:3000` only, nothing sent to production.
+
+**Also done, same session (D-110)**
+- User asked Claude to capture the 4 real-screenshot lessons directly rather than wait.
+  Chrome extension wasn't connected at first (user on a remote session); reconnected on
+  retry. Captured all 4 via `scripts/add-cybersecurity-real-screenshots.mjs`: Bitwarden's
+  login screen (password-managers), Authy's live 2FA-code UI (two-factor-authentication),
+  a Mozilla Support article on Firefox's privacy panel (browser-privacy-settings —
+  `chrome://settings` itself is blocked from browser automation, so this is the closest
+  safe substitute), and haveibeenpwned.com searched with HIBP's own official public test
+  account `account-exists@hibp-integration-tests.com` (checking-a-breach). One discarded
+  attempt worth remembering: `support.google.com` loaded logged into the user's real
+  Google account and showed their actual email + a personal security alert — caught
+  before saving, source swapped to Mozilla instead. Raw captures at
+  `.extra-images/cybersecurity/raw/`. All 4 verified live after a per-doc revalidate.
+
+**Next session — start here**
+- Once the user hands back the 11 ChatGPT images (`.extra-images/cybersecurity/`), write
+  a follow-up `scripts/add-cybersecurity-infographics.mjs` (same append-image-block
+  pattern as `scripts/add-cybersecurity-real-screenshots.mjs`) — strip metadata via the
+  `sharp` WebP re-encode, upload to Cloudinary at `docs/img/cybersecurity/<slug>`, append
+  as the last block in each matching lesson (en + bn), then revalidate the affected
+  `doc:cybersecurity/<slug>` tags locally and verify live before reporting done.
+- Not committed to git this session — sits alongside the existing pile of uncommitted
+  `/tools` work. No push (standing ISR-quota rule, CLAUDE.md).
+
+---
+
+## 2026-09-02 — Session 78: hero-background attempts (all rejected), sidebar restructure, basics infographics, Canva + Google Workspace lessons, Cybersecurity category planned
+
+**Done**
+- **Hero background, attempts 6-10 — all tried, all rejected**, DotGridBackground (attempt
+  5) stays shipped. Tried, in order: AeroShards, GhostFibers, CrtWarp, WebThreads,
+  Topography — each an original Canvas 2D interpretation of the reactbits.dev reference
+  (never copied), each deleted on rejection. Files no longer exist; nothing to clean up.
+- **Sidebar restructured into named sections** — "Start Here / Design / Build the web /
+  Backend & data / Launch & grow" — matching the homepage subject index. Shared grouping
+  extracted to new `lib/subject-groups.ts` (previously a local const duplicated in
+  `home-content.tsx`); `components/sidebar-nav.tsx` now renders `SidebarGroup` +
+  `SidebarGroupLabel` per section instead of one flat category list, with an ungrouped
+  "More" fallback so a category never silently vanishes. Section labels styled
+  bold/uppercase/`text-primary` per user follow-up request ("lightlight" → highlight).
+- **14 hand-picked infographics added to Computer Basics** (`scripts/
+  add-basics-infographics.mjs`) — ChatGPT-generated, user-supplied via
+  `.extra-images/basic-computer/`, converted to WebP (strips AI/EXIF metadata as a side
+  effect of the `sharp` re-encode — no separate strip step needed) and uploaded to
+  Cloudinary at `docs/img/basics/<slug>`, appended as the last block in each matching
+  chapter, en+bn. One duplicate "Output Devices" image existed from the user's own
+  generation; the fuller version was picked per their choice, the other left unused in
+  `.extra-images/`. 6 basics chapters have no matching image and were left alone
+  (`generations-of-computers`, `file-and-folder-basics`,
+  `command-line-and-terminal-basics`, `git-basics`, `github-basics`,
+  `computer-fundamentals`).
+- **Malware-types table added to `basics/cybersecurity-basics`**
+  (`scripts/add-malware-types-table.mjs`) — 11 common malware types (virus, worm, trojan,
+  ransomware, spyware, adware, keylogger, rootkit, botnet, scareware, fileless), en+bn,
+  inserted mid-lesson (before the Phishing heading), not appended at the end.
+- **`design/canva` lesson added** (last in Graphic Design, sort_order 18) —
+  `scripts/create-canva-content.mjs`. 33 blocks/locale: what Canva is, templates, the
+  editor, Elements, Magic Studio (AI), Brand Kit, exporting, sharing, a Free-vs-Pro table,
+  a Canva-vs-Photoshop-vs-Figma table, freelance-work tie-in. 6 real screenshots captured
+  live via claude-in-chrome (user's own logged-in Canva account) — public template
+  gallery + a template opened fresh + an empty Brand Kit only, never the user's own
+  private project thumbnails from their dashboard. Uploaded to `docs/img/design/canva-*`.
+- **`office/google-workspace` lesson added** (last in Office Skills, sort_order 37) —
+  `scripts/create-google-workspace-content.mjs`. 26 blocks/locale: Drive, Docs, Sheets,
+  Slides, real-time collaboration, offline/autosave, a Workspace-vs-Microsoft-Office
+  table, personal-vs-business-tier Workspace. 4 real screenshots: Docs/Sheets/Slides are
+  freshly-created blank documents (no personal content); the Drive screenshot is the
+  user's real My Drive file list with the **Name column gaussian-blurred via `sharp`**
+  before upload (extract region → `.blur(25)` → composite back) — every filename
+  unreadable, "Name" header and every other column (Owner, Date, File size) untouched.
+  Explicit user instruction, verified live in production HTML.
+- **Cybersecurity category planned, build deferred** — user wants a full standalone
+  Cybersecurity category (not just the one `basics/cybersecurity-basics` lesson), placed
+  in the "Start Here" sidebar group. 18-lesson outline agreed (added, at user's request,
+  two CLI-literacy chapters early — Windows Command Line and Linux Terminal basics for
+  security, which will use `code` blocks with real commands, not an image or screenshot).
+  Image sourcing decided: real screenshots (claude-in-chrome, same pattern as Canva/
+  Workspace) for 4 hands-on lessons (password manager, 2FA setup, browser privacy
+  settings, Have I Been Pwned), ChatGPT-generated infographics for 11 conceptual lessons
+  (user is low on Magnific credit and explicitly doesn't want it used), no image for the
+  closing lesson. **`.extra-images/cybersecurity/PROMPTS.md` written** — style guide
+  (matches the existing basics-infographic visual template) + one detailed prompt per
+  lesson, filenames pre-chosen to match lesson slugs. **Nothing built yet** — user is
+  generating the 11 images "tomorrow or on a later date"; this session's job was the plan
+  + the prompts file only.
+
+**Findings worth remembering**
+- **A local dev-server cache-staleness trap, diagnosed and fixed, not worked around**:
+  `getDoc()` (`lib/content.ts`) is `unstable_cache`-tagged `doc:${path}`, same as
+  production ISR — a direct Supabase write (no `revalidateTag` call) leaves the local dev
+  server serving stale HTML if that route was ever rendered before the write (e.g. via a
+  sidebar `<Link>` prefetch during earlier browsing in the same dev session). Fix: POST
+  `/api/revalidate` at `http://localhost:3000` with the right `{tag: "doc:<path>",
+  path: "/<path>"}` body — **local only**, zero relation to the Vercel ISR-write quota
+  (that only counts a *production* regeneration, never a local dev-server cache bust).
+  First attempt missed this — passed `path` only, which drives `revalidatePath` but not
+  the `unstable_cache` tag, so the fix didn't take until the `tag` field was added too.
+  Worth remembering as a standing check any time a direct-DB-write script's result isn't
+  showing up locally: it's very likely this, not a script bug.
+- Reused the established scripted-insert pattern
+  (`scripts/create-hosting-content.mjs`'s block-builder + upsert-on-path shape) for both
+  new lessons rather than inventing a new one — same `h()/p()/table()/img()/callout()/
+  toc()` helpers, same idempotent upsert-by-path logic.
+
+**Failed / abandoned**
+- 5 of this session's 6 hero-background attempts (AeroShards, GhostFibers, CrtWarp,
+  WebThreads, Topography) — all rejected on sight, no specific reason given each time.
+  User was asked directly what was wrong before continuing further down the 51-link list;
+  no answer given, conversation moved on to other work instead. DotGridBackground stays
+  the shipped background.
+
+**Next session — start here**
+1. **Cybersecurity category build** — once the user hands back the 11 ChatGPT images
+   (per `.extra-images/cybersecurity/PROMPTS.md`): create the `cybersecurity` category row,
+   an icon in `lib/category-icons.tsx`, add its slug to the `start` group in
+   `lib/subject-groups.ts`, write all 18 lessons (en+bn) via a new
+   `scripts/create-cybersecurity-content.mjs` following the established block-builder
+   pattern, capture the 4 real screenshots (password manager, 2FA setup, browser privacy
+   settings, Have I Been Pwned) via claude-in-chrome, upload everything, revalidate
+   locally, verify live.
+2. Not committed — this session's file changes (sidebar-nav.tsx, home-content.tsx,
+   lib/subject-groups.ts, the 3 new content scripts) sit alongside a large pile of
+   already-uncommitted, unrelated work from before this session (the `/tools` pages per
+   git status) — deliberately left uncommitted rather than bundling unrelated changes
+   into one commit. Sort into separate commits before pushing (still blocked regardless
+   — standing ISR-quota rule).
+
+---
+
+## 2026-08-18 — Session 77: Scope & Closure Visualizer (new tool, D-100)
+
+**Done**
+- Third and final pick from the "what other tools would help" discussion — the closure/hoisting
+  half D-97/D-98 didn't cover, matching `JavaScript Scope Hoisting` and `JavaScript Closures`
+  directly. Built with nav added in the same turn, both pre-approved up front like D-98.
+- Built `/tools/scope-closure` + `/bn/tools/scope-closure` — four presets (block vs function
+  scope, hoisting var-vs-let, closures via a counter maker, the classic loop+closure var-vs-let
+  gotcha), each hand-matched scope structure to real code, real values captured via a
+  `snapshot()` helper called by hand at meaningful points, running for real in a sandboxed
+  iframe. Deliberately preset-only, no free-form code — a firmer scoping call than D-98's,
+  explained in D-100.
+- `lib/scope-closure.ts`, `lib/scope-closure-i18n.ts`, `components/tools/scope-closure-demo.tsx`.
+- Wired into `/tools`/`/bn/tools` index, `app/sitemap.ts`, `docs/TOOLS.md`, and the header nav
+  (`scripts/add-scope-closure-nav.mjs`, `sort_order` 22/last) — confirmed live.
+
+**Findings worth remembering**
+- **Three real bugs found and fixed during verification, none shipped** — full technical
+  detail in D-100. In short: (1) a preset variable (`counter`, a closure-holding `const`)
+  permanently showed "temporal dead zone" because it was simply never included in any
+  `snapshot()` call — a preset-authoring gap, not a mechanism bug. (2) Fixing that immediately
+  exposed a real one: `counter` holds a function, and `postMessage`'s structured clone cannot
+  carry a function across the iframe boundary at all — crashed the whole trace. Fixed at the
+  actual source (sanitise inside the iframe before `postMessage`, not after), not by avoiding
+  the symptom. (3) A design flaw in `deriveState`: it only trusted the *latest* snapshot's
+  values, so anything captured once but not re-listed in a later snapshot looked like it had
+  "reverted" to uninitialised. Fixed by accumulating captured values across every snapshot seen
+  so far. **The general lesson across all three**: when a value can permanently look "stuck"
+  in a state that used to be correct, check whether the display logic is reading from the
+  wrong scope of history (one snapshot vs. all of it) before assuming the underlying data is
+  wrong.
+- **A real testing obstacle, worked around properly rather than blindly retried**: the shared
+  dev server's fast-refresh (the other instance's concurrent edits) kept resetting this tool's
+  in-page state mid-verification, badly enough that click-then-screenshot testing repeatedly
+  landed on stale UI. Switched to a single atomic `javascript_tool` script per check (click
+  preset → click Run → wait → read DOM text, all in one call) instead of multi-step
+  click/screenshot sequences — reliably correct even through further remounts. Worth reaching
+  for this pattern first, not as a last resort, whenever the shared dev server is visibly under
+  heavy concurrent-edit churn.
+- Also independently verified the `postMessage`-clone fix's core logic in isolation via a
+  standalone Node script (not the browser) before trusting the flaky-at-the-time browser
+  re-test — a fast, decisive way to confirm a fix is logically correct when the UI test
+  environment itself is the thing that's unreliable, not the code being tested.
+
+---
+
 ## 2026-08-18 — Session 76: ISR-write root cause found + fixed (D-99)
 
 **Done**
@@ -4142,6 +4830,229 @@ Console + Bing properties and submit a sitemap", which has never existed for thi
 
 **Do not** start the public site build until step 5 matches. Everything downstream depends
 on the extraction being trustworthy.
+
+## 2026-09-03 — Session 79 (cont'd 16): 6 cybersecurity infographics added
+
+**Done**
+- User supplied first 6 of 11 ChatGPT infographics for cybersecurity (`1.png`-`6.png`
+  in `.extra-images/cybersecurity/`). Read and matched each to its lesson against
+  `.extra-images/cybersecurity/PROMPTS.md` (exact title-text match, no ambiguity).
+- Renamed to slug names, wrote `scripts/add-cybersecurity-infographics.mjs`, dry-ran
+  clean, ran for real — appended one image block (en+bn alt/caption) each to:
+  `why-cybersecurity-matters`, `threat-landscape`, `malware-deep-dive`,
+  `phishing-social-engineering`, `safe-browsing`, `email-security`.
+- Revalidated all 6 `doc:` tags locally, verified live via curl — all 6 pages serve
+  the new image. See D-125.
+
+**Next session — start here**
+- 5 infographics still pending from the user: `mobile-device-security`,
+  `wifi-and-vpns`, `backing-up-data`, `social-media-privacy`,
+  `ransomware-identity-theft-response` (PROMPTS.md prompts 7-11).
+- O-34 still open: hard-delete 4 unpublished syllabus stubs via `/admin`.
+
+## 2026-09-03 — Session 79 (cont'd 17): new "Vibe Coding" lesson added to `ai`
+
+**Done**
+- User supplied two roadmap.sh PDFs (`claude-code.pdf`, `vibe-coding.pdf`), asking
+  if either fit the `ai` course. Judged Claude Code roadmap too deep/tool-reference
+  for this course (not built); judged Vibe Coding roadmap the right altitude, a
+  real content gap (built).
+- New lesson `ai/vibe-coding` (en+bn, 37 blocks each) — vibe coding concept, plan
+  before you code, standards early, prompting practices, context document, context
+  management, AI-assisted debugging, git discipline, testing by default, never
+  hardcode secrets. Inserted at sort_order 12, bumped 12 following lessons up one.
+  Built via `scripts/create-vibe-coding-lesson.mjs`.
+- Caught + fixed an off-by-one in the bump loop (`>` vs `>=`) that skipped one doc
+  and caused a sort_order collision — fixed directly, corrected script, re-verified
+  clean 1-24 order.
+- Revalidated (`doc:` tags for all shifted lessons + `sidebar:ai` + `categories-list`
+  — not a bare `ai` tag, which doesn't exist) and verified live: lesson renders
+  en+bn, category page/sidebar shows correct order. See D-126.
+
+## 2026-09-03 — Session 79 (cont'd 18): `advanced-prompt-engineering` extended
+
+**Done**
+- User supplied a third roadmap.sh PDF (`prompt-engineering.pdf`). Most of it already
+  covered across `ai/prompt-engineering-basics` and `ai/advanced-prompt-engineering`.
+  Two real gaps found: sampling parameters (temperature/top-K/top-P/max
+  tokens/stop sequences) and a few more reasoning techniques (step-back,
+  self-consistency, ReAct).
+- Added both as new sections to `ai/advanced-prompt-engineering` (en+bn), not a new
+  lesson — via `scripts/extend-advanced-prompt-engineering.mjs`. Rest of the PDF
+  (fine-tuning, debiasing/ensembling, self-eval, calibration, red teaming, prompt
+  versioning/production concerns) judged out of scope, same altitude call as the
+  Claude Code roadmap. Revalidated, verified live en+bn. See D-127.
+
+## 2026-09-03 — Session 79 (cont'd 19): 2 capstone lessons (programming, css)
+
+**Done**
+- User supplied `software-design-architecture.pdf` and `design-system.pdf`. Both
+  mostly out of scope (enterprise architecture, design-systems-team process) — same
+  altitude call as every other "too deep" roadmap this session.
+- Built the one beginner-appropriate slice from each as a new capstone lesson:
+  `programming/clean-code-and-basic-oop` (clean code habits + basic OOP pillars,
+  sort_order 20, category end) and `css/design-systems-and-component-thinking`
+  (design tokens tied to `css/variables`, atomic design, sort_order 50, category
+  end). Both en+bn, matching each category's existing bn convention (pure Bangla
+  for programming, Banglish for css).
+- Dry-ran clean, ran for real, revalidated `doc:` + `sidebar:` tags, verified live
+  en+bn and in both category listings. See D-128.
+
+---
+
+## 2026-09-04 — Session 79 (cont'd 20): Cybersecurity infographics complete (11/11)
+
+**Done**
+- User supplied the last 5 ChatGPT infographics (`mobile-device-security`,
+  `wifi-and-vpns`, `backing-up-data`, `social-media-privacy`,
+  `ransomware-identity-theft-response`). Visually confirmed each against
+  `PROMPTS.md` #7-11 before renaming — all matched, in timestamp order.
+- Built `scripts/add-cybersecurity-infographics-2.mjs` (companion to the first
+  6-image script). One wrong path guess caught cleanly by dry-run
+  (`cybersecurity/wifi-vpns` → actual `cybersecurity/wifi-and-vpns`), fixed,
+  re-ran clean.
+- Ran for real (5/5), revalidated `doc:` tags, verified live via curl. Cybersecurity
+  category is now fully done — 18 lessons, 4 real screenshots, 11 infographics, all
+  en+bn. O-33 closed. See D-129.
+
+**Next session starts here**
+- `cybersecurity-category-pending` memory file should be deleted (nothing pending).
+- O-34 still open (admin-panel hard-delete of 4 syllabus stubs — needs a human
+  admin session).
+
+---
+
+## 2026-09-04 — Session 79 (cont'd 21): programming/intro infographic
+
+**Done**
+- User supplied one ChatGPT infographic matching `programming/intro`. Built
+  `scripts/add-programming-intro-infographic.mjs`, dry-ran clean, ran for real,
+  revalidated, verified live. Appended at bottom, en+bn. See D-130.
+
+---
+
+## 2026-09-04 — Session 79 (cont'd 22): 5 new tools (SERP Previewer + 4 WordPress)
+
+**Done**
+- User asked for tool-idea brainstorm across wordpress/photoshop/freelancing/SEO/career —
+  confirmed all exist as lesson categories with zero tools, gave ranked ideas per area tied
+  to real lessons. User picked "build all the WordPress tool, SERP Snippet Previewer".
+- Built and shipped: `/tools/serp-preview`, `/tools/wp-template-hierarchy`,
+  `/tools/wp-hooks-timeline`, `/tools/wp-query-builder`, `/tools/wp-enqueue-generator` —
+  full en+bn, both static routes, linked to real lessons. Fact-checked every WordPress
+  tool's data against the site's own already-published lessons before writing code.
+- Caught and fixed one real bug in the live browser pass: a CSS Grid `min-width:auto`
+  overflow on the SERP tool blowing the page 500px+ past viewport width. tsc clean, full
+  build clean (all 10 routes static), zero secrets in build output, all 5 tools verified
+  interactively in a real browser after the fix. See D-131.
+- Follow-up: added the 5 tools to the "Tools" nav submenu (`nav_items`, script-based
+  write) and gave them proper mega-menu icons (`lib/nav-megamenu.ts` `ITEM_META` +
+  a new "SEO & WordPress" group) — they were falling into the generic fallback icon.
+  Verified live. See D-131.
+
+## 2026-09-04 — Session 79 (cont'd 23): wp-hooks-timeline + wp-query-builder expanded
+
+**Done**
+- User asked to make these two "as detailed as possible... include everything".
+- WordPress Hooks Timeline: added a categorized Hook Reference below the existing
+  15-hook timeline — 6 categories, ~27 more hooks, action/filter badges, type-aware
+  generated snippet.
+- WP_Query Args Builder: expanded from ~10 args to the full commonly-used surface —
+  post status multi-select, paged/offset, sticky posts, category/tag include+exclude,
+  a full Taxonomy Query builder, a full Meta Query builder, a Date Query (simple +
+  range modes), fields, performance-cache flags. Codegen now produces correctly
+  nested PHP arrays. Presets 5 → 8.
+- Added `min-w-0` defensively everywhere (same overflow-gotcha class as D-131) and
+  `className` support to the shared `Section` component. tsc clean, full build clean,
+  both en+bn verified live (screenshot tool was flaky mid-session — worked around via
+  direct JS-eval/DOM checks). See D-132.
+
+## 2026-09-04 — Session 79 (cont'd 24): Typing Test app (new, standalone)
+
+**Done**
+- User asked for a monkeytype+typingtest.com-style typing test, standalone in the
+  main nav (not under Tools). Discussed features first, locked 3 scope decisions via
+  AskUserQuestion: English-only content for v1, localStorage-only (no backend), full
+  proposed scope.
+- Built `/typing-test` + `/bn/typing-test` — top-level nav item, 5 modes (time/words/
+  quote/zen/custom), difficulty ladder, results screen with a WPM graph and keyboard
+  error heatmap (both via the site's own `--primary` token, no new palette), 8-ish
+  presets worth of config, localStorage history.
+- Caught and fixed 2 real bugs in the live browser pass: a hydration mismatch (same
+  class as the Lorem tool's D-87 fix) and a stale-closure bug in the results-timer
+  `setInterval` that froze WPM/results at the very first keystroke's state — fixed
+  with refs re-synced every render. Re-verified with a real full test run afterward.
+- Follow-up: widened the whole layout (full-width, not the ~1000px tools container)
+  and turned the 5-row-stacked config bar into one flex-wrap line. tsc clean, full
+  build clean, both routes static, zero secrets. See D-133.
+- Proposed more feature ideas (code-mode via `lib/shiki.ts`, weak-key practice from
+  heatmap data, blind/focus modes, lessons track, share-as-image) — not built yet,
+  pending user pick next session.
+
+## 2026-09-04 — Session 79 (cont'd 25): Typing Test cursor fix + 4 features
+
+**Done**
+- User reported the caret always showing at the end of the word instead of the
+  real typed position — real bug (rendered unconditionally after all cells), fixed.
+- Built the 4 features the user picked: Weak Keys practice (cumulative per-letter
+  error tracking, gated behind a real minimum, weighted word picker), Focus mode
+  (hides this component's own chrome while a test runs), Structured Lessons track
+  (`/typing-test/lessons`, 10 original hand-authored drill lessons, progress saved
+  per lesson), Share as image (canvas-drawn result card, real download).
+- Also added: font-size slider, custom/unlimited time mode (counts up, manual
+  stop via Enter, still tracks real accuracy unlike Zen).
+- User said their own dev server is already running — stopped starting/killing
+  dev servers this session going forward; verified via tsc + live checks against
+  their server instead of fresh `npm run build`.
+- **Open item**: `/typing-test/lessons` 404s on their currently-running dev server
+  — files confirmed correct on disk, this is Next dev's known route-manifest
+  staleness for a brand-new nested route folder, needs their server restarted
+  (left for them, per the above). Everything else verified working live. See D-134.
+
+## 2026-09-04 — Session 79 (cont'd 26): /typing-test/lessons — real fix, not staleness
+
+**Done**
+- User restarted their dev server; `/typing-test/lessons` still 404'd — the D-134
+  staleness guess was wrong. Real cause: `proxy.ts` middleware routes any 2-segment
+  path through the docs `[category]/[slug]` lookup unless it's `/tools/*` — added
+  `typing-test` to that exemption. Hot-reloaded, no restart needed, verified live.
+- Second bug caught in the same verification pass: lesson accuracy showed 136%
+  (impossible) — a word-boundary-space bonus incremented `correct` without a
+  matching `total` in `lessons-app.tsx`. Fixed; re-verified a clean run reads
+  exactly 100%, not over. Checked the main app's own accuracy calc for the same
+  shape — it's safe by construction there (different denominator formula).
+- All 10 lessons confirmed rendering, ran one end-to-end successfully. See D-135.
+
+## 2026-09-04 — Session 79 (cont'd 27): Typing Test — customizable text colors
+
+**Done**
+- User asked for a font-color option since the default text "sometimes may not be
+  visible" — added untyped/typed text color pickers to Customize, overriding the
+  default low-opacity gray via inline style, with a reset-to-default link.
+- Along the way, fixed a real gap: every Customize setting (sound, caret, font
+  size, focus mode) was resetting on every page load — persisted all of them to
+  localStorage now, loaded the same hydration-safe way as the word list.
+- Verified via `javascript_tool` (native color inputs open an OS dialog,
+  can't be automated directly) — color applied live, survived a full reload.
+  tsc clean, zero console errors. See D-136.
+
+## 2026-09-04 — Session 79 (cont'd 28): accent themes + word transition + capped text view
+
+**Done**
+- User asked for accent color themes, a word-by-word transition, and reported a
+  real bug: long/unlimited durations made the page absurdly tall since every word
+  rendered inline. Fixed all three.
+- 4 accent presets (orange/blue/green/purple), same lightness/chroma recipe as the
+  site's own `--primary` token just hue-rotated, applied via a scoped CSS variable
+  on the page's own wrapper — cascades to buttons/highlights/caret/slider for free.
+- Active word now fades its highlight in/out (`transition-colors`) and auto-scrolls
+  into view as typing advances.
+- Capped the word-stream view to ~5.5 lines (`max-height` + `overflow:hidden`,
+  scrollIntoView-driven) — page height is now bounded regardless of duration.
+  Follow-up ask mid-turn: fade the bottom lines so it "feels like text is floating
+  up" — added a CSS mask-image gradient, dissolves the last ~1.5 lines.
+- tsc clean throughout, live-verified every piece including persistence across
+  reload. See D-137.
 
 ---
 

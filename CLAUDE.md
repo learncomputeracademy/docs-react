@@ -4,6 +4,18 @@
 > `C:\Users\Raptor\Downloads\CLAUDE.md` is a PageSpeed plan for `amartadey.com`, an
 > unrelated property. Ignore it while working here.
 
+> **⚠️ ACTIVE CONSTRAINT (added 2026-09-05, remove only when user lifts it):**
+> **Do not `git push` to this repo for any reason until the user explicitly says
+> otherwise.** A push auto-redeploys on Vercel. Local edits, commits, and builds are
+> fine; just don't push. This is a standing hold the user re-applies after each
+> approved push, not tied to a specific incident — always ask before pushing again.
+>
+> History: the 2026-08-17 ISR Writes exhaustion (248K/200K) that originally caused
+> this hold reset on its own (157K/200K by 2026-09-05, confirmed in the Vercel
+> dashboard) and is no longer the reason for the block — but the user reinstated the
+> same no-push hold immediately after the 2026-09-05 push, so treat it as active
+> regardless of quota status until lifted again.
+
 ---
 
 ## 1. What this project is
