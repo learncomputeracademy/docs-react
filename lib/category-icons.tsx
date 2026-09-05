@@ -9,7 +9,8 @@ import IconWordpress from '~icons/simple-icons/wordpress'
 import IconNodejs from '~icons/simple-icons/nodedotjs'
 import IconMongodb from '~icons/simple-icons/mongodb'
 import IconFigma from '~icons/simple-icons/figma'
-import { Laptop, Palette, Braces, Sparkles, Database, Search, Megaphone, Briefcase, Server, FileSpreadsheet, Handshake, LayoutTemplate } from 'lucide-react'
+import IconGit from '~icons/simple-icons/git'
+import { Laptop, Palette, Braces, Sparkles, Database, Search, Megaphone, Briefcase, Server, FileSpreadsheet, Handshake, LayoutTemplate, ShieldCheck } from 'lucide-react'
 
 // One icon grammar — literally one color. Was brand-color logos (`logos`
 // collection) for the tech icons, tinted-orange Lucide glyphs for
@@ -45,4 +46,6 @@ export const CATEGORY_ICONS: Record<string, React.ComponentType<{ className?: st
   figma: IconFigma,
   freelancing: Handshake,
   'ui-ux': LayoutTemplate,
+  cybersecurity: ShieldCheck,
+  git: IconGit,
 }

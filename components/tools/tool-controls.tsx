@@ -46,9 +46,9 @@ export function Slider({
   )
 }
 
-export function Section({ title, children, action }: { title: string; children: React.ReactNode; action?: React.ReactNode }) {
+export function Section({ title, children, action, className }: { title: string; children: React.ReactNode; action?: React.ReactNode; className?: string }) {
   return (
-    <section className="space-y-2.5 rounded-lg border p-3">
+    <section className={cn('space-y-2.5 rounded-lg border p-3', className)}>
       <h3 className="flex items-center justify-between gap-2 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
         <span>{title}</span>
         {action}

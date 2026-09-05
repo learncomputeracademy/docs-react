@@ -1,0 +1,76 @@
+import type { Locale } from './types'
+
+export const SERP_PREVIEW_STRINGS = {
+  en: {
+    title: 'SERP Snippet Previewer',
+    subtitle: 'See how your title and meta description would actually look in a Google search result — before you ship them.',
+    lessonCtaTitle: 'Title Tags lesson',
+    lessonCtaDesc: 'Meta Descriptions lesson',
+    device: 'Device',
+    desktop: 'Desktop',
+    mobile: 'Mobile',
+    urlSection: 'Page URL',
+    domain: 'Domain',
+    path: 'Path',
+    titleSection: 'Title Tag',
+    titleLabel: 'Title',
+    titleHint: 'The clickable blue headline. Google often rewrites it if it doesn’t match the search query closely enough — keep the important words near the front.',
+    descSection: 'Meta Description',
+    descLabel: 'Description',
+    descHint: 'Not a ranking factor, but it’s your ad copy for a free result. Google frequently replaces it with a snippet pulled from the page itself if yours doesn’t match the query well.',
+    preview: 'Preview',
+    pxUsed: 'px used',
+    guideline: 'guideline',
+    overGuideline: 'likely to truncate',
+    withinGuideline: 'fits comfortably',
+    charCount: 'characters',
+    generatedTags: 'Generated Tags',
+    copy: 'Copy',
+    copied: 'Copied',
+    disclaimer:
+      'These pixel-width limits are commonly-used guidelines, not an official Google rule — Google dynamically rewrites and truncates titles and descriptions based on the search query and screen space, sometimes ignoring what you wrote entirely. Treat this as a good-practice check, not a guarantee of how it will actually render.',
+    sampleDomain: 'www.example.com',
+    samplePath: '/blog/complete-guide-to-css-flexbox-for-beginners',
+    sampleTitle: 'The Complete Guide to CSS Flexbox for Beginners (2026)',
+    sampleDesc:
+      'Learn CSS Flexbox from scratch with this complete beginner-friendly guide — real examples, common mistakes, and a printable cheat sheet you can keep next to your editor while you work.',
+  },
+  bn: {
+    title: 'SERP Snippet প্রিভিউয়ার',
+    subtitle: 'আপনার title আর meta description আসলে Google search result-এ কেমন দেখাবে দেখুন — publish করার আগেই।',
+    lessonCtaTitle: 'Title Tags পাঠ',
+    lessonCtaDesc: 'Meta Descriptions পাঠ',
+    device: 'Device',
+    desktop: 'Desktop',
+    mobile: 'Mobile',
+    urlSection: 'পেজ URL',
+    domain: 'Domain',
+    path: 'Path',
+    titleSection: 'Title Tag',
+    titleLabel: 'Title',
+    titleHint: 'নীল রঙের ক্লিকযোগ্য headline। search query-র সাথে ঠিকমতো না মিললে Google প্রায়ই এটা নিজে rewrite করে দেয় — গুরুত্বপূর্ণ শব্দগুলো সামনের দিকে রাখুন।',
+    descSection: 'Meta Description',
+    descLabel: 'Description',
+    descHint: 'কোনো ranking factor না, কিন্তু এটাই একটা free result-এর জন্য আপনার ad copy। query-র সাথে না মিললে Google প্রায়ই page থেকে নিজে একটা snippet টেনে বসিয়ে দেয়।',
+    preview: 'প্রিভিউ',
+    pxUsed: 'px ব্যবহৃত',
+    guideline: 'guideline',
+    overGuideline: 'truncate হওয়ার সম্ভাবনা বেশি',
+    withinGuideline: 'আরামসে ফিট করে',
+    charCount: 'অক্ষর',
+    generatedTags: 'তৈরি হওয়া Tags',
+    copy: 'কপি',
+    copied: 'কপি হয়েছে',
+    disclaimer:
+      'এই pixel-width সীমাগুলো একটা প্রচলিত guideline, কোনো official Google নিয়ম না — Google search query আর screen space অনুযায়ী title/description ডাইনামিকভাবে rewrite আর truncate করে, কখনো কখনো আপনার লেখা সম্পূর্ণ উপেক্ষা করেই। এটাকে একটা good-practice check হিসেবে দেখুন, আসল rendering-এর গ্যারান্টি হিসেবে না।',
+    sampleDomain: 'www.example.com',
+    samplePath: '/blog/complete-guide-to-css-flexbox-for-beginners',
+    sampleTitle: 'The Complete Guide to CSS Flexbox for Beginners (2026)',
+    sampleDesc:
+      'Learn CSS Flexbox from scratch with this complete beginner-friendly guide — real examples, common mistakes, and a printable cheat sheet you can keep next to your editor while you work.',
+  },
+} as const
+
+export function sps(locale: Locale) {
+  return SERP_PREVIEW_STRINGS[locale]
+}

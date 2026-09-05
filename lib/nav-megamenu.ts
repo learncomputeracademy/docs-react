@@ -10,10 +10,10 @@ import type { LucideIcon } from 'lucide-react'
 import {
   Cpu, Palette, Image as ImageIcon, Code2, BrainCircuit, FileCode, Paintbrush, Braces, Atom,
   Server, Database, Layout, Terminal, Hexagon, Cloud, Megaphone, Search, Briefcase,
-  FileSpreadsheet, Frame, HandCoins,
+  FileSpreadsheet, Frame, HandCoins, ShieldCheck,
   Box, Layers, Blend, LayoutGrid, Columns3, Pipette, ScrollText, Calculator, Ruler,
   ArrowLeftRight, Play, SlidersHorizontal, Eye, Paintbrush2, Type, ImagePlus, Video,
-  NotebookPen, Binary, Workflow, Repeat, Boxes, MoreHorizontal,
+  NotebookPen, Binary, Workflow, Repeat, Boxes, MoreHorizontal, GitBranch, ListOrdered, FileCode2,
 } from 'lucide-react'
 import type { NavNode, NavItem } from '@/lib/content'
 
@@ -24,6 +24,8 @@ const ITEM_META: Record<string, ItemMeta> = {
   '/basics': { icon: Cpu, hint: 'How computers actually work' },
   '/programming': { icon: Code2, hint: 'Logic before any one language' },
   '/ai': { icon: BrainCircuit, hint: 'What AI is and isn’t' },
+  '/cybersecurity': { icon: ShieldCheck, hint: 'Everyday habits that actually protect you' },
+  '/git': { icon: GitBranch, hint: 'Version control — Git, GitHub, and collaboration' },
   '/html': { icon: FileCode, hint: 'Structure every page starts with' },
   '/css': { icon: Paintbrush, hint: 'Styling, layout, responsive design' },
   '/javascript': { icon: Braces, hint: 'Make pages do things' },
@@ -67,10 +69,15 @@ const ITEM_META: Record<string, ItemMeta> = {
   '/tools/recursion': { icon: Repeat, hint: 'See a call tree unwind' },
   '/tools/scope-closure': { icon: Boxes, hint: 'Where a variable actually lives' },
   '/tools/number-system': { icon: Binary, hint: 'Binary, hex, decimal conversions' },
+  '/tools/serp-preview': { icon: Search, hint: 'Preview your title & description' },
+  '/tools/wp-template-hierarchy': { icon: GitBranch, hint: 'Which WP template actually loads' },
+  '/tools/wp-hooks-timeline': { icon: ListOrdered, hint: 'When each WP hook actually fires' },
+  '/tools/wp-query-builder': { icon: Database, hint: 'Build a WP_Query visually' },
+  '/tools/wp-enqueue-generator': { icon: FileCode2, hint: 'Generate wp_enqueue_* code' },
 }
 
 const DOCS_GROUPS: GroupDef[] = [
-  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/office', '/programming', '/ai'] },
+  { title: 'Foundations', icon: Cpu, urls: ['/basics', '/office', '/programming', '/ai', '/cybersecurity', '/git'] },
   { title: 'Web Development', icon: Code2, urls: ['/html', '/css', '/javascript', '/react'] },
   { title: 'Design', icon: Palette, urls: ['/design', '/ui-ux', '/photoshop', '/figma'] },
   { title: 'Backend & Data', icon: Database, urls: ['/php', '/sql', '/wordpress', '/python', '/nodejs', '/mongodb'] },
@@ -82,6 +89,7 @@ const TOOLS_GROUPS: GroupDef[] = [
   { title: 'Layout & Color', icon: Layers, urls: ['/tools/flexbox', '/tools/colour', '/tools/scrollbar', '/tools/specificity', '/tools/shades', '/tools/colorblind', '/tools/units'] },
   { title: 'Generators', icon: Type, urls: ['/tools/lorem-text', '/tools/lorem-image', '/tools/lorem-video', '/tools/notepad'] },
   { title: 'JS Visualizers', icon: Workflow, urls: ['/tools/event-loop', '/tools/recursion', '/tools/scope-closure', '/tools/number-system'] },
+  { title: 'SEO & WordPress', icon: Search, urls: ['/tools/serp-preview', '/tools/wp-template-hierarchy', '/tools/wp-hooks-timeline', '/tools/wp-query-builder', '/tools/wp-enqueue-generator'] },
 ]
 
 // Keyed by nav_items.id (verified live 2026-08-19 — Docs/Tools parent rows

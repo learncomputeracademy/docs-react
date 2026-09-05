@@ -1,11 +1,11 @@
 import Link from 'next/link'
-import { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3, Scaling, ArrowLeftRight, Sparkles, Droplets, Eye, SwatchBook, Type, Image as ImageIcon, Clapperboard, Binary, NotebookText, Layers3, FunctionSquare, Boxes, ArrowRight } from 'lucide-react'
+import { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3, Scaling, ArrowLeftRight, Sparkles, Droplets, Eye, SwatchBook, Type, Image as ImageIcon, Clapperboard, Binary, NotebookText, Layers3, FunctionSquare, Boxes, Search, GitBranch, ListOrdered, Database, FileCode2, ArrowRight } from 'lucide-react'
 import { tis, type ToolEntry } from '@/lib/tools-index-i18n'
 import type { Locale } from '@/lib/types'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
 
-const ICONS = { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3, Scaling, ArrowLeftRight, Sparkles, Droplets, Eye, SwatchBook, Type, ImageIcon, Clapperboard, Binary, NotebookText, Layers3, FunctionSquare, Boxes }
+const ICONS = { Box, Layers, Palette, LayoutGrid, MousePointer2, Ruler, Contrast, Grid3x3, Scaling, ArrowLeftRight, Sparkles, Droplets, Eye, SwatchBook, Type, ImageIcon, Clapperboard, Binary, NotebookText, Layers3, FunctionSquare, Boxes, Search, GitBranch, ListOrdered, Database, FileCode2 }
 
 function ToolCard({ tool, locale, openLabel }: { tool: ToolEntry; locale: Locale; openLabel: string }) {
   const Icon = ICONS[tool.icon]

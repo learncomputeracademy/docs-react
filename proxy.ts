@@ -89,12 +89,16 @@ async function checkDocPath(request: NextRequest, pathname: string): Promise<Nex
 
   const isBn = pathname === '/bn' || pathname.startsWith('/bn/')
   const segments = (isBn ? pathname.slice(3) : pathname).split('/').filter(Boolean)
-  // 'tools' is the one other literal route with real 2-segment children
-  // (/tools/grid, etc.) — Next resolves it before ever reaching
-  // [category]/[slug], so it never needs the lookup below. Everything
-  // else 2-segment funnels through that dynamic route, real category or
-  // not, which is exactly the shape this bug affects.
-  if (segments.length === 2 && segments[0] !== 'tools') {
+  // 'tools' and 'typing-test' are the literal top-level routes with real
+  // 2-segment children (/tools/grid, /typing-test/lessons) — Next resolves
+  // them before ever reaching [category]/[slug], so they never need the
+  // lookup below. Everything else 2-segment funnels through that dynamic
+  // route, real category or not, which is exactly the shape this bug
+  // affects — caught live: /typing-test/lessons rewrote to __404__ because
+  // 'typing-test' isn't a real category and wasn't in this exemption list
+  // (D-134's own new nested route hit the exact gotcha this comment
+  // already documented for 'tools', just before a second such route existed).
+  if (segments.length === 2 && !['tools', 'typing-test'].includes(segments[0])) {
     const [category, slug] = segments
     const categories = await getSidebarTree(isBn ? 'bn' : 'en')
     const cat = categories.find((c) => c.slug === category)
