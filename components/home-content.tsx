@@ -11,6 +11,7 @@ import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
 import { DotGridBackground } from '@/components/magic/dot-grid-background'
+import { SUBJECT_GROUPS } from '@/lib/subject-groups'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -28,22 +29,10 @@ const FEATURES = {
   ],
 } as const
 
-// Presentation-only grouping for the subject index — independent of the
-// categories table's own `sort_order` (which drives the sidebar/admin and
-// stays untouched). The hero promises an arc ("design, development,
-// deployment, and the career skills that come after"); the old flat
-// 18-card grid didn't reflect it (design critique 2026-08-06, P1) — this
-// does. A category not listed in any group here still ships, appended as
-// its own trailing "More" panel by the `ungrouped` fallback below, rather
-// than silently vanishing the next time a category ships and this list
-// isn't updated.
-const SUBJECT_GROUPS = [
-  { key: 'start', slugs: ['basics', 'office', 'programming', 'ai'], label: { en: 'Start here', bn: 'শুরু করুন' } },
-  { key: 'design', slugs: ['design', 'ui-ux', 'photoshop', 'figma'], label: { en: 'Design', bn: 'ডিজাইন' } },
-  { key: 'web', slugs: ['html', 'css', 'javascript', 'react'], label: { en: 'Build the web', bn: 'ওয়েব তৈরি' } },
-  { key: 'backend', slugs: ['php', 'sql', 'wordpress', 'python', 'nodejs', 'mongodb'], label: { en: 'Backend & data', bn: 'ব্যাকএন্ড ও ডেটা' } },
-  { key: 'launch', slugs: ['freelancing', 'hosting', 'marketing', 'seo', 'career'], label: { en: 'Launch & grow', bn: 'লঞ্চ ও ক্যারিয়ার' } },
-] as const
+// SUBJECT_GROUPS now lives in lib/subject-groups.ts, shared with
+// sidebar-nav.tsx (2026-09-02) so the homepage subject index and the doc
+// sidebar always list categories in the same order under the same
+// headers, rather than drifting apart as two hand-maintained copies.
 
 // Optional per-locale text overrides from /admin/settings, layered on top
 // of lib/i18n.ts's defaults — an empty/missing site_settings row (true
@@ -89,15 +78,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           real product proof (AnimatedCode, live-typing) carry the page.
           One deliberate exception (user-requested): DotGridBackground, a
           cursor-reactive dot grid behind the hero — see its own file
-          comment. Fifth attempt (2026-08-24): Molten/GradientWaves/
-          Lightfall/LiquidEther were all WebGL "inspired by" approximations
-          of a heavier reference technique and all rejected — user asked
-          why none matched their example, and the honest answer was the
-          fidelity gap itself. Dot grid has no such gap: the real technique
-          is this simple, so this is a faithful build, not an
-          approximation. Shown in both themes (user follow-up) — cheap
-          enough, and low-density enough, not to need dark-only gating the
-          way every WebGL attempt did. */}
+          comment. Fifth attempt (2026-08-24) and still the shipped one —
+          sixth through tenth (AeroShards, GhostFibers, CrtWarp,
+          WebThreads, Topography) were tried and rejected. Shown in both
+          themes — cheap enough, and low-density enough, not to need
+          dark-only gating the way every WebGL attempt did. */}
       <section className="relative overflow-hidden border-b">
         <DotGridBackground className="absolute inset-0" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">

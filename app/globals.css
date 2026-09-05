@@ -5,6 +5,14 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* app/layout.tsx sets these as CSS custom properties on <html> via
+     next/font's .variable classes, but nothing ever consumed them —
+     Tailwind v4's preflight falls back to its own default sans-serif
+     stack unless --font-sans is defined here. Confirmed live: rendered
+     text was measuring as the browser's system default (Roboto), not
+     Geist, despite the font actually loading. */
+  --font-sans:                    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono:                    var(--font-geist-mono), ui-monospace, monospace;
   --color-background:             var(--background);
   --color-foreground:             var(--foreground);
   --color-card:                   var(--card);
