@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import type { NextRequest } from 'next/server'
-import { getSidebarTree } from '@/lib/content'
+import { categorySlugExists, isPublishedDocPath } from '@/lib/content'
 
 // Re-added for Stage 7 (deleted in session 11 — its only job then was an
 // x-locale header, replaced by client-side lang correction). This time
@@ -100,9 +100,12 @@ async function checkDocPath(request: NextRequest, pathname: string): Promise<Nex
   // already documented for 'tools', just before a second such route existed).
   if (segments.length === 2 && !['tools', 'typing-test'].includes(segments[0])) {
     const [category, slug] = segments
-    const categories = await getSidebarTree(isBn ? 'bn' : 'en')
-    const cat = categories.find((c) => c.slug === category)
-    if (!cat?.docs.some((d) => d.path === `${category}/${slug}`)) {
+    // 2026-09-15: was getSidebarTree() (26 cache reads, and locale-
+    // duplicated) just to answer this one yes/no question — see
+    // lib/content.ts's comment on these two. Locale-independent: a doc's
+    // published status doesn't change between /path and /bn/path.
+    const [catOk, docOk] = await Promise.all([categorySlugExists(category), isPublishedDocPath(`${category}/${slug}`)])
+    if (!catOk || !docOk) {
       return NextResponse.rewrite(new URL('/__404__', request.url))
     }
   }

@@ -217,6 +217,37 @@ export const getSidebarTree = cache(async function getSidebarTree(locale: Locale
   return withDocs
 })
 
+// Cheap existence checks for proxy.ts's checkDocPath — validating a
+// category/slug is a real, published doc used to mean building the WHOLE
+// sidebar tree (getSidebarTree: 1 + 25 cache reads) on every single doc
+// pageview, just to answer a yes/no question. That ran on effectively every
+// lesson pageview site-wide (config.matcher below) and was never deduped
+// against the page's own getSidebarTree() call — middleware and the page
+// render are separate execution contexts, so React's cache() doesn't span
+// them despite what an earlier comment here assumed. 2026-09-15: measured
+// as the leading driver of a Vercel free-tier ISR-Reads overage. These two
+// checks replace that with 2 reads total, reusing the same cache entries
+// (categories-list / doc:<path>) other pages already warm — locale-
+// independent on purpose, since a doc's published status and a category's
+// existence don't vary by locale (only its title/translation does).
+export async function categorySlugExists(slug: string): Promise<boolean> {
+  const categories = await getCategoryMeta('en')
+  return categories.some(c => c.slug === slug)
+}
+
+export function isPublishedDocPath(path: string): Promise<boolean> {
+  return unstable_cache(
+    async () => {
+      const supabase = createPublicClient()
+      const { data, error } = await supabase.from('docs').select('id').eq('path', path).eq('status', 'published').maybeSingle()
+      if (error) throw error
+      return !!data
+    },
+    ['doc-exists', path],
+    { tags: [`doc:${path}`] }
+  )()
+}
+
 export type AdjacentDoc = { path: string; title: string }
 
 export type DocPosition = { index: number; total: number }
