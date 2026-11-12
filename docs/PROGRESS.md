@@ -9,7 +9,13 @@ for picking up work weeks later.
 
 ---
 
-## 2026-11-12 — Vercel paused the site; usage diagnosed and two code fixes made (local only)
+## 2026-11-12 — Vercel paused the site; usage diagnosed and two code fixes made
+
+**Update, same day:** user turned on Vercel Bot Protection (Challenge) and AI Bots blocking
+(confirmed in the dashboard after a reload), fixed the UptimeRobot interval, and asked for a
+commit and push. Everything below plus the 2026-11-11 protocol tool was committed and pushed
+to `main`. Where an entry below says "uncommitted" or "local only", that was true when
+written. The no-push hold applies again from here — ask before the next push.
 
 **What happened**
 - Vercel paused the deployment on 2026-11-10 for exceeding Hobby fair-use limits; the pause
