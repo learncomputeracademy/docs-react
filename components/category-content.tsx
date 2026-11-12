@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/hover-link'
 import { notFound } from 'next/navigation'
 import { ArrowRight } from 'lucide-react'
 import { getSidebarTree } from '@/lib/content'

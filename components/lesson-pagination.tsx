@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Link from 'next/link'
+import Link from '@/components/hover-link'
 import { useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, PanelLeft } from 'lucide-react'
 import { startRouteProgress } from '@/components/magic/route-progress'

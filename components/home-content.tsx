@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from '@/components/hover-link'
 import { ArrowRight, GraduationCap, Languages, MapPin } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'

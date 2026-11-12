@@ -1,6 +1,6 @@
 'use client'
 
-import Link from 'next/link'
+import Link from '@/components/hover-link'
 import dynamic from 'next/dynamic'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect } from 'react'

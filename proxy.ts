@@ -84,6 +84,13 @@ export async function proxy(request: NextRequest) {
 // this check is unaffected — so a genuinely invalid slug gets
 // rewritten to a path with no matching route, which forces Next's normal
 // (correctly-statused) not-found flow instead of the static-fallback one.
+// path ("css/intro") → expiry time. Per server instance, lost on cold start.
+// ponytail: plain Map with clear-when-full; ~1,300 real paths (EN only —
+// the key is locale-independent), so the cap is never reached in practice.
+const knownDocs = new Map<string, number>()
+const KNOWN_DOCS_TTL_MS = 10 * 60 * 1000
+const KNOWN_DOCS_MAX = 5000
+
 async function checkDocPath(request: NextRequest, pathname: string): Promise<NextResponse> {
   if (pathname.startsWith('/api/') || pathname.startsWith('/_next/')) return NextResponse.next()
 
@@ -100,6 +107,18 @@ async function checkDocPath(request: NextRequest, pathname: string): Promise<Nex
   // already documented for 'tools', just before a second such route existed).
   if (segments.length === 2 && !['tools', 'typing-test'].includes(segments[0])) {
     const [category, slug] = segments
+    // 2026-11-12: a path already confirmed as a published lesson is
+    // remembered in this server instance for 10 minutes, so repeat hits
+    // (most traffic, and nearly all bot traffic) cost zero cache reads.
+    // The two reads below were ~2 ISR reads per lesson request — the bulk
+    // of the 1.8M / 1M ISR Reads behind the Nov 2026 Vercel pause.
+    // Only "yes" answers are remembered: an unknown path is always
+    // re-checked, so a lesson published a second ago is never 404'd.
+    // Cost: an unpublished lesson stays reachable here for up to 10
+    // minutes on a warm instance.
+    const key = `${category}/${slug}`
+    const now = Date.now()
+    if ((knownDocs.get(key) ?? 0) > now) return NextResponse.next()
     // 2026-09-15: was getSidebarTree() (26 cache reads, and locale-
     // duplicated) just to answer this one yes/no question — see
     // lib/content.ts's comment on these two. Locale-independent: a doc's
@@ -108,6 +127,8 @@ async function checkDocPath(request: NextRequest, pathname: string): Promise<Nex
     if (!catOk || !docOk) {
       return NextResponse.rewrite(new URL('/__404__', request.url))
     }
+    if (knownDocs.size >= KNOWN_DOCS_MAX) knownDocs.clear()
+    knownDocs.set(key, now + KNOWN_DOCS_TTL_MS)
   }
   return NextResponse.next()
 }
