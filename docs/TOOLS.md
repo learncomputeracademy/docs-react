@@ -106,6 +106,7 @@ or a broken hydration pass reads as a clean console.
 | Call Stack + Event Loop Visualizer | `/tools/event-loop` | *(none — new)* | D-97 · Session 2026-08-18 |
 | Recursion Visualizer | `/tools/recursion` | *(none — new)* | D-98 · Session 2026-08-18 |
 | Scope & Closure Visualizer | `/tools/scope-closure` | *(none — new)* | D-100 · Session 2026-08-18 |
+| Network Protocol Visualizer | `/tools/protocols` | *(none — new)* | Session 2026-11-11 |
 
 ⚠️ **Not pushed yet.** The three rows above (Sessions 26–27) are committed locally only (see
 D-49, D-50) — they don't exist on the live site until pushed. Once they are, add all three

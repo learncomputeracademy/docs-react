@@ -8,7 +8,7 @@ import type { Locale } from './types'
 // framework-agnostic (plain data).
 export type ToolEntry = {
   slug: string
-  icon: 'Box' | 'Layers' | 'Palette' | 'LayoutGrid' | 'MousePointer2' | 'Ruler' | 'Contrast' | 'Grid3x3' | 'Scaling' | 'ArrowLeftRight' | 'Sparkles' | 'Droplets' | 'Eye' | 'SwatchBook' | 'Type' | 'ImageIcon' | 'Clapperboard' | 'Binary' | 'NotebookText' | 'Layers3' | 'FunctionSquare' | 'Boxes' | 'Search' | 'GitBranch' | 'ListOrdered' | 'Database' | 'FileCode2'
+  icon: 'Box' | 'Layers' | 'Palette' | 'LayoutGrid' | 'MousePointer2' | 'Ruler' | 'Contrast' | 'Grid3x3' | 'Scaling' | 'ArrowLeftRight' | 'Sparkles' | 'Droplets' | 'Eye' | 'SwatchBook' | 'Type' | 'ImageIcon' | 'Clapperboard' | 'Binary' | 'NotebookText' | 'Layers3' | 'FunctionSquare' | 'Boxes' | 'Search' | 'GitBranch' | 'ListOrdered' | 'Database' | 'FileCode2' | 'Network'
   name: string
   description: string
   lessonHref: string | null
@@ -160,6 +160,13 @@ export const TOOLS_INDEX_STRINGS = {
         name: 'Call Stack + Event Loop Visualizer',
         description: 'Real JavaScript, really run — watch the call stack, Web APIs, and microtask queue live as your own code (or a preset) actually executes, with a plain-English narration for every step.',
         lessonHref: '/javascript',
+      },
+      {
+        slug: 'protocols',
+        icon: 'Network',
+        name: 'Network Protocol Visualizer',
+        description: 'Watch what really happens when you open a web page, one packet at a time — DHCP, DNS, TCP, HTTP, HTTPS and UDP, with every byte explained.',
+        lessonHref: '/basics',
       },
       {
         slug: 'recursion',
@@ -357,6 +364,13 @@ export const TOOLS_INDEX_STRINGS = {
         name: 'Call Stack + Event Loop ভিজুয়ালাইজার',
         description: 'আসল JavaScript, সত্যিই চালানো — আপনার নিজের কোড (বা একটা preset) আসলে execute হওয়ার সময় live call stack, Web APIs, আর microtask queue দেখুন, প্রতিটা step-এর জন্য একটা plain-English বর্ণনাসহ।',
         lessonHref: '/javascript',
+      },
+      {
+        slug: 'protocols',
+        icon: 'Network',
+        name: 'Network Protocol ভিজুয়ালাইজার',
+        description: 'একটা web page খুললে আসলে কী ঘটে দেখুন, একটা একটা packet ধরে — DHCP, DNS, TCP, HTTP, HTTPS আর UDP, প্রতিটা byte-এর ব্যাখ্যাসহ।',
+        lessonHref: '/basics',
       },
       {
         slug: 'recursion',

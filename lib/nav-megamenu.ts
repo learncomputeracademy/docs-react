@@ -13,7 +13,7 @@ import {
   FileSpreadsheet, Frame, HandCoins, ShieldCheck,
   Box, Layers, Blend, LayoutGrid, Columns3, Pipette, ScrollText, Calculator, Ruler,
   ArrowLeftRight, Play, SlidersHorizontal, Eye, Paintbrush2, Type, ImagePlus, Video,
-  NotebookPen, Binary, Workflow, Repeat, Boxes, MoreHorizontal, GitBranch, ListOrdered, FileCode2,
+  NotebookPen, Binary, Workflow, Repeat, Boxes, MoreHorizontal, GitBranch, ListOrdered, FileCode2, Network,
 } from 'lucide-react'
 import type { NavNode, NavItem } from '@/lib/content'
 
@@ -66,6 +66,7 @@ const ITEM_META: Record<string, ItemMeta> = {
   '/tools/lorem-video': { icon: Video, hint: 'Placeholder video clips' },
   '/tools/notepad': { icon: NotebookPen, hint: 'Quick scratchpad, saved locally' },
   '/tools/event-loop': { icon: Workflow, hint: 'Watch the call stack run' },
+  '/tools/protocols': { icon: Network, hint: 'Watch packets cross the network' },
   '/tools/recursion': { icon: Repeat, hint: 'See a call tree unwind' },
   '/tools/scope-closure': { icon: Boxes, hint: 'Where a variable actually lives' },
   '/tools/number-system': { icon: Binary, hint: 'Binary, hex, decimal conversions' },
@@ -88,7 +89,7 @@ const TOOLS_GROUPS: GroupDef[] = [
   { title: 'CSS Generators', icon: Palette, urls: ['/tools/box-model', '/tools/box-shadow-generator', '/tools/gradient', '/tools/grid', '/tools/clamp', '/tools/animation', '/tools/filters'] },
   { title: 'Layout & Color', icon: Layers, urls: ['/tools/flexbox', '/tools/colour', '/tools/scrollbar', '/tools/specificity', '/tools/shades', '/tools/colorblind', '/tools/units'] },
   { title: 'Generators', icon: Type, urls: ['/tools/lorem-text', '/tools/lorem-image', '/tools/lorem-video', '/tools/notepad'] },
-  { title: 'JS Visualizers', icon: Workflow, urls: ['/tools/event-loop', '/tools/recursion', '/tools/scope-closure', '/tools/number-system'] },
+  { title: 'JS Visualizers', icon: Workflow, urls: ['/tools/event-loop', '/tools/recursion', '/tools/scope-closure', '/tools/number-system', '/tools/protocols'] },
   { title: 'SEO & WordPress', icon: Search, urls: ['/tools/serp-preview', '/tools/wp-template-hierarchy', '/tools/wp-hooks-timeline', '/tools/wp-query-builder', '/tools/wp-enqueue-generator'] },
 ]
 

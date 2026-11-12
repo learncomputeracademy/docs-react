@@ -62,6 +62,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${SITE_URL}/bn/tools/notepad`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/event-loop`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/event-loop`, changeFrequency: 'monthly', priority: 0.6 },
+    { url: `${SITE_URL}/tools/protocols`, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/bn/tools/protocols`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/recursion`, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/bn/tools/recursion`, changeFrequency: 'monthly', priority: 0.6 },
     { url: `${SITE_URL}/tools/scope-closure`, changeFrequency: 'monthly', priority: 0.7 },
