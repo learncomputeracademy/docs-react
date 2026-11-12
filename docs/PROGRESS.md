@@ -9,6 +9,96 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-12 — Vercel paused the site; usage diagnosed and two code fixes made (local only)
+
+**What happened**
+- Vercel paused the deployment on 2026-11-10 for exceeding Hobby fair-use limits; the pause
+  ends 2026-12-10 unless upgraded to Pro. Last 30 days: CDN requests 1.5M / 1M, ISR reads
+  1.8M / 1M, Fast Origin Transfer 14.9 / 10 GB, Fluid Active CPU 4h39m / 4h. Function
+  invocations (683K / 1M) and ISR writes (97K / 200K) were under.
+
+**Diagnosis (Vercel dashboard, read-only)**
+- Web Analytics: only 6,504 page views / 5,355 visitors in those 30 days — roughly 230
+  requests per page view. 75% of visitors Singapore, 91% desktop, 93% bounce, top referrer
+  `aocr.org` (472) — much of even the counted traffic looks automated.
+- Firewall: Bot Protection **inactive**, 0 custom rules. Traffic still arriving while paused
+  is datacenter networks (Facebook, Amazon, Tencent, DigitalOcean) and UptimeRobot.
+- Hobby Observability keeps 12 hours only, so there is no per-path breakdown of the month.
+- Measured locally on a production build: hovering ONE sidebar link fires **6** prefetch
+  requests (Next 16 prefetches per route segment). With the default viewport prefetch, a
+  lesson page with ~20 visible sidebar links would fire on the order of 100+ requests per
+  page view — that alone is consistent with the ~230 requests per page view above. The
+  "before" figure was not measured directly.
+
+**Done (uncommitted, unpushed)**
+- `components/hover-link.tsx`: drop-in for `next/link` that prefetches on hover / focus /
+  touch only. Swapped in via the import line in `sidebar-nav`, `site-nav`,
+  `mobile-menu-drawer`, `home-content`, `tools-index`, `lesson-pagination`, `site-header`,
+  `category-content`. Verified on `next build` + `next start`: `/css/intro` loads with **0**
+  prefetch requests (112 internal links on the page); hovering a sidebar link prefetches it;
+  clicking navigates.
+- `proxy.ts`: lesson paths already confirmed as published are remembered per server instance
+  for 10 minutes, so repeat hits skip the two cache reads (was ~2 ISR reads per lesson
+  request). Only "yes" answers are remembered. Verified: real lesson 200, `/bn/` lesson 200,
+  unknown slug 404, unknown category 404 — in dev and in the production build.
+- `next build` passes; `/tools/protocols` and `/bn/tools/protocols` are `○` static (closes
+  that open item from the 2026-11-11 entry).
+
+**Not done / open**
+- Vercel Firewall: turn on Bot Protection + AI-bot blocking, and add a challenge rule for the
+  worst datacenter networks. Left for the user — it is an account security setting.
+- UptimeRobot interval (~195 requests/day) — user's own account.
+- Vercel Analytics / Speed Insights left in place on purpose: they are a small share of
+  requests and the analytics numbers are what made this diagnosis possible.
+- Whether a push builds while the team is paused is unverified. Either way the site stays
+  unreachable until the pause ends or the plan is upgraded.
+- Cloudflare was discussed as an alternative host (Workers via OpenNext; likely needs the
+  $5/month plan; untested). No decision taken.
+- Pre-existing lint errors in `site-nav.tsx` and others (7 problems, `set-state-in-effect`)
+  are unrelated and untouched.
+
+---
+
+## 2026-11-11 — Network Protocol Visualizer built at `/tools/protocols` (local only)
+
+**Done**
+- User asked for a clone of https://protocol-explorer-alpha.vercel.app/ ("Protocol
+  Explorer" by Dilum Sanjaya — not the user's site, no public repo or licence found in its
+  bundle). Agreed approach: an **original** tool with the same kind of mechanics, own
+  design, own lesson text written from the public RFCs — not a copy of that site's text,
+  artwork or name. Built inside `/tools`, first 6 protocols.
+- New tool: `/tools/protocols` and `/bn/tools/protocols`. Lessons: DHCP, DNS, TCP, HTTP,
+  HTTPS (TLS 1.3), UDP. Animated network diagram (laptop → router → internet → DNS resolver
+  / web server), step list that doubles as a scrubber, play/pause/replay/speed, ← → keys,
+  reduced-motion support, and a packet inspector: fields grouped by layer, hover a field or
+  a byte to see what it means, raw hex view.
+- Files: `lib/protocols/packet.ts` (byte builders + real RFC 1071 checksums),
+  `lib/protocols/lessons.ts` (lesson scripts, EN + BN inline next to the packet data),
+  `lib/protocols-i18n.ts` (UI strings), `components/tools/protocols-demo.tsx`, the two
+  `page.tsx` routes. Registered in `app/sitemap.ts`, `lib/tools-index-i18n.ts`,
+  `components/tools-index.tsx`, `lib/nav-megamenu.ts` (JS Visualizers group), `docs/TOOLS.md`.
+- Verified: `tsc` and `eslint` clean; a scratch script checked all 27 packets — IPv4 header
+  checksum, TCP/UDP checksum, IP total length, UDP length and TLS record/handshake lengths
+  all validate. Both routes return 200 with lesson text in the server HTML; checked in
+  Chrome in EN and BN, no console errors.
+
+**Not done / open**
+- **Not committed, not pushed** (no-push hold stands). No `nav_items` row added in the live
+  DB, so the tool is not in the header menu yet — it is only on the `/tools` index page.
+- `next build` was not run, so the route's `○` static status and bundle size against the
+  100 KB budget are unchecked.
+- Not checked: light theme, phone width.
+- The other ~33 protocols on the reference site (QUIC, BGP, Wi-Fi, SSH, SMTP, …) are not
+  built; add as new entries in `LESSONS` in batches.
+- The tool links to `/basics` because there is no networking lesson category yet.
+
+**Learned**
+- `next dev` returned 500 on every page with `ENOENT … _virtual_~icons%2Fsimple-icons%2F
+  adobephotoshop.jsx` (unplugin-icons). The icon exists in `@iconify/json`; the cause was a
+  stale `.next` dev cache. Stop the server, delete `.next`, restart — fixed.
+
+---
+
 ## 2026-09-03 — Session 79 (cont'd 13): 3 useless "syllabus" stub pages removed
 
 **Done**
