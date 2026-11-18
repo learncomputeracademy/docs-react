@@ -96,9 +96,9 @@ export function ethernet(srcMac: string, dstMac: string): Layer {
 }
 
 // ── IPv4 ────────────────────────────────────────────────────────────────
-const PROTO_NAMES: Record<number, string> = { 6: 'TCP', 17: 'UDP' }
+const PROTO_NAMES: Record<number, string> = { 1: 'ICMP', 2: 'IGMP', 6: 'TCP', 17: 'UDP', 50: 'ESP' }
 
-export function ipv4(src: string, dst: string, proto: 6 | 17, payloadLen: number, id: number, ttl = 64): Layer {
+export function ipv4(src: string, dst: string, proto: number, payloadLen: number, id: number, ttl = 64): Layer {
   const total = 20 + payloadLen
   const head = [...u8(0x45), ...u8(0), ...u16(total), ...u16(id), ...u16(0x4000), ...u8(ttl), ...u8(proto)]
   const tail = [...ipBytes(src), ...ipBytes(dst)]
@@ -166,36 +166,3 @@ export function tcp(src: string, dst: string, sport: number, dport: number, seq:
   }
 }
 
-// ── packet assembly ─────────────────────────────────────────────────────
-export interface Endpoint { ip: string; mac: string }
-
-export const LAPTOP: Endpoint = { ip: ADDR.laptopIp, mac: ADDR.laptopMac }
-// Everything beyond the router reaches the laptop's link with the router's
-// MAC, so remote hosts share it.
-export const DNS: Endpoint = { ip: ADDR.dnsIp, mac: ADDR.routerMac }
-export const SERVER: Endpoint = { ip: ADDR.serverIp, mac: ADDR.routerMac }
-export const ROUTER: Endpoint = { ip: ADDR.routerIp, mac: ADDR.routerMac }
-
-let ipId = 0x1c40
-const nextId = () => (ipId = (ipId + 0x0111) & 0xffff)
-
-export function udpPacket(from: Endpoint, to: Endpoint, sport: number, dport: number, app: Layer, opts: { dstMac?: string; ttl?: number } = {}): Layer[] {
-  const payload = flat(app.fields)
-  return [
-    ethernet(from.mac, opts.dstMac ?? (from === LAPTOP ? ADDR.routerMac : ADDR.laptopMac)),
-    ipv4(from.ip, to.ip, 17, 8 + payload.length, nextId(), opts.ttl ?? (from === LAPTOP ? 64 : 57)),
-    udp(from.ip, to.ip, sport, dport, payload),
-    app,
-  ]
-}
-
-export function tcpPacket(from: Endpoint, to: Endpoint, sport: number, dport: number, seq: number, ack: number, flags: number, app?: Layer): Layer[] {
-  const payload = app ? flat(app.fields) : []
-  const layers: Layer[] = [
-    ethernet(from.mac, from === LAPTOP ? ADDR.routerMac : ADDR.laptopMac),
-    ipv4(from.ip, to.ip, 6, 20 + payload.length, nextId(), from === LAPTOP ? 64 : 57),
-    tcp(from.ip, to.ip, sport, dport, seq, ack, flags, payload),
-  ]
-  if (app) layers.push(app)
-  return layers
-}

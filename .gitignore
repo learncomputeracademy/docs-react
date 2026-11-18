@@ -23,6 +23,9 @@ scripts/reports/
 scripts/.cache/
 work/
 
+# private SEO / backlink working notes — never pushed
+SEO-TRACKER.md
+
 # misc
 .DS_Store
 Thumbs.db

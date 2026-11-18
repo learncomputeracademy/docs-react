@@ -9,6 +9,76 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-12 (later) — Protocol Visualizer: isometric scene, 32 more protocols, menu link
+
+**Done (uncommitted, unpushed)**
+- User feedback on the first version: animation looked flat next to the reference site, wanted
+  the remaining protocols, and the tool in the menu.
+- **Scene rebuilt as isometric** (`components/tools/protocols-scene.tsx`, own artwork drawn
+  from one `Prism` helper — no image assets): floor grid, shaded 3D devices (laptop, phone,
+  router, switch, access point, server, cloud, box, plus icon badges), a camera that glides
+  and zooms to the current step (animated `viewBox`), typed call-out bubbles on device-only
+  steps, a floating packet cube with shadow and trail, marching dashes on the active route,
+  broadcast ripples, devices dropping in when the lesson changes. Honours reduced motion.
+  A toggle switches between "follow the action" and "show whole network".
+- **Engine made data-driven** (`lib/protocols/net.ts`): each lesson now carries its own
+  topology (nodes on a floor grid + links); routes are found breadth-first. Hosts, packet
+  assembly, a TCP `conversation()` helper that keeps seq/ack consistent, IPv6 builders.
+- **38 lessons** in `lib/protocols/lessons/` — `core.ts` (the original 6), `network.ts` (IP,
+  IPv6, ICMP, NTP, BGP, Ethernet+ARP, Wi-Fi, PPPoE, IGMP), `web.ts` (WebSocket, QUIC, DoH,
+  proxies, SOCKS5, captive portal, WebRTC, SIP, RTSP, RTMP), `files.ts` (SMTP, IMAP, POP3,
+  FTP, SMB, Modbus), `security.ts` (TLS, SSH, DNSSEC, WPA3, RADIUS/802.1X, WireGuard,
+  IPsec). All EN + BN. Four categories with filter chips and a search box; the chosen lesson
+  lives in the URL hash (`/tools/protocols#bgp`).
+- Shell split: `protocols-demo.tsx` (browser + player), `protocols-inspector.tsx`.
+- **Menu:** `scripts/add-protocols-nav.mjs` inserted a `nav_items` row under Tools
+  (sort_order 28) in the live Supabase DB; it is idempotent. Local `nav` cache busted via
+  `/api/revalidate`; the mega menu shows it under "JS Visualizers" in EN and BN. `/tools`
+  index already listed it.
+- Verified: `tsc` clean, `eslint` clean on the new files. A scratch self-check over all 38
+  lessons: 191 packets, 0 failures — every step's nodes exist and are linked, every packet
+  step has bytes and a label, every text has EN and BN, every byte is 0–255; the 169
+  Ethernet+IPv4 packets pass IPv4 header checksum, total length, and TCP/UDP/ICMP/IGMP
+  checksums; 14 protocol-specific length fields spot-checked (NTP 48, WireGuard 148/92, BGP,
+  IPv6, Modbus, SMB, SSH padding, STUN, RADIUS, DNS, IKE, QUIC). Checked in Chrome in EN and
+  BN (DNS, WebRTC, BGP).
+
+- **Bundle size:** with all 38 lessons imported up front the tool's own chunk was 94 KB
+  gzipped. Now the first six lessons ship with the page (page-specific JS ≈ 33 KB gz) and
+  the other 32 load in the background after first paint as four chunks (≈ 66 KB gz total) —
+  `FIRST_LESSONS` / `loadAllLessons()` in `lib/protocols/lessons/index.ts`.
+- `next build` passes; both routes are `○` static. One build attempt died with a Node
+  fatal error in the build worker (no code error in the log); it passed on retry with
+  `NODE_OPTIONS=--max-old-space-size=4096`. Whether Vercel's builder needs the same is
+  unknown — watch the first deploy.
+- **Not verified in a browser after the background-loading change:** the Chrome extension
+  disconnected. Before that change, all 38 lessons, the camera, call-outs, packet flight
+  and the menu were checked in the dev server. Still to confirm on the production build:
+  the list grows from 6 to 38, and a direct link such as `#wireguard` opens that lesson
+  once it has loaded.
+
+**Honest limits of the lesson data**
+- Keys, signatures and ciphertext are deterministic stand-in bytes of the right length; long
+  payloads (certificates, video, RTMP handshake blocks, QUIC Initial padding) are shortened.
+  Each such field says so in its note, and the caption under the inspector says so too.
+- Some messages are simplified and say so: SMB2 bodies, SSH KEXINIT (3 of 10 name lists),
+  IKE payloads, TCP headers without options, IGMP without the router-alert IP option.
+- The 22 packets that are not Ethernet+IPv4 (ARP, IPv6/ICMPv6, 802.11, PPPoE, EAPOL) are
+  not covered by the generic checksum check; ICMPv6 checksums are computed but not
+  independently verified.
+- The Bengali text was written in one pass and has not been reviewed by a native reader.
+
+**Not done / open**
+- Not committed, not pushed (no-push hold; Vercel is paused until 2026-12-10 anyway).
+- The live site's menu cache is not revalidated — it will pick up the new row on the next
+  deploy or `nav` revalidation.
+- No "sequence diagram" view (the reference site has one). Light theme and phone width still
+  unchecked.
+- `impeccable` design hook flags 10–12px text inside the SVG scene; those are drawing units
+  that scale with the camera, so left as is.
+
+---
+
 ## 2026-11-12 — Vercel paused the site; usage diagnosed and two code fixes made
 
 **Update, same day:** user turned on Vercel Bot Protection (Challenge) and AI Bots blocking

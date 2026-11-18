@@ -2,16 +2,22 @@ import type { Locale } from './types'
 
 // EN + BN interface strings for the Network Protocol Visualizer
 // (docs/TOOLS.md house rule 1). Lesson text lives next to the packet data in
-// lib/protocols/lessons.ts as { en, bn } pairs, so a step's narration and its
+// lib/protocols/lessons/* as { en, bn } pairs, so a step's narration and its
 // bytes can't drift apart. Protocol and field names stay English inside
 // Bengali sentences — same convention as every other tool.
 export const PROTOCOLS_STRINGS = {
   en: {
     title: 'Network Protocol Visualizer',
-    subtitle: 'Watch what really happens when you open a web page — one packet at a time, with every byte explained.',
+    subtitle: 'Watch how the internet really works — one packet at a time, with every byte explained.',
     lessonCta: 'Browse computer basics lessons',
-    protocol: 'Protocol',
+    protocol: 'Protocols',
+    search: 'Search protocols',
+    all: 'All',
+    noMatch: 'No protocol matches that search.',
+    categories: { core: 'Network', web: 'Web & media', files: 'Mail & files', security: 'Security' },
     network: 'The network',
+    follow: 'Follow the action',
+    whole: 'Show whole network',
     steps: 'Steps',
     step: 'Step',
     of: 'of',
@@ -30,16 +36,21 @@ export const PROTOCOLS_STRINGS = {
     fieldHint: 'Hover or tap a field — or a byte — to see what it means.',
     hexView: 'Raw bytes',
     lost: 'Lost',
-    captureNote: 'Packets are shown as they appear at the laptop’s own network card. Addresses are example values; the checksums are really calculated from the bytes you see.',
-    nodes: { laptop: 'Your laptop', router: 'Home router', internet: 'Internet', dns: 'DNS resolver', server: 'Web server' },
+    captureNote: 'Packets are shown as they appear on the sender’s local link. Addresses are example values; lengths and checksums are really calculated from the bytes you see. Keys and encrypted data are stand-in bytes, and long payloads are shortened — each such field says so.',
     layers: { link: 'Link', ip: 'Internet', transport: 'Transport', app: 'Application' },
   },
   bn: {
     title: 'Network Protocol ভিজুয়ালাইজার',
-    subtitle: 'একটা web page খুললে আসলে কী ঘটে দেখুন — একটা একটা packet ধরে, প্রতিটা byte-এর ব্যাখ্যাসহ।',
+    subtitle: 'internet আসলে কীভাবে কাজ করে দেখুন — একটা একটা packet ধরে, প্রতিটা byte-এর ব্যাখ্যাসহ।',
     lessonCta: 'কম্পিউটার বেসিক্স lesson দেখুন',
     protocol: 'Protocol',
+    search: 'protocol খুঁজুন',
+    all: 'সব',
+    noMatch: 'এই খোঁজে কোনো protocol মিলছে না।',
+    categories: { core: 'নেটওয়ার্ক', web: 'Web ও media', files: 'Mail ও file', security: 'নিরাপত্তা' },
     network: 'নেটওয়ার্ক',
+    follow: 'ঘটনা অনুসরণ করুন',
+    whole: 'পুরো নেটওয়ার্ক দেখান',
     steps: 'ধাপ',
     step: 'ধাপ',
     of: '/',
@@ -58,8 +69,7 @@ export const PROTOCOLS_STRINGS = {
     fieldHint: 'কোনো field — বা কোনো byte — এর ওপর hover বা tap করুন, তার মানে দেখতে।',
     hexView: 'কাঁচা byte',
     lost: 'হারিয়েছে',
-    captureNote: 'packet-গুলো ল্যাপটপের নিজের network card-এ যেমন দেখায় তেমন দেখানো হয়েছে। address-গুলো উদাহরণ; checksum-গুলো আপনি যে byte দেখছেন তা থেকেই সত্যিই হিসেব করা।',
-    nodes: { laptop: 'ল্যাপটপ', router: 'বাড়ির router', internet: 'Internet', dns: 'DNS resolver', server: 'Web server' },
+    captureNote: 'packet-গুলো প্রেরকের লোকাল link-এ যেমন দেখায় তেমন দেখানো হয়েছে। address-গুলো উদাহরণ; length আর checksum আপনি যে byte দেখছেন তা থেকেই সত্যিই হিসেব করা। key আর encrypted data বদলি byte, আর লম্বা payload ছোট করা — এমন প্রতিটা field-এ তা লেখা আছে।',
     layers: { link: 'Link', ip: 'Internet', transport: 'Transport', app: 'Application' },
   },
 } as const

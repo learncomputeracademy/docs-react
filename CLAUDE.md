@@ -16,6 +16,15 @@
 > same no-push hold immediately after the 2026-09-05 push, so treat it as active
 > regardless of quota status until lifted again.
 
+> **HOSTING CHANGED (2026-11-18): the live site no longer runs on Vercel.** It is built and
+> served by Coolify on the owner's Oracle Cloud Always Free VM, behind Cloudflare (proxied).
+> A push to `main` triggers a rebuild through a GitHub webhook (about 12 minutes, no downtime),
+> so the no-push hold above still matters. Vercel quotas (ISR writes etc.) no longer apply.
+> Environment variables live in Coolify (application `docs-react`), not in Vercel.
+> Cloudflare keeps pages for 1 minute, so a publish shows within about a minute.
+> `@vercel/analytics` and `@vercel/speed-insights` no longer report anything.
+> Full details and DNS rollback to Vercel: `D:\Oracle Free\CLAUDE.md`, section "Docs site".
+
 ---
 
 ## 1. What this project is

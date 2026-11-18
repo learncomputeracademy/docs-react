@@ -3,36 +3,8 @@
 // between two nodes (with its real bytes, built in ./packet) or a local
 // event at one node. Written from the public protocol specifications
 // (RFC 768, 791, 1035, 2131, 8446, 9110, 9293).
-import {
-  ADDR, DNS, FLAG, LAPTOP, ROUTER, SERVER, ascii, hex0x, ipBytes, macBytes, noise, size, t,
-  tcpPacket, u8, u16, u24, u32, udpPacket, zeros,
-  type Field, type L, type Layer,
-} from './packet'
-
-export type NodeId = 'laptop' | 'router' | 'internet' | 'dns' | 'server'
-
-export interface Step {
-  from: NodeId
-  /** Omitted = something happening inside `from`, no packet on the wire. */
-  to?: NodeId
-  /** Local-network broadcast (DHCP) — drawn with ripples. */
-  broadcast?: boolean
-  /** The packet never arrives (UDP loss demo). */
-  lost?: boolean
-  label?: string
-  title: L
-  body: L
-  layers?: Layer[]
-}
-
-export interface Lesson {
-  id: string
-  name: string
-  tagline: L
-  intro: L
-  nodes: NodeId[]
-  steps: Step[]
-}
+import { ADDR, FLAG, ascii, hex0x, ipBytes, macBytes, noise, size, t, u8, u16, u24, u32, zeros, type Field, type L, type Layer } from '../packet'
+import { DNS, EVERYONE, LAPTOP, NOBODY, RESOLVER, ROUTER, SERVER, WEB, homeTopo, tcpPacket, udpPacket, type Lesson } from '../net'
 
 const f = (name: string, value: string, bytes: number[], note: L): Field => ({ name, value, bytes, note })
 const app = (name: string, fields: Field[]): Layer => ({ kind: 'app', name, fields })
@@ -81,7 +53,8 @@ const dns: Lesson = {
   name: 'DNS',
   tagline: t('Turns a name into an address', 'নামকে address-এ বদলায়'),
   intro: t('Computers find each other by number, people remember names. DNS is the lookup in between — and it happens before almost everything else you do online.', 'কম্পিউটার একে অপরকে খোঁজে সংখ্যা দিয়ে, মানুষ মনে রাখে নাম। DNS হল মাঝখানের খোঁজ — আর online-এ প্রায় সবকিছুর আগে এটাই ঘটে।'),
-  nodes: ['laptop', 'router', 'internet', 'dns'],
+  category: 'core',
+  topo: homeTopo({ dns: RESOLVER }),
   steps: [
     { from: 'laptop', title: t('You type example.com', 'আপনি example.com টাইপ করলেন'), body: t('The browser needs an IP address before it can connect. It checks its own cache, then the operating system’s. Nothing there — so it has to ask.', 'connect করার আগে browser-এর একটা IP address দরকার। সে নিজের cache দেখে, তারপর operating system-এর। কোথাও নেই — তাই জিজ্ঞেস করতে হবে।') },
     { from: 'laptop', to: 'dns', label: 'DNS query', title: t('The question goes out', 'প্রশ্ন বেরিয়ে গেল'), body: t('One small UDP datagram to port 53 of the DNS resolver: "What is the A record for example.com?" No connection is set up first — DNS wants speed.', 'DNS resolver-এর 53 নম্বর port-এ একটা ছোট UDP datagram: "example.com-এর A record কী?" আগে কোনো connection তৈরি হয় না — DNS গতি চায়।'), layers: udpPacket(LAPTOP, DNS, 53124, 53, dnsQuery) },
@@ -104,7 +77,8 @@ const udpLesson: Lesson = {
   name: 'UDP',
   tagline: t('Send it and hope', 'পাঠিয়ে দাও, বাকিটা ভাগ্য'),
   intro: t('UDP adds almost nothing on top of IP: two port numbers, a length and a checksum. No handshake, no acknowledgments, no resending. That makes it fast — and the right choice for live voice, video and games.', 'UDP IP-র ওপরে প্রায় কিছুই যোগ করে না: দুটো port নম্বর, একটা length আর একটা checksum। handshake নেই, acknowledgment নেই, আবার পাঠানো নেই। তাই এটা দ্রুত — live voice, video আর game-এর জন্য ঠিক পছন্দ।'),
-  nodes: ['laptop', 'router', 'internet', 'server'],
+  category: 'core',
+  topo: homeTopo({ server: WEB }),
   steps: [
     { from: 'laptop', title: t('A voice call is running', 'একটা voice call চলছে'), body: t('Every 20 milliseconds the app has a new slice of sound to send. It does not open a connection — it just starts sending.', 'প্রতি 20 মিলিসেকেন্ডে app-এর কাছে পাঠানোর জন্য শব্দের নতুন টুকরো আসে। সে কোনো connection খোলে না — সোজা পাঠাতে শুরু করে।') },
     { from: 'laptop', to: 'server', label: 'Datagram 1', title: t('Datagram 1 arrives', 'Datagram 1 পৌঁছল'), body: t('An 8-byte UDP header and the audio. The server plays it straight away. It sends nothing back to say it arrived.', '8-byte-এর UDP header আর audio। server সঙ্গে সঙ্গে সেটা বাজায়। পৌঁছেছে বলে কিছু ফেরত পাঠায় না।'), layers: udpPacket(LAPTOP, SERVER, 50000, 5004, voice(1)) },
@@ -124,7 +98,8 @@ const tcpLesson: Lesson = {
   name: 'TCP',
   tagline: t('Reliable, ordered delivery', 'নির্ভরযোগ্য, ক্রম-মানা ডেলিভারি'),
   intro: t('TCP turns an unreliable network into a dependable stream of bytes. It does that with three ideas: a handshake to agree on starting numbers, a number on every byte, and an acknowledgment for everything received.', 'TCP একটা অনির্ভরযোগ্য নেটওয়ার্ককে ভরসাযোগ্য byte-এর স্রোতে বদলে দেয়। তিনটে ধারণা দিয়ে: শুরুর সংখ্যা ঠিক করতে handshake, প্রতিটা byte-এ একটা নম্বর, আর যা পাওয়া গেল তার acknowledgment।'),
-  nodes: ['laptop', 'router', 'internet', 'server'],
+  category: 'core',
+  topo: homeTopo({ server: WEB }),
   steps: [
     { from: 'laptop', to: 'server', label: 'SYN', title: t('Handshake 1 of 3 — SYN', 'Handshake 3-এর 1 — SYN'), body: t('"I want to talk. My byte numbering starts at 1000." Only the SYN flag is set; no data yet.', '"আমি কথা বলতে চাই। আমার byte-এর নম্বর 1000 থেকে শুরু।" শুধু SYN flag সেট; এখনও কোনো data নেই।'), layers: tcpPacket(LAPTOP, SERVER, 51000, 80, C0, 0, FLAG.SYN) },
     { from: 'server', to: 'laptop', label: 'SYN, ACK', title: t('Handshake 2 of 3 — SYN, ACK', 'Handshake 3-এর 2 — SYN, ACK'), body: t('"Got it — I expect your byte 1001 next. My own numbering starts at 5000." One segment both acknowledges and opens the return direction.', '"পেয়েছি — এরপর তোমার 1001 নম্বর byte চাই। আমার নিজের নম্বর 5000 থেকে শুরু।" একটাই segment acknowledge-ও করে, ফেরার দিকও খোলে।'), layers: tcpPacket(SERVER, LAPTOP, 80, 51000, S0, C0 + 1, FLAG.SYN | FLAG.ACK) },
@@ -174,7 +149,8 @@ const httpLesson: Lesson = {
   name: 'HTTP',
   tagline: t('Ask for a page, get a page', 'page চাও, page পাও'),
   intro: t('HTTP is a plain-text conversation: the browser sends a request, the server sends a response. Every web page starts this way.', 'HTTP একটা plain-text কথোপকথন: browser একটা request পাঠায়, server একটা response পাঠায়। প্রতিটা web page এভাবেই শুরু হয়।'),
-  nodes: ['laptop', 'router', 'internet', 'server'],
+  category: 'web',
+  topo: homeTopo({ server: WEB }),
   steps: [
     { from: 'laptop', title: t('A TCP connection is already open', 'একটা TCP connection আগে থেকেই খোলা'), body: t('DNS gave the address and the three-way handshake to port 80 is done (see the DNS and TCP lessons). HTTP rides on top of that connection.', 'DNS address দিয়েছে আর port 80-তে three-way handshake হয়ে গেছে (DNS ও TCP lesson দেখুন)। HTTP সেই connection-এর ওপরে চলে।') },
     { from: 'laptop', to: 'server', label: 'GET /', title: t('The request', 'request'), body: t('A few lines of readable text: the method and path, then headers, then a blank line. Nothing here is encrypted — anyone on the path can read it.', 'কয়েক লাইন পড়া-যায়-এমন text: method আর path, তারপর header, তারপর ফাঁকা লাইন। এখানে কিছুই encrypt করা নয় — পথের যে কেউ পড়তে পারে।'), layers: tcpPacket(LAPTOP, SERVER, 51000, 80, C0 + 1, S0 + 1, FLAG.PSH | FLAG.ACK, req1) },
@@ -257,7 +233,8 @@ const httpsLesson: Lesson = {
   name: 'HTTPS',
   tagline: t('HTTP inside an encrypted tunnel', 'encrypted সুড়ঙ্গের ভেতরে HTTP'),
   intro: t('HTTPS is ordinary HTTP wrapped in TLS. Before any page data moves, the two sides agree on secret keys and the server proves who it is. This lesson shows TLS 1.3.', 'HTTPS হল TLS-এ মোড়া সাধারণ HTTP। page-এর কোনো data যাওয়ার আগে দুপক্ষ গোপন key ঠিক করে আর server প্রমাণ দেয় সে কে। এই lesson-এ TLS 1.3 দেখানো হয়েছে।'),
-  nodes: ['laptop', 'router', 'internet', 'server'],
+  category: 'web',
+  topo: homeTopo({ server: WEB }),
   steps: [
     { from: 'laptop', title: t('TCP is connected to port 443', 'TCP port 443-এ connected'), body: t('Same three-way handshake as always, but to port 443. Nothing is encrypted yet.', 'সেই একই three-way handshake, তবে port 443-এ। এখনও কিছু encrypt করা নয়।') },
     { from: 'laptop', to: 'server', label: 'ClientHello', title: t('ClientHello', 'ClientHello'), body: t('"Here are the encryption methods I know, the site I want, and my half of a key exchange." Sent in the clear.', '"এই হল আমার জানা encryption পদ্ধতি, যে site চাই তার নাম, আর key exchange-এ আমার অর্ধেক।" খোলাখুলি পাঠানো।'), layers: tcpPacket(LAPTOP, SERVER, 51000, 443, cAt(0), sAt(0), PA, clientHello) },
@@ -316,8 +293,6 @@ function dhcp(type: 1 | 2 | 3 | 5): Layer {
   ])
 }
 
-const NOBODY = { ip: ADDR.noIp, mac: ADDR.laptopMac }
-const EVERYONE = { ip: ADDR.broadcastIp, mac: ADDR.broadcastMac }
 const bcast = { dstMac: ADDR.broadcastMac, ttl: 64 }
 
 const dhcpLesson: Lesson = {
@@ -325,7 +300,14 @@ const dhcpLesson: Lesson = {
   name: 'DHCP',
   tagline: t('How a device gets its address', 'ডিভাইস কীভাবে address পায়'),
   intro: t('When you join a network your laptop knows nothing: no address, no router, no DNS server. DHCP hands all of that over in four messages, often remembered as DORA — Discover, Offer, Request, Acknowledge.', 'নেটওয়ার্কে যোগ দেওয়ার সময় আপনার ল্যাপটপ কিছুই জানে না: address নেই, router নেই, DNS server নেই। DHCP চারটে message-এ এ সবই দিয়ে দেয়, যাকে প্রায়ই DORA বলে মনে রাখা হয় — Discover, Offer, Request, Acknowledge।'),
-  nodes: ['laptop', 'router'],
+  category: 'core',
+  topo: {
+    nodes: {
+      laptop: { kind: 'laptop', label: t('Laptop', 'ল্যাপটপ'), sub: 'no address yet', at: [0, 2] },
+      router: { kind: 'router', label: t('Home router', 'বাড়ির router'), sub: ADDR.routerIp, at: [3, 2] },
+    },
+    links: [['laptop', 'router', 'wireless']],
+  },
   steps: [
     { from: 'laptop', title: t('You join the Wi-Fi', 'আপনি Wi-Fi-এ যোগ দিলেন'), body: t('The laptop is connected but has no IP address, and does not know who could give it one.', 'ল্যাপটপ connected, কিন্তু IP address নেই, আর কে দিতে পারে তাও জানে না।') },
     { from: 'laptop', to: 'router', broadcast: true, label: 'DHCP Discover', title: t('Discover — "Is anyone there?"', 'Discover — "কেউ আছ?"'), body: t('With nobody to address it to, the laptop shouts to everyone: from 0.0.0.0 to 255.255.255.255, with a broadcast MAC address.', 'কাকে পাঠাবে জানা নেই বলে ল্যাপটপ সবাইকে ডাক দেয়: 0.0.0.0 থেকে 255.255.255.255-এ, broadcast MAC address দিয়ে।'), layers: udpPacket(NOBODY, EVERYONE, 68, 67, dhcp(1), bcast) },
@@ -336,21 +318,6 @@ const dhcpLesson: Lesson = {
   ],
 }
 
-// Order follows what really happens when you open a page on a new network.
-export const LESSONS: Lesson[] = [dhcpLesson, dns, tcpLesson, httpLesson, httpsLesson, udpLesson]
+export const CORE_LESSONS = { dhcp: dhcpLesson, dns, tcp: tcpLesson, http: httpLesson, https: httpsLesson, udp: udpLesson }
 
-// ── flatten a packet for the hex view ───────────────────────────────────
-export interface FlatField { layer: number; field: number; offset: number; length: number }
-
-export function flatten(layers: Layer[]): { bytes: number[]; fields: FlatField[] } {
-  const bytes: number[] = []
-  const fields: FlatField[] = []
-  layers.forEach((layer, li) =>
-    layer.fields.forEach((fd, fi) => {
-      fields.push({ layer: li, field: fi, offset: bytes.length, length: fd.bytes.length })
-      bytes.push(...fd.bytes)
-    })
-  )
-  return { bytes, fields }
-}
-
+export { tlsHello, tlsEncrypted }
