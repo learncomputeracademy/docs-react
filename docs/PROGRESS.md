@@ -24,8 +24,17 @@ for picking up work weeks later.
   third-party script; `/css` lesson: TBT 990ms live vs 180ms on the same build without it.
   This is the main hosting-related cause of the drop. Fixing it is a Cloudflare dashboard choice.
 
+- Pushed (approved) as 3 commits. GTmetrix after deploy: LCP 1.6s, TBT 916ms, score 58.
+- The tag injection is Cloudflare **Google tag gateway** (Web tag management, zone
+  learncomputer.in, GTM-PBXQZ76, path `/5oas`). It is zone-wide (no per-hostname option), so it
+  also serves the main site: do not turn it off. Owner chose GA4 only on docs; that has to be done
+  in GTM with a hostname exception trigger on the other tags (Google sign-in needed, owner's step).
+- Command menu now loads the search index on first open (was 2 uncacheable POST server actions
+  on every page view). Committed locally, not pushed.
+
 **Next / open**
-- Owner decides which injected tags the docs host should keep (likely GA4 only), set in Cloudflare.
+- Owner: GTM exception trigger `Page Hostname equals docs.learncomputer.in` on Facebook Pixel,
+  Google Ads and the GA4 tag that is not for docs; then publish the container.
 - Home TBT still ~1.5s locally: hydration of the hero/subject client components (MagicCard,
   TiltCard, ProximityGrid, DotGridBackground). Next target if the score still matters.
 
