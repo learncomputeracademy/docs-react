@@ -9,6 +9,14 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-19 (evening) — Docs tracking cleaned up (D-140)
+
+- GTM v29 published + new GA4 stream Docs (G-XTBB1C05FC). Docs now loads only GA4; Facebook
+  Pixel, Google Ads and the second GA4 gone from docs, main site unchanged. Verified live.
+- Cloudflare RUM left on (per-host exclusion needs Pro). See D-140 for the no-transform option.
+- Hero dots tuned twice (subtler resting dots, softer hover). Still unpushed: React Bits look
+  commits (D-139 and follow-ups).
+
 ## 2026-11-19 (later) — React Bits look (D-139)
 
 **Done (local, committed, NOT pushed)**

@@ -6709,6 +6709,32 @@ lab numbers swing 50-93 with load). The waves chunk was absent from every Lighth
 
 ---
 
+## D-140 · Docs tracking: own GA4 stream, no ads/pixel tags (2026-11-19)
+
+**Context.** Since the move behind Cloudflare (D-138), Cloudflare's Google tag gateway (zone-wide,
+learncomputer.in, path `/5oas`) injects GTM container GTM-PBXQZ76 into docs. Its Google tag
+G-VG3N8NBPFH carries linked destinations (Google Ads AW-11397090122 and a second GA4
+G-K1JDXRD7ML), and the container also fires the Facebook Pixel. Owner: no ads target docs; keep
+GA4 only.
+
+**Done (in Google's/Cloudflare's dashboards, not in this repo).**
+- GA4 property "Learncomputer - GA4": new web stream **Docs** (`https://docs.learncomputer.in`),
+  measurement ID **G-XTBB1C05FC**, not connected to the main Google tag.
+- GTM-PBXQZ76, published as **version 29**: triggers `Docs host - all events` (custom event `.*`,
+  Page Hostname equals docs.learncomputer.in) and `Docs host - Initialization`; the first is an
+  exception on GA4 Configuration, Facebook Pixel and the three GA4 event tags; new tag
+  `GA4 - Docs (G-XTBB1C05FC)` fires on the second. Paused tags (Ahref, Brevo, Clarity) untouched.
+- Verified live: docs sends only to G-XTBB1C05FC (plus GA's own signals pings); main site still
+  sends G-VG3N8NBPFH, G-K1JDXRD7ML and AW-11397090122.
+
+**Not done.** Cloudflare Web Analytics / RUM (beacon.min.js, `/cdn-cgi/rum`) is configured for
+the whole learncomputer.in hostname set; per-hostname rules need the Pro plan, and disabling would
+also stop it on the main site. Left on. Option if it matters: `Cache-Control: no-transform` on
+docs HTML stops Cloudflare injecting anything (RUM and the tag gateway), then load GA4
+G-XTBB1C05FC from the app; check compression behaviour first.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
