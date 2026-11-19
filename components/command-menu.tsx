@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useRouter, usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Command, defaultFilter } from 'cmdk'
@@ -27,6 +27,7 @@ export function CommandMenu() {
   const [query, setQuery] = useState('')
   const [index, setIndex] = useState<SearchItem[] | null>(null)
   const [categories, setCategories] = useState<CategoryItem[]>([])
+  const loadedLocale = useRef<string | null>(null)
   const router = useRouter()
   const pathname = usePathname()
   const locale = localeFromPathname(pathname)
@@ -43,22 +44,24 @@ export function CommandMenu() {
     return () => document.removeEventListener('keydown', onKeyDown)
   }, [])
 
-  // Both fetched on mount, not on open — CommandMenu lives in the header
-  // and is always mounted, so by the time someone actually opens the
-  // dialog these have almost always already resolved. The search index is
-  // the whole point of going client-side: fetched once per locale, then
-  // cmdk's own fuzzy filter (command-score — the same class of algorithm
-  // VSCode's command palette uses) matches it against every keystroke
-  // locally, no network round trip and no debounce needed. Tools merged in
-  // directly — lib/tools-index.ts is plain static data, not a DB query.
+  // Fetched on first open (once per locale), not on mount. Was on mount:
+  // that fired two uncacheable POST server actions (~45 KB) on every page
+  // view for every visitor, though few ever open search (GTmetrix
+  // 2026-11-19). The dialog shows its loading state for the brief wait.
+  // Once loaded, cmdk's fuzzy filter (command-score) matches every
+  // keystroke locally, no network round trip. Tools merged in directly —
+  // lib/tools-index.ts is plain static data, not a DB query.
   useEffect(() => {
+    if (!open || loadedLocale.current === locale) return
+    loadedLocale.current = locale
+    setIndex(null)
     categoriesAction(locale).then(setCategories)
     searchIndexAction(locale).then((docs) => {
       const tools = localizedTools(locale).map((t) => ({ ...t, kind: 'tool' as const }))
       const withKind = docs.map((d) => ({ ...d, kind: 'doc' as const }))
       setIndex([...tools, ...withKind])
     })
-  }, [locale])
+  }, [open, locale])
 
   function select(path: string) {
     setOpen(false)
