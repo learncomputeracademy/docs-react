@@ -183,9 +183,12 @@ export function HeroWaves({ className }: { className?: string }) {
       {Dots && (
         <div className="absolute inset-0 animate-[hero-waves-in_1.2s_ease-out_both]">
           <Dots
-            dotSize={2.6}
+            dotSize={2.2}
             gap={22}
-            baseColor={light ? '#ffffff' : '#120f17'}
+            // Resting dots blend toward the wave color instead of page color,
+            // so they read as a faint texture over the waves rather than a
+            // dark grid (user: "too strong"). Cursor/click still light up.
+            baseColor={mix(light ? '#ffffff' : '#120f17', values.waveColor, 0.3) as string}
             activeColor={dotTint(values.waveColor, light)}
             proximity={360}
             strength={1.15}
@@ -194,7 +197,7 @@ export function HeroWaves({ className }: { className?: string }) {
             swell={1.4}
             stretch={0.5}
             glow={0.15}
-            opacity={0.8}
+            opacity={0.55}
             shockRadius={380}
             shockStrength={4}
             intro={false}
