@@ -98,7 +98,7 @@ export function CommandMenu() {
       >
         <Search className="size-4" />
         <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 font-mono text-[10px] sm:inline">⌘K</kbd>
+        <kbd className="hidden rounded border bg-muted px-1.5 py-0.5 font-mono text-xs sm:inline">⌘K</kbd>
       </button>
 
       <Dialog.Root open={open} onOpenChange={setOpen}>
