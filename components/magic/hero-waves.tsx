@@ -65,6 +65,12 @@ function mix(a: unknown, b: unknown, t: number) {
   return t < 0.5 ? a : b
 }
 
+// Cursor-lit dot color. reactbits.dev blends the page color toward the wave
+// color, tuned for dots on a plain background; ours sit on top of the waves,
+// so lift the wave color toward white (dark) / black (light) to stand out.
+const dotTint = (wave: string, light: boolean) =>
+  HEX.test(wave) ? (mix(wave, light ? '#000000' : '#ffffff', light ? 0.2 : 0.45) as string) : light ? '#52525b' : '#e4e4e7'
+
 function lowEnd() {
   const n = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } }
   return (
@@ -85,6 +91,7 @@ export function HeroWaves({ className }: { className?: string }) {
   const presetRef = useRef(preset)
   presetRef.current = preset
   const [small, setSmall] = useState(false)
+  const [Dots, setDots] = useState<ComponentType<Record<string, unknown>> | null>(null)
 
   // Theme: follow the `dark` class the head script / toggle sets on <html>.
   useEffect(() => {
@@ -112,6 +119,10 @@ export function HeroWaves({ className }: { className?: string }) {
       done = true
       cleanup()
       import('./gradient-waves').then(m => setWaves(() => m.default as unknown as ComponentType<Record<string, unknown>>))
+      // Click shockwave dot field: mouse devices only, like reactbits.dev
+      // (no hover = no cursor glow, and a tap already navigates).
+      if (matchMedia('(hover: hover) and (pointer: fine)').matches)
+        import('./dot-grid').then(m => setDots(() => m.default as unknown as ComponentType<Record<string, unknown>>))
     }
     const onLoad = () => { timer = window.setTimeout(start, 4000) }
     const cleanup = () => {
@@ -159,6 +170,36 @@ export function HeroWaves({ className }: { className?: string }) {
       {Waves && (
         <div className="absolute inset-0 animate-[hero-waves-in_1.2s_ease-out_both]">
           <Waves {...values} dpr={small ? 1 : 1.5} quality={small ? 'low' : 'medium'} mouseInteraction intro />
+        </div>
+      )}
+      {/* Keeps the headline readable over the waves: page color at the top,
+          fading out toward the bottom where the waves are. */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/25 to-transparent" />
+      {/* React Bits DotGrid, as on reactbits.dev's hero: dots tint toward the
+          current wave color near the cursor, and a click anywhere in the hero
+          (buttons included) sends a shockwave through them. Above the
+          readability overlay so the effect isn't dimmed. Props copied from
+          their Hero.jsx. */}
+      {Dots && (
+        <div className="absolute inset-0 animate-[hero-waves-in_1.2s_ease-out_both]">
+          <Dots
+            dotSize={2.6}
+            gap={22}
+            baseColor={light ? '#ffffff' : '#120f17'}
+            activeColor={dotTint(values.waveColor, light)}
+            proximity={360}
+            strength={1.15}
+            bounce={0.7}
+            tension={0.35}
+            swell={1.4}
+            stretch={0.5}
+            glow={0.15}
+            opacity={0.8}
+            shockRadius={380}
+            shockStrength={4}
+            intro={false}
+            dpr={Math.min(devicePixelRatio || 1, 1.5)}
+          />
         </div>
       )}
     </div>

@@ -6694,6 +6694,10 @@ effect, "Browse components" button motion, colors), keeping the brand orange.
 - Public `Button`: liquid-glass + spotlight removed; solid fills, 12-13px corners, hover brighten,
   trailing icon nudges 2px, press scale 0.97 (all CSS). Admin unchanged (ButtonGlassOff).
 
+- Added the same day: React Bits **DotGrid** (vendored, `components/magic/dot-grid.tsx`) over the
+  waves, as on reactbits.dev: dots light up near the cursor and a click anywhere in the hero
+  sends a shockwave through them. Mouse devices only; loads with the waves (same deferral).
+
 **Why it doesn't cost page speed.** The WebGL chunk is not downloaded until the first scroll /
 pointer / touch / key, or 4s after `load`; until then a static CSS gradient shows. Never starts
 for reduced-motion, Save-Data, or <=2 cores / <=2 GB devices. Measured locally, alternating runs
