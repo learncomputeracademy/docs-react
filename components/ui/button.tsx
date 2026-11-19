@@ -5,14 +5,13 @@ import { Slot } from '@radix-ui/react-slot'
 import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
-// Public site gets a liquid-glass + cursor-spotlight treatment, plus a
-// fatter pill shape, on every variant — user-referenced:
-// https://21st.dev/@designali-in/components/liquid-glass-button and
-// https://lunarui.dev/components/react/buttons/spotlight-button. Admin
-// opts out (dense forms/tables, not marketing chrome — same rounded-md/h-9
-// sizing it always had) by wrapping its root in <ButtonGlassOff> once
-// (app/admin/layout.tsx); every other call site needs no change, since the
-// default is "on."
+// Public site buttons follow reactbits.dev's hero buttons (user-requested
+// 2026-11-19, replacing the earlier liquid-glass + spotlight treatment):
+// solid fills, 12-13px corners, hover brightens, the trailing icon nudges
+// 2px right on hover, and the button presses down to 0.97 on click. All
+// CSS transitions, no JS. Admin opts out (dense forms/tables) by wrapping
+// its root in <ButtonGlassOff> once (app/admin/layout.tsx); the name is
+// historical.
 const ButtonGlassContext = React.createContext(true)
 export function ButtonGlassOff({ children }: { children: React.ReactNode }) {
   return <ButtonGlassContext.Provider value={false}>{children}</ButtonGlassContext.Provider>
@@ -35,14 +34,14 @@ const buttonVariants = cva(
 type ColorVariant = 'default' | 'outline' | 'ghost'
 type SizeVariant = 'default' | 'sm' | 'lg' | 'icon'
 
-// Pill-shaped and a step fatter than the plain admin sizing — "more rounded
-// and fatter" per user feedback; a pill reads as glass (a filled/frosted
-// capsule) more convincingly than a soft-cornered rect.
+// The icon nudge is on the text sizes only, not `icon` (a lone icon
+// sliding sideways reads as a glitch, not a hint).
+const NUDGE = '[&_svg]:transition-transform [&_svg]:duration-[260ms] [&_svg]:ease-out hover:[&_svg]:translate-x-0.5'
 const SHAPE: Record<SizeVariant, string> = {
-  default: 'h-11 rounded-full px-6 py-2',
-  sm: 'h-9 rounded-full px-4 text-xs',
-  lg: 'h-12 rounded-full px-8 text-base',
-  icon: 'size-11 rounded-full',
+  default: `h-11 rounded-[12px] px-5 ${NUDGE}`,
+  sm: `h-9 rounded-[10px] px-3.5 text-xs ${NUDGE}`,
+  lg: `h-[46px] rounded-[13px] px-5 text-[15px] tracking-[-0.01em] ${NUDGE}`,
+  icon: 'size-11 rounded-[12px]',
 }
 const PLAIN_SHAPE: Record<SizeVariant, string> = {
   default: 'h-9 rounded-md px-4 py-2',
@@ -57,24 +56,11 @@ const PLAIN: Record<ColorVariant, string> = {
   ghost: 'hover:bg-accent hover:text-accent-foreground',
 }
 
-// Shared cursor-tracked spotlight — position comes from --spot-x/--spot-y,
-// set imperatively on mousemove (see onMouseMove below), not React state,
-// so hovering doesn't trigger a re-render per pixel. isolate + -z-10 keeps
-// the glow behind the label; rounded-[inherit] keeps it inside the pill.
-// 170px/opacity 0.45 (bumped up from an earlier, subtler pass) per "make it
-// more prominent."
-const SPOTLIGHT =
-  "before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:rounded-[inherit] before:opacity-0 before:transition-opacity before:duration-300 before:content-[''] before:[background:radial-gradient(170px_circle_at_var(--spot-x,50%)_var(--spot-y,50%),rgba(255,255,255,0.45),transparent_70%)] hover:before:opacity-100"
-const GLASS_BASE = `relative isolate overflow-hidden backdrop-blur-lg ${SPOTLIGHT}`
-
-// outline/ghost start from a transparent or near-transparent background, so
-// their glass needs a visibly tinted fill at rest (not just on hover) or
-// the blur has nothing to read against — that was the "isn't prominent on
-// transparent buttons" gap.
-const GLASS: Record<ColorVariant, string> = {
-  default: `${GLASS_BASE} border border-primary-foreground/25 bg-primary/70 text-primary-foreground shadow-[0_8px_28px_-10px_rgba(0,0,0,0.45)] hover:bg-primary/80`,
-  outline: `${GLASS_BASE} border border-foreground/20 bg-foreground/[0.08] shadow-[0_4px_20px_-8px_rgba(0,0,0,0.25)] hover:bg-foreground/[0.14] hover:border-foreground/30`,
-  ghost: `${GLASS_BASE} border border-foreground/10 bg-foreground/[0.08] hover:bg-foreground/[0.16] hover:border-foreground/20`,
+const PRESS = 'transition-[background-color,color,box-shadow,filter,transform] duration-150 active:scale-[0.97]'
+const STYLED: Record<ColorVariant, string> = {
+  default: `${PRESS} bg-primary text-primary-foreground hover:brightness-110`,
+  outline: `${PRESS} bg-[var(--ghost)] text-foreground shadow-[var(--ghost-ring)] hover:bg-[var(--ghost-hover)]`,
+  ghost: `${PRESS} hover:bg-foreground/[0.06]`,
 }
 
 function Button({
@@ -82,7 +68,6 @@ function Button({
   variant,
   size,
   asChild = false,
-  onMouseMove,
   ...props
 }: React.ComponentProps<'button'> & VariantProps<typeof buttonVariants> & { asChild?: boolean }) {
   const glassOn = React.useContext(ButtonGlassContext)
@@ -90,23 +75,14 @@ function Button({
   const s: SizeVariant = size ?? 'default'
   const Comp = asChild ? Slot : 'button'
 
-  function handleMouseMove(e: React.MouseEvent<HTMLButtonElement>) {
-    onMouseMove?.(e)
-    if (!glassOn) return
-    const rect = e.currentTarget.getBoundingClientRect()
-    e.currentTarget.style.setProperty('--spot-x', `${((e.clientX - rect.left) / rect.width) * 100}%`)
-    e.currentTarget.style.setProperty('--spot-y', `${((e.clientY - rect.top) / rect.height) * 100}%`)
-  }
-
   return (
     <Comp
       className={cn(
         buttonVariants({ variant, size }),
         glassOn ? SHAPE[s] : PLAIN_SHAPE[s],
-        glassOn ? GLASS[v] : PLAIN[v],
+        glassOn ? STYLED[v] : PLAIN[v],
         className
       )}
-      onMouseMove={handleMouseMove}
       {...props}
     />
   )

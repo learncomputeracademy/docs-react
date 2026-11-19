@@ -74,9 +74,9 @@ THESIS: A learning platform's homepage should read as engineered software,
 not a funnel — refuses ambient decorative chrome (dot-grid, blur blob,
 auto-shimmer, unmotivated border-beams) and the soft illustrated-education
 opposite.
-OWN-WORLD: Near-black/near-white neutrals, one brand-orange accent, Geist
-Sans/Mono, sharp 1px borders, list-based subject index (not a card wall),
-one authored motion (AnimatedCode's live typing).
+OWN-WORLD: reactbits.dev neutrals (purple-tinted near-black #120f17 /
+white), one brand-orange accent, Geist Sans/Mono, list-based subject index,
+GradientWaves hero cycling color presets (D-139) plus AnimatedCode.
 STORY: A first-time bilingual visitor sees a structured, complete
 curriculum (467 lessons/18 subjects, real numbers) organized like real
 documentation, trusts it because the interface itself behaves competently,

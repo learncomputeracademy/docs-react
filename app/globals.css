@@ -68,6 +68,10 @@
   from { opacity: 0; transform: scale(0.96) translateY(-4px); }
   to   { opacity: 1; transform: scale(1) translateY(0); }
 }
+@keyframes hero-waves-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
 @keyframes hero-in {
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -142,7 +146,7 @@
 
 :root {
   --background:            oklch(1 0 0);
-  --foreground:            oklch(0.145 0 0);
+  --foreground:            #18181b;
   --card:                  oklch(1 0 0);
   --card-foreground:       oklch(0.145 0 0);
   --popover:               oklch(1 0 0);
@@ -152,41 +156,51 @@
      is 2.35:1 on white, well under WCAG AA's 4.5:1. Verified 4.72:1 here. */
   --primary:               oklch(0.57 0.171 53);
   --primary-foreground:    oklch(0.985 0 0);
-  --secondary:             oklch(0.97 0 0);
+  --secondary:             #f4f4f5;
   --secondary-foreground:  oklch(0.205 0 0);
-  --muted:                 oklch(0.97 0 0);
-  --muted-foreground:      oklch(0.556 0 0);
+  --muted:                 #f4f4f5;
+  --muted-foreground:      #52525b;
   --accent:                oklch(0.96 0.03 53);
   --accent-foreground:     oklch(0.57 0.171 53);
   --destructive:           oklch(0.577 0.245 27.325);
-  --border:                oklch(0.922 0 0);
-  --input:                 oklch(0.922 0 0);
+  --border:                #e7e7e9;
+  --input:                 #dedee1;
   --ring:                  oklch(0.57 0.171 53);
   --radius:                0.625rem;
+  /* reactbits.dev secondary-button surface (used by Button outline). */
+  --ghost:                 #ffffff;
+  --ghost-hover:           #fafafa;
+  --ghost-ring:            inset 0 0 0 1px rgba(24, 24, 27, 0.07), 0 1px 2px rgba(24, 24, 27, 0.04);
 }
 
 .dark {
-  --background:            oklch(0.145 0 0);
-  --foreground:            oklch(0.985 0 0);
-  --card:                  oklch(0.205 0 0);
-  --card-foreground:       oklch(0.985 0 0);
-  --popover:               oklch(0.205 0 0);
-  --popover-foreground:    oklch(0.985 0 0);
+  /* Neutrals match reactbits.dev's dark theme (body #120f17, a purple-tinted
+     near-black; borders #2f293a; window/ghost surfaces). User-requested
+     2026-11-19. Brand orange (--primary) unchanged. */
+  --background:            #120f17;
+  --foreground:            #f6f4f9;
+  --card:                  #18151e;
+  --card-foreground:       #f6f4f9;
+  --popover:               #1c1823;
+  --popover-foreground:    #f6f4f9;
   /* Full brand vibrancy here — 8.45:1 against this background, matches the
      logo's own orange exactly. Dark buttons/links use dark text on it (see
      --primary-foreground), not light — light text on this orange fails AA. */
   --primary:               oklch(0.75 0.171 53);
-  --primary-foreground:    oklch(0.145 0 0);
-  --secondary:             oklch(0.269 0 0);
-  --secondary-foreground:  oklch(0.985 0 0);
-  --muted:                 oklch(0.269 0 0);
-  --muted-foreground:      oklch(0.708 0 0);
+  --primary-foreground:    #120f17;
+  --secondary:             #221e29;
+  --secondary-foreground:  #f6f4f9;
+  --muted:                 #221e29;
+  --muted-foreground:      #a7a3ad;
   --accent:                oklch(0.28 0.05 53);
   --accent-foreground:     oklch(0.85 0.1 53);
   --destructive:           oklch(0.704 0.191 22.216);
-  --border:                oklch(1 0 0 / 10%);
-  --input:                 oklch(1 0 0 / 15%);
+  --border:                #2f293a;
+  --input:                 #2f293a;
   --ring:                  oklch(0.75 0.171 53);
+  --ghost:                 #221e29;
+  --ghost-hover:           #2b2633;
+  --ghost-ring:            inset 0 1px 0 rgba(255, 255, 255, 0.07), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 @layer base {

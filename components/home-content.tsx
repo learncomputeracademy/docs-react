@@ -10,7 +10,7 @@ import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
-import { DotGridBackground } from '@/components/magic/dot-grid-background'
+import { HeroWaves } from '@/components/magic/hero-waves'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
@@ -74,17 +74,15 @@ export async function HomeContent({ locale }: { locale: Locale }) {
 
   return (
     <main className="flex-1">
-      {/* Hero — flat surface, no ambient decoration. Typography and the one
-          real product proof (AnimatedCode, live-typing) carry the page.
-          One deliberate exception (user-requested): DotGridBackground, a
-          cursor-reactive dot grid behind the hero — see its own file
-          comment. Fifth attempt (2026-08-24) and still the shipped one —
-          sixth through tenth (AeroShards, GhostFibers, CrtWarp,
-          WebThreads, Topography) were tried and rejected. Shown in both
-          themes — cheap enough, and low-density enough, not to need
-          dark-only gating the way every WebGL attempt did. */}
+      {/* Hero — React Bits-style GradientWaves cycling through color
+          presets (Dune/brand orange first), user-requested 2026-11-19 after
+          reviewing reactbits.dev; replaced DotGridBackground. Loads only
+          after first interaction or 4s past load — see hero-waves.tsx. */}
       <section className="relative overflow-hidden border-b">
-        <DotGridBackground className="absolute inset-0" />
+        <HeroWaves className="absolute inset-0" />
+        {/* Keeps the headline readable over the waves: page color at the
+            top/left, fading out toward the bottom-right where the waves are. */}
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/25 to-transparent" />
         <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
