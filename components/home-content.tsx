@@ -75,7 +75,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   return (
     <main className="flex-1">
       {/* Hero — React Bits-style GradientWaves cycling through color
-          presets (Dune/brand orange first), user-requested 2026-11-19 after
+          presets (Dusk first; no orange preset, it clashed with the accent), user-requested 2026-11-19 after
           reviewing reactbits.dev; replaced DotGridBackground. Loads only
           after first interaction or 4s past load — see hero-waves.tsx. */}
       <section className="relative overflow-hidden border-b">

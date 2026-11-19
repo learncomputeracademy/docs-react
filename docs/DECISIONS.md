@@ -6686,8 +6686,8 @@ Cloudinary.
 effect, "Browse components" button motion, colors), keeping the brand orange.
 - Hero background is React Bits' **GradientWaves** (vendored unchanged in
   `components/magic/gradient-waves.tsx`, MIT + Commons Clause, (c) David Haz), wrapped by
-  `components/magic/hero-waves.tsx` which cycles presets every 6s (Dune/orange first, then Dusk,
-  Ocean, Aurora, Silk) with a 0.9s tween, like reactbits.dev. Replaces DotGridBackground.
+  `components/magic/hero-waves.tsx` which cycles presets every 6s (Dusk, Ocean, Aurora, Silk;
+  upstream's orange Dune dropped the same day, it clashed with the orange accent) with a 0.9s tween, like reactbits.dev. Replaces DotGridBackground.
 - Dark neutrals now match reactbits.dev: background `#120f17`, card `#18151e`, muted `#221e29`,
   border `#2f293a`, text `#f6f4f9`. Light neutrals moved to zinc (`#e7e7e9` border, `#f4f4f5`
   muted). `--primary` (orange) untouched.

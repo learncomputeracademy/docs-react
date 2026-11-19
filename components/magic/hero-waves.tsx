@@ -20,18 +20,15 @@ import { useEffect, useRef, useState, type ComponentType } from 'react'
 
 type Look = { horizonColor: string; waveColor: string; crestColor: string; lightMode?: boolean } & Record<string, number | string | boolean>
 
-// Upstream presets (React Bits demo/Backgrounds/presets/GradientWaves),
-// Dune first: it is the brand orange, so the hero opens on-brand.
+// Upstream presets (React Bits demo/Backgrounds/presets/GradientWaves).
+// Upstream's orange "Dune" preset is left out on purpose: it clashed with the
+// orange brand accent sitting on top of it (user feedback 2026-11-19).
 const BASE = {
   speed: 0.4, amplitude: 2.5, waveScale: 0.6, waveRatio: 0.9, swell: 35, turbulence: 20,
   tilt: 40, zoom: 1, height: 5.5, fogDepth: 15, relief: 1, lightAngle: 120, sheen: 0,
   brightness: 1, opacity: 1, grain: 0.2,
 }
 const PRESETS: Record<string, { dark: Look; light: Partial<Look> }> = {
-  dune: {
-    dark: { horizonColor: '#7c2d12', waveColor: '#fb923c', crestColor: '#fef3c7', speed: 0.2, amplitude: 3.2, waveScale: 0.45, waveRatio: 0.6, swell: 40, turbulence: 12, lightAngle: 60 },
-    light: { lightMode: true, horizonColor: '#c2410c', waveColor: '#fb923c', crestColor: '#ffedd5' },
-  },
   dusk: {
     dark: { horizonColor: '#5227FF', waveColor: '#FF9FFC', crestColor: '#FFFFFF' },
     light: { lightMode: true, horizonColor: '#8b5cf6', waveColor: '#e879f9', crestColor: '#f5d0fe' },
