@@ -69,7 +69,7 @@ function mix(a: unknown, b: unknown, t: number) {
 // color, tuned for dots on a plain background; ours sit on top of the waves,
 // so lift the wave color toward white (dark) / black (light) to stand out.
 const dotTint = (wave: string, light: boolean) =>
-  HEX.test(wave) ? (mix(wave, light ? '#000000' : '#ffffff', light ? 0.2 : 0.45) as string) : light ? '#52525b' : '#e4e4e7'
+  HEX.test(wave) ? (mix(wave, light ? '#000000' : '#ffffff', light ? 0.1 : 0.2) as string) : light ? '#52525b' : '#e4e4e7'
 
 function lowEnd() {
   const n = navigator as Navigator & { deviceMemory?: number; connection?: { saveData?: boolean } }
@@ -179,7 +179,8 @@ export function HeroWaves({ className }: { className?: string }) {
           current wave color near the cursor, and a click anywhere in the hero
           (buttons included) sends a shockwave through them. Above the
           readability overlay so the effect isn't dimmed. Props copied from
-          their Hero.jsx. */}
+          their Hero.jsx, then hover response toned down (smaller radius, less
+          swell/stretch, dimmer tint) per user feedback; shockwave unchanged. */}
       {Dots && (
         <div className="absolute inset-0 animate-[hero-waves-in_1.2s_ease-out_both]">
           <Dots
@@ -190,12 +191,12 @@ export function HeroWaves({ className }: { className?: string }) {
             // dark grid (user: "too strong"). Cursor/click still light up.
             baseColor={mix(light ? '#ffffff' : '#120f17', values.waveColor, 0.3) as string}
             activeColor={dotTint(values.waveColor, light)}
-            proximity={360}
-            strength={1.15}
+            proximity={240}
+            strength={0.8}
             bounce={0.7}
             tension={0.35}
-            swell={1.4}
-            stretch={0.5}
+            swell={0.8}
+            stretch={0.25}
             glow={0.15}
             opacity={0.55}
             shockRadius={380}
