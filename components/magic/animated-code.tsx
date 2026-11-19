@@ -100,29 +100,87 @@ const HOLD_DURATION = 1400
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
+type Highlighted = { index: number; pre: string; lines: { content: string; style: string }[][] }
+
+// Fine-grained shiki (core + JS regex engine + only these 7 grammars and 2
+// themes), created once and shared. Was `import('shiki')` + codeToHtml on
+// every typed character (~every 30ms, forever): the full bundle plus a
+// re-tokenize per keystroke kept the main thread busy and swapped in a new
+// <pre> each tick, so Lighthouse kept moving LCP (10.3s mobile, 2026-11-19).
+// Now each snippet is tokenized once and typing just slices those tokens.
+let highlighter: Promise<import('shiki/core').HighlighterCore> | null = null
+function getHighlighter() {
+  highlighter ??= Promise.all([import('shiki/core'), import('shiki/engine/javascript')]).then(
+    ([{ createHighlighterCore }, { createJavaScriptRegexEngine }]) =>
+      createHighlighterCore({
+        themes: [import('shiki/themes/ayu-light.mjs'), import('shiki/themes/dracula.mjs')],
+        langs: [
+          import('shiki/langs/css.mjs'),
+          import('shiki/langs/html.mjs'),
+          import('shiki/langs/javascript.mjs'),
+          import('shiki/langs/jsx.mjs'),
+          import('shiki/langs/php.mjs'),
+          import('shiki/langs/python.mjs'),
+          import('shiki/langs/sql.mjs'),
+        ],
+        engine: createJavaScriptRegexEngine(),
+      })
+  )
+  return highlighter
+}
+
+// Same markup codeToHtml produced (shiki/shiki-themes classes, --shiki-dark
+// vars) so the site-wide `.dark .shiki` rule in globals.css still applies.
+function renderTokens(t: Highlighted, count: number) {
+  let left = count
+  const lines: string[] = []
+  for (let li = 0; li < t.lines.length; li++) {
+    if (li > 0) {
+      if (left <= 0) break
+      left -= 1 // the newline
+    }
+    let out = ''
+    for (const tok of t.lines[li]) {
+      if (left <= 0) break
+      const c = tok.content.slice(0, left)
+      left -= c.length
+      out += `<span style="${tok.style}">${escapeHtml(c)}</span>`
+    }
+    lines.push(`<span class="line">${out}</span>`)
+  }
+  return `${t.pre}<code>${lines.join('\n')}</code></pre>`
+}
+
 export function AnimatedCode() {
   const [index, setIndex] = useState(0)
-  const [visible, setVisible] = useState('')
-  const [typing, setTyping] = useState(true)
-  const [html, setHtml] = useState('')
+  // Starts fully typed: the server HTML paints the whole first snippet at
+  // once, so the panel settles as an LCP candidate immediately instead of
+  // growing character by character. Typing starts with the second snippet.
+  const [count, setCount] = useState<number>(SNIPPETS[0].code.length)
+  const [typing, setTyping] = useState(false)
+  const [tokens, setTokens] = useState<Highlighted | null>(null)
+  const mounted = useRef(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const snippet = SNIPPETS[index]
 
   // Types the current snippet in, then hands off to the next one — forever.
   useEffect(() => {
-    setVisible('')
+    if (!mounted.current) {
+      mounted.current = true
+      return
+    }
+    setCount(0)
     setTyping(true)
-    const characters = Array.from(snippet.code)
-    const interval = TYPE_DURATION / characters.length
+    const total = snippet.code.length
     let i = 0
     const id = setInterval(() => {
       i += 1
-      setVisible(characters.slice(0, i).join(''))
-      if (i >= characters.length) {
+      setCount(i)
+      if (i >= total) {
         clearInterval(id)
         setTyping(false)
       }
-    }, interval)
+    }, TYPE_DURATION / total)
     return () => clearInterval(id)
   }, [snippet.code])
 
@@ -132,27 +190,34 @@ export function AnimatedCode() {
     return () => clearTimeout(id)
   }, [typing])
 
-  // Re-highlight as the visible text grows, same as the upstream primitive.
-  // shiki is a dynamically-imported chunk — on a cold load it can take a
-  // moment to download, and until it resolves this used to leave the panel
-  // blank even though `visible` already has typed characters. Render the
-  // plain typed text immediately as a fallback so something always shows,
-  // then swap in the highlighted version once shiki catches up.
+  // Tokenize once per snippet. Until shiki resolves, plain typed text shows.
   useEffect(() => {
     let cancelled = false
-    setHtml(`<pre class="!m-0 h-full p-5"><code>${escapeHtml(visible)}</code></pre>`)
-    import('shiki').then(({ codeToHtml }) =>
-      codeToHtml(visible || ' ', {
+    getHighlighter().then((h) => {
+      if (cancelled) return
+      const r = h.codeToTokens(snippet.code, {
         lang: snippet.lang,
         themes: { light: 'ayu-light', dark: 'dracula' },
-      }).then((out) => {
-        if (!cancelled) setHtml(out)
       })
-    )
+      const styleOf = (s?: Record<string, string>) =>
+        Object.entries(s ?? {}).map(([k, v]) => `${k}:${v}`).join(';')
+      setTokens({
+        index,
+        pre: `<pre class="shiki shiki-themes ayu-light dracula" style="background-color:${r.bg};color:${r.fg};${r.rootStyle || ''}">`,
+        lines: r.tokens.map((line) =>
+          line.map((t) => ({ content: t.content, style: styleOf(t.htmlStyle) || `color:${t.color}` }))
+        ),
+      })
+    })
     return () => {
       cancelled = true
     }
-  }, [visible, snippet.lang])
+  }, [index, snippet.code, snippet.lang])
+
+  const html =
+    tokens && tokens.index === index
+      ? renderTokens(tokens, count)
+      : `<pre class="!m-0 h-full p-5"><code>${escapeHtml(snippet.code.slice(0, count))}</code></pre>`
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })
