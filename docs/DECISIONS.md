@@ -6680,6 +6680,31 @@ Cloudinary.
 
 ---
 
+## D-139 · React Bits look: GradientWaves hero, reactbits.dev neutrals, new button motion (2026-11-19)
+
+**Decision.** User asked for the homepage to look like reactbits.dev (hero animation, color-cycling
+effect, "Browse components" button motion, colors), keeping the brand orange.
+- Hero background is React Bits' **GradientWaves** (vendored unchanged in
+  `components/magic/gradient-waves.tsx`, MIT + Commons Clause, (c) David Haz), wrapped by
+  `components/magic/hero-waves.tsx` which cycles presets every 6s (Dune/orange first, then Dusk,
+  Ocean, Aurora, Silk) with a 0.9s tween, like reactbits.dev. Replaces DotGridBackground.
+- Dark neutrals now match reactbits.dev: background `#120f17`, card `#18151e`, muted `#221e29`,
+  border `#2f293a`, text `#f6f4f9`. Light neutrals moved to zinc (`#e7e7e9` border, `#f4f4f5`
+  muted). `--primary` (orange) untouched.
+- Public `Button`: liquid-glass + spotlight removed; solid fills, 12-13px corners, hover brighten,
+  trailing icon nudges 2px, press scale 0.97 (all CSS). Admin unchanged (ButtonGlassOff).
+
+**Why it doesn't cost page speed.** The WebGL chunk is not downloaded until the first scroll /
+pointer / touch / key, or 4s after `load`; until then a static CSS gradient shows. Never starts
+for reduced-motion, Save-Data, or <=2 cores / <=2 GB devices. Measured locally, alternating runs
+against the previous build on the same machine: base avg ~52, new avg ~53 (noise; this machine's
+lab numbers swing 50-93 with load). The waves chunk was absent from every Lighthouse run.
+
+**Supersedes** the "no ambient decoration / dot grid only" direction recorded in `app/layout.tsx`
+(DIRECTION_CONTRACT) and D-entries on the earlier hero background attempts.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

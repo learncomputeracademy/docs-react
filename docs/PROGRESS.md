@@ -9,6 +9,18 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-19 (later) — React Bits look (D-139)
+
+**Done (local, committed, NOT pushed)**
+- GradientWaves hero (deferred load, cycling presets, orange first), reactbits.dev dark/light
+  neutrals, React Bits button motion. See D-139 for files and the measurement.
+- Checked visually: homepage light + dark, a lesson page dark, 404 page buttons.
+
+**Next / open**
+- Push when the owner approves; then re-run PageSpeed/GTmetrix on the live site.
+- Not done: their hero's code panel with live preset picker / scrub values; accent following the
+  wave color (owner chose to keep orange as the accent).
+
 ## 2026-11-19 — PageSpeed drop investigated (mobile 49, LCP 10.3s, TBT 990ms)
 
 **Done (local, not committed, not pushed)**
