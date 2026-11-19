@@ -49,7 +49,7 @@ three pending categories at once — no need to repeat it per category.
       domain)
 - [ ] no console errors
 
-## 4. Vercel usage sanity check
+## 4. Vercel usage sanity check — OBSOLETE since 2026-11-18 (site self-hosted on Coolify, see D-138)
 
 Before or right after this push, glance at the Vercel usage panel again — confirm ISR
 Writes and the other exceeded metrics (Fast Origin Transfer, ISR Reads, Fluid Active CPU)

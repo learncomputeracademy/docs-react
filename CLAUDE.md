@@ -6,7 +6,7 @@
 
 > **⚠️ ACTIVE CONSTRAINT (added 2026-09-05, remove only when user lifts it):**
 > **Do not `git push` to this repo for any reason until the user explicitly says
-> otherwise.** A push auto-redeploys on Vercel. Local edits, commits, and builds are
+> otherwise.** A push auto-redeploys the live site (on Coolify since 2026-11-18; see below). Local edits, commits, and builds are
 > fine; just don't push. This is a standing hold the user re-applies after each
 > approved push, not tied to a specific incident — always ask before pushing again.
 >
@@ -16,14 +16,35 @@
 > same no-push hold immediately after the 2026-09-05 push, so treat it as active
 > regardless of quota status until lifted again.
 
-> **HOSTING CHANGED (2026-11-18): the live site no longer runs on Vercel.** It is built and
-> served by Coolify on the owner's Oracle Cloud Always Free VM, behind Cloudflare (proxied).
-> A push to `main` triggers a rebuild through a GitHub webhook (about 12 minutes, no downtime),
-> so the no-push hold above still matters. Vercel quotas (ISR writes etc.) no longer apply.
-> Environment variables live in Coolify (application `docs-react`), not in Vercel.
-> Cloudflare keeps pages for 1 minute, so a publish shows within about a minute.
-> `@vercel/analytics` and `@vercel/speed-insights` no longer report anything.
-> Full details and DNS rollback to Vercel: `D:\Oracle Free\CLAUDE.md`, section "Docs site".
+> **HOSTING CHANGED (2026-11-18): the live site is self-hosted, not on Vercel.** See D-138 in
+> `docs/DECISIONS.md` for the why. In short:
+> - **Where:** built and run by **Coolify** (application `docs-react` in project "LCA Docs
+>   Website", `https://coolify.webgraphicshub.com`, India-only, 2FA) on the owner's **Oracle
+>   Cloud Always Free VM** (Arm, Mexico), behind **Cloudflare** (proxied). Runs `next start`
+>   in a container (Railpack build, Node, port 3000, about 200 MB of memory).
+> - **Deploys:** a push to `main` triggers a rebuild through a GitHub webhook (about 12 minutes,
+>   rolling, no downtime). Every push rebuilds, including the daily `chore: daily backup` commit.
+>   Manual deploy/rollback: Coolify dashboard → docs-react → Deploy / Deployments.
+> - **No Vercel quotas any more** (ISR reads/writes, CDN requests, function invocations, Fluid
+>   CPU, origin transfer). The VM is free and its limits are far above this site's traffic: the
+>   origin sees roughly 15% of what Vercel counted, because Cloudflare answers the rest.
+> - **ISR and on-demand revalidation work the same** (`revalidateTag` via `/api/revalidate`;
+>   the cache lives in the container and is rebuilt on each deploy).
+> - **Caching:** the server sends `s-maxage=60` for pages (not Next's 1 year) and Cloudflare
+>   follows it, so a publish in the admin panel is visible within about a minute. `/admin*`
+>   and `/api/*` are never cached by Cloudflare. If a page looks stale, wait a minute.
+> - **Environment variables** live in Coolify (Environment Variables tab), not in Vercel.
+>   `.env.local` stays the local source; when a variable changes, update it in Coolify and redeploy.
+> - **Images** still come from Cloudinary (custom loader), so no image optimizer is needed on the server.
+> - `@vercel/analytics` and `@vercel/speed-insights` no longer report anything (harmless; remove
+>   them on a future approved push). Visitor stats: GoAccess at `https://status.webgraphicshub.com/visitors/`.
+> - **Still external and still free-tier limited:** Supabase (database, keep-alive Action),
+>   Cloudinary, Cloudflare R2. Those limits did not change with the move.
+> - **Single server:** if the VM is down, the site is down (no fallback). The Oracle VM has
+>   email alarms and nightly backups.
+> - **Rollback to Vercel:** in Cloudflare DNS (zone learncomputer.in) set `docs` back to CNAME
+>   `a297674858ed6932.vercel-dns-017.com`, DNS only. The Vercel project was left untouched.
+> - Full infrastructure details: `D:\Oracle Free\CLAUDE.md`, section "Docs site".
 
 ---
 
@@ -114,7 +135,7 @@ good the new site looks.
    text. **Never SSR a doc page** — ISR only. Not indexed *yet* is not the same as never
    indexed; this gate is what makes indexing work when it happens.
 4. **No secrets in `NEXT_PUBLIC_*`.** The Supabase service-role key and Cloudinary API
-   secret live in `.env.local` and Vercel environment variables **only** — never a client
+   secret live in `.env.local` and Coolify environment variables (Vercel's before 2026-11-18) **only** — never a client
    component. Grep the build output before every deploy.
 5. **Old site stays live for 30 days post-cutover.** GitHub Pages is the rollback.
 6. **The 216 MB of assets never enters this repo.** They go to Cloudinary. `public/` stays
@@ -135,7 +156,7 @@ All settled 2026-07-24. These supersede `MIGRATION-PLAN.md` wherever they differ
 |---|---|---|
 | Framework | Next.js 16 LTS (16.2.x), App Router, TypeScript | |
 | **Content store** | **Supabase Postgres, free tier** | Revised — see D-10. Admin panel is in scope. |
-| **Host** | **Vercel** | **Not Cloudflare Workers.** Vercel's native `revalidateTag` replaces the plan's R2 + D1 + Durable Object apparatus entirely. |
+| **Host** | ~~Vercel~~ → **Coolify on the Oracle Cloud free VM, behind Cloudflare** (since 2026-11-18, D-138) | **Not Cloudflare Workers.** Next's own `revalidateTag` (works the same under `next start`) replaces the plan's R2 + D1 + Durable Object apparatus entirely. Moved off Vercel because the free plan's limits kept being exceeded. |
 | **Rendering** | **ISR + on-demand tag revalidation** | Publish → webhook → one page regenerates in ~1s. **Never SSR** — it would break §3.3 and hit the DB on every crawler visit. |
 | **Design** | **W3Schools, modernized** | Familiar structure — fixed syllabus sidebar, example-first lessons, prominent Try-It buttons — with modern type, spacing, dark mode, no 2010s clutter. |
 | **Try It Yourself** | **Yes, incl. React** | Browser-only. HTML/CSS/JS via `srcdoc` iframe; React via in-browser JSX transform (Sucrase). No backend. |

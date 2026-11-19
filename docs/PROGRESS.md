@@ -9,6 +9,50 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-19 — PageSpeed drop investigated (mobile 49, LCP 10.3s, TBT 990ms)
+
+**Done (local, not committed, not pushed)**
+- Removed `@vercel/analytics` and `@vercel/speed-insights` (their scripts 404 now → console errors).
+- `components/magic/animated-code.tsx`: was `import('shiki')` + `codeToHtml` on every typed
+  character, swapping in a new `<pre>` each ~30ms forever, so Lighthouse kept moving LCP. Now
+  fine-grained shiki (core + JS engine, 7 langs, 2 themes), one tokenize per snippet, typing slices
+  tokens; first snippet starts fully typed in the server HTML. Local Lighthouse mobile on `/`:
+  LCP 11.6s → 3.9s (LCP element is now the hero `<h1>`), score 37 → 60.
+- Did NOT add Google Analytics: it is already live. Since the docs host became Cloudflare-proxied,
+  Cloudflare injects a Google tag gateway (`/5oas/`, GTM-PBXQZ76: GA4 G-VG3N8NBPFH + G-K1JDXRD7ML,
+  Google Ads remarketing, Facebook Pixel) plus Cloudflare Web Analytics and RUM. ~580 KB of
+  third-party script; `/css` lesson: TBT 990ms live vs 180ms on the same build without it.
+  This is the main hosting-related cause of the drop. Fixing it is a Cloudflare dashboard choice.
+
+**Next / open**
+- Owner decides which injected tags the docs host should keep (likely GA4 only), set in Cloudflare.
+- Home TBT still ~1.5s locally: hydration of the hero/subject client components (MagicCard,
+  TiltCard, ProximityGrid, DotGridBackground). Next target if the score still matters.
+
+## 2026-11-18 / 19 — Hosting moved off Vercel to self-hosted Coolify (Oracle Cloud free VM)
+
+**Done (no code changes, nothing pushed)**
+- Vercel Hobby limits were exceeded again (ISR Reads 1.2M/1M, CDN Requests 1.1M/1M; project
+  paused). Site moved to the owner's Oracle Cloud Always Free VM, deployed with Coolify from the
+  public GitHub repo (Railpack build, `next start`, port 3000). See D-138.
+- Env vars pasted into Coolify by the owner from `.env.local`. Cloudflare DNS `docs` changed from
+  the Vercel CNAME to a proxied A record → the VM. Origin uses a Cloudflare Origin certificate,
+  SSL Full (strict) for this host, and accepts only Cloudflare traffic.
+- Caching: server sends `s-maxage=60` (Next sent a year); Cloudflare cache rules: pages follow the
+  origin header, `/admin*` and `/api/*` bypass. Found and fixed on the way: the zone's old
+  WordPress "Cache HTML" rule was caching the docs admin pages, and the zone's Browser Cache TTL
+  rewrote `max-age` to a year.
+- GitHub push webhook → Coolify for auto-deploys (every push rebuilds, ~12 min, no downtime).
+- Checked live: pages, tools, redirects (`/box-model` 308), sitemap, robots, 404, admin login.
+
+**Next / open**
+- Remove `@vercel/analytics` and `@vercel/speed-insights` on the next approved push (they now do nothing).
+- Optional: disconnect the GitHub integration in the Vercel project so pushes stop building there too
+  (keep the project itself as the DNS rollback for now).
+- `docs/POST-DEPLOY-TODO.md` section 4 (Vercel usage check) is obsolete.
+
+---
+
 ## 2026-11-12 (later) — Protocol Visualizer: isometric scene, 32 more protocols, menu link
 
 **Done (uncommitted, unpushed)**

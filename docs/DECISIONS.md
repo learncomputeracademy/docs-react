@@ -6648,6 +6648,38 @@ advances, and all 4 accent swatches switch the real CSS variable and persist acr
 
 ---
 
+## D-138 · Hosting moved from Vercel (free) to self-hosted Coolify on an Oracle Cloud free VM (2026-11-18)
+
+**Why.** The Vercel Hobby plan kept running out: in November 2026 the project was paused with
+ISR Reads 1.2M/1M and CDN Requests 1.1M/1M over, Fast Origin Transfer 9.83/10 GB and Fluid
+Active CPU 3h28m/4h close behind (same pattern as the August ISR Writes exhaustion behind the
+no-push hold). Paying was not an option.
+
+**What.** The owner already runs an Oracle Cloud Always Free VM (2 Arm cores, 12 GB, free
+10 TB/month outbound) with Coolify, a free self-hosted deploy tool. `docs.learncomputer.in` is
+now built and served there (`next start`), behind Cloudflare. Nothing in the app had to change:
+ISR and `revalidateTag` work the same on a single Node server, and images already came from
+Cloudinary.
+
+**Consequences.**
+- No Vercel-style quotas. Measured the first day: the server sees about 15% of the requests
+  Vercel used to count, because Cloudflare serves the rest; the container idles at ~0% CPU and
+  ~200 MB of memory.
+- Pages are cached at Cloudflare for 60 seconds (server-sent `s-maxage=60` overrides Next's
+  1-year value), so admin publishes appear within a minute without any purge code. `/admin*`
+  and `/api/*` bypass the cache.
+- Deploys: GitHub webhook → Coolify, about 12 minutes per build, rolling. The daily backup
+  commit also triggers a rebuild (harmless).
+- Lost: Vercel Analytics / Speed Insights (now no-ops), Vercel's preview deployments, and
+  multi-region serving (one VM in Mexico; Cloudflare's cache near India hides the distance).
+  The site now depends on one server (nightly backups and email alarms exist).
+- Supabase, Cloudinary and R2 free-tier limits are unchanged by the move.
+- Rollback: point the Cloudflare `docs` record back at Vercel (CNAME
+  `a297674858ed6932.vercel-dns-017.com`, DNS only); the Vercel project still exists.
+- Infrastructure notes: `D:\Oracle Free\CLAUDE.md` ("Docs site").
+
+---
+
 ## Open
 
 | # | Question | Blocks |
