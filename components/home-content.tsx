@@ -78,12 +78,12 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           presets (Dusk first; no orange preset, it clashed with the accent), user-requested 2026-11-19 after
           reviewing reactbits.dev; replaced DotGridBackground. Loads only
           after first interaction or 4s past load — see hero-waves.tsx. */}
-      <section className="relative overflow-hidden border-b">
+      <section className="relative overflow-hidden border-b lg:flex lg:min-h-[78svh] lg:items-center">
         <HeroWaves className="absolute inset-0" />
         {/* Keeps the headline readable over the waves: page color at the
             top/left, fading out toward the bottom-right where the waves are. */}
         <div aria-hidden className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/25 to-transparent" />
-        <div className="relative mx-auto grid max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
+        <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               {heroTitle1}<span className="text-primary">{heroTitle2}</span>
