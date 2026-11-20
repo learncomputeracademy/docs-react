@@ -28,7 +28,15 @@ for picking up work weeks later.
 - `bad291e` quiz phase 2: admin quiz editor + Bengali quiz translation (structure locked to
   English). `node scripts/check-quiz.mjs` passes. Admin UI itself not browser-tested (login).
 
+- `1be939d` Shiki highlighting for code in quiz text. `b1d71b5` IndexNow never fires from
+  `next dev` (local revalidate was announcing unchanged live URLs).
+- **HTML quiz pilot written to the DB** (`scripts/create-html-quizzes.mjs --write`, `3ccad5a`):
+  43/43 lessons, EN + BN, 4 questions each, quiz is the last block, no duplicates (verified by
+  query). One lesson hit `fetch failed` on the first run; re-run fixed it (script is idempotent).
+  Live site unchanged until push (service-role writes skip the revalidate trigger).
+
 **Next**
+- Push when the owner approves; after deploy the HTML lesson pages need a revalidate to show quizzes.
 - Owner to try the admin quiz editor on a draft doc.
 - Phase 3: HTML pilot quizzes (needs owner OK before writing to the DB, since it reaches the
   live site — and the live site can't render quizzes until the code is pushed).
