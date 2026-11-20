@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from '@/components/hover-link'
 import { usePathname, useRouter } from 'next/navigation'
-import { ArrowLeft, ArrowRight, PanelLeft } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Check, PanelLeft } from 'lucide-react'
 import { startRouteProgress } from '@/components/magic/route-progress'
 import { useSidebar } from '@/components/magic/sidebar'
-import { setCompleted, setLastLesson } from '@/lib/progress'
+import { setCompleted, setLastLesson, useCompleted } from '@/lib/progress'
+import { t } from '@/lib/i18n'
 
 type Adjacent = { path: string; title: string } | null
 type Position = { index: number; total: number } | null
@@ -34,6 +35,16 @@ export function LessonPagination({
   const { toggleSidebar } = useSidebar()
   const docPath = usePathname().replace(/^\/bn(\/|$)/, '/').replace(/^\/|\/$/g, '')
 
+  const s = t(prefix === '/bn' ? 'bn' : 'en')
+  const done = useCompleted().has(docPath)
+  // Set once the visitor toggles completion by hand on this visit, so the
+  // scroll-to-end auto-complete doesn't immediately undo an "un-mark".
+  const manual = useRef(false)
+  function toggleDone() {
+    manual.current = true
+    setCompleted(docPath, !done)
+  }
+
   useEffect(() => {
     setLastLesson({ path: docPath, title, next: next && { path: next.path, title: next.title } })
   }, [docPath, title, next])
@@ -48,6 +59,7 @@ export function LessonPagination({
     // outer layout shell, and this lesson's own — so an id is used instead
     // of the tag name to avoid grabbing the wrong (outer) one.
     articleRef.current = document.getElementById('lesson-article')
+    manual.current = false
     let ticking = false
     function measure() {
       ticking = false
@@ -59,7 +71,7 @@ export function LessonPagination({
       const p = total > 0 ? Math.min(1, Math.max(0, scrolled / total)) : 1
       setProgress(p)
       // Reaching the end of the lesson counts as finishing it.
-      if (p >= 0.9) setCompleted(docPath, true)
+      if (p >= 0.9 && !manual.current) setCompleted(docPath, true)
     }
     function onScroll() {
       if (!ticking) {
@@ -96,8 +108,31 @@ export function LessonPagination({
 
   return (
     <>
+      {/* Completion toggle — all widths. Auto-complete covers the usual case;
+          this is for marking by hand or undoing it. */}
+      <div className="mt-12 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 border-t pt-6 text-sm">
+        {done ? (
+          <>
+            <span className="flex items-center gap-1.5 font-medium text-emerald-600 dark:text-emerald-500">
+              <Check className="size-4" /> {s.lessonCompleted}
+            </span>
+            <button type="button" onClick={toggleDone} className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+              {s.markNotDone}
+            </button>
+          </>
+        ) : (
+          <button
+            type="button"
+            onClick={toggleDone}
+            className="flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium transition-colors hover:border-primary/40 hover:bg-accent/50"
+          >
+            <Check className="size-4" /> {s.markComplete}
+          </button>
+        )}
+      </div>
+
       {/* Desktop/tablet — full cards with titles, room to spare. */}
-      <div className="mt-12 hidden grid-cols-2 gap-4 border-t pt-6 md:grid">
+      <div className="mt-6 hidden grid-cols-2 gap-4 md:grid">
         {prev ? (
           <Link href={`${prefix}/${prev.path}`} className="group flex flex-col gap-1 rounded-lg border p-4 transition-colors hover:border-primary/40 hover:bg-accent/50">
             <span className="flex items-center justify-between gap-1 text-xs text-muted-foreground">
