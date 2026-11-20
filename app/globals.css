@@ -262,7 +262,8 @@
 /* Shiki dual-theme: it emits both colors as CSS vars on every span, and
    defaults to --shiki-light. This is the one rule that switches it. */
 .dark .shiki,
-.dark .shiki span {
+.dark .shiki span,
+.dark .shiki-inline span {
   color: var(--shiki-dark) !important;
   background-color: var(--shiki-dark-bg) !important;
 }
