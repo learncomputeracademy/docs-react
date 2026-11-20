@@ -14,6 +14,10 @@ for picking up work weeks later.
 **Done (local, committed, NOT pushed)**
 - `3c34395` localStorage lesson progress: sidebar ticks, per-category ring + count.
 - `245b6ba` category-complete confetti + toast, gold ring at 100%.
+- `975e2bb` gold ring glow removed (SVG filter drew a square box behind it).
+- `bb67df5` continue where you left off: hero button "Continue: <lesson>", progress line,
+  done/total rings on home subject cards, ticks on category pages. Last lesson in
+  `lca-last-v1`. Counts use real doc paths, not URL prefix. No new section, so no layout shift.
 - Verified in Chrome on localhost: tick animates only for the just-finished lesson; React 28/28
   fired confetti + toast; reload did not re-fire. Test entries removed from the browser's
   localStorage afterwards (the owner's own progress kept).
@@ -21,8 +25,8 @@ for picking up work weeks later.
   not from this change.
 
 **Next / open**
-- Owner to try it on localhost, then decide: un-mark toggle? "Continue where you left off" strip,
-  streak, quizzes (see D-141).
+- Owner to try it on localhost, then decide: un-mark toggle? Streak, quizzes (see D-141).
+- Dev server hit "process out of memory" once; restarted with `NODE_OPTIONS=--max-old-space-size=6144`.
 
 ## 2026-11-19 (evening) — Docs tracking cleaned up (D-140)
 
