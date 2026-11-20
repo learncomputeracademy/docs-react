@@ -21,6 +21,7 @@ import { CalloutBlockEditor } from './blocks/callout-block-editor'
 import { VideoBlockEditor } from './blocks/video-block-editor'
 import { TryItBlockEditor } from './blocks/tryit-block-editor'
 import { UnsupportedBlock } from './blocks/unsupported-block'
+import { QuizBlockEditor, newQuestion } from './blocks/quiz-block-editor'
 import type { Block, Doc } from '@/lib/types'
 import { slugify } from '@/lib/utils'
 
@@ -43,6 +44,7 @@ const ADDABLE_TYPES: { type: Block['type']; label: string }[] = [
   { type: 'callout', label: 'Callout' },
   { type: 'video', label: 'Video' },
   { type: 'tryit', label: 'Try It' },
+  { type: 'quiz', label: 'Quiz' },
 ]
 
 function newBlock(type: Block['type']): Block {
@@ -58,6 +60,7 @@ function newBlock(type: Block['type']): Block {
     case 'callout': return { id, type, variant: 'note', html: '<p></p>' }
     case 'video': return { id, type, provider: 'youtube', videoId: '', title: '' }
     case 'tryit': return { id, type, mode: 'web', files: { html: '', css: '', js: '' } }
+    case 'quiz': return { id, type, questions: [newQuestion()] }
     default: throw new Error(`Cannot create a new "${type}" block from this editor yet`)
   }
 }
@@ -383,6 +386,8 @@ function BlockBody({ block, media, onChange }: { block: Block; media: MediaRow[]
       return <VideoBlockEditor provider={block.provider} videoId={block.videoId} title={block.title} onChange={onChange} />
     case 'tryit':
       return <TryItBlockEditor mode={block.mode} files={block.files} onChange={onChange} />
+    case 'quiz':
+      return <QuizBlockEditor questions={block.questions ?? []} onChange={onChange} />
     default:
       return <UnsupportedBlock block={block} />
   }

@@ -1,8 +1,7 @@
 import type { Block } from '@/lib/types'
 
-// Only `quiz` reaches here now (image/loop/file: Phase 5; callout/tryit/
-// video: Phase 6, ADMIN-PLAN.md) — quiz is Phase 3 in CONTENT-MODEL.md
-// with zero real rows, deliberately not built. Content is preserved
+// Nothing reaches here today (quiz got its editor in D-142); kept as the
+// fallback for any future block type the editor doesn't know. Content is preserved
 // exactly as-is on save (see lib/admin/doc.ts); this is display-only so a
 // doc using an unbuilt type stays editable for everything else
 // (move/duplicate/delete) without corrupting its data.

@@ -10,15 +10,17 @@ import { RichTextBlockEditor } from './blocks/richtext-block-editor'
 import { HeadingBlockEditor } from './blocks/heading-block-editor'
 import { TableBlockEditor } from './blocks/table-block-editor'
 import { CalloutBlockEditor } from './blocks/callout-block-editor'
+import { QuizBlockEditor } from './blocks/quiz-block-editor'
 import type { Block, Doc } from '@/lib/types'
 
 type BlockPatch = { [K in Block['type']]: Partial<Extract<Block, { type: K }>> }[Block['type']]
 
-// richtext/heading/table/callout carry translatable prose. Everything else
-// (code, image, loop, file, video, tryit, quiz) stays byte-identical to
+// richtext/heading/table/callout/quiz carry translatable prose. Everything
+// else (code, image, loop, file, video, tryit) stays byte-identical to
 // English — code in particular must never drift (ADMIN-PLAN.md §5), and
 // the rest have no natural "translated" content of their own today.
-const TRANSLATABLE = new Set<Block['type']>(['richtext', 'heading', 'table', 'callout'])
+// Quiz: text only — structure and correct answers stay locked to English.
+const TRANSLATABLE = new Set<Block['type']>(['richtext', 'heading', 'table', 'callout', 'quiz'])
 
 function typeLabel(type: string) {
   return type.charAt(0).toUpperCase() + type.slice(1)
@@ -201,6 +203,25 @@ function EnglishPreview({ block }: { block: Block }) {
       )
     case 'code':
       return <pre className="overflow-x-auto rounded-md border bg-muted p-2 text-xs"><code>{block.code}</code></pre>
+    case 'quiz':
+      return (
+        <ol className="list-decimal space-y-2 rounded-md border p-2 pl-6 text-xs">
+          {(block.questions ?? []).map((q) => (
+            <li key={q.id}>
+              <span dangerouslySetInnerHTML={{ __html: q.prompt }} />
+              <ul className="mt-1 space-y-0.5 text-muted-foreground">
+                {q.options.map((o, i) => (
+                  <li key={i}>
+                    {i === q.answer ? '✓ ' : '· '}
+                    <span dangerouslySetInnerHTML={{ __html: o }} />
+                  </li>
+                ))}
+              </ul>
+              {q.explain && <p className="mt-1 italic text-muted-foreground" dangerouslySetInnerHTML={{ __html: q.explain }} />}
+            </li>
+          ))}
+        </ol>
+      )
     default:
       return <p className="rounded-md border p-2 text-xs text-muted-foreground">({block.type} block)</p>
   }
@@ -216,6 +237,8 @@ function BengaliBlockBody({ block, onChange }: { block: Block; onChange: (patch:
       return <TableBlockEditor header={block.header} rows={block.rows} caption={block.caption} onChange={onChange} />
     case 'callout':
       return <CalloutBlockEditor variant={block.variant} title={block.title} html={block.html} onChange={onChange} />
+    case 'quiz':
+      return <QuizBlockEditor questions={block.questions ?? []} onChange={onChange} mode="translate" />
     default:
       return null
   }

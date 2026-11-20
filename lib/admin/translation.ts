@@ -3,6 +3,7 @@
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { createClient } from '@/lib/supabase/server'
 import { sanitizeBlock } from '@/lib/admin/sanitize'
+import { mergeQuizTranslation } from '@/lib/admin/quiz-merge'
 import { logActivity } from '@/lib/admin/activity'
 import type { Block, TocItem } from '@/lib/types'
 
@@ -98,6 +99,11 @@ export async function saveTranslation(docId: string, englishBlocks: Block[], inp
   // enforces it in code.
   const toc: TocItem[] = []
   const blocks = ordered.map((b) => {
+    // Quiz: Bengali text on English structure — see mergeQuizTranslation.
+    if (b.type === 'quiz') {
+      const en = englishBlocks.find((eb) => eb.id === b.id)
+      return en && en.type === 'quiz' ? { ...b, questions: mergeQuizTranslation(en.questions, b.questions ?? []) } : b
+    }
     if (b.type !== 'heading') return b
     const englishMatch = englishBlocks.find((eb) => eb.id === b.id)
     const anchor = englishMatch && englishMatch.type === 'heading' ? englishMatch.anchor : b.anchor
