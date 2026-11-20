@@ -31,8 +31,10 @@ function useDoneCount(paths: string[]) {
   return paths.filter((p) => completed.has(p)).length
 }
 
-// With a lesson to continue: "Next up: <title> · 27/730 done".
-export function ProgressLine({ paths, prefix, locale, fallback }: { paths: string[]; prefix: string; locale: Locale; fallback: string }) {
+// With a lesson to continue: "Next up: <title> · 27/730 done". When that
+// lesson opens a new category, name the category instead ("Next subject:
+// Git & GitHub") — a first-chapter title alone doesn't say what it's about.
+export function ProgressLine({ paths, prefix, locale, fallback, subjectTitles }: { paths: string[]; prefix: string; locale: Locale; fallback: string; subjectTitles: Record<string, string> }) {
   const done = useDoneCount(paths)
   const target = useContinueTarget()
   const total = paths.length
@@ -44,9 +46,9 @@ export function ProgressLine({ paths, prefix, locale, fallback }: { paths: strin
       <span>
         {target ? (
           <>
-            {s.nextUp}:{' '}
+            {target.newSubject ? s.nextSubject : s.nextUp}:{' '}
             <Link href={`${prefix}/${target.path}`} className="font-medium text-foreground underline-offset-4 hover:underline">
-              {target.title}
+              {(target.newSubject && subjectTitles[target.path.split('/')[0]]) || target.title}
             </Link>
             {done > 0 && <> · {s.doneShort(done, total)}</>}
           </>

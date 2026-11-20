@@ -92,14 +92,17 @@ function readLastRaw() {
 
 // Where to send the visitor: the last lesson, or the one after it if the
 // last one is already finished. Null when there's nothing to continue.
-export function useContinueTarget(): { path: string; title: string } | null {
+// newSubject: the next lesson starts a different category than the last one.
+export function useContinueTarget(): { path: string; title: string; newSubject: boolean } | null {
   const completed = useCompleted()
   const raw = useSyncExternalStore(subscribe, readLastRaw, () => null)
   if (!raw) return null
   try {
     const last = JSON.parse(raw) as LastLesson
-    if (!completed.has(last.path)) return last
-    return last.next && !completed.has(last.next.path) ? last.next : null
+    if (!completed.has(last.path)) return { ...last, newSubject: false }
+    if (!last.next || completed.has(last.next.path)) return null
+    const newSubject = last.next.path.split('/')[0] !== last.path.split('/')[0]
+    return { ...last.next, newSubject }
   } catch {
     return null
   }
