@@ -9,6 +9,26 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-20 (later) — un-mark, image shimmer, Next subject, quizzes phase 1 (D-142)
+
+**Done (local, committed, NOT pushed)**
+- `9f348a8` scrollbar + inline-code radius moved onto design tokens (design-hook findings).
+- `e000a24` mark / un-mark a lesson by hand (manual toggle disables auto-complete for that visit).
+- `aa62973` shimmer placeholder while lesson images load.
+- `45f961e` "Next subject: <category>" when the next lesson starts a new category.
+- Quiz phase 1 (D-142): schema, renderer, XP, pass marks complete, header XP badge. Tested on a
+  temporary `/dev-quiz` page (deleted): pass 3/4 = +30 XP + lesson complete; retry 4/4 = best
+  4/4, no extra XP, confetti. Same-tick double clicks fixed with a ref.
+
+**Problems hit**
+- Dev server died twice from Windows memory exhaustion (`VirtualAlloc failed`, then "Jest worker
+  encountered 2 child process exceptions"). Not a code bug; restarted with
+  `NODE_OPTIONS=--max-old-space-size=6144`.
+
+**Next**
+- Quiz phase 2: admin quiz editor + Bengali translation of quiz text. Then phase 3: HTML pilot
+  quizzes (needs owner OK before writing to the DB, since it reaches the live site).
+
 ## 2026-11-20 — Gamification phase 0: progress ticks + category celebration (D-141)
 
 **Done (local, committed, NOT pushed)**

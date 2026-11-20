@@ -53,7 +53,9 @@ type Block =
   | { id; type: "video";    provider: "youtube" | "cloudinary"; videoId: string; title: string }
   | { id; type: "file";     publicId: string; kind: "pdf" | "zip";
       label: string; size: string }                                    // see ASSETS.md
-  | { id; type: "quiz";     /* Phase 3 — schema deliberately unspecified */ };
+  | { id; type: "quiz";     questions: { id: string; prompt: string; options: string[];
+      answer: number; explain?: string }[] };                          // D-142
+      // single-answer multiple choice; prompt/options/explain are HTML; answer = option index
 ```
 
 Stored on `docs.blocks jsonb`. `body_html` remains as a **rendered cache** for search
