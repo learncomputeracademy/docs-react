@@ -25,9 +25,13 @@ for picking up work weeks later.
   encountered 2 child process exceptions"). Not a code bug; restarted with
   `NODE_OPTIONS=--max-old-space-size=6144`.
 
+- `bad291e` quiz phase 2: admin quiz editor + Bengali quiz translation (structure locked to
+  English). `node scripts/check-quiz.mjs` passes. Admin UI itself not browser-tested (login).
+
 **Next**
-- Quiz phase 2: admin quiz editor + Bengali translation of quiz text. Then phase 3: HTML pilot
-  quizzes (needs owner OK before writing to the DB, since it reaches the live site).
+- Owner to try the admin quiz editor on a draft doc.
+- Phase 3: HTML pilot quizzes (needs owner OK before writing to the DB, since it reaches the
+  live site — and the live site can't render quizzes until the code is pushed).
 
 ## 2026-11-20 — Gamification phase 0: progress ticks + category celebration (D-141)
 
