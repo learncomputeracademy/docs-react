@@ -273,7 +273,7 @@
 .prose :where(code):not(:where([class~="not-prose"] *)) {
   background: var(--muted);
   padding: 0.15em 0.4em;
-  border-radius: 0.3em;
+  border-radius: var(--radius-sm);
   font-weight: 500;
 }
 
@@ -307,12 +307,13 @@
    everywhere via `*` rather than a per-element opt-in class, so it covers
    the page scroll, the doc sidebar, code blocks, and any overflow-auto
    panel without hunting down each one. */
+/* Thumb colours come from the muted-foreground token, so dark mode follows
+   the theme without separate overrides. */
 html {
+  --scrollbar-thumb: color-mix(in oklch, var(--muted-foreground) 40%, transparent);
+  --scrollbar-thumb-hover: color-mix(in oklch, var(--muted-foreground) 70%, transparent);
   scrollbar-width: thin;
-  scrollbar-color: #cbd5e1 transparent;
-}
-html.dark {
-  scrollbar-color: #475569 transparent;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
 }
 *::-webkit-scrollbar {
   width: 8px;
@@ -323,18 +324,12 @@ html.dark {
   border-radius: 8px;
 }
 *::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: var(--scrollbar-thumb);
   border-radius: 8px;
 }
 *::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: var(--scrollbar-thumb-hover);
 }
 *::-webkit-scrollbar-corner {
   background: transparent;
-}
-.dark *::-webkit-scrollbar-thumb {
-  background: #475569;
-}
-.dark *::-webkit-scrollbar-thumb:hover {
-  background: #64748b;
 }
