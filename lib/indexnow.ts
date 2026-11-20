@@ -12,6 +12,9 @@ const INDEXNOW_ENDPOINT = 'https://api.indexnow.org/indexnow'
 export async function submitToIndexNow(urls: string[]): Promise<void> {
   const key = process.env.INDEXNOW_KEY
   if (!key || urls.length === 0) return
+  // Never from `next dev`: local revalidate calls (content scripts, testing)
+  // would otherwise announce live URLs whose live content hasn't changed.
+  if (process.env.NODE_ENV !== 'production') return
 
   const host = new URL(SITE_URL).host
 
