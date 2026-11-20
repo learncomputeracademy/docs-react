@@ -40,7 +40,7 @@ export function ProgressRing({ done, total }: { done: number; total: number }) {
         strokeWidth="2.5"
         strokeLinecap="round"
         pathLength={1}
-        className={cn('transition-[stroke-dashoffset] duration-700 ease-out', full ? 'stroke-emerald-500' : 'stroke-primary', done === 0 && 'opacity-0')}
+        className={cn('transition-[stroke-dashoffset] duration-700 ease-out', full ? 'stroke-amber-500 drop-shadow-[0_0_3px_rgb(245_158_11)]' : 'stroke-primary', done === 0 && 'opacity-0')}
         style={{ strokeDasharray: 1, strokeDashoffset: 1 - pct }}
       />
     </svg>

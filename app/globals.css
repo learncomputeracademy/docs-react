@@ -152,7 +152,15 @@
   transform-box: fill-box;
   animation: check-pop 0.4s cubic-bezier(.25,1,.5,1) both;
 }
+@keyframes celebrate-in {
+  from { opacity: 0; transform: translateY(12px) scale(0.96); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.animate-celebrate-in {
+  animation: celebrate-in 0.35s cubic-bezier(.25,1,.5,1) both;
+}
 @media (prefers-reduced-motion: reduce) {
+  .animate-celebrate-in,
   .animate-check-draw,
   .animate-check-pop,
   .animate-marquee,
