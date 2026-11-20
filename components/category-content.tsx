@@ -7,6 +7,7 @@ import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
+import { CategoryProgress, LessonTick } from '@/components/continue-learning'
 
 export async function loadCategory(slug: string, locale: Locale) {
   const categories = await getSidebarTree(locale)
@@ -32,7 +33,7 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
         <div>
           <h1 className="text-3xl font-bold tracking-tight">{category.title}</h1>
           <p className="mt-1 text-muted-foreground">
-            {category.docs.length} {category.docs.length === 1 ? s.lesson : s.lessons}
+            <CategoryProgress paths={category.docs.map((d) => d.path)} label={category.docs.length === 1 ? s.lesson : s.lessons} />
           </p>
         </div>
       </div>
@@ -49,6 +50,7 @@ export async function CategoryContent({ slug, locale }: { slug: string; locale: 
               </span>
               <span className="min-w-0 font-medium group-hover:text-primary">{doc.title}</span>
               <ArrowRight className="ml-auto size-4 shrink-0 text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              <LessonTick path={doc.path} />
             </Link>
           </MagicCard>
         ))}

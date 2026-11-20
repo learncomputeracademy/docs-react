@@ -67,3 +67,38 @@ export function setCompleted(path: string, done: boolean) {
   }
   write(next)
 }
+
+// Last lesson opened, for "Continue where you left off". Saved with its
+// title and the lesson after it, so pages outside the lesson tree (home)
+// can link to it without loading every doc title.
+export type LastLesson = { path: string; title: string; next: { path: string; title: string } | null }
+const LAST_KEY = 'lca-last-v1'
+
+export function setLastLesson(l: LastLesson) {
+  try {
+    localStorage.setItem(LAST_KEY, JSON.stringify(l))
+  } catch {}
+}
+
+function readLastRaw() {
+  try {
+    return localStorage.getItem(LAST_KEY)
+  } catch {
+    return null
+  }
+}
+
+// Where to send the visitor: the last lesson, or the one after it if the
+// last one is already finished. Null when there's nothing to continue.
+export function useContinueTarget(): { path: string; title: string } | null {
+  const completed = useCompleted()
+  const raw = useSyncExternalStore(subscribe, readLastRaw, () => null)
+  if (!raw) return null
+  try {
+    const last = JSON.parse(raw) as LastLesson
+    if (!completed.has(last.path)) return last
+    return last.next && !completed.has(last.next.path) ? last.next : null
+  } catch {
+    return null
+  }
+}

@@ -6,6 +6,8 @@ export const STRINGS = {
   en: {
     siteName: 'Learn Computer Academy',
     startLearning: 'Start learning',
+    continueLesson: 'Continue',
+    lessonsDone: (done: number, total: number) => `You've finished ${done} of ${total} lessons`,
     browseSubjects: 'Browse subjects',
     pickASubject: 'Pick a subject',
     pickASubjectSub: 'Jump straight into any topic — no prerequisites enforced.',
@@ -32,6 +34,8 @@ export const STRINGS = {
   bn: {
     siteName: 'লার্ন কম্পিউটার একাডেমি',
     startLearning: 'শেখা শুরু করুন',
+    continueLesson: 'চালিয়ে যান',
+    lessonsDone: (done: number, total: number) => `${total}টি পাঠের মধ্যে ${done}টি শেষ করেছেন`,
     browseSubjects: 'বিষয় দেখুন',
     pickASubject: 'একটি বিষয় বেছে নিন',
     pickASubjectSub: 'যেকোনো টপিক থেকে সরাসরি শুরু করুন — কোনো পূর্বশর্ত নেই।',

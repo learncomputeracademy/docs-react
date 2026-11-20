@@ -36,6 +36,7 @@ export async function LessonContent({ category, slug, locale }: { category: stri
 
         {(prev || next) && (
           <LessonPagination
+            title={doc.title}
             prev={prev}
             next={next}
             prefix={prefix}

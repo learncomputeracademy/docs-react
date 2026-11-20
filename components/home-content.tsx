@@ -12,6 +12,7 @@ import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
 import { HeroWaves } from '@/components/magic/hero-waves'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
+import { ContinueButton, ProgressLine, CategoryProgress } from '@/components/continue-learning'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -89,16 +90,12 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             {firstLesson && (
               <div className="mt-8">
                 <div className="flex flex-wrap items-center gap-3">
-                  <Button asChild size="lg">
-                    <Link href={`${prefix}/${firstLesson.path}`}>
-                      {s.startLearning} <ArrowRight className="size-4" />
-                    </Link>
-                  </Button>
+                  <ContinueButton startHref={`${prefix}/${firstLesson.path}`} prefix={prefix} locale={locale} />
                   <Button asChild size="lg" variant="outline">
                     <Link href="#subjects">{s.browseSubjects}</Link>
                   </Button>
                 </div>
-                <p className="mt-4 text-sm text-muted-foreground">{s.freeLessonsSubjects(totalLessons, categories.length)}</p>
+                <ProgressLine paths={categories.flatMap((c) => c.docs.map((d) => d.path))} locale={locale} fallback={s.freeLessonsSubjects(totalLessons, categories.length)} />
               </div>
             )}
           </HeroReveal>
@@ -221,7 +218,7 @@ function SubjectGroup({ label, items, prefix, locale, s }: {
                 </span>
                 <span className="min-w-0 truncate text-sm font-medium group-hover:text-primary">{cat.title}</span>
                 <span className="flex items-center justify-between text-xs text-muted-foreground">
-                  {cat.docs.length} {cat.docs.length === 1 ? s.lesson : s.lessons}
+                  <CategoryProgress paths={cat.docs.map((d) => d.path)} label={cat.docs.length === 1 ? s.lesson : s.lessons} />
                   <ArrowRight className="size-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
                 </span>
               </Link>

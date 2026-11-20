@@ -6,12 +6,13 @@ import { usePathname, useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, PanelLeft } from 'lucide-react'
 import { startRouteProgress } from '@/components/magic/route-progress'
 import { useSidebar } from '@/components/magic/sidebar'
-import { setCompleted } from '@/lib/progress'
+import { setCompleted, setLastLesson } from '@/lib/progress'
 
 type Adjacent = { path: string; title: string } | null
 type Position = { index: number; total: number } | null
 
 export function LessonPagination({
+  title,
   prev,
   next,
   prefix,
@@ -20,6 +21,7 @@ export function LessonPagination({
   position,
   browseLessonsLabel,
 }: {
+  title: string
   prev: Adjacent
   next: Adjacent
   prefix: string
@@ -31,6 +33,10 @@ export function LessonPagination({
   const router = useRouter()
   const { toggleSidebar } = useSidebar()
   const docPath = usePathname().replace(/^\/bn(\/|$)/, '/').replace(/^\/|\/$/g, '')
+
+  useEffect(() => {
+    setLastLesson({ path: docPath, title, next: next && { path: next.path, title: next.title } })
+  }, [docPath, title, next])
 
   // Reading progress — how far down THIS lesson you are, not the whole
   // page (header/footer chrome above and below the article shouldn't
