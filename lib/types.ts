@@ -24,7 +24,11 @@ export type Block =
   | { id: string; type: 'tryit'; mode: 'web' | 'react'; files: { html?: string; css?: string; js?: string; jsx?: string } }
   | { id: string; type: 'file'; publicId: string; kind: 'pdf' | 'zip'; label: string; size: string }
   | { id: string; type: 'video'; provider: 'youtube' | 'cloudinary'; videoId: string; title: string }
-  | { id: string; type: 'quiz' }
+  // Single-answer multiple choice (2 options = true/false). prompt, options
+  // and explain are HTML (inline <code> etc.); answer is an index into options.
+  | { id: string; type: 'quiz'; questions: QuizQuestion[] }
+
+export type QuizQuestion = { id: string; prompt: string; options: string[]; answer: number; explain?: string }
 
 export type TocItem = { id: string; text: string; level: 2 | 3 | 4 | 5 | 6 }
 

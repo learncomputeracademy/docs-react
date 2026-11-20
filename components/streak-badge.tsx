@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Flame } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { streakJustBumped, useStreak } from '@/lib/progress'
+import { streakJustBumped, useStreak, useXp } from '@/lib/progress'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 
@@ -54,5 +54,23 @@ export function StreakBadge({ locale }: { locale: Locale }) {
           document.body,
         )}
     </>
+  )
+}
+
+// Quiz XP total, shown once any is earned. Hidden on phones (header space).
+export function XpBadge({ locale }: { locale: Locale }) {
+  const xp = useXp()
+  if (!xp) return null
+  const title = t(locale).xpTitle(xp)
+  return (
+    <span
+      key={xp}
+      title={title}
+      aria-label={title}
+      role="img"
+      className="hidden items-center rounded-full bg-primary/10 px-2.5 py-1 text-sm font-semibold tabular-nums text-primary sm:flex"
+    >
+      {xp} XP
+    </span>
   )
 }

@@ -6,6 +6,7 @@ import { CopyButton } from './copy-button'
 import { CodeTabs } from './code-tabs'
 import { TryItLazy } from './try-it-lazy'
 import { LessonImage } from './lesson-image'
+import { Quiz } from './quiz'
 
 // note/tip/warning/danger — colors follow the same hardcoded-per-badge
 // convention already used elsewhere (e.g. admin's "published" status),
@@ -70,6 +71,8 @@ export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
                 <source src={cldVideoUrl(b.publicId)} type="video/mp4" />
               </video>
             )
+          case 'quiz':
+            return b.questions?.length ? <Quiz key={b.id} id={b.id} questions={b.questions} /> : null
           case 'tryit':
             return <TryItLazy key={b.id} mode={b.mode} files={b.files} />
           case 'callout': {

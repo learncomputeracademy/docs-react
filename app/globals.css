@@ -167,7 +167,18 @@
 .animate-streak-pop {
   animation: streak-pop 0.5s cubic-bezier(.25,1,.5,1) both;
 }
+@keyframes quiz-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-5px); }
+  40%      { transform: translateX(5px); }
+  60%      { transform: translateX(-3px); }
+  80%      { transform: translateX(3px); }
+}
+.animate-quiz-shake {
+  animation: quiz-shake 0.4s ease-out;
+}
 @media (prefers-reduced-motion: reduce) {
+  .animate-quiz-shake,
   .animate-streak-pop,
   .animate-celebrate-in,
   .animate-check-draw,

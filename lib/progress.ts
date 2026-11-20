@@ -144,3 +144,49 @@ export function useStreak(): { count: number; best: number } {
   const s = parseStreak(raw)
   return { count: currentStreak(s, localDay()), best: s?.best ?? 0 }
 }
+
+// Quiz results, keyed "<doc path>#<block id>". xp is fixed by the first
+// attempt (10 per correct answer); later attempts only raise `best`.
+type QuizResult = { best: number; total: number; xp: number }
+const QUIZ_KEY = 'lca-quiz-v1'
+export const XP_PER_ANSWER = 10
+export const PASS_RATIO = 0.7
+
+function readQuizRaw() {
+  try {
+    return localStorage.getItem(QUIZ_KEY)
+  } catch {
+    return null
+  }
+}
+
+function parseQuiz(raw: string | null): Record<string, QuizResult> {
+  try {
+    return raw ? (JSON.parse(raw) as Record<string, QuizResult>) : {}
+  } catch {
+    return {}
+  }
+}
+
+// Records an attempt; returns the XP it earned (0 for any retry).
+export function recordQuiz(key: string, score: number, total: number): number {
+  const all = parseQuiz(readQuizRaw())
+  const prev = all[key]
+  const xp = prev ? 0 : score * XP_PER_ANSWER
+  all[key] = { best: Math.max(prev?.best ?? 0, score), total, xp: prev ? prev.xp : xp }
+  try {
+    localStorage.setItem(QUIZ_KEY, JSON.stringify(all))
+  } catch {}
+  listeners.forEach((l) => l())
+  return xp
+}
+
+export function useQuizResult(key: string): QuizResult | null {
+  const raw = useSyncExternalStore(subscribe, readQuizRaw, () => null)
+  return parseQuiz(raw)[key] ?? null
+}
+
+export function useXp(): number {
+  const raw = useSyncExternalStore(subscribe, readQuizRaw, () => null)
+  return Object.values(parseQuiz(raw)).reduce((sum, r) => sum + r.xp, 0)
+}
