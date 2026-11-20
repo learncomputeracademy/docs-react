@@ -18,6 +18,11 @@ for picking up work weeks later.
 - `bb67df5` continue where you left off: hero button "Continue: <lesson>", progress line,
   done/total rings on home subject cards, ticks on category pages. Last lesson in
   `lca-last-v1`. Counts use real doc paths, not URL prefix. No new section, so no layout shift.
+- `254184b` hero button fixed to "Continue learning"; lesson title moved to a "Next up" line
+  (long titles were wrapping the button row).
+- `0166cfa` daily streak: header flame from 2 days, one grace day per 7 days, pop on bump,
+  toast every 7th day (portalled: the header's backdrop-blur traps `fixed` children).
+  `lca-streak-v1`; rules in `lib/streak.ts`, check with `node scripts/check-streak.mjs`.
 - Verified in Chrome on localhost: tick animates only for the just-finished lesson; React 28/28
   fired confetti + toast; reload did not re-fire. Test entries removed from the browser's
   localStorage afterwards (the owner's own progress kept).
@@ -25,7 +30,7 @@ for picking up work weeks later.
   not from this change.
 
 **Next / open**
-- Owner to try it on localhost, then decide: un-mark toggle? Streak, quizzes (see D-141).
+- Owner to try it on localhost, then decide: un-mark toggle? Quizzes (see D-141).
 - Dev server hit "process out of memory" once; restarted with `NODE_OPTIONS=--max-old-space-size=6144`.
 
 ## 2026-11-19 (evening) — Docs tracking cleaned up (D-140)
