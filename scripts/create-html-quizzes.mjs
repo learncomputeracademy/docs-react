@@ -1,0 +1,952 @@
+#!/usr/bin/env node
+// Quiz pilot (D-142 phase 3): one end-of-lesson quiz per HTML lesson, EN + BN.
+//
+//   node scripts/create-html-quizzes.mjs              dry run: validate + write a review file
+//   node scripts/create-html-quizzes.mjs --write      write quiz blocks to docs + doc_translations
+//
+// Idempotent: the quiz block id is `quiz-<slug>` and question ids are
+// `<slug>-q<n>`, so a re-run replaces the quiz in place instead of adding a
+// second one. The quiz always sits at the end of the lesson. Bengali rows get
+// the same ids and answers (mergeQuizTranslation enforces the same on admin
+// saves). Lessons without a Bengali translation are skipped on the bn side.
+//
+// Service-role writes skip the DB revalidate trigger (migration 011), so the
+// live site doesn't change until it is pushed + revalidated; local dev needs
+// POST /api/revalidate (tag + path) to show it — done at the end of --write.
+
+import fs from 'node:fs/promises'
+import { createClient } from '@supabase/supabase-js'
+
+const WRITE = process.argv.includes('--write')
+
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const c = (s) => `<code>${esc(s)}</code>` // inline code
+const pre = (s) => `<pre><code>${esc(s)}</code></pre>` // code sample in a question
+
+// q(enPrompt, bnPrompt, options, answerIndex, enExplain, bnExplain)
+// options: string (same in both languages, e.g. code) or [en, bn]
+const q = (en, bn, options, answer, exEn, exBn) => ({ en, bn, options, answer, exEn, exBn })
+const TF = [['True', 'সত্য'], ['False', 'মিথ্যা']]
+
+const QUIZZES = {
+  intro: [
+    q('What does HTML stand for?', 'HTML-এর পূর্ণরূপ কী?',
+      ['High Tech Modern Language', 'Hyperlink and Text Management Language', 'Hyper Text Markup Language', 'Home Tool Markup Language'], 2,
+      'HTML is the Hyper Text Markup Language — the standard language for the structure of web pages.',
+      'HTML মানে Hyper Text Markup Language — ওয়েব পেজের গঠন তৈরির স্ট্যান্ডার্ড ভাষা।'),
+    q('Which element holds the content you actually see on the page?', 'পেজে যে কনটেন্ট আসলে দেখা যায়, সেটা কোন element-এর ভিতরে থাকে?',
+      [c('<head>'), c('<body>'), c('<title>'), c('<meta>')], 1,
+      `Everything visible goes inside ${c('<body>')}. ${c('<head>')} holds information about the page, not visible content.`,
+      `দৃশ্যমান সবকিছু ${c('<body>')}-এর ভিতরে থাকে। ${c('<head>')}-এ থাকে পেজ সম্পর্কে তথ্য, দেখা যায় এমন কনটেন্ট নয়।`),
+    q(`What does ${c('<!DOCTYPE html>')} at the top of a file tell the browser?`, `ফাইলের শুরুতে ${c('<!DOCTYPE html>')} ব্রাউজারকে কী জানায়?`,
+      [['The title of the page', 'পেজের টাইটেল'], ['Where the CSS file is', 'CSS ফাইল কোথায় আছে'], ['To hide the page from search engines', 'সার্চ ইঞ্জিন থেকে পেজ লুকাতে'], ['That this is an HTML5 document', 'এটি একটি HTML5 ডকুমেন্ট']], 3,
+      'The doctype declares the document type — HTML5 — so the browser renders it in standards mode.',
+      'Doctype ডকুমেন্টের ধরন — HTML5 — ঘোষণা করে, যাতে ব্রাউজার স্ট্যান্ডার্ড মোডে পেজ দেখায়।'),
+    q(`What is the closing tag for ${c('<p>')}?`, `${c('<p>')}-এর closing tag কোনটি?`,
+      [c('</p>'), c('<p/>'), c('<\\p>'), c('<end p>')], 0,
+      'A closing tag repeats the tag name with a forward slash before it.',
+      'Closing tag-এ একই tag-এর নামের আগে একটি forward slash (/) থাকে।'),
+  ],
+
+  basic: [
+    q('Which heading tag is the most important (and largest by default)?', 'কোন heading tag সবচেয়ে গুরুত্বপূর্ণ (এবং ডিফল্টভাবে সবচেয়ে বড়)?',
+      [c('<h6>'), c('<head>'), c('<h1>'), c('<heading>')], 2,
+      `${c('<h1>')} is the most important heading and ${c('<h6>')} the least. ${c('<head>')} is not a heading at all.`,
+      `${c('<h1>')} সবচেয়ে গুরুত্বপূর্ণ heading আর ${c('<h6>')} সবচেয়ে কম। ${c('<head>')} কোনো heading-ই নয়।`),
+    q('Where is the destination of a link written?', 'একটি link কোথায় যাবে, সেটা কোথায় লেখা হয়?',
+      [['In the href attribute', 'href attribute-এ'], ['In the src attribute', 'src attribute-এ'], ['Between the tags, as the link text', 'tag-এর মাঝে, link text হিসেবে'], ['In the title attribute', 'title attribute-এ']], 0,
+      `${c('href')} holds the address. The text between ${c('<a>')} and ${c('</a>')} is only what the user sees.`,
+      `${c('href')}-এ ঠিকানা থাকে। ${c('<a>')} আর ${c('</a>')}-এর মাঝের লেখা শুধু ব্যবহারকারী যা দেখে।`),
+    q(`Which attribute tells an ${c('<img>')} which file to show?`, `কোন attribute ${c('<img>')}-কে বলে দেয় কোন ফাইলটি দেখাতে হবে?`,
+      [c('href'), c('alt'), c('file'), c('src')], 3,
+      `${c('src')} (source) is the image file. ${c('alt')} is the text used when the image can't be shown.`,
+      `${c('src')} (source) হলো ছবির ফাইল। ছবি দেখানো না গেলে ${c('alt')}-এর লেখা ব্যবহার হয়।`),
+    q('Which tag creates a clickable button?', 'কোন tag দিয়ে ক্লিক করা যায় এমন একটি button তৈরি হয়?',
+      [c('<btn>'), c('<button>'), c('<click>'), c('<input-button>')], 1,
+      `${c('<button>Click me</button>')} creates a button. The other tags don't exist in HTML.`,
+      `${c('<button>Click me</button>')} একটি button তৈরি করে। বাকি tag-গুলো HTML-এ নেই।`),
+  ],
+
+  attributes: [
+    q('Where are attributes written?', 'Attribute কোথায় লেখা হয়?',
+      [['In the start (opening) tag', 'Start (opening) tag-এ'], ['In the end (closing) tag', 'End (closing) tag-এ'], ['Between the tags, with the content', 'tag-এর মাঝে, কনটেন্টের সাথে'], ['Only inside the <head>', 'শুধু <head>-এর ভিতরে'].map(esc)], 0,
+      `Attributes always go in the start tag, e.g. ${c('<a href="page.html">')}.`,
+      `Attribute সবসময় start tag-এ থাকে, যেমন ${c('<a href="page.html">')}।`),
+    q('Which is the usual way an attribute is written?', 'Attribute সাধারণত কীভাবে লেখা হয়?',
+      [c('name:value'), c('name(value)'), c('name="value"'), c('<name value>')], 2,
+      'Attributes come in name/value pairs, with the value in quotes.',
+      'Attribute থাকে name/value জোড়ায়, value থাকে quote-এর ভিতরে।'),
+    q(`What is the ${c('alt')} attribute of an image for?`, `ছবির ${c('alt')} attribute কীসের জন্য?`,
+      [['The path to the image file', 'ছবির ফাইলের path'], ['The width of the image', 'ছবির প্রস্থ'], ['A colour for the image border', 'ছবির border-এর রং'], ['Text used when the image can\'t be seen, read aloud by screen readers', 'ছবি দেখা না গেলে যে লেখা দেখায়, screen reader যা পড়ে শোনায়']], 3,
+      'If the image fails to load, the alt text shows instead, and screen readers read it to visually impaired users.',
+      'ছবি লোড না হলে alt text দেখায়, আর দৃষ্টিপ্রতিবন্ধী ব্যবহারকারীদের জন্য screen reader সেটা পড়ে শোনায়।'),
+    q('Which attribute adds CSS directly to one element?', 'কোন attribute দিয়ে একটি element-এ সরাসরি CSS যোগ করা যায়?',
+      [c('style'), c('css'), c('design'), c('format')], 0,
+      `For example ${c('<p style="color:red;">')}. The value uses ${c('property:value;')} pairs.`,
+      `যেমন ${c('<p style="color:red;">')}। Value-তে ${c('property:value;')} জোড়া থাকে।`),
+  ],
+
+  head: [
+    q(`Is the content of ${c('<head>')} displayed on the page itself?`, `${c('<head>')}-এর কনটেন্ট কি পেজের মধ্যে দেখা যায়?`,
+      [['Yes, above the body', 'হ্যাঁ, body-র উপরে'], ['No — it holds metadata about the page', 'না — এতে পেজ সম্পর্কে metadata থাকে'], ['Only on mobile phones', 'শুধু মোবাইল ফোনে'], ['Only the <style> part'.replace(/</g, '&lt;').replace(/>/g, '&gt;'), 'শুধু &lt;style&gt; অংশটি']], 1,
+      'Metadata (title, character set, styles, scripts) is not displayed as page content.',
+      'Metadata (title, character set, style, script) পেজের কনটেন্ট হিসেবে দেখানো হয় না।'),
+    q(`Where does the text of ${c('<title>')} appear?`, `${c('<title>')}-এর লেখা কোথায় দেখা যায়?`,
+      [['As the biggest heading on the page', 'পেজের সবচেয়ে বড় heading হিসেবে'], ['In the page footer', 'পেজের footer-এ'], ['In the browser tab, bookmarks and search results', 'ব্রাউজারের tab-এ, bookmark-এ আর search result-এ'], ['Nowhere — it is only for the developer', 'কোথাও না — শুধু developer-এর জন্য']], 2,
+      'The title names the page in the tab, in favourites, and in search engine results.',
+      'Title দিয়ে tab, favourites আর search engine result-এ পেজের নাম দেখানো হয়।'),
+    q('Which line connects an external CSS file?', 'কোন লাইন একটি বাইরের CSS ফাইল যুক্ত করে?',
+      [c('<style src="style.css">'), c('<css href="style.css">'), c('<script href="style.css">'), c('<link rel="stylesheet" href="style.css">')], 3,
+      `${c('<link>')} with ${c('rel="stylesheet"')} loads an external stylesheet.`,
+      `${c('rel="stylesheet"')} সহ ${c('<link>')} বাইরের stylesheet লোড করে।`),
+    q(`What does ${c('<meta charset="UTF-8">')} do?`, `${c('<meta charset="UTF-8">')} কী করে?`,
+      [['Sets the character encoding of the page', 'পেজের character encoding ঠিক করে'], ['Sets the page language', 'পেজের ভাষা ঠিক করে'], ['Sets the font', 'font ঠিক করে'], ['Sets the page description for Google', 'Google-এর জন্য পেজের বিবরণ ঠিক করে']], 0,
+      'UTF-8 lets the page show almost any character correctly, including Bengali.',
+      'UTF-8 থাকলে পেজে বাংলা সহ প্রায় সব অক্ষর ঠিকভাবে দেখায়।'),
+  ],
+
+  comments: [
+    q('Which is a correct HTML comment?', 'কোনটি সঠিক HTML comment?',
+      [c('// comment'), c('/* comment */'), c('<!-- comment -->'), c('<# comment #>')], 2,
+      `HTML comments start with ${c('<!--')} and end with ${c('-->')}. The others are comment styles from other languages.`,
+      `HTML comment শুরু হয় ${c('<!--')} দিয়ে আর শেষ হয় ${c('-->')} দিয়ে। বাকিগুলো অন্য ভাষার comment।`),
+    q('Comments are shown on the page in grey text.', 'Comment পেজে ধূসর লেখায় দেখানো হয়।',
+      TF, 1,
+      'Browsers do not display comments at all. They are only visible in the source code.',
+      'ব্রাউজার comment একেবারেই দেখায় না। এগুলো শুধু source code-এ দেখা যায়।'),
+    q(`What does the browser show for this code?${pre('<p>Hi</p>\n<!-- <p>Bye</p> -->')}`, `এই code-এর জন্য ব্রাউজার কী দেখাবে?${pre('<p>Hi</p>\n<!-- <p>Bye</p> -->')}`,
+      [['Hi', 'Hi'], ['Hi and Bye', 'Hi আর Bye'], ['Bye', 'Bye'], ['Nothing', 'কিছুই না']], 0,
+      'The second paragraph is inside a comment, so it is ignored.',
+      'দ্বিতীয় paragraph-টি comment-এর ভিতরে, তাই সেটা উপেক্ষা করা হয়।'),
+    q('Why would you comment out a line of HTML while fixing a problem?', 'সমস্যা খোঁজার সময় HTML-এর একটি লাইন comment out করবেন কেন?',
+      [['To make the page load faster', 'পেজ দ্রুত লোড করতে'], ['To make the text bold', 'লেখা bold করতে'], ['To hide it for now without deleting it', 'মুছে না ফেলে আপাতত লুকিয়ে রাখতে'], ['To translate it', 'অনুবাদ করতে']], 2,
+      'Commenting out lines one at a time is a quick way to find which one causes an error.',
+      'একটি একটি করে লাইন comment out করে দ্রুত বের করা যায় কোনটি সমস্যা করছে।'),
+  ],
+
+  classes: [
+    q('Which CSS selector styles every element with class="city"?', 'class="city" আছে এমন সব element-কে কোন CSS selector style করে?',
+      [c('#city'), c('.city'), c('city'), c('*city')], 1,
+      `A class selector is a dot followed by the class name. ${c('#')} is for ids.`,
+      `Class selector হলো একটি dot আর তার পরে class-এর নাম। ${c('#')} id-এর জন্য।`),
+    q('How many elements can share the same class name?', 'একই class নাম কতগুলো element ব্যবহার করতে পারে?',
+      [['Only one', 'শুধু একটি'], ['Exactly two', 'ঠিক দুটি'], ['Up to six', 'সর্বোচ্চ ছয়টি'], ['Any number', 'যতগুলো খুশি']], 3,
+      'That is the point of a class: one style shared by many elements.',
+      'Class-এর উদ্দেশ্যই এটা: একই style অনেক element-এ ব্যবহার করা।'),
+    q('How do you give one element two classes?', 'একটি element-কে দুটি class কীভাবে দেবেন?',
+      [c('class="city main"'), c('class="city, main"'), c('class="city;main"'), [esc('Two separate class attributes'), esc('দুটি আলাদা class attribute')]], 0,
+      'Separate class names with a space inside one class attribute.',
+      'একটি class attribute-এর ভিতরে class নামগুলো space দিয়ে আলাদা করুন।'),
+    q('class="City" and class="city" are the same class.', 'class="City" আর class="city" একই class।',
+      TF, 1,
+      'Class names are case sensitive, so these are two different classes.',
+      'Class নাম case sensitive, তাই এরা দুটি আলাদা class।'),
+  ],
+
+  id: [
+    q('Which CSS selector styles the element with id="header"?', 'id="header" আছে এমন element-কে কোন CSS selector style করে?',
+      [c('.header'), c('header'), c('#header'), c('@header')], 2,
+      `An id selector is ${c('#')} followed by the id. ${c('header')} alone would select ${c('<header>')} elements.`,
+      `Id selector হলো ${c('#')} আর তার পরে id। শুধু ${c('header')} লিখলে ${c('<header>')} element select হবে।`),
+    q('How many elements on one page may use the same id?', 'একটি পেজে কতগুলো element একই id ব্যবহার করতে পারে?',
+      [['Only one', 'শুধু একটি'], ['Any number', 'যতগুলো খুশি'], ['Two', 'দুটি'], ['One per section', 'প্রতি section-এ একটি']], 0,
+      'An id must be unique within the whole document.',
+      'পুরো ডকুমেন্টে একটি id অবশ্যই অনন্য (unique) হতে হবে।'),
+    q('Which id value is valid?', 'কোন id value সঠিক?',
+      [c('id="main menu"'), c('id=""'), c('id="main-menu"')], 2,
+      'An id needs at least one character and must not contain spaces.',
+      'Id-তে অন্তত একটি অক্ষর থাকতে হবে আর কোনো space থাকা চলবে না।'),
+    q('What is the main difference between a class and an id?', 'Class আর id-এর মূল পার্থক্য কী?',
+      [['A class is for CSS, an id is only for JavaScript', 'Class CSS-এর জন্য, id শুধু JavaScript-এর জন্য'], ['A class can be shared by many elements; an id belongs to one element', 'Class অনেক element শেয়ার করতে পারে; id শুধু একটি element-এর'], ['There is no difference', 'কোনো পার্থক্য নেই'], ['An id can only be used on headings', 'Id শুধু heading-এ ব্যবহার করা যায়']], 1,
+      'Both work with CSS and JavaScript. The difference is uniqueness.',
+      'দুটোই CSS আর JavaScript-এ কাজ করে। পার্থক্য হলো অনন্যতায় (uniqueness)।'),
+  ],
+
+  blocks: [
+    q('What does a block-level element do?', 'Block-level element কী করে?',
+      [['Starts on a new line and takes the full available width', 'নতুন লাইনে শুরু হয় আর পুরো জায়গা জুড়ে থাকে'], ['Stays on the same line as the text around it', 'আশেপাশের লেখার সাথে একই লাইনে থাকে'], ['Is always invisible', 'সবসময় অদৃশ্য থাকে'], ['Can only contain images', 'শুধু ছবি রাখতে পারে']], 0,
+      `${c('<div>')}, ${c('<p>')} and headings are block-level.`,
+      `${c('<div>')}, ${c('<p>')} আর heading-গুলো block-level।`),
+    q('Which of these is an inline element?', 'এগুলোর মধ্যে কোনটি inline element?',
+      [c('<div>'), c('<p>'), c('<section>'), c('<span>')], 3,
+      `${c('<span>')} only takes as much width as its content and doesn't start a new line.`,
+      `${c('<span>')} শুধু তার কনটেন্টের সমান জায়গা নেয় আর নতুন লাইনে শুরু হয় না।`),
+    q(`How does this display?${pre('<p>One <span>Two</span> Three</p>')}`, `এটা কীভাবে দেখাবে?${pre('<p>One <span>Two</span> Three</p>')}`,
+      [['"Two" on its own line', '"Two" আলাদা লাইনে'], ['"One Two Three" on one line', '"One Two Three" এক লাইনে'], ['Only "One Three"', 'শুধু "One Three"'], ['Nothing', 'কিছুই না']], 1,
+      `${c('<span>')} is inline, so the text flows on one line.`,
+      `${c('<span>')} inline, তাই লেখা এক লাইনেই থাকে।`),
+    q(`What is ${c('<div>')} most often used for?`, `${c('<div>')} সবচেয়ে বেশি কীসের জন্য ব্যবহার হয়?`,
+      [['Making text bold', 'লেখা bold করতে'], ['Linking to another page', 'অন্য পেজে link দিতে'], ['As a container that groups other elements', 'অন্য element-গুলোকে একসাথে রাখার container হিসেবে'], ['Playing audio', 'audio চালাতে']], 2,
+      `${c('<div>')} has no meaning of its own; it groups content so CSS can style it as a block.`,
+      `${c('<div>')}-এর নিজস্ব কোনো অর্থ নেই; এটা কনটেন্টকে একসাথে রাখে যাতে CSS দিয়ে block হিসেবে style করা যায়।`),
+  ],
+
+  links: [
+    q('Which attribute makes a link open in a new tab?', 'কোন attribute দিলে link নতুন tab-এ খোলে?',
+      [c('href="_blank"'), c('new="tab"'), c('open="new"'), c('target="_blank"')], 3,
+      `${c('target')} says where to open the link; ${c('_blank')} means a new window or tab.`,
+      `${c('target')} বলে দেয় link কোথায় খুলবে; ${c('_blank')} মানে নতুন window বা tab।`),
+    q(`What kind of link is ${c('<a href="about.html">About</a>')}?`, `${c('<a href="about.html">About</a>')} কোন ধরনের link?`,
+      [['A local (relative) link to a page on the same site', 'একই সাইটের একটি পেজে local (relative) link'], ['An absolute link to another website', 'অন্য ওয়েবসাইটে absolute link'], ['An email link', 'একটি email link'], ['A broken link', 'একটি ভাঙা link']], 0,
+      'There is no https://… part, so it is relative to the current site.',
+      'এতে https://… অংশ নেই, তাই এটা বর্তমান সাইটের সাপেক্ষে (relative)।'),
+    q('By default, how does an unvisited link look?', 'ডিফল্টভাবে, আগে খোলা হয়নি এমন link দেখতে কেমন?',
+      [['Purple and underlined', 'বেগুনি আর underline করা'], ['Blue and underlined', 'নীল আর underline করা'], ['Red and bold', 'লাল আর bold'], ['Black, no underline', 'কালো, underline ছাড়া']], 1,
+      'Unvisited links are blue, visited ones purple, active ones red — all underlined.',
+      'না-খোলা link নীল, খোলা link বেগুনি, active link লাল — সবগুলো underline করা।'),
+    q('A link can be an image instead of text.', 'Link লেখার বদলে একটি ছবিও হতে পারে।',
+      TF, 0,
+      `Put an ${c('<img>')} inside the ${c('<a>')} and the image becomes clickable.`,
+      `${c('<a>')}-এর ভিতরে ${c('<img>')} রাখলে ছবিটি ক্লিকযোগ্য হয়ে যায়।`),
+  ],
+
+  images: [
+    q(`Does ${c('<img>')} have a closing tag?`, `${c('<img>')}-এর কি closing tag আছে?`,
+      [['Yes, </img>'.replace(/</g, '&lt;').replace(/>/g, '&gt;'), 'হ্যাঁ, &lt;/img&gt;'], ['No — it is an empty element with attributes only', 'না — এটা শুধু attribute সহ একটি empty element'], ['Only when it has alt text', 'শুধু alt text থাকলে'], ['Only in HTML5', 'শুধু HTML5-এ']], 1,
+      `${c('<img>')} has no content, so it has no closing tag.`,
+      `${c('<img>')}-এর কোনো কনটেন্ট নেই, তাই closing tag-ও নেই।`),
+    q('When is the alt text displayed?', 'Alt text কখন দেখানো হয়?',
+      [['Always, under the image', 'সবসময়, ছবির নিচে'], ['When the mouse is over the image', 'ছবির উপর mouse রাখলে'], ['Only when printing', 'শুধু প্রিন্ট করার সময়'], ['When the image can\'t be loaded', 'ছবি লোড না হলে']], 3,
+      'Alt text shows if the image fails (slow connection, wrong src), and screen readers read it aloud.',
+      'ছবি লোড না হলে (ধীর সংযোগ, ভুল src) alt text দেখায়, আর screen reader সেটা পড়ে শোনায়।'),
+    q('Which attribute gives the address of the image file?', 'কোন attribute ছবির ফাইলের ঠিকানা দেয়?',
+      [c('src'), c('href'), c('alt'), c('link')], 0,
+      `${c('src')} = source. ${c('href')} is for links.`,
+      `${c('src')} = source। ${c('href')} link-এর জন্য।`),
+    q('Which is the best alt text for a photo of flowers in Chania?', 'Chania-র ফুলের একটি ছবির জন্য সবচেয়ে ভালো alt text কোনটি?',
+      [c('alt="image"'), c('alt="img_chania.jpg"'), c('alt="Flowers in Chania"'), c('alt="click here"')], 2,
+      'Good alt text describes what the image shows, not the file name.',
+      'ভালো alt text ছবিতে কী আছে তা বর্ণনা করে, ফাইলের নাম নয়।'),
+  ],
+
+  lists: [
+    q('Which tag starts a bulleted (unordered) list?', 'কোন tag দিয়ে bullet দেওয়া (unordered) list শুরু হয়?',
+      [c('<ol>'), c('<li>'), c('<dl>'), c('<ul>')], 3,
+      `${c('<ul>')} = unordered list (bullets). ${c('<ol>')} = ordered list (numbers).`,
+      `${c('<ul>')} = unordered list (bullet)। ${c('<ol>')} = ordered list (সংখ্যা)।`),
+    q('Which tag is used for each item, in both kinds of list?', 'দুই ধরনের list-এই প্রতিটি item-এর জন্য কোন tag ব্যবহার হয়?',
+      [c('<li>'), c('<item>'), c('<ul>'), c('<p>')], 0,
+      `${c('<li>')} = list item, used inside both ${c('<ul>')} and ${c('<ol>')}.`,
+      `${c('<li>')} = list item, ${c('<ul>')} আর ${c('<ol>')} দুটোর ভিতরেই ব্যবহার হয়।`),
+    q(`How are the items of ${c('<ol type="A">')} numbered?`, `${c('<ol type="A">')}-এর item-গুলো কীভাবে নম্বর পায়?`,
+      ['1, 2, 3', 'A, B, C', 'a, b, c', 'i, ii, iii'], 1,
+      `The type attribute picks the marker: ${c('"1"')} numbers, ${c('"A"')} uppercase letters, ${c('"a"')} lowercase, ${c('"i"')} roman numerals.`,
+      `Type attribute marker ঠিক করে: ${c('"1"')} সংখ্যা, ${c('"A"')} বড় হাতের অক্ষর, ${c('"a"')} ছোট হাতের অক্ষর, ${c('"i"')} রোমান সংখ্যা।`),
+    q('Which CSS property changes the bullet style of a list?', 'কোন CSS property দিয়ে list-এর bullet-এর ধরন বদলানো যায়?',
+      [c('bullet-type'), c('list-marker'), c('list-style-type'), c('item-style')], 2,
+      `For example ${c('list-style-type: square;')}.`,
+      `যেমন ${c('list-style-type: square;')}।`),
+  ],
+
+  tables: [
+    q('Which tag defines a table row?', 'কোন tag table-এর একটি row তৈরি করে?',
+      [c('<td>'), c('<tr>'), c('<th>'), c('<row>')], 1,
+      `${c('<tr>')} = table row. Inside it go ${c('<th>')} (header cells) or ${c('<td>')} (data cells).`,
+      `${c('<tr>')} = table row। এর ভিতরে থাকে ${c('<th>')} (header cell) বা ${c('<td>')} (data cell)।`),
+    q(`How does a ${c('<th>')} cell look by default?`, `ডিফল্টভাবে ${c('<th>')} cell দেখতে কেমন?`,
+      [['Bold and centered', 'Bold আর মাঝখানে'], ['Italic and left-aligned', 'Italic আর বাঁ দিকে'], ['Red', 'লাল'], ['Exactly like a normal cell', 'সাধারণ cell-এর মতোই']], 0,
+      `Table headings are bold and centered unless CSS changes them (e.g. ${c('text-align: left')}).`,
+      `CSS দিয়ে না বদলালে (যেমন ${c('text-align: left')}) table heading bold আর মাঝখানে থাকে।`),
+    q('How do you make one cell stretch across two columns?', 'একটি cell-কে দুই column জুড়ে কীভাবে ছড়াবেন?',
+      [c('rowspan="2"'), c('span="2"'), c('merge="2"'), c('colspan="2"')], 3,
+      `${c('colspan')} spans columns; ${c('rowspan')} spans rows.`,
+      `${c('colspan')} column জুড়ে ছড়ায়; ${c('rowspan')} row জুড়ে।`),
+    q('An HTML table without any CSS shows borders around every cell.', 'কোনো CSS ছাড়া HTML table-এর প্রতিটি cell-এর চারপাশে border দেখায়।',
+      TF, 1,
+      `A table has no borders unless you add them with the CSS ${c('border')} property.`,
+      `CSS-এর ${c('border')} property দিয়ে না দিলে table-এ কোনো border থাকে না।`),
+  ],
+
+  forms: [
+    q('Which element wraps the inputs of a form?', 'কোন element একটি form-এর input-গুলোকে ঘিরে রাখে?',
+      [c('<input>'), c('<fieldset>'), c('<form>'), c('<label>')], 2,
+      `${c('<form>')} contains the form elements and decides where the data is sent.`,
+      `${c('<form>')}-এ form element-গুলো থাকে আর এটা ঠিক করে data কোথায় পাঠানো হবে।`),
+    q('What do radio buttons with the same name let the user do?', 'একই name-এর radio button দিয়ে ব্যবহারকারী কী করতে পারে?',
+      [['Pick only one option from the group', 'গ্রুপ থেকে শুধু একটি option বাছতে'], ['Pick as many options as they like', 'যতগুলো খুশি option বাছতে'], ['Type a paragraph', 'একটি paragraph লিখতে'], ['Upload a file', 'একটি ফাইল আপলোড করতে']], 0,
+      'Radio buttons sharing a name form one group where only one can be selected.',
+      'একই name-এর radio button-গুলো একটি গ্রুপ, যেখানে মাত্র একটি বাছা যায়।'),
+    q('Which input sends the form?', 'কোন input form পাঠায় (submit করে)?',
+      [c('<input type="send">'), c('<input type="button">'), c('<input type="text">'), c('<input type="submit">')], 3,
+      'type="submit" sends the form data to the form handler.',
+      'type="submit" form-এর data form handler-এর কাছে পাঠায়।'),
+    q('Which attribute of the form says where the data is sent?', 'Form-এর কোন attribute বলে data কোথায় পাঠানো হবে?',
+      [c('href'), c('action'), c('target'), c('src')], 1,
+      `For example ${c('<form action="/save">')}. The form handler is usually a server page.`,
+      `যেমন ${c('<form action="/save">')}। Form handler সাধারণত সার্ভারের একটি পেজ।`),
+  ],
+
+  'form-elements': [
+    q('Which element creates a drop-down list?', 'কোন element দিয়ে drop-down list তৈরি হয়?',
+      [c('<list>'), c('<select>'), c('<dropdown>'), c('<input type="list">')], 1,
+      `${c('<select>')} holds ${c('<option>')} elements, one per choice.`,
+      `${c('<select>')}-এর ভিতরে প্রতিটি choice-এর জন্য একটি করে ${c('<option>')} থাকে।`),
+    q('How do you make one option chosen when the page loads?', 'পেজ লোড হওয়ার সময় একটি option আগে থেকেই বাছা রাখবেন কীভাবে?',
+      [['Add the selected attribute to it', 'তাতে selected attribute যোগ করে'], ['Put it first in the list', 'list-এ সবার আগে রেখে'], ['Add checked', 'checked যোগ করে'], ['Add default="yes"', 'default="yes" যোগ করে']], 0,
+      `${c('<option value="fiat" selected>')}. Without it, the first option is selected.`,
+      `${c('<option value="fiat" selected>')}। এটা না থাকলে প্রথম option বাছা থাকে।`),
+    q('Which element is a multi-line text box?', 'কোন element একাধিক লাইনের লেখার বাক্স?',
+      [c('<input type="text">'), c('<input type="lines">'), c('<textarea>'), c('<text>')], 2,
+      `${c('<textarea>')} accepts several lines; ${c('<input type="text">')} is one line.`,
+      `${c('<textarea>')}-এ কয়েক লাইন লেখা যায়; ${c('<input type="text">')} এক লাইনের।`),
+    q(`What type does ${c('<input name="city">')} get if no type is given?`, `Type না দিলে ${c('<input name="city">')} কোন type পায়?`,
+      [c('number'), c('hidden'), c('button'), c('text')], 3,
+      'The default input type is "text".',
+      'ডিফল্ট input type হলো "text"।'),
+  ],
+
+  'form-input-types': [
+    q('Which input type hides what the user types?', 'কোন input type ব্যবহারকারী যা লেখে তা লুকিয়ে রাখে?',
+      [c('type="hidden"'), c('type="secret"'), c('type="password"'), c('type="text"')], 2,
+      'Password fields mask the characters as dots or asterisks.',
+      'Password field অক্ষরগুলোকে dot বা asterisk দিয়ে ঢেকে রাখে।'),
+    q('Which input type lets the user pick a colour?', 'কোন input type দিয়ে ব্যবহারকারী একটি রং বাছতে পারে?',
+      [c('type="color"'), c('type="paint"'), c('type="range"'), c('type="palette"')], 0,
+      'The browser shows a colour picker for type="color".',
+      'type="color"-এর জন্য ব্রাউজার একটি colour picker দেখায়।'),
+    q('You want users to tick several interests at once. Which type fits?', 'আপনি চান ব্যবহারকারী একসাথে কয়েকটি আগ্রহ টিক দিক। কোন type উপযুক্ত?',
+      [c('type="radio"'), c('type="checkbox"'), c('type="submit"'), c('type="range"')], 1,
+      'Checkboxes allow zero, one or many; radio buttons allow only one.',
+      'Checkbox-এ শূন্য, এক বা অনেকগুলো বাছা যায়; radio button-এ শুধু একটি।'),
+    q(`What does a browser do with ${c('<input type="email">')}?`, `${c('<input type="email">')} নিয়ে ব্রাউজার কী করে?`,
+      [['Sends an email automatically', 'স্বয়ংক্রিয়ভাবে একটি email পাঠায়'], ['Hides the address', 'ঠিকানা লুকিয়ে রাখে'], ['Nothing different from text', 'text-এর থেকে আলাদা কিছুই না'], ['Checks the value looks like an email address when the form is sent', 'Form পাঠানোর সময় value-টা email ঠিকানার মতো কিনা যাচাই করে']], 3,
+      'Many browsers also show an @ key on phone keyboards for this type.',
+      'অনেক ব্রাউজার এই type-এর জন্য ফোনের keyboard-এ @ key-ও দেখায়।'),
+  ],
+
+  'form-attributes': [
+    q('What is the difference between readonly and disabled inputs?', 'readonly আর disabled input-এর পার্থক্য কী?',
+      [['There is none', 'কোনো পার্থক্য নেই'], ['A disabled field\'s value is not sent with the form', 'Disabled field-এর value form-এর সাথে পাঠানো হয় না'], ['A readonly field can be edited', 'Readonly field এডিট করা যায়'], ['Disabled fields are invisible', 'Disabled field অদৃশ্য থাকে']], 1,
+      'Both block editing, but only a readonly field is still submitted.',
+      'দুটোতেই এডিট করা যায় না, কিন্তু শুধু readonly field-ই submit হয়।'),
+    q(`What does ${c('maxlength="10"')} do?`, `${c('maxlength="10"')} কী করে?`,
+      [['Allows at most 10 characters', 'সর্বোচ্চ 10টি অক্ষর লিখতে দেয়'], ['Makes the box 10 characters wide', 'বাক্সটিকে 10 অক্ষর চওড়া করে'], ['Requires at least 10 characters', 'অন্তত 10টি অক্ষর বাধ্যতামূলক করে'], ['Allows 10 submissions', '10 বার submit করতে দেয়']], 0,
+      `Width is set with ${c('size')}; ${c('maxlength')} limits how much can be typed.`,
+      `প্রস্থ ঠিক হয় ${c('size')} দিয়ে; ${c('maxlength')} কতটা লেখা যাবে তা সীমিত করে।`),
+    q('Which attribute sets the starting text inside an input?', 'কোন attribute দিয়ে input-এর ভিতরে শুরুর লেখা ঠিক করা হয়?',
+      [c('start'), c('default'), c('text'), c('value')], 3,
+      `${c('<input type="text" value="John">')} starts with "John" filled in.`,
+      `${c('<input type="text" value="John">')}-এ শুরুতেই "John" লেখা থাকে।`),
+    q('maxlength alone is enough to keep bad data out of your server.', 'শুধু maxlength দিয়েই সার্ভারে ভুল data আসা আটকানো যায়।',
+      TF, 1,
+      'Browser limits can be bypassed. The server must check the data again.',
+      'ব্রাউজারের সীমা এড়ানো যায়। সার্ভারকে আবার data যাচাই করতে হবে।'),
+  ],
+
+  iframes: [
+    q('What is an iframe used for?', 'Iframe কীসের জন্য ব্যবহার হয়?',
+      [['Showing a web page inside another web page', 'একটি ওয়েব পেজের ভিতরে আরেকটি ওয়েব পেজ দেখাতে'], ['Drawing a frame around an image', 'ছবির চারপাশে ফ্রেম আঁকতে'], ['Making a page load faster', 'পেজ দ্রুত লোড করতে'], ['Splitting text into columns', 'লেখাকে column-এ ভাগ করতে']], 0,
+      `${c('<iframe src="URL">')} embeds another page, e.g. a map or a video.`,
+      `${c('<iframe src="URL">')} অন্য একটি পেজ বসায়, যেমন ম্যাপ বা ভিডিও।`),
+    q('How do you remove the default border of an iframe?', 'Iframe-এর ডিফল্ট border কীভাবে সরাবেন?',
+      [c('border="0px"'), c('noborder'), c('style="border:none;"'), c('frame="off"')], 2,
+      'The border is styled with the CSS border property.',
+      'Border-এর style ঠিক হয় CSS border property দিয়ে।'),
+    q('How do you make a link open inside a particular iframe?', 'একটি link-কে নির্দিষ্ট iframe-এর ভিতরে কীভাবে খোলাবেন?',
+      [['Put the link inside the iframe', 'link-টা iframe-এর ভিতরে রেখে'], ['Use href="iframe"', 'href="iframe" ব্যবহার করে'], ['It is not possible', 'এটা সম্ভব নয়'], ['Set the link\'s target to the iframe\'s name', 'Link-এর target-এ iframe-এর name দিয়ে']], 3,
+      `${c('<iframe name="iframe_a">')} + ${c('<a target="iframe_a">')}.`,
+      `${c('<iframe name="iframe_a">')} + ${c('<a target="iframe_a">')}।`),
+    q(`In ${c('<iframe width="300">')}, what unit is 300?`, `${c('<iframe width="300">')}-এ 300 কোন একক?`,
+      [['Percent', 'শতাংশ'], ['Pixels', 'পিক্সেল'], ['Centimetres', 'সেন্টিমিটার'], ['Characters', 'অক্ষর']], 1,
+      'Width and height are in pixels by default; percentages need a % sign.',
+      'Width আর height ডিফল্টভাবে পিক্সেলে; শতাংশের জন্য % চিহ্ন লাগে।'),
+  ],
+
+  filepaths: [
+    q(`Where is the file in ${c('src="images/pic.jpg"')}?`, `${c('src="images/pic.jpg"')}-এ ফাইলটি কোথায়?`,
+      [['In the images folder inside the current folder', 'বর্তমান ফোল্ডারের ভিতরের images ফোল্ডারে'], ['In the images folder at the root of the site', 'সাইটের root-এর images ফোল্ডারে'], ['In the folder one level up', 'এক ধাপ উপরের ফোল্ডারে'], ['On another website', 'অন্য একটি ওয়েবসাইটে']], 0,
+      'No leading slash and no ../ means "start from the current folder".',
+      'শুরুতে slash বা ../ না থাকলে মানে "বর্তমান ফোল্ডার থেকে শুরু"।'),
+    q(`What does ${c('../')} mean in ${c('src="../images/pic.jpg"')}?`, `${c('src="../images/pic.jpg"')}-এ ${c('../')} মানে কী?`,
+      [['The root of the site', 'সাইটের root'], ['The current folder', 'বর্তমান ফোল্ডার'], ['Go up one folder level', 'এক ধাপ উপরের ফোল্ডারে যাও'], ['Any folder', 'যেকোনো ফোল্ডার']], 2,
+      '../ steps up one level from the current folder.',
+      '../ বর্তমান ফোল্ডার থেকে এক ধাপ উপরে নিয়ে যায়।'),
+    q(`Where does ${c('src="/images/pic.jpg"')} look for the file?`, `${c('src="/images/pic.jpg"')} ফাইলটি কোথায় খোঁজে?`,
+      [['In the current folder', 'বর্তমান ফোল্ডারে'], ['One level up', 'এক ধাপ উপরে'], ['On the user\'s computer', 'ব্যবহারকারীর কম্পিউটারে'], ['In the images folder at the root of the site', 'সাইটের root-এর images ফোল্ডারে']], 3,
+      'A leading slash starts from the root of the current website.',
+      'শুরুতে slash থাকলে বর্তমান ওয়েবসাইটের root থেকে শুরু হয়।'),
+    q('Why are relative file paths usually the better choice?', 'Relative file path সাধারণত কেন ভালো?',
+      [['They load faster', 'এগুলো দ্রুত লোড হয়'], ['The site still works on localhost and on any future domain', 'সাইটটি localhost-এ আর ভবিষ্যতের যেকোনো domain-এ কাজ করে'], ['Search engines require them', 'সার্চ ইঞ্জিনের এগুলো দরকার'], ['They hide the files', 'এগুলো ফাইল লুকিয়ে রাখে']], 1,
+      'Relative paths are not tied to one base URL, so moving the site does not break links.',
+      'Relative path কোনো একটি base URL-এ বাঁধা থাকে না, তাই সাইট সরালেও link ভাঙে না।'),
+  ],
+
+  responsive: [
+    q('Which tag should every responsive page include in its head?', 'প্রতিটি responsive পেজের head-এ কোন tag থাকা উচিত?',
+      [c('<meta name="viewport" content="width=device-width, initial-scale=1.0">'), c('<meta name="mobile" content="yes">'), c('<link rel="responsive">'), c('<meta charset="mobile">')], 0,
+      'The viewport tag tells the browser to use the device width instead of a zoomed-out desktop width.',
+      'Viewport tag ব্রাউজারকে zoom-out করা desktop প্রস্থের বদলে ডিভাইসের প্রস্থ ব্যবহার করতে বলে।'),
+    q(`An image has ${c('max-width:100%')}. What happens on a very wide screen?`, `একটি ছবিতে ${c('max-width:100%')} আছে। খুব চওড়া স্ক্রিনে কী হবে?`,
+      [['It stretches larger than its real size', 'আসল আকারের চেয়ে বড় হয়ে যায়'], ['It disappears', 'হারিয়ে যায়'], ['It never grows beyond its original size', 'আসল আকারের চেয়ে কখনো বড় হয় না'], ['It becomes 100 pixels wide', '100 পিক্সেল চওড়া হয়']], 2,
+      `${c('max-width')} lets it shrink to fit but not grow; ${c('width:100%')} would also stretch it.`,
+      `${c('max-width')} থাকলে ছবি ছোট হতে পারে কিন্তু বড় হয় না; ${c('width:100%')} হলে বড়ও হতো।`),
+    q('Which element can show a different image depending on screen width?', 'স্ক্রিনের প্রস্থ অনুযায়ী আলাদা ছবি কোন element দেখাতে পারে?',
+      [c('<img-set>'), c('<figure>'), c('<media>'), c('<picture>')], 3,
+      `${c('<picture>')} holds several ${c('<source>')} options and picks one per screen size.`,
+      `${c('<picture>')}-এ কয়েকটি ${c('<source>')} থাকে, আর স্ক্রিনের আকার অনুযায়ী একটি বেছে নেয়।`),
+    q('What is the goal of responsive web design?', 'Responsive web design-এর লক্ষ্য কী?',
+      [['A page that looks good on phones, tablets and desktops', 'ফোন, ট্যাবলেট আর ডেস্কটপ সবখানে ভালো দেখায় এমন পেজ'], ['A separate site for every device', 'প্রতিটি ডিভাইসের জন্য আলাদা সাইট'], ['Pages that only work on phones', 'শুধু ফোনে কাজ করে এমন পেজ'], ['Faster typing', 'দ্রুত টাইপ করা']], 0,
+      'One page that resizes and rearranges itself to fit any screen.',
+      'একটি পেজই যেকোনো স্ক্রিনে মানাতে নিজের আকার আর সাজানো বদলায়।'),
+  ],
+
+  'html5-intro': [
+    q('Which is the HTML5 doctype?', 'HTML5-এর doctype কোনটি?',
+      [c('<!DOCTYPE HTML5>'), c('<!DOCTYPE html>'), c('<html5>'), c('<!HTML version="5">')], 1,
+      'HTML5 simplified the doctype to just <!DOCTYPE html>.'.replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+      'HTML5-এ doctype সহজ হয়ে শুধু &lt;!DOCTYPE html&gt; হয়েছে।'),
+    q('What is the default character encoding in HTML5?', 'HTML5-এ ডিফল্ট character encoding কী?',
+      ['ASCII', 'UTF-8', 'ISO-8859-1', 'UTF-16'], 1,
+      `Declared with ${c('<meta charset="UTF-8">')}.`,
+      `${c('<meta charset="UTF-8">')} দিয়ে ঘোষণা করা হয়।`),
+    q('Which two graphics elements did HTML5 add?', 'HTML5 কোন দুটি graphics element যোগ করেছে?',
+      [`${c('<img>')} and ${c('<map>')}`, `${c('<svg>')} and ${c('<canvas>')}`, `${c('<draw>')} and ${c('<paint>')}`, `${c('<figure>')} and ${c('<picture>')}`], 1,
+      `${c('<svg>')} draws vector shapes; ${c('<canvas>')} is a surface JavaScript draws on.`,
+      `${c('<svg>')} vector আকার আঁকে; ${c('<canvas>')} হলো এমন জায়গা যেখানে JavaScript দিয়ে আঁকা হয়।`),
+    q('Before HTML5, how did most pages play video or audio?', 'HTML5-এর আগে বেশিরভাগ পেজ ভিডিও বা অডিও কীভাবে চালাত?',
+      [['With the <audio> and <video> tags'.replace(/</g, '&lt;').replace(/>/g, '&gt;'), '&lt;audio&gt; আর &lt;video&gt; tag দিয়ে'], ['They could not play media at all', 'একেবারেই চালাতে পারত না'], ['With CSS', 'CSS দিয়ে'], ['With a plug-in such as Flash', 'Flash-এর মতো একটি plug-in দিয়ে']], 3,
+      `${c('<audio>')} and ${c('<video>')} are HTML5 additions that removed the need for plug-ins.`,
+      `${c('<audio>')} আর ${c('<video>')} HTML5-এ যোগ হয়েছে, ফলে plug-in-এর দরকার নেই।`),
+  ],
+
+  'html5-new-elements': [
+    q('Which of these is a semantic element added in HTML5?', 'এগুলোর মধ্যে কোনটি HTML5-এ যোগ হওয়া semantic element?',
+      [c('<div>'), c('<span>'), c('<article>'), c('<font>')], 2,
+      `${c('<article>')}, ${c('<section>')}, ${c('<nav>')}, ${c('<header>')} and ${c('<footer>')} arrived with HTML5.`,
+      `${c('<article>')}, ${c('<section>')}, ${c('<nav>')}, ${c('<header>')} আর ${c('<footer>')} HTML5-এ এসেছে।`),
+    q('Which HTML5 element is a drawing surface for JavaScript?', 'কোন HTML5 element JavaScript-এর জন্য আঁকার জায়গা?',
+      [c('<canvas>'), c('<draw>'), c('<svg-area>'), c('<board>')], 0,
+      `Scripts draw shapes, charts and games onto a ${c('<canvas>')}.`,
+      `Script দিয়ে ${c('<canvas>')}-এ আকার, chart আর game আঁকা হয়।`),
+    q('Which of these was NOT new in HTML5?', 'এগুলোর মধ্যে কোনটি HTML5-এ নতুন ছিল না?',
+      [c('<nav>'), c('<main>'), c('<section>'), c('<table>')], 3,
+      `${c('<table>')} has been part of HTML since the 1990s.`,
+      `${c('<table>')} ১৯৯০-এর দশক থেকেই HTML-এ আছে।`),
+    q('Why were the new structural elements added?', 'নতুন structural element-গুলো কেন যোগ করা হয়েছিল?',
+      [['To replace CSS', 'CSS-এর বদলে ব্যবহারের জন্য'], ['To give pages a clearer, meaningful structure', 'পেজকে আরও স্পষ্ট, অর্থবহ গঠন দিতে'], ['To make pages load faster', 'পেজ দ্রুত লোড করতে'], ['Only for older browsers', 'শুধু পুরনো ব্রাউজারের জন্য']], 1,
+      `Instead of ${c('<div id="nav">')}, a ${c('<nav>')} says what the part of the page is.`,
+      `${c('<div id="nav">')}-এর বদলে ${c('<nav>')} বলে দেয় পেজের অংশটি কী।`),
+  ],
+
+  'semantic-elements': [
+    q('Which of these is a non-semantic element?', 'এগুলোর মধ্যে কোনটি non-semantic element?',
+      [c('<div>'), c('<article>'), c('<table>'), c('<form>')], 0,
+      `${c('<div>')} and ${c('<span>')} say nothing about their content.`,
+      `${c('<div>')} আর ${c('<span>')} তাদের কনটেন্ট সম্পর্কে কিছুই বলে না।`),
+    q('Which element fits a blog post that makes sense on its own?', 'নিজে নিজেই অর্থবহ একটি blog post-এর জন্য কোন element উপযুক্ত?',
+      [c('<section>'), c('<aside>'), c('<article>'), c('<div>')], 2,
+      `${c('<article>')} is for independent, self-contained content.`,
+      `${c('<article>')} স্বাধীন, নিজে সম্পূর্ণ কনটেন্টের জন্য।`),
+    q(`What should replace ${c('<div id="nav">')} in modern HTML?`, `আধুনিক HTML-এ ${c('<div id="nav">')}-এর বদলে কী ব্যবহার করা উচিত?`,
+      [c('<menu-bar>'), c('<links>'), c('<header>'), c('<nav>')], 3,
+      `${c('<nav>')} marks a block of navigation links.`,
+      `${c('<nav>')} navigation link-এর একটি block চিহ্নিত করে।`),
+    q(`What is a ${c('<section>')} typically?`, `${c('<section>')} সাধারণত কী?`,
+      [['A thematic group of content, usually with a heading', 'একটি বিষয়ভিত্তিক কনটেন্টের গ্রুপ, সাধারণত heading সহ'], ['A link to another page', 'অন্য পেজের link'], ['An image with a caption', 'caption সহ একটি ছবি'], ['A form field', 'একটি form field']], 0,
+      'A home page might have sections for introduction, content and contact.',
+      'একটি home page-এ ভূমিকা, কনটেন্ট আর যোগাযোগের জন্য আলাদা section থাকতে পারে।'),
+  ],
+
+  'tag-header': [
+    q(`What does a ${c('<header>')} usually contain?`, `${c('<header>')}-এ সাধারণত কী থাকে?`,
+      [['Copyright information', 'Copyright তথ্য'], ['Introductory content: headings, a logo, navigation', 'পরিচিতিমূলক কনটেন্ট: heading, logo, navigation'], ['Only scripts', 'শুধু script'], ['The page metadata', 'পেজের metadata']], 1,
+      `Not to be confused with ${c('<head>')}, which holds invisible metadata.`,
+      `${c('<head>')}-এর সাথে গুলিয়ে ফেলবেন না, সেখানে অদৃশ্য metadata থাকে।`),
+    q(`How many ${c('<header>')} elements can one page have?`, `একটি পেজে কতগুলো ${c('<header>')} element থাকতে পারে?`,
+      [['Exactly one', 'ঠিক একটি'], ['None — it is for the head only', 'একটিও না — এটা শুধু head-এর জন্য'], ['Several — for example one per article', 'কয়েকটি — যেমন প্রতিটি article-এ একটি'], ['Two at most', 'সর্বোচ্চ দুটি']], 2,
+      'A page header and a header inside each article are both fine.',
+      'পেজের একটি header আর প্রতিটি article-এর ভিতরে একটি header — দুটোই ঠিক।'),
+    q(`A ${c('<header>')} can be placed inside a ${c('<footer>')}.`, `একটি ${c('<header>')}-কে ${c('<footer>')}-এর ভিতরে রাখা যায়।`,
+      TF, 1,
+      `A header cannot go inside a ${c('<footer>')}, an ${c('<address>')} or another ${c('<header>')}.`,
+      `Header-কে ${c('<footer>')}, ${c('<address>')} বা আরেকটি ${c('<header>')}-এর ভিতরে রাখা যায় না।`),
+    q(`How do browsers display ${c('<header>')} by default?`, `ব্রাউজার ডিফল্টভাবে ${c('<header>')} কীভাবে দেখায়?`,
+      [c('display: inline;'), c('display: none;'), c('display: flex;'), c('display: block;')], 3,
+      'Like most structural elements, it is a block.',
+      'বেশিরভাগ structural element-এর মতো এটাও block।'),
+  ],
+
+  'tag-nav': [
+    q(`What is ${c('<nav>')} for?`, `${c('<nav>')} কীসের জন্য?`,
+      [['A major block of navigation links', 'Navigation link-এর একটি প্রধান block'], ['Any single link', 'যেকোনো একটি link'], ['Page metadata', 'পেজের metadata'], ['A list of images', 'ছবির একটি তালিকা']], 0,
+      'Typically the main menu, a table of contents, or pagination.',
+      'সাধারণত প্রধান menu, সূচিপত্র বা pagination।'),
+    q(`Should every link on a page be inside ${c('<nav>')}?`, `পেজের প্রতিটি link কি ${c('<nav>')}-এর ভিতরে থাকা উচিত?`,
+      [['Yes, always', 'হ্যাঁ, সবসময়'], ['Only links to other sites', 'শুধু অন্য সাইটের link'], ['No — only major navigation blocks', 'না — শুধু প্রধান navigation block'], ['Only links with images', 'শুধু ছবি সহ link']], 2,
+      'A link inside a paragraph of text is not navigation.',
+      'লেখার paragraph-এর ভিতরের link navigation নয়।'),
+    q(`Who benefits most from using ${c('<nav>')}?`, `${c('<nav>')} ব্যবহার করে সবচেয়ে বেশি উপকার পায় কে?`,
+      [['Nobody — it only changes the colour', 'কেউ না — এটা শুধু রং বদলায়'], ['The server', 'সার্ভার'], ['Only the developer', 'শুধু developer'], ['Screen reader users, who can jump to or skip the menu', 'Screen reader ব্যবহারকারীরা, যারা menu-তে যেতে বা এড়িয়ে যেতে পারে']], 3,
+      'Assistive technology uses it as a landmark.',
+      'Assistive technology এটাকে landmark হিসেবে ব্যবহার করে।'),
+    q(`Which is the best fit for ${c('<nav>')}?`, `কোনটি ${c('<nav>')}-এর জন্য সবচেয়ে উপযুক্ত?`,
+      [['The copyright line', 'Copyright লাইন'], ['The site\'s main menu', 'সাইটের প্রধান menu'], ['An image caption', 'ছবির caption'], ['A quoted sentence', 'একটি উদ্ধৃত বাক্য']], 1,
+      'The main menu is the classic navigation block.',
+      'প্রধান menu-ই সবচেয়ে সাধারণ navigation block।'),
+  ],
+
+  'tag-main': [
+    q(`How many visible ${c('<main>')} elements may a page have?`, `একটি পেজে কতগুলো দৃশ্যমান ${c('<main>')} element থাকতে পারে?`,
+      [['One', 'একটি'], ['One per section', 'প্রতি section-এ একটি'], ['As many as needed', 'যতগুলো দরকার'], ['None — it is deprecated', 'একটিও না — এটা বাতিল']], 0,
+      `${c('<main>')} marks the one main content area of the page.`,
+      `${c('<main>')} পেজের একমাত্র প্রধান কনটেন্টের জায়গা চিহ্নিত করে।`),
+    q(`Which of these belongs inside ${c('<main>')}?`, `এগুলোর মধ্যে কোনটি ${c('<main>')}-এর ভিতরে থাকা উচিত?`,
+      [['The site logo', 'সাইটের logo'], ['The navigation menu repeated on every page', 'প্রতিটি পেজে থাকা navigation menu'], ['The article that is unique to this page', 'এই পেজের নিজস্ব article'], ['The copyright notice', 'Copyright notice']], 2,
+      'Content repeated across pages (logo, menus, footer) stays outside main.',
+      'সব পেজে থাকা কনটেন্ট (logo, menu, footer) main-এর বাইরে থাকে।'),
+    q(`${c('<main>')} can be placed inside an ${c('<article>')}.`, `${c('<main>')}-কে একটি ${c('<article>')}-এর ভিতরে রাখা যায়।`,
+      TF, 1,
+      `${c('<main>')} must not be inside ${c('<article>')}, ${c('<aside>')}, ${c('<footer>')}, ${c('<header>')} or ${c('<nav>')}.`,
+      `${c('<main>')}-কে ${c('<article>')}, ${c('<aside>')}, ${c('<footer>')}, ${c('<header>')} বা ${c('<nav>')}-এর ভিতরে রাখা যায় না।`),
+    q(`What does ${c('<main>')} describe?`, `${c('<main>')} কী বোঝায়?`,
+      [['The page header', 'পেজের header'], ['The main programming function', 'প্রধান programming function'], ['The most important heading', 'সবচেয়ে গুরুত্বপূর্ণ heading'], ['The main content of the page', 'পেজের প্রধান কনটেন্ট']], 3,
+      'It helps screen readers jump straight to the content.',
+      'এটা screen reader-কে সরাসরি কনটেন্টে যেতে সাহায্য করে।'),
+  ],
+
+  'tag-article': [
+    q(`Which is the best fit for ${c('<article>')}?`, `কোনটি ${c('<article>')}-এর জন্য সবচেয়ে উপযুক্ত?`,
+      [['A news story', 'একটি সংবাদ'], ['The site logo', 'সাইটের logo'], ['The navigation menu', 'Navigation menu'], ['A single word that needs highlighting', 'হাইলাইট দরকার এমন একটি শব্দ']], 0,
+      'News stories, blog posts, forum posts and comments all make sense on their own.',
+      'সংবাদ, blog post, forum post আর comment — সবই নিজে নিজে অর্থবহ।'),
+    q('What is the test for whether something should be an article?', 'কোনো কিছু article হওয়া উচিত কিনা, তার পরীক্ষা কী?',
+      [['It contains an image', 'এতে একটি ছবি আছে'], ['It is longer than 100 words', 'এটা 100 শব্দের বেশি'], ['It makes sense on its own, even shared elsewhere', 'অন্য কোথাও শেয়ার করলেও এটা নিজে নিজেই অর্থবহ'], ['It has a heading', 'এতে heading আছে']], 2,
+      'If it could be published independently from the rest of the site, it is an article.',
+      'সাইটের বাকি অংশ ছাড়াই যদি প্রকাশ করা যায়, তাহলে এটা article।'),
+    q(`Can one page contain several ${c('<article>')} elements?`, `একটি পেজে কি কয়েকটি ${c('<article>')} element থাকতে পারে?`,
+      [['No, only one', 'না, শুধু একটি'], ['Yes, e.g. a list of blog posts', 'হ্যাঁ, যেমন blog post-এর একটি তালিকা'], ['Only inside a table', 'শুধু table-এর ভিতরে'], ['Only in HTML4', 'শুধু HTML4-এ']], 1,
+      'A blog home page often has one article per post.',
+      'একটি blog-এর home page-এ প্রায়ই প্রতিটি post-এর জন্য একটি article থাকে।'),
+    q(`A reader comment under a post could be marked up as an ${c('<article>')}.`, `একটি post-এর নিচে পাঠকের comment-কে ${c('<article>')} দিয়ে চিহ্নিত করা যায়।`,
+      TF, 0,
+      'A comment is self-contained content, which is exactly what article is for.',
+      'Comment নিজে সম্পূর্ণ কনটেন্ট, article ঠিক এর জন্যই।'),
+  ],
+
+  'tag-section': [
+    q(`What does ${c('<section>')} define?`, `${c('<section>')} কী নির্ধারণ করে?`,
+      [['A single link', 'একটি link'], ['An image caption', 'ছবির caption'], ['Inline highlighted text', 'Inline হাইলাইট করা লেখা'], ['A section of a document, like a chapter', 'ডকুমেন্টের একটি অংশ, যেমন একটি অধ্যায়']], 3,
+      'Sections group related content inside a page.',
+      'Section পেজের ভিতরে সম্পর্কিত কনটেন্টকে একসাথে রাখে।'),
+    q('A section usually starts with…', 'একটি section সাধারণত শুরু হয়…',
+      [['a heading', 'একটি heading দিয়ে'], ['an image', 'একটি ছবি দিয়ে'], ['a script', 'একটি script দিয়ে'], ['a footer', 'একটি footer দিয়ে']], 0,
+      'A section is a thematic grouping, typically with a heading that names the theme.',
+      'Section হলো বিষয়ভিত্তিক গ্রুপ, সাধারণত একটি heading বিষয়টির নাম বলে।'),
+    q(`What is the difference between ${c('<article>')} and ${c('<section>')}?`, `${c('<article>')} আর ${c('<section>')}-এর পার্থক্য কী?`,
+      [['There is none', 'কোনো পার্থক্য নেই'], ['A section can only hold text', 'Section-এ শুধু লেখা রাখা যায়'], ['An article stands on its own; a section groups related parts of something bigger', 'Article নিজে সম্পূর্ণ; section বড় কিছুর সম্পর্কিত অংশগুলোকে একসাথে রাখে'], ['An article must be inside a section', 'Article-কে অবশ্যই section-এর ভিতরে থাকতে হবে']], 2,
+      'A chapter (section) of a book vs. a whole blog post (article).',
+      'বইয়ের একটি অধ্যায় (section) বনাম একটি সম্পূর্ণ blog post (article)।'),
+    q(`How do browsers display ${c('<section>')} by default?`, `ব্রাউজার ডিফল্টভাবে ${c('<section>')} কীভাবে দেখায়?`,
+      [c('display: inline;'), c('display: block;'), c('display: none;'), c('display: table;')], 1,
+      'It is a block, like div, but with meaning.',
+      'এটা div-এর মতো block, কিন্তু অর্থ সহ।'),
+  ],
+
+  'tag-aside': [
+    q(`What kind of content goes in ${c('<aside>')}?`, `${c('<aside>')}-এ কোন ধরনের কনটেন্ট থাকে?`,
+      [['The main story', 'মূল গল্প'], ['Content related to the surrounding content, set apart from it', 'আশেপাশের কনটেন্টের সাথে সম্পর্কিত, কিন্তু আলাদা করে রাখা কনটেন্ট'], ['Hidden content', 'লুকানো কনটেন্ট'], ['Only advertisements', 'শুধু বিজ্ঞাপন']], 1,
+      'Aside content is related but not part of the main flow.',
+      'Aside-এর কনটেন্ট সম্পর্কিত, কিন্তু মূল প্রবাহের অংশ নয়।'),
+    q(`Where is ${c('<aside>')} content often placed?`, `${c('<aside>')}-এর কনটেন্ট প্রায়ই কোথায় রাখা হয়?`,
+      [['In a sidebar', 'Sidebar-এ'], ['In the page title', 'পেজের title-এ'], ['Inside a link', 'Link-এর ভিতরে'], ['In the head', 'Head-এ']], 0,
+      'A box of extra facts next to an article is a typical aside.',
+      'একটি article-এর পাশে অতিরিক্ত তথ্যের বাক্স সাধারণ aside।'),
+    q(`In which version of HTML was ${c('<aside>')} added?`, `HTML-এর কোন সংস্করণে ${c('<aside>')} যোগ হয়েছে?`,
+      ['HTML 2', 'HTML 3.2', 'HTML 4.01', 'HTML5'], 3,
+      'It is one of the HTML5 semantic elements.',
+      'এটা HTML5-এর semantic element-গুলোর একটি।'),
+    q(`Which is a good use of ${c('<aside>')}?`, `${c('<aside>')}-এর ভালো ব্যবহার কোনটি?`,
+      [['The main text of a recipe', 'রেসিপির মূল লেখা'], ['The form submit button', 'Form-এর submit button'], ['A "Did you know?" box beside an article', 'একটি article-এর পাশে "আপনি কি জানেন?" বাক্স'], ['The page title', 'পেজের title']], 2,
+      'Related, but the article still makes sense without it.',
+      'সম্পর্কিত, কিন্তু এটা ছাড়াও article অর্থবহ থাকে।'),
+  ],
+
+  'tag-footer': [
+    q(`What does a ${c('<footer>')} typically contain?`, `${c('<footer>')}-এ সাধারণত কী থাকে?`,
+      [['The main article', 'মূল article'], ['The site logo and main heading', 'সাইটের logo আর প্রধান heading'], ['Page metadata', 'পেজের metadata'], ['Copyright, contact and author information', 'Copyright, যোগাযোগ আর লেখকের তথ্য']], 3,
+      'Also back-to-top links, related documents and sitemaps.',
+      'এছাড়া back-to-top link, সম্পর্কিত ডকুমেন্ট আর sitemap-ও থাকে।'),
+    q(`A ${c('<footer>')} can only be used once, at the very bottom of the page.`, `${c('<footer>')} শুধু একবারই ব্যবহার করা যায়, পেজের একেবারে নিচে।`,
+      TF, 1,
+      'A page can have several footers, e.g. one inside each article.',
+      'একটি পেজে কয়েকটি footer থাকতে পারে, যেমন প্রতিটি article-এর ভিতরে একটি।'),
+    q('Contact information inside a footer should be wrapped in…', 'Footer-এর ভিতরের যোগাযোগের তথ্য কীসের ভিতরে রাখা উচিত?',
+      [c('<address>'), c('<contact>'), c('<info>'), c('<p class="contact">')], 0,
+      `${c('<address>')} marks contact details for the nearest article or the page.`,
+      `${c('<address>')} নিকটতম article বা পেজের যোগাযোগের তথ্য চিহ্নিত করে।`),
+    q(`A ${c('<footer>')} gives information about…`, `${c('<footer>')} কী সম্পর্কে তথ্য দেয়?`,
+      [['The browser', 'ব্রাউজার'], ['The element it belongs to (page or section)', 'যে element-এর অংশ (পেজ বা section)'], ['The server', 'সার্ভার'], ['The next website', 'পরের ওয়েবসাইট']], 1,
+      'An article\'s footer describes that article; the page footer describes the page.',
+      'Article-এর footer সেই article সম্পর্কে বলে; পেজের footer পেজ সম্পর্কে।'),
+  ],
+
+  'tag-figure': [
+    q(`What is ${c('<figure>')} for?`, `${c('<figure>')} কীসের জন্য?`,
+      [['Self-contained content like photos, diagrams or code listings', 'নিজে সম্পূর্ণ কনটেন্ট, যেমন ছবি, ডায়াগ্রাম বা code listing'], ['Numbers and maths', 'সংখ্যা আর গণিত'], ['Page layout columns', 'পেজ layout-এর column'], ['Form inputs', 'Form input']], 0,
+      'Related to the text, but it could move elsewhere without breaking the flow.',
+      'লেখার সাথে সম্পর্কিত, কিন্তু অন্য জায়গায় সরালেও প্রবাহ ভাঙে না।'),
+    q(`Which element adds a caption to a ${c('<figure>')}?`, `কোন element ${c('<figure>')}-এ caption যোগ করে?`,
+      [c('<caption>'), c('<title>'), c('<figcaption>'), c('<label>')], 2,
+      `${c('<caption>')} is for tables; ${c('<figcaption>')} is for figures.`,
+      `${c('<caption>')} table-এর জন্য; ${c('<figcaption>')} figure-এর জন্য।`),
+    q('Removing a figure from the page should not break the flow of the text.', 'পেজ থেকে একটি figure সরালে লেখার প্রবাহ ভাঙা উচিত নয়।',
+      TF, 0,
+      'That independence is what makes something a figure.',
+      'এই স্বাধীনতাই কোনো কিছুকে figure বানায়।'),
+    q(`Which of these can go inside a ${c('<figure>')}?`, `এগুলোর মধ্যে কোনটি ${c('<figure>')}-এর ভিতরে থাকতে পারে?`,
+      [['Only images', 'শুধু ছবি'], ['Only videos', 'শুধু ভিডিও'], ['Only tables', 'শুধু table'], ['An image, a diagram or a code listing', 'একটি ছবি, ডায়াগ্রাম বা code listing']], 3,
+      'Any self-contained illustration of the text can be a figure.',
+      'লেখার যেকোনো নিজে সম্পূর্ণ উদাহরণ figure হতে পারে।'),
+  ],
+
+  'tag-figcaption': [
+    q(`${c('<figcaption>')} is a caption for which element?`, `${c('<figcaption>')} কোন element-এর caption?`,
+      [c('<img>'), c('<figure>'), c('<table>'), c('<video>')], 1,
+      `It goes inside a ${c('<figure>')}, not directly on an image.`,
+      `এটা ${c('<figure>')}-এর ভিতরে থাকে, সরাসরি ছবির উপর নয়।`),
+    q(`Where must ${c('<figcaption>')} be placed?`, `${c('<figcaption>')} কোথায় রাখতে হবে?`,
+      [['Anywhere on the page', 'পেজের যেকোনো জায়গায়'], ['In the head', 'Head-এ'], ['As the first or last child of the figure', 'Figure-এর প্রথম বা শেষ child হিসেবে'], ['Inside the img tag', 'img tag-এর ভিতরে']], 2,
+      'Caption on top: first child. Caption below: last child.',
+      'উপরে caption: প্রথম child। নিচে caption: শেষ child।'),
+    q('Which markup is correct?', 'কোন markup সঠিক?',
+      [pre('<img src="a.jpg">\n<figcaption>Trulli</figcaption>'), pre('<figcaption>\n  <img src="a.jpg">\n</figcaption>'), pre('<img src="a.jpg" figcaption="Trulli">'), pre('<figure>\n  <img src="a.jpg">\n  <figcaption>Trulli</figcaption>\n</figure>')], 3,
+      'The image and its caption both sit inside the figure.',
+      'ছবি আর তার caption দুটোই figure-এর ভিতরে থাকে।'),
+    q(`${c('<figcaption>')} was added in HTML5.`, `${c('<figcaption>')} HTML5-এ যোগ হয়েছে।`,
+      TF, 0,
+      `Together with ${c('<figure>')}.`,
+      `${c('<figure>')}-এর সাথেই।`),
+  ],
+
+  'tag-mark': [
+    q(`What does ${c('<mark>')} do?`, `${c('<mark>')} কী করে?`,
+      [['Highlights text', 'লেখা হাইলাইট করে'], ['Adds a bookmark', 'Bookmark যোগ করে'], ['Makes text bold', 'লেখা bold করে'], ['Adds a tick mark', 'একটি টিক চিহ্ন যোগ করে']], 0,
+      'It marks text as relevant, like a highlighter pen.',
+      'এটা highlighter কলমের মতো লেখাকে প্রাসঙ্গিক হিসেবে চিহ্নিত করে।'),
+    q(`How does ${c('<mark>')} look by default?`, `ডিফল্টভাবে ${c('<mark>')} দেখতে কেমন?`,
+      [['Red text', 'লাল লেখা'], ['Underlined', 'Underline করা'], ['Black text on a yellow background', 'হলুদ পটভূমিতে কালো লেখা'], ['Bigger text', 'বড় লেখা']], 2,
+      `Browsers use ${c('background-color: yellow; color: black;')}.`,
+      `ব্রাউজার ${c('background-color: yellow; color: black;')} ব্যবহার করে।`),
+    q(`What does this show?${pre('<p>Buy <mark>milk</mark> today.</p>')}`, `এটা কী দেখাবে?${pre('<p>Buy <mark>milk</mark> today.</p>')}`,
+      [['The whole sentence highlighted', 'পুরো বাক্য হাইলাইট করা'], ['Only "milk" highlighted', 'শুধু "milk" হাইলাইট করা'], ['"milk" as a link', '"milk" একটি link হিসেবে'], ['Nothing', 'কিছুই না']], 1,
+      'Only the text inside the mark element is highlighted.',
+      'শুধু mark element-এর ভিতরের লেখা হাইলাইট হয়।'),
+    q(`Which is a good use of ${c('<mark>')}?`, `${c('<mark>')}-এর ভালো ব্যবহার কোনটি?`,
+      [['Making every heading stand out', 'প্রতিটি heading আলাদা করে দেখাতে'], ['Styling links', 'Link-এর style দিতে'], ['Making a page title', 'পেজের title বানাতে'], ['Highlighting the words a user searched for', 'ব্যবহারকারী যে শব্দ খুঁজেছে তা হাইলাইট করতে']], 3,
+      'Search-term highlights are the classic example.',
+      'Search-এর শব্দ হাইলাইট করা এর সবচেয়ে সাধারণ উদাহরণ।'),
+  ],
+
+  'tag-audio': [
+    q('Which attribute shows play, pause and volume buttons?', 'কোন attribute play, pause আর volume button দেখায়?',
+      [c('buttons'), c('player'), c('controls'), c('show')], 2,
+      `${c('<audio controls>')}. Without it, nothing visible appears.`,
+      `${c('<audio controls>')}। এটা না থাকলে কিছুই দেখা যায় না।`),
+    q(`An ${c('<audio>')} has two ${c('<source>')} files. Which one plays?`, `একটি ${c('<audio>')}-এ দুটি ${c('<source>')} ফাইল আছে। কোনটি বাজবে?`,
+      [['Both at the same time', 'দুটোই একসাথে'], ['The first format the browser supports', 'ব্রাউজার যে format প্রথমে সমর্থন করে'], ['The last one', 'শেষেরটি'], ['The larger file', 'বড় ফাইলটি']], 1,
+      'Listing several formats lets every browser find one it can play.',
+      'কয়েকটি format দিলে প্রতিটি ব্রাউজার চালানোর মতো একটি খুঁজে পায়।'),
+    q(`When is the text between ${c('<audio>')} and ${c('</audio>')} shown?`, `${c('<audio>')} আর ${c('</audio>')}-এর মাঝের লেখা কখন দেখায়?`,
+      [['Always, as a caption', 'সবসময়, caption হিসেবে'], ['While the audio plays', 'অডিও চলার সময়'], ['When the audio ends', 'অডিও শেষ হলে'], ['Only in browsers that don\'t support the audio element', 'শুধু যে ব্রাউজার audio element সমর্থন করে না সেখানে']], 3,
+      'It is a fallback message.',
+      'এটা একটি বিকল্প (fallback) বার্তা।'),
+    q('Before HTML5, how was audio usually played in a browser?', 'HTML5-এর আগে ব্রাউজারে অডিও সাধারণত কীভাবে চালানো হতো?',
+      [['With a plug-in such as Flash', 'Flash-এর মতো একটি plug-in দিয়ে'], ['With CSS', 'CSS দিয়ে'], ['It was impossible', 'এটা অসম্ভব ছিল'], ['With the <sound> tag'.replace(/</g, '&lt;').replace(/>/g, '&gt;'), '&lt;sound&gt; tag দিয়ে']], 0,
+      'The audio element made plug-ins unnecessary.',
+      'Audio element plug-in-এর প্রয়োজন দূর করেছে।'),
+  ],
+
+  'tag-video': [
+    q('Why is it a good idea to set width and height on a video?', 'ভিডিওতে width আর height দেওয়া কেন ভালো?',
+      [['It makes the video load faster', 'ভিডিও দ্রুত লোড হয়'], ['It improves sound quality', 'শব্দের মান ভালো হয়'], ['It stops the page from jumping (flickering) while the video loads', 'ভিডিও লোড হওয়ার সময় পেজ লাফানো (flicker) বন্ধ করে'], ['It is required or the video won\'t play', 'এটা বাধ্যতামূলক, না দিলে ভিডিও চলবে না']], 2,
+      'The browser can reserve the space before the video arrives.',
+      'ভিডিও আসার আগেই ব্রাউজার জায়গা রেখে দিতে পারে।'),
+    q('Which attribute starts the video by itself?', 'কোন attribute দিলে ভিডিও নিজে থেকে চালু হয়?',
+      [c('start'), c('play'), c('auto'), c('autoplay')], 3,
+      'Use it sparingly — unexpected video annoys visitors.',
+      'কম ব্যবহার করুন — হঠাৎ ভিডিও চালু হলে দর্শক বিরক্ত হয়।'),
+    q('Which element lists alternative video files for the browser to choose from?', 'ব্রাউজারের বাছাইয়ের জন্য বিকল্প ভিডিও ফাইল কোন element-এ দেওয়া হয়?',
+      [c('<source>'), c('<file>'), c('<track>'), c('<option>')], 0,
+      'The browser plays the first format it recognises.',
+      'ব্রাউজার প্রথম যে format চেনে সেটাই চালায়।'),
+    q(`What does the ${c('controls')} attribute add to a video?`, `${c('controls')} attribute ভিডিওতে কী যোগ করে?`,
+      [['Subtitles', 'Subtitle'], ['Play, pause and volume controls', 'Play, pause আর volume control'], ['A download link', 'একটি download link'], ['A border', 'একটি border']], 1,
+      'Same as on audio.',
+      'Audio-র মতোই।'),
+  ],
+
+  'tag-youtube': [
+    q('Which element embeds a YouTube video in a page?', 'কোন element দিয়ে পেজে YouTube ভিডিও বসানো হয়?',
+      [c('<video>'), c('<youtube>'), c('<iframe>'), c('<embed-video>')], 2,
+      `YouTube provides an ${c('<iframe>')} that loads its player.`,
+      `YouTube একটি ${c('<iframe>')} দেয় যা তাদের player লোড করে।`),
+    q('Which src URL format plays a YouTube video inside an iframe?', 'Iframe-এর ভিতরে YouTube ভিডিও চালাতে কোন src URL format লাগে?',
+      [c('https://www.youtube.com/watch?v=VIDEO_ID'), c('https://www.youtube.com/embed/VIDEO_ID'), c('https://youtube.com/VIDEO_ID.mp4'), c('youtube:VIDEO_ID')], 1,
+      'The /embed/ URL is made for iframes; the watch page refuses to load inside one.',
+      '/embed/ URL iframe-এর জন্যই তৈরি; watch পেজ iframe-এর ভিতরে লোড হয় না।'),
+    q('How do you make a YouTube embed start playing automatically?', 'YouTube embed কীভাবে নিজে থেকে চালু করবেন?',
+      [['Add ?autoplay=1 to the src URL', 'src URL-এ ?autoplay=1 যোগ করে'], ['Add the play attribute', 'play attribute যোগ করে'], ['Use type="auto"', 'type="auto" ব্যবহার করে'], ['It is not possible', 'এটা সম্ভব নয়']], 0,
+      'Value 1 autoplays, 0 (default) does not. Browsers usually only allow it when muted.',
+      'মান 1 হলে চালু হয়, 0 (ডিফল্ট) হলে না। ব্রাউজার সাধারণত mute থাকলেই এটা করতে দেয়।'),
+    q('Why use YouTube instead of hosting the video file yourself?', 'নিজে ভিডিও ফাইল রাখার বদলে YouTube কেন ব্যবহার করবেন?',
+      [['YouTube videos have no ads', 'YouTube ভিডিওতে কোনো বিজ্ঞাপন থাকে না'], ['It is required by HTML5', 'HTML5-এ এটা বাধ্যতামূলক'], ['It makes the page text bigger', 'পেজের লেখা বড় হয়'], ['YouTube handles the video formats and streaming for you', 'YouTube নিজেই ভিডিওর format আর streaming সামলায়']], 3,
+      'Converting video to several formats yourself is slow and difficult.',
+      'নিজে ভিডিওকে কয়েকটি format-এ রূপান্তর করা ধীর আর কঠিন।'),
+  ],
+
+  'html-entities': [
+    q('How do you show a < sign as text?'.replace('<', '&lt;'), 'একটি &lt; চিহ্ন লেখা হিসেবে কীভাবে দেখাবেন?',
+      [c('&lt;'), c('&gt;'), c('&amp;'), c('&less;')], 0,
+      `${c('&lt;')} = less than, ${c('&gt;')} = greater than, ${c('&amp;')} = ampersand.`,
+      `${c('&lt;')} = less than, ${c('&gt;')} = greater than, ${c('&amp;')} = ampersand।`),
+    q('Why are character entities needed?', 'Character entity কেন দরকার?',
+      [['To make text bold', 'লেখা bold করতে'], ['Reserved characters like < would be read as the start of a tag'.replace('<', '&lt;'), '&lt;-এর মতো সংরক্ষিত চিহ্নকে ব্রাউজার tag-এর শুরু ভাবতে পারে'], ['To translate the page', 'পেজ অনুবাদ করতে'], ['To make the page load faster', 'পেজ দ্রুত লোড করতে']], 1,
+      'Entities also show characters that are not on the keyboard, like ©.',
+      'Entity দিয়ে keyboard-এ নেই এমন চিহ্নও দেখানো যায়, যেমন ©।'),
+    q(`What does the browser show for ${c('<p>5 &lt; 10</p>')}?`, `${c('<p>5 &lt; 10</p>')}-এর জন্য ব্রাউজার কী দেখায়?`,
+      [c('5 &lt; 10'), c('5 10'), c('5 < 10'), ['Nothing — it breaks the page', 'কিছুই না — পেজ ভেঙে যায়']], 2,
+      'The entity is turned into the character it stands for.',
+      'Entity যে চিহ্নের প্রতিনিধি, সেটায় রূপান্তরিত হয়।'),
+    q('Which entity is a space the browser will not collapse?', 'কোন entity এমন একটি space যা ব্রাউজার একসাথে মিশিয়ে দেয় না?',
+      [c('&space;'), c('&sp;'), c('&blank;'), c('&nbsp;')], 3,
+      `${c('&nbsp;')} = non-breaking space.`,
+      `${c('&nbsp;')} = non-breaking space।`),
+  ],
+
+  'case-insensitivity-and-whitespace': [
+    q(`Do ${c('<P>')} and ${c('<p>')} mean the same thing to a browser?`, `ব্রাউজারের কাছে ${c('<P>')} আর ${c('<p>')} কি একই?`,
+      [['Yes — HTML tag names are not case sensitive', 'হ্যাঁ — HTML tag-এর নাম case sensitive নয়'], ['No — <P> is invalid'.replace('<P>', '&lt;P&gt;'), 'না — &lt;P&gt; ভুল'], ['Only in HTML5', 'শুধু HTML5-এ'], ['Only for headings', 'শুধু heading-এর জন্য']], 0,
+      'They work the same, but lowercase is the recommended style.',
+      'দুটো একইভাবে কাজ করে, তবে ছোট হাতের অক্ষরই সুপারিশকৃত।'),
+    q(`How does this display?${pre('<p>Hello      world</p>')}`, `এটা কীভাবে দেখাবে?${pre('<p>Hello      world</p>')}`,
+      [['With all the spaces', 'সবগুলো space সহ'], ['As "Helloworld"', '"Helloworld" হিসেবে'], ['As "Hello world" with one space', 'একটি space সহ "Hello world" হিসেবে'], ['On two lines', 'দুই লাইনে']], 2,
+      'Browsers collapse any run of spaces, tabs and line breaks into a single space.',
+      'ব্রাউজার পরপর থাকা space, tab আর line break-কে একটি space-এ পরিণত করে।'),
+    q('Which case is recommended for HTML tags?', 'HTML tag-এর জন্য কোন case সুপারিশ করা হয়?',
+      [['UPPERCASE', 'বড় হাতের (UPPERCASE)'], ['Mixed', 'মিশ্র'], ['Any — it is only a matter of taste, with no recommendation', 'যেকোনো — শুধু রুচির বিষয়, কোনো সুপারিশ নেই'], ['lowercase', 'ছোট হাতের (lowercase)']], 3,
+      'The W3C recommends lowercase, and stricter formats like XHTML require it.',
+      'W3C ছোট হাতের অক্ষর সুপারিশ করে, আর XHTML-এর মতো কঠোর format-এ এটা বাধ্যতামূলক।'),
+    q('Which tag keeps spaces and line breaks exactly as written?', 'কোন tag space আর line break হুবহু রেখে দেয়?',
+      [c('<p>'), c('<pre>'), c('<span>'), c('<keep>')], 1,
+      `${c('<pre>')} = preformatted text, usually in a monospace font.`,
+      `${c('<pre>')} = preformatted text, সাধারণত monospace font-এ।`),
+  ],
+
+  'data-attributes': [
+    q('Which is a valid custom attribute?', 'কোনটি সঠিক custom attribute?',
+      [c('user-id="7"'), c('custom:user="7"'), c('data-user-id="7"'), c('x_user="7"')], 2,
+      `Custom attributes start with ${c('data-')}, so they never clash with built-in ones.`,
+      `Custom attribute শুরু হয় ${c('data-')} দিয়ে, তাই built-in attribute-এর সাথে কখনো মেলে না।`),
+    q(`How does JavaScript read ${c('data-author-id')}?`, `JavaScript কীভাবে ${c('data-author-id')} পড়ে?`,
+      [c('element.dataset.authorId'), c('element.data-author-id'), c('element.authorId'), c('element.dataset["author-id-data"]')], 0,
+      `Data attributes live on ${c('dataset')}, with the name converted to camelCase.`,
+      `Data attribute থাকে ${c('dataset')}-এ, নাম camelCase-এ রূপান্তরিত হয়ে।`),
+    q(`Which CSS selector matches ${c('<article data-category="frontend">')}?`, `কোন CSS selector ${c('<article data-category="frontend">')}-এর সাথে মেলে?`,
+      [c('article.frontend'), c('article#frontend'), c('article:data(frontend)'), c('article[data-category="frontend"]')], 3,
+      'An attribute selector in square brackets.',
+      'Square bracket-এর ভিতরে একটি attribute selector।'),
+    q('Data attributes are displayed to the visitor by default.', 'Data attribute ডিফল্টভাবে দর্শককে দেখানো হয়।',
+      TF, 1,
+      'The browser ignores them visually. They are for your own CSS and JavaScript.',
+      'ব্রাউজার এগুলো দৃশ্যত উপেক্ষা করে। এগুলো আপনার নিজের CSS আর JavaScript-এর জন্য।'),
+  ],
+
+  'text-formatting-tags': [
+    q(`${c('<b>')} and ${c('<strong>')} look the same. What is the difference?`, `${c('<b>')} আর ${c('<strong>')} দেখতে একই। পার্থক্য কী?`,
+      [['There is none', 'কোনো পার্থক্য নেই'], [`${c('<b>')} is bolder`, `${c('<b>')} বেশি bold`], [`${c('<strong>')} also tells screen readers the text is important`, `${c('<strong>')} screen reader-কেও জানায় যে লেখাটি গুরুত্বপূর্ণ`], [`${c('<strong>')} only works in headings`, `${c('<strong>')} শুধু heading-এ কাজ করে`]], 2,
+      `${c('<b>')} is only visual; ${c('<strong>')} carries meaning.`,
+      `${c('<b>')} শুধু দেখার জন্য; ${c('<strong>')}-এর অর্থ আছে।`),
+    q(`What does the 2 look like in ${c('H<sub>2</sub>O')}?`, `${c('H<sub>2</sub>O')}-এ 2 দেখতে কেমন?`,
+      [['Small and lowered (subscript)', 'ছোট আর নিচে নামানো (subscript)'], ['Small and raised (superscript)', 'ছোট আর উপরে তোলা (superscript)'], ['Bold', 'Bold'], ['Struck through', 'কাটা দাগ দেওয়া']], 0,
+      `${c('<sub>')} lowers text; ${c('<sup>')} raises it, as in E = mc².`,
+      `${c('<sub>')} লেখা নিচে নামায়; ${c('<sup>')} উপরে তোলে, যেমন E = mc²।`),
+    q('Which tag marks text that has been deleted, like an old price?', 'কোন tag মুছে ফেলা লেখা চিহ্নিত করে, যেমন পুরনো দাম?',
+      [c('<ins>'), c('<mark>'), c('<sub>'), c('<del>')], 3,
+      `${c('<del>')} shows the removed text, ${c('<ins>')} the inserted replacement.`,
+      `${c('<del>')} মুছে ফেলা লেখা দেখায়, ${c('<ins>')} তার বদলে যোগ করা লেখা।`),
+    q(`What does ${c('<em>')} mean, compared to ${c('<i>')}?`, `${c('<i>')}-এর তুলনায় ${c('<em>')} মানে কী?`,
+      [['It is a bigger italic', 'এটা বড় italic'], ['Emphasis — stressed meaning, not just slanted style', 'জোর দেওয়া — শুধু হেলানো style নয়, অর্থেও জোর'], ['Email address', 'Email ঠিকানা'], ['An empty element', 'একটি empty element']], 1,
+      'Screen readers can change their voice for emphasized text.',
+      'জোর দেওয়া লেখার জন্য screen reader কণ্ঠস্বর বদলাতে পারে।'),
+  ],
+
+  'quotation-and-citation-tags': [
+    q('Which tag is for a long quotation in its own block?', 'নিজস্ব block-এ একটি দীর্ঘ উদ্ধৃতির জন্য কোন tag?',
+      [c('<q>'), c('<cite>'), c('<blockquote>'), c('<quote>')], 2,
+      'Browsers usually indent a blockquote.',
+      'ব্রাউজার সাধারণত blockquote-কে একটু ভিতরে সরিয়ে দেখায়।'),
+    q(`What does the browser add around ${c('<q>')} text?`, `${c('<q>')}-এর লেখার চারপাশে ব্রাউজার কী যোগ করে?`,
+      [['Quotation marks', 'উদ্ধৃতি চিহ্ন'], ['A border', 'একটি border'], ['Italic style only', 'শুধু italic style'], ['Nothing', 'কিছুই না']], 0,
+      `${c('<q>')} is for a short quote inside a sentence.`,
+      `${c('<q>')} বাক্যের ভিতরে ছোট উদ্ধৃতির জন্য।`),
+    q('Which tag names the title of a work, like a book?', 'কোন tag একটি সৃষ্টিকর্মের (যেমন বইয়ের) নাম চিহ্নিত করে?',
+      [c('<title>'), c('<dfn>'), c('<q>'), c('<cite>')], 3,
+      `${c('<cite>The Great Gatsby</cite>')}. ${c('<title>')} is the page title in the head.`,
+      `${c('<cite>The Great Gatsby</cite>')}। ${c('<title>')} হলো head-এ থাকা পেজের title।`),
+    q('Which tag wraps contact information?', 'কোন tag যোগাযোগের তথ্য ঘিরে রাখে?',
+      [c('<contact>'), c('<address>'), c('<footer>'), c('<dfn>')], 1,
+      'An email, a postal address or a phone number for the article or page.',
+      'Article বা পেজের জন্য একটি email, ডাক ঠিকানা বা ফোন নম্বর।'),
+  ],
+
+  'definition-lists': [
+    q('Which tag contains a definition list?', 'কোন tag একটি definition list ধরে রাখে?',
+      [c('<dl>'), c('<ul>'), c('<def>'), c('<list>')], 0,
+      `${c('<dl>')} = description (definition) list.`,
+      `${c('<dl>')} = description (definition) list।`),
+    q('Which tag holds the term being described?', 'কোন tag বর্ণনা করা শব্দটি (term) ধরে রাখে?',
+      [c('<dd>'), c('<li>'), c('<dt>'), c('<term>')], 2,
+      `${c('<dt>')} = description term.`,
+      `${c('<dt>')} = description term।`),
+    q('Which tag holds the description of a term?', 'কোন tag একটি term-এর বর্ণনা ধরে রাখে?',
+      [c('<dt>'), c('<desc>'), c('<p>'), c('<dd>')], 3,
+      `${c('<dd>')} = description details.`,
+      `${c('<dd>')} = description details।`),
+    q(`One ${c('<dt>')} can be followed by more than one ${c('<dd>')}.`, `একটি ${c('<dt>')}-এর পরে একাধিক ${c('<dd>')} থাকতে পারে।`,
+      TF, 0,
+      'A term can have several descriptions listed separately.',
+      'একটি term-এর কয়েকটি বর্ণনা আলাদা করে দেওয়া যায়।'),
+  ],
+
+  'including-javascript': [
+    q('Which line loads JavaScript from a separate file?', 'কোন লাইন আলাদা ফাইল থেকে JavaScript লোড করে?',
+      [c('<script href="app.js"></script>'), c('<script src="app.js"></script>'), c('<link rel="script" href="app.js">'), c('<js src="app.js">')], 1,
+      `Scripts use ${c('src')}, like images; stylesheets use ${c('<link href>')}.`,
+      `Script ${c('src')} ব্যবহার করে, ছবির মতো; stylesheet ব্যবহার করে ${c('<link href>')}।`),
+    q('Why is an external .js file usually better than inline code?', 'Inline code-এর চেয়ে বাইরের .js ফাইল সাধারণত কেন ভালো?',
+      [['It runs faster on the server', 'সার্ভারে দ্রুত চলে'], ['Inline scripts are not allowed', 'Inline script অনুমোদিত নয়'], ['The browser can cache it and reuse it on other pages', 'ব্রাউজার এটা cache করে অন্য পেজেও ব্যবহার করতে পারে'], ['It hides the code from visitors', 'দর্শকদের থেকে code লুকিয়ে রাখে']], 2,
+      'One cached file serves every page that needs it.',
+      'একটি cache করা ফাইল যে পেজের দরকার সবখানে কাজ করে।'),
+    q(`What does ${c('defer')} do on a script in the ${c('<head>')}?`, `${c('<head>')}-এ থাকা script-এ ${c('defer')} কী করে?`,
+      [['Deletes the script', 'Script মুছে দেয়'], ['Runs it before anything else', 'সবকিছুর আগে চালায়'], ['Runs it only on click', 'শুধু ক্লিক করলে চালায়'], ['Runs it after the page has been parsed', 'পেজ পড়া (parse) শেষ হলে চালায়']], 3,
+      'So the script can find elements that come later in the HTML.',
+      'যাতে HTML-এ পরে আসা element-গুলোও script খুঁজে পায়।'),
+    q('A script in the head (without defer) tries to change a button that is lower down the page. What happens?', 'Head-এ থাকা একটি script (defer ছাড়া) পেজের নিচের একটি button বদলাতে চায়। কী হবে?',
+      [['It cannot find the button, because the button hasn\'t loaded yet', 'Button খুঁজে পায় না, কারণ button তখনও লোড হয়নি'], ['It works normally', 'স্বাভাবিকভাবে কাজ করে'], ['The page refuses to load', 'পেজ লোড হতে চায় না'], ['The button moves to the top', 'Button উপরে চলে যায়']], 0,
+      'Fix it with defer, or put the script just before </body>.'.replace('</body>', '&lt;/body&gt;'),
+      'defer দিয়ে, বা script-কে &lt;/body&gt;-এর ঠিক আগে রেখে এটা ঠিক করুন।'),
+  ],
+
+  'accessibility-basics': [
+    q('How is a label connected to its input?', 'একটি label কীভাবে তার input-এর সাথে যুক্ত হয়?',
+      [['By placing the label after the input', 'Input-এর পরে label রেখে'], ['The label\'s for matches the input\'s id', 'Label-এর for, input-এর id-এর সাথে মেলে'], ['With the same class', 'একই class দিয়ে'], ['They connect automatically', 'নিজে থেকেই যুক্ত হয়']], 1,
+      `${c('<label for="email">')} + ${c('<input id="email">')}. Clicking the label then focuses the input.`,
+      `${c('<label for="email">')} + ${c('<input id="email">')}। তখন label-এ ক্লিক করলে input-এ focus যায়।`),
+    q('What makes good alt text?', 'ভালো alt text কেমন হয়?',
+      [['The file name', 'ফাইলের নাম'], ['The word "image"', '"image" শব্দটি'], ['What the image tells the reader', 'ছবিটি পাঠককে কী জানায়'], ['As many keywords as possible', 'যত বেশি সম্ভব keyword']], 2,
+      'For a chart: "Bar chart showing sales doubling from January to June".',
+      'একটি chart-এর জন্য: "জানুয়ারি থেকে জুনে বিক্রি দ্বিগুণ হওয়া দেখানো bar chart"।'),
+    q('A button only shows an ✕ icon. How do you give it an accessible name?', 'একটি button-এ শুধু একটি ✕ icon আছে। এর accessible নাম কীভাবে দেবেন?',
+      [c('title-text="Close"'), c('name="Close"'), c('alt="Close"'), c('aria-label="Close menu"')], 3,
+      'Screen readers announce the aria-label when there is no visible text.',
+      'দৃশ্যমান লেখা না থাকলে screen reader aria-label পড়ে শোনায়।'),
+    q(`Why use ${c('<nav>')}, ${c('<main>')} and ${c('<button>')} instead of ${c('<div>')} for everything?`, `সবকিছুর জন্য ${c('<div>')}-এর বদলে ${c('<nav>')}, ${c('<main>')} আর ${c('<button>')} কেন ব্যবহার করবেন?`,
+      [['They give screen readers landmarks and built-in behaviour', 'এগুলো screen reader-কে landmark আর built-in আচরণ দেয়'], ['They load faster', 'এগুলো দ্রুত লোড হয়'], ['They are required by CSS', 'CSS-এর জন্য এগুলো বাধ্যতামূলক'], ['There is no real reason', 'আসলে কোনো কারণ নেই']], 0,
+      'Users can jump between landmarks, and a real button works with the keyboard for free.',
+      'ব্যবহারকারী landmark-গুলোর মধ্যে যেতে পারে, আর আসল button কোনো বাড়তি কাজ ছাড়াই keyboard-এ কাজ করে।'),
+  ],
+}
+
+// ── build blocks ─────────────────────────────────────────────
+function build(slug, locale) {
+  return {
+    id: `quiz-${slug}`,
+    type: 'quiz',
+    questions: QUIZZES[slug].map((x, i) => ({
+      id: `${slug}-q${i + 1}`,
+      prompt: locale === 'en' ? x.en : x.bn,
+      options: x.options.map((o) => (Array.isArray(o) ? o[locale === 'en' ? 0 : 1] : o)),
+      answer: x.answer,
+      explain: locale === 'en' ? x.exEn : x.exBn,
+    })),
+  }
+}
+
+// Same rules as lib/admin/sanitize.ts + a few content checks.
+function validate(slug) {
+  const errs = []
+  const qs = QUIZZES[slug]
+  if (qs.length < 3) errs.push('fewer than 3 questions')
+  qs.forEach((x, i) => {
+    const n = `${slug} q${i + 1}`
+    if (x.options.length < 2) errs.push(`${n}: <2 options`)
+    if (!Number.isInteger(x.answer) || x.answer < 0 || x.answer >= x.options.length) errs.push(`${n}: bad answer`)
+    for (const s of [x.en, x.bn, x.exEn, x.exBn, ...x.options.flat()]) {
+      if (!s || typeof s !== 'string') errs.push(`${n}: empty text`)
+      else if (/<(?!\/?(code|pre|em|strong)>)/.test(s)) errs.push(`${n}: unescaped < in ${JSON.stringify(s.slice(0, 40))}`)
+    }
+  })
+  return errs
+}
+
+async function main() {
+  const slugs = Object.keys(QUIZZES)
+  const errors = slugs.flatMap(validate)
+  if (errors.length) {
+    console.error(errors.join('\n'))
+    process.exit(1)
+  }
+  const counts = [0, 0, 0, 0, 0, 0]
+  slugs.forEach((s) => QUIZZES[s].forEach((x) => counts[x.answer]++))
+  console.log(`${slugs.length} quizzes, ${slugs.reduce((n, s) => n + QUIZZES[s].length, 0)} questions. Answer spread A-D: ${counts.slice(0, 4).join(' / ')}`)
+
+  // Review file: every question with its answer marked, both languages.
+  const strip = (h) => h.replace(/<pre><code>([\s\S]*?)<\/code><\/pre>/g, '\n```html\n$1\n```\n').replace(/<\/?code>/g, '`').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&amp;/g, '&')
+  let md = '# HTML quiz pilot — review\n'
+  for (const slug of slugs) {
+    md += `\n## html/${slug}\n`
+    for (const locale of ['en', 'bn']) {
+      md += `\n**${locale.toUpperCase()}**\n`
+      build(slug, locale).questions.forEach((x, i) => {
+        md += `\n${i + 1}. ${strip(x.prompt)}\n`
+        x.options.forEach((o, j) => (md += `   - ${j === x.answer ? '✅' : '⬜'} ${strip(o)}\n`))
+        md += `   - _${strip(x.explain)}_\n`
+      })
+    }
+  }
+  const reviewPath = process.argv.find((a) => a.startsWith('--review='))?.slice(9) ?? 'scripts/html-quizzes-review.md'
+  await fs.writeFile(reviewPath, md)
+  console.log(`Review file: ${reviewPath}`)
+
+  if (!WRITE) {
+    console.log('Dry run — nothing written. Re-run with --write to save to the database.')
+    return
+  }
+
+  const raw = await fs.readFile('.env.local', 'utf8')
+  const env = Object.fromEntries(raw.split('\n').filter((l) => l.includes('=') && !l.trim().startsWith('#')).map((l) => { const i = l.indexOf('='); return [l.slice(0, i).trim(), l.slice(i + 1).trim()] }))
+  const supabase = createClient(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY)
+
+  const withQuiz = (blocks, quiz) => [...blocks.filter((b) => b.id !== quiz.id), quiz]
+  const written = []
+  for (const slug of slugs) {
+    const path = `html/${slug}`
+    const { data: doc, error } = await supabase.from('docs').select('id, blocks').eq('path', path).single()
+    if (error || !doc) { console.error(`✗ ${path}: ${error?.message ?? 'not found'}`); continue }
+    const { error: upErr } = await supabase.from('docs').update({ blocks: withQuiz(doc.blocks, build(slug, 'en')) }).eq('id', doc.id)
+    if (upErr) { console.error(`✗ ${path} (en): ${upErr.message}`); continue }
+
+    const { data: tr } = await supabase.from('doc_translations').select('blocks').eq('doc_id', doc.id).eq('locale', 'bn').maybeSingle()
+    if (tr) {
+      const { error: trErr } = await supabase.from('doc_translations').update({ blocks: withQuiz(tr.blocks, build(slug, 'bn')) }).eq('doc_id', doc.id).eq('locale', 'bn')
+      if (trErr) { console.error(`✗ ${path} (bn): ${trErr.message}`); continue }
+    }
+    console.log(`✓ ${path}${tr ? ' (en + bn)' : ' (en only — no bn translation)'}`)
+    written.push(path)
+  }
+
+  // Local dev only: bust the cached pages so localhost shows the quizzes.
+  const local = 'http://localhost:3000/api/revalidate'
+  for (const path of written) {
+    for (const p of [`/${path}`, `/bn/${path}`]) {
+      await fetch(local, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'x-revalidate-secret': env.REVALIDATE_SECRET },
+        body: JSON.stringify({ tag: `doc:${path}`, path: p }),
+      }).catch(() => {})
+    }
+  }
+  console.log(`\nDone. ${written.length}/${slugs.length} lessons written. Local dev revalidated (if running).`)
+}
+
+main().catch((err) => { console.error(err); process.exit(1) })
