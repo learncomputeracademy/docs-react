@@ -6735,6 +6735,38 @@ G-XTBB1C05FC from the app; check compression behaviour first.
 
 ---
 
+## D-141 · Gamification, phase 0: local progress, no accounts yet (2026-11-20)
+
+**Context.** Owner wants user accounts and gamification eventually, and asked how far the
+Supabase free tier goes (50K monthly active *signed-in* users; anonymous visitors don't count).
+
+**Decided.**
+- **Progress first, accounts later.** Lesson completion lives in `localStorage` only
+  (`lib/progress.ts`, key `lca-progress-v1`, locale-free doc paths so en/bn share it). No server,
+  no personal data, no MAU cost. Accounts come only when students ask for cross-device sync.
+- **Lesson pages stay ISR.** Anything per-user is rendered client-side after load; never read a
+  session on the server for a doc page (§3.3 still holds).
+- **When accounts come:** all auth behind one `lib/auth.ts` (same rule as `lib/content.ts`), own
+  `profiles` table that progress/badges reference (not `auth.users` directly), Google sign-in
+  only, merge localStorage progress on first sign-in. Past 50K MAU: Supabase Pro first; Better
+  Auth / Auth.js on the Oracle VM if cost matters; self-hosted Supabase not recommended.
+- **Animation budget:** CSS for small moments; heavier code is dynamic-imported only at the
+  reward moment (never on page load), and everything respects `prefers-reduced-motion`.
+
+**Built.**
+- A lesson counts as finished at 90% scroll of `#lesson-article` (short lessons on open).
+- Sidebar: tick per finished lesson (draws in only for the one finished now), progress ring +
+  `done/total` per category, ring turns gold at 100%.
+- Category complete: `canvas-confetti` (new dependency, ~6 KB, dynamic import) + toast, once per
+  category per tab session (`sessionStorage`). Mounted in both `[category]` layouts, not the
+  sidebar, because the sidebar isn't mounted on mobile while closed.
+
+**Not done / next candidates.** No un-mark toggle. "Continue where you left off" strip on home
+and category pages; daily streak; quizzes (the `quiz` block type exists but is empty) with XP.
+Public leaderboards, comments, XP for page views: deliberately skipped.
+
+---
+
 ## Open
 
 | # | Question | Blocks |
