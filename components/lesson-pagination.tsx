@@ -2,10 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Link from '@/components/hover-link'
-import { useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import { ArrowLeft, ArrowRight, PanelLeft } from 'lucide-react'
 import { startRouteProgress } from '@/components/magic/route-progress'
 import { useSidebar } from '@/components/magic/sidebar'
+import { setCompleted } from '@/lib/progress'
 
 type Adjacent = { path: string; title: string } | null
 type Position = { index: number; total: number } | null
@@ -29,6 +30,7 @@ export function LessonPagination({
 }) {
   const router = useRouter()
   const { toggleSidebar } = useSidebar()
+  const docPath = usePathname().replace(/^\/bn(\/|$)/, '/').replace(/^\/|\/$/g, '')
 
   // Reading progress — how far down THIS lesson you are, not the whole
   // page (header/footer chrome above and below the article shouldn't
@@ -48,7 +50,10 @@ export function LessonPagination({
       const rect = el.getBoundingClientRect()
       const total = rect.height - window.innerHeight
       const scrolled = -rect.top
-      setProgress(total > 0 ? Math.min(1, Math.max(0, scrolled / total)) : 0)
+      const p = total > 0 ? Math.min(1, Math.max(0, scrolled / total)) : 1
+      setProgress(p)
+      // Reaching the end of the lesson counts as finishing it.
+      if (p >= 0.9) setCompleted(docPath, true)
     }
     function onScroll() {
       if (!ticking) {
@@ -63,7 +68,7 @@ export function LessonPagination({
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
     }
-  }, [])
+  }, [docPath])
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {

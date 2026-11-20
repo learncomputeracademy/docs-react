@@ -135,7 +135,26 @@
 .animate-shimmer-sweep {
   animation: shimmer-sweep var(--shimmer-duration, 2.5s) linear infinite;
 }
+@keyframes check-draw {
+  from { stroke-dashoffset: 1; }
+  to   { stroke-dashoffset: 0; }
+}
+@keyframes check-pop {
+  0%   { transform: scale(0.4); opacity: 0; }
+  60%  { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); }
+}
+.animate-check-draw {
+  animation: check-draw 0.45s 0.15s ease-out both;
+}
+.animate-check-pop {
+  transform-origin: center;
+  transform-box: fill-box;
+  animation: check-pop 0.4s cubic-bezier(.25,1,.5,1) both;
+}
 @media (prefers-reduced-motion: reduce) {
+  .animate-check-draw,
+  .animate-check-pop,
   .animate-marquee,
   .animate-border-beam,
   .animate-shimmer-sweep,

@@ -20,9 +20,12 @@ import {
 import type { SidebarCategory } from '@/lib/content'
 import type { Locale } from '@/lib/types'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
+import { useCompleted } from '@/lib/progress'
+import { DoneCheck, ProgressRing } from '@/components/progress-marks'
 
 export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarCategory[]; locale?: Locale }) {
   const { state, isMobile } = useSidebar()
+  const completed = useCompleted()
   const pathname = usePathname()
   const activePath = pathname.replace(/^\/bn(\/|$)/, '/').replace(/^\//, '')
   const activeCategory = categories.find((c) => c.slug === activePath || c.docs.some((d) => d.path === activePath))?.slug
@@ -74,6 +77,7 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
     // real link to the category's own index page instead. Mobile's
     // Sheet is always full-width, so it never hits this collapsed state.
     const iconOnly = state === 'collapsed' && !isMobile
+    const doneCount = cat.docs.filter((d) => completed.has(d.path)).length
 
     return (
       <SidebarMenuItem key={cat.id}>
@@ -88,7 +92,10 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
           <SidebarMenuButton value={cat.slug} tooltip={cat.title} onClick={() => toggle(cat.slug)}>
             {Icon && <Icon className="size-4 shrink-0" />}
             <span className="truncate">{cat.title}</span>
-            <span className="ml-auto shrink-0 text-xs font-normal text-muted-foreground group-data-[collapsible=icon]:hidden">{cat.docs.length}</span>
+            <span className="ml-auto flex shrink-0 items-center gap-1.5 text-xs font-normal tabular-nums text-muted-foreground group-data-[collapsible=icon]:hidden">
+              {doneCount > 0 && <>{doneCount}/</>}{cat.docs.length}
+              <ProgressRing done={doneCount} total={cat.docs.length} />
+            </span>
             <ChevronRight className={cn('size-3.5 shrink-0 transition-transform group-data-[collapsible=icon]:hidden', isOpen && 'rotate-90')} />
           </SidebarMenuButton>
         )}
@@ -97,7 +104,10 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
             {cat.docs.map((doc) => (
               <SidebarMenuSubItem key={doc.path}>
                 <SidebarMenuSubButton asChild isActive={activePath === doc.path}>
-                  <Link href={`${prefix}/${doc.path}`}>{doc.title}</Link>
+                  <Link href={`${prefix}/${doc.path}`}>
+                    <span className="min-w-0 flex-1">{doc.title}</span>
+                    {completed.has(doc.path) && <DoneCheck key={doc.path} path={doc.path} />}
+                  </Link>
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}
