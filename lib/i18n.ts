@@ -6,8 +6,10 @@ export const STRINGS = {
   en: {
     siteName: 'Learn Computer Academy',
     startLearning: 'Start learning',
-    continueLesson: 'Continue',
+    continueLearning: 'Continue learning',
+    nextUp: 'Next up',
     lessonsDone: (done: number, total: number) => `You've finished ${done} of ${total} lessons`,
+    doneShort: (done: number, total: number) => `${done}/${total} done`,
     browseSubjects: 'Browse subjects',
     pickASubject: 'Pick a subject',
     pickASubjectSub: 'Jump straight into any topic — no prerequisites enforced.',
@@ -34,7 +36,9 @@ export const STRINGS = {
   bn: {
     siteName: 'লার্ন কম্পিউটার একাডেমি',
     startLearning: 'শেখা শুরু করুন',
-    continueLesson: 'চালিয়ে যান',
+    continueLearning: 'শেখা চালিয়ে যান',
+    nextUp: 'পরবর্তী',
+    doneShort: (done: number, total: number) => `${done}/${total} শেষ`,
     lessonsDone: (done: number, total: number) => `${total}টি পাঠের মধ্যে ${done}টি শেষ করেছেন`,
     browseSubjects: 'বিষয় দেখুন',
     pickASubject: 'একটি বিষয় বেছে নিন',

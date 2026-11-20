@@ -95,7 +95,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
                     <Link href="#subjects">{s.browseSubjects}</Link>
                   </Button>
                 </div>
-                <ProgressLine paths={categories.flatMap((c) => c.docs.map((d) => d.path))} locale={locale} fallback={s.freeLessonsSubjects(totalLessons, categories.length)} />
+                <ProgressLine paths={categories.flatMap((c) => c.docs.map((d) => d.path))} prefix={prefix} locale={locale} fallback={s.freeLessonsSubjects(totalLessons, categories.length)} />
               </div>
             )}
           </HeroReveal>

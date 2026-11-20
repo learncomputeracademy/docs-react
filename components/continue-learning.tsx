@@ -8,15 +8,16 @@ import { ProgressRing } from '@/components/progress-marks'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
 
-// Hero primary button: "Start learning" for new visitors, "Continue: <lesson>"
-// for returning ones. Same size either way, so nothing shifts on hydration.
+// Hero primary button: "Start learning" for new visitors, "Continue learning"
+// for returning ones. Fixed short label so it never wraps the button row; the
+// lesson title goes in ProgressLine below.
 export function ContinueButton({ startHref, prefix, locale }: { startHref: string; prefix: string; locale: Locale }) {
   const target = useContinueTarget()
   const s = t(locale)
   return (
-    <Button asChild size="lg" className="max-w-full">
+    <Button asChild size="lg">
       <Link href={target ? `${prefix}/${target.path}` : startHref}>
-        <span className="truncate">{target ? `${s.continueLesson}: ${target.title}` : s.startLearning}</span>
+        {target ? s.continueLearning : s.startLearning}
         <ArrowRight className="size-4" />
       </Link>
     </Button>
@@ -30,14 +31,29 @@ function useDoneCount(paths: string[]) {
   return paths.filter((p) => completed.has(p)).length
 }
 
-export function ProgressLine({ paths, locale, fallback }: { paths: string[]; locale: Locale; fallback: string }) {
+// With a lesson to continue: "Next up: <title> · 27/730 done".
+export function ProgressLine({ paths, prefix, locale, fallback }: { paths: string[]; prefix: string; locale: Locale; fallback: string }) {
   const done = useDoneCount(paths)
+  const target = useContinueTarget()
   const total = paths.length
-  if (!done) return <p className="mt-4 text-sm text-muted-foreground">{fallback}</p>
+  const s = t(locale)
+  if (!done && !target) return <p className="mt-4 text-sm text-muted-foreground">{fallback}</p>
   return (
-    <p className="mt-4 flex items-center gap-2 text-sm text-muted-foreground">
-      <ProgressRing done={done} total={total} />
-      {t(locale).lessonsDone(done, total)}
+    <p className="mt-4 flex items-start gap-2 text-sm text-muted-foreground">
+      <span className="mt-0.5"><ProgressRing done={done} total={total} /></span>
+      <span>
+        {target ? (
+          <>
+            {s.nextUp}:{' '}
+            <Link href={`${prefix}/${target.path}`} className="font-medium text-foreground underline-offset-4 hover:underline">
+              {target.title}
+            </Link>
+            {done > 0 && <> · {s.doneShort(done, total)}</>}
+          </>
+        ) : (
+          s.lessonsDone(done, total)
+        )}
+      </span>
     </p>
   )
 }
