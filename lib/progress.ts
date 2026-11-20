@@ -1,6 +1,7 @@
 'use client'
 
 import { useSyncExternalStore } from 'react'
+import { currentStreak, localDay, recordStudyDay, type Streak } from '@/lib/streak'
 
 // Prototype (2026-11-20): lesson completion kept in localStorage only — no
 // account, no server. Keys are locale-free doc paths ("css/css-intro"), so
@@ -62,6 +63,7 @@ export function setCompleted(path: string, done: boolean) {
   if (done) {
     next.add(path)
     justCompleted = path
+    bumpStreak()
   } else {
     next.delete(path)
   }
@@ -101,4 +103,41 @@ export function useContinueTarget(): { path: string; title: string } | null {
   } catch {
     return null
   }
+}
+
+// Daily streak (rules in lib/streak.ts). Bumped by the first lesson finished each day.
+const STREAK_KEY = 'lca-streak-v1'
+// True only in the tab where today's bump just happened — drives the pop animation.
+export let streakJustBumped = false
+
+function readStreakRaw() {
+  try {
+    return localStorage.getItem(STREAK_KEY)
+  } catch {
+    return null
+  }
+}
+
+function parseStreak(raw: string | null): Streak | null {
+  try {
+    return raw ? (JSON.parse(raw) as Streak) : null
+  } catch {
+    return null
+  }
+}
+
+function bumpStreak() {
+  const prev = parseStreak(readStreakRaw())
+  const next = recordStudyDay(prev, localDay())
+  if (next === prev) return
+  streakJustBumped = true
+  try {
+    localStorage.setItem(STREAK_KEY, JSON.stringify(next))
+  } catch {}
+}
+
+export function useStreak(): { count: number; best: number } {
+  const raw = useSyncExternalStore(subscribe, readStreakRaw, () => null)
+  const s = parseStreak(raw)
+  return { count: currentStreak(s, localDay()), best: s?.best ?? 0 }
 }
