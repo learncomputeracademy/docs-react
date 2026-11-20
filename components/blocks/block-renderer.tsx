@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { Info, Lightbulb, TriangleAlert, OctagonAlert } from 'lucide-react'
 import type { Block } from '@/lib/types'
 import { cldVideoUrl } from '@/lib/cloudinary'
@@ -6,6 +5,7 @@ import { highlight } from '@/lib/shiki'
 import { CopyButton } from './copy-button'
 import { CodeTabs } from './code-tabs'
 import { TryItLazy } from './try-it-lazy'
+import { LessonImage } from './lesson-image'
 
 // note/tip/warning/danger — colors follow the same hardcoded-per-badge
 // convention already used elsewhere (e.g. admin's "published" status),
@@ -53,17 +53,7 @@ export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
             )
           }
           case 'image':
-            return (
-              <Image
-                key={b.id}
-                src={b.publicId}
-                alt={b.alt}
-                width={b.width}
-                height={b.height}
-                loading="lazy"
-                className="rounded-lg"
-              />
-            )
+            return <LessonImage key={b.id} src={b.publicId} alt={b.alt} width={b.width} height={b.height} />
           case 'loop':
             return (
               <video
