@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Projections | Learn Computer Academy"
 meta_description: "Choosing which fields a query returns, using a projection as the second argument to find()."
 sort_order: 11
-updated_at: "2026-08-18T10:11:24.689144+00:00"
+updated_at: "2026-11-21T10:24:33.373322+00:00"
 ---
 
 ```json
@@ -100,6 +100,61 @@ updated_at: "2026-08-18T10:11:24.689144+00:00"
     "id": "y-TT1tHfWxD9",
     "html": "<p>Beyond reducing network traffic, projections are the standard way to keep sensitive fields like password hashes out of results your application code sends to a browser — leaving them out at the query level is safer than remembering to strip them later.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-projections",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "projections-q1",
+        "answer": 2,
+        "prompt": "What is a projection?",
+        "explain": "It is the second argument to find().",
+        "options": [
+          "A filter on documents",
+          "A backup",
+          "Choosing which fields come back in a query",
+          "An index"
+        ]
+      },
+      {
+        "id": "projections-q2",
+        "answer": 0,
+        "prompt": "What does <code>find({}, { name: 1, email: 1 })</code> return?",
+        "explain": "_id is included unless excluded.",
+        "options": [
+          "Only _id, name and email",
+          "Everything",
+          "Nothing",
+          "Only name"
+        ]
+      },
+      {
+        "id": "projections-q3",
+        "answer": 3,
+        "prompt": "How do you hide the _id field?",
+        "explain": "Setting a field to 0 excludes it.",
+        "options": [
+          "_id: 1",
+          "You cannot",
+          "_id: \"hide\"",
+          "_id: 0"
+        ]
+      },
+      {
+        "id": "projections-q4",
+        "answer": 1,
+        "prompt": "Why use projections?",
+        "explain": "No point fetching fields you will not use.",
+        "options": [
+          "To make documents bigger",
+          "To send less data over the network",
+          "To create collections",
+          "To sort"
+        ]
+      }
+    ]
   }
 ]
 ```

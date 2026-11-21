@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Interfaces and Abstract Classes | Learn Computer Academy"
 meta_description: "Using interfaces and abstract classes in PHP to guarantee that different classes share a common set of methods."
 sort_order: 25
-updated_at: "2026-07-30T09:08:42.544643+00:00"
+updated_at: "2026-11-21T06:08:37.581839+00:00"
 ---
 
 ```json
@@ -88,6 +88,61 @@ updated_at: "2026-07-30T09:08:42.544643+00:00"
       "Can include real method code?",
       "A class can use how many?",
       "Use when"
+    ]
+  },
+  {
+    "id": "quiz-oop-interfaces",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-interfaces-q1",
+        "answer": 2,
+        "prompt": "What does an interface define?",
+        "explain": "The \"what\", not the \"how\".",
+        "options": [
+          "How methods work",
+          "Properties with values",
+          "Which methods a class must provide, without how",
+          "A database table"
+        ]
+      },
+      {
+        "id": "oop-interfaces-q2",
+        "answer": 3,
+        "prompt": "Which keyword makes a class follow an interface?",
+        "explain": "<code>class CreditCard implements Payable</code>",
+        "options": [
+          "<code>extends</code>",
+          "<code>uses</code>",
+          "<code>follows</code>",
+          "<code>implements</code>"
+        ]
+      },
+      {
+        "id": "oop-interfaces-q3",
+        "answer": 0,
+        "prompt": "Why is checkout(Payable $method) useful?",
+        "explain": "Code written once keeps working as new types are added.",
+        "options": [
+          "It works with any payment class that implements Payable, including future ones",
+          "It only accepts cash",
+          "It is faster",
+          "It prints the payment"
+        ]
+      },
+      {
+        "id": "oop-interfaces-q4",
+        "answer": 1,
+        "prompt": "Can you create an object directly from an abstract class?",
+        "explain": "An abstract class can include shared code, unlike an interface.",
+        "options": [
+          "Yes",
+          "No — only from a class that extends it",
+          "Only once",
+          "Only in PHP 5"
+        ]
+      }
     ]
   }
 ]

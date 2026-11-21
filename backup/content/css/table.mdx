@@ -5,7 +5,7 @@ path: "css/table"
 status: "published"
 meta_title: "CSS Table | Learn Computer Academy"
 sort_order: 16
-updated_at: "2026-07-29T05:30:52.98957+00:00"
+updated_at: "2026-11-21T06:18:12.327957+00:00"
 ---
 
 ```json
@@ -671,6 +671,61 @@ updated_at: "2026-07-29T05:30:52.98957+00:00"
     "id": "ZD6MgApi5YdG",
     "html": "<p class=\"note\"><b>Note:</b> In OS X Lion (on Mac), scrollbars are hidden by default and only shown when being used (even though \"overflow:scroll\" is set).</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-table",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "table-q1",
+        "answer": 1,
+        "prompt": "Why does a table with borders on table, th and td show double borders?",
+        "explain": "Fix it with <code>border-collapse: collapse;</code>.",
+        "options": [
+          "It is a bug",
+          "The table and its cells each have their own separate border",
+          "th adds an extra border",
+          "The browser doubles all borders"
+        ]
+      },
+      {
+        "id": "table-q2",
+        "answer": 3,
+        "prompt": "What does <code>border-collapse: collapse;</code> do?",
+        "explain": "The usual first step in styling a table.",
+        "options": [
+          "Hides all borders",
+          "Removes the table",
+          "Shrinks the table",
+          "Merges the table and cell borders into single lines"
+        ]
+      },
+      {
+        "id": "table-q3",
+        "answer": 0,
+        "prompt": "How do you add \"zebra stripes\" to table rows?",
+        "explain": "nth-child picks every other row.",
+        "options": [
+          "<code>tr:nth-child(even) { background-color: #f2f2f2; }</code>",
+          "<code>tr:zebra { stripes: on; }</code>",
+          "<code>table { stripes: 2; }</code>",
+          "<code>tr:even { color: grey; }</code>"
+        ]
+      },
+      {
+        "id": "table-q4",
+        "answer": 2,
+        "prompt": "Which property adds space inside table cells?",
+        "explain": "<code>th, td { padding: 15px; }</code>",
+        "options": [
+          "<code>margin</code>",
+          "<code>spacing</code>",
+          "<code>padding</code>",
+          "<code>gap</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

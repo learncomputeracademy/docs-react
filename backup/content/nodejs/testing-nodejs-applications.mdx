@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Testing Node.js Applications | Learn Computer Academy"
 meta_description: "Writing automated tests with Node's own built-in test runner — no extra package required — plus testing an Express route."
 sort_order: 27
-updated_at: "2026-09-03T04:41:41.864924+00:00"
+updated_at: "2026-11-21T06:03:30.452872+00:00"
 ---
 
 ```json
@@ -127,6 +127,61 @@ updated_at: "2026-09-03T04:41:41.864924+00:00"
     "type": "callout",
     "title": "Test the failure cases too",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-testing-nodejs-applications",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "testing-nodejs-applications-q1",
+        "answer": 1,
+        "prompt": "Which test runner ships built into Node?",
+        "explain": "No extra package needed for a first test.",
+        "options": [
+          "<code>jest</code>",
+          "<code>node:test</code>",
+          "<code>mocha</code>",
+          "<code>vitest</code>"
+        ]
+      },
+      {
+        "id": "testing-nodejs-applications-q2",
+        "answer": 2,
+        "prompt": "How do you run the tests?",
+        "explain": "It finds and runs the test files.",
+        "options": [
+          "<code>npm build</code>",
+          "<code>node app.js</code>",
+          "<code>node --test</code>",
+          "<code>npm start</code>"
+        ]
+      },
+      {
+        "id": "testing-nodejs-applications-q3",
+        "answer": 3,
+        "prompt": "What does <code>assert.strictEqual(add(2, 3), 5)</code> check?",
+        "explain": "If not, the test fails with both values shown.",
+        "options": [
+          "That add exists",
+          "That add runs fast",
+          "That 5 is a number",
+          "That add(2, 3) is exactly 5"
+        ]
+      },
+      {
+        "id": "testing-nodejs-applications-q4",
+        "answer": 0,
+        "prompt": "How do you test an async function?",
+        "explain": "<code>test('fetches a user', async () =&gt; { ... })</code>",
+        "options": [
+          "Make the test function async and await the result",
+          "You can't",
+          "Use setTimeout",
+          "Run it twice"
+        ]
+      }
+    ]
   }
 ]
 ```

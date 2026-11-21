@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB with Node.js | Learn Computer Academy"
 meta_description: "Connecting a Node.js application to MongoDB using the official driver, and running your first query from application code."
 sort_order: 18
-updated_at: "2026-08-18T10:11:27.299088+00:00"
+updated_at: "2026-11-21T10:24:35.508977+00:00"
 ---
 
 ```json
@@ -97,6 +97,61 @@ updated_at: "2026-08-18T10:11:27.299088+00:00"
     "type": "callout",
     "title": "Never commit real credentials",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-mongodb-with-nodejs",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "mongodb-with-nodejs-q1",
+        "answer": 1,
+        "prompt": "Which package is the official MongoDB driver for Node.js?",
+        "explain": "<code>npm install mongodb</code>.",
+        "options": [
+          "<code>mongo-js</code>",
+          "<code>mongodb</code>",
+          "<code>mysql</code>",
+          "<code>express</code>"
+        ]
+      },
+      {
+        "id": "mongodb-with-nodejs-q2",
+        "answer": 0,
+        "prompt": "Which class connects to the database?",
+        "explain": "<code>new MongoClient(uri)</code> then <code>await client.connect()</code>.",
+        "options": [
+          "<code>MongoClient</code>",
+          "<code>Database</code>",
+          "<code>Connection</code>",
+          "<code>Server</code>"
+        ]
+      },
+      {
+        "id": "mongodb-with-nodejs-q3",
+        "answer": 3,
+        "prompt": "Why do driver calls use await?",
+        "explain": "Node keeps working while it waits.",
+        "options": [
+          "For style",
+          "They are synchronous",
+          "They are banned otherwise",
+          "Talking to the database is asynchronous and returns promises"
+        ]
+      },
+      {
+        "id": "mongodb-with-nodejs-q4",
+        "answer": 2,
+        "prompt": "Where should the connection string be kept in a real app?",
+        "explain": "It contains your password.",
+        "options": [
+          "Hard-coded in the source",
+          "In a public README",
+          "In an environment variable",
+          "In the browser"
+        ]
+      }
+    ]
   }
 ]
 ```

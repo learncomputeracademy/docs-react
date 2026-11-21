@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Grid | Learn Computer Academy"
 meta_description: "The grid layout model — defining rows and columns explicitly, placing items precisely, and building responsive layouts without media queries."
 sort_order: 37
-updated_at: "2026-09-03T03:54:07.075828+00:00"
+updated_at: "2026-11-21T06:18:18.219147+00:00"
 ---
 
 ```json
@@ -163,6 +163,61 @@ updated_at: "2026-09-03T03:54:07.075828+00:00"
     "type": "callout",
     "title": "Practice it interactively",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-grid",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "grid-q1",
+        "answer": 1,
+        "prompt": "What makes CSS Grid different from flexbox?",
+        "explain": "Items can be placed anywhere in the grid.",
+        "options": [
+          "It is one-dimensional",
+          "It is two-dimensional: rows and columns at the same time",
+          "It only works for images",
+          "It is deprecated"
+        ]
+      },
+      {
+        "id": "grid-q2",
+        "answer": 3,
+        "prompt": "In <code>grid-template-columns: 1fr 2fr 1fr;</code>, how wide is the middle column?",
+        "explain": "fr is a fraction of the available space.",
+        "options": [
+          "2 pixels",
+          "The same as the others",
+          "200px",
+          "Twice as wide as each side column"
+        ]
+      },
+      {
+        "id": "grid-q3",
+        "answer": 0,
+        "prompt": "What does <code>repeat(3, 1fr)</code> mean?",
+        "explain": "Shorter than writing 1fr 1fr 1fr.",
+        "options": [
+          "Three equal columns",
+          "One column repeated forever",
+          "A 3px gap",
+          "Three rows of 1px"
+        ]
+      },
+      {
+        "id": "grid-q4",
+        "answer": 2,
+        "prompt": "Which property adds space between grid cells?",
+        "explain": "gap works in flexbox too.",
+        "options": [
+          "<code>margin</code>",
+          "<code>padding</code>",
+          "<code>gap</code>",
+          "<code>spacing</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

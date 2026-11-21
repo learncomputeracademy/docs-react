@@ -5,7 +5,7 @@ path: "html/head"
 status: "published"
 meta_title: "HTML Head | Learn Computer Academy"
 sort_order: 5
-updated_at: "2026-07-29T05:40:19.507201+00:00"
+updated_at: "2026-11-20T15:25:04.960964+00:00"
 ---
 
 ```json
@@ -309,6 +309,60 @@ updated_at: "2026-07-29T05:40:19.507201+00:00"
     "header": [
       "Tag",
       "Description"
+    ]
+  },
+  {
+    "id": "quiz-head",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "head-q1",
+        "answer": 1,
+        "prompt": "Is the content of <code>&lt;head&gt;</code> displayed on the page itself?",
+        "explain": "Metadata (title, character set, styles, scripts) is not displayed as page content.",
+        "options": [
+          "Yes, above the body",
+          "No — it holds metadata about the page",
+          "Only on mobile phones",
+          "Only the &lt;style&gt; part"
+        ]
+      },
+      {
+        "id": "head-q2",
+        "answer": 2,
+        "prompt": "Where does the text of <code>&lt;title&gt;</code> appear?",
+        "explain": "The title names the page in the tab, in favourites, and in search engine results.",
+        "options": [
+          "As the biggest heading on the page",
+          "In the page footer",
+          "In the browser tab, bookmarks and search results",
+          "Nowhere — it is only for the developer"
+        ]
+      },
+      {
+        "id": "head-q3",
+        "answer": 3,
+        "prompt": "Which line connects an external CSS file?",
+        "explain": "<code>&lt;link&gt;</code> with <code>rel=\"stylesheet\"</code> loads an external stylesheet.",
+        "options": [
+          "<code>&lt;style src=\"style.css\"&gt;</code>",
+          "<code>&lt;css href=\"style.css\"&gt;</code>",
+          "<code>&lt;script href=\"style.css\"&gt;</code>",
+          "<code>&lt;link rel=\"stylesheet\" href=\"style.css\"&gt;</code>"
+        ]
+      },
+      {
+        "id": "head-q4",
+        "answer": 0,
+        "prompt": "What does <code>&lt;meta charset=\"UTF-8\"&gt;</code> do?",
+        "explain": "UTF-8 lets the page show almost any character correctly, including Bengali.",
+        "options": [
+          "Sets the character encoding of the page",
+          "Sets the page language",
+          "Sets the font",
+          "Sets the page description for Google"
+        ]
+      }
     ]
   }
 ]

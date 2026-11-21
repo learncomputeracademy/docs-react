@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Subqueries | Learn Computer Academy"
 meta_description: "Single-row, multi-row, correlated subqueries, and subqueries in FROM — how to nest one query inside another to feed a value, list, or result set into it."
 sort_order: 14
-updated_at: "2026-07-29T06:31:08.67299+00:00"
+updated_at: "2026-11-21T05:51:04.169519+00:00"
 ---
 
 ```json
@@ -202,6 +202,59 @@ updated_at: "2026-07-29T06:31:08.67299+00:00"
     "id": "8Z8TiJcLc-Zg",
     "html": "<p>Subqueries nest one query inside a clause of another. The next lesson covers a cleaner way to do something similar — Common Table Expressions, which name a subquery so it reads top-to-bottom instead of nested.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-subqueries",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "subqueries-q1",
+        "answer": 1,
+        "prompt": "What does this return?<pre><code>SELECT name FROM Employee\nWHERE salary = (SELECT MAX(salary) FROM Employee);</code></pre>",
+        "explain": "The inner query resolves to one number first; the outer query filters by it.",
+        "options": [
+          "Every employee",
+          "The name of the highest-paid employee(s)",
+          "The highest salary",
+          "An error"
+        ]
+      },
+      {
+        "id": "subqueries-q2",
+        "answer": 3,
+        "prompt": "A subquery may return several rows. What should the outer query use?",
+        "explain": "Using = with a multi-row subquery causes an error.",
+        "options": [
+          "<code>=</code>",
+          "<code>==</code>",
+          "<code>LIKE</code>",
+          "<code>IN</code>"
+        ]
+      },
+      {
+        "id": "subqueries-q3",
+        "answer": 0,
+        "prompt": "What makes a subquery \"correlated\"?",
+        "explain": "For example comparing each employee to the average of their own department.",
+        "options": [
+          "It uses a column from the outer query and re-runs per outer row",
+          "It uses two tables",
+          "It returns one value",
+          "It is inside a VIEW"
+        ]
+      },
+      {
+        "id": "subqueries-q4",
+        "answer": 0,
+        "prompt": "Correlated subqueries can be slow on large tables.",
+        "explain": "They run once per outer row, so the cost grows with the table.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

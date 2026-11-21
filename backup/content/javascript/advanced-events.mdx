@@ -5,7 +5,7 @@ path: "javascript/advanced-events"
 status: "published"
 meta_title: "JavaScript Events Advanced | Learn Computer Academy"
 sort_order: 14
-updated_at: "2026-07-29T05:40:22.977765+00:00"
+updated_at: "2026-11-21T05:55:11.700811+00:00"
 ---
 
 ```json
@@ -228,6 +228,61 @@ updated_at: "2026-07-29T05:40:22.977765+00:00"
     "id": "9Rdxy9KiXUgS",
     "html": "<ol>\n                                    <li>Demonstrate event bubbling with nested elements.</li>\n                                    <li>Prevent bubbling with <code>stopPropagation</code>.</li>\n                                    <li>Use event delegation on a list where clicking an item changes its color.</li>\n                                    <li>Create a \"run once\" button using <code>{ once: true }</code>.</li>\n                                    <li>Log <code>target</code> and <code>currentTarget</code> and observe the difference.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-advanced-events",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "advanced-events-q1",
+        "answer": 1,
+        "prompt": "A button inside a div both have click listeners. Click the button: what is the default order?",
+        "explain": "Events bubble up from the target to its ancestors.",
+        "options": [
+          "Parent first, then child",
+          "Child first, then parent (bubbling)",
+          "Only the child",
+          "Only the parent"
+        ]
+      },
+      {
+        "id": "advanced-events-q2",
+        "answer": 3,
+        "prompt": "Which call stops the event from reaching parent elements?",
+        "explain": "preventDefault stops the browser's default action, not propagation.",
+        "options": [
+          "<code>event.preventDefault()</code>",
+          "<code>event.cancel()</code>",
+          "<code>return false</code>",
+          "<code>event.stopPropagation()</code>"
+        ]
+      },
+      {
+        "id": "advanced-events-q3",
+        "answer": 0,
+        "prompt": "What is the difference between <code>event.target</code> and <code>event.currentTarget</code>?",
+        "explain": "They differ when the listener is on an ancestor.",
+        "options": [
+          "target is what was clicked; currentTarget is the element whose listener is running",
+          "They are always the same",
+          "currentTarget is the window",
+          "target only exists for keyboard events"
+        ]
+      },
+      {
+        "id": "advanced-events-q4",
+        "answer": 2,
+        "prompt": "What is event delegation?",
+        "explain": "It relies on bubbling, and works for items added later too.",
+        "options": [
+          "Adding one listener to every item",
+          "Stopping all events",
+          "One listener on a parent that handles events from its children",
+          "Sending events to a server"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Conditional Expressions | Learn Computer Academy"
 meta_description: "Branching logic inside a query — CASE for if/else-style output, COALESCE for a NULL fallback, and NULLIF to turn a specific value into NULL."
 sort_order: 19
-updated_at: "2026-09-03T04:30:02.938331+00:00"
+updated_at: "2026-11-21T05:51:05.654186+00:00"
 ---
 
 ```json
@@ -112,6 +112,61 @@ updated_at: "2026-09-03T04:30:02.938331+00:00"
     "header": [
       "Expression",
       "Purpose"
+    ]
+  },
+  {
+    "id": "quiz-conditional-expressions",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "conditional-expressions-q1",
+        "answer": 2,
+        "prompt": "In a CASE expression, which branch is used when several WHEN conditions are true?",
+        "explain": "Conditions are checked top to bottom; later ones are never reached.",
+        "options": [
+          "The last one",
+          "All of them",
+          "The first one that matches",
+          "A random one"
+        ]
+      },
+      {
+        "id": "conditional-expressions-q2",
+        "answer": 3,
+        "prompt": "What does a CASE return when no WHEN matches and there is no ELSE?",
+        "explain": "ELSE is optional; without it the result is NULL.",
+        "options": [
+          "<code>0</code>",
+          "<code>''</code>",
+          "An error",
+          "<code>NULL</code>"
+        ]
+      },
+      {
+        "id": "conditional-expressions-q3",
+        "answer": 0,
+        "prompt": "What does <code>COALESCE(nickname, name)</code> return?",
+        "explain": "COALESCE returns the first non-NULL argument.",
+        "options": [
+          "The nickname if it isn't NULL, otherwise the name",
+          "Both joined together",
+          "Always the name",
+          "The longer of the two"
+        ]
+      },
+      {
+        "id": "conditional-expressions-q4",
+        "answer": 1,
+        "prompt": "What does <code>NULLIF(a, b)</code> return when a equals b?",
+        "explain": "A common use: <code>total / NULLIF(count, 0)</code> avoids dividing by zero.",
+        "options": [
+          "<code>a</code>",
+          "<code>NULL</code>",
+          "<code>b</code>",
+          "<code>0</code>"
+        ]
+      }
     ]
   }
 ]

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Preparing a Theme for Launch | Learn Computer Academy"
 meta_description: "The last checks worth running through before a custom theme goes live — from debug settings to a final pass over every template."
 sort_order: 26
-updated_at: "2026-07-30T14:23:32.486771+00:00"
+updated_at: "2026-11-21T05:59:29.403029+00:00"
 ---
 
 ```json
@@ -80,6 +80,59 @@ updated_at: "2026-07-30T14:23:32.486771+00:00"
     "id": "eKETehivp1EM",
     "html": "<p>That's the full path this section set out to cover — from an empty theme folder to a working, custom-built WordPress theme with its own post types, structured content, and settings, built entirely on plain PHP templates and three focused plugins, with no page builder and no block editor anywhere in the way.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-launch-checklist",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "launch-checklist-q1",
+        "answer": 2,
+        "prompt": "What should a template do when an optional field like a phone number is empty?",
+        "explain": "An empty &lt;a&gt; tag left on the live site looks broken.",
+        "options": [
+          "Print an empty link",
+          "Show an error",
+          "Print nothing for it",
+          "Crash the page"
+        ]
+      },
+      {
+        "id": "launch-checklist-q2",
+        "answer": 3,
+        "prompt": "What does a staging copy of the live server catch that a local install doesn't?",
+        "explain": "Worth doing at least once before a real launch.",
+        "options": [
+          "Spelling mistakes",
+          "Design problems",
+          "Slow typing",
+          "Server-specific issues: PHP version, missing extensions, file permissions"
+        ]
+      },
+      {
+        "id": "launch-checklist-q3",
+        "answer": 1,
+        "prompt": "A theme that works locally is always ready for a live site.",
+        "explain": "A final pass catches small problems before visitors do.",
+        "options": [
+          "True",
+          "False"
+        ]
+      },
+      {
+        "id": "launch-checklist-q4",
+        "answer": 0,
+        "prompt": "Why test every field's blank state before launch?",
+        "explain": "Every template should behave sensibly with missing data.",
+        "options": [
+          "Editors will leave some fields blank on the real site",
+          "Blank fields slow the database",
+          "WordPress deletes blank fields",
+          "It is required for SEO"
+        ]
+      }
+    ]
   }
 ]
 ```

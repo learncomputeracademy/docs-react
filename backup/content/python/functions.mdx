@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Functions | Learn Computer Academy"
 meta_description: "Defining Python functions with def — parameters, default values, and *args/**kwargs for flexible argument lists."
 sort_order: 16
-updated_at: "2026-08-04T11:39:31.051374+00:00"
+updated_at: "2026-11-21T06:12:46.410575+00:00"
 ---
 
 ```json
@@ -124,6 +124,61 @@ updated_at: "2026-08-04T11:39:31.051374+00:00"
     "id": "Mb-M2FHRokA4",
     "html": "<p>Real Python projects write one on every function that isn't completely obvious — this is closer to a formal expectation than a nice-to-have, and tools like Sphinx can generate full documentation pages straight from docstrings.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-functions",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-q1",
+        "answer": 2,
+        "prompt": "Which keyword defines a function?",
+        "explain": "<code>def greet(name):</code>",
+        "options": [
+          "<code>function</code>",
+          "<code>func</code>",
+          "<code>def</code>",
+          "<code>fn</code>"
+        ]
+      },
+      {
+        "id": "functions-q2",
+        "answer": 3,
+        "prompt": "With <code>def add(a: int, b: int) -&gt; int</code>, what does <code>add(\"2\", \"3\")</code> return?",
+        "explain": "Hints are documentation and help tools catch mistakes.",
+        "options": [
+          "A TypeError",
+          "5",
+          "None",
+          "\"23\" — type hints aren't enforced at runtime"
+        ]
+      },
+      {
+        "id": "functions-q3",
+        "answer": 0,
+        "prompt": "With <code>def greet(name=\"Guest\")</code>, what does <code>greet()</code> use?",
+        "explain": "Default parameter values apply when no argument is given.",
+        "options": [
+          "<code>\"Guest\"</code>",
+          "<code>None</code>",
+          "<code>\"\"</code>",
+          "An error"
+        ]
+      },
+      {
+        "id": "functions-q4",
+        "answer": 1,
+        "prompt": "How does a Python function return two values?",
+        "explain": "<code>lowest, highest = min_max(nums)</code>",
+        "options": [
+          "It can't",
+          "<code>return a, b</code> — a tuple you can unpack",
+          "Two return statements",
+          "With print"
+        ]
+      }
+    ]
   }
 ]
 ```

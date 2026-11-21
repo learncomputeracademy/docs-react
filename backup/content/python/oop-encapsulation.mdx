@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Encapsulation and Dunder Methods | Learn Computer Academy"
 meta_description: "Controlling access to a class's properties with Python's naming conventions, and customizing built-in behavior with special methods like __str__."
 sort_order: 24
-updated_at: "2026-08-04T11:39:33.431396+00:00"
+updated_at: "2026-11-21T06:12:48.91458+00:00"
 ---
 
 ```json
@@ -120,6 +120,61 @@ updated_at: "2026-08-04T11:39:33.431396+00:00"
     "id": "UMediuq-Qat9",
     "html": "<p>This gets you the benefit of explicit getter/setter methods without the boilerplate — the calling code stays as simple as a direct attribute, while the class still gets to enforce its own rules.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-oop-encapsulation",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-encapsulation-q1",
+        "answer": 3,
+        "prompt": "What does a leading underscore like _balance mean in Python?",
+        "explain": "Python trusts you to respect it rather than blocking it.",
+        "options": [
+          "The attribute is truly private and blocked",
+          "It is a constant",
+          "It is deleted",
+          "A convention: \"internal, please don't use from outside\""
+        ]
+      },
+      {
+        "id": "oop-encapsulation-q2",
+        "answer": 0,
+        "prompt": "What does a double underscore like __balance trigger?",
+        "explain": "Still not truly impossible to reach.",
+        "options": [
+          "Name mangling, making accidental outside access awkward",
+          "Real privacy",
+          "A syntax error",
+          "A constant"
+        ]
+      },
+      {
+        "id": "oop-encapsulation-q3",
+        "answer": 2,
+        "prompt": "What are dunder methods?",
+        "explain": "__init__ is one too.",
+        "options": [
+          "Deprecated methods",
+          "Private methods",
+          "Special double-underscore methods Python calls automatically, like __str__",
+          "Methods with no body"
+        ]
+      },
+      {
+        "id": "oop-encapsulation-q4",
+        "answer": 1,
+        "prompt": "When is __str__ used?",
+        "explain": "It returns a readable string for the object.",
+        "options": [
+          "When the object is deleted",
+          "When the object is printed or converted with str()",
+          "When the class loads",
+          "Never automatically"
+        ]
+      }
+    ]
   }
 ]
 ```

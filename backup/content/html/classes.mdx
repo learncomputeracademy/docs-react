@@ -5,7 +5,7 @@ path: "html/classes"
 status: "published"
 meta_title: "HTML Classes | Learn Computer Academy"
 sort_order: 7
-updated_at: "2026-07-29T05:40:19.657734+00:00"
+updated_at: "2026-11-20T15:25:05.595892+00:00"
 ---
 
 ```json
@@ -147,6 +147,58 @@ updated_at: "2026-07-29T05:40:19.657734+00:00"
     "code": "<script>\n    function myFunction() {\n      var x = document.getElementsByClassName(\"city\");\n      for (var i = 0; i < x.length; i++) {\n        x[i].style.display = \"none\";\n      }\n    }\n</script>",
     "type": "code",
     "language": "html"
+  },
+  {
+    "id": "quiz-classes",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "classes-q1",
+        "answer": 1,
+        "prompt": "Which CSS selector styles every element with class=\"city\"?",
+        "explain": "A class selector is a dot followed by the class name. <code>#</code> is for ids.",
+        "options": [
+          "<code>#city</code>",
+          "<code>.city</code>",
+          "<code>city</code>",
+          "<code>*city</code>"
+        ]
+      },
+      {
+        "id": "classes-q2",
+        "answer": 3,
+        "prompt": "How many elements can share the same class name?",
+        "explain": "That is the point of a class: one style shared by many elements.",
+        "options": [
+          "Only one",
+          "Exactly two",
+          "Up to six",
+          "Any number"
+        ]
+      },
+      {
+        "id": "classes-q3",
+        "answer": 0,
+        "prompt": "How do you give one element two classes?",
+        "explain": "Separate class names with a space inside one class attribute.",
+        "options": [
+          "<code>class=\"city main\"</code>",
+          "<code>class=\"city, main\"</code>",
+          "<code>class=\"city;main\"</code>",
+          "Two separate class attributes"
+        ]
+      },
+      {
+        "id": "classes-q4",
+        "answer": 1,
+        "prompt": "class=\"City\" and class=\"city\" are the same class.",
+        "explain": "Class names are case sensitive, so these are two different classes.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

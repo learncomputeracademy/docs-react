@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Tuples and Sets | Learn Computer Academy"
 meta_description: "Python's tuple (an ordered, unchangeable collection) and set (an unordered collection of unique values) — when to reach for each."
 sort_order: 11
-updated_at: "2026-08-04T11:39:29.722525+00:00"
+updated_at: "2026-11-21T06:12:44.943709+00:00"
 ---
 
 ```json
@@ -131,6 +131,61 @@ updated_at: "2026-08-04T11:39:29.722525+00:00"
     "header": [
       "Type",
       "Choose when"
+    ]
+  },
+  {
+    "id": "quiz-tuples-and-sets",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tuples-and-sets-q1",
+        "answer": 1,
+        "prompt": "What happens with point[0] = 5 when point is a tuple?",
+        "explain": "Tuples are ordered but unchangeable.",
+        "options": [
+          "It works",
+          "A TypeError — tuples can't be changed",
+          "The tuple becomes a list",
+          "Nothing happens"
+        ]
+      },
+      {
+        "id": "tuples-and-sets-q2",
+        "answer": 3,
+        "prompt": "What is <code>set([1, 2, 2, 3])</code>?",
+        "explain": "Sets discard duplicates and have no guaranteed order.",
+        "options": [
+          "<code>[1, 2, 2, 3]</code>",
+          "<code>{1, 2, 2, 3}</code>",
+          "<code>3</code>",
+          "<code>{1, 2, 3}</code>"
+        ]
+      },
+      {
+        "id": "tuples-and-sets-q3",
+        "answer": 0,
+        "prompt": "When is a tuple a good fit?",
+        "explain": "Also returning several values from a function.",
+        "options": [
+          "A small fixed group of values, like coordinates",
+          "A shopping cart that changes",
+          "A list of unique tags",
+          "Key-value settings"
+        ]
+      },
+      {
+        "id": "tuples-and-sets-q4",
+        "answer": 2,
+        "prompt": "What does <code>lowest, highest = min_max([4, 9, 1, 7])</code> do?",
+        "explain": "lowest is 1, highest is 9.",
+        "options": [
+          "Creates a list",
+          "Raises an error",
+          "Unpacks the returned tuple into two variables",
+          "Sorts the list"
+        ]
+      }
     ]
   }
 ]

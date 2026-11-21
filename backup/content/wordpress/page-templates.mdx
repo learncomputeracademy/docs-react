@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Custom Page Templates | Learn Computer Academy"
 meta_description: "How to build a page template that only applies where you assign it by hand — the pattern behind a totally different homepage layout."
 sort_order: 9
-updated_at: "2026-07-30T14:23:26.960969+00:00"
+updated_at: "2026-11-21T05:59:24.115052+00:00"
 ---
 
 ```json
@@ -75,6 +75,61 @@ updated_at: "2026-07-30T14:23:26.960969+00:00"
     "id": "N_INUixG6MBz",
     "html": "<p>The next lesson steps away from templates for a moment to fix something every one of them has been doing wrong so far — loading CSS and JavaScript the right way, instead of hardcoding <code>&lt;link&gt;</code> and <code>&lt;script&gt;</code> tags directly in <code>header.php</code>.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-page-templates",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "page-templates-q1",
+        "answer": 2,
+        "prompt": "How does a PHP file become a selectable page template?",
+        "explain": "That one comment line is the entire registration.",
+        "options": [
+          "By registering it in functions.php",
+          "By naming it page.php",
+          "By adding a \"Template Name:\" comment at the top",
+          "By uploading it in the admin"
+        ]
+      },
+      {
+        "id": "page-templates-q2",
+        "answer": 3,
+        "prompt": "Where do you assign a custom page template to a page?",
+        "explain": "Every file with a Template Name comment appears there.",
+        "options": [
+          "Settings → Reading",
+          "Appearance → Themes",
+          "In wp-config.php",
+          "The Template dropdown in the page editor's Page Attributes panel"
+        ]
+      },
+      {
+        "id": "page-templates-q3",
+        "answer": 0,
+        "prompt": "Does the file name of a page template matter to WordPress?",
+        "explain": "template-{name}.php is just a common convention.",
+        "options": [
+          "No — only the Template Name comment does",
+          "Yes, it must start with page-",
+          "Yes, it must be template.php",
+          "Yes, it must match the page slug"
+        ]
+      },
+      {
+        "id": "page-templates-q4",
+        "answer": 1,
+        "prompt": "A typical use for a custom page template is…",
+        "explain": "Any page that needs a layout unrelated to its slug or ID.",
+        "options": [
+          "a blog post",
+          "a homepage with a hero banner",
+          "the admin dashboard",
+          "a 404 page"
+        ]
+      }
+    ]
   }
 ]
 ```

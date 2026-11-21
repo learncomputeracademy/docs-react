@@ -5,7 +5,7 @@ path: "html/tag-audio"
 status: "published"
 meta_title: "Audio Tag | Learn Computer Academy"
 sort_order: 34
-updated_at: "2026-07-29T05:40:21.653791+00:00"
+updated_at: "2026-11-20T15:25:13.319122+00:00"
 ---
 
 ```json
@@ -61,6 +61,60 @@ updated_at: "2026-07-29T05:40:21.653791+00:00"
     "id": "lzMwkeDv5LRB",
     "html": "<p>The controls attribute adds audio controls, like play, pause, and volume.</p>\n<p>The <code>&lt;source&gt;</code> element allows you to specify alternative audio files which the browser may choose from. The browser will use the first recognized format.</p>\n<p>The text between the <code>&lt;audio&gt; </code>and <code>&lt;/audio&gt;</code> tags will only be displayed in browsers that do not support the <code>&lt;audio&gt;</code> element.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-tag-audio",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tag-audio-q1",
+        "answer": 2,
+        "prompt": "Which attribute shows play, pause and volume buttons?",
+        "explain": "<code>&lt;audio controls&gt;</code>. Without it, nothing visible appears.",
+        "options": [
+          "<code>buttons</code>",
+          "<code>player</code>",
+          "<code>controls</code>",
+          "<code>show</code>"
+        ]
+      },
+      {
+        "id": "tag-audio-q2",
+        "answer": 1,
+        "prompt": "An <code>&lt;audio&gt;</code> has two <code>&lt;source&gt;</code> files. Which one plays?",
+        "explain": "Listing several formats lets every browser find one it can play.",
+        "options": [
+          "Both at the same time",
+          "The first format the browser supports",
+          "The last one",
+          "The larger file"
+        ]
+      },
+      {
+        "id": "tag-audio-q3",
+        "answer": 3,
+        "prompt": "When is the text between <code>&lt;audio&gt;</code> and <code>&lt;/audio&gt;</code> shown?",
+        "explain": "It is a fallback message.",
+        "options": [
+          "Always, as a caption",
+          "While the audio plays",
+          "When the audio ends",
+          "Only in browsers that don't support the audio element"
+        ]
+      },
+      {
+        "id": "tag-audio-q4",
+        "answer": 0,
+        "prompt": "Before HTML5, how was audio usually played in a browser?",
+        "explain": "The audio element made plug-ins unnecessary.",
+        "options": [
+          "With a plug-in such as Flash",
+          "With CSS",
+          "It was impossible",
+          "With the &lt;sound&gt; tag"
+        ]
+      }
+    ]
   }
 ]
 ```

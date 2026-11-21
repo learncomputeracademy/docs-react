@@ -5,7 +5,7 @@ path: "html/form-elements"
 status: "published"
 meta_title: "HTML Form Elements | Learn Computer Academy"
 sort_order: 15
-updated_at: "2026-07-29T05:40:20.254949+00:00"
+updated_at: "2026-11-20T15:25:08.115677+00:00"
 ---
 
 ```json
@@ -221,6 +221,60 @@ updated_at: "2026-07-29T05:40:20.254949+00:00"
     "id": "8zwsFKfG7wG_",
     "html": "<p>This is how the HTML code above will be displayed in a browser:</p>\n<form action=\"\" oninput=\"x.value=parseInt(a.value)+parseInt(b.value)\">\n                                    0\n                                    <input type=\"range\" id=\"a\" name=\"a\" value=\"50\">\n                                    100 +\n                                    <input type=\"number\" id=\"b\" name=\"b\" value=\"50\">\n                                    =\n                                    <output name=\"x\" for=\"a b\"></output>\n                                    <br><br>\n                                    <input type=\"submit\">\n                                </form>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-form-elements",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "form-elements-q1",
+        "answer": 1,
+        "prompt": "Which element creates a drop-down list?",
+        "explain": "<code>&lt;select&gt;</code> holds <code>&lt;option&gt;</code> elements, one per choice.",
+        "options": [
+          "<code>&lt;list&gt;</code>",
+          "<code>&lt;select&gt;</code>",
+          "<code>&lt;dropdown&gt;</code>",
+          "<code>&lt;input type=\"list\"&gt;</code>"
+        ]
+      },
+      {
+        "id": "form-elements-q2",
+        "answer": 0,
+        "prompt": "How do you make one option chosen when the page loads?",
+        "explain": "<code>&lt;option value=\"fiat\" selected&gt;</code>. Without it, the first option is selected.",
+        "options": [
+          "Add the selected attribute to it",
+          "Put it first in the list",
+          "Add checked",
+          "Add default=\"yes\""
+        ]
+      },
+      {
+        "id": "form-elements-q3",
+        "answer": 2,
+        "prompt": "Which element is a multi-line text box?",
+        "explain": "<code>&lt;textarea&gt;</code> accepts several lines; <code>&lt;input type=\"text\"&gt;</code> is one line.",
+        "options": [
+          "<code>&lt;input type=\"text\"&gt;</code>",
+          "<code>&lt;input type=\"lines\"&gt;</code>",
+          "<code>&lt;textarea&gt;</code>",
+          "<code>&lt;text&gt;</code>"
+        ]
+      },
+      {
+        "id": "form-elements-q4",
+        "answer": 3,
+        "prompt": "What type does <code>&lt;input name=\"city\"&gt;</code> get if no type is given?",
+        "explain": "The default input type is \"text\".",
+        "options": [
+          "<code>number</code>",
+          "<code>hidden</code>",
+          "<code>button</code>",
+          "<code>text</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

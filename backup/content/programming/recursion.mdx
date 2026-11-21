@@ -5,7 +5,7 @@ path: "programming/recursion"
 status: "published"
 meta_title: "Recursion | Learn Computer Academy"
 sort_order: 13
-updated_at: "2026-08-18T14:27:47.619493+00:00"
+updated_at: "2026-11-21T10:12:47.360499+00:00"
 ---
 
 ```json
@@ -73,6 +73,61 @@ updated_at: "2026-08-18T14:27:47.619493+00:00"
     "html": "<p>A recursive function with no base case (or one that's never reached) causes a \"stack overflow\" — the program runs out of memory tracking all the pending calls. Every recursive function needs a way to eventually stop.</p>",
     "type": "callout",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-recursion",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "recursion-q1",
+        "answer": 1,
+        "prompt": "What is recursion?",
+        "explain": "Until it reaches a simple case.",
+        "options": [
+          "A loop with no end",
+          "A function that calls itself on a smaller version of the problem",
+          "A type of variable",
+          "Deleting code"
+        ]
+      },
+      {
+        "id": "recursion-q2",
+        "answer": 2,
+        "prompt": "What is <code>factorial(4)</code>?",
+        "explain": "4 × 3 × 2 × 1.",
+        "options": [
+          "4",
+          "10",
+          "24",
+          "16"
+        ]
+      },
+      {
+        "id": "recursion-q3",
+        "answer": 0,
+        "prompt": "What does the base case do?",
+        "explain": "In factorial: <code>if (n &lt;= 1) return 1;</code>",
+        "options": [
+          "Stops the recursion",
+          "Starts the recursion",
+          "Doubles the input",
+          "Prints output"
+        ]
+      },
+      {
+        "id": "recursion-q4",
+        "answer": 3,
+        "prompt": "What happens with no reachable base case?",
+        "explain": "The program runs out of memory tracking pending calls.",
+        "options": [
+          "It returns 0",
+          "Nothing",
+          "It runs once",
+          "A stack overflow"
+        ]
+      }
+    ]
   }
 ]
 ```

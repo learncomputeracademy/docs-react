@@ -5,7 +5,7 @@ path: "javascript/objects"
 status: "published"
 meta_title: "JavaScript Objects | Learn Computer Academy"
 sort_order: 8
-updated_at: "2026-07-29T05:40:22.538156+00:00"
+updated_at: "2026-11-21T05:55:09.149715+00:00"
 ---
 
 ```json
@@ -378,6 +378,61 @@ updated_at: "2026-07-29T05:40:22.538156+00:00"
     "id": "Xu0QJfyOeJcB",
     "html": "<ol>\n                                    <li>Create an object called <code>movie</code> with keys: <code>title</code>, <code>director</code>, <code>year</code>.</li>\n                                    <li>Add a method <code>getDetails</code> that returns a formatted string using <code>this.title</code>, etc.</li>\n                                    <li>Loop over the object to print all key-value pairs.</li>\n                                    <li>Try destructuring the <code>movie</code> object.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-objects",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "objects-q1",
+        "answer": 1,
+        "prompt": "How do you read the age of <code>const person = { name: \"Alice\", age: 30 }</code>?",
+        "explain": "Dot notation, or bracket notation: <code>person[\"age\"]</code>.",
+        "options": [
+          "<code>person-&gt;age</code>",
+          "<code>person.age</code>",
+          "<code>person(age)</code>",
+          "<code>person::age</code>"
+        ]
+      },
+      {
+        "id": "objects-q2",
+        "answer": 3,
+        "prompt": "When must you use bracket notation?",
+        "explain": "For example <code>person[key]</code> where key holds the property name.",
+        "options": [
+          "Always",
+          "When the property is a number value",
+          "Never — it is deprecated",
+          "When the key has spaces or comes from a variable"
+        ]
+      },
+      {
+        "id": "objects-q3",
+        "answer": 0,
+        "prompt": "How do you remove a property?",
+        "explain": "delete removes the key and its value from the object.",
+        "options": [
+          "<code>delete person.age</code>",
+          "<code>remove person.age</code>",
+          "<code>person.age = delete</code>",
+          "<code>person.drop(\"age\")</code>"
+        ]
+      },
+      {
+        "id": "objects-q4",
+        "answer": 1,
+        "prompt": "What is a method?",
+        "explain": "For example <code>car.start()</code>.",
+        "options": [
+          "A property that holds a number",
+          "A function stored inside an object",
+          "A copy of an object",
+          "A loop over an object"
+        ]
+      }
+    ]
   }
 ]
 ```

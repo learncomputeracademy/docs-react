@@ -5,7 +5,7 @@ path: "css/dropdowns"
 status: "published"
 meta_title: "CSS Dropdowns | Learn Computer Academy"
 sort_order: 30
-updated_at: "2026-08-18T08:03:09.06517+00:00"
+updated_at: "2026-11-21T06:18:16.526313+00:00"
 ---
 
 ```json
@@ -39,6 +39,59 @@ updated_at: "2026-08-18T08:03:09.06517+00:00"
       "css": ".dropdown {\n  position: relative;\n  display: inline-block;\n  margin-right: 32px;\n}\n.dropbtn {\n  background-color: #f97316;\n  color: white;\n  padding: 10px 16px;\n  border: none;\n  border-radius: 6px;\n  cursor: pointer;\n  font-size: 14px;\n}\n.dropdown-content {\n  display: none;\n  position: absolute;\n  left: 0;\n  top: 100%;\n  margin-top: 8px;\n  min-width: 150px;\n  padding: 12px 16px;\n  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.15);\n  background-color: #f9f9f9;\n  border-radius: 6px;\n  text-align: center;\n}\n.dropdown-content p {\n  margin: 0;\n}\n.dropdown-content2 {\n  text-align: left;\n}\n.dropdown-content2 a {\n  display: block;\n  color: #111;\n  padding: 4px 0;\n  text-decoration: none;\n}\n.dropdown-content2 a:hover {\n  color: #f97316;\n}\n.dropdown:hover .dropdown-content {\n  display: block;\n}",
       "html": "<div class=\"dropdown\">\n  <span>Dropdown Text</span>\n  <div class=\"dropdown-content\">\n    <p>Hello World!</p>\n  </div>\n</div>\n\n<div class=\"dropdown\">\n  <button class=\"dropbtn\">Dropdown Menu</button>\n  <div class=\"dropdown-content dropdown-content2\">\n    <a href=\"#\">Link 1</a>\n    <a href=\"#\">Link 2</a>\n    <a href=\"#\">Link 3</a>\n  </div>\n</div>"
     }
+  },
+  {
+    "id": "quiz-dropdowns",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dropdowns-q1",
+        "answer": 3,
+        "prompt": "How does a CSS-only dropdown open?",
+        "explain": "<code>.dropdown:hover .dropdown-content { display: block; }</code>",
+        "options": [
+          "On click, with JavaScript",
+          "Automatically after 2 seconds",
+          "On page load",
+          "On hover: .dropdown:hover shows the hidden content"
+        ]
+      },
+      {
+        "id": "dropdowns-q2",
+        "answer": 0,
+        "prompt": "How is the dropdown content hidden at first?",
+        "explain": "Hover switches it to display: block.",
+        "options": [
+          "<code>display: none;</code>",
+          "<code>opacity: 1;</code>",
+          "<code>color: transparent;</code>",
+          "<code>width: 100%;</code>"
+        ]
+      },
+      {
+        "id": "dropdowns-q3",
+        "answer": 1,
+        "prompt": "Why does the dropdown container use <code>position: relative;</code>?",
+        "explain": "It becomes the reference for the absolute child.",
+        "options": [
+          "To make it bold",
+          "So the absolutely positioned content appears right below it",
+          "To hide it",
+          "It is required for hover"
+        ]
+      },
+      {
+        "id": "dropdowns-q4",
+        "answer": 1,
+        "prompt": "A hover-only dropdown works well on touchscreens.",
+        "explain": "Phones have no hover, so tap-to-open matters on mobile.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

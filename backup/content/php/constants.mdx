@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Constants | Learn Computer Academy"
 meta_description: "How to define values in PHP that can never change once set, using define() and const."
 sort_order: 7
-updated_at: "2026-07-30T09:08:36.170187+00:00"
+updated_at: "2026-11-21T06:08:32.481329+00:00"
 ---
 
 ```json
@@ -79,6 +79,59 @@ updated_at: "2026-07-30T09:08:36.170187+00:00"
     "type": "callout",
     "title": "const vs define() in practice",
     "variant": "note"
+  },
+  {
+    "id": "quiz-constants",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "constants-q1",
+        "answer": 2,
+        "prompt": "What is special about a constant?",
+        "explain": "Use one for values like a tax rate or site name.",
+        "options": [
+          "It can only hold numbers",
+          "It is faster than a variable",
+          "It can never be changed once set",
+          "It is only visible in one function"
+        ]
+      },
+      {
+        "id": "constants-q2",
+        "answer": 3,
+        "prompt": "How is a constant written?",
+        "explain": "No $ sigil, and UPPER_SNAKE_CASE by convention.",
+        "options": [
+          "<code>$SITE_NAME</code>",
+          "<code>$site_name</code>",
+          "<code>@SITE_NAME</code>",
+          "<code>SITE_NAME</code>"
+        ]
+      },
+      {
+        "id": "constants-q3",
+        "answer": 0,
+        "prompt": "Which line defines a constant?",
+        "explain": "<code>const MAX_UPLOAD_SIZE = 5242880;</code> also works at the top level or in a class.",
+        "options": [
+          "<code>define(\"SITE_NAME\", \"Learn Computer Academy\");</code>",
+          "<code>$SITE_NAME = \"Learn Computer Academy\";</code>",
+          "<code>constant SITE_NAME = \"Learn\";</code>",
+          "<code>let SITE_NAME = \"Learn\";</code>"
+        ]
+      },
+      {
+        "id": "constants-q4",
+        "answer": 1,
+        "prompt": "Trying to reassign a constant quietly updates it.",
+        "explain": "It raises an error.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

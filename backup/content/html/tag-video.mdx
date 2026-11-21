@@ -5,7 +5,7 @@ path: "html/tag-video"
 status: "published"
 meta_title: "Video Tag | Learn Computer Academy"
 sort_order: 35
-updated_at: "2026-08-06T07:05:19.579663+00:00"
+updated_at: "2026-11-20T15:25:13.585091+00:00"
 ---
 
 ```json
@@ -105,6 +105,60 @@ updated_at: "2026-08-06T07:05:19.579663+00:00"
       "js": "var myVideo = document.getElementById(\"video1\");\nfunction playPause() {\n  if (myVideo.paused)\n    myVideo.play();\n  else\n    myVideo.pause();\n}\nfunction makeBig() {\n  myVideo.width = 560;\n}\nfunction makeSmall() {\n  myVideo.width = 320;\n}\nfunction makeNormal() {\n  myVideo.width = 420;\n}",
       "html": "<div style=\"text-align:center\">\n  <button onclick=\"playPause()\">Play/Pause</button>\n  <button onclick=\"makeBig()\">Big</button>\n  <button onclick=\"makeSmall()\">Small</button>\n  <button onclick=\"makeNormal()\">Normal</button>\n  <br><br>\n  <video id=\"video1\" width=\"420\">\n    <source src=\"https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4\" type=\"video/mp4\">\n    Your browser does not support HTML5 video.\n  </video>\n</div>"
     }
+  },
+  {
+    "id": "quiz-tag-video",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tag-video-q1",
+        "answer": 2,
+        "prompt": "Why is it a good idea to set width and height on a video?",
+        "explain": "The browser can reserve the space before the video arrives.",
+        "options": [
+          "It makes the video load faster",
+          "It improves sound quality",
+          "It stops the page from jumping (flickering) while the video loads",
+          "It is required or the video won't play"
+        ]
+      },
+      {
+        "id": "tag-video-q2",
+        "answer": 3,
+        "prompt": "Which attribute starts the video by itself?",
+        "explain": "Use it sparingly — unexpected video annoys visitors.",
+        "options": [
+          "<code>start</code>",
+          "<code>play</code>",
+          "<code>auto</code>",
+          "<code>autoplay</code>"
+        ]
+      },
+      {
+        "id": "tag-video-q3",
+        "answer": 0,
+        "prompt": "Which element lists alternative video files for the browser to choose from?",
+        "explain": "The browser plays the first format it recognises.",
+        "options": [
+          "<code>&lt;source&gt;</code>",
+          "<code>&lt;file&gt;</code>",
+          "<code>&lt;track&gt;</code>",
+          "<code>&lt;option&gt;</code>"
+        ]
+      },
+      {
+        "id": "tag-video-q4",
+        "answer": 1,
+        "prompt": "What does the <code>controls</code> attribute add to a video?",
+        "explain": "Same as on audio.",
+        "options": [
+          "Subtitles",
+          "Play, pause and volume controls",
+          "A download link",
+          "A border"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP File Handling | Learn Computer Academy"
 meta_description: "Reading from and writing to files on the server with PHP's file functions."
 sort_order: 27
-updated_at: "2026-07-30T09:08:43.241096+00:00"
+updated_at: "2026-11-21T06:08:38.135879+00:00"
 ---
 
 ```json
@@ -90,6 +90,61 @@ updated_at: "2026-07-30T09:08:43.241096+00:00"
     "type": "callout",
     "title": "Never trust a user-supplied file path",
     "variant": "note"
+  },
+  {
+    "id": "quiz-file-handling",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "file-handling-q1",
+        "answer": 1,
+        "prompt": "What does file_put_contents(\"notes.txt\", \"Hi\") do if the file exists?",
+        "explain": "Pass FILE_APPEND as a third argument to add instead.",
+        "options": [
+          "Appends Hi",
+          "Overwrites the file",
+          "Throws an error",
+          "Creates a copy"
+        ]
+      },
+      {
+        "id": "file-handling-q2",
+        "answer": 3,
+        "prompt": "Why read a large file line by line with fopen/fgets?",
+        "explain": "file_get_contents reads everything at once.",
+        "options": [
+          "It is required",
+          "It is easier to type",
+          "fgets is newer",
+          "It avoids loading the whole file into memory"
+        ]
+      },
+      {
+        "id": "file-handling-q3",
+        "answer": 0,
+        "prompt": "What must you call when finished with a handle from fopen()?",
+        "explain": "It releases the file.",
+        "options": [
+          "<code>fclose($handle)</code>",
+          "<code>unset($handle)</code>",
+          "<code>fend($handle)</code>",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "file-handling-q4",
+        "answer": 2,
+        "prompt": "Which function reads a whole file into a string?",
+        "explain": "Fine for small files.",
+        "options": [
+          "<code>fread_all()</code>",
+          "<code>file_read()</code>",
+          "<code>file_get_contents()</code>",
+          "<code>read_file()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

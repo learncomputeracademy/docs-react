@@ -6,7 +6,7 @@ status: "published"
 meta_title: "JavaScript Map and Set | Learn Computer Academy"
 meta_description: "Four built-in data structures beyond plain objects and arrays — a Map for any-type keys, a Set for unique values, and their memory-friendly Weak variants."
 sort_order: 33
-updated_at: "2026-09-03T04:17:12.307543+00:00"
+updated_at: "2026-11-21T05:55:27.807323+00:00"
 ---
 
 ```json
@@ -121,6 +121,61 @@ updated_at: "2026-09-03T04:17:12.307543+00:00"
       "Keys/values",
       "Iterable?",
       "Prevents garbage collection?"
+    ]
+  },
+  {
+    "id": "quiz-maps-and-sets",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "maps-and-sets-q1",
+        "answer": 1,
+        "prompt": "What can a Map key be that a plain object key can't?",
+        "explain": "Plain object keys are always converted to strings.",
+        "options": [
+          "A string",
+          "Any type, including an object",
+          "Only numbers",
+          "Nothing — they are identical"
+        ]
+      },
+      {
+        "id": "maps-and-sets-q2",
+        "answer": 2,
+        "prompt": "What is <code>new Set(['js', 'css', 'js']).size</code>?",
+        "explain": "A Set removes duplicates automatically.",
+        "options": [
+          "3",
+          "1",
+          "2",
+          "0"
+        ]
+      },
+      {
+        "id": "maps-and-sets-q3",
+        "answer": 3,
+        "prompt": "What does <code>[...new Set([1, 2, 2, 3])]</code> give?",
+        "explain": "A quick way to deduplicate an array.",
+        "options": [
+          "<code>[1, 2, 2, 3]</code>",
+          "<code>{1, 2, 3}</code>",
+          "<code>3</code>",
+          "<code>[1, 2, 3]</code>"
+        ]
+      },
+      {
+        "id": "maps-and-sets-q4",
+        "answer": 0,
+        "prompt": "What is special about WeakMap keys?",
+        "explain": "Useful for attaching data to objects without causing memory leaks.",
+        "options": [
+          "They don't stop the key object from being garbage-collected",
+          "They are encrypted",
+          "They must be strings",
+          "They are sorted"
+        ]
+      }
     ]
   }
 ]

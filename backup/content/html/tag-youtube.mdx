@@ -5,7 +5,7 @@ path: "html/tag-youtube"
 status: "published"
 meta_title: "Embed YouTube Iframe  | Learn Computer Academy"
 sort_order: 36
-updated_at: "2026-07-29T05:40:21.799796+00:00"
+updated_at: "2026-11-20T15:25:13.844733+00:00"
 ---
 
 ```json
@@ -161,6 +161,60 @@ updated_at: "2026-07-29T05:40:21.799796+00:00"
     "id": "lG-2rg_mKPh5",
     "html": "<p><b>Note</b>: YouTube <code>&lt;object&gt;</code> and <code>&lt;embed&gt;</code> were deprecated from January 2015. You should migrate your videos to use <code>&lt;iframe&gt;</code> instead.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-tag-youtube",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tag-youtube-q1",
+        "answer": 2,
+        "prompt": "Which element embeds a YouTube video in a page?",
+        "explain": "YouTube provides an <code>&lt;iframe&gt;</code> that loads its player.",
+        "options": [
+          "<code>&lt;video&gt;</code>",
+          "<code>&lt;youtube&gt;</code>",
+          "<code>&lt;iframe&gt;</code>",
+          "<code>&lt;embed-video&gt;</code>"
+        ]
+      },
+      {
+        "id": "tag-youtube-q2",
+        "answer": 1,
+        "prompt": "Which src URL format plays a YouTube video inside an iframe?",
+        "explain": "The /embed/ URL is made for iframes; the watch page refuses to load inside one.",
+        "options": [
+          "<code>https://www.youtube.com/watch?v=VIDEO_ID</code>",
+          "<code>https://www.youtube.com/embed/VIDEO_ID</code>",
+          "<code>https://youtube.com/VIDEO_ID.mp4</code>",
+          "<code>youtube:VIDEO_ID</code>"
+        ]
+      },
+      {
+        "id": "tag-youtube-q3",
+        "answer": 0,
+        "prompt": "How do you make a YouTube embed start playing automatically?",
+        "explain": "Value 1 autoplays, 0 (default) does not. Browsers usually only allow it when muted.",
+        "options": [
+          "Add ?autoplay=1 to the src URL",
+          "Add the play attribute",
+          "Use type=\"auto\"",
+          "It is not possible"
+        ]
+      },
+      {
+        "id": "tag-youtube-q4",
+        "answer": 3,
+        "prompt": "Why use YouTube instead of hosting the video file yourself?",
+        "explain": "Converting video to several formats yourself is slow and difficult.",
+        "options": [
+          "YouTube videos have no ads",
+          "It is required by HTML5",
+          "It makes the page text bigger",
+          "YouTube handles the video formats and streaming for you"
+        ]
+      }
+    ]
   }
 ]
 ```

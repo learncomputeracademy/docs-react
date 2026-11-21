@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Data Types & Memory Sizing | Learn Computer Academy"
 meta_description: "A practical guide to SQL data types — numeric, text, date/time, boolean/ENUM/JSON — plus a real-world sizing cheatsheet for common production columns."
 sort_order: 3
-updated_at: "2026-07-29T06:31:05.329363+00:00"
+updated_at: "2026-11-21T05:51:00.716711+00:00"
 ---
 
 ```json
@@ -286,6 +286,61 @@ updated_at: "2026-07-29T06:31:05.329363+00:00"
     "id": "2pvJGfYLNF-x",
     "html": "<p>With the right types and sizes in place, the next four lessons cover each SQL family in turn, starting with DDL — the commands that actually create the tables you've just learned to size.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-data-types",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "data-types-q1",
+        "answer": 2,
+        "prompt": "Which type should you use for money?",
+        "explain": "DECIMAL stores exact values. FLOAT/DOUBLE introduce silent rounding errors.",
+        "options": [
+          "<code>FLOAT</code>",
+          "<code>DOUBLE</code>",
+          "<code>DECIMAL(10,2)</code>",
+          "<code>VARCHAR(10)</code>"
+        ]
+      },
+      {
+        "id": "data-types-q2",
+        "answer": 1,
+        "prompt": "Why not make every ID a <code>BIGINT</code> \"just in case\"?",
+        "explain": "INT (4 bytes, about 4.2 billion unsigned) is enough for most tables.",
+        "options": [
+          "BIGINT cannot be a primary key",
+          "It doubles the size of the column and its indexes for no benefit",
+          "BIGINT is slower to type",
+          "BIGINT only stores negative numbers"
+        ]
+      },
+      {
+        "id": "data-types-q3",
+        "answer": 0,
+        "prompt": "What is the difference between <code>CHAR</code> and <code>VARCHAR</code>?",
+        "explain": "CHAR fits values that are always the same length, like country codes.",
+        "options": [
+          "CHAR is fixed-length and padded; VARCHAR stores only what it needs",
+          "CHAR stores numbers only",
+          "VARCHAR is fixed-length",
+          "There is no difference"
+        ]
+      },
+      {
+        "id": "data-types-q4",
+        "answer": 3,
+        "prompt": "Which type is the best fit for a stock count that never goes above 60,000?",
+        "explain": "SMALLINT is 2 bytes and holds up to about 65,000 unsigned.",
+        "options": [
+          "<code>BIGINT</code>",
+          "<code>DECIMAL(20,4)</code>",
+          "<code>TEXT</code>",
+          "<code>SMALLINT UNSIGNED</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

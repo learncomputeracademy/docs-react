@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Finding Documents | Learn Computer Academy"
 meta_description: "Querying a collection with find() and findOne(), and matching documents by field value."
 sort_order: 6
-updated_at: "2026-08-18T10:11:22.885414+00:00"
+updated_at: "2026-11-21T10:24:31.727925+00:00"
 ---
 
 ```json
@@ -100,6 +100,59 @@ updated_at: "2026-08-18T10:11:22.885414+00:00"
     "type": "callout",
     "title": "find() returns a cursor",
     "variant": "note"
+  },
+  {
+    "id": "quiz-finding-documents",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "finding-documents-q1",
+        "answer": 1,
+        "prompt": "What does <code>db.users.find()</code> with no arguments return?",
+        "explain": "Pass a query object to filter.",
+        "options": [
+          "Nothing",
+          "Every document in the collection",
+          "Only the first document",
+          "An error"
+        ]
+      },
+      {
+        "id": "finding-documents-q2",
+        "answer": 3,
+        "prompt": "What does <code>db.users.find({ age: 27 })</code> return?",
+        "explain": "An exact match.",
+        "options": [
+          "Users older than 27",
+          "The 27th user",
+          "Nothing",
+          "Every user whose age is exactly 27"
+        ]
+      },
+      {
+        "id": "finding-documents-q3",
+        "answer": 0,
+        "prompt": "When should you use findOne()?",
+        "explain": "It returns the first match, or null.",
+        "options": [
+          "When you expect or only need a single result",
+          "To delete",
+          "To count",
+          "Never"
+        ]
+      },
+      {
+        "id": "finding-documents-q4",
+        "answer": 0,
+        "prompt": "findOne() returns null when nothing matches.",
+        "explain": "find() returns an empty result instead.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

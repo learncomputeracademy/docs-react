@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Buffers | Learn Computer Academy"
 meta_description: "What a Buffer is, why Node.js needs a separate type for raw binary data, and how it relates to the streams and files covered so far."
 sort_order: 16
-updated_at: "2026-08-05T05:47:57.521679+00:00"
+updated_at: "2026-11-21T06:03:27.32532+00:00"
 ---
 
 ```json
@@ -76,6 +76,61 @@ updated_at: "2026-08-05T05:47:57.521679+00:00"
     "html": "<p>You won't create Buffers directly very often in typical application code — most of the time they arrive already handed to you, from a file read, a network response, or a stream's <code>'data'</code> event. Knowing what they are is what matters, so a <code>&lt;Buffer ...&gt;</code> in your console output isn't a mystery when it shows up.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-buffers",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "buffers-q1",
+        "answer": 0,
+        "prompt": "What is a Buffer for?",
+        "explain": "JavaScript strings are built for text, not raw bytes.",
+        "options": [
+          "Holding raw binary data like images and PDFs",
+          "Speeding up loops",
+          "Storing strings",
+          "Caching web pages"
+        ]
+      },
+      {
+        "id": "buffers-q2",
+        "answer": 2,
+        "prompt": "What is <code>Buffer.from('Hello').length</code>?",
+        "explain": "One byte per character for plain ASCII text.",
+        "options": [
+          "1",
+          "10",
+          "5",
+          "0"
+        ]
+      },
+      {
+        "id": "buffers-q3",
+        "answer": 3,
+        "prompt": "When does readFileSync return a Buffer?",
+        "explain": "Right for a PNG, which isn't meant to be read as text.",
+        "options": [
+          "Always",
+          "Never",
+          "Only for .txt files",
+          "When no encoding like \"utf8\" is given"
+        ]
+      },
+      {
+        "id": "buffers-q4",
+        "answer": 0,
+        "prompt": "How do you turn a Buffer back into a string?",
+        "explain": "<code>Buffer.from()</code> goes the other way.",
+        "options": [
+          "<code>buf.toString()</code>",
+          "<code>buf.text()</code>",
+          "<code>String.fromBuffer(buf)</code>",
+          "<code>buf.decode()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

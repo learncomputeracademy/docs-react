@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Safe Browsing and Spotting Fake Websites | Learn Computer Academy"
 meta_description: "How to check a website before typing anything into it — the padlock, the actual domain, and the tricks fake sites rely on."
 sort_order: 9
-updated_at: "2026-09-03T06:31:30.386451+00:00"
+updated_at: "2026-11-21T10:08:07.880998+00:00"
 ---
 
 ```json
@@ -94,6 +94,59 @@ updated_at: "2026-09-03T06:31:30.386451+00:00"
     "height": 1024,
     "caption": "A fake website only needs to look real for a few seconds — a few quick checks are usually enough to catch it.",
     "publicId": "docs/img/cybersecurity/safe-browsing"
+  },
+  {
+    "id": "quiz-safe-browsing",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "safe-browsing-q1",
+        "answer": 2,
+        "prompt": "What does the padlock (HTTPS) in the address bar prove?",
+        "explain": "Fake sites use HTTPS too.",
+        "options": [
+          "The site is trustworthy",
+          "The site is a bank",
+          "Only that the connection is encrypted",
+          "The site has no viruses"
+        ]
+      },
+      {
+        "id": "safe-browsing-q2",
+        "answer": 0,
+        "prompt": "In <code>example.com.verify-account.net</code>, what is the real domain?",
+        "explain": "Only the part just before the final .com/.net counts.",
+        "options": [
+          "<code>verify-account.net</code>",
+          "<code>example.com</code>",
+          "<code>example</code>",
+          "<code>account</code>"
+        ]
+      },
+      {
+        "id": "safe-browsing-q3",
+        "answer": 3,
+        "prompt": "A pop-up says you are the 1,000,000th visitor and won a prize. What is it most likely?",
+        "explain": "Close it; do not enter details.",
+        "options": [
+          "A real prize",
+          "A browser update",
+          "A government notice",
+          "A scam: too good to be true"
+        ]
+      },
+      {
+        "id": "safe-browsing-q4",
+        "answer": 0,
+        "prompt": "Hovering over a link before clicking shows where it really goes.",
+        "explain": "The visible text and the real address can differ.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

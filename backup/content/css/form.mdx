@@ -5,7 +5,7 @@ path: "css/form"
 status: "published"
 meta_title: "CSS Form | Learn Computer Academy"
 sort_order: 31
-updated_at: "2026-07-29T05:30:54.084222+00:00"
+updated_at: "2026-11-21T06:18:16.80752+00:00"
 ---
 
 ```json
@@ -238,6 +238,61 @@ updated_at: "2026-07-29T05:30:54.084222+00:00"
     "code": "input[type=button], input[type=submit], input[type=reset] {\n  background-color: #4CAF50;\n  border: none;\n  color: white;\n  padding: 16px 32px;\n  text-decoration: none;\n  margin: 4px 2px;\n  cursor: pointer;\n}\n/* Tip: use width: 100% for full-width buttons */",
     "type": "code",
     "language": "css"
+  },
+  {
+    "id": "quiz-form",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "form-q1",
+        "answer": 2,
+        "prompt": "How do you style only text inputs?",
+        "explain": "An attribute selector.",
+        "options": [
+          "<code>input.text</code>",
+          "<code>input:text</code>",
+          "<code>input[type=text]</code>",
+          "<code>text-input</code>"
+        ]
+      },
+      {
+        "id": "form-q2",
+        "answer": 3,
+        "prompt": "Why add <code>box-sizing: border-box;</code> to inputs with width: 100% and padding?",
+        "explain": "Padding is included in the 100%.",
+        "options": [
+          "To round the corners",
+          "To make text bigger",
+          "To remove the border",
+          "So padding doesn't push the input wider than its container"
+        ]
+      },
+      {
+        "id": "form-q3",
+        "answer": 0,
+        "prompt": "Which pseudo-class highlights the input being typed in?",
+        "explain": "<code>input[type=text]:focus { border: 3px solid #555; }</code>",
+        "options": [
+          "<code>:focus</code>",
+          "<code>:hover</code>",
+          "<code>:active</code>",
+          "<code>:checked</code>"
+        ]
+      },
+      {
+        "id": "form-q4",
+        "answer": 1,
+        "prompt": "Which property controls how a textarea can be resized?",
+        "explain": "<code>resize: none;</code> stops resizing.",
+        "options": [
+          "<code>size</code>",
+          "<code>resize</code>",
+          "<code>scale</code>",
+          "<code>overflow</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

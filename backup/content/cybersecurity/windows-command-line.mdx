@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Windows Command Line Basics | Learn Computer Academy"
 meta_description: "A first, practical introduction to the Windows command line — the handful of commands worth knowing before the security lessons ahead use them."
 sort_order: 2
-updated_at: "2026-09-03T02:15:30.00321+00:00"
+updated_at: "2026-11-21T10:08:05.344278+00:00"
 ---
 
 ```json
@@ -134,6 +134,61 @@ updated_at: "2026-09-03T02:15:30.00321+00:00"
     "header": [
       "Command",
       "What it does"
+    ]
+  },
+  {
+    "id": "quiz-windows-command-line",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "windows-command-line-q1",
+        "answer": 0,
+        "prompt": "How do you open PowerShell quickly?",
+        "explain": "The course uses PowerShell rather than the older Command Prompt.",
+        "options": [
+          "Press Win, type powershell, press Enter",
+          "Right-click the desktop",
+          "Press F5",
+          "Open Paint"
+        ]
+      },
+      {
+        "id": "windows-command-line-q2",
+        "answer": 3,
+        "prompt": "What does <code>Get-ChildItem</code> do?",
+        "explain": "Its aliases <code>dir</code> and <code>ls</code> do the same.",
+        "options": [
+          "Deletes files",
+          "Shows the IP address",
+          "Restarts the PC",
+          "Lists files and folders in the current folder"
+        ]
+      },
+      {
+        "id": "windows-command-line-q3",
+        "answer": 1,
+        "prompt": "Which command shows your IP address, gateway and DNS servers?",
+        "explain": "<code>ping google.com</code> only tests whether a host is reachable.",
+        "options": [
+          "<code>ping</code>",
+          "<code>ipconfig /all</code>",
+          "<code>cd ..</code>",
+          "<code>Get-Location</code>"
+        ]
+      },
+      {
+        "id": "windows-command-line-q4",
+        "answer": 0,
+        "prompt": "What does <code>cd ..</code> do?",
+        "explain": "<code>Get-Location</code> shows where you are now.",
+        "options": [
+          "Moves up one folder level",
+          "Deletes the folder",
+          "Creates a folder",
+          "Shows hidden files"
+        ]
+      }
     ]
   }
 ]

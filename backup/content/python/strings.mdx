@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Strings in Python | Learn Computer Academy"
 meta_description: "F-strings, string slicing, and the built-in string methods you'll use constantly in Python."
 sort_order: 8
-updated_at: "2026-08-04T11:39:28.803309+00:00"
+updated_at: "2026-11-21T06:12:43.942953+00:00"
 ---
 
 ```json
@@ -250,6 +250,61 @@ updated_at: "2026-08-04T11:39:28.803309+00:00"
     "id": "uvlYgWGDe4rf",
     "html": "<p>Between this table and the one above, most everyday string work is covered — anything else is in the full reference linked above.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-strings",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "strings-q1",
+        "answer": 2,
+        "prompt": "With <code>age = 21</code>, what does <code>f\"Next year: {age + 1}\"</code> produce?",
+        "explain": "f-strings embed whole expressions, not just variables.",
+        "options": [
+          "<code>\"Next year: age + 1\"</code>",
+          "<code>\"Next year: 211\"</code>",
+          "<code>\"Next year: 22\"</code>",
+          "An error"
+        ]
+      },
+      {
+        "id": "strings-q2",
+        "answer": 0,
+        "prompt": "What does <code>f\"{3.14159:.2f}\"</code> produce?",
+        "explain": ".2f means 2 decimal places.",
+        "options": [
+          "<code>\"3.14\"</code>",
+          "<code>\"3.1\"</code>",
+          "<code>\"3.14159\"</code>",
+          "<code>\"3\"</code>"
+        ]
+      },
+      {
+        "id": "strings-q3",
+        "answer": 3,
+        "prompt": "What is <code>\"Python\"[-1]</code>?",
+        "explain": "Negative indexes count from the end.",
+        "options": [
+          "<code>\"P\"</code>",
+          "<code>\"o\"</code>",
+          "An error",
+          "<code>\"n\"</code>"
+        ]
+      },
+      {
+        "id": "strings-q4",
+        "answer": 0,
+        "prompt": "What is <code>\"Python\"[0:3]</code>?",
+        "explain": "A slice stops before the end index.",
+        "options": [
+          "<code>\"Pyt\"</code>",
+          "<code>\"Pyth\"</code>",
+          "<code>\"yth\"</code>",
+          "<code>\"Py\"</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

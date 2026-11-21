@@ -5,7 +5,7 @@ path: "programming/type-casting"
 status: "published"
 meta_title: "Type Casting | Learn Computer Academy"
 sort_order: 5
-updated_at: "2026-08-18T14:27:46.206594+00:00"
+updated_at: "2026-11-21T10:12:44.645598+00:00"
 ---
 
 ```json
@@ -86,6 +86,61 @@ updated_at: "2026-08-18T14:27:46.206594+00:00"
       {
         "code": "try:\n    print(int(\"hello\"))  # raises ValueError: invalid literal for int()\nexcept ValueError as e:\n    print(e)\n\nprint(int(\"42\"))  # 42",
         "language": "python"
+      }
+    ]
+  },
+  {
+    "id": "quiz-type-casting",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "type-casting-q1",
+        "answer": 3,
+        "prompt": "What does <code>Number(\"25\") + 5</code> give?",
+        "explain": "The text is converted to a number first.",
+        "options": [
+          "<code>\"255\"</code>",
+          "<code>NaN</code>",
+          "<code>\"30\"</code>",
+          "<code>30</code>"
+        ]
+      },
+      {
+        "id": "type-casting-q2",
+        "answer": 1,
+        "prompt": "What does <code>Number(\"hello\")</code> return?",
+        "explain": "NaN means \"Not a Number\".",
+        "options": [
+          "<code>0</code>",
+          "<code>NaN</code>",
+          "It crashes the program",
+          "<code>\"hello\"</code>"
+        ]
+      },
+      {
+        "id": "type-casting-q3",
+        "answer": 0,
+        "prompt": "Why does type casting matter so often?",
+        "explain": "Even when the text represents a number.",
+        "options": [
+          "Form and user input usually arrive as text",
+          "Numbers are slow",
+          "Strings cannot be printed",
+          "It is never needed"
+        ]
+      },
+      {
+        "id": "type-casting-q4",
+        "answer": 2,
+        "prompt": "Which function turns a number into text?",
+        "explain": "<code>String(7)</code> gives <code>\"7\"</code>.",
+        "options": [
+          "<code>Number()</code>",
+          "<code>parseInt()</code>",
+          "<code>String()</code>",
+          "<code>typeof</code>"
+        ]
       }
     ]
   }

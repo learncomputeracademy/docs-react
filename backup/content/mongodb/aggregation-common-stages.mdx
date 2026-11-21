@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Aggregation — Common Stages | Learn Computer Academy"
 meta_description: "$sort, $limit, $unwind, and $lookup — the aggregation stages that sort results, cap them, flatten arrays, and join across collections."
 sort_order: 16
-updated_at: "2026-08-18T10:11:26.575275+00:00"
+updated_at: "2026-11-21T10:24:34.891348+00:00"
 ---
 
 ```json
@@ -93,6 +93,59 @@ updated_at: "2026-08-18T10:11:26.575275+00:00"
     "type": "callout",
     "title": "Put $match as early as the logic allows",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-aggregation-common-stages",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "aggregation-common-stages-q1",
+        "answer": 0,
+        "prompt": "Where are $sort and $limit commonly placed?",
+        "explain": "Top 5 customers by total spend.",
+        "options": [
+          "After $group, to order and cap a computed result",
+          "Before everything always",
+          "They are not stages",
+          "Only in find()"
+        ]
+      },
+      {
+        "id": "aggregation-common-stages-q2",
+        "answer": 3,
+        "prompt": "What does $unwind do?",
+        "explain": "Useful before grouping by array values like tags.",
+        "options": [
+          "Deletes arrays",
+          "Sorts arrays",
+          "Merges collections",
+          "Outputs one document per array element"
+        ]
+      },
+      {
+        "id": "aggregation-common-stages-q3",
+        "answer": 1,
+        "prompt": "Which stage joins data from another collection?",
+        "explain": "Similar to a SQL join.",
+        "options": [
+          "<code>$match</code>",
+          "<code>$lookup</code>",
+          "<code>$count</code>",
+          "<code>$limit</code>"
+        ]
+      },
+      {
+        "id": "aggregation-common-stages-q4",
+        "answer": 0,
+        "prompt": "Pipeline stages run in the order they are listed.",
+        "explain": "Order changes the result and the speed.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

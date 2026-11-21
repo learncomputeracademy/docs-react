@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Variable Scope | Learn Computer Academy"
 meta_description: "Where a Python variable is visible from — local vs. global scope, and the global keyword."
 sort_order: 18
-updated_at: "2026-08-04T11:39:31.584509+00:00"
+updated_at: "2026-11-21T06:12:46.965556+00:00"
 ---
 
 ```json
@@ -122,6 +122,61 @@ updated_at: "2026-08-04T11:39:31.584509+00:00"
     "id": "fZs7afVsjH3U",
     "html": "<p>This pattern — a function returning another function that remembers state — is called a <b>closure</b>. It's a genuinely useful trick, but a niche one; don't worry if it takes a re-read to click.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scope",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scope-q1",
+        "answer": 3,
+        "prompt": "Can a Python function read a global variable without any keyword?",
+        "explain": "That is the wrinkle compared with PHP.",
+        "options": [
+          "No, never",
+          "Only constants",
+          "Only in classes",
+          "Yes — reading needs nothing special"
+        ]
+      },
+      {
+        "id": "scope-q2",
+        "answer": 0,
+        "prompt": "When is the global keyword needed?",
+        "explain": "Without it, assignment creates a new local variable.",
+        "options": [
+          "To reassign a global variable inside a function",
+          "To read a global",
+          "Always inside functions",
+          "Never"
+        ]
+      },
+      {
+        "id": "scope-q3",
+        "answer": 2,
+        "prompt": "What happens to a variable created inside a function after the function finishes?",
+        "explain": "It is local to the function.",
+        "options": [
+          "It becomes global",
+          "It is saved",
+          "It no longer exists (NameError outside)",
+          "It is printed"
+        ]
+      },
+      {
+        "id": "scope-q4",
+        "answer": 1,
+        "prompt": "Which keyword lets a nested function reassign a variable from the enclosing function?",
+        "explain": "global would target the module level instead.",
+        "options": [
+          "<code>global</code>",
+          "<code>nonlocal</code>",
+          "<code>outer</code>",
+          "<code>static</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Component Composition in React | Learn Computer Academy"
 meta_description: "Building flexible components by composing them with the children prop, instead of reaching for inheritance."
 sort_order: 15
-updated_at: "2026-07-31T11:24:40.518282+00:00"
+updated_at: "2026-11-21T10:21:55.479311+00:00"
 ---
 
 ```json
@@ -84,6 +84,59 @@ updated_at: "2026-07-31T11:24:40.518282+00:00"
     "type": "callout",
     "title": "Prefer composition over a class-style hierarchy",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-composition",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "composition-q1",
+        "answer": 2,
+        "prompt": "How does React prefer to reuse behaviour between components?",
+        "explain": "Not class inheritance.",
+        "options": [
+          "Inheritance",
+          "Copy and paste",
+          "Composition: building components from other components",
+          "Global CSS"
+        ]
+      },
+      {
+        "id": "composition-q2",
+        "answer": 0,
+        "prompt": "What does <code>&lt;Card&gt;{children}&lt;/Card&gt;</code> let you do?",
+        "explain": "A generic wrapper.",
+        "options": [
+          "Wrap any content without Card knowing what it is",
+          "Delete children",
+          "Count children",
+          "Style children only"
+        ]
+      },
+      {
+        "id": "composition-q3",
+        "answer": 3,
+        "prompt": "Besides children, how else can you pass JSX into a component?",
+        "explain": "Useful for layouts with several slots.",
+        "options": [
+          "Through CSS",
+          "You cannot",
+          "Through the URL",
+          "As a named prop, like <code>header={&lt;Title /&gt;}</code>"
+        ]
+      },
+      {
+        "id": "composition-q4",
+        "answer": 0,
+        "prompt": "Specialised components (like a WarningDialog) can be built by rendering a generic one with set props.",
+        "explain": "Composition covers what inheritance would.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

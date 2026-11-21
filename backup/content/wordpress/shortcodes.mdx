@@ -6,7 +6,7 @@ status: "published"
 meta_title: "WordPress Shortcodes | Learn Computer Academy"
 meta_description: "Registering a custom [bracket] shortcode that outputs reusable HTML, so an editor typing into a post never needs to touch PHP."
 sort_order: 28
-updated_at: "2026-09-03T04:10:59.993134+00:00"
+updated_at: "2026-11-21T05:59:29.968273+00:00"
 ---
 
 ```json
@@ -93,6 +93,61 @@ updated_at: "2026-09-03T04:10:59.993134+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-shortcodes",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "shortcodes-q1",
+        "answer": 2,
+        "prompt": "What is a shortcode?",
+        "explain": "It hands reusable PHP output to editors who never touch code.",
+        "options": [
+          "A short PHP file",
+          "A keyboard shortcut",
+          "A bracketed tag typed into content that WordPress replaces with generated HTML",
+          "A minified script"
+        ]
+      },
+      {
+        "id": "shortcodes-q2",
+        "answer": 3,
+        "prompt": "What must a shortcode function do with its output?",
+        "explain": "Echoing puts the output in the wrong place on the page.",
+        "options": [
+          "echo it",
+          "print_r it",
+          "Save it to the database",
+          "return it"
+        ]
+      },
+      {
+        "id": "shortcodes-q3",
+        "answer": 0,
+        "prompt": "What does <code>shortcode_atts()</code> do?",
+        "explain": "Missing attributes fall back to the defaults.",
+        "options": [
+          "Merges the given attributes with defaults",
+          "Deletes attributes",
+          "Registers the shortcode",
+          "Escapes the output"
+        ]
+      },
+      {
+        "id": "shortcodes-q4",
+        "answer": 1,
+        "prompt": "Which function registers [current_year]?",
+        "explain": "The first argument is the tag name editors type.",
+        "options": [
+          "<code>register_shortcode( 'current_year', ... )</code>",
+          "<code>add_shortcode( 'current_year', 'wgh_year_shortcode' )</code>",
+          "<code>add_action( 'current_year', ... )</code>",
+          "<code>do_shortcode( 'current_year' )</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

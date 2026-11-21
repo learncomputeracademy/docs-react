@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Transforms | Learn Computer Academy"
 meta_description: "Move, rotate, scale, and skew an element with the transform property, without affecting the layout of surrounding elements."
 sort_order: 38
-updated_at: "2026-09-03T03:54:07.411673+00:00"
+updated_at: "2026-11-21T06:18:18.495757+00:00"
 ---
 
 ```json
@@ -142,6 +142,61 @@ updated_at: "2026-09-03T03:54:07.411673+00:00"
     "type": "callout",
     "title": "What transform does not do",
     "variant": "note"
+  },
+  {
+    "id": "quiz-transforms",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "transforms-q1",
+        "answer": 2,
+        "prompt": "What makes transform different from changing width or margin?",
+        "explain": "The layout space stays the same.",
+        "options": [
+          "It is slower",
+          "It only works on images",
+          "It changes the element visually without pushing other elements around",
+          "It is permanent"
+        ]
+      },
+      {
+        "id": "transforms-q2",
+        "answer": 3,
+        "prompt": "What does <code>transform: rotate(45deg);</code> do?",
+        "explain": "Negative values rotate anticlockwise.",
+        "options": [
+          "Moves the element 45px",
+          "Scales it by 45%",
+          "Skews it",
+          "Rotates it 45 degrees clockwise"
+        ]
+      },
+      {
+        "id": "transforms-q3",
+        "answer": 0,
+        "prompt": "What does <code>transform: scale(1.5);</code> do?",
+        "explain": "scale(1.5, 0.5) scales width and height differently.",
+        "options": [
+          "Shows the element at 150% size",
+          "Moves it 1.5px",
+          "Rotates it",
+          "Makes it transparent"
+        ]
+      },
+      {
+        "id": "transforms-q4",
+        "answer": 1,
+        "prompt": "Which function moves an element without affecting the layout?",
+        "explain": "<code>translate(50px, 20px)</code> moves right 50px and down 20px.",
+        "options": [
+          "<code>move()</code>",
+          "<code>translate()</code>",
+          "<code>shift()</code>",
+          "<code>position()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

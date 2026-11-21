@@ -6,7 +6,7 @@ status: "published"
 meta_title: "WordPress Hooks — Actions and Filters | Learn Computer Academy"
 meta_description: "The system behind almost every functions.php snippet in this course — how actions and filters work, and how to define a custom hook of your own."
 sort_order: 27
-updated_at: "2026-09-03T04:10:59.614747+00:00"
+updated_at: "2026-11-21T05:59:29.672258+00:00"
 ---
 
 ```json
@@ -126,6 +126,61 @@ updated_at: "2026-09-03T04:10:59.614747+00:00"
     "type": "callout",
     "title": "Finding the right hook name",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-wordpress-hooks-actions-and-filters",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "wordpress-hooks-actions-and-filters-q1",
+        "answer": 0,
+        "prompt": "What are hooks for?",
+        "explain": "Both themes and plugins rely on them.",
+        "options": [
+          "Running your code at a specific point without editing WordPress core files",
+          "Linking two pages",
+          "Creating users",
+          "Uploading images"
+        ]
+      },
+      {
+        "id": "wordpress-hooks-actions-and-filters-q2",
+        "answer": 1,
+        "prompt": "What is the key difference between an action and a filter?",
+        "explain": "Forgetting to return in a filter wipes out the value.",
+        "options": [
+          "Filters run first",
+          "A filter receives a value and must return one; an action just runs",
+          "Actions only work in plugins",
+          "There is no difference"
+        ]
+      },
+      {
+        "id": "wordpress-hooks-actions-and-filters-q3",
+        "answer": 2,
+        "prompt": "Which function attaches code to a filter?",
+        "explain": "For example <code>add_filter( 'excerpt_length', 'wgh_short_excerpt' )</code>.",
+        "options": [
+          "<code>add_action()</code>",
+          "<code>apply_filters()</code>",
+          "<code>add_filter()</code>",
+          "<code>do_action()</code>"
+        ]
+      },
+      {
+        "id": "wordpress-hooks-actions-and-filters-q4",
+        "answer": 3,
+        "prompt": "In <code>add_action( 'after_setup_theme', 'wgh_setup_theme' )</code>, what is after_setup_theme?",
+        "explain": "The second argument is your function to run at that moment.",
+        "options": [
+          "A function you must write",
+          "A plugin",
+          "A theme file",
+          "The hook name — a moment WordPress reaches on every page load"
+        ]
+      }
+    ]
   }
 ]
 ```

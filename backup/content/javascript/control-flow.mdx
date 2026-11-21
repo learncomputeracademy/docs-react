@@ -5,7 +5,7 @@ path: "javascript/control-flow"
 status: "published"
 meta_title: "JavaScript Control Flow | Learn Computer Academy"
 sort_order: 4
-updated_at: "2026-07-29T05:40:22.238819+00:00"
+updated_at: "2026-11-21T05:55:07.373872+00:00"
 ---
 
 ```json
@@ -333,6 +333,61 @@ updated_at: "2026-07-29T05:40:22.238819+00:00"
     "code": "let num = 15;\n\nif (num % 3 === 0 && num % 5 === 0) {\n  console.log(\"FizzBuzz\");\n} else if (num % 3 === 0) {\n  console.log(\"Fizz\");\n} else if (num % 5 === 0) {\n  console.log(\"Buzz\");\n} else {\n  console.log(num);\n}",
     "type": "code",
     "language": "javascript"
+  },
+  {
+    "id": "quiz-control-flow",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "control-flow-q1",
+        "answer": 1,
+        "prompt": "What prints?<pre><code>let age = 16\nif (age &gt;= 18) console.log(\"adult\")\nelse console.log(\"minor\")</code></pre>",
+        "explain": "16 >= 18 is false, so the else branch runs.",
+        "options": [
+          "adult",
+          "minor",
+          "Both",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "control-flow-q2",
+        "answer": 2,
+        "prompt": "What happens in a <code>switch</code> if you forget <code>break</code>?",
+        "explain": "This \"fall-through\" is a common bug.",
+        "options": [
+          "An error is thrown",
+          "Only the matching case runs",
+          "Execution falls through into the next case",
+          "The switch restarts"
+        ]
+      },
+      {
+        "id": "control-flow-q3",
+        "answer": 3,
+        "prompt": "Which keyword skips the rest of the current loop iteration?",
+        "explain": "<code>break</code> leaves the loop entirely; <code>continue</code> jumps to the next iteration.",
+        "options": [
+          "<code>break</code>",
+          "<code>return</code>",
+          "<code>exit</code>",
+          "<code>continue</code>"
+        ]
+      },
+      {
+        "id": "control-flow-q4",
+        "answer": 0,
+        "prompt": "How many times does this loop run?<pre><code>for (let i = 0; i &lt; 3; i++) {}</code></pre>",
+        "explain": "i takes the values 0, 1 and 2.",
+        "options": [
+          "3",
+          "2",
+          "4",
+          "Forever"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Aggregation Pipeline — Introduction | Learn Computer Academy"
 meta_description: "What the MongoDB aggregation pipeline is, and how $match, $group, and $project chain together to transform data."
 sort_order: 15
-updated_at: "2026-08-18T10:11:26.182056+00:00"
+updated_at: "2026-11-21T10:24:34.611827+00:00"
 ---
 
 ```json
@@ -104,6 +104,61 @@ updated_at: "2026-08-18T10:11:26.182056+00:00"
     "type": "callout",
     "title": "These three stages go a long way",
     "variant": "note"
+  },
+  {
+    "id": "quiz-aggregation-pipeline-introduction",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "aggregation-pipeline-introduction-q1",
+        "answer": 1,
+        "prompt": "How is aggregate() different from find()?",
+        "explain": "Each stage feeds the next.",
+        "options": [
+          "It deletes documents",
+          "It transforms documents through stages: filter, group, reshape, compute",
+          "It only counts",
+          "It is slower and useless"
+        ]
+      },
+      {
+        "id": "aggregation-pipeline-introduction-q2",
+        "answer": 3,
+        "prompt": "Which stage filters documents?",
+        "explain": "Put it early to reduce work.",
+        "options": [
+          "<code>$group</code>",
+          "<code>$project</code>",
+          "<code>$sum</code>",
+          "<code>$match</code>"
+        ]
+      },
+      {
+        "id": "aggregation-pipeline-introduction-q3",
+        "answer": 0,
+        "prompt": "What does <code>{ $group: { _id: \"$customerId\", total: { $sum: \"$amount\" } } }</code> produce?",
+        "explain": "$sum adds up the amounts.",
+        "options": [
+          "One document per customer with their total amount",
+          "One document per order",
+          "A deleted collection",
+          "A sorted list"
+        ]
+      },
+      {
+        "id": "aggregation-pipeline-introduction-q4",
+        "answer": 2,
+        "prompt": "What does $project do in a pipeline?",
+        "explain": "Like a projection, but more powerful.",
+        "options": [
+          "Deletes the pipeline",
+          "Starts a project",
+          "Reshapes documents: choose, rename or compute fields",
+          "Sorts"
+        ]
+      }
+    ]
   }
 ]
 ```

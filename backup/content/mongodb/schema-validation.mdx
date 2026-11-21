@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Schema Validation | Learn Computer Academy"
 meta_description: "Enforcing required fields and data types on a MongoDB collection with $jsonSchema, without giving up its flexible-schema advantages entirely."
 sort_order: 17
-updated_at: "2026-08-18T10:11:26.974359+00:00"
+updated_at: "2026-11-21T10:24:35.197182+00:00"
 ---
 
 ```json
@@ -82,6 +82,59 @@ updated_at: "2026-08-18T10:11:26.974359+00:00"
     "type": "callout",
     "title": "Existing documents are not checked retroactively",
     "variant": "note"
+  },
+  {
+    "id": "quiz-schema-validation",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "schema-validation-q1",
+        "answer": 0,
+        "prompt": "What does schema validation let you do?",
+        "explain": "Only the rules you choose.",
+        "options": [
+          "Enforce rules like \"every user must have an email\"",
+          "Speed up queries",
+          "Back up data",
+          "Delete invalid users automatically"
+        ]
+      },
+      {
+        "id": "schema-validation-q2",
+        "answer": 2,
+        "prompt": "Which keyword defines the rules?",
+        "explain": "Used inside the validator option.",
+        "options": [
+          "<code>$rules</code>",
+          "<code>$check</code>",
+          "<code>$jsonSchema</code>",
+          "<code>$validateAll</code>"
+        ]
+      },
+      {
+        "id": "schema-validation-q3",
+        "answer": 3,
+        "prompt": "What happens when an insert breaks the rules (default settings)?",
+        "explain": "validationAction can be set to \"warn\" instead.",
+        "options": [
+          "It is saved anyway",
+          "The database is deleted",
+          "A warning only",
+          "The write is rejected with an error"
+        ]
+      },
+      {
+        "id": "schema-validation-q4",
+        "answer": 1,
+        "prompt": "Validation removes all of MongoDB's flexibility.",
+        "explain": "Fields you do not mention stay flexible.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

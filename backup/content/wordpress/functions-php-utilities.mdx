@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Useful functions.php Utilities | Learn Computer Academy"
 meta_description: "A handful of small, genuinely practical functions.php additions that show up in almost every real custom theme build."
 sort_order: 25
-updated_at: "2026-07-30T14:23:32.165893+00:00"
+updated_at: "2026-11-21T05:59:29.130037+00:00"
 ---
 
 ```json
@@ -106,6 +106,59 @@ updated_at: "2026-07-30T14:23:32.165893+00:00"
     "id": "ZkQ9uAHEXfRT",
     "html": "<p>With the theme functionally complete, the final lesson in this section covers what's left before handing it to a client or pushing it live.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-functions-php-utilities",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-php-utilities-q1",
+        "answer": 1,
+        "prompt": "What does <code>remove_action( 'wp_head', 'wp_generator' )</code> remove?",
+        "explain": "Revealing the exact version is a minor information-disclosure risk.",
+        "options": [
+          "The whole head",
+          "The meta tag announcing the WordPress version",
+          "All stylesheets",
+          "The page title"
+        ]
+      },
+      {
+        "id": "functions-php-utilities-q2",
+        "answer": 3,
+        "prompt": "Does WordPress have a built-in breadcrumb function?",
+        "explain": "The lesson builds one in functions.php.",
+        "options": [
+          "Yes, the_breadcrumb()",
+          "Yes, in the Customizer",
+          "Only in block themes",
+          "No — a theme writes its own small helper"
+        ]
+      },
+      {
+        "id": "functions-php-utilities-q3",
+        "answer": 1,
+        "prompt": "Trimming wp_head() changes how the site looks to visitors.",
+        "explain": "It only removes lines a browser never renders anyway.",
+        "options": [
+          "True",
+          "False"
+        ]
+      },
+      {
+        "id": "functions-php-utilities-q4",
+        "answer": 0,
+        "prompt": "In the breadcrumb, why use <code>esc_url( home_url() )</code>?",
+        "explain": "Escaping applies to helpers in functions.php too.",
+        "options": [
+          "To print the site's home link safely",
+          "To redirect the user",
+          "To shorten the URL",
+          "To track clicks"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Multi-column Layout | Learn Computer Academy"
 meta_description: "Flow text into newspaper-style columns automatically with column-count and column-width, without a grid or flexbox."
 sort_order: 45
-updated_at: "2026-09-03T03:54:09.439756+00:00"
+updated_at: "2026-11-21T06:18:20.484369+00:00"
 ---
 
 ```json
@@ -107,6 +107,61 @@ updated_at: "2026-09-03T03:54:09.439756+00:00"
     "type": "callout",
     "title": "When to actually reach for this",
     "variant": "note"
+  },
+  {
+    "id": "quiz-multicolumn-layout",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "multicolumn-layout-q1",
+        "answer": 3,
+        "prompt": "What does <code>column-count: 3;</code> do?",
+        "explain": "No need to split the text manually.",
+        "options": [
+          "Creates a 3-row table",
+          "Repeats the text 3 times",
+          "Makes 3 separate elements",
+          "Flows the content into 3 newspaper-style columns"
+        ]
+      },
+      {
+        "id": "multicolumn-layout-q2",
+        "answer": 0,
+        "prompt": "What does <code>column-width: 200px;</code> do instead?",
+        "explain": "Responsive by nature.",
+        "options": [
+          "Fits as many ~200px columns as the container allows",
+          "Makes exactly 200 columns",
+          "Sets the gap",
+          "Sets the page width"
+        ]
+      },
+      {
+        "id": "multicolumn-layout-q3",
+        "answer": 2,
+        "prompt": "Which property draws a line between columns?",
+        "explain": "Styled just like border.",
+        "options": [
+          "<code>column-border</code>",
+          "<code>column-line</code>",
+          "<code>column-rule</code>",
+          "<code>column-divider</code>"
+        ]
+      },
+      {
+        "id": "multicolumn-layout-q4",
+        "answer": 1,
+        "prompt": "How do you stop a heading or image splitting across two columns?",
+        "explain": "Keeps the element in one piece.",
+        "options": [
+          "<code>column-span: none;</code>",
+          "<code>break-inside: avoid;</code>",
+          "<code>display: block;</code>",
+          "<code>overflow: hidden;</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

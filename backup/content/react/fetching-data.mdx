@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Fetching Data in React | Learn Computer Academy"
 meta_description: "The useEffect + fetch pattern for loading data from an API, and handling loading and error states."
 sort_order: 13
-updated_at: "2026-07-31T11:24:39.527689+00:00"
+updated_at: "2026-11-21T10:21:54.851585+00:00"
 ---
 
 ```json
@@ -86,6 +86,59 @@ updated_at: "2026-07-31T11:24:39.527689+00:00"
     "type": "code",
     "language": "jsx",
     "runnable": false
+  },
+  {
+    "id": "quiz-fetching-data",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "fetching-data-q1",
+        "answer": 0,
+        "prompt": "Why fetch data in useEffect rather than directly during render?",
+        "explain": "It runs because the component rendered.",
+        "options": [
+          "Render must stay a pure calculation; fetching is a side effect",
+          "fetch only works in effects",
+          "It is faster",
+          "React bans fetch"
+        ]
+      },
+      {
+        "id": "fetching-data-q2",
+        "answer": 1,
+        "prompt": "Which three pieces of state does the basic fetch pattern use?",
+        "explain": "Show a spinner, the data or an error message.",
+        "options": [
+          "name, age, email",
+          "data, loading, error",
+          "url, method, body",
+          "start, stop, reset"
+        ]
+      },
+      {
+        "id": "fetching-data-q3",
+        "answer": 2,
+        "prompt": "Why include userId in the effect's dependency array?",
+        "explain": "Otherwise the profile goes stale.",
+        "options": [
+          "To slow it down",
+          "For styling",
+          "So the data is fetched again when userId changes",
+          "It is not needed"
+        ]
+      },
+      {
+        "id": "fetching-data-q4",
+        "answer": 0,
+        "prompt": "You should handle the error case, not just the success case.",
+        "explain": "Networks fail; show the user what happened.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

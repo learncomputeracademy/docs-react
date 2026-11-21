@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Featured Images & Custom Image Sizes | Learn Computer Academy"
 meta_description: "Outputting a post's featured image correctly, and registering custom crop sizes so a theme never has to resize images by hand."
 sort_order: 23
-updated_at: "2026-07-30T14:23:31.490262+00:00"
+updated_at: "2026-11-21T05:59:28.548165+00:00"
 ---
 
 ```json
@@ -110,6 +110,59 @@ updated_at: "2026-07-30T14:23:31.490262+00:00"
     "id": "pj0JmKwqQJUA",
     "html": "<p>With images handled properly, the next lesson covers something that applies to everything built so far, not just images — escaping and sanitizing any data a template outputs.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-featured-images",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "featured-images-q1",
+        "answer": 0,
+        "prompt": "What turns on featured images in a theme?",
+        "explain": "Set in the theme setup function in functions.php.",
+        "options": [
+          "<code>add_theme_support( 'post-thumbnails' )</code>",
+          "<code>add_image_size( 'featured' )</code>",
+          "<code>register_featured_image()</code>",
+          "<code>the_post_thumbnail()</code>"
+        ]
+      },
+      {
+        "id": "featured-images-q2",
+        "answer": 3,
+        "prompt": "Why check has_post_thumbnail() before the_post_thumbnail()?",
+        "explain": "Never assume a featured image exists.",
+        "options": [
+          "It loads the image faster",
+          "It is required syntax",
+          "It resizes the image",
+          "An editor may never have set one"
+        ]
+      },
+      {
+        "id": "featured-images-q3",
+        "answer": 2,
+        "prompt": "What does the <code>true</code> in <code>add_image_size( 'card-thumb', 400, 300, true )</code> mean?",
+        "explain": "Without it, the image is scaled to fit within 400×300.",
+        "options": [
+          "The size is the default",
+          "Keep the original proportions",
+          "Hard crop to exactly 400×300",
+          "Make it retina"
+        ]
+      },
+      {
+        "id": "featured-images-q4",
+        "answer": 0,
+        "prompt": "Leaving out the size in the_post_thumbnail() uses the 'thumbnail' size.",
+        "explain": "Which is almost never what you actually want.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Context Managers | Learn Computer Academy"
 meta_description: "The pattern behind \"with open(...) as f\" — guaranteed setup and cleanup, and how to write a context manager of your own."
 sort_order: 29
-updated_at: "2026-09-03T04:52:49.884951+00:00"
+updated_at: "2026-11-21T06:12:50.287573+00:00"
 ---
 
 ```json
@@ -117,6 +117,59 @@ updated_at: "2026-09-03T04:52:49.884951+00:00"
     "type": "callout",
     "title": "What those three __exit__ arguments are for",
     "variant": "note"
+  },
+  {
+    "id": "quiz-context-managers",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "context-managers-q1",
+        "answer": 3,
+        "prompt": "What does a context manager guarantee?",
+        "explain": "Closing a file, releasing a lock, closing a connection.",
+        "options": [
+          "Faster code",
+          "No errors happen",
+          "Files are encrypted",
+          "A cleanup step runs, even if an error happens"
+        ]
+      },
+      {
+        "id": "context-managers-q2",
+        "answer": 0,
+        "prompt": "Which two methods make a class usable with with?",
+        "explain": "__exit__ runs on the way out, error or not.",
+        "options": [
+          "<code>__enter__</code> and <code>__exit__</code>",
+          "<code>__init__</code> and <code>__del__</code>",
+          "<code>open</code> and <code>close</code>",
+          "<code>start</code> and <code>stop</code>"
+        ]
+      },
+      {
+        "id": "context-managers-q3",
+        "answer": 2,
+        "prompt": "What would you write by hand without a context manager?",
+        "explain": "with saves writing that every time.",
+        "options": [
+          "A while loop",
+          "A decorator",
+          "A try / finally block",
+          "A lambda"
+        ]
+      },
+      {
+        "id": "context-managers-q4",
+        "answer": 0,
+        "prompt": "with open(...) closes the file even if the code inside raises an error.",
+        "explain": "That is the whole point.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

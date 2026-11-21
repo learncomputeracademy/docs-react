@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Stash | Learn Computer Academy"
 meta_description: "Temporarily setting aside uncommitted work to switch branches cleanly, without committing something half-finished."
 sort_order: 10
-updated_at: "2026-09-03T05:20:02.065179+00:00"
+updated_at: "2026-11-21T10:18:33.14857+00:00"
 ---
 
 ```json
@@ -106,6 +106,59 @@ updated_at: "2026-09-03T05:20:02.065179+00:00"
     "type": "callout",
     "title": "The classic use case",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-stashing-changes",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "stashing-changes-q1",
+        "answer": 0,
+        "prompt": "What does <code>git stash</code> do?",
+        "explain": "Handy before switching branches.",
+        "options": [
+          "Temporarily shelves uncommitted changes without committing",
+          "Deletes changes forever",
+          "Commits everything",
+          "Pushes changes"
+        ]
+      },
+      {
+        "id": "stashing-changes-q2",
+        "answer": 3,
+        "prompt": "What is the difference between <code>git stash pop</code> and <code>git stash apply</code>?",
+        "explain": "apply is useful for applying the same stash elsewhere.",
+        "options": [
+          "None",
+          "apply deletes the stash",
+          "pop works only on main",
+          "pop restores and removes the stash; apply restores but keeps it"
+        ]
+      },
+      {
+        "id": "stashing-changes-q3",
+        "answer": 2,
+        "prompt": "After stashing, what does git status usually show?",
+        "explain": "Now you can switch branches cleanly.",
+        "options": [
+          "Many conflicts",
+          "An error",
+          "A clean working tree",
+          "A new branch"
+        ]
+      },
+      {
+        "id": "stashing-changes-q4",
+        "answer": 0,
+        "prompt": "You can have more than one stash saved at a time.",
+        "explain": "<code>git stash list</code> shows them.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

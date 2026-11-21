@@ -5,7 +5,7 @@ path: "css/howto"
 status: "published"
 meta_title: "CSS How To | Learn Computer Academy"
 sort_order: 33
-updated_at: "2026-07-29T05:30:54.225105+00:00"
+updated_at: "2026-11-21T06:18:17.371772+00:00"
 ---
 
 ```json
@@ -174,6 +174,61 @@ updated_at: "2026-07-29T05:30:54.225105+00:00"
     "id": "gi9ACr4Q-Iq_",
     "html": "<p>What style will be used when there is more than one style specified for an HTML element?</p>\n<p>All the styles in a page will \"cascade\" into a new \"virtual\" style sheet by the following rules, where number one has the highest priority:</p>\n<ol>\n                                    <li>Inline style (inside an HTML element)</li>\n                                    <li>External and internal style sheets (in the head section)</li>\n                                    <li>Browser default</li>\n                                </ol>\n<p>So, an <i>inline style has the highest priority</i>, and will override external and internal styles and browser defaults.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-howto",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "howto-q1",
+        "answer": 3,
+        "prompt": "What are the three ways to add CSS?",
+        "explain": "External is best for a whole site.",
+        "options": [
+          "Head, body, footer",
+          "JavaScript, PHP, SQL",
+          "Classes, ids, tags",
+          "External, internal and inline"
+        ]
+      },
+      {
+        "id": "howto-q2",
+        "answer": 0,
+        "prompt": "Where is an external stylesheet linked?",
+        "explain": "<code>&lt;link rel=\"stylesheet\" href=\"mystyle.css\"&gt;</code>",
+        "options": [
+          "With a link element in the head",
+          "At the end of the body",
+          "In a script tag",
+          "In each element"
+        ]
+      },
+      {
+        "id": "howto-q3",
+        "answer": 2,
+        "prompt": "Which has the highest priority if the same property is set in all three?",
+        "explain": "Inline styles are the most specific.",
+        "options": [
+          "External",
+          "Internal",
+          "Inline",
+          "Whichever file is biggest"
+        ]
+      },
+      {
+        "id": "howto-q4",
+        "answer": 1,
+        "prompt": "Where does internal CSS go?",
+        "explain": "Good for one page with unique styles.",
+        "options": [
+          "In a .css file",
+          "In a style element inside the head",
+          "In the style attribute",
+          "In the footer"
+        ]
+      }
+    ]
   }
 ]
 ```

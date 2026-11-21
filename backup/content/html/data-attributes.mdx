@@ -6,7 +6,7 @@ status: "published"
 meta_title: "HTML Data Attributes | Learn Computer Academy"
 meta_description: "How data-* attributes let you store extra information on an HTML element, readable from CSS and JavaScript, without inventing a non-standard attribute."
 sort_order: 39
-updated_at: "2026-09-03T03:43:15.062305+00:00"
+updated_at: "2026-11-20T15:25:14.633636+00:00"
 ---
 
 ```json
@@ -79,6 +79,58 @@ updated_at: "2026-09-03T03:43:15.062305+00:00"
     "type": "callout",
     "title": "Why not just make up an attribute",
     "variant": "note"
+  },
+  {
+    "id": "quiz-data-attributes",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "data-attributes-q1",
+        "answer": 2,
+        "prompt": "Which is a valid custom attribute?",
+        "explain": "Custom attributes start with <code>data-</code>, so they never clash with built-in ones.",
+        "options": [
+          "<code>user-id=\"7\"</code>",
+          "<code>custom:user=\"7\"</code>",
+          "<code>data-user-id=\"7\"</code>",
+          "<code>x_user=\"7\"</code>"
+        ]
+      },
+      {
+        "id": "data-attributes-q2",
+        "answer": 0,
+        "prompt": "How does JavaScript read <code>data-author-id</code>?",
+        "explain": "Data attributes live on <code>dataset</code>, with the name converted to camelCase.",
+        "options": [
+          "<code>element.dataset.authorId</code>",
+          "<code>element.data-author-id</code>",
+          "<code>element.authorId</code>",
+          "<code>element.dataset[\"author-id-data\"]</code>"
+        ]
+      },
+      {
+        "id": "data-attributes-q3",
+        "answer": 3,
+        "prompt": "Which CSS selector matches <code>&lt;article data-category=\"frontend\"&gt;</code>?",
+        "explain": "An attribute selector in square brackets.",
+        "options": [
+          "<code>article.frontend</code>",
+          "<code>article#frontend</code>",
+          "<code>article:data(frontend)</code>",
+          "<code>article[data-category=\"frontend\"]</code>"
+        ]
+      },
+      {
+        "id": "data-attributes-q4",
+        "answer": 1,
+        "prompt": "Data attributes are displayed to the visitor by default.",
+        "explain": "The browser ignores them visually. They are for your own CSS and JavaScript.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Array Functions | Learn Computer Academy"
 meta_description: "The PHP array functions you'll reach for constantly — array_map, array_filter, sorting, searching, and more."
 sort_order: 13
-updated_at: "2026-07-30T09:08:38.315321+00:00"
+updated_at: "2026-11-21T06:08:34.193879+00:00"
 ---
 
 ```json
@@ -128,6 +128,61 @@ updated_at: "2026-07-30T09:08:38.315321+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-array-functions",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "array-functions-q1",
+        "answer": 1,
+        "prompt": "What does <code>array_map(fn($p) =&gt; $p * 2, [1, 2, 3])</code> return?",
+        "explain": "It applies the function to every element.",
+        "options": [
+          "<code>[1, 2, 3]</code>",
+          "<code>[2, 4, 6]</code>",
+          "<code>6</code>",
+          "<code>[1, 4, 9]</code>"
+        ]
+      },
+      {
+        "id": "array-functions-q2",
+        "answer": 3,
+        "prompt": "After array_filter keeps the even numbers of [1, 2, 3, 4], what are the keys?",
+        "explain": "The original indexes stay. Wrap in array_values() to renumber.",
+        "options": [
+          "<code>[0, 1]</code>",
+          "<code>[2, 4]</code>",
+          "<code>[0, 2]</code>",
+          "<code>[1, 3]</code>"
+        ]
+      },
+      {
+        "id": "array-functions-q3",
+        "answer": 0,
+        "prompt": "What does <code>in_array(\"banana\", $fruits)</code> return?",
+        "explain": "array_search() returns the key instead.",
+        "options": [
+          "true or false",
+          "The index of banana",
+          "The count of bananas",
+          "A new array"
+        ]
+      },
+      {
+        "id": "array-functions-q4",
+        "answer": 2,
+        "prompt": "Roughly how many built-in array functions does PHP have?",
+        "explain": "The full list is on php.net.",
+        "options": [
+          "5",
+          "10",
+          "Over 80",
+          "1000"
+        ]
+      }
+    ]
   }
 ]
 ```

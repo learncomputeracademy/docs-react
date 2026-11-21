@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Backup & Security Basics | Learn Computer Academy"
 meta_description: "Backing up and restoring a MongoDB database with mongodump and mongorestore, and the basics of authentication and role-based access."
 sort_order: 21
-updated_at: "2026-08-18T10:11:28.243817+00:00"
+updated_at: "2026-11-21T10:24:36.40889+00:00"
 ---
 
 ```json
@@ -119,6 +119,59 @@ updated_at: "2026-08-18T10:11:28.243817+00:00"
     "type": "callout",
     "title": "Give application users the minimum role they need",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-backup-and-security-basics",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "backup-and-security-basics-q1",
+        "answer": 0,
+        "prompt": "Which tool exports a database to BSON files?",
+        "explain": "Run it from a normal terminal, not inside mongosh.",
+        "options": [
+          "<code>mongodump</code>",
+          "<code>mongosh</code>",
+          "<code>mongoexport-all</code>",
+          "<code>npm</code>"
+        ]
+      },
+      {
+        "id": "backup-and-security-basics-q2",
+        "answer": 2,
+        "prompt": "Which tool brings a backup back?",
+        "explain": "Restores from the dump folder.",
+        "options": [
+          "<code>mongofix</code>",
+          "<code>mongoundo</code>",
+          "<code>mongorestore</code>",
+          "<code>git restore</code>"
+        ]
+      },
+      {
+        "id": "backup-and-security-basics-q3",
+        "answer": 3,
+        "prompt": "What does Atlas's IP access list control?",
+        "explain": "Avoid 0.0.0.0/0 (anyone) in production.",
+        "options": [
+          "Font sizes",
+          "Billing",
+          "Index speed",
+          "Which network addresses may connect to the database"
+        ]
+      },
+      {
+        "id": "backup-and-security-basics-q4",
+        "answer": 0,
+        "prompt": "Each app should use a database user with only the permissions it needs.",
+        "explain": "Least privilege limits the damage of a leak.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

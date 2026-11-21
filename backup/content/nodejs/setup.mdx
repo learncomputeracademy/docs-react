@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Installing Node.js | Learn Computer Academy"
 meta_description: "Install Node.js, confirm it worked, and run your first script with the node command and the interactive REPL."
 sort_order: 2
-updated_at: "2026-08-05T05:47:53.066096+00:00"
+updated_at: "2026-11-21T06:03:22.624352+00:00"
 ---
 
 ```json
@@ -112,6 +112,61 @@ updated_at: "2026-08-05T05:47:53.066096+00:00"
     "html": "<p>Type <code>.exit</code>, or press <code>Ctrl+C</code> twice, to leave the REPL.</p>",
     "type": "callout",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-setup",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "setup-q1",
+        "answer": 0,
+        "prompt": "Which Node.js version should you install?",
+        "explain": "LTS has had the most testing and is what most projects run in production.",
+        "options": [
+          "The LTS (Long-Term Support) version",
+          "The newest, Current version",
+          "Any beta",
+          "The oldest available"
+        ]
+      },
+      {
+        "id": "setup-q2",
+        "answer": 2,
+        "prompt": "How do you run a file called hello.js?",
+        "explain": "Run it from a terminal in the same folder.",
+        "options": [
+          "<code>npm hello.js</code>",
+          "<code>run hello.js</code>",
+          "<code>node hello.js</code>",
+          "<code>open hello.js</code>"
+        ]
+      },
+      {
+        "id": "setup-q3",
+        "answer": 3,
+        "prompt": "Which two commands does installing Node give you?",
+        "explain": "Check them with <code>node --version</code> and <code>npm --version</code>.",
+        "options": [
+          "<code>node</code> and <code>git</code>",
+          "<code>npx</code> and <code>yarn</code>",
+          "<code>js</code> and <code>pkg</code>",
+          "<code>node</code> and <code>npm</code>"
+        ]
+      },
+      {
+        "id": "setup-q4",
+        "answer": 0,
+        "prompt": "You see \"command not found\" right after installing. What usually fixes it?",
+        "explain": "The new commands are only recognised in a fresh terminal.",
+        "options": [
+          "Restarting the terminal (or, on Windows, the computer)",
+          "Reinstalling three times",
+          "Renaming the file",
+          "Installing a browser"
+        ]
+      }
+    ]
   }
 ]
 ```

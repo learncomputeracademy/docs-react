@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Undoing Changes in Git | Learn Computer Academy"
 meta_description: "Three different ways to undo something in Git, each for a different situation — discarding an uncommitted edit, rewinding history, and safely undoing a shared commit."
 sort_order: 9
-updated_at: "2026-09-03T05:20:01.769482+00:00"
+updated_at: "2026-11-21T10:18:32.885378+00:00"
 ---
 
 ```json
@@ -138,6 +138,61 @@ updated_at: "2026-09-03T05:20:01.769482+00:00"
     "header": [
       "Situation",
       "Use"
+    ]
+  },
+  {
+    "id": "quiz-undoing-changes",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "undoing-changes-q1",
+        "answer": 3,
+        "prompt": "What does <code>git restore index.html</code> do?",
+        "explain": "This cannot be undone; check git diff first.",
+        "options": [
+          "Saves the file",
+          "Commits the file",
+          "Uploads it",
+          "Discards uncommitted changes to that file"
+        ]
+      },
+      {
+        "id": "undoing-changes-q2",
+        "answer": 0,
+        "prompt": "What does <code>git restore --staged index.html</code> do?",
+        "explain": "Back to just \"modified\".",
+        "options": [
+          "Unstages the file but keeps the change",
+          "Deletes the change",
+          "Commits the file",
+          "Deletes the file"
+        ]
+      },
+      {
+        "id": "undoing-changes-q3",
+        "answer": 1,
+        "prompt": "Which undo is safe for a commit that is already pushed and shared?",
+        "explain": "Revert adds a new commit that undoes the old one, without rewriting history.",
+        "options": [
+          "<code>git reset --hard</code>",
+          "<code>git revert &lt;commit&gt;</code>",
+          "Delete .git",
+          "<code>git restore</code>"
+        ]
+      },
+      {
+        "id": "undoing-changes-q4",
+        "answer": 2,
+        "prompt": "What does <code>git reset --soft HEAD~1</code> do?",
+        "explain": "Useful for redoing a commit you just made locally.",
+        "options": [
+          "Deletes all files",
+          "Pushes to GitHub",
+          "Undoes the last commit but keeps its changes staged",
+          "Creates a branch"
+        ]
+      }
     ]
   }
 ]

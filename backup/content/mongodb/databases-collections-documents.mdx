@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Databases, Collections & Documents | Learn Computer Academy"
 meta_description: "The three-level structure of MongoDB — databases, collections, and documents — and how BSON differs from plain JSON."
 sort_order: 3
-updated_at: "2026-08-18T10:11:21.840846+00:00"
+updated_at: "2026-11-21T10:24:30.750295+00:00"
 ---
 
 ```json
@@ -85,6 +85,59 @@ updated_at: "2026-08-18T10:11:21.840846+00:00"
     "type": "callout",
     "title": "The _id field",
     "variant": "note"
+  },
+  {
+    "id": "quiz-databases-collections-documents",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "databases-collections-documents-q1",
+        "answer": 3,
+        "prompt": "What is the order of MongoDB's structure, from largest to smallest?",
+        "explain": "A server can host many databases.",
+        "options": [
+          "Document → collection → database",
+          "Collection → database → document",
+          "Table → row → column",
+          "Database → collection → document"
+        ]
+      },
+      {
+        "id": "databases-collections-documents-q2",
+        "answer": 0,
+        "prompt": "A collection is roughly equivalent to what in SQL?",
+        "explain": "A group of related documents.",
+        "options": [
+          "A table",
+          "A column",
+          "A database",
+          "An index"
+        ]
+      },
+      {
+        "id": "databases-collections-documents-q3",
+        "answer": 1,
+        "prompt": "What is the _id field?",
+        "explain": "Generated automatically as an ObjectId if you do not set one.",
+        "options": [
+          "An optional comment",
+          "A unique identifier every document gets",
+          "The collection name",
+          "A password"
+        ]
+      },
+      {
+        "id": "databases-collections-documents-q4",
+        "answer": 0,
+        "prompt": "A document can contain nested objects and arrays.",
+        "explain": "That is a key difference from flat rows.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

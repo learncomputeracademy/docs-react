@@ -6,7 +6,7 @@ status: "published"
 meta_title: "npm and package.json | Learn Computer Academy"
 meta_description: "Install and manage third-party packages with npm, and understand what package.json and package-lock.json actually do."
 sort_order: 5
-updated_at: "2026-08-05T05:47:54.042046+00:00"
+updated_at: "2026-11-21T06:03:23.599385+00:00"
 ---
 
 ```json
@@ -142,6 +142,61 @@ updated_at: "2026-08-05T05:47:54.042046+00:00"
     "html": "<p><code>npm start</code> and <code>npm test</code> can drop the word \"run\" — those two are special-cased. Every other script needs it: <code>npm run &lt;name&gt;</code>.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-npm-and-package-json",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "npm-and-package-json-q1",
+        "answer": 1,
+        "prompt": "What does <code>npm init -y</code> do?",
+        "explain": "-y skips the questions.",
+        "options": [
+          "Installs Node",
+          "Creates package.json, accepting all the defaults",
+          "Deletes node_modules",
+          "Publishes the project"
+        ]
+      },
+      {
+        "id": "npm-and-package-json-q2",
+        "answer": 3,
+        "prompt": "What does <code>npm install express</code> NOT do?",
+        "explain": "Installing only downloads and records the package.",
+        "options": [
+          "Download express into node_modules",
+          "Add it to dependencies in package.json",
+          "Write exact versions to package-lock.json",
+          "Start a web server"
+        ]
+      },
+      {
+        "id": "npm-and-package-json-q3",
+        "answer": 0,
+        "prompt": "Why does package-lock.json matter?",
+        "explain": "package.json may allow \"any 4.x\"; the lock file pins the exact one.",
+        "options": [
+          "It records exact versions, so every install gets the same code",
+          "It speeds up Node",
+          "It stores passwords",
+          "It lists the scripts"
+        ]
+      },
+      {
+        "id": "npm-and-package-json-q4",
+        "answer": 2,
+        "prompt": "Should the node_modules folder be committed to git?",
+        "explain": "package.json and package-lock.json are enough to rebuild it.",
+        "options": [
+          "Yes, always",
+          "Only the large packages",
+          "No — it can be recreated with npm install",
+          "Only on Windows"
+        ]
+      }
+    ]
   }
 ]
 ```

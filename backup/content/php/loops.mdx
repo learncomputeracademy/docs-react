@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Loops | Learn Computer Academy"
 meta_description: "PHP's four loop types — for, while, do-while, and foreach — and when to reach for each one."
 sort_order: 15
-updated_at: "2026-07-30T09:08:38.996465+00:00"
+updated_at: "2026-11-21T06:08:34.760761+00:00"
 ---
 
 ```json
@@ -112,6 +112,61 @@ updated_at: "2026-07-30T09:08:38.996465+00:00"
     "type": "callout",
     "title": "foreach for arrays, almost always",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-loops",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "loops-q1",
+        "answer": 2,
+        "prompt": "Which loop is purpose-built for arrays?",
+        "explain": "You will use it constantly.",
+        "options": [
+          "<code>for</code>",
+          "<code>while</code>",
+          "<code>foreach</code>",
+          "<code>do-while</code>"
+        ]
+      },
+      {
+        "id": "loops-q2",
+        "answer": 3,
+        "prompt": "What is special about do-while?",
+        "explain": "Even if the condition starts false.",
+        "options": [
+          "It never runs",
+          "It runs forever",
+          "It only works on arrays",
+          "It always runs at least once, because the condition is checked after the body"
+        ]
+      },
+      {
+        "id": "loops-q3",
+        "answer": 0,
+        "prompt": "When is a while loop the right choice?",
+        "explain": "for suits a known count or a counter.",
+        "options": [
+          "When you don't know how many iterations you need",
+          "Only for arrays",
+          "Never",
+          "When you need exactly 10 iterations"
+        ]
+      },
+      {
+        "id": "loops-q4",
+        "answer": 1,
+        "prompt": "How many times does <code>for ($i = 1; $i &lt;= 5; $i++)</code> run?",
+        "explain": "$i is 1, 2, 3, 4, 5.",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "Forever"
+        ]
+      }
+    ]
   }
 ]
 ```

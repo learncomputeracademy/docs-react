@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Handling Forms in PHP | Learn Computer Academy"
 meta_description: "Processing an HTML form submission in PHP with $_GET and $_POST — the most common thing server-side PHP actually does."
 sort_order: 19
-updated_at: "2026-07-30T09:08:40.459381+00:00"
+updated_at: "2026-11-21T06:08:35.868181+00:00"
 ---
 
 ```json
@@ -79,6 +79,61 @@ updated_at: "2026-07-30T09:08:40.459381+00:00"
     "type": "callout",
     "title": "Validation is coming, in context",
     "variant": "note"
+  },
+  {
+    "id": "quiz-forms",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "forms-q1",
+        "answer": 1,
+        "prompt": "Which form method should a login use?",
+        "explain": "GET puts data in the URL, where it is visible and saved in history.",
+        "options": [
+          "GET",
+          "POST",
+          "Either",
+          "PUT"
+        ]
+      },
+      {
+        "id": "forms-q2",
+        "answer": 3,
+        "prompt": "When is GET the right choice for a form?",
+        "explain": "The parameters stay in the URL.",
+        "options": [
+          "For passwords",
+          "For purchases",
+          "For uploads",
+          "For searches and filters you may want to share or bookmark"
+        ]
+      },
+      {
+        "id": "forms-q3",
+        "answer": 0,
+        "prompt": "What does <code>$_POST[\"username\"] ?? \"\"</code> do?",
+        "explain": "?? is the null coalescing operator.",
+        "options": [
+          "Uses the submitted value, or an empty string if it is missing",
+          "Always returns \"\"",
+          "Deletes the value",
+          "Compares two values"
+        ]
+      },
+      {
+        "id": "forms-q4",
+        "answer": 2,
+        "prompt": "Which HTML attribute links an input to its key in $_POST?",
+        "explain": "<code>&lt;input name=\"email\"&gt;</code> → <code>$_POST[\"email\"]</code>.",
+        "options": [
+          "<code>id</code>",
+          "<code>class</code>",
+          "<code>name</code>",
+          "<code>value</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

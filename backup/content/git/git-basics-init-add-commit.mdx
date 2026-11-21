@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Basics — init, add, commit | Learn Computer Academy"
 meta_description: "Turning a folder into a Git repository, and the two-step process — staging, then committing — behind every saved snapshot of a project."
 sort_order: 3
-updated_at: "2026-09-03T05:19:59.85483+00:00"
+updated_at: "2026-11-21T10:18:31.141884+00:00"
 ---
 
 ```json
@@ -117,6 +117,61 @@ updated_at: "2026-09-03T05:19:59.85483+00:00"
     "type": "callout",
     "title": "Writing a useful commit message",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-git-basics-init-add-commit",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "git-basics-init-add-commit-q1",
+        "answer": 3,
+        "prompt": "What does <code>git init</code> create?",
+        "explain": "Deleting .git removes all history but keeps your files.",
+        "options": [
+          "A website",
+          "A GitHub account",
+          "A new branch on GitHub",
+          "A hidden .git folder: the repository"
+        ]
+      },
+      {
+        "id": "git-basics-init-add-commit-q2",
+        "answer": 0,
+        "prompt": "What does <code>git add .</code> do?",
+        "explain": "<code>git add README.md</code> stages one file.",
+        "options": [
+          "Stages every changed file in this folder and below",
+          "Commits everything",
+          "Deletes files",
+          "Pushes to GitHub"
+        ]
+      },
+      {
+        "id": "git-basics-init-add-commit-q3",
+        "answer": 2,
+        "prompt": "Which command saves the staged changes as a snapshot?",
+        "explain": "The message explains what changed.",
+        "options": [
+          "<code>git save</code>",
+          "<code>git push</code>",
+          "<code>git commit -m \"message\"</code>",
+          "<code>git init</code>"
+        ]
+      },
+      {
+        "id": "git-basics-init-add-commit-q4",
+        "answer": 1,
+        "prompt": "What are the three states a file can be in?",
+        "explain": "Change it, stage it, commit it.",
+        "options": [
+          "Open, closed, deleted",
+          "Modified, staged, committed",
+          "New, old, archived",
+          "Local, remote, cloud"
+        ]
+      }
+    ]
   }
 ]
 ```

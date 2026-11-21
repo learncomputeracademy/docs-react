@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Environment Variables | Learn Computer Academy"
 meta_description: "Keeping secrets and per-environment settings out of the codebase with environment variables and a .env file."
 sort_order: 41
-updated_at: "2026-09-03T04:05:25.907128+00:00"
+updated_at: "2026-11-21T06:08:41.886886+00:00"
 ---
 
 ```json
@@ -114,6 +114,59 @@ updated_at: "2026-09-03T04:05:25.907128+00:00"
     "type": "code",
     "language": "bash",
     "runnable": false
+  },
+  {
+    "id": "quiz-environment-variables",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "environment-variables-q1",
+        "answer": 3,
+        "prompt": "Why keep a database password in an environment variable?",
+        "explain": "And so each server can have its own values.",
+        "options": [
+          "It loads faster",
+          "PHP requires it",
+          "It is encrypted automatically",
+          "So the secret stays out of the codebase"
+        ]
+      },
+      {
+        "id": "environment-variables-q2",
+        "answer": 0,
+        "prompt": "How do you read an environment variable?",
+        "explain": "Or <code>$_ENV['DB_HOST']</code>, depending on server configuration.",
+        "options": [
+          "<code>getenv('DB_HOST')</code>",
+          "<code>env('DB_HOST')</code>",
+          "<code>$DB_HOST</code>",
+          "<code>read_env('DB_HOST')</code>"
+        ]
+      },
+      {
+        "id": "environment-variables-q3",
+        "answer": 2,
+        "prompt": "Should the .env file be committed to version control?",
+        "explain": "Commit a .env.example with placeholder values instead.",
+        "options": [
+          "Yes",
+          "Only on Fridays",
+          "No — it holds secrets; keep it out of git",
+          "Only the passwords"
+        ]
+      },
+      {
+        "id": "environment-variables-q4",
+        "answer": 1,
+        "prompt": "PHP reads .env files natively, with no package.",
+        "explain": "The standard package for it is vlucas/phpdotenv.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

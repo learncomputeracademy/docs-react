@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Iterators and Generators | Learn Computer Academy"
 meta_description: "How Python's for loops actually work under the hood, and using yield to produce values one at a time instead of building a whole list in memory."
 sort_order: 25
-updated_at: "2026-08-04T11:39:33.789832+00:00"
+updated_at: "2026-11-21T06:12:49.199851+00:00"
 ---
 
 ```json
@@ -117,6 +117,59 @@ updated_at: "2026-08-04T11:39:33.789832+00:00"
     "id": "HlLY_ajKoxaM",
     "html": "<p>A list can be looped over as many times as you like; a generator is single-use by design. If you need the data more than once, either convert it to a list (<code>list(...)</code>) or build a fresh generator each time you need it.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-iterators-and-generators",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "iterators-and-generators-q1",
+        "answer": 3,
+        "prompt": "What does a for loop do under the hood?",
+        "explain": "iter() gets the iterator; next() gets each item.",
+        "options": [
+          "Copies the list",
+          "Uses indexes",
+          "Sorts the items",
+          "Calls next() on an iterator until StopIteration"
+        ]
+      },
+      {
+        "id": "iterators-and-generators-q2",
+        "answer": 0,
+        "prompt": "Which keyword makes a function a generator?",
+        "explain": "It pauses at each yield and resumes where it left off.",
+        "options": [
+          "<code>yield</code>",
+          "<code>return</code>",
+          "<code>generate</code>",
+          "<code>async</code>"
+        ]
+      },
+      {
+        "id": "iterators-and-generators-q3",
+        "answer": 2,
+        "prompt": "What problem do generators solve?",
+        "explain": "Values are produced one at a time, as needed.",
+        "options": [
+          "Slow imports",
+          "Syntax errors",
+          "Building a huge list in memory just to loop over it once",
+          "Missing semicolons"
+        ]
+      },
+      {
+        "id": "iterators-and-generators-q4",
+        "answer": 0,
+        "prompt": "Calling next() on an exhausted iterator raises StopIteration.",
+        "explain": "for loops handle it for you.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

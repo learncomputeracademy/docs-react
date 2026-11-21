@@ -6,7 +6,7 @@ status: "published"
 meta_title: "JavaScript Rest and Spread Operators | Learn Computer Academy"
 meta_description: "The same ... syntax doing two opposite jobs — collecting multiple values into an array, or expanding an array into individual values."
 sort_order: 34
-updated_at: "2026-09-03T04:17:12.60573+00:00"
+updated_at: "2026-11-21T05:55:28.122941+00:00"
 ---
 
 ```json
@@ -105,6 +105,61 @@ updated_at: "2026-09-03T04:17:12.60573+00:00"
     "type": "callout",
     "title": "Where this shows up next",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-rest-and-spread-operators",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "rest-and-spread-operators-q1",
+        "answer": 0,
+        "prompt": "What is <code>sum(1, 2, 3)</code> with <code>function sum(...n) { return n.reduce((t, x) =&gt; t + x, 0) }</code>?",
+        "explain": "Rest collects all the arguments into a real array.",
+        "options": [
+          "6",
+          "123",
+          "[1, 2, 3]",
+          "3"
+        ]
+      },
+      {
+        "id": "rest-and-spread-operators-q2",
+        "answer": 2,
+        "prompt": "After <code>const [first, ...rest] = [10, 20, 30]</code>, what is rest?",
+        "explain": "Rest in destructuring gathers the remaining items.",
+        "options": [
+          "<code>10</code>",
+          "<code>[10, 20, 30]</code>",
+          "<code>[20, 30]</code>",
+          "<code>30</code>"
+        ]
+      },
+      {
+        "id": "rest-and-spread-operators-q3",
+        "answer": 3,
+        "prompt": "What is <code>Math.max(...[3, 9, 4])</code>?",
+        "explain": "Spread expands the array into separate arguments.",
+        "options": [
+          "NaN",
+          "3",
+          "[9]",
+          "9"
+        ]
+      },
+      {
+        "id": "rest-and-spread-operators-q4",
+        "answer": 1,
+        "prompt": "What does <code>{ ...defaults, theme: \"dark\" }</code> produce?",
+        "explain": "Later keys win, and the original object is untouched.",
+        "options": [
+          "An error",
+          "A new object: defaults copied, with theme overridden to \"dark\"",
+          "defaults changed in place",
+          "An array"
+        ]
+      }
+    ]
   }
 ]
 ```

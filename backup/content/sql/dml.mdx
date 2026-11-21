@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL DML — Data Manipulation Language | Learn Computer Academy"
 meta_description: "SELECT, aliases, INSERT, UPDATE, and DELETE — the SQL commands you'll type the most, for reading and changing the rows inside a table."
 sort_order: 5
-updated_at: "2026-07-29T06:31:05.960539+00:00"
+updated_at: "2026-11-21T05:51:01.449128+00:00"
 ---
 
 ```json
@@ -222,6 +222,61 @@ updated_at: "2026-07-29T06:31:05.960539+00:00"
     "id": "C--EzjO8hxpb",
     "html": "<p>DML is the family you'll reach for constantly once your tables exist. The next lesson covers DCL — the much smaller family that controls who is allowed to run any of these commands at all.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-dml",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dml-q1",
+        "answer": 0,
+        "prompt": "What does <code>SELECT * FROM Employee;</code> return?",
+        "explain": "In real code, name the columns you need instead of using *.",
+        "options": [
+          "Every row and every column",
+          "Only the first row",
+          "Only the column names",
+          "The number of rows"
+        ]
+      },
+      {
+        "id": "dml-q2",
+        "answer": 2,
+        "prompt": "What happens if you run <code>UPDATE Employee SET salary = 0;</code> with no WHERE clause?",
+        "explain": "UPDATE and DELETE without WHERE affect the whole table.",
+        "options": [
+          "Nothing — WHERE is required",
+          "Only the first row changes",
+          "Every row's salary becomes 0",
+          "The table is deleted"
+        ]
+      },
+      {
+        "id": "dml-q3",
+        "answer": 1,
+        "prompt": "What does <code>AS</code> do in <code>SELECT name AS EmployeeName FROM Employee;</code>?",
+        "explain": "The underlying column is unchanged.",
+        "options": [
+          "Renames the column permanently",
+          "Gives the column a temporary name in the result",
+          "Creates a new column",
+          "Filters rows"
+        ]
+      },
+      {
+        "id": "dml-q4",
+        "answer": 3,
+        "prompt": "Which statement adds a new row?",
+        "explain": "<code>INSERT INTO Employee (name, department) VALUES ('John', 'IT');</code>",
+        "options": [
+          "<code>ADD INTO</code>",
+          "<code>UPDATE</code>",
+          "<code>CREATE ROW</code>",
+          "<code>INSERT INTO</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

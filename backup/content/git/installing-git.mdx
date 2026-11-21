@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Installing and Configuring Git | Learn Computer Academy"
 meta_description: "Getting Git installed on Windows, macOS, and Linux, and the one-time setup — your name and email — every commit will use."
 sort_order: 2
-updated_at: "2026-09-03T05:19:59.498209+00:00"
+updated_at: "2026-11-21T10:18:30.77611+00:00"
 ---
 
 ```json
@@ -116,6 +116,59 @@ updated_at: "2026-09-03T05:19:59.498209+00:00"
     "type": "callout",
     "title": "Where this actually lives",
     "variant": "note"
+  },
+  {
+    "id": "quiz-installing-git",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "installing-git-q1",
+        "answer": 2,
+        "prompt": "How do you confirm Git is installed?",
+        "explain": "It prints the installed version.",
+        "options": [
+          "<code>git start</code>",
+          "<code>git check</code>",
+          "<code>git --version</code>",
+          "<code>git hello</code>"
+        ]
+      },
+      {
+        "id": "installing-git-q2",
+        "answer": 0,
+        "prompt": "Why must you set user.name and user.email before your first commit?",
+        "explain": "Set it once with --global.",
+        "options": [
+          "Every commit records who made it",
+          "To get emails from GitHub",
+          "To speed up Git",
+          "It is optional decoration"
+        ]
+      },
+      {
+        "id": "installing-git-q3",
+        "answer": 1,
+        "prompt": "What does --global mean in git config?",
+        "explain": "Without it, the setting applies to the current repository only.",
+        "options": [
+          "Upload to the internet",
+          "Apply to every repository on this computer",
+          "Apply to one file",
+          "Share with everyone"
+        ]
+      },
+      {
+        "id": "installing-git-q4",
+        "answer": 0,
+        "prompt": "Git can be used entirely from the command line.",
+        "explain": "GUIs exist, but the CLI is the core.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

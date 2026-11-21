@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Making HTTP Requests from Node.js | Learn Computer Academy"
 meta_description: "Calling another API from a Node script or server using the built-in global fetch — no dependency required, GET and POST requests, and error handling."
 sort_order: 30
-updated_at: "2026-09-03T04:41:42.847105+00:00"
+updated_at: "2026-11-21T06:03:31.34824+00:00"
 ---
 
 ```json
@@ -102,6 +102,61 @@ updated_at: "2026-09-03T04:41:42.847105+00:00"
     "type": "callout",
     "title": "When a library still helps",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-making-http-requests-with-fetch",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "making-http-requests-with-fetch-q1",
+        "answer": 2,
+        "prompt": "From which Node version is fetch built in?",
+        "explain": "No package or import needed.",
+        "options": [
+          "Node 8",
+          "Node 12",
+          "Node 18",
+          "Node 22"
+        ]
+      },
+      {
+        "id": "making-http-requests-with-fetch-q2",
+        "answer": 3,
+        "prompt": "Does fetch throw for a 404 or 500 response?",
+        "explain": "<code>if (!response.ok) throw new Error(...)</code>",
+        "options": [
+          "Yes, always",
+          "Only for 500",
+          "Only in production",
+          "No — only for network failures, so check response.ok"
+        ]
+      },
+      {
+        "id": "making-http-requests-with-fetch-q3",
+        "answer": 0,
+        "prompt": "How do you read a JSON response?",
+        "explain": "It returns a promise, so await it.",
+        "options": [
+          "<code>await response.json()</code>",
+          "<code>response.body</code>",
+          "<code>JSON(response)</code>",
+          "<code>response.data</code>"
+        ]
+      },
+      {
+        "id": "making-http-requests-with-fetch-q4",
+        "answer": 1,
+        "prompt": "What must a POST that sends JSON include?",
+        "explain": "Same as fetch in the browser.",
+        "options": [
+          "A GET method",
+          "<code>method: 'POST'</code>, a JSON Content-Type header, and <code>body: JSON.stringify(data)</code>",
+          "Only the URL",
+          "A callback"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Navigation Menus In Depth | Learn Computer Academy"
 meta_description: "Registering multiple menu locations, outputting a menu with wp_nav_menu, and marking the current page's link as active."
 sort_order: 11
-updated_at: "2026-07-30T14:23:27.65126+00:00"
+updated_at: "2026-11-21T05:59:24.937111+00:00"
 ---
 
 ```json
@@ -105,6 +105,61 @@ updated_at: "2026-07-30T14:23:27.65126+00:00"
     "id": "ZgtFw2J971Oz",
     "html": "<p>Menus handled, the next lesson looks at the Customizer — WordPress's built-in, live-preview settings screen, and a lightweight alternative to a full custom fields setup for small site-wide options.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-navigation-menus",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "navigation-menus-q1",
+        "answer": 2,
+        "prompt": "Who decides what goes in a menu?",
+        "explain": "The theme only defines where menus can appear.",
+        "options": [
+          "The theme developer, in the template",
+          "WordPress automatically",
+          "Whoever manages the site, from Appearance → Menus",
+          "The hosting company"
+        ]
+      },
+      {
+        "id": "navigation-menus-q2",
+        "answer": 3,
+        "prompt": "Which function registers menu locations?",
+        "explain": "wp_nav_menu() outputs a menu in a template.",
+        "options": [
+          "<code>wp_nav_menu()</code>",
+          "<code>add_menu()</code>",
+          "<code>get_menu()</code>",
+          "<code>register_nav_menus()</code>"
+        ]
+      },
+      {
+        "id": "navigation-menus-q3",
+        "answer": 0,
+        "prompt": "In <code>wp_nav_menu( [ 'theme_location' =&gt; 'primary' ] )</code>, what is 'primary'?",
+        "explain": "It must match a slug passed to register_nav_menus().",
+        "options": [
+          "The registered location slug",
+          "The menu's CSS class",
+          "The menu title",
+          "The first menu item"
+        ]
+      },
+      {
+        "id": "navigation-menus-q4",
+        "answer": 1,
+        "prompt": "Which class does WordPress add to the link for the page being viewed?",
+        "explain": "Style it to highlight the current page.",
+        "options": [
+          "<code>active</code>",
+          "<code>current-menu-item</code>",
+          "<code>selected</code>",
+          "<code>is-current</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

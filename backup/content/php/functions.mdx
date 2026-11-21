@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Functions | Learn Computer Academy"
 meta_description: "Defining your own PHP functions — parameters, default values, return types, and arrow functions."
 sort_order: 16
-updated_at: "2026-07-30T09:08:39.296436+00:00"
+updated_at: "2026-11-21T06:08:35.04226+00:00"
 ---
 
 ```json
@@ -107,6 +107,61 @@ updated_at: "2026-07-30T09:08:39.296436+00:00"
     "type": "callout",
     "title": "fn vs. an anonymous function",
     "variant": "note"
+  },
+  {
+    "id": "quiz-functions",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-q1",
+        "answer": 3,
+        "prompt": "With <code>function greet($name = \"Guest\")</code>, what does <code>greet()</code> use for $name?",
+        "explain": "Default parameter values are used when no argument is given.",
+        "options": [
+          "<code>null</code>",
+          "<code>\"\"</code>",
+          "An error",
+          "<code>\"Guest\"</code>"
+        ]
+      },
+      {
+        "id": "functions-q2",
+        "answer": 2,
+        "prompt": "What does <code>add(\"two\", 3)</code> do with <code>function add(int $a, int $b): int</code>?",
+        "explain": "Type declarations catch mistakes early.",
+        "options": [
+          "Returns 3",
+          "Returns \"two3\"",
+          "Throws a TypeError",
+          "Returns 0"
+        ]
+      },
+      {
+        "id": "functions-q3",
+        "answer": 0,
+        "prompt": "How can a PHP function give back two values?",
+        "explain": "Then unpack with [$a, $b] = myFunction();",
+        "options": [
+          "Return them in an array",
+          "Use two return statements",
+          "It can't",
+          "Use echo"
+        ]
+      },
+      {
+        "id": "functions-q4",
+        "answer": 1,
+        "prompt": "What does the \": int\" after the parameter list mean?",
+        "explain": "It is the return type declaration.",
+        "options": [
+          "The function takes an int",
+          "The function must return an int",
+          "It is a comment",
+          "The function is private"
+        ]
+      }
+    ]
   }
 ]
 ```

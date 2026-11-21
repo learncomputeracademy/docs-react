@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Recursion in JavaScript | Learn Computer Academy"
 meta_description: "A function calling itself to solve a smaller version of the same problem — the base case, the call stack it builds, and when to reach for it."
 sort_order: 30
-updated_at: "2026-09-03T04:17:11.357873+00:00"
+updated_at: "2026-11-21T05:55:26.813583+00:00"
 ---
 
 ```json
@@ -106,6 +106,59 @@ updated_at: "2026-09-03T04:17:11.357873+00:00"
     "type": "callout",
     "title": "Practice it interactively",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-recursion",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "recursion-q1",
+        "answer": 1,
+        "prompt": "What is the base case in a recursive function?",
+        "explain": "Without a reachable base case, the function calls itself forever.",
+        "options": [
+          "The first line of the function",
+          "The condition that stops the recursion",
+          "The largest input",
+          "A loop inside the function"
+        ]
+      },
+      {
+        "id": "recursion-q2",
+        "answer": 3,
+        "prompt": "What is <code>factorial(4)</code> if factorial(n) = n × factorial(n − 1) and factorial(1) = 1?",
+        "explain": "4 × 3 × 2 × 1 = 24.",
+        "options": [
+          "10",
+          "16",
+          "4",
+          "24"
+        ]
+      },
+      {
+        "id": "recursion-q3",
+        "answer": 0,
+        "prompt": "What error appears when recursion never stops?",
+        "explain": "Each call adds a frame to the call stack until it runs out of room.",
+        "options": [
+          "\"Maximum call stack size exceeded\"",
+          "\"Infinite loop detected\"",
+          "\"Recursion not allowed\"",
+          "No error — it runs forever"
+        ]
+      },
+      {
+        "id": "recursion-q4",
+        "answer": 0,
+        "prompt": "A base case that can never be reached is just as bad as no base case.",
+        "explain": "Each call must move the input closer to the base case.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

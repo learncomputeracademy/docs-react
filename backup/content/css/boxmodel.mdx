@@ -5,7 +5,7 @@ path: "css/boxmodel"
 status: "published"
 meta_title: "CSS Box Model | Learn Computer Academy"
 sort_order: 9
-updated_at: "2026-08-18T03:18:17.34688+00:00"
+updated_at: "2026-11-21T06:18:10.207698+00:00"
 ---
 
 ```json
@@ -80,6 +80,61 @@ updated_at: "2026-08-18T03:18:17.34688+00:00"
     "id": "Pcjuetv0vlgl",
     "html": "<p>The total width of an element should be calculated like this:</p>\n<p>Total element width = width + left padding + right padding + left border + right border + left margin + right margin</p>\n<p>The total height of an element should be calculated like this:</p>\n<p>Total element height = height + top padding + bottom padding + top border + bottom border + top margin + bottom margin</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-boxmodel",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "boxmodel-q1",
+        "answer": 2,
+        "prompt": "What are the parts of the box model, inside to outside?",
+        "explain": "Every element is a box made of these layers.",
+        "options": [
+          "Margin, border, padding, content",
+          "Content, margin, padding, border",
+          "Content, padding, border, margin",
+          "Padding, content, margin, border"
+        ]
+      },
+      {
+        "id": "boxmodel-q2",
+        "answer": 3,
+        "prompt": "An element has width 300px, padding 20px and border 5px. What is its total width (content-box)?",
+        "explain": "300 + 20 + 20 + 5 + 5 = 350px.",
+        "options": [
+          "300px",
+          "325px",
+          "320px",
+          "350px"
+        ]
+      },
+      {
+        "id": "boxmodel-q3",
+        "answer": 0,
+        "prompt": "Are padding and margin transparent?",
+        "explain": "Neither has its own colour.",
+        "options": [
+          "Yes — padding shows the element's background, margin shows what's behind",
+          "No, both are white",
+          "Only padding has a colour property",
+          "Only margin has a colour property"
+        ]
+      },
+      {
+        "id": "boxmodel-q4",
+        "answer": 1,
+        "prompt": "What does <code>box-sizing: border-box;</code> change?",
+        "explain": "Sizing becomes far more predictable.",
+        "options": [
+          "Adds a border",
+          "width now includes padding and border",
+          "Removes margins",
+          "Makes the box round"
+        ]
+      }
+    ]
   }
 ]
 ```

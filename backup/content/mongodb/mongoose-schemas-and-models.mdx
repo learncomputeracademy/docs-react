@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Mongoose — Schemas & Models | Learn Computer Academy"
 meta_description: "Using Mongoose, the most popular MongoDB library for Node.js, to define schemas and models and perform CRUD with a cleaner, structured API."
 sort_order: 19
-updated_at: "2026-08-18T10:11:27.61209+00:00"
+updated_at: "2026-11-21T10:24:35.809753+00:00"
 ---
 
 ```json
@@ -104,6 +104,59 @@ updated_at: "2026-08-18T10:11:27.61209+00:00"
     "type": "callout",
     "title": "CRUD method names carry over from the raw driver",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-mongoose-schemas-and-models",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "mongoose-schemas-and-models-q1",
+        "answer": 0,
+        "prompt": "What is Mongoose?",
+        "explain": "The most widely used way to work with MongoDB from Node.",
+        "options": [
+          "A library on top of the driver that adds schemas, models and validation",
+          "A new database",
+          "A cloud host",
+          "A testing tool"
+        ]
+      },
+      {
+        "id": "mongoose-schemas-and-models-q2",
+        "answer": 1,
+        "prompt": "What does a schema describe?",
+        "explain": "<code>new Schema({ name: String })</code>.",
+        "options": [
+          "The server's IP",
+          "The shape of a document: fields, types and rules",
+          "The colour theme",
+          "User passwords"
+        ]
+      },
+      {
+        "id": "mongoose-schemas-and-models-q3",
+        "answer": 3,
+        "prompt": "What is a model?",
+        "explain": "<code>mongoose.model(\"User\", userSchema)</code>.",
+        "options": [
+          "A diagram",
+          "A CSS file",
+          "A backup",
+          "A class built from a schema, used to create and query documents"
+        ]
+      },
+      {
+        "id": "mongoose-schemas-and-models-q4",
+        "answer": 0,
+        "prompt": "Mongoose validates data before it is saved.",
+        "explain": "Invalid documents throw a validation error.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Superglobals | Learn Computer Academy"
 meta_description: "PHP's superglobal arrays — $_GET, $_POST, $_SESSION, $_SERVER, and $_COOKIE — the built-in variables that connect PHP to the web request itself."
 sort_order: 18
-updated_at: "2026-07-30T09:08:40.158479+00:00"
+updated_at: "2026-11-21T06:08:35.585457+00:00"
 ---
 
 ```json
@@ -105,6 +105,59 @@ updated_at: "2026-07-30T09:08:40.158479+00:00"
     "type": "callout",
     "title": "Superglobal data is never trusted by default",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-superglobals",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "superglobals-q1",
+        "answer": 2,
+        "prompt": "What are superglobals?",
+        "explain": "$_GET, $_POST, $_SESSION, $_COOKIE, $_SERVER and more.",
+        "options": [
+          "Variables you must declare",
+          "Constants",
+          "Built-in arrays PHP fills with data about the current request",
+          "A database"
+        ]
+      },
+      {
+        "id": "superglobals-q2",
+        "answer": 3,
+        "prompt": "For page.php?name=Priya, what reads \"Priya\"?",
+        "explain": "The query string ends up in $_GET.",
+        "options": [
+          "<code>$_POST[\"name\"]</code>",
+          "<code>$_SERVER[\"name\"]</code>",
+          "<code>$_SESSION[\"name\"]</code>",
+          "<code>$_GET[\"name\"]</code>"
+        ]
+      },
+      {
+        "id": "superglobals-q3",
+        "answer": 0,
+        "prompt": "What does <code>$_SERVER[\"REQUEST_METHOD\"]</code> tell you?",
+        "explain": "Handy for handling a form on the same page.",
+        "options": [
+          "Whether the request is GET or POST",
+          "The server's IP",
+          "The PHP version",
+          "The page title"
+        ]
+      },
+      {
+        "id": "superglobals-q4",
+        "answer": 0,
+        "prompt": "Data in superglobals came from outside your script, so it must not be trusted blindly.",
+        "explain": "Validate and escape it.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

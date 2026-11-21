@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Building a REST API with Node.js | Learn Computer Academy"
 meta_description: "Put routing, middleware, and JSON bodies together into a complete REST API with all four CRUD operations."
 sort_order: 23
-updated_at: "2026-08-05T05:47:59.815242+00:00"
+updated_at: "2026-11-21T06:03:29.291928+00:00"
 ---
 
 ```json
@@ -111,6 +111,59 @@ updated_at: "2026-08-05T05:47:59.815242+00:00"
     "id": "fKwurgFN51Wn",
     "html": "<p>A real API adds more on top of this: validating that <code>req.body</code> actually contains what's expected before using it, authentication so not just anyone can delete a product, and — the next lesson's topic — a real database instead of an array that resets every time the server restarts.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-rest-api",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "rest-api-q1",
+        "answer": 1,
+        "prompt": "In REST, what does the URL /products/7 identify?",
+        "explain": "The HTTP method says what to do with it.",
+        "options": [
+          "An action to run",
+          "A resource — product number 7",
+          "A database table",
+          "A page number"
+        ]
+      },
+      {
+        "id": "rest-api-q2",
+        "answer": 2,
+        "prompt": "What does CRUD stand for?",
+        "explain": "POST, GET, PUT/PATCH, DELETE.",
+        "options": [
+          "Connect, Run, Update, Disconnect",
+          "Cache, Read, Upload, Download",
+          "Create, Read, Update, Delete",
+          "Copy, Rename, Undo, Delete"
+        ]
+      },
+      {
+        "id": "rest-api-q3",
+        "answer": 3,
+        "prompt": "Which status code should a request for a product that doesn't exist return?",
+        "explain": "404 = not found; 500 = server error.",
+        "options": [
+          "200",
+          "201",
+          "500",
+          "404"
+        ]
+      },
+      {
+        "id": "rest-api-q4",
+        "answer": 1,
+        "prompt": "REST is a library you install with npm.",
+        "explain": "REST is a set of conventions, not code.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

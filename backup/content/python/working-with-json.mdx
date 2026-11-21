@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python JSON Handling | Learn Computer Academy"
 meta_description: "Converting a Python dict or list to JSON and back with the built-in json module — the standard format for a config file or an API response."
 sort_order: 34
-updated_at: "2026-09-03T04:52:51.481787+00:00"
+updated_at: "2026-11-21T06:12:51.636027+00:00"
 ---
 
 ```json
@@ -138,6 +138,61 @@ updated_at: "2026-09-03T04:52:51.481787+00:00"
     "type": "callout",
     "title": "A one-way conversion for tuples",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-working-with-json",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "working-with-json-q1",
+        "answer": 3,
+        "prompt": "What does <code>json.dumps({\"active\": True})</code> produce?",
+        "explain": "Python's True becomes JSON's lowercase true.",
+        "options": [
+          "<code>'{\"active\": True}'</code>",
+          "<code>{'active': True}</code>",
+          "<code>'active=true'</code>",
+          "<code>'{\"active\": true}'</code>"
+        ]
+      },
+      {
+        "id": "working-with-json-q2",
+        "answer": 0,
+        "prompt": "What does json.loads() return for a JSON object?",
+        "explain": "Read it with user[\"name\"].",
+        "options": [
+          "A regular Python dict",
+          "A string",
+          "A list",
+          "A JSON object type"
+        ]
+      },
+      {
+        "id": "working-with-json-q3",
+        "answer": 2,
+        "prompt": "What is the difference between dumps() and dump()?",
+        "explain": "Same for loads() (string) and load() (file).",
+        "options": [
+          "None",
+          "dump() is faster",
+          "dumps() returns a string; dump() writes to a file",
+          "dump() reads files"
+        ]
+      },
+      {
+        "id": "working-with-json-q4",
+        "answer": 1,
+        "prompt": "How do you pretty-print JSON?",
+        "explain": "indent sets the number of spaces.",
+        "options": [
+          "<code>json.dumps(user, pretty=True)</code>",
+          "<code>json.dumps(user, indent=2)</code>",
+          "<code>json.pretty(user)</code>",
+          "<code>print(user, json=True)</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

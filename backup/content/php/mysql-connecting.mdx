@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP and MySQL: Connecting with PDO | Learn Computer Academy"
 meta_description: "Connecting a PHP script to a MySQL database using PDO, PHP's modern, safer database interface."
 sort_order: 28
-updated_at: "2026-07-30T09:08:43.645646+00:00"
+updated_at: "2026-11-21T06:08:38.387878+00:00"
 ---
 
 ```json
@@ -81,6 +81,61 @@ updated_at: "2026-07-30T09:08:43.645646+00:00"
     "type": "callout",
     "title": "Local learning vs. real deployment",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-mysql-connecting",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "mysql-connecting-q1",
+        "answer": 1,
+        "prompt": "What is PDO?",
+        "explain": "One consistent interface for several database systems.",
+        "options": [
+          "A database",
+          "PHP's modern, recommended way to talk to databases",
+          "A PHP framework",
+          "A file format"
+        ]
+      },
+      {
+        "id": "mysql-connecting-q2",
+        "answer": 3,
+        "prompt": "Why wrap the new PDO(...) connection in try/catch?",
+        "explain": "A raw error can reveal the database user and host.",
+        "options": [
+          "It is faster",
+          "PDO requires it",
+          "To retry automatically",
+          "To handle a failed connection without exposing details to visitors"
+        ]
+      },
+      {
+        "id": "mysql-connecting-q3",
+        "answer": 0,
+        "prompt": "What does setting PDO::ERRMODE_EXCEPTION do?",
+        "explain": "Otherwise failures can pass silently.",
+        "options": [
+          "Makes database errors throw exceptions you can catch",
+          "Hides all errors",
+          "Logs errors to a file",
+          "Speeds up queries"
+        ]
+      },
+      {
+        "id": "mysql-connecting-q4",
+        "answer": 2,
+        "prompt": "Why add charset=utf8mb4 to the connection string?",
+        "explain": "Older utf8 in MySQL can't store every character.",
+        "options": [
+          "It encrypts data",
+          "It makes queries shorter",
+          "So every character, including Bengali and emoji, is stored correctly",
+          "It is the default anyway"
+        ]
+      }
+    ]
   }
 ]
 ```

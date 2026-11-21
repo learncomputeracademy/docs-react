@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python If, Elif, Else | Learn Computer Academy"
 meta_description: "Python's conditional statements — if, elif, else, and the ternary and walrus shortcuts."
 sort_order: 14
-updated_at: "2026-08-04T11:39:30.529272+00:00"
+updated_at: "2026-11-21T06:12:45.863092+00:00"
 ---
 
 ```json
@@ -120,6 +120,61 @@ updated_at: "2026-08-04T11:39:30.529272+00:00"
     "id": "QLIbWaBlb0JG",
     "html": "<p>It's a small convenience, not a feature you'll need constantly — reach for it when the same value would otherwise be computed twice in an <code>if</code> condition and its body.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-control-flow",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "control-flow-q1",
+        "answer": 3,
+        "prompt": "How does Python spell \"else if\"?",
+        "explain": "One of the most common typos when starting out.",
+        "options": [
+          "<code>elseif</code>",
+          "<code>else if</code>",
+          "<code>elsif</code>",
+          "<code>elif</code>"
+        ]
+      },
+      {
+        "id": "control-flow-q2",
+        "answer": 1,
+        "prompt": "With <code>score = 72</code>, which grade prints (A ≥ 90, B ≥ 75, C ≥ 60, else F)?",
+        "explain": "72 fails ≥ 90 and ≥ 75, passes ≥ 60.",
+        "options": [
+          "A",
+          "C",
+          "B",
+          "F"
+        ]
+      },
+      {
+        "id": "control-flow-q3",
+        "answer": 0,
+        "prompt": "How do you check several values without a switch statement?",
+        "explain": "Python 3.10 added match, but elif chains remain more common.",
+        "options": [
+          "<code>if day in (\"Mon\", \"Tue\", \"Wed\"):</code>",
+          "<code>switch (day):</code>",
+          "<code>case day:</code>",
+          "It is impossible"
+        ]
+      },
+      {
+        "id": "control-flow-q4",
+        "answer": 2,
+        "prompt": "Does the condition in a Python if need parentheses?",
+        "explain": "<code>if score &gt;= 90:</code>",
+        "options": [
+          "Yes, always",
+          "Only with numbers",
+          "No — just the condition and a colon",
+          "Only with elif"
+        ]
+      }
+    ]
   }
 ]
 ```

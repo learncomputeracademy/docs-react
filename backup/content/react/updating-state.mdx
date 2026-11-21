@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Updating Object and Array State in React | Learn Computer Academy"
 meta_description: "Why React state must be treated as immutable, and the spread-operator patterns for updating objects and arrays without mutating them."
 sort_order: 10
-updated_at: "2026-07-31T11:24:38.171214+00:00"
+updated_at: "2026-11-21T10:21:53.998869+00:00"
 ---
 
 ```json
@@ -105,6 +105,61 @@ updated_at: "2026-07-31T11:24:38.171214+00:00"
     "type": "callout",
     "title": "Non-mutating vs. mutating array methods",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-updating-state",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "updating-state-q1",
+        "answer": 1,
+        "prompt": "Why does <code>user.age = user.age + 1</code> on a state object fail to re-render?",
+        "explain": "Never mutate state directly.",
+        "options": [
+          "Ages cannot change",
+          "The object reference stays the same, so React sees no change",
+          "It throws an error",
+          "It re-renders twice"
+        ]
+      },
+      {
+        "id": "updating-state-q2",
+        "answer": 0,
+        "prompt": "How do you update one field of an object in state?",
+        "explain": "Spread copies the other fields into a new object.",
+        "options": [
+          "<code>setUser({ ...user, age: user.age + 1 })</code>",
+          "<code>user.age++</code>",
+          "<code>setUser(user)</code>",
+          "<code>delete user.age</code>"
+        ]
+      },
+      {
+        "id": "updating-state-q3",
+        "answer": 2,
+        "prompt": "How do you add an item to an array in state?",
+        "explain": "Create a new array instead of changing the old one.",
+        "options": [
+          "<code>items.push(x)</code>",
+          "<code>items[items.length] = x</code>",
+          "<code>setItems([...items, x])</code>",
+          "<code>items.add(x)</code>"
+        ]
+      },
+      {
+        "id": "updating-state-q4",
+        "answer": 3,
+        "prompt": "Which method removes an item without mutating the array?",
+        "explain": "filter returns a new array.",
+        "options": [
+          "<code>splice()</code>",
+          "<code>pop()</code>",
+          "<code>shift()</code>",
+          "<code>filter()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

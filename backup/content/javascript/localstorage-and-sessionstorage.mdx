@@ -5,7 +5,7 @@ path: "javascript/localstorage-and-sessionstorage"
 status: "published"
 meta_title: "JavaScript LocalStorage and SessionStorage | Learn Computer Academy"
 sort_order: 24
-updated_at: "2026-07-29T05:40:23.717751+00:00"
+updated_at: "2026-11-21T05:55:24.467495+00:00"
 ---
 
 ```json
@@ -209,6 +209,59 @@ updated_at: "2026-07-29T05:40:23.717751+00:00"
     "id": "9DGC6BDcz4TT",
     "html": "<ol>\n                                  <li>Save a user's name to <code>localStorage</code>, and greet them on the next visit.</li>\n                                  <li>Save a form draft to <code>sessionStorage</code> and restore it if the tab refreshes.</li>\n                                  <li>Use <code>JSON.stringify()</code> to save an object in localStorage.</li>\n                                  <li>Create a function to clear the saved data with a button click.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-localstorage-and-sessionstorage",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "localstorage-and-sessionstorage-q1",
+        "answer": 2,
+        "prompt": "What is the difference between localStorage and sessionStorage?",
+        "explain": "Both store key/value pairs in the browser.",
+        "options": [
+          "localStorage only stores numbers",
+          "sessionStorage is sent to the server",
+          "sessionStorage is cleared when the tab is closed; localStorage stays",
+          "There is none"
+        ]
+      },
+      {
+        "id": "localstorage-and-sessionstorage-q2",
+        "answer": 3,
+        "prompt": "What type are stored values?",
+        "explain": "Store objects with <code>JSON.stringify</code> and read them back with <code>JSON.parse</code>.",
+        "options": [
+          "Whatever you saved",
+          "Numbers",
+          "Objects",
+          "Always strings"
+        ]
+      },
+      {
+        "id": "localstorage-and-sessionstorage-q3",
+        "answer": 0,
+        "prompt": "Which call reads a saved value?",
+        "explain": "<code>setItem</code>, <code>getItem</code>, <code>removeItem</code>, <code>clear</code>.",
+        "options": [
+          "<code>localStorage.getItem(\"username\")</code>",
+          "<code>localStorage.read(\"username\")</code>",
+          "<code>localStorage[\"get\"](\"username\")</code>",
+          "<code>localStorage.load(\"username\")</code>"
+        ]
+      },
+      {
+        "id": "localstorage-and-sessionstorage-q4",
+        "answer": 1,
+        "prompt": "localStorage is a safe place to store passwords.",
+        "explain": "Any script on the page can read it. Keep it for preferences and small, non-sensitive data.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

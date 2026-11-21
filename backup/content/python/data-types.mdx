@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Data Types | Learn Computer Academy"
 meta_description: "Python's core built-in data types — str, int, float, bool, None — and a first look at its built-in collections."
 sort_order: 5
-updated_at: "2026-08-04T11:39:27.892623+00:00"
+updated_at: "2026-11-21T06:12:42.963552+00:00"
 ---
 
 ```json
@@ -158,6 +158,61 @@ updated_at: "2026-08-04T11:39:27.892623+00:00"
     "type": "callout",
     "title": "None, False, and 0 are not the same thing",
     "variant": "note"
+  },
+  {
+    "id": "quiz-data-types",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "data-types-q1",
+        "answer": 3,
+        "prompt": "How are the boolean values written in Python?",
+        "explain": "Capitalised — as is None.",
+        "options": [
+          "<code>true</code> and <code>false</code>",
+          "<code>TRUE</code> and <code>FALSE</code>",
+          "<code>yes</code> and <code>no</code>",
+          "<code>True</code> and <code>False</code>"
+        ]
+      },
+      {
+        "id": "data-types-q2",
+        "answer": 0,
+        "prompt": "What does <code>type(42)</code> show?",
+        "explain": "<code>isinstance(42, int)</code> returns True.",
+        "options": [
+          "<code>&lt;class 'int'&gt;</code>",
+          "<code>&lt;class 'number'&gt;</code>",
+          "<code>&lt;class 'float'&gt;</code>",
+          "<code>'42'</code>"
+        ]
+      },
+      {
+        "id": "data-types-q3",
+        "answer": 1,
+        "prompt": "What happens with <code>\"Age: \" + 21</code>?",
+        "explain": "Unlike PHP or JavaScript, Python refuses to guess.",
+        "options": [
+          "<code>\"Age: 21\"</code>",
+          "A TypeError — Python doesn't auto-convert types",
+          "<code>21</code>",
+          "<code>\"Age: \"</code>"
+        ]
+      },
+      {
+        "id": "data-types-q4",
+        "answer": 2,
+        "prompt": "How many built-in collection types does Python have?",
+        "explain": "list, tuple, dict and set.",
+        "options": [
+          "2",
+          "3",
+          "4",
+          "6"
+        ]
+      }
+    ]
   }
 ]
 ```

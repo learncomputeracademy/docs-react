@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Inserting Documents | Learn Computer Academy"
 meta_description: "Adding new documents to a collection with insertOne() and insertMany(), and how MongoDB assigns the _id field."
 sort_order: 5
-updated_at: "2026-08-18T10:11:22.561974+00:00"
+updated_at: "2026-11-21T10:24:31.414476+00:00"
 ---
 
 ```json
@@ -94,6 +94,59 @@ updated_at: "2026-08-18T10:11:22.561974+00:00"
     "type": "callout",
     "title": "_id is immutable",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-inserting-documents",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "inserting-documents-q1",
+        "answer": 0,
+        "prompt": "Which method adds one document?",
+        "explain": "It returns the new document's _id.",
+        "options": [
+          "<code>insertOne()</code>",
+          "<code>add()</code>",
+          "<code>push()</code>",
+          "<code>create()</code>"
+        ]
+      },
+      {
+        "id": "inserting-documents-q2",
+        "answer": 2,
+        "prompt": "Why use insertMany() for several documents?",
+        "explain": "One round trip instead of many.",
+        "options": [
+          "It is the only way",
+          "It validates emails",
+          "It is faster than many separate insertOne calls",
+          "It deletes duplicates"
+        ]
+      },
+      {
+        "id": "inserting-documents-q3",
+        "answer": 3,
+        "prompt": "What does insertMany() take?",
+        "explain": "Each element becomes a document.",
+        "options": [
+          "A string",
+          "A number",
+          "A filter",
+          "An array of documents"
+        ]
+      },
+      {
+        "id": "inserting-documents-q4",
+        "answer": 0,
+        "prompt": "The response <code>acknowledged: true</code> confirms the write was accepted.",
+        "explain": "Along with the insertedId.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

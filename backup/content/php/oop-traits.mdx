@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Traits | Learn Computer Academy"
 meta_description: "Sharing a set of methods across unrelated classes with traits — PHP's answer to not having multiple inheritance."
 sort_order: 34
-updated_at: "2026-09-03T04:05:23.873257+00:00"
+updated_at: "2026-11-21T06:08:40.048071+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-09-03T04:05:23.873257+00:00"
     "type": "callout",
     "title": "Traits don't force behavior",
     "variant": "note"
+  },
+  {
+    "id": "quiz-oop-traits",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-traits-q1",
+        "answer": 1,
+        "prompt": "What problem do traits solve?",
+        "explain": "PHP has no multiple inheritance.",
+        "options": [
+          "Slow classes",
+          "Sharing methods across unrelated classes, since a class can only extend one parent",
+          "Database connections",
+          "Naming conflicts"
+        ]
+      },
+      {
+        "id": "oop-traits-q2",
+        "answer": 3,
+        "prompt": "How does a class pull in a trait?",
+        "explain": "Inside the class body.",
+        "options": [
+          "<code>extends Loggable</code>",
+          "<code>implements Loggable</code>",
+          "<code>include Loggable</code>",
+          "<code>use Loggable;</code>"
+        ]
+      },
+      {
+        "id": "oop-traits-q3",
+        "answer": 0,
+        "prompt": "Can a class use more than one trait?",
+        "explain": "That is the advantage over single inheritance.",
+        "options": [
+          "Yes, e.g. use Loggable, Cacheable, Notifiable;",
+          "No, only one",
+          "Only two",
+          "Only if they share a parent"
+        ]
+      },
+      {
+        "id": "oop-traits-q4",
+        "answer": 0,
+        "prompt": "A trait's methods behave as if they were written directly in the class.",
+        "explain": "So $this->log() works inside Order.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

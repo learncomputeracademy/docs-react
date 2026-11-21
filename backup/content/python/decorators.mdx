@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Decorators | Learn Computer Academy"
 meta_description: "A function that wraps another function to add behavior without changing its code — the @ syntax, and why it's used constantly in real Python."
 sort_order: 28
-updated_at: "2026-09-03T04:52:49.559518+00:00"
+updated_at: "2026-11-21T06:12:50.030426+00:00"
 ---
 
 ```json
@@ -107,6 +107,61 @@ updated_at: "2026-09-03T04:52:49.559518+00:00"
     "type": "callout",
     "title": "Why this pattern is everywhere in real code",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-decorators",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "decorators-q1",
+        "answer": 3,
+        "prompt": "What is a decorator?",
+        "explain": "@property is one you met earlier.",
+        "options": [
+          "A CSS tool",
+          "A comment style",
+          "A class attribute",
+          "A function that wraps another function with extra behaviour"
+        ]
+      },
+      {
+        "id": "decorators-q2",
+        "answer": 0,
+        "prompt": "@shout above def greet() is equivalent to…",
+        "explain": "The @ syntax just applies it for you.",
+        "options": [
+          "<code>greet = shout(greet)</code>",
+          "<code>shout = greet(shout)</code>",
+          "<code>greet(shout)</code>",
+          "<code>shout.greet()</code>"
+        ]
+      },
+      {
+        "id": "decorators-q3",
+        "answer": 1,
+        "prompt": "Why use <code>*args, **kwargs</code> in a decorator's wrapper?",
+        "explain": "The wrapper passes them straight through.",
+        "options": [
+          "To make it faster",
+          "So it works with functions that take any arguments",
+          "They are required",
+          "To print arguments"
+        ]
+      },
+      {
+        "id": "decorators-q4",
+        "answer": 2,
+        "prompt": "If <code>shout</code> upper-cases the result, what does the decorated <code>greet()</code> returning \"hello\" give?",
+        "explain": "The wrapper runs greet, then transforms its result.",
+        "options": [
+          "hello",
+          "Hello",
+          "HELLO",
+          "An error"
+        ]
+      }
+    ]
   }
 ]
 ```

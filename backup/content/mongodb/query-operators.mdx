@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Comparison & Logical Query Operators | Learn Computer Academy"
 meta_description: "Filtering documents with $gt, $lt, $in, $and, $or, and the other query operators that go beyond exact-match."
 sort_order: 7
-updated_at: "2026-08-18T10:11:23.197473+00:00"
+updated_at: "2026-11-21T10:24:32.029969+00:00"
 ---
 
 ```json
@@ -121,6 +121,61 @@ updated_at: "2026-08-18T10:11:23.197473+00:00"
     "type": "callout",
     "title": "Operators combine freely",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-query-operators",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "query-operators-q1",
+        "answer": 2,
+        "prompt": "What does <code>{ age: { $gt: 25 } }</code> match?",
+        "explain": "$gte would include 25.",
+        "options": [
+          "Age exactly 25",
+          "Age less than 25",
+          "Age greater than 25",
+          "Any age"
+        ]
+      },
+      {
+        "id": "query-operators-q2",
+        "answer": 0,
+        "prompt": "Which operator matches any value in a list?",
+        "explain": "<code>{ role: { $in: [\"admin\", \"editor\"] } }</code>.",
+        "options": [
+          "<code>$in</code>",
+          "<code>$all</code>",
+          "<code>$eq</code>",
+          "<code>$set</code>"
+        ]
+      },
+      {
+        "id": "query-operators-q3",
+        "answer": 3,
+        "prompt": "Listing two fields in the same query object acts as…",
+        "explain": "Both conditions must match.",
+        "options": [
+          "$or",
+          "$not",
+          "An error",
+          "An implicit $and"
+        ]
+      },
+      {
+        "id": "query-operators-q4",
+        "answer": 1,
+        "prompt": "Query operators always start with which character?",
+        "explain": "Like $gt, $in, $or.",
+        "options": [
+          "#",
+          "$",
+          "@",
+          "%"
+        ]
+      }
+    ]
   }
 ]
 ```

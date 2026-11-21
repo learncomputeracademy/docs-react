@@ -5,7 +5,7 @@ path: "javascript/fetch-api"
 status: "published"
 meta_title: "JavaScript Fetch API & HTTP Requests (Advanced) | Learn Computer Academy"
 sort_order: 20
-updated_at: "2026-07-29T05:40:23.426777+00:00"
+updated_at: "2026-11-21T05:55:18.818086+00:00"
 ---
 
 ```json
@@ -212,6 +212,59 @@ updated_at: "2026-07-29T05:40:23.426777+00:00"
     "id": "8zWt7aNRBRNC",
     "html": "<ol>\n                                    <li>Create a function that performs a GET request and displays a list of users.</li>\n                                    <li>Add a form that submits data to an API using a POST request.</li>\n                                    <li>Make a button that deletes a post via a DELETE request.</li>\n                                    <li>Add error handling to display a message when fetch fails.</li>\n                                    <li>Use <code>async/await</code> to fetch and display data on page load.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-fetch-api",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "fetch-api-q1",
+        "answer": 2,
+        "prompt": "What does fetch() return?",
+        "explain": "Call <code>response.json()</code> to read a JSON body.",
+        "options": [
+          "The data directly",
+          "A string",
+          "A Promise that resolves to a Response",
+          "An XMLHttpRequest"
+        ]
+      },
+      {
+        "id": "fetch-api-q2",
+        "answer": 3,
+        "prompt": "When sending JSON in a POST, what must the body be?",
+        "explain": "Plus the header <code>\"Content-Type\": \"application/json\"</code>.",
+        "options": [
+          "The object itself",
+          "<code>JSON.parse(data)</code>",
+          "An array",
+          "<code>JSON.stringify(data)</code>"
+        ]
+      },
+      {
+        "id": "fetch-api-q3",
+        "answer": 1,
+        "prompt": "fetch() rejects when the server answers with 404 or 500.",
+        "explain": "fetch only rejects on network failure. Check <code>response.ok</code> for HTTP errors.",
+        "options": [
+          "True",
+          "False"
+        ]
+      },
+      {
+        "id": "fetch-api-q4",
+        "answer": 1,
+        "prompt": "Which HTTP method is usually used to update an existing resource?",
+        "explain": "GET reads, POST creates, PUT/PATCH update, DELETE removes.",
+        "options": [
+          "GET",
+          "PUT",
+          "DELETE",
+          "HEAD"
+        ]
+      }
+    ]
   }
 ]
 ```

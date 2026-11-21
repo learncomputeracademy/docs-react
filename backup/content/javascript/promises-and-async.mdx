@@ -5,7 +5,7 @@ path: "javascript/promises-and-async"
 status: "published"
 meta_title: "JavaScript Promises and Async | Learn Computer Academy"
 sort_order: 19
-updated_at: "2026-07-29T05:40:23.352168+00:00"
+updated_at: "2026-11-21T05:55:18.557967+00:00"
 ---
 
 ```json
@@ -199,6 +199,61 @@ updated_at: "2026-07-29T05:40:23.352168+00:00"
     "id": "yZVZCyF4NuVJ",
     "html": "<ol>\n                                  <li>Create a Promise that resolves after 2 seconds and logs a message.</li>\n                                  <li>Use <code>fetch()</code> to get a list of users from a public API.</li>\n                                  <li>Write an async function that uses <code>await</code> to fetch and display data.</li>                                  \n                                  <li>Try catching errors using <code>try...catch</code> with <code>async/await</code>.</li>\n                                  <li>Chain multiple <code>.then()</code> methods to process fetched data.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-promises-and-async",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "promises-and-async-q1",
+        "answer": 2,
+        "prompt": "What are the three states of a Promise?",
+        "explain": "A promise settles once, as fulfilled or rejected.",
+        "options": [
+          "Start, middle, end",
+          "Open, closed, error",
+          "Pending, fulfilled, rejected",
+          "Waiting, done, cancelled"
+        ]
+      },
+      {
+        "id": "promises-and-async-q2",
+        "answer": 3,
+        "prompt": "What does <code>await</code> do?",
+        "explain": "Only that async function pauses; the rest of the page keeps running.",
+        "options": [
+          "Blocks the whole browser",
+          "Runs code in parallel",
+          "Cancels the promise",
+          "Pauses the async function until the promise settles"
+        ]
+      },
+      {
+        "id": "promises-and-async-q3",
+        "answer": 0,
+        "prompt": "What problem did promises solve?",
+        "explain": "Chained .then() calls and async/await read top to bottom.",
+        "options": [
+          "\"Callback hell\" — deeply nested callbacks",
+          "Slow loops",
+          "Missing semicolons",
+          "CSS conflicts"
+        ]
+      },
+      {
+        "id": "promises-and-async-q4",
+        "answer": 1,
+        "prompt": "How do you handle a rejected promise with async/await?",
+        "explain": "With .then chains, use .catch().",
+        "options": [
+          "With an if statement",
+          "Wrap the await in try...catch",
+          "You can't",
+          "With finally only"
+        ]
+      }
+    ]
   }
 ]
 ```

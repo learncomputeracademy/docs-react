@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Introduction to SQL | Learn Computer Academy"
 meta_description: "What SQL actually is, why it reads like a description rather than a set of steps, and the four command families every SQL statement belongs to."
 sort_order: 1
-updated_at: "2026-07-29T06:31:04.6375+00:00"
+updated_at: "2026-11-21T05:50:59.563055+00:00"
 ---
 
 ```json
@@ -114,6 +114,61 @@ updated_at: "2026-07-29T06:31:04.6375+00:00"
     "id": "avQkzMH_Fqal",
     "html": "<p>This section walks through each family in its own lesson, plus the querying, functions, and advanced techniques built on top of them. Next up: databases and tables — the structure everything else in SQL operates on.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-intro",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "intro-q1",
+        "answer": 1,
+        "prompt": "SQL is a declarative language. What does that mean?",
+        "explain": "You state the \"what\" (employees in IT), not the \"how\" (loop, compare, collect).",
+        "options": [
+          "You write the steps the database must follow, one by one",
+          "You describe the result you want; the database decides how to get it",
+          "It only works with one database",
+          "It has no keywords"
+        ]
+      },
+      {
+        "id": "intro-q2",
+        "answer": 2,
+        "prompt": "What character ends every SQL statement?",
+        "explain": "A semicolon. Forgetting it causes errors in multi-statement scripts.",
+        "options": [
+          "<code>.</code>",
+          "<code>:</code>",
+          "<code>;</code>",
+          "<code>!</code>"
+        ]
+      },
+      {
+        "id": "intro-q3",
+        "answer": 0,
+        "prompt": "What is the difference between <code>DELETE</code> and <code>DROP</code>?",
+        "explain": "Mixing them up is one of the most costly beginner mistakes.",
+        "options": [
+          "DELETE removes rows; DROP removes the whole table",
+          "They are the same",
+          "DROP removes rows; DELETE removes the table",
+          "DELETE only works on views"
+        ]
+      },
+      {
+        "id": "intro-q4",
+        "answer": 3,
+        "prompt": "How many families are SQL commands grouped into in this course?",
+        "explain": "DDL, DML, DCL and TCL.",
+        "options": [
+          "2",
+          "3",
+          "5",
+          "4"
+        ]
+      }
+    ]
   }
 ]
 ```

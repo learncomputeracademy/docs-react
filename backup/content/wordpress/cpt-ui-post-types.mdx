@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Registering Post Types with CPT UI | Learn Computer Academy"
 meta_description: "Building a real custom post type through the CPT UI plugin's admin screen, and the settings that actually matter."
 sort_order: 15
-updated_at: "2026-07-30T14:23:28.954709+00:00"
+updated_at: "2026-11-21T05:59:26.07562+00:00"
 ---
 
 ```json
@@ -80,6 +80,61 @@ updated_at: "2026-07-30T14:23:28.954709+00:00"
     "id": "1KUO4Xk1W6ww",
     "html": "<p>With a post type registered, the next lesson covers its natural companion — a custom taxonomy, for organizing that content type the way categories organize posts.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-cpt-ui-post-types",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "cpt-ui-post-types-q1",
+        "answer": 0,
+        "prompt": "What does registering a post type in CPT UI replace?",
+        "explain": "Its \"Export/Get Code\" option shows the generated PHP.",
+        "options": [
+          "Writing a register_post_type() call by hand",
+          "Installing WordPress",
+          "Writing CSS",
+          "Creating a database"
+        ]
+      },
+      {
+        "id": "cpt-ui-post-types-q2",
+        "answer": 2,
+        "prompt": "After adding a post type, its archive URL returns 404. What fixes it?",
+        "explain": "WordPress caches its URL rules; saving permalinks refreshes them.",
+        "options": [
+          "Reinstalling the theme",
+          "Deleting the post type",
+          "Settings → Permalinks → Save Changes",
+          "Clearing the browser cache"
+        ]
+      },
+      {
+        "id": "cpt-ui-post-types-q3",
+        "answer": 3,
+        "prompt": "Where is the CPT UI post type screen?",
+        "explain": "It is a form, not code.",
+        "options": [
+          "Settings → General",
+          "Appearance → Themes",
+          "Tools → Site Health",
+          "CPT UI → Add/Edit Post Types"
+        ]
+      },
+      {
+        "id": "cpt-ui-post-types-q4",
+        "answer": 1,
+        "prompt": "Do you need to change anything on the Permalinks screen before saving?",
+        "explain": "Saving alone flushes the cached rewrite rules.",
+        "options": [
+          "Yes, the structure",
+          "No — just clicking Save refreshes the rules",
+          "Yes, the category base",
+          "Yes, the tag base"
+        ]
+      }
+    ]
   }
 ]
 ```

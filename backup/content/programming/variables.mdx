@@ -5,7 +5,7 @@ path: "programming/variables"
 status: "published"
 meta_title: "Variables | Learn Computer Academy"
 sort_order: 2
-updated_at: "2026-08-18T14:27:45.654083+00:00"
+updated_at: "2026-11-21T10:12:43.522739+00:00"
 ---
 
 ```json
@@ -110,6 +110,59 @@ updated_at: "2026-08-18T14:27:45.654083+00:00"
     "html": "<p>JavaScript variable names are case-sensitive: <code>score</code> and <code>Score</code> are two different variables.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-variables",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "variables-q1",
+        "answer": 0,
+        "prompt": "What is a variable?",
+        "explain": "Store a value once, refer to it by name.",
+        "options": [
+          "A named container for a value",
+          "A type of loop",
+          "A comment",
+          "A function"
+        ]
+      },
+      {
+        "id": "variables-q2",
+        "answer": 3,
+        "prompt": "What does this print?<pre><code>let score = 0;\nscore = 10;\nscore = score + 5;\nconsole.log(score);</code></pre>",
+        "explain": "score becomes 10, then 10 + 5.",
+        "options": [
+          "0",
+          "10",
+          "5",
+          "15"
+        ]
+      },
+      {
+        "id": "variables-q3",
+        "answer": 2,
+        "prompt": "Which is NOT a valid JavaScript variable name?",
+        "explain": "Names cannot start with a digit.",
+        "options": [
+          "<code>playerName</code>",
+          "<code>_count</code>",
+          "<code>2ndPlace</code>",
+          "<code>$total</code>"
+        ]
+      },
+      {
+        "id": "variables-q4",
+        "answer": 1,
+        "prompt": "In JavaScript, <code>score</code> and <code>Score</code> are the same variable.",
+        "explain": "Names are case-sensitive.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Window Functions | Learn Computer Academy"
 meta_description: "ROW_NUMBER, RANK, DENSE_RANK, NTILE, and LAG/LEAD — calculating across a set of related rows without collapsing them into one, the way GROUP BY does."
 sort_order: 13
-updated_at: "2026-07-29T06:31:08.375157+00:00"
+updated_at: "2026-11-21T05:51:03.87827+00:00"
 ---
 
 ```json
@@ -209,6 +209,61 @@ updated_at: "2026-07-29T06:31:08.375157+00:00"
     "id": "f0mtylyFEePK",
     "html": "<p>Window functions are one of the more advanced tools in this section — the next lesson covers another: subqueries, a query nested inside another query.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-window-functions",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "window-functions-q1",
+        "answer": 1,
+        "prompt": "How is a window function different from GROUP BY?",
+        "explain": "GROUP BY returns one row per group; a window function returns every row.",
+        "options": [
+          "It deletes rows",
+          "Rows are not collapsed — each keeps its place and gets a calculated value",
+          "It only works on one row",
+          "It requires a JOIN"
+        ]
+      },
+      {
+        "id": "window-functions-q2",
+        "answer": 2,
+        "prompt": "Salaries 900, 800, 800, 700 ranked with RANK() by salary DESC. What rank does 700 get?",
+        "explain": "Ties share rank 2, and RANK skips the next number: 1, 2, 2, 4.",
+        "options": [
+          "3",
+          "2",
+          "4",
+          "1"
+        ]
+      },
+      {
+        "id": "window-functions-q3",
+        "answer": 3,
+        "prompt": "Same salaries with DENSE_RANK(). What rank does 700 get?",
+        "explain": "DENSE_RANK never skips: 1, 2, 2, 3.",
+        "options": [
+          "4",
+          "1",
+          "2",
+          "3"
+        ]
+      },
+      {
+        "id": "window-functions-q4",
+        "answer": 0,
+        "prompt": "Which clause makes numbering restart for each department?",
+        "explain": "<code>ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC)</code>",
+        "options": [
+          "<code>PARTITION BY department</code>",
+          "<code>GROUP BY department</code>",
+          "<code>ORDER BY department</code>",
+          "<code>RESTART department</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

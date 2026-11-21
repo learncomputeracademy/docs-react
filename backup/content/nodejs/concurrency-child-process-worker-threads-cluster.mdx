@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Concurrency — Child Process, Worker Threads, Cluster | Learn Computer Academy"
 meta_description: "Three ways Node uses more than its one main thread — running another program, offloading CPU-heavy work, and using every CPU core for a server."
 sort_order: 29
-updated_at: "2026-09-03T04:41:42.535628+00:00"
+updated_at: "2026-11-21T06:03:31.042536+00:00"
 ---
 
 ```json
@@ -124,6 +124,59 @@ updated_at: "2026-09-03T04:41:42.535628+00:00"
     "type": "callout",
     "title": "What most real projects actually use",
     "variant": "note"
+  },
+  {
+    "id": "quiz-concurrency-child-process-worker-threads-cluster",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "concurrency-child-process-worker-threads-cluster-q1",
+        "answer": 1,
+        "prompt": "What is child_process for?",
+        "explain": "The other process runs independently, leaving the event loop free.",
+        "options": [
+          "Running more JavaScript on the main thread",
+          "Running a separate program, like a shell command or ffmpeg",
+          "Creating child themes",
+          "Making HTTP requests"
+        ]
+      },
+      {
+        "id": "concurrency-child-process-worker-threads-cluster-q2",
+        "answer": 2,
+        "prompt": "Which tool runs CPU-heavy JavaScript off the main thread?",
+        "explain": "A worker is a real OS thread running more JavaScript.",
+        "options": [
+          "<code>cluster</code>",
+          "<code>child_process</code>",
+          "<code>worker_threads</code>",
+          "<code>process.nextTick</code>"
+        ]
+      },
+      {
+        "id": "concurrency-child-process-worker-threads-cluster-q3",
+        "answer": 3,
+        "prompt": "What does cluster do?",
+        "explain": "Incoming connections are shared between the copies.",
+        "options": [
+          "Groups log files",
+          "Combines databases",
+          "Speeds up one request",
+          "Runs several copies of the server to use every CPU core"
+        ]
+      },
+      {
+        "id": "concurrency-child-process-worker-threads-cluster-q4",
+        "answer": 1,
+        "prompt": "Most Node servers need worker threads for ordinary database and file work.",
+        "explain": "That work is waiting, which the event loop already handles well.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

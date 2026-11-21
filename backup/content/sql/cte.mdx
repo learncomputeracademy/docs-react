@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Common Table Expressions (CTEs) | Learn Computer Academy"
 meta_description: "WITH...AS and recursive CTEs — naming a temporary result set to make complex queries easier to read, and walking hierarchical data like org charts."
 sort_order: 15
-updated_at: "2026-07-29T06:31:08.973215+00:00"
+updated_at: "2026-11-21T05:51:04.445815+00:00"
 ---
 
 ```json
@@ -92,6 +92,61 @@ updated_at: "2026-07-29T06:31:08.973215+00:00"
     "id": "K2vY1f_By2TF",
     "html": "<p>CTEs are the last of the \"advancing\" querying techniques in this section. The final lesson steps past everyday querying entirely, into tools that sit past the beginner track: views, indexes, stored procedures, triggers, and how to check whether a query is actually fast.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-cte",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "cte-q1",
+        "answer": 0,
+        "prompt": "Which keyword starts a CTE?",
+        "explain": "<code>WITH DeptAvg AS ( ... ) SELECT * FROM DeptAvg;</code>",
+        "options": [
+          "<code>WITH</code>",
+          "<code>CTE</code>",
+          "<code>DEFINE</code>",
+          "<code>TEMP</code>"
+        ]
+      },
+      {
+        "id": "cte-q2",
+        "answer": 2,
+        "prompt": "What is the main advantage of a CTE over a subquery in FROM?",
+        "explain": "Readability is the main win.",
+        "options": [
+          "It is always faster",
+          "It stores data permanently",
+          "It reads top-to-bottom and can be referenced by name",
+          "It works without SELECT"
+        ]
+      },
+      {
+        "id": "cte-q3",
+        "answer": 3,
+        "prompt": "What is a recursive CTE good for?",
+        "explain": "A base case plus a recursive case joined with UNION ALL.",
+        "options": [
+          "Sorting faster",
+          "Deleting duplicates",
+          "Creating indexes",
+          "Walking hierarchies, like an org chart"
+        ]
+      },
+      {
+        "id": "cte-q4",
+        "answer": 0,
+        "prompt": "In a recursive CTE, what does the base case do?",
+        "explain": "The recursive part then keeps joining back until no new rows appear.",
+        "options": [
+          "Picks the starting rows, e.g. the top of the hierarchy",
+          "Ends the query",
+          "Joins to itself",
+          "Sorts the results"
+        ]
+      }
+    ]
   }
 ]
 ```

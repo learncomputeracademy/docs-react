@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Lifting State Up in React | Learn Computer Academy"
 meta_description: "Sharing state between sibling components by moving it to their closest common parent — React's standard pattern for coordinated components."
 sort_order: 14
-updated_at: "2026-07-31T11:24:40.106778+00:00"
+updated_at: "2026-11-21T10:21:55.155582+00:00"
 ---
 
 ```json
@@ -86,6 +86,59 @@ updated_at: "2026-07-31T11:24:40.106778+00:00"
     "type": "callout",
     "title": "When lifting state up isn't enough",
     "variant": "note"
+  },
+  {
+    "id": "quiz-lifting-state-up",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "lifting-state-up-q1",
+        "answer": 3,
+        "prompt": "Two sibling components need the same state. What is the standard fix?",
+        "explain": "Called lifting state up.",
+        "options": [
+          "Copy the state into both",
+          "Use a global variable",
+          "Use localStorage",
+          "Move it to their closest common parent and pass it down as props"
+        ]
+      },
+      {
+        "id": "lifting-state-up-q2",
+        "answer": 0,
+        "prompt": "How does a child change state that lives in the parent?",
+        "explain": "Data flows down, events flow up.",
+        "options": [
+          "The parent passes down a setter or handler function as a prop",
+          "The child edits the parent directly",
+          "It cannot",
+          "With CSS"
+        ]
+      },
+      {
+        "id": "lifting-state-up-q3",
+        "answer": 1,
+        "prompt": "Can sibling components see each other's state directly?",
+        "explain": "State is invisible outside its component.",
+        "options": [
+          "Yes",
+          "No",
+          "Only in strict mode",
+          "Only with keys"
+        ]
+      },
+      {
+        "id": "lifting-state-up-q4",
+        "answer": 0,
+        "prompt": "After lifting state up, the parent becomes the single source of truth.",
+        "explain": "Both children stay in sync.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

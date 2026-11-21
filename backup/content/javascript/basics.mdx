@@ -5,7 +5,7 @@ path: "javascript/basics"
 status: "published"
 meta_title: "JavaScript Basics | Learn Computer Academy"
 sort_order: 3
-updated_at: "2026-07-29T05:40:22.164785+00:00"
+updated_at: "2026-11-21T05:55:06.99637+00:00"
 ---
 
 ```json
@@ -366,6 +366,61 @@ updated_at: "2026-07-29T05:40:22.164785+00:00"
     "code": "let a = 10;\nlet b = 5;\nlet sum = a + b;\n                                    \nconsole.log(\"Sum:\", sum);\nconsole.log(\"Are both greater than 0?\", a > 0 && b > 0);",
     "type": "code",
     "language": "javascript"
+  },
+  {
+    "id": "quiz-basics",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "basics-q1",
+        "answer": 0,
+        "prompt": "Is JavaScript case-sensitive?",
+        "explain": "Keywords and names must match their case exactly.",
+        "options": [
+          "Yes — myName and myname are different variables",
+          "No",
+          "Only for keywords",
+          "Only in strict mode"
+        ]
+      },
+      {
+        "id": "basics-q2",
+        "answer": 3,
+        "prompt": "Which is a multi-line comment?",
+        "explain": "<code>//</code> is a single-line comment.",
+        "options": [
+          "<code>// comment</code>",
+          "<code>&lt;!-- comment --&gt;</code>",
+          "<code># comment</code>",
+          "<code>/* comment */</code>"
+        ]
+      },
+      {
+        "id": "basics-q3",
+        "answer": 1,
+        "prompt": "Which declaration should you use for a value that will be reassigned?",
+        "explain": "Use const by default and let when the value changes. var is the old way.",
+        "options": [
+          "<code>const</code>",
+          "<code>let</code>",
+          "<code>var</code>",
+          "<code>static</code>"
+        ]
+      },
+      {
+        "id": "basics-q4",
+        "answer": 3,
+        "prompt": "What does this print?<pre><code>let x = 10\nx = x + 5\nconsole.log(x)</code></pre>",
+        "explain": "Statements run top to bottom: x becomes 15.",
+        "options": [
+          "10",
+          "5",
+          "105",
+          "15"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Displaying SCF Fields in Templates | Learn Computer Academy"
 meta_description: "get_field() vs. the_field(), and what each field type actually returns when you read it back in a template."
 sort_order: 20
-updated_at: "2026-07-30T14:23:30.550146+00:00"
+updated_at: "2026-11-21T05:59:27.66152+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-07-30T14:23:30.550146+00:00"
     "id": "fmabBlKLvM70",
     "html": "<p>With a way to both write and read structured data, the next lesson covers the field type built specifically for <i>repeating</i> structured data — a gallery of images, a list of features, anything that isn't just one value.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scf-display-fields",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scf-display-fields-q1",
+        "answer": 1,
+        "prompt": "What is the difference between <code>the_field()</code> and <code>get_field()</code>?",
+        "explain": "get_field() covers nearly everything, because you usually want an if check first.",
+        "options": [
+          "the_field() is newer",
+          "the_field() prints the value; get_field() returns it to use",
+          "get_field() only works for images",
+          "There is none"
+        ]
+      },
+      {
+        "id": "scf-display-fields-q2",
+        "answer": 3,
+        "prompt": "Why wrap a field in an if check before printing it?",
+        "explain": "Custom fields are almost never required.",
+        "options": [
+          "It is faster",
+          "WordPress requires it",
+          "It translates the value",
+          "Editors can leave fields empty, and empty markup shouldn't be printed"
+        ]
+      },
+      {
+        "id": "scf-display-fields-q3",
+        "answer": 0,
+        "prompt": "What decides the shape of the value get_field() returns?",
+        "explain": "An image field may return an array, a text field a string.",
+        "options": [
+          "The field's type",
+          "The theme",
+          "The post date",
+          "The user role"
+        ]
+      },
+      {
+        "id": "scf-display-fields-q4",
+        "answer": 2,
+        "prompt": "Which line prints a client name safely?",
+        "explain": "Always escape values on output.",
+        "options": [
+          "<code>echo $client;</code>",
+          "<code>print_r( $client );</code>",
+          "<code>echo esc_html( $client );</code>",
+          "<code>echo $client . \"\";</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

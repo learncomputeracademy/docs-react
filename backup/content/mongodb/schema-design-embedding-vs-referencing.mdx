@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Schema Design — Embedding vs Referencing | Learn Computer Academy"
 meta_description: "The single biggest decision in MongoDB schema design: nest related data as a sub-document, or store it in a separate collection and reference it."
 sort_order: 12
-updated_at: "2026-08-18T10:11:25.087934+00:00"
+updated_at: "2026-11-21T10:24:33.721546+00:00"
 ---
 
 ```json
@@ -114,6 +114,59 @@ updated_at: "2026-08-18T10:11:25.087934+00:00"
     "type": "callout",
     "title": "Not an all-or-nothing choice",
     "variant": "note"
+  },
+  {
+    "id": "quiz-schema-design-embedding-vs-referencing",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "schema-design-embedding-vs-referencing-q1",
+        "answer": 0,
+        "prompt": "What is embedding?",
+        "explain": "Like an address object inside a user.",
+        "options": [
+          "Putting related data inside the parent document",
+          "Deleting related data",
+          "Encrypting data",
+          "Copying the database"
+        ]
+      },
+      {
+        "id": "schema-design-embedding-vs-referencing-q2",
+        "answer": 3,
+        "prompt": "What is referencing?",
+        "explain": "Similar to a foreign key in SQL.",
+        "options": [
+          "Writing a comment",
+          "Indexing",
+          "Embedding twice",
+          "Storing related data in another collection and linking by ID"
+        ]
+      },
+      {
+        "id": "schema-design-embedding-vs-referencing-q3",
+        "answer": 2,
+        "prompt": "When is embedding usually the better choice?",
+        "explain": "One read gets everything.",
+        "options": [
+          "When the data is huge and grows forever",
+          "Never",
+          "When data is small, belongs to the parent and is read together",
+          "When many parents share it"
+        ]
+      },
+      {
+        "id": "schema-design-embedding-vs-referencing-q4",
+        "answer": 0,
+        "prompt": "A blog post's thousands of comments that keep growing are better referenced than embedded.",
+        "explain": "Documents have a size limit and grow slow.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

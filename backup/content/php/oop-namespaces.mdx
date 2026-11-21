@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Namespaces | Learn Computer Academy"
 meta_description: "Organizing classes into named groups to avoid naming collisions, especially once a project uses external packages."
 sort_order: 35
-updated_at: "2026-09-03T04:05:24.173586+00:00"
+updated_at: "2026-11-21T06:08:40.299479+00:00"
 ---
 
 ```json
@@ -88,6 +88,61 @@ updated_at: "2026-09-03T04:05:24.173586+00:00"
     "type": "callout",
     "title": "Namespaces usually mirror folders",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-oop-namespaces",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-namespaces-q1",
+        "answer": 2,
+        "prompt": "What problem does a namespace prevent?",
+        "explain": "App\\Models\\User and App\\Auth\\User can both exist.",
+        "options": [
+          "Slow loading",
+          "Syntax errors",
+          "Two classes with the same name colliding",
+          "SQL injection"
+        ]
+      },
+      {
+        "id": "oop-namespaces-q2",
+        "answer": 3,
+        "prompt": "Where must a namespace declaration go?",
+        "explain": "Right after &lt;?php.",
+        "options": [
+          "Anywhere",
+          "At the end of the file",
+          "Inside the class",
+          "As the very first statement in the file"
+        ]
+      },
+      {
+        "id": "oop-namespaces-q3",
+        "answer": 0,
+        "prompt": "What does <code>use App\\Models\\User;</code> let you write?",
+        "explain": "Instead of the full name every time.",
+        "options": [
+          "<code>new User()</code>",
+          "<code>new App()</code>",
+          "<code>new Models()</code>",
+          "<code>new use()</code>"
+        ]
+      },
+      {
+        "id": "oop-namespaces-q4",
+        "answer": 1,
+        "prompt": "When is aliasing with \"as\" useful?",
+        "explain": "<code>use App\\Auth\\User as AuthUser;</code>",
+        "options": [
+          "Always",
+          "When importing two classes with the same short name",
+          "Never",
+          "Only for functions"
+        ]
+      }
+    ]
   }
 ]
 ```

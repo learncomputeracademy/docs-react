@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Syntax Basics | Learn Computer Academy"
 meta_description: "The ground rules of PHP syntax — opening and closing tags, statements, semicolons, and comments — before writing anything more complex."
 sort_order: 3
-updated_at: "2026-07-30T09:08:34.71146+00:00"
+updated_at: "2026-11-21T06:08:31.209394+00:00"
 ---
 
 ```json
@@ -106,6 +106,59 @@ updated_at: "2026-07-30T09:08:34.71146+00:00"
     "id": "qcqAttBJCdd_",
     "html": "<p>With the ground rules out of the way, the next lesson looks at how PHP actually stores data — starting with variables.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-syntax-basics",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "syntax-basics-q1",
+        "answer": 1,
+        "prompt": "What happens to text outside the PHP tags in a .php file?",
+        "explain": "One file can mix static HTML and dynamic PHP.",
+        "options": [
+          "It is ignored",
+          "It is sent straight through as plain HTML",
+          "It causes an error",
+          "It is executed as PHP"
+        ]
+      },
+      {
+        "id": "syntax-basics-q2",
+        "answer": 2,
+        "prompt": "In a file that contains only PHP, what is common practice?",
+        "explain": "It avoids output from a stray blank line after it.",
+        "options": [
+          "Close with ?> twice",
+          "Add <code>&lt;html&gt;</code> tags",
+          "Leave off the closing ?> tag",
+          "Start with ?>"
+        ]
+      },
+      {
+        "id": "syntax-basics-q3",
+        "answer": 3,
+        "prompt": "What ends most PHP statements?",
+        "explain": "Forgetting it is a classic parse error.",
+        "options": [
+          "A full stop",
+          "A new line",
+          "A colon",
+          "A semicolon"
+        ]
+      },
+      {
+        "id": "syntax-basics-q4",
+        "answer": 0,
+        "prompt": "PHP variable names are case-sensitive: $name and $Name are different.",
+        "explain": "Keywords like echo are not case-sensitive, but variables are.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

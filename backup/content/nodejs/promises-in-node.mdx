@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Promises in Node.js | Learn Computer Academy"
 meta_description: "Use Node.js's promise-based APIs to flatten callback hell, and turn any callback-style function into one that returns a promise with util.promisify."
 sort_order: 13
-updated_at: "2026-08-05T05:47:56.582836+00:00"
+updated_at: "2026-11-21T06:03:26.393471+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-08-05T05:47:56.582836+00:00"
     "header": [
       "Situation",
       "What typically rejects the promise"
+    ]
+  },
+  {
+    "id": "quiz-promises-in-node",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "promises-in-node-q1",
+        "answer": 2,
+        "prompt": "Which module gives promise-based versions of the fs functions?",
+        "explain": "It flattens nested callbacks into .then() chains.",
+        "options": [
+          "<code>require('fs/async')</code>",
+          "<code>require('fs-promise')</code>",
+          "<code>require('fs/promises')</code>",
+          "<code>require('promises')</code>"
+        ]
+      },
+      {
+        "id": "promises-in-node-q2",
+        "answer": 1,
+        "prompt": "In a .then() chain, how many .catch() calls do you need to handle a failure at any step?",
+        "explain": "An error skips ahead to the nearest .catch().",
+        "options": [
+          "One per step",
+          "One at the end",
+          "None",
+          "Two"
+        ]
+      },
+      {
+        "id": "promises-in-node-q3",
+        "answer": 3,
+        "prompt": "Three file reads don't depend on each other. How do you run them at the same time?",
+        "explain": "It starts them all and waits for every one to finish.",
+        "options": [
+          "Nest them",
+          "Use three .catch() calls",
+          "Use setTimeout",
+          "<code>Promise.all([...])</code>"
+        ]
+      },
+      {
+        "id": "promises-in-node-q4",
+        "answer": 0,
+        "prompt": "How do you turn a callback-style function into one that returns a promise?",
+        "explain": "From the built-in util module.",
+        "options": [
+          "<code>util.promisify(fn)</code>",
+          "<code>Promise.from(fn)</code>",
+          "<code>fn.toPromise()</code>",
+          "<code>new Callback(fn)</code>"
+        ]
+      }
     ]
   }
 ]

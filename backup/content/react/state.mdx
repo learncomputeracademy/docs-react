@@ -6,7 +6,7 @@ status: "published"
 meta_title: "React State: useState | Learn Computer Academy"
 meta_description: "The useState hook — how a component remembers a value between renders, and why updating it triggers React to re-render."
 sort_order: 9
-updated_at: "2026-07-31T11:24:37.873719+00:00"
+updated_at: "2026-11-21T10:21:53.653566+00:00"
 ---
 
 ```json
@@ -91,6 +91,59 @@ updated_at: "2026-07-31T11:24:37.873719+00:00"
     "type": "callout",
     "title": "Multiple useState calls are fine",
     "variant": "note"
+  },
+  {
+    "id": "quiz-state",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "state-q1",
+        "answer": 0,
+        "prompt": "Why does a plain variable not work for a counter in a component?",
+        "explain": "React has no way to know it changed.",
+        "options": [
+          "It resets every render and changing it does not trigger a re-render",
+          "Variables cannot hold numbers",
+          "React bans variables",
+          "It works fine"
+        ]
+      },
+      {
+        "id": "state-q2",
+        "answer": 2,
+        "prompt": "What does <code>const [count, setCount] = useState(0)</code> give you?",
+        "explain": "Calling setCount triggers a re-render.",
+        "options": [
+          "Two counters",
+          "A constant that never changes",
+          "The current value and a function to update it",
+          "An array of zeros"
+        ]
+      },
+      {
+        "id": "state-q3",
+        "answer": 3,
+        "prompt": "When the next state depends on the previous one, the safest update is…",
+        "explain": "The updater function always receives the latest value.",
+        "options": [
+          "<code>count++</code>",
+          "<code>setCount(count = count + 1)</code>",
+          "<code>count = count + 1</code>",
+          "<code>setCount(prev =&gt; prev + 1)</code>"
+        ]
+      },
+      {
+        "id": "state-q4",
+        "answer": 0,
+        "prompt": "State is private to the component that owns it.",
+        "explain": "Share it by lifting it up or with context.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

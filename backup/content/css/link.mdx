@@ -5,7 +5,7 @@ path: "css/link"
 status: "published"
 meta_title: "CSS Link | Learn Computer Academy"
 sort_order: 14
-updated_at: "2026-07-29T05:30:52.835493+00:00"
+updated_at: "2026-11-21T06:18:11.711344+00:00"
 ---
 
 ```json
@@ -112,6 +112,61 @@ updated_at: "2026-07-29T05:30:52.835493+00:00"
     "code": "a:link, a:visited {\n  background-color: #f44336;\n  color: white;\n  padding: 14px 25px;\n  text-align: center; \n  text-decoration: none;\n  display: inline-block;\n}\na:hover, a:active {\n  background-color: red;\n}",
     "type": "code",
     "language": "css"
+  },
+  {
+    "id": "quiz-link",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "link-q1",
+        "answer": 1,
+        "prompt": "What are the four link states, in the order they must be written?",
+        "explain": "\"LoVe HAte\": :hover must come after :link and :visited, and :active after :hover.",
+        "options": [
+          "<code>:hover</code>, <code>:link</code>, <code>:active</code>, <code>:visited</code>",
+          "<code>:link</code>, <code>:visited</code>, <code>:hover</code>, <code>:active</code>",
+          "<code>:active</code>, <code>:hover</code>, <code>:visited</code>, <code>:link</code>",
+          "Any order"
+        ]
+      },
+      {
+        "id": "link-q2",
+        "answer": 3,
+        "prompt": "Which state is <code>a:visited</code>?",
+        "explain": ":active is the moment of clicking.",
+        "options": [
+          "A link being clicked",
+          "A link the mouse is over",
+          "An unvisited link",
+          "A link the user has already opened"
+        ]
+      },
+      {
+        "id": "link-q3",
+        "answer": 0,
+        "prompt": "Can links be styled with any CSS property, like background?",
+        "explain": "That is how link buttons are made.",
+        "options": [
+          "Yes",
+          "No, only color",
+          "Only text-decoration",
+          "Only in tables"
+        ]
+      },
+      {
+        "id": "link-q4",
+        "answer": 2,
+        "prompt": "What does <code>a:hover { color: hotpink; }</code> do?",
+        "explain": "It reverts when the mouse leaves.",
+        "options": [
+          "Makes every link pink",
+          "Makes visited links pink",
+          "Turns a link pink while the mouse is over it",
+          "Hides the link"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -5,7 +5,7 @@ path: "javascript/debugging-techniques"
 status: "published"
 meta_title: "JavaScript Debugging Techniques | Learn Computer Academy"
 sort_order: 25
-updated_at: "2026-07-29T05:40:23.790983+00:00"
+updated_at: "2026-11-21T05:55:24.993455+00:00"
 ---
 
 ```json
@@ -223,6 +223,61 @@ updated_at: "2026-07-29T05:40:23.790983+00:00"
     "id": "sU1h-GtX5mf8",
     "html": "<ol>\n                                    <li>Create a function with a logic bug. Use <code>console.log()</code> to trace the issue.</li>\n                                    <li>Insert a <code>debugger</code> and use Chrome DevTools to pause and inspect.</li>\n                                    <li>Intentionally throw an error and handle it using <code>try...catch</code>.</li>\n                                    <li>Make a <code>fetch()</code> request and inspect it via the Network tab.</li>\n                                    <li>Use <code>console.table()</code> to debug an array of objects.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-debugging-techniques",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "debugging-techniques-q1",
+        "answer": 3,
+        "prompt": "Which console method shows an array of objects as a table?",
+        "explain": "Handy for inspecting lists of records.",
+        "options": [
+          "<code>console.log</code>",
+          "<code>console.grid</code>",
+          "<code>console.list</code>",
+          "<code>console.table</code>"
+        ]
+      },
+      {
+        "id": "debugging-techniques-q2",
+        "answer": 1,
+        "prompt": "What does a breakpoint do?",
+        "explain": "Set one by clicking a line number in DevTools → Sources.",
+        "options": [
+          "Deletes a line",
+          "Pauses the code at that line so you can inspect variables",
+          "Makes the code faster",
+          "Marks the line as an error"
+        ]
+      },
+      {
+        "id": "debugging-techniques-q3",
+        "answer": 2,
+        "prompt": "What does the <code>debugger</code> statement do when DevTools is open?",
+        "explain": "It acts like a breakpoint written in code.",
+        "options": [
+          "Fixes the bug",
+          "Prints all variables",
+          "Pauses execution at that line",
+          "Reloads the page"
+        ]
+      },
+      {
+        "id": "debugging-techniques-q4",
+        "answer": 0,
+        "prompt": "Why label your console.log output, like console.log(\"Total:\", total)?",
+        "explain": "Unlabelled numbers in the console quickly become confusing.",
+        "options": [
+          "So you can tell which log is which",
+          "Labels are required",
+          "It makes logging faster",
+          "It hides the value"
+        ]
+      }
+    ]
   }
 ]
 ```

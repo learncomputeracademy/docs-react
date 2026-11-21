@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Callbacks in Node.js | Learn Computer Academy"
 meta_description: "What a callback function actually is, why Node.js relies on them so heavily, and the specific problem they eventually run into."
 sort_order: 12
-updated_at: "2026-08-05T05:47:56.267252+00:00"
+updated_at: "2026-11-21T06:03:26.126137+00:00"
 ---
 
 ```json
@@ -88,6 +88,61 @@ updated_at: "2026-08-05T05:47:56.267252+00:00"
     "html": "<p>This is the exact problem Promises were invented to solve — flattening this pyramid back into something that reads top to bottom. The next lesson picks up right here.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-callbacks",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "callbacks-q1",
+        "answer": 0,
+        "prompt": "What is a callback?",
+        "explain": "Nothing special — just a function as an argument.",
+        "options": [
+          "A function passed to another function, to be called later",
+          "A phone feature",
+          "A type of loop",
+          "An error message"
+        ]
+      },
+      {
+        "id": "callbacks-q2",
+        "answer": 2,
+        "prompt": "In Node's error-first callbacks, what is the first parameter?",
+        "explain": "Always check err before touching the data.",
+        "options": [
+          "The result",
+          "The file name",
+          "The error, or null if nothing went wrong",
+          "A timestamp"
+        ]
+      },
+      {
+        "id": "callbacks-q3",
+        "answer": 3,
+        "prompt": "What is \"callback hell\"?",
+        "explain": "Promises and async/await were the answer to it.",
+        "options": [
+          "A callback that throws",
+          "A callback that never runs",
+          "Too many arguments",
+          "Deeply nested callbacks that are hard to read and maintain"
+        ]
+      },
+      {
+        "id": "callbacks-q4",
+        "answer": 1,
+        "prompt": "In <code>fs.readFile('data.txt', 'utf8', (err, data) =&gt; { ... })</code>, why \"return\" after logging the error?",
+        "explain": "Otherwise the code below would use undefined data.",
+        "options": [
+          "To retry the read",
+          "To stop, because data is undefined when there was an error",
+          "To exit Node",
+          "It is required syntax"
+        ]
+      }
+    ]
   }
 ]
 ```

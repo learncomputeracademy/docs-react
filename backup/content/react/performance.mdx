@@ -6,7 +6,7 @@ status: "published"
 meta_title: "React Performance Basics | Learn Computer Academy"
 meta_description: "How React re-renders actually work, and using React.memo to skip re-rendering a component when its props haven't changed."
 sort_order: 24
-updated_at: "2026-07-31T11:24:43.423302+00:00"
+updated_at: "2026-11-21T10:21:58.017545+00:00"
 ---
 
 ```json
@@ -84,6 +84,59 @@ updated_at: "2026-07-31T11:24:43.423302+00:00"
     "id": "b9QWewzhTV7k",
     "html": "<p>Most components never need <code>React.memo</code>, <code>useMemo</code>, or <code>useCallback</code> at all — write plain components first, and reach for these specifically once the Profiler has shown a real, measured problem. This mirrors the same warning from the useMemo/useCallback lesson: optimization tools that get reached for by default add real complexity for a benefit that, most of the time, doesn't exist.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-performance",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "performance-q1",
+        "answer": 3,
+        "prompt": "When a component's state changes, what re-renders?",
+        "explain": "Usually cheap, and correct by default.",
+        "options": [
+          "Only that component",
+          "The whole page from the server",
+          "Nothing",
+          "That component and all its children"
+        ]
+      },
+      {
+        "id": "performance-q2",
+        "answer": 0,
+        "prompt": "What does React.memo do?",
+        "explain": "Use it where re-renders are actually costly.",
+        "options": [
+          "Skips re-rendering a component when its props have not changed",
+          "Stores data in memory forever",
+          "Writes notes",
+          "Deletes components"
+        ]
+      },
+      {
+        "id": "performance-q3",
+        "answer": 2,
+        "prompt": "What should you do before optimising?",
+        "explain": "Find the real slow part first.",
+        "options": [
+          "Wrap everything in memo",
+          "Rewrite in another language",
+          "Measure with the React DevTools Profiler",
+          "Remove all state"
+        ]
+      },
+      {
+        "id": "performance-q4",
+        "answer": 0,
+        "prompt": "Keeping state as low in the tree as possible limits how much re-renders.",
+        "explain": "Fewer children are affected by each change.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

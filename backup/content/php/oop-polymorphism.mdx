@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Polymorphism and Type Declarations | Learn Computer Academy"
 meta_description: "Calling the same method on different object types and getting each one's own correct behavior — and the type declarations that make code relying on this safe."
 sort_order: 37
-updated_at: "2026-09-03T04:05:24.755784+00:00"
+updated_at: "2026-11-21T06:08:40.815364+00:00"
 ---
 
 ```json
@@ -97,6 +97,61 @@ updated_at: "2026-09-03T04:05:24.755784+00:00"
     "type": "callout",
     "title": "PHP's typing is runtime-checked",
     "variant": "note"
+  },
+  {
+    "id": "quiz-oop-polymorphism",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-polymorphism-q1",
+        "answer": 2,
+        "prompt": "What is polymorphism?",
+        "explain": "Circle and Square both have area(), computed differently.",
+        "options": [
+          "One class with many constructors",
+          "Copying objects",
+          "Calling the same method name on different objects, each running its own version",
+          "Hiding properties"
+        ]
+      },
+      {
+        "id": "oop-polymorphism-q2",
+        "answer": 3,
+        "prompt": "Why type-hint a parameter as Shape $shape?",
+        "explain": "printArea needs no checks of its own.",
+        "options": [
+          "It makes the code faster",
+          "It is required",
+          "It converts the object",
+          "PHP guarantees whatever is passed has an area() method"
+        ]
+      },
+      {
+        "id": "oop-polymorphism-q3",
+        "answer": 0,
+        "prompt": "What does type-hinting an interface make easy?",
+        "explain": "Code depends on the contract, not one specific class.",
+        "options": [
+          "Swapping in a different implementation (dependency injection)",
+          "Deleting classes",
+          "Writing SQL",
+          "Printing objects"
+        ]
+      },
+      {
+        "id": "oop-polymorphism-q4",
+        "answer": 1,
+        "prompt": "Which is a valid return type declaration?",
+        "explain": "The colon goes after the parameter list.",
+        "options": [
+          "<code>function area() =&gt; float</code>",
+          "<code>function area(): float</code>",
+          "<code>float function area()</code>",
+          "<code>function area() returns float</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

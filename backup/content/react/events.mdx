@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Handling Events in React | Learn Computer Academy"
 meta_description: "Responding to clicks and other events in React with camelCase event props and real function references."
 sort_order: 8
-updated_at: "2026-07-31T11:24:37.504696+00:00"
+updated_at: "2026-11-21T10:21:53.376153+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-07-31T11:24:37.504696+00:00"
     "id": "CvMd2MaauwXE",
     "html": "<p>The Forms in React lesson right after this one puts <code>onChange</code> and <code>onSubmit</code> to real use.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-events",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "events-q1",
+        "answer": 2,
+        "prompt": "How are event names written in React?",
+        "explain": "And they take a function, not a string.",
+        "options": [
+          "lowercase: onclick",
+          "UPPERCASE: ONCLICK",
+          "camelCase: onClick",
+          "With a dash: on-click"
+        ]
+      },
+      {
+        "id": "events-q2",
+        "answer": 3,
+        "prompt": "What is wrong with <code>onClick={handleClick()}</code>?",
+        "explain": "Pass the function itself: <code>onClick={handleClick}</code>.",
+        "options": [
+          "Nothing",
+          "It needs quotes",
+          "It must be lowercase",
+          "It calls the function during render instead of on click"
+        ]
+      },
+      {
+        "id": "events-q3",
+        "answer": 0,
+        "prompt": "How do you pass an argument to a handler?",
+        "explain": "The arrow function runs only on click.",
+        "options": [
+          "Wrap it in an arrow function: <code>onClick={() =&gt; remove(id)}</code>",
+          "<code>onClick={remove(id)}</code>",
+          "<code>onClick=\"remove(id)\"</code>",
+          "You cannot"
+        ]
+      },
+      {
+        "id": "events-q4",
+        "answer": 1,
+        "prompt": "What does <code>e.preventDefault()</code> do in a form submit handler?",
+        "explain": "Then React handles the data itself.",
+        "options": [
+          "Submits twice",
+          "Stops the browser's default page reload",
+          "Clears the form",
+          "Deletes the event"
+        ]
+      }
+    ]
   }
 ]
 ```

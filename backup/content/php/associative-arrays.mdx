@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Associative Arrays | Learn Computer Academy"
 meta_description: "PHP's associative arrays — key-value pairs instead of numeric positions — and why they're used constantly in real PHP code."
 sort_order: 12
-updated_at: "2026-07-30T09:08:37.894105+00:00"
+updated_at: "2026-11-21T06:08:33.910642+00:00"
 ---
 
 ```json
@@ -86,6 +86,59 @@ updated_at: "2026-07-30T09:08:37.894105+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-associative-arrays",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "associative-arrays-q1",
+        "answer": 3,
+        "prompt": "Which symbol pairs a key with its value in <code>[\"name\" =&gt; \"Priya\"]</code>?",
+        "explain": "-> is for object properties.",
+        "options": [
+          "<code>-&gt;</code>",
+          "<code>:</code>",
+          "<code>=</code>",
+          "<code>=&gt;</code>"
+        ]
+      },
+      {
+        "id": "associative-arrays-q2",
+        "answer": 0,
+        "prompt": "How do you loop over both keys and values?",
+        "explain": "Each iteration gets one key and its value.",
+        "options": [
+          "<code>foreach ($student as $key =&gt; $value)</code>",
+          "<code>for ($key in $student)</code>",
+          "<code>while ($student)</code>",
+          "<code>foreach ($student =&gt; $key)</code>"
+        ]
+      },
+      {
+        "id": "associative-arrays-q3",
+        "answer": 2,
+        "prompt": "What happens when you read a key that doesn't exist?",
+        "explain": "Check first with <code>isset()</code> or <code>array_key_exists()</code>, or use <code>??</code>.",
+        "options": [
+          "The script crashes",
+          "It returns 0",
+          "A warning, and null",
+          "The key is created"
+        ]
+      },
+      {
+        "id": "associative-arrays-q4",
+        "answer": 1,
+        "prompt": "Keys in an associative array can only be strings.",
+        "explain": "They are usually strings, but can be integers too.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

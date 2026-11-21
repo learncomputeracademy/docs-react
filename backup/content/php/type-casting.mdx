@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Type Casting | Learn Computer Academy"
 meta_description: "How to deliberately convert a PHP value from one type to another, instead of leaving it to automatic type juggling."
 sort_order: 6
-updated_at: "2026-07-30T09:08:35.766372+00:00"
+updated_at: "2026-11-21T06:08:32.17864+00:00"
 ---
 
 ```json
@@ -107,6 +107,61 @@ updated_at: "2026-07-30T09:08:35.766372+00:00"
     "type": "callout",
     "title": "The \"0\" vs \"0.0\" trap",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-type-casting",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "type-casting-q1",
+        "answer": 1,
+        "prompt": "What is <code>(int) 19.99</code>?",
+        "explain": "Casting to int truncates; use round() first if you need rounding.",
+        "options": [
+          "20",
+          "19",
+          "19.99",
+          "0"
+        ]
+      },
+      {
+        "id": "type-casting-q2",
+        "answer": 3,
+        "prompt": "What does <code>intval(\"42abc\")</code> return?",
+        "explain": "It reads the leading digits and ignores the rest.",
+        "options": [
+          "0",
+          "An error",
+          "\"42abc\"",
+          "42"
+        ]
+      },
+      {
+        "id": "type-casting-q3",
+        "answer": 0,
+        "prompt": "How is casting different from type juggling?",
+        "explain": "Juggling is PHP deciding for you.",
+        "options": [
+          "You convert on purpose, so the result is predictable",
+          "Casting is automatic",
+          "There is no difference",
+          "Casting only works on strings"
+        ]
+      },
+      {
+        "id": "type-casting-q4",
+        "answer": 2,
+        "prompt": "What is <code>(bool) 1</code>?",
+        "explain": "Non-zero numbers are true.",
+        "options": [
+          "<code>1</code>",
+          "<code>false</code>",
+          "<code>true</code>",
+          "<code>\"1\"</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

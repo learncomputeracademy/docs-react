@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP If, Else, and Switch | Learn Computer Academy"
 meta_description: "PHP's conditional statements — if, else, elseif, switch, and the ternary and null coalescing shortcuts."
 sort_order: 14
-updated_at: "2026-07-30T09:08:38.692221+00:00"
+updated_at: "2026-11-21T06:08:34.484564+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-07-30T09:08:38.692221+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-control-flow",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "control-flow-q1",
+        "answer": 3,
+        "prompt": "With <code>$score = 72</code>, which grade prints (A ≥ 90, B ≥ 75, C ≥ 60, else F)?",
+        "explain": "72 fails the first two checks and passes ≥ 60.",
+        "options": [
+          "A",
+          "B",
+          "F",
+          "C"
+        ]
+      },
+      {
+        "id": "control-flow-q2",
+        "answer": 1,
+        "prompt": "How is \"else if\" usually written in PHP?",
+        "explain": "else if as two words also works.",
+        "options": [
+          "<code>elif</code>",
+          "<code>elseif</code>",
+          "<code>elsif</code>",
+          "<code>else-if</code>"
+        ]
+      },
+      {
+        "id": "control-flow-q3",
+        "answer": 0,
+        "prompt": "What happens in a switch when you forget break?",
+        "explain": "One of the most common switch bugs.",
+        "options": [
+          "Execution falls through into the next case",
+          "A syntax error",
+          "The switch is skipped",
+          "Only default runs"
+        ]
+      },
+      {
+        "id": "control-flow-q4",
+        "answer": 0,
+        "prompt": "Several case labels can share the same block of code.",
+        "explain": "Like case \"Mon\": case \"Tue\": ... echo \"Weekday\".",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

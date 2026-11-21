@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Template Engines — EJS | Learn Computer Academy"
 meta_description: "Rendering HTML on the server with data plugged in, using EJS with Express — for a page that's a traditional server-rendered site rather than an API or a React frontend."
 sort_order: 32
-updated_at: "2026-09-03T04:41:43.45397+00:00"
+updated_at: "2026-11-21T06:03:31.902092+00:00"
 ---
 
 ```json
@@ -129,6 +129,61 @@ updated_at: "2026-09-03T04:41:43.45397+00:00"
     "type": "callout",
     "title": "One of several template engines",
     "variant": "note"
+  },
+  {
+    "id": "quiz-template-engines-with-ejs",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "template-engines-with-ejs-q1",
+        "answer": 0,
+        "prompt": "What does a template engine like EJS do?",
+        "explain": "The traditional alternative to a JSON API plus a separate frontend.",
+        "options": [
+          "Renders complete HTML pages on the server, with data filled in",
+          "Compiles CSS",
+          "Stores data",
+          "Minifies JavaScript"
+        ]
+      },
+      {
+        "id": "template-engines-with-ejs-q2",
+        "answer": 2,
+        "prompt": "What does <code>&lt;%= user.name %&gt;</code> do?",
+        "explain": "Escaping keeps HTML-looking text as plain text (XSS protection).",
+        "options": [
+          "Runs code without output",
+          "Outputs the value as raw HTML",
+          "Outputs the value, automatically escaped",
+          "Comments it out"
+        ]
+      },
+      {
+        "id": "template-engines-with-ejs-q3",
+        "answer": 3,
+        "prompt": "How do you render a template from an Express route?",
+        "explain": "Express finds views/profile.ejs and fills in user.",
+        "options": [
+          "<code>res.send('profile')</code>",
+          "<code>res.json('profile')</code>",
+          "<code>res.file('profile.ejs')</code>",
+          "<code>res.render('profile', { user })</code>"
+        ]
+      },
+      {
+        "id": "template-engines-with-ejs-q4",
+        "answer": 1,
+        "prompt": "How do you tell Express to use EJS?",
+        "explain": "<code>app.set('views', './views')</code> says where the templates live.",
+        "options": [
+          "<code>app.use('ejs')</code>",
+          "<code>app.set('view engine', 'ejs')</code>",
+          "<code>require('ejs')()</code>",
+          "<code>app.engine = 'ejs'</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

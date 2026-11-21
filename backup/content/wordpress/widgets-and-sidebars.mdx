@@ -6,7 +6,7 @@ status: "published"
 meta_title: "WordPress Widgets and Sidebars | Learn Computer Academy"
 meta_description: "Registering a widget-ready area in a theme, and outputting it in a template — the classic-theme way to give an editor a drag-and-drop content area."
 sort_order: 30
-updated_at: "2026-09-03T04:11:00.610321+00:00"
+updated_at: "2026-11-21T05:59:30.521677+00:00"
 ---
 
 ```json
@@ -81,6 +81,61 @@ updated_at: "2026-09-03T04:11:00.610321+00:00"
     "type": "callout",
     "title": "Widgets and the block editor",
     "variant": "note"
+  },
+  {
+    "id": "quiz-widgets-and-sidebars",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "widgets-and-sidebars-q1",
+        "answer": 0,
+        "prompt": "In the WordPress API, what is a \"sidebar\"?",
+        "explain": "A footer widget area is still a \"sidebar\" in code.",
+        "options": [
+          "Any widget area, wherever it sits on the page",
+          "Only the column on the right",
+          "A menu",
+          "A plugin"
+        ]
+      },
+      {
+        "id": "widgets-and-sidebars-q2",
+        "answer": 3,
+        "prompt": "Which function registers a widget area?",
+        "explain": "dynamic_sidebar() outputs it in a template.",
+        "options": [
+          "<code>add_widget_area()</code>",
+          "<code>dynamic_sidebar()</code>",
+          "<code>register_widget()</code>",
+          "<code>register_sidebar()</code>"
+        ]
+      },
+      {
+        "id": "widgets-and-sidebars-q3",
+        "answer": 2,
+        "prompt": "Why wrap the output in <code>is_active_sidebar( 'blog-sidebar' )</code>?",
+        "explain": "Only output the aside when an editor has placed widgets in it.",
+        "options": [
+          "It is faster",
+          "It is required syntax",
+          "So an empty widget area doesn't render an empty wrapper",
+          "It activates the sidebar"
+        ]
+      },
+      {
+        "id": "widgets-and-sidebars-q4",
+        "answer": 1,
+        "prompt": "What are before_widget and before_title for?",
+        "explain": "They give every widget consistent markup for styling.",
+        "options": [
+          "Sorting widgets",
+          "The HTML every widget and its title are wrapped in",
+          "Widget permissions",
+          "Caching"
+        ]
+      }
+    ]
   }
 ]
 ```

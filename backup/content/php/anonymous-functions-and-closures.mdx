@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Anonymous Functions and Closures | Learn Computer Academy"
 meta_description: "Functions without a name, closures that capture outside variables, callback functions passed as arguments, recursion, and variadic parameters."
 sort_order: 31
-updated_at: "2026-09-03T04:05:22.927803+00:00"
+updated_at: "2026-11-21T06:08:39.20689+00:00"
 ---
 
 ```json
@@ -138,6 +138,59 @@ updated_at: "2026-09-03T04:05:22.927803+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-anonymous-functions-and-closures",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "anonymous-functions-and-closures-q1",
+        "answer": 2,
+        "prompt": "What is an anonymous function?",
+        "explain": "<code>$greet = function ($name) { ... };</code>",
+        "options": [
+          "A function with a secret name",
+          "A deprecated function",
+          "A function with no name, stored in a variable or passed inline",
+          "A built-in function"
+        ]
+      },
+      {
+        "id": "anonymous-functions-and-closures-q2",
+        "answer": 3,
+        "prompt": "How does an anonymous function get access to $taxRate from outside?",
+        "explain": "That makes it a closure.",
+        "options": [
+          "Automatically",
+          "With global",
+          "It can't",
+          "With <code>use ($taxRate)</code>"
+        ]
+      },
+      {
+        "id": "anonymous-functions-and-closures-q3",
+        "answer": 0,
+        "prompt": "Which built-in function takes a callback to run once per item?",
+        "explain": "Also array_filter() and usort().",
+        "options": [
+          "<code>array_map()</code>",
+          "<code>count()</code>",
+          "<code>strlen()</code>",
+          "<code>isset()</code>"
+        ]
+      },
+      {
+        "id": "anonymous-functions-and-closures-q4",
+        "answer": 0,
+        "prompt": "Arrow functions (fn) capture outside variables automatically.",
+        "explain": "Unlike function () { }, they need no use clause.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

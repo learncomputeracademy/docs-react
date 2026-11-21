@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Self Join and Cross Join | Learn Computer Academy"
 meta_description: "Two more join types beyond INNER/LEFT/RIGHT/FULL — a table joined to itself, and every possible combination of two tables' rows."
 sort_order: 18
-updated_at: "2026-09-03T04:30:02.569955+00:00"
+updated_at: "2026-11-21T05:51:05.377209+00:00"
 ---
 
 ```json
@@ -87,6 +87,61 @@ updated_at: "2026-09-03T04:30:02.569955+00:00"
     "header": [
       "Join type",
       "Rows produced"
+    ]
+  },
+  {
+    "id": "quiz-self-and-cross-joins",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "self-and-cross-joins-q1",
+        "answer": 0,
+        "prompt": "What is a self join?",
+        "explain": "Classic use: an employee row referencing their manager in the same table.",
+        "options": [
+          "A table joined to itself under two aliases",
+          "A join with no condition",
+          "A special SQL keyword SELF JOIN",
+          "A join that deletes duplicates"
+        ]
+      },
+      {
+        "id": "self-and-cross-joins-q2",
+        "answer": 3,
+        "prompt": "In a self join, aliases are…",
+        "explain": "<code>FROM employees e LEFT JOIN employees m ON e.manager_id = m.id</code>",
+        "options": [
+          "optional",
+          "not allowed",
+          "only needed for WHERE",
+          "required, so each copy of the table can be told apart"
+        ]
+      },
+      {
+        "id": "self-and-cross-joins-q3",
+        "answer": 2,
+        "prompt": "A table of 3 rows CROSS JOINed with a table of 4 rows gives how many rows?",
+        "explain": "Every row combined with every row: 3 × 4.",
+        "options": [
+          "7",
+          "4",
+          "12",
+          "3"
+        ]
+      },
+      {
+        "id": "self-and-cross-joins-q4",
+        "answer": 1,
+        "prompt": "Why use LEFT JOIN rather than INNER JOIN for employees and their managers?",
+        "explain": "The CEO gets NULL as manager instead of disappearing.",
+        "options": [
+          "It is faster",
+          "So employees with no manager, like the CEO, still appear",
+          "INNER JOIN cannot join a table to itself",
+          "It removes duplicates"
+        ]
+      }
     ]
   }
 ]

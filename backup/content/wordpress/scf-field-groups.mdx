@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Building Field Groups with SCF | Learn Computer Academy"
 meta_description: "Adding fields to a field group and using location rules to attach it to the right post type."
 sort_order: 19
-updated_at: "2026-07-30T14:23:30.239047+00:00"
+updated_at: "2026-11-21T05:59:27.352778+00:00"
 ---
 
 ```json
@@ -101,6 +101,59 @@ updated_at: "2026-07-30T14:23:30.239047+00:00"
     "id": "D39ADaT4pSbU",
     "html": "<p>Save the field group, open (or create) a project, and those three fields now appear right below the content editor — ready to fill in. The next lesson gets that data back out, into an actual template.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scf-field-groups",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scf-field-groups-q1",
+        "answer": 2,
+        "prompt": "What is the difference between Field Label and Field Name?",
+        "explain": "<code>get_field( 'client_name' )</code> uses the Name.",
+        "options": [
+          "None",
+          "The Label is the key used in code",
+          "The Label is what editors see; the Name is what templates read",
+          "The Name is shown on the site"
+        ]
+      },
+      {
+        "id": "scf-field-groups-q2",
+        "answer": 3,
+        "prompt": "Which is risky to rename after real data exists?",
+        "explain": "Every template that reads it must be updated too.",
+        "options": [
+          "The Field Label",
+          "The field group title",
+          "The field instructions",
+          "The Field Name"
+        ]
+      },
+      {
+        "id": "scf-field-groups-q3",
+        "answer": 0,
+        "prompt": "What decides where a field group appears?",
+        "explain": "For example <code>Show this field group if Post Type is equal to Project</code>.",
+        "options": [
+          "Location rules",
+          "The field order",
+          "The theme name",
+          "The menu"
+        ]
+      },
+      {
+        "id": "scf-field-groups-q4",
+        "answer": 1,
+        "prompt": "A field group with no location rule shows up everywhere automatically.",
+        "explain": "It does nothing until it is told where to appear.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

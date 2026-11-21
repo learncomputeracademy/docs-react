@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Conditional Rendering in React | Learn Computer Academy"
 meta_description: "Showing or hiding parts of a component with &&, the ternary operator, and early returns."
 sort_order: 7
-updated_at: "2026-07-31T11:24:37.116969+00:00"
+updated_at: "2026-11-21T10:21:53.079765+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-07-31T11:24:37.116969+00:00"
     "type": "code",
     "language": "jsx",
     "runnable": false
+  },
+  {
+    "id": "quiz-conditional-rendering",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "conditional-rendering-q1",
+        "answer": 3,
+        "prompt": "What does <code>{hasUnread &amp;&amp; &lt;span&gt;New!&lt;/span&gt;}</code> render when hasUnread is false?",
+        "explain": "The right side is never evaluated.",
+        "options": [
+          "The span",
+          "An error",
+          "The word false",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "conditional-rendering-q2",
+        "answer": 0,
+        "prompt": "Why is <code>{count &amp;&amp; &lt;p&gt;…&lt;/p&gt;}</code> a common bug?",
+        "explain": "Use <code>count &gt; 0 &amp;&amp;</code> instead.",
+        "options": [
+          "When count is 0, React renders a 0 on the page",
+          "It crashes",
+          "It is too slow",
+          "It is not a bug"
+        ]
+      },
+      {
+        "id": "conditional-rendering-q3",
+        "answer": 1,
+        "prompt": "Which pattern chooses between two pieces of JSX?",
+        "explain": "It is an expression, so it works inside JSX.",
+        "options": [
+          "A for loop",
+          "The ternary operator: condition ? A : B",
+          "A switch inside JSX braces",
+          "CSS"
+        ]
+      },
+      {
+        "id": "conditional-rendering-q4",
+        "answer": 0,
+        "prompt": "A component can return null to render nothing.",
+        "explain": "An early return works well for that.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

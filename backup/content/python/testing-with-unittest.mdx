@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Testing Python with unittest | Learn Computer Academy"
 meta_description: "Writing automated tests with Python's own built-in unittest module — no extra package required — plus assert statements and test discovery."
 sort_order: 33
-updated_at: "2026-09-03T04:52:51.202368+00:00"
+updated_at: "2026-11-21T06:12:51.367443+00:00"
 ---
 
 ```json
@@ -131,6 +131,61 @@ updated_at: "2026-09-03T04:52:51.202368+00:00"
     "type": "callout",
     "title": "Test the failure cases too",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-testing-with-unittest",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "testing-with-unittest-q1",
+        "answer": 2,
+        "prompt": "Which testing framework is built into Python?",
+        "explain": "pytest is a popular third-party alternative.",
+        "options": [
+          "<code>pytest</code>",
+          "<code>jest</code>",
+          "<code>unittest</code>",
+          "<code>mocha</code>"
+        ]
+      },
+      {
+        "id": "testing-with-unittest-q2",
+        "answer": 3,
+        "prompt": "What must test method names start with?",
+        "explain": "unittest only runs methods named test_...",
+        "options": [
+          "<code>check_</code>",
+          "<code>it_</code>",
+          "<code>should_</code>",
+          "<code>test_</code>"
+        ]
+      },
+      {
+        "id": "testing-with-unittest-q3",
+        "answer": 0,
+        "prompt": "How do you check that divide(1, 0) raises ValueError?",
+        "explain": "Call divide inside the with block.",
+        "options": [
+          "<code>with self.assertRaises(ValueError):</code>",
+          "<code>self.assertEqual(ValueError)</code>",
+          "<code>try: ... except: pass</code>",
+          "<code>self.assertError()</code>"
+        ]
+      },
+      {
+        "id": "testing-with-unittest-q4",
+        "answer": 1,
+        "prompt": "What does python -m unittest test_math.py print when everything passes?",
+        "explain": "Along with how many tests ran.",
+        "options": [
+          "FAILED",
+          "OK",
+          "Nothing",
+          "PASSED 100%"
+        ]
+      }
+    ]
   }
 ]
 ```

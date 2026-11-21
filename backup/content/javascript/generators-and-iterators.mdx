@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Generators and Iterators | Learn Computer Academy"
 meta_description: "What makes for...of work on arrays and strings, and generator functions that can pause mid-execution and resume later."
 sort_order: 32
-updated_at: "2026-09-03T04:17:12.011826+00:00"
+updated_at: "2026-11-21T05:55:27.509899+00:00"
 ---
 
 ```json
@@ -103,6 +103,61 @@ updated_at: "2026-09-03T04:17:12.011826+00:00"
     "type": "callout",
     "title": "The connection to async/await",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-generators-and-iterators",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "generators-and-iterators-q1",
+        "answer": 1,
+        "prompt": "What does <code>iterator.next()</code> return?",
+        "explain": "done becomes true when there are no more values.",
+        "options": [
+          "Just the next value",
+          "<code>{ value, done }</code>",
+          "An array of all values",
+          "A promise"
+        ]
+      },
+      {
+        "id": "generators-and-iterators-q2",
+        "answer": 2,
+        "prompt": "How is a generator function written?",
+        "explain": "It pauses at every yield and resumes where it left off.",
+        "options": [
+          "<code>generator function f()</code>",
+          "<code>async function f()</code>",
+          "<code>function* f()</code>",
+          "<code>function f*()</code>"
+        ]
+      },
+      {
+        "id": "generators-and-iterators-q3",
+        "answer": 3,
+        "prompt": "Which of these is NOT iterable by default?",
+        "explain": "Arrays, strings, Maps and Sets implement Symbol.iterator; plain objects don't.",
+        "options": [
+          "An array",
+          "A string",
+          "A Map",
+          "A plain object"
+        ]
+      },
+      {
+        "id": "generators-and-iterators-q4",
+        "answer": 0,
+        "prompt": "What does for...of do under the hood?",
+        "explain": "That is why anything implementing the iterator protocol works with it.",
+        "options": [
+          "Calls next() repeatedly until done is true",
+          "Copies the array",
+          "Sorts the values first",
+          "Uses indexes from 0 to length"
+        ]
+      }
+    ]
   }
 ]
 ```

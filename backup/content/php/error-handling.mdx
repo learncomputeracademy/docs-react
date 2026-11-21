@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Error Handling | Learn Computer Academy"
 meta_description: "Handling problems gracefully in PHP with try, catch, and throw, instead of letting a script crash outright."
 sort_order: 22
-updated_at: "2026-07-30T09:08:41.461125+00:00"
+updated_at: "2026-11-21T06:08:36.763944+00:00"
 ---
 
 ```json
@@ -91,6 +91,61 @@ updated_at: "2026-07-30T09:08:41.461125+00:00"
     "id": "jrg2hgCnsLmc",
     "html": "<p>An uncaught error on a live PHP site can expose a raw error message — sometimes including file paths or database details — directly to a visitor. Wrapping risky operations (file access, database queries, anything talking to something outside your own script) in <code>try</code>/<code>catch</code> is what turns that into a clean, controlled message instead.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-error-handling",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "error-handling-q1",
+        "answer": 1,
+        "prompt": "What does throw do?",
+        "explain": "The script continues after the catch block instead of stopping.",
+        "options": [
+          "Prints a message",
+          "Raises an exception for the nearest matching catch to handle",
+          "Ends PHP",
+          "Logs to a file"
+        ]
+      },
+      {
+        "id": "error-handling-q2",
+        "answer": 3,
+        "prompt": "How do you read the message of a caught exception $e?",
+        "explain": "getCode(), getFile() and getLine() give more detail.",
+        "options": [
+          "<code>$e-&gt;message</code>",
+          "<code>$e[\"message\"]</code>",
+          "<code>getMessage($e)</code>",
+          "<code>$e-&gt;getMessage()</code>"
+        ]
+      },
+      {
+        "id": "error-handling-q3",
+        "answer": 0,
+        "prompt": "When does a finally block run?",
+        "explain": "Use it for cleanup such as closing a file.",
+        "options": [
+          "Always, exception or not",
+          "Only after an exception",
+          "Never",
+          "Only without an exception"
+        ]
+      },
+      {
+        "id": "error-handling-q4",
+        "answer": 2,
+        "prompt": "Without try/catch, an uncaught exception…",
+        "explain": "try/catch lets the script handle it gracefully.",
+        "options": [
+          "is ignored",
+          "turns into a warning",
+          "stops the script with a fatal error",
+          "retries automatically"
+        ]
+      }
+    ]
   }
 ]
 ```

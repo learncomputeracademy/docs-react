@@ -5,7 +5,7 @@ path: "javascript/events"
 status: "published"
 meta_title: "JavaScript Events | Learn Computer Academy"
 sort_order: 13
-updated_at: "2026-07-29T05:40:22.903666+00:00"
+updated_at: "2026-11-21T05:55:10.591082+00:00"
 ---
 
 ```json
@@ -229,6 +229,61 @@ updated_at: "2026-07-29T05:40:22.903666+00:00"
     "id": "R7xQcpEpIWVC",
     "html": "<ol>\n                                    <li>Add a click event to change the text of a paragraph.</li>\n                                    <li>Use mouseover and mouseout to animate a box’s color.</li>\n                                    <li>Create a form that prevents default submission and logs the input value.</li>\n                                    <li>Display the key a user presses using keydown.</li>\n                                    <li>Write a function that runs only once on the first button click.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-events",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "events-q1",
+        "answer": 2,
+        "prompt": "Which is the recommended way to handle a click?",
+        "explain": "It allows several listeners and keeps JavaScript out of the HTML.",
+        "options": [
+          "<code>&lt;button onclick=\"go()\"&gt;</code>",
+          "<code>btn.onclick = go</code>",
+          "<code>btn.addEventListener(\"click\", go)</code>",
+          "<code>btn.click = go</code>"
+        ]
+      },
+      {
+        "id": "events-q2",
+        "answer": 1,
+        "prompt": "What is an event?",
+        "explain": "JavaScript listens for events and runs code when they occur.",
+        "options": [
+          "A CSS animation",
+          "A signal that something happened, like a click or key press",
+          "A type of variable",
+          "A server request"
+        ]
+      },
+      {
+        "id": "events-q3",
+        "answer": 3,
+        "prompt": "Which event fires when a form is sent?",
+        "explain": "Use <code>event.preventDefault()</code> to stop the page reloading.",
+        "options": [
+          "<code>click</code>",
+          "<code>change</code>",
+          "<code>load</code>",
+          "<code>submit</code>"
+        ]
+      },
+      {
+        "id": "events-q4",
+        "answer": 0,
+        "prompt": "With <code>btn.onclick = a</code> followed by <code>btn.onclick = b</code>, what runs on click?",
+        "explain": "That is why addEventListener is preferred: it adds instead of replacing.",
+        "options": [
+          "Only b — the second assignment replaces the first",
+          "Both a and b",
+          "Only a",
+          "Neither"
+        ]
+      }
+    ]
   }
 ]
 ```

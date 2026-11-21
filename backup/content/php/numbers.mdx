@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Numbers and Math | Learn Computer Academy"
 meta_description: "Working with integers and floats in PHP, plus the built-in math functions for rounding, random numbers, and more."
 sort_order: 10
-updated_at: "2026-07-30T09:08:37.192798+00:00"
+updated_at: "2026-11-21T06:08:33.361645+00:00"
 ---
 
 ```json
@@ -93,6 +93,61 @@ updated_at: "2026-07-30T09:08:37.192798+00:00"
     "type": "callout",
     "title": "Division and floats",
     "variant": "note"
+  },
+  {
+    "id": "quiz-numbers",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "numbers-q1",
+        "answer": 1,
+        "prompt": "What does <code>number_format(1234567.891, 2)</code> return?",
+        "explain": "The standard way to show a number with separators and fixed decimals.",
+        "options": [
+          "<code>\"1234567.89\"</code>",
+          "<code>\"1,234,567.89\"</code>",
+          "<code>\"1.234.567,89\"</code>",
+          "<code>1234567.891</code>"
+        ]
+      },
+      {
+        "id": "numbers-q2",
+        "answer": 3,
+        "prompt": "What is <code>max(3, 9, 2)</code>?",
+        "explain": "min() gives the smallest.",
+        "options": [
+          "3",
+          "2",
+          "14",
+          "9"
+        ]
+      },
+      {
+        "id": "numbers-q3",
+        "answer": 0,
+        "prompt": "What type is <code>10 / 3</code>?",
+        "explain": "10 / 2 gives the int 5 only because it divides evenly.",
+        "options": [
+          "float",
+          "int",
+          "string",
+          "bool"
+        ]
+      },
+      {
+        "id": "numbers-q4",
+        "answer": 2,
+        "prompt": "What is <code>abs(-7)</code>?",
+        "explain": "The absolute value.",
+        "options": [
+          "-7",
+          "0",
+          "7",
+          "49"
+        ]
+      }
+    ]
   }
 ]
 ```

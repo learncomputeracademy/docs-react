@@ -6,7 +6,7 @@ status: "published"
 meta_title: "WordPress Child Themes | Learn Computer Academy"
 meta_description: "Customizing or extending an existing theme safely — changes that survive the parent theme's next update."
 sort_order: 29
-updated_at: "2026-09-03T04:11:00.323104+00:00"
+updated_at: "2026-11-21T05:59:30.247158+00:00"
 ---
 
 ```json
@@ -109,6 +109,61 @@ updated_at: "2026-09-03T04:11:00.323104+00:00"
     "type": "callout",
     "title": "When to reach for one",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-child-themes",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "child-themes-q1",
+        "answer": 2,
+        "prompt": "Why use a child theme?",
+        "explain": "Direct edits to a theme are overwritten when it updates.",
+        "options": [
+          "It loads faster",
+          "It is required by WordPress",
+          "Customisations survive parent theme updates",
+          "It removes the parent theme"
+        ]
+      },
+      {
+        "id": "child-themes-q2",
+        "answer": 3,
+        "prompt": "Which line in style.css makes a theme a child theme?",
+        "explain": "It must match the parent theme's folder name exactly.",
+        "options": [
+          "<code>Theme Name: My Child Theme</code>",
+          "<code>Version: 1.0</code>",
+          "<code>Parent: wgh-starter</code>",
+          "<code>Template: wgh-starter</code>"
+        ]
+      },
+      {
+        "id": "child-themes-q3",
+        "answer": 0,
+        "prompt": "Does a child theme load the parent's CSS automatically?",
+        "explain": "Then the child's rules can override the parent's.",
+        "options": [
+          "No — it must be enqueued explicitly, before the child's styles",
+          "Yes, always",
+          "Only in the admin",
+          "Only for block themes"
+        ]
+      },
+      {
+        "id": "child-themes-q4",
+        "answer": 1,
+        "prompt": "How many files does a minimal child theme need?",
+        "explain": "style.css (declaring the parent) and functions.php.",
+        "options": [
+          "1",
+          "2",
+          "4",
+          "5"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Authentication with JWT | Learn Computer Academy"
 meta_description: "Hashing passwords safely with bcrypt, and issuing and verifying a JSON Web Token so an Express route can tell who's making a request."
 sort_order: 26
-updated_at: "2026-09-03T04:41:41.41142+00:00"
+updated_at: "2026-11-21T06:03:30.138167+00:00"
 ---
 
 ```json
@@ -105,6 +105,61 @@ updated_at: "2026-09-03T04:41:41.41142+00:00"
     "type": "callout",
     "title": "The one secret this whole system depends on",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-authentication",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "authentication-q1",
+        "answer": 1,
+        "prompt": "How should passwords be stored?",
+        "explain": "Never store the plain password.",
+        "options": [
+          "As plain text",
+          "As a salted hash, e.g. with bcrypt",
+          "Encrypted with a key in the code",
+          "In localStorage"
+        ]
+      },
+      {
+        "id": "authentication-q2",
+        "answer": 2,
+        "prompt": "Why does bcrypt produce a different hash for the same password each time?",
+        "explain": "Check a login with <code>bcrypt.compare()</code>.",
+        "options": [
+          "It is broken",
+          "It uses the current time",
+          "A random salt is baked in, defeating precomputed lookup tables",
+          "It encrypts twice"
+        ]
+      },
+      {
+        "id": "authentication-q3",
+        "answer": 3,
+        "prompt": "What is a JWT used for after login?",
+        "explain": "Usually in an Authorization header.",
+        "options": [
+          "Storing the password",
+          "Encrypting the database",
+          "Sending emails",
+          "A signed token the client sends on each request to prove who it is"
+        ]
+      },
+      {
+        "id": "authentication-q4",
+        "answer": 0,
+        "prompt": "Where must the JWT signing secret be kept?",
+        "explain": "Anyone with the secret can forge valid tokens.",
+        "options": [
+          "In an environment variable on the server",
+          "Inside the token",
+          "In the frontend code",
+          "In the URL"
+        ]
+      }
+    ]
   }
 ]
 ```

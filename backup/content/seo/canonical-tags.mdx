@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Canonical Tags and Duplicate Content | Learn Computer Academy"
 meta_description: "How the same content ends up at several URLs without anyone intending it, and how a canonical tag tells search engines which one counts."
 sort_order: 14
-updated_at: "2026-08-05T07:22:03.379718+00:00"
+updated_at: "2026-11-21T10:27:31.014508+00:00"
 ---
 
 ```json
@@ -136,6 +136,59 @@ updated_at: "2026-08-05T07:22:03.379718+00:00"
     "id": "uSLamMCw_8T-",
     "html": "<p>A site serving the same content in more than one language — as this site does in English and Bengali — uses <code>hreflang</code> to tell engines the pages are translations of one another rather than duplicates, so the right language version is shown to the right person.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-canonical-tags",
+    "lang": "html",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "canonical-tags-q1",
+        "answer": 0,
+        "prompt": "What does a canonical tag say?",
+        "explain": "<code>&lt;link rel=\"canonical\" href=\"…\"&gt;</code>.",
+        "options": [
+          "\"This URL is the real one for this content\"",
+          "\"Delete this page\"",
+          "\"Do not crawl\"",
+          "\"This page is new\""
+        ]
+      },
+      {
+        "id": "canonical-tags-q2",
+        "answer": 3,
+        "prompt": "How do duplicate URLs usually happen?",
+        "explain": "The same content, several addresses.",
+        "options": [
+          "On purpose",
+          "Because of viruses",
+          "Search engines create them",
+          "By accident: http/https, www/non-www, trailing slash, tracking parameters"
+        ]
+      },
+      {
+        "id": "canonical-tags-q3",
+        "answer": 1,
+        "prompt": "What is the problem with duplicate URLs?",
+        "explain": "Consolidate them on one canonical URL.",
+        "options": [
+          "They look ugly",
+          "Signals split across versions and the wrong one may be shown",
+          "They delete content",
+          "There is no problem"
+        ]
+      },
+      {
+        "id": "canonical-tags-q4",
+        "answer": 0,
+        "prompt": "A 301 redirect is a stronger fix than a canonical tag when the old URL is not needed.",
+        "explain": "Visitors and crawlers both land on one address.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

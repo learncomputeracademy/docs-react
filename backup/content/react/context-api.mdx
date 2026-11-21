@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The React Context API | Learn Computer Academy"
 meta_description: "Sharing state across many components without passing props through every level in between — the Context API and useContext."
 sort_order: 17
-updated_at: "2026-07-31T11:24:41.275212+00:00"
+updated_at: "2026-11-21T10:21:56.013167+00:00"
 ---
 
 ```json
@@ -88,6 +88,61 @@ updated_at: "2026-07-31T11:24:41.275212+00:00"
     "id": "8MQL9XnQM8gs",
     "html": "<p>Context is the right tool for genuinely global, rarely-changing values — theme, logged-in user, current locale. For state that's only shared between two or three closely related components, lifting state up (the earlier lesson) is usually simpler and keeps the data flow easier to trace. Reaching for context by default, everywhere, trades one problem (prop drilling) for another (hard-to-trace implicit dependencies).</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-context-api",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "context-api-q1",
+        "answer": 0,
+        "prompt": "What is prop drilling?",
+        "explain": "Context solves it.",
+        "options": [
+          "Passing a prop through layers of components that do not use it",
+          "A security bug",
+          "Deleting props",
+          "A type of hook"
+        ]
+      },
+      {
+        "id": "context-api-q2",
+        "answer": 2,
+        "prompt": "Which values suit Context?",
+        "explain": "Do not use it for everything.",
+        "options": [
+          "A loop counter",
+          "A form field's text",
+          "Values needed widely: theme, logged-in user, language",
+          "A temporary hover state"
+        ]
+      },
+      {
+        "id": "context-api-q3",
+        "answer": 1,
+        "prompt": "How does a component read a context value?",
+        "explain": "A Provider higher in the tree supplies the value.",
+        "options": [
+          "<code>useState(ThemeContext)</code>",
+          "<code>useContext(ThemeContext)</code>",
+          "<code>props.context</code>",
+          "<code>window.theme</code>"
+        ]
+      },
+      {
+        "id": "context-api-q4",
+        "answer": 3,
+        "prompt": "What wraps the part of the tree that can read the context?",
+        "explain": "<code>&lt;ThemeContext.Provider value={theme}&gt;</code>.",
+        "options": [
+          "A Fragment",
+          "A portal",
+          "An error boundary",
+          "The context's Provider"
+        ]
+      }
+    ]
   }
 ]
 ```

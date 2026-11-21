@@ -5,7 +5,7 @@ path: "html/blocks"
 status: "published"
 meta_title: "HTML Blocks | Learn Computer Academy"
 sort_order: 9
-updated_at: "2026-07-29T05:40:19.805114+00:00"
+updated_at: "2026-11-20T15:25:06.262796+00:00"
 ---
 
 ```json
@@ -136,6 +136,60 @@ updated_at: "2026-07-29T05:40:19.805114+00:00"
     "id": "gLB2uUh0B2Uo",
     "html": "<p><i>For a complete list of all available HTML tags, visit our HTML Tag Reference.</i></p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-blocks",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "blocks-q1",
+        "answer": 0,
+        "prompt": "What does a block-level element do?",
+        "explain": "<code>&lt;div&gt;</code>, <code>&lt;p&gt;</code> and headings are block-level.",
+        "options": [
+          "Starts on a new line and takes the full available width",
+          "Stays on the same line as the text around it",
+          "Is always invisible",
+          "Can only contain images"
+        ]
+      },
+      {
+        "id": "blocks-q2",
+        "answer": 3,
+        "prompt": "Which of these is an inline element?",
+        "explain": "<code>&lt;span&gt;</code> only takes as much width as its content and doesn't start a new line.",
+        "options": [
+          "<code>&lt;div&gt;</code>",
+          "<code>&lt;p&gt;</code>",
+          "<code>&lt;section&gt;</code>",
+          "<code>&lt;span&gt;</code>"
+        ]
+      },
+      {
+        "id": "blocks-q3",
+        "answer": 1,
+        "prompt": "How does this display?<pre><code>&lt;p&gt;One &lt;span&gt;Two&lt;/span&gt; Three&lt;/p&gt;</code></pre>",
+        "explain": "<code>&lt;span&gt;</code> is inline, so the text flows on one line.",
+        "options": [
+          "\"Two\" on its own line",
+          "\"One Two Three\" on one line",
+          "Only \"One Three\"",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "blocks-q4",
+        "answer": 2,
+        "prompt": "What is <code>&lt;div&gt;</code> most often used for?",
+        "explain": "<code>&lt;div&gt;</code> has no meaning of its own; it groups content so CSS can style it as a block.",
+        "options": [
+          "Making text bold",
+          "Linking to another page",
+          "As a container that groups other elements",
+          "Playing audio"
+        ]
+      }
+    ]
   }
 ]
 ```

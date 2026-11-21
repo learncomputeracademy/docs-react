@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The Loop and Core Template Tags | Learn Computer Academy"
 meta_description: "How WordPress's Loop actually works, and the template tags used inside it to output a post's title, content, and other data."
 sort_order: 6
-updated_at: "2026-07-30T14:23:25.933878+00:00"
+updated_at: "2026-11-21T05:59:22.677079+00:00"
 ---
 
 ```json
@@ -134,6 +134,59 @@ updated_at: "2026-07-30T14:23:25.933878+00:00"
     "id": "zPZR3gYKGHOJ",
     "html": "<p>With posts and pages actually rendering, the next lesson steps back and looks at how WordPress decided which template file to use in the first place — the template hierarchy.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-the-loop",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "the-loop-q1",
+        "answer": 1,
+        "prompt": "What does the_post() do inside the Loop?",
+        "explain": "have_posts() checks whether another post is left.",
+        "options": [
+          "Publishes the post",
+          "Advances to the next post and sets up its data for template tags",
+          "Deletes the post",
+          "Prints the post"
+        ]
+      },
+      {
+        "id": "the-loop-q2",
+        "answer": 2,
+        "prompt": "Where does <code>the_title()</code> work?",
+        "explain": "Outside the Loop there is no current post to read from.",
+        "options": [
+          "Anywhere in the theme",
+          "Only in functions.php",
+          "Inside the Loop, where there is a current post",
+          "Only in footer.php"
+        ]
+      },
+      {
+        "id": "the-loop-q3",
+        "answer": 3,
+        "prompt": "How many times does the Loop run on an archive page with 10 posts?",
+        "explain": "Once per post. On a single post page it runs once.",
+        "options": [
+          "1",
+          "0",
+          "2",
+          "10"
+        ]
+      },
+      {
+        "id": "the-loop-q4",
+        "answer": 1,
+        "prompt": "Conditional tags like is_single() only work inside the Loop.",
+        "explain": "They answer \"what kind of page is this?\" and work anywhere in a template.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Lists | Learn Computer Academy"
 meta_description: "Python's list type — an ordered, changeable collection — and the methods you'll use to work with one."
 sort_order: 10
-updated_at: "2026-08-04T11:39:29.450721+00:00"
+updated_at: "2026-11-21T06:12:44.620779+00:00"
 ---
 
 ```json
@@ -169,6 +169,59 @@ updated_at: "2026-08-04T11:39:29.450721+00:00"
     "type": "code",
     "language": "python",
     "runnable": false
+  },
+  {
+    "id": "quiz-lists",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "lists-q1",
+        "answer": 2,
+        "prompt": "What is <code>fruits[-1]</code> for <code>[\"apple\", \"banana\", \"mango\"]</code>?",
+        "explain": "-1 is the last item.",
+        "options": [
+          "<code>\"apple\"</code>",
+          "<code>\"banana\"</code>",
+          "<code>\"mango\"</code>",
+          "An error"
+        ]
+      },
+      {
+        "id": "lists-q2",
+        "answer": 3,
+        "prompt": "Which method adds an item to the end of a list?",
+        "explain": "insert(i, x) adds at a specific position.",
+        "options": [
+          "<code>push()</code>",
+          "<code>add()</code>",
+          "<code>insert()</code>",
+          "<code>append()</code>"
+        ]
+      },
+      {
+        "id": "lists-q3",
+        "answer": 0,
+        "prompt": "How do you loop over a list with each item's index?",
+        "explain": "enumerate() yields (index, item) pairs.",
+        "options": [
+          "<code>for index, fruit in enumerate(fruits):</code>",
+          "<code>for index in fruits:</code>",
+          "<code>for fruit, index in fruits:</code>",
+          "<code>foreach fruits as index:</code>"
+        ]
+      },
+      {
+        "id": "lists-q4",
+        "answer": 0,
+        "prompt": "Lists can be changed after they are created.",
+        "explain": "That is the difference from a tuple.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

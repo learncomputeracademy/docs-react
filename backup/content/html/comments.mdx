@@ -5,7 +5,7 @@ path: "html/comments"
 status: "published"
 meta_title: "HTML Comments | Learn Computer Academy"
 sort_order: 6
-updated_at: "2026-07-29T05:40:19.583482+00:00"
+updated_at: "2026-11-20T15:25:05.273164+00:00"
 ---
 
 ```json
@@ -54,6 +54,58 @@ updated_at: "2026-07-29T05:40:19.583482+00:00"
     "code": "<!-- Do not display this image at the moment\n<img border=\"0\" src=\"pic_trulli.jpg\" alt=\"Trulli\">\n-->",
     "type": "code",
     "language": "html"
+  },
+  {
+    "id": "quiz-comments",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "comments-q1",
+        "answer": 2,
+        "prompt": "Which is a correct HTML comment?",
+        "explain": "HTML comments start with <code>&lt;!--</code> and end with <code>--&gt;</code>. The others are comment styles from other languages.",
+        "options": [
+          "<code>// comment</code>",
+          "<code>/* comment */</code>",
+          "<code>&lt;!-- comment --&gt;</code>",
+          "<code>&lt;# comment #&gt;</code>"
+        ]
+      },
+      {
+        "id": "comments-q2",
+        "answer": 1,
+        "prompt": "Comments are shown on the page in grey text.",
+        "explain": "Browsers do not display comments at all. They are only visible in the source code.",
+        "options": [
+          "True",
+          "False"
+        ]
+      },
+      {
+        "id": "comments-q3",
+        "answer": 0,
+        "prompt": "What does the browser show for this code?<pre><code>&lt;p&gt;Hi&lt;/p&gt;\n&lt;!-- &lt;p&gt;Bye&lt;/p&gt; --&gt;</code></pre>",
+        "explain": "The second paragraph is inside a comment, so it is ignored.",
+        "options": [
+          "Hi",
+          "Hi and Bye",
+          "Bye",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "comments-q4",
+        "answer": 2,
+        "prompt": "Why would you comment out a line of HTML while fixing a problem?",
+        "explain": "Commenting out lines one at a time is a quick way to find which one causes an error.",
+        "options": [
+          "To make the page load faster",
+          "To make the text bold",
+          "To hide it for now without deleting it",
+          "To translate it"
+        ]
+      }
+    ]
   }
 ]
 ```

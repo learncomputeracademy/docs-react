@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Handling Forms and JSON in Express | Learn Computer Academy"
 meta_description: "Read data a browser sends along with a POST request — both JSON and HTML form submissions — with Express's built-in body-parsing middleware."
 sort_order: 22
-updated_at: "2026-08-05T05:47:59.488484+00:00"
+updated_at: "2026-11-21T06:03:29.007879+00:00"
 ---
 
 ```json
@@ -95,6 +95,61 @@ updated_at: "2026-08-05T05:47:59.488484+00:00"
     "html": "<p><code>res.send()</code> works for JSON too, technically, but <code>res.json()</code> is more explicit about intent and handles a couple of edge cases (like sending <code>null</code>) more predictably. Use <code>res.json()</code> whenever the response is meant to be data rather than text or HTML.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-forms-and-json-bodies",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "forms-and-json-bodies-q1",
+        "answer": 1,
+        "prompt": "A POST route's req.body is undefined. What is the most common cause?",
+        "explain": "Without the middleware, the body is never read.",
+        "options": [
+          "The route uses GET",
+          "express.json() was never registered",
+          "The server is too slow",
+          "JSON is not allowed"
+        ]
+      },
+      {
+        "id": "forms-and-json-bodies-q2",
+        "answer": 2,
+        "prompt": "What format does a plain HTML form send by default?",
+        "explain": "It needs <code>express.urlencoded({ extended: true })</code> instead of express.json().",
+        "options": [
+          "JSON",
+          "XML",
+          "application/x-www-form-urlencoded",
+          "Plain text"
+        ]
+      },
+      {
+        "id": "forms-and-json-bodies-q3",
+        "answer": 3,
+        "prompt": "Where does a GET request carry its data?",
+        "explain": "POST usually carries data in the body.",
+        "options": [
+          "In the body",
+          "In a cookie only",
+          "In a file",
+          "In the URL: route parameters and the query string"
+        ]
+      },
+      {
+        "id": "forms-and-json-bodies-q4",
+        "answer": 0,
+        "prompt": "Which status code fits a successful \"created\" response?",
+        "explain": "<code>res.status(201).send(...)</code>",
+        "options": [
+          "201",
+          "200",
+          "404",
+          "500"
+        ]
+      }
+    ]
   }
 ]
 ```

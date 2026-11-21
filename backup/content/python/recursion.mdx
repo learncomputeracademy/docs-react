@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Recursion | Learn Computer Academy"
 meta_description: "A function calling itself to solve a smaller version of the same problem — the base case, the call stack it builds, and Python's recursion limit."
 sort_order: 31
-updated_at: "2026-09-03T04:52:50.628983+00:00"
+updated_at: "2026-11-21T06:12:50.82603+00:00"
 ---
 
 ```json
@@ -115,6 +115,59 @@ updated_at: "2026-09-03T04:52:50.628983+00:00"
     "type": "callout",
     "title": "A real optimization for recursive functions",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-recursion",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "recursion-q1",
+        "answer": 3,
+        "prompt": "What is the base case?",
+        "explain": "Without a reachable one, recursion never ends.",
+        "options": [
+          "The first function in a file",
+          "The largest input",
+          "A loop",
+          "The condition that stops the recursion"
+        ]
+      },
+      {
+        "id": "recursion-q2",
+        "answer": 0,
+        "prompt": "What error does runaway recursion raise in Python?",
+        "explain": "Python enforces a depth limit, usually 1000.",
+        "options": [
+          "RecursionError: maximum recursion depth exceeded",
+          "StackOverflow",
+          "MemoryError",
+          "None — it runs forever"
+        ]
+      },
+      {
+        "id": "recursion-q3",
+        "answer": 2,
+        "prompt": "What is <code>factorial(5)</code>?",
+        "explain": "5 × 4 × 3 × 2 × 1.",
+        "options": [
+          "25",
+          "15",
+          "120",
+          "5"
+        ]
+      },
+      {
+        "id": "recursion-q4",
+        "answer": 0,
+        "prompt": "A base case that can never be reached is as bad as having none.",
+        "explain": "Each call must move closer to it.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

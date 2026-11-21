@@ -5,7 +5,7 @@ path: "javascript/classes-oop"
 status: "published"
 meta_title: "JavaScript Classes and OOP | Learn Computer Academy"
 sort_order: 17
-updated_at: "2026-07-29T05:40:23.209383+00:00"
+updated_at: "2026-11-21T05:55:17.719315+00:00"
 ---
 
 ```json
@@ -186,6 +186,61 @@ updated_at: "2026-07-29T05:40:23.209383+00:00"
     "id": "JL4RLzD7WJ3j",
     "html": "<ol>\n                                  <li>Create a <code>Book</code> class with title, author, and a <code>getSummary()</code> method.</li>\n                                  <li>Extend <code>Book</code> into a <code>Magazine</code> class with an extra <code>issue</code> property.</li>\n                                  <li>Create a class with a private field <code>#password</code> and methods to change it.</li>\n                                  <li>Try method overriding in a class hierarchy (e.g., Animal → Dog → Bulldog).</li>                                   \n                                  <li>Make a class that counts how many objects were created from it.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-classes-oop",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "classes-oop-q1",
+        "answer": 1,
+        "prompt": "When does <code>constructor()</code> run?",
+        "explain": "<code>new Person(\"Alice\", 25)</code> calls the constructor with those arguments.",
+        "options": [
+          "When the class file loads",
+          "Automatically when an object is created with new",
+          "Only when called by name",
+          "When the page closes"
+        ]
+      },
+      {
+        "id": "classes-oop-q2",
+        "answer": 2,
+        "prompt": "Which keyword makes one class inherit from another?",
+        "explain": "<code>class Employee extends Person { ... }</code>",
+        "options": [
+          "<code>inherits</code>",
+          "<code>implements</code>",
+          "<code>extends</code>",
+          "<code>super</code>"
+        ]
+      },
+      {
+        "id": "classes-oop-q3",
+        "answer": 3,
+        "prompt": "In a child class constructor, what must be called before using <code>this</code>?",
+        "explain": "super runs the parent class constructor.",
+        "options": [
+          "<code>parent()</code>",
+          "<code>this.init()</code>",
+          "<code>base()</code>",
+          "<code>super(...)</code>"
+        ]
+      },
+      {
+        "id": "classes-oop-q4",
+        "answer": 0,
+        "prompt": "What is the relationship between a class and an object?",
+        "explain": "One class can create many objects.",
+        "options": [
+          "A class is a blueprint; an object is an instance made from it",
+          "They are the same thing",
+          "An object is a blueprint for classes",
+          "Classes only hold numbers"
+        ]
+      }
+    ]
   }
 ]
 ```

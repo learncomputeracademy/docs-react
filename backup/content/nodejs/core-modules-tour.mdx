@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Core Modules Tour | Learn Computer Academy"
 meta_description: "A quick map of the modules Node.js ships with built in, before covering the most important ones in depth."
 sort_order: 6
-updated_at: "2026-08-05T05:47:54.353272+00:00"
+updated_at: "2026-11-21T06:03:23.898052+00:00"
 ---
 
 ```json
@@ -81,6 +81,61 @@ updated_at: "2026-08-05T05:47:54.353272+00:00"
     "id": "cwwGoU4v6iO8",
     "html": "<p>The next four lessons work through <code>fs</code>, <code>path</code>/<code>os</code>, and then <code>http</code> — the module that turns everything so far into an actual running server.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-core-modules-tour",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "core-modules-tour-q1",
+        "answer": 1,
+        "prompt": "How do you use a built-in Node module?",
+        "explain": "For example <code>require('fs')</code>.",
+        "options": [
+          "npm install it first",
+          "require() it by name — no install needed",
+          "Download it from nodejs.org",
+          "It is automatically global"
+        ]
+      },
+      {
+        "id": "core-modules-tour-q2",
+        "answer": 2,
+        "prompt": "What does the <code>node:</code> prefix in <code>require('node:fs')</code> tell a reader?",
+        "explain": "The prefix is optional.",
+        "options": [
+          "The module is deprecated",
+          "It is an npm package",
+          "That it is a built-in module, not an installed package",
+          "It runs faster"
+        ]
+      },
+      {
+        "id": "core-modules-tour-q3",
+        "answer": 3,
+        "prompt": "Where is the authoritative reference for built-in modules?",
+        "explain": "Every built-in module is documented there.",
+        "options": [
+          "npmjs.com",
+          "github.com",
+          "MDN",
+          "nodejs.org/api"
+        ]
+      },
+      {
+        "id": "core-modules-tour-q4",
+        "answer": 0,
+        "prompt": "Which built-in module creates a web server?",
+        "explain": "fs handles files, path handles file paths, os describes the computer.",
+        "options": [
+          "<code>http</code>",
+          "<code>fs</code>",
+          "<code>path</code>",
+          "<code>os</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Logging in Node.js Production Apps | Learn Computer Academy"
 meta_description: "Why console.log stops being enough once an app is actually running on a server, and the structured logging pattern that replaces it."
 sort_order: 28
-updated_at: "2026-09-03T04:41:42.210886+00:00"
+updated_at: "2026-11-21T06:03:30.739781+00:00"
 ---
 
 ```json
@@ -128,6 +128,59 @@ updated_at: "2026-09-03T04:41:42.210886+00:00"
     "type": "callout",
     "title": "What never belongs in a log",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-logging-in-production",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "logging-in-production-q1",
+        "answer": 1,
+        "prompt": "Why use a structured logger like winston instead of console.log in production?",
+        "explain": "Thousands of lines a day need to be filtered and searched.",
+        "options": [
+          "It is shorter to type",
+          "Log levels, timestamps and searchable JSON output",
+          "console.log is removed in production",
+          "It is faster to read"
+        ]
+      },
+      {
+        "id": "logging-in-production-q2",
+        "answer": 2,
+        "prompt": "What does morgan do?",
+        "explain": "Method, URL, status code and response time.",
+        "options": [
+          "Stores logs in a database",
+          "Sends emails",
+          "Logs every incoming Express request automatically",
+          "Encrypts logs"
+        ]
+      },
+      {
+        "id": "logging-in-production-q3",
+        "answer": 3,
+        "prompt": "Which of these must never be logged?",
+        "explain": "Also full card numbers and API secrets, even at debug level.",
+        "options": [
+          "The request URL",
+          "The status code",
+          "The response time",
+          "A user's password"
+        ]
+      },
+      {
+        "id": "logging-in-production-q4",
+        "answer": 0,
+        "prompt": "Log levels let you show only warnings and errors in production.",
+        "explain": "Debug detail can be switched on when needed.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

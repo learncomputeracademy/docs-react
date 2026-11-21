@@ -6,7 +6,7 @@ status: "published"
 meta_title: "process.nextTick and setImmediate in Node.js | Learn Computer Academy"
 meta_description: "Two Node-specific ways to schedule a callback for \"as soon as possible\" — how they differ from each other and from setTimeout, and the exact order they run in."
 sort_order: 31
-updated_at: "2026-09-03T04:41:43.155867+00:00"
+updated_at: "2026-11-21T06:03:31.622848+00:00"
 ---
 
 ```json
@@ -105,6 +105,59 @@ updated_at: "2026-09-03T04:41:43.155867+00:00"
     "id": "rlQDKrrh4LtZ",
     "html": "<ul><li><code>process.nextTick</code>: ensuring a callback runs after the current synchronous code finishes, but strictly before any I/O or timer — used carefully, and rarely needed in typical application code.</li><li><code>setImmediate</code>: deferring work until after pending I/O has been handled, so it doesn't delay something more time-sensitive.</li></ul>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-process-nexttick-and-setimmediate",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "process-nexttick-and-setimmediate-q1",
+        "answer": 1,
+        "prompt": "What is the output order?<pre><code>console.log('1')\nprocess.nextTick(() =&gt; console.log('2'))\nPromise.resolve().then(() =&gt; console.log('3'))\nconsole.log('4')</code></pre>",
+        "explain": "Synchronous code first, then nextTick, then promise callbacks.",
+        "options": [
+          "1, 2, 3, 4",
+          "1, 4, 2, 3",
+          "1, 4, 3, 2",
+          "4, 1, 2, 3"
+        ]
+      },
+      {
+        "id": "process-nexttick-and-setimmediate-q2",
+        "answer": 2,
+        "prompt": "When does a process.nextTick callback run?",
+        "explain": "Overusing it can starve the event loop.",
+        "options": [
+          "After all I/O",
+          "After one second",
+          "Right after the current operation, before anything else — even promises",
+          "On the next day"
+        ]
+      },
+      {
+        "id": "process-nexttick-and-setimmediate-q3",
+        "answer": 3,
+        "prompt": "When does setImmediate run?",
+        "explain": "Inside an I/O callback, setImmediate always runs before a 0 ms setTimeout.",
+        "options": [
+          "Before nextTick",
+          "Immediately, interrupting the current code",
+          "Never inside a callback",
+          "In a later event-loop phase, after that cycle's I/O callbacks"
+        ]
+      },
+      {
+        "id": "process-nexttick-and-setimmediate-q4",
+        "answer": 0,
+        "prompt": "process.nextTick and setImmediate both mean \"run this soon\", but not identically.",
+        "explain": "They run at different points in the event loop.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Async/Await in Node.js | Learn Computer Academy"
 meta_description: "Write Node.js's promise-based code with async/await instead of .then() chains, and handle errors with try/catch."
 sort_order: 14
-updated_at: "2026-08-05T05:47:56.900543+00:00"
+updated_at: "2026-11-21T06:03:26.67737+00:00"
 ---
 
 ```json
@@ -96,6 +96,61 @@ updated_at: "2026-08-05T05:47:56.900543+00:00"
     "id": "1LC7FtMvLc-9",
     "html": "<p>Modern Node also allows <code>await</code> directly in a file's top-level code — no wrapping <code>async</code> function needed — but only in ES Modules (the previous lesson on <code>import</code>/<code>export</code>). It's convenient for quick scripts; inside real application code, wrapping logic in named <code>async</code> functions, as above, stays clearer.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-async-await",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "async-await-q1",
+        "answer": 2,
+        "prompt": "What does every async function return?",
+        "explain": "async/await is syntax on top of promises, not a replacement.",
+        "options": [
+          "undefined",
+          "A string",
+          "A promise",
+          "A callback"
+        ]
+      },
+      {
+        "id": "async-await-q2",
+        "answer": 3,
+        "prompt": "How do you handle errors with await?",
+        "explain": "try/catch replaces .catch().",
+        "options": [
+          "With if (err)",
+          "You can't",
+          "With process.on",
+          "Wrap the awaits in try/catch"
+        ]
+      },
+      {
+        "id": "async-await-q3",
+        "answer": 0,
+        "prompt": "Three awaits written one after another for independent reads — what is the downside?",
+        "explain": "Use await Promise.all([...]) to run them in parallel.",
+        "options": [
+          "They run one after another instead of at the same time",
+          "They fail",
+          "They run in random order",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "async-await-q4",
+        "answer": 1,
+        "prompt": "Why is async/await the most common style today?",
+        "explain": "Same operations, no pyramid of nesting.",
+        "options": [
+          "It is faster than promises",
+          "It reads top to bottom like ordinary code",
+          "It needs no Node version",
+          "It avoids errors"
+        ]
+      }
+    ]
   }
 ]
 ```

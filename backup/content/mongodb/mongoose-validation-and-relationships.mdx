@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Mongoose Validation & Relationships | Learn Computer Academy"
 meta_description: "Custom validation rules in a Mongoose schema, and connecting related models with ref and populate()."
 sort_order: 20
-updated_at: "2026-08-18T10:11:27.930373+00:00"
+updated_at: "2026-11-21T10:24:36.103707+00:00"
 ---
 
 ```json
@@ -102,6 +102,61 @@ updated_at: "2026-08-18T10:11:27.930373+00:00"
     "type": "callout",
     "title": "populate() vs $lookup — different trade-offs",
     "variant": "note"
+  },
+  {
+    "id": "quiz-mongoose-validation-and-relationships",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "mongoose-validation-and-relationships-q1",
+        "answer": 2,
+        "prompt": "Which built-in validator restricts a string to a fixed list?",
+        "explain": "For example category: electronics, books…",
+        "options": [
+          "<code>min</code>",
+          "<code>required</code>",
+          "<code>enum</code>",
+          "<code>maxlength</code>"
+        ]
+      },
+      {
+        "id": "mongoose-validation-and-relationships-q2",
+        "answer": 0,
+        "prompt": "What does <code>min: 0</code> on price do?",
+        "explain": "Numbers below the minimum fail validation.",
+        "options": [
+          "Rejects negative prices",
+          "Sets price to 0",
+          "Rounds the price",
+          "Hides the price"
+        ]
+      },
+      {
+        "id": "mongoose-validation-and-relationships-q3",
+        "answer": 3,
+        "prompt": "How do you store a reference to another model in a schema?",
+        "explain": "Points to a document in another collection.",
+        "options": [
+          "Copy the whole document",
+          "Use a string name",
+          "You cannot",
+          "An ObjectId field with <code>ref: \"User\"</code>"
+        ]
+      },
+      {
+        "id": "mongoose-validation-and-relationships-q4",
+        "answer": 1,
+        "prompt": "What does populate() do?",
+        "explain": "Like a simple join.",
+        "options": [
+          "Deletes references",
+          "Replaces a referenced ID with the actual document",
+          "Adds random data",
+          "Creates an index"
+        ]
+      }
+    ]
   }
 ]
 ```

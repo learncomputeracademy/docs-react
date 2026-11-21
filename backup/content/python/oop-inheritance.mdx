@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python OOP: Inheritance and Polymorphism | Learn Computer Academy"
 meta_description: "Sharing behavior between classes with inheritance, and letting different classes respond to the same method call in their own way."
 sort_order: 23
-updated_at: "2026-08-04T11:39:33.164062+00:00"
+updated_at: "2026-11-21T06:12:48.647617+00:00"
 ---
 
 ```json
@@ -101,6 +101,61 @@ updated_at: "2026-08-04T11:39:33.164062+00:00"
     "type": "code",
     "language": "python",
     "runnable": false
+  },
+  {
+    "id": "quiz-oop-inheritance",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-inheritance-q1",
+        "answer": 3,
+        "prompt": "How does class Student inherit from Person?",
+        "explain": "The parent goes in parentheses.",
+        "options": [
+          "<code>class Student extends Person:</code>",
+          "<code>class Student &lt; Person:</code>",
+          "<code>class Student inherits Person:</code>",
+          "<code>class Student(Person):</code>"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q2",
+        "answer": 0,
+        "prompt": "What does <code>super().__init__(name)</code> do?",
+        "explain": "Reuses the parent's setup instead of rewriting it.",
+        "options": [
+          "Runs the parent class's __init__",
+          "Creates a new class",
+          "Deletes the parent",
+          "Makes the class private"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q3",
+        "answer": 2,
+        "prompt": "How does a subclass override a parent method?",
+        "explain": "No special keyword needed.",
+        "options": [
+          "With the override keyword",
+          "By deleting the parent method",
+          "By defining a method with the same name",
+          "It can't"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q4",
+        "answer": 1,
+        "prompt": "What is polymorphism?",
+        "explain": "Each class runs its own version.",
+        "options": [
+          "One object with many classes",
+          "The same method call working differently on different objects",
+          "Copying classes",
+          "A type of loop"
+        ]
+      }
+    ]
   }
 ]
 ```

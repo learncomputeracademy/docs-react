@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Security Basics | Learn Computer Academy"
 meta_description: "The four security issues every PHP developer runs into eventually — SQL injection, cross-site scripting, CSRF, and how to store passwords safely — and how to actually prevent each one."
 sort_order: 32
-updated_at: "2026-09-03T04:05:23.270976+00:00"
+updated_at: "2026-11-21T06:08:39.49094+00:00"
 ---
 
 ```json
@@ -145,6 +145,61 @@ updated_at: "2026-09-03T04:05:23.270976+00:00"
     "type": "callout",
     "title": "Related, from the other side",
     "variant": "note"
+  },
+  {
+    "id": "quiz-php-security-basics",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "php-security-basics-q1",
+        "answer": 1,
+        "prompt": "What prevents SQL injection?",
+        "explain": "The input is sent separately from the SQL.",
+        "options": [
+          "Escaping HTML",
+          "Prepared statements",
+          "Using POST",
+          "Long passwords"
+        ]
+      },
+      {
+        "id": "php-security-basics-q2",
+        "answer": 3,
+        "prompt": "What prevents XSS when printing user input?",
+        "explain": "It turns &lt; and &gt; into harmless entities.",
+        "options": [
+          "Prepared statements",
+          "Sessions",
+          "Password hashing",
+          "<code>htmlspecialchars()</code>"
+        ]
+      },
+      {
+        "id": "php-security-basics-q3",
+        "answer": 0,
+        "prompt": "How should passwords be stored?",
+        "explain": "Check them with <code>password_verify()</code>.",
+        "options": [
+          "Hashed with <code>password_hash()</code>",
+          "As plain text",
+          "With md5()",
+          "Base64-encoded"
+        ]
+      },
+      {
+        "id": "php-security-basics-q4",
+        "answer": 2,
+        "prompt": "What does a CSRF token protect against?",
+        "explain": "The token proves the form came from your own page.",
+        "options": [
+          "Slow pages",
+          "SQL injection",
+          "Another site submitting forms using the visitor's logged-in session",
+          "Weak passwords"
+        ]
+      }
+    ]
   }
 ]
 ```

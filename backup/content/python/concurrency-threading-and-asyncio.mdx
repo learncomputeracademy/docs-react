@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Concurrency — Threading and asyncio | Learn Computer Academy"
 meta_description: "Why Python's Global Interpreter Lock changes how concurrency works, and the two main tools — threading for I/O-bound waiting, asyncio for many concurrent tasks on one thread."
 sort_order: 32
-updated_at: "2026-09-03T04:52:50.917124+00:00"
+updated_at: "2026-11-21T06:12:51.10678+00:00"
 ---
 
 ```json
@@ -100,6 +100,61 @@ updated_at: "2026-09-03T04:52:50.917124+00:00"
     "header": [
       "threading",
       "asyncio"
+    ]
+  },
+  {
+    "id": "quiz-concurrency-threading-and-asyncio",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "concurrency-threading-and-asyncio-q1",
+        "answer": 1,
+        "prompt": "What does the GIL do?",
+        "explain": "Global Interpreter Lock.",
+        "options": [
+          "Speeds up every thread",
+          "Allows only one thread to run Python bytecode at a time",
+          "Locks files",
+          "Encrypts data"
+        ]
+      },
+      {
+        "id": "concurrency-threading-and-asyncio-q2",
+        "answer": 3,
+        "prompt": "What is threading good for in Python?",
+        "explain": "The GIL is released while waiting.",
+        "options": [
+          "Heavy maths",
+          "Image processing",
+          "Speeding up CPU-bound loops",
+          "I/O-bound waiting, like network requests"
+        ]
+      },
+      {
+        "id": "concurrency-threading-and-asyncio-q3",
+        "answer": 0,
+        "prompt": "What speeds up CPU-heavy work across cores?",
+        "explain": "Threads share one GIL.",
+        "options": [
+          "multiprocessing — separate processes, each with its own GIL",
+          "More threads",
+          "asyncio",
+          "time.sleep"
+        ]
+      },
+      {
+        "id": "concurrency-threading-and-asyncio-q4",
+        "answer": 2,
+        "prompt": "What is asyncio built around?",
+        "explain": "Similar in spirit to Node's event loop.",
+        "options": [
+          "Many processes",
+          "GPU threads",
+          "async/await on a single thread, switching while tasks wait",
+          "Locks"
+        ]
+      }
     ]
   }
 ]

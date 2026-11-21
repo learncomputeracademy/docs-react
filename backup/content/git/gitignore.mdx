@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The .gitignore File | Learn Computer Academy"
 meta_description: "Telling Git which files to never track — dependencies, secrets, and build output that don't belong in a repository's history."
 sort_order: 5
-updated_at: "2026-09-03T05:20:00.518577+00:00"
+updated_at: "2026-11-21T10:18:31.741563+00:00"
 ---
 
 ```json
@@ -129,6 +129,59 @@ updated_at: "2026-09-03T05:20:00.518577+00:00"
     "type": "callout",
     "title": "A leaked secret needs rotating, not just ignoring",
     "variant": "danger"
+  },
+  {
+    "id": "quiz-gitignore",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "gitignore-q1",
+        "answer": 0,
+        "prompt": "What does a .gitignore file do?",
+        "explain": "Dependencies, build output and secrets.",
+        "options": [
+          "Tells Git which files or folders not to track",
+          "Deletes files",
+          "Hides the repository",
+          "Speeds up push"
+        ]
+      },
+      {
+        "id": "gitignore-q2",
+        "answer": 2,
+        "prompt": "Which file should almost always be in .gitignore?",
+        "explain": "It usually holds secrets like API keys.",
+        "options": [
+          "<code>README.md</code>",
+          "<code>index.html</code>",
+          "<code>.env</code>",
+          "<code>style.css</code>"
+        ]
+      },
+      {
+        "id": "gitignore-q3",
+        "answer": 3,
+        "prompt": "You add .env to .gitignore, but it was already committed. What now?",
+        "explain": "Already-tracked files keep being tracked.",
+        "options": [
+          "Nothing; it is ignored automatically",
+          "Delete the repository",
+          "Rename it",
+          "Run <code>git rm --cached .env</code> and commit"
+        ]
+      },
+      {
+        "id": "gitignore-q4",
+        "answer": 0,
+        "prompt": "The pattern <code>*.log</code> ignores every file ending in .log.",
+        "explain": "* matches any characters.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

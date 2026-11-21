@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Functions | Learn Computer Academy"
 meta_description: "COUNT, SUM, AVG, MIN/MAX, plus string, date, and numeric functions — built-in SQL functions that transform or summarize values without procedural code."
 sort_order: 12
-updated_at: "2026-07-29T06:31:08.066829+00:00"
+updated_at: "2026-11-21T05:51:03.597789+00:00"
 ---
 
 ```json
@@ -272,6 +272,61 @@ updated_at: "2026-07-29T06:31:08.066829+00:00"
     "id": "8RoqedDClF56",
     "html": "<p>Functions handle the everyday math and text work. The next lesson covers window functions — a related but more powerful tool for calculating across a set of rows without collapsing them into one.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-functions",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-q1",
+        "answer": 1,
+        "prompt": "What is the difference between <code>COUNT(*)</code> and <code>COUNT(email)</code>?",
+        "explain": "COUNT(*) counts every row; COUNT(column) skips NULLs in that column.",
+        "options": [
+          "None",
+          "<code>COUNT(email)</code> skips rows where email is NULL",
+          "<code>COUNT(*)</code> skips NULLs",
+          "<code>COUNT(email)</code> counts distinct emails"
+        ]
+      },
+      {
+        "id": "functions-q2",
+        "answer": 2,
+        "prompt": "How does <code>AVG(salary)</code> treat NULL salaries?",
+        "explain": "That can make the average differ from a manual calculation that counted them as 0.",
+        "options": [
+          "As 0",
+          "It returns NULL",
+          "It ignores them",
+          "It raises an error"
+        ]
+      },
+      {
+        "id": "functions-q3",
+        "answer": 3,
+        "prompt": "Which function returns the largest value?",
+        "explain": "MIN and MAX also work on dates and text.",
+        "options": [
+          "<code>TOP()</code>",
+          "<code>HIGH()</code>",
+          "<code>LARGEST()</code>",
+          "<code>MAX()</code>"
+        ]
+      },
+      {
+        "id": "functions-q4",
+        "answer": 0,
+        "prompt": "What does <code>SUM(salary)</code> return?",
+        "explain": "SUM ignores NULL values.",
+        "options": [
+          "The total of all salary values",
+          "The number of salaries",
+          "The average salary",
+          "The highest salary"
+        ]
+      }
+    ]
   }
 ]
 ```

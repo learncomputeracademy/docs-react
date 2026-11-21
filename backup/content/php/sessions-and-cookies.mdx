@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Sessions and Cookies | Learn Computer Academy"
 meta_description: "How PHP remembers a visitor across multiple page loads using $_SESSION and $_COOKIE, and when to use each."
 sort_order: 20
-updated_at: "2026-07-30T09:08:40.767081+00:00"
+updated_at: "2026-11-21T06:08:36.184459+00:00"
 ---
 
 ```json
@@ -128,6 +128,61 @@ updated_at: "2026-07-30T09:08:40.767081+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-sessions-and-cookies",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "sessions-and-cookies-q1",
+        "answer": 2,
+        "prompt": "Where is a cookie stored?",
+        "explain": "The browser sends it back on every request to the site.",
+        "options": [
+          "On the server",
+          "In the database",
+          "In the visitor's browser",
+          "In php.ini"
+        ]
+      },
+      {
+        "id": "sessions-and-cookies-q2",
+        "answer": 3,
+        "prompt": "Where is session data stored?",
+        "explain": "Safer for anything sensitive, like who is logged in.",
+        "options": [
+          "In the browser",
+          "In the URL",
+          "In a cookie",
+          "On the server; the browser only holds a session ID"
+        ]
+      },
+      {
+        "id": "sessions-and-cookies-q3",
+        "answer": 0,
+        "prompt": "What must be called before using $_SESSION?",
+        "explain": "At the top of the script, before any output.",
+        "options": [
+          "<code>session_start()</code>",
+          "<code>session_open()</code>",
+          "<code>start_session()</code>",
+          "<code>$_SESSION = []</code>"
+        ]
+      },
+      {
+        "id": "sessions-and-cookies-q4",
+        "answer": 1,
+        "prompt": "Why must setcookie() be called before any HTML output?",
+        "explain": "Once output starts, headers have been sent.",
+        "options": [
+          "It is faster",
+          "Cookies are sent in HTTP headers, which go before the body",
+          "HTML deletes cookies",
+          "It is a style rule"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -5,7 +5,7 @@ path: "javascript/error-handling"
 status: "published"
 meta_title: "JavaScript Error Handling | Learn Computer Academy"
 sort_order: 18
-updated_at: "2026-07-29T05:40:23.28176+00:00"
+updated_at: "2026-11-21T05:55:18.286677+00:00"
 ---
 
 ```json
@@ -213,6 +213,61 @@ updated_at: "2026-07-29T05:40:23.28176+00:00"
     "id": "LCB3pQuSaRGN",
     "html": "<ol>\n                                    <li>Write a function that throws an error if the argument is not a string.</li>\n                                    <li>Use <code>try...catch...finally</code> to divide two numbers.</li>\n                                    <li>Validate a name field in a form — throw if it's empty.</li>\n                                    <li>Write a nested <code>try...catch</code> block and re-throw the error.</li>\n                                    <li>Handle a <code>fetch()</code> request error using <code>try/catch</code>.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-error-handling",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "error-handling-q1",
+        "answer": 2,
+        "prompt": "When does the finally block run?",
+        "explain": "Use it for cleanup: closing connections, hiding loaders.",
+        "options": [
+          "Only when there is an error",
+          "Only when there is no error",
+          "Always — error or not",
+          "Never"
+        ]
+      },
+      {
+        "id": "error-handling-q2",
+        "answer": 3,
+        "prompt": "What happens to an error thrown inside try?",
+        "explain": "Without try...catch, the error would stop the rest of the script.",
+        "options": [
+          "The page crashes",
+          "It is ignored silently",
+          "The try block restarts",
+          "Control jumps to catch, and the rest of the script keeps running"
+        ]
+      },
+      {
+        "id": "error-handling-q3",
+        "answer": 0,
+        "prompt": "How do you raise your own error?",
+        "explain": "console.error only prints; throw actually stops execution.",
+        "options": [
+          "<code>throw new Error(\"Invalid age\")</code>",
+          "<code>raise Error(\"Invalid age\")</code>",
+          "<code>error(\"Invalid age\")</code>",
+          "<code>console.error(\"Invalid age\")</code>"
+        ]
+      },
+      {
+        "id": "error-handling-q4",
+        "answer": 1,
+        "prompt": "In <code>catch (err)</code>, where is the error text?",
+        "explain": "<code>err.name</code> holds the error type, like \"ReferenceError\".",
+        "options": [
+          "<code>err.text</code>",
+          "<code>err.message</code>",
+          "<code>err.code</code>",
+          "<code>err.toString</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

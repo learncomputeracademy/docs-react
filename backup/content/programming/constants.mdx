@@ -5,7 +5,7 @@ path: "programming/constants"
 status: "published"
 meta_title: "Constants | Learn Computer Academy"
 sort_order: 3
-updated_at: "2026-08-18T14:27:45.844381+00:00"
+updated_at: "2026-11-21T10:12:43.961288+00:00"
 ---
 
 ```json
@@ -75,6 +75,61 @@ updated_at: "2026-08-18T14:27:45.844381+00:00"
     "id": "vKyImEcWyHVP",
     "html": "<p>A common habit among experienced programmers: default to <code>const</code>, and only switch to <code>let</code> when you know a value genuinely needs to change later (like a counter or a score). It makes code easier to reason about — if you see <code>const</code>, you know that value is fixed for good.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-constants",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "constants-q1",
+        "answer": 1,
+        "prompt": "How is a constant different from a variable?",
+        "explain": "Use <code>const</code> instead of <code>let</code>.",
+        "options": [
+          "It cannot hold text",
+          "Its value cannot change after it is set",
+          "It is faster",
+          "It is global only"
+        ]
+      },
+      {
+        "id": "constants-q2",
+        "answer": 3,
+        "prompt": "What happens with <code>const pi = 3.14159; pi = 3.14;</code>?",
+        "explain": "JavaScript stops you on purpose.",
+        "options": [
+          "pi becomes 3.14",
+          "Nothing",
+          "pi becomes undefined",
+          "A TypeError: assignment to constant variable"
+        ]
+      },
+      {
+        "id": "constants-q3",
+        "answer": 0,
+        "prompt": "What habit do experienced programmers often follow?",
+        "explain": "It makes code easier to reason about.",
+        "options": [
+          "Default to const, use let only when the value must change",
+          "Always use let",
+          "Never use const",
+          "Use var everywhere"
+        ]
+      },
+      {
+        "id": "constants-q4",
+        "answer": 1,
+        "prompt": "A counter that goes up each round should be declared with…",
+        "explain": "Its value must change.",
+        "options": [
+          "<code>const</code>",
+          "<code>let</code>",
+          "<code>static</code>",
+          "<code>fixed</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

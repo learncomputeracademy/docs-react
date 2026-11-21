@@ -6,7 +6,7 @@ status: "published"
 meta_title: "JSX Syntax | Learn Computer Academy"
 meta_description: "What JSX is, how it lets you write HTML-like markup inside JavaScript, and the key differences from real HTML."
 sort_order: 3
-updated_at: "2026-07-31T11:24:35.184651+00:00"
+updated_at: "2026-11-21T10:21:51.850998+00:00"
 ---
 
 ```json
@@ -127,6 +127,61 @@ updated_at: "2026-07-31T11:24:35.184651+00:00"
     "id": "DlLjwVd_v7ZS",
     "html": "<p>The Fragments and Portals lesson later in this section covers a way to satisfy this rule without adding an extra, meaningless <code>&lt;div&gt;</code> to the actual page.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-jsx",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "jsx-q1",
+        "answer": 0,
+        "prompt": "What is this line?<pre><code>const element = &lt;h1&gt;Hello, world!&lt;/h1&gt;;</code></pre>",
+        "explain": "Becomes something like <code>React.createElement('h1', null, 'Hello')</code>.",
+        "options": [
+          "HTML-like syntax inside JavaScript, compiled to function calls",
+          "A new browser",
+          "A string of HTML",
+          "A CSS file"
+        ]
+      },
+      {
+        "id": "jsx-q2",
+        "answer": 2,
+        "prompt": "How do you embed a JavaScript value in JSX?",
+        "explain": "Any expression works inside single curly braces.",
+        "options": [
+          "<code>$(name)</code>",
+          "<code>{{name}}</code>",
+          "<code>{name}</code>",
+          "<code>&lt;%= name %&gt;</code>"
+        ]
+      },
+      {
+        "id": "jsx-q3",
+        "answer": 3,
+        "prompt": "In JSX, which attribute replaces HTML's class?",
+        "explain": "class is a reserved word in JavaScript.",
+        "options": [
+          "<code>class</code>",
+          "<code>cssClass</code>",
+          "<code>style</code>",
+          "<code>className</code>"
+        ]
+      },
+      {
+        "id": "jsx-q4",
+        "answer": 1,
+        "prompt": "Can you put an if statement directly inside JSX braces?",
+        "explain": "Use && or the ternary operator instead.",
+        "options": [
+          "Yes",
+          "No, only expressions are allowed",
+          "Only in components",
+          "Only with fragments"
+        ]
+      }
+    ]
   }
 ]
 ```

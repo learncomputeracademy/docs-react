@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Variable Scope | Learn Computer Academy"
 meta_description: "Where a PHP variable is visible from — local vs. global scope, and the global keyword."
 sort_order: 17
-updated_at: "2026-07-30T09:08:39.707428+00:00"
+updated_at: "2026-11-21T06:08:35.312353+00:00"
 ---
 
 ```json
@@ -98,6 +98,61 @@ updated_at: "2026-07-30T09:08:39.707428+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-scope",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scope-q1",
+        "answer": 3,
+        "prompt": "Can a PHP function read a global variable automatically?",
+        "explain": "PHP is stricter about scope than many languages.",
+        "options": [
+          "Yes, like most languages",
+          "Only constants",
+          "Only inside loops",
+          "No — it must be passed in or declared with global"
+        ]
+      },
+      {
+        "id": "scope-q2",
+        "answer": 0,
+        "prompt": "What is the cleanest way to give a function a value from outside?",
+        "explain": "Parameters make dependencies visible.",
+        "options": [
+          "Pass it as a parameter",
+          "Use $GLOBALS everywhere",
+          "Make every variable global",
+          "Use a constant for everything"
+        ]
+      },
+      {
+        "id": "scope-q3",
+        "answer": 2,
+        "prompt": "What happens to a local variable when its function finishes?",
+        "explain": "Unless declared static, which keeps its value between calls.",
+        "options": [
+          "It becomes global",
+          "It is saved for next time",
+          "It disappears",
+          "It is printed"
+        ]
+      },
+      {
+        "id": "scope-q4",
+        "answer": 1,
+        "prompt": "What does the <code>static</code> keyword do for a variable inside a function?",
+        "explain": "Useful for counters.",
+        "options": [
+          "Makes it a constant",
+          "Keeps its value between calls",
+          "Makes it global",
+          "Deletes it"
+        ]
+      }
+    ]
   }
 ]
 ```

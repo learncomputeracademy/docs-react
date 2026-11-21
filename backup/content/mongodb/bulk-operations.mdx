@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Bulk Operations — bulkWrite() | Learn Computer Academy"
 meta_description: "Running many inserts, updates, and deletes in a single database round trip with bulkWrite(), instead of one operation at a time."
 sort_order: 23
-updated_at: "2026-09-03T04:59:12.38119+00:00"
+updated_at: "2026-11-21T10:24:37.005738+00:00"
 ---
 
 ```json
@@ -109,6 +109,59 @@ updated_at: "2026-09-03T04:59:12.38119+00:00"
     "type": "callout",
     "title": "The classic bulkWrite use case",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-bulk-operations",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "bulk-operations-q1",
+        "answer": 0,
+        "prompt": "What does bulkWrite() do?",
+        "explain": "Far fewer round trips.",
+        "options": [
+          "Batches many inserts, updates and deletes into one request",
+          "Writes a backup",
+          "Creates many collections",
+          "Prints documents"
+        ]
+      },
+      {
+        "id": "bulk-operations-q2",
+        "answer": 2,
+        "prompt": "Why is bulkWrite() faster for thousands of changes?",
+        "explain": "Network latency adds up.",
+        "options": [
+          "It skips validation",
+          "It deletes old data",
+          "It sends them together instead of one network request each",
+          "It uses a faster disk"
+        ]
+      },
+      {
+        "id": "bulk-operations-q3",
+        "answer": 3,
+        "prompt": "Which is NOT an operation bulkWrite supports?",
+        "explain": "Indexes are created separately.",
+        "options": [
+          "<code>insertOne</code>",
+          "<code>updateOne</code>",
+          "<code>deleteMany</code>",
+          "<code>createIndex</code>"
+        ]
+      },
+      {
+        "id": "bulk-operations-q4",
+        "answer": 0,
+        "prompt": "With <code>ordered: false</code>, MongoDB keeps going after a failed operation.",
+        "explain": "Ordered mode stops at the first error.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

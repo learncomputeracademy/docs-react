@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The Node.js Event Loop | Learn Computer Academy"
 meta_description: "How Node.js runs on a single thread yet still handles thousands of connections at once, without one slow request blocking the rest."
 sort_order: 10
-updated_at: "2026-08-05T05:47:55.617535+00:00"
+updated_at: "2026-11-21T06:03:25.221081+00:00"
 ---
 
 ```json
@@ -79,6 +79,61 @@ updated_at: "2026-08-05T05:47:55.617535+00:00"
     "id": "g_fnQ3InUC9p",
     "html": "<p>You rarely write \"event loop\" code directly — it runs automatically, underneath every callback, promise, and <code>async</code>/<code>await</code> you write. But understanding that it's there explains a lot: why Node.js code is written the way it is, why blocking file operations are discouraged in servers, and why the next several lessons on events, callbacks, and promises all matter as much as they do.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-event-loop",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "event-loop-q1",
+        "answer": 1,
+        "prompt": "How many threads run your JavaScript code in Node?",
+        "explain": "Only one line of your code runs at any instant.",
+        "options": [
+          "One per request",
+          "One",
+          "One per CPU core",
+          "Unlimited"
+        ]
+      },
+      {
+        "id": "event-loop-q2",
+        "answer": 3,
+        "prompt": "How does Node handle many requests on one thread?",
+        "explain": "Most server time is waiting, not computing.",
+        "options": [
+          "It queues them and runs one per minute",
+          "It refuses extra requests",
+          "It starts a new thread per request",
+          "It hands waiting (disk, database, network) to the OS and moves on"
+        ]
+      },
+      {
+        "id": "event-loop-q3",
+        "answer": 0,
+        "prompt": "What kind of work does block every request in Node?",
+        "explain": "Waiting is offloaded; computing is not.",
+        "options": [
+          "Long CPU-heavy computation on the main thread",
+          "Reading a file asynchronously",
+          "Waiting for a database",
+          "Calling another API"
+        ]
+      },
+      {
+        "id": "event-loop-q4",
+        "answer": 2,
+        "prompt": "When an async operation finishes, what happens to its callback?",
+        "explain": "That is the event loop at work.",
+        "options": [
+          "It interrupts the running code immediately",
+          "It is discarded",
+          "It is queued and runs when the current code finishes",
+          "It runs on a new thread"
+        ]
+      }
+    ]
   }
 ]
 ```

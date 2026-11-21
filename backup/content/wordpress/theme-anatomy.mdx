@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Anatomy of a WordPress Theme | Learn Computer Academy"
 meta_description: "The files WordPress actually requires for something to count as a theme, and the fuller set of files a real custom theme ends up with."
 sort_order: 3
-updated_at: "2026-07-30T14:23:24.945112+00:00"
+updated_at: "2026-11-21T05:59:21.710761+00:00"
 ---
 
 ```json
@@ -130,6 +130,59 @@ updated_at: "2026-07-30T14:23:24.945112+00:00"
     "id": "I2lWnq0YZvqD",
     "html": "<p>Every remaining lesson in this section fills in one of these files properly, starting with <code>functions.php</code> — the file that sets up everything else.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-theme-anatomy",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "theme-anatomy-q1",
+        "answer": 1,
+        "prompt": "Where do themes live?",
+        "explain": "Each theme is one folder in there.",
+        "options": [
+          "<code>wp-admin/themes/</code>",
+          "<code>wp-content/themes/</code>",
+          "<code>wp-includes/themes/</code>",
+          "<code>public/themes/</code>"
+        ]
+      },
+      {
+        "id": "theme-anatomy-q2",
+        "answer": 1,
+        "prompt": "Which two files does every theme need?",
+        "explain": "style.css identifies the theme; index.php is the catch-all template.",
+        "options": [
+          "<code>functions.php</code> and <code>header.php</code>",
+          "<code>style.css</code> and <code>index.php</code>",
+          "<code>page.php</code> and <code>single.php</code>",
+          "<code>theme.json</code> and <code>app.js</code>"
+        ]
+      },
+      {
+        "id": "theme-anatomy-q3",
+        "answer": 3,
+        "prompt": "Why must every theme have <code>style.css</code>?",
+        "explain": "Theme Name, Author, Version and so on.",
+        "options": [
+          "Its CSS is required for WordPress to load",
+          "It stores the database password",
+          "It lists the plugins",
+          "WordPress reads the comment block at the top to get the theme's name and details"
+        ]
+      },
+      {
+        "id": "theme-anatomy-q4",
+        "answer": 0,
+        "prompt": "A folder with only style.css and index.php is a valid, activatable theme.",
+        "explain": "It would just look the same on every page.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

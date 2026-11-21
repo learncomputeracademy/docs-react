@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Practice Projects | Learn Computer Academy"
 meta_description: "24 hands-on Python projects across four levels — beginner console programs, intermediate apps with files and JSON, Tkinter GUIs, and your first OOP project — each with a brief and a solution to check your work against."
 sort_order: 38
-updated_at: "2026-09-03T04:52:52.31668+00:00"
+updated_at: "2026-11-21T06:12:53.025078+00:00"
 ---
 
 ```json
@@ -88,6 +88,61 @@ updated_at: "2026-09-03T04:52:52.31668+00:00"
     "id": "3QhlOLlikl16",
     "html": "<p>Once these feel comfortable without copying the solution, the <a href=\"/python/where-to-go-next/\">Where to Go Next</a> lesson covers virtual environments, pip, and which framework or library to look at first.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-practice-projects",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "practice-projects-q1",
+        "answer": 2,
+        "prompt": "In \"Guess the Number\", which module picks the secret number?",
+        "explain": "<code>random.randint(1, 100)</code>",
+        "options": [
+          "<code>math</code>",
+          "<code>os</code>",
+          "<code>random</code>",
+          "<code>secrets</code>"
+        ]
+      },
+      {
+        "id": "practice-projects-q2",
+        "answer": 3,
+        "prompt": "Which loop fits \"keep asking until the guess is right\"?",
+        "explain": "You don't know in advance how many guesses it will take.",
+        "options": [
+          "for i in range(10)",
+          "A list comprehension",
+          "No loop",
+          "A while loop with break when correct"
+        ]
+      },
+      {
+        "id": "practice-projects-q3",
+        "answer": 0,
+        "prompt": "Why convert the guess with int(input(...))?",
+        "explain": "\"50\" > 37 would raise a TypeError.",
+        "options": [
+          "input() returns a string, and you need a number to compare",
+          "It is faster",
+          "int() checks spelling",
+          "It is optional"
+        ]
+      },
+      {
+        "id": "practice-projects-q4",
+        "answer": 1,
+        "prompt": "What is the best way to use these projects?",
+        "explain": "Run them in your own editor, like any real Python program.",
+        "options": [
+          "Read the solution first",
+          "Try building it yourself, then compare with the solution",
+          "Skip the beginner level",
+          "Copy the code"
+        ]
+      }
+    ]
   }
 ]
 ```

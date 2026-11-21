@@ -6,7 +6,7 @@ status: "published"
 meta_title: "HTML Accessibility Basics | Learn Computer Academy"
 meta_description: "The handful of HTML habits — alt text, labels, and semantic tags — that make a page usable for people relying on a screen reader or keyboard."
 sort_order: 44
-updated_at: "2026-09-03T03:43:16.583716+00:00"
+updated_at: "2026-11-20T15:25:15.929702+00:00"
 ---
 
 ```json
@@ -117,6 +117,60 @@ updated_at: "2026-09-03T03:43:16.583716+00:00"
     "type": "callout",
     "title": "This is a starting point, not the whole subject",
     "variant": "note"
+  },
+  {
+    "id": "quiz-accessibility-basics",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "accessibility-basics-q1",
+        "answer": 1,
+        "prompt": "How is a label connected to its input?",
+        "explain": "<code>&lt;label for=\"email\"&gt;</code> + <code>&lt;input id=\"email\"&gt;</code>. Clicking the label then focuses the input.",
+        "options": [
+          "By placing the label after the input",
+          "The label's for matches the input's id",
+          "With the same class",
+          "They connect automatically"
+        ]
+      },
+      {
+        "id": "accessibility-basics-q2",
+        "answer": 2,
+        "prompt": "What makes good alt text?",
+        "explain": "For a chart: \"Bar chart showing sales doubling from January to June\".",
+        "options": [
+          "The file name",
+          "The word \"image\"",
+          "What the image tells the reader",
+          "As many keywords as possible"
+        ]
+      },
+      {
+        "id": "accessibility-basics-q3",
+        "answer": 3,
+        "prompt": "A button only shows an ✕ icon. How do you give it an accessible name?",
+        "explain": "Screen readers announce the aria-label when there is no visible text.",
+        "options": [
+          "<code>title-text=\"Close\"</code>",
+          "<code>name=\"Close\"</code>",
+          "<code>alt=\"Close\"</code>",
+          "<code>aria-label=\"Close menu\"</code>"
+        ]
+      },
+      {
+        "id": "accessibility-basics-q4",
+        "answer": 0,
+        "prompt": "Why use <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code> and <code>&lt;button&gt;</code> instead of <code>&lt;div&gt;</code> for everything?",
+        "explain": "Users can jump between landmarks, and a real button works with the keyboard for free.",
+        "options": [
+          "They give screen readers landmarks and built-in behaviour",
+          "They load faster",
+          "They are required by CSS",
+          "There is no real reason"
+        ]
+      }
+    ]
   }
 ]
 ```

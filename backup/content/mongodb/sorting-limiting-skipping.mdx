@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Sorting, Limiting & Skipping | Learn Computer Academy"
 meta_description: "Ordering query results with sort(), capping how many come back with limit(), and paginating with skip()."
 sort_order: 10
-updated_at: "2026-08-18T10:11:24.375475+00:00"
+updated_at: "2026-11-21T10:24:33.014944+00:00"
 ---
 
 ```json
@@ -100,6 +100,59 @@ updated_at: "2026-08-18T10:11:24.375475+00:00"
     "type": "callout",
     "title": "skip() is fine for typical pagination",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-sorting-limiting-skipping",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "sorting-limiting-skipping-q1",
+        "answer": 1,
+        "prompt": "What does <code>sort({ age: -1 })</code> do?",
+        "explain": "1 is ascending.",
+        "options": [
+          "Sorts youngest to oldest",
+          "Sorts oldest to youngest (descending)",
+          "Removes age",
+          "Filters age -1"
+        ]
+      },
+      {
+        "id": "sorting-limiting-skipping-q2",
+        "answer": 0,
+        "prompt": "What does <code>limit(5)</code> do?",
+        "explain": "Good for \"top 5\" results.",
+        "options": [
+          "Returns at most 5 documents",
+          "Skips 5 documents",
+          "Deletes 5 documents",
+          "Waits 5 seconds"
+        ]
+      },
+      {
+        "id": "sorting-limiting-skipping-q3",
+        "answer": 3,
+        "prompt": "Which combination builds pagination?",
+        "explain": "Page 3 of 10 per page: skip(20).limit(10).",
+        "options": [
+          "sort and delete",
+          "insert and find",
+          "update and limit",
+          "skip and limit"
+        ]
+      },
+      {
+        "id": "sorting-limiting-skipping-q4",
+        "answer": 0,
+        "prompt": "These methods can be chained onto find().",
+        "explain": "find().sort().skip().limit().",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

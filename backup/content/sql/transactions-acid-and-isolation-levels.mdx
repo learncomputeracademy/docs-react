@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Transactions — ACID and Isolation Levels | Learn Computer Academy"
 meta_description: "The theory behind BEGIN/COMMIT/ROLLBACK from the earlier TCL lesson — the four ACID guarantees, and how isolation levels trade consistency for speed."
 sort_order: 20
-updated_at: "2026-09-03T04:30:03.256828+00:00"
+updated_at: "2026-11-21T05:51:05.939591+00:00"
 ---
 
 ```json
@@ -131,6 +131,59 @@ updated_at: "2026-09-03T04:30:03.256828+00:00"
     "type": "callout",
     "title": "Common Mistake",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-transactions-acid-and-isolation-levels",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "transactions-acid-and-isolation-levels-q1",
+        "answer": 1,
+        "prompt": "Why is a money transfer the classic transaction example?",
+        "explain": "Half a transfer would make money disappear or appear from nowhere.",
+        "options": [
+          "It uses DECIMAL",
+          "Both updates (debit and credit) must succeed together, or neither",
+          "It needs an index",
+          "It is read-only"
+        ]
+      },
+      {
+        "id": "transactions-acid-and-isolation-levels-q2",
+        "answer": 2,
+        "prompt": "What does the \"A\" in ACID stand for?",
+        "explain": "Atomicity, Consistency, Isolation, Durability.",
+        "options": [
+          "Availability",
+          "Accuracy",
+          "Atomicity — all or nothing",
+          "Authentication"
+        ]
+      },
+      {
+        "id": "transactions-acid-and-isolation-levels-q3",
+        "answer": 3,
+        "prompt": "What is a \"dirty read\"?",
+        "explain": "Those changes might still be rolled back.",
+        "options": [
+          "Reading a table without an index",
+          "Reading deleted rows",
+          "Reading with the wrong user",
+          "Reading another transaction's changes before they are committed"
+        ]
+      },
+      {
+        "id": "transactions-acid-and-isolation-levels-q4",
+        "answer": 1,
+        "prompt": "The strictest isolation level (SERIALIZABLE) is always the best choice.",
+        "explain": "It can make more transactions fail and retry under load. The default suits most apps.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

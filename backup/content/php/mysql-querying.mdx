@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP and MySQL: Querying Data with PDO | Learn Computer Academy"
 meta_description: "Running SELECT, INSERT, UPDATE, and DELETE queries from PHP with PDO, and why prepared statements are essential for security."
 sort_order: 29
-updated_at: "2026-07-30T09:08:44.377335+00:00"
+updated_at: "2026-11-21T06:08:38.649034+00:00"
 ---
 
 ```json
@@ -91,6 +91,61 @@ updated_at: "2026-07-30T09:08:44.377335+00:00"
     "id": "ST75u4L9BorV",
     "html": "<p>This lesson closes out the PHP section by connecting it back to everything else on this site: the HTML you already know renders the page, the PHP in this section decides what data goes into it, and the <a href=\"/sql/\">SQL section</a> is the full reference for everything you can ask a database to do once PHP hands it a query. From here, the practical next step is a small real project — a guestbook, a simple to-do list stored in a database — that uses all of it together.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-mysql-querying",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "mysql-querying-q1",
+        "answer": 1,
+        "prompt": "What does fetchAll(PDO::FETCH_ASSOC) return?",
+        "explain": "Each row is keyed by column name.",
+        "options": [
+          "One string",
+          "An array of associative arrays, one per row",
+          "The number of rows",
+          "A JSON string"
+        ]
+      },
+      {
+        "id": "mysql-querying-q2",
+        "answer": 3,
+        "prompt": "Why use prepared statements for queries with user input?",
+        "explain": "The single most important habit with databases.",
+        "options": [
+          "They are shorter",
+          "They cache results",
+          "They are required for SELECT",
+          "The query and data are sent separately, preventing SQL injection"
+        ]
+      },
+      {
+        "id": "mysql-querying-q3",
+        "answer": 0,
+        "prompt": "Which pair runs a prepared statement?",
+        "explain": "Placeholders like ? or :name mark where values go.",
+        "options": [
+          "<code>$pdo-&gt;prepare(...)</code> then <code>$stmt-&gt;execute([...])</code>",
+          "<code>$pdo-&gt;query(...)</code> then <code>echo</code>",
+          "<code>$pdo-&gt;run(...)</code>",
+          "<code>mysql_query(...)</code>"
+        ]
+      },
+      {
+        "id": "mysql-querying-q4",
+        "answer": 2,
+        "prompt": "Is <code>\"SELECT * FROM users WHERE id = $id\"</code> safe if $id comes from the URL?",
+        "explain": "Never glue a variable into the SQL string.",
+        "options": [
+          "Yes",
+          "Only for numbers",
+          "No — that is how SQL injection happens",
+          "Only with GET"
+        ]
+      }
+    ]
   }
 ]
 ```

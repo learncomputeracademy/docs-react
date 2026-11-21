@@ -5,7 +5,7 @@ path: "html/tables"
 status: "published"
 meta_title: "HTML Tables | Learn Computer Academy"
 sort_order: 13
-updated_at: "2026-07-29T05:40:20.104096+00:00"
+updated_at: "2026-11-20T15:25:07.486411+00:00"
 ---
 
 ```json
@@ -170,6 +170,58 @@ updated_at: "2026-07-29T05:40:20.104096+00:00"
     "header": [
       "Tag",
       "Description"
+    ]
+  },
+  {
+    "id": "quiz-tables",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tables-q1",
+        "answer": 1,
+        "prompt": "Which tag defines a table row?",
+        "explain": "<code>&lt;tr&gt;</code> = table row. Inside it go <code>&lt;th&gt;</code> (header cells) or <code>&lt;td&gt;</code> (data cells).",
+        "options": [
+          "<code>&lt;td&gt;</code>",
+          "<code>&lt;tr&gt;</code>",
+          "<code>&lt;th&gt;</code>",
+          "<code>&lt;row&gt;</code>"
+        ]
+      },
+      {
+        "id": "tables-q2",
+        "answer": 0,
+        "prompt": "How does a <code>&lt;th&gt;</code> cell look by default?",
+        "explain": "Table headings are bold and centered unless CSS changes them (e.g. <code>text-align: left</code>).",
+        "options": [
+          "Bold and centered",
+          "Italic and left-aligned",
+          "Red",
+          "Exactly like a normal cell"
+        ]
+      },
+      {
+        "id": "tables-q3",
+        "answer": 3,
+        "prompt": "How do you make one cell stretch across two columns?",
+        "explain": "<code>colspan</code> spans columns; <code>rowspan</code> spans rows.",
+        "options": [
+          "<code>rowspan=\"2\"</code>",
+          "<code>span=\"2\"</code>",
+          "<code>merge=\"2\"</code>",
+          "<code>colspan=\"2\"</code>"
+        ]
+      },
+      {
+        "id": "tables-q4",
+        "answer": 1,
+        "prompt": "An HTML table without any CSS shows borders around every cell.",
+        "explain": "A table has no borders unless you add them with the CSS <code>border</code> property.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
     ]
   }
 ]

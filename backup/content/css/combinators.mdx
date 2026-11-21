@@ -5,7 +5,7 @@ path: "css/combinators"
 status: "published"
 meta_title: "CSS Combinators | Learn Computer Academy"
 sort_order: 24
-updated_at: "2026-07-29T05:30:53.574572+00:00"
+updated_at: "2026-11-21T06:18:14.796178+00:00"
 ---
 
 ```json
@@ -155,6 +155,61 @@ updated_at: "2026-07-29T05:30:53.574572+00:00"
       "Selector",
       "Example",
       "Example description"
+    ]
+  },
+  {
+    "id": "quiz-combinators",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "combinators-q1",
+        "answer": 0,
+        "prompt": "What does <code>div p</code> select?",
+        "explain": "The space is the descendant combinator.",
+        "options": [
+          "All p elements inside a div, at any depth",
+          "Only direct children",
+          "The p right after a div",
+          "Both div and p"
+        ]
+      },
+      {
+        "id": "combinators-q2",
+        "answer": 3,
+        "prompt": "What does <code>div &gt; p</code> select?",
+        "explain": "> is the child combinator.",
+        "options": [
+          "Every p after a div",
+          "All p inside a div at any depth",
+          "p elements bigger than div",
+          "p elements that are direct children of a div"
+        ]
+      },
+      {
+        "id": "combinators-q3",
+        "answer": 1,
+        "prompt": "What does <code>h2 + p</code> select?",
+        "explain": "+ is the adjacent sibling combinator.",
+        "options": [
+          "All p elements",
+          "The p immediately after an h2",
+          "Every p after an h2",
+          "An h2 inside a p"
+        ]
+      },
+      {
+        "id": "combinators-q4",
+        "answer": 2,
+        "prompt": "What does <code>h2 ~ p</code> select?",
+        "explain": "~ is the general sibling combinator.",
+        "options": [
+          "Only the next p",
+          "p elements inside h2",
+          "All p siblings that come after an h2",
+          "The p before the h2"
+        ]
+      }
     ]
   }
 ]

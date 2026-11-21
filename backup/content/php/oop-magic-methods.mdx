@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Magic Methods | Learn Computer Academy"
 meta_description: "PHP's special __-prefixed methods that run automatically for certain operations — reading an undefined property, converting an object to a string, and more."
 sort_order: 36
-updated_at: "2026-09-03T04:05:24.461529+00:00"
+updated_at: "2026-11-21T06:08:40.562715+00:00"
 ---
 
 ```json
@@ -99,6 +99,59 @@ updated_at: "2026-09-03T04:05:24.461529+00:00"
     "type": "callout",
     "title": "A real trade-off, not a free upgrade",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-oop-magic-methods",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-magic-methods-q1",
+        "answer": 1,
+        "prompt": "When does __toString() run?",
+        "explain": "It must return a string.",
+        "options": [
+          "When the object is created",
+          "When the object is used as a string, e.g. echo $price",
+          "When it is deleted",
+          "Never automatically"
+        ]
+      },
+      {
+        "id": "oop-magic-methods-q2",
+        "answer": 3,
+        "prompt": "When does __get() run?",
+        "explain": "Useful for computed or dynamically stored values.",
+        "options": [
+          "On every property read",
+          "When a method is called",
+          "When the class loads",
+          "When code reads a property that isn't declared"
+        ]
+      },
+      {
+        "id": "oop-magic-methods-q3",
+        "answer": 0,
+        "prompt": "Which magic method have you used since the OOP lessons began?",
+        "explain": "It is the most common one.",
+        "options": [
+          "<code>__construct()</code>",
+          "<code>__call()</code>",
+          "<code>__invoke()</code>",
+          "<code>__clone()</code>"
+        ]
+      },
+      {
+        "id": "oop-magic-methods-q4",
+        "answer": 1,
+        "prompt": "Magic methods are called by you, by name, like ordinary methods.",
+        "explain": "PHP calls them automatically in response to specific operations.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

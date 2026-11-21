@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Data Types | Learn Computer Academy"
 meta_description: "PHP's eight data types — string, int, float, bool, array, object, null, and callable — and PHP's \"type juggling\" between them."
 sort_order: 5
-updated_at: "2026-07-30T09:08:35.452226+00:00"
+updated_at: "2026-11-21T06:08:31.836742+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-07-30T09:08:35.452226+00:00"
     "type": "callout",
     "title": "null is its own thing",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-data-types",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "data-types-q1",
+        "answer": 1,
+        "prompt": "What does <code>gettype(42)</code> return?",
+        "explain": "Useful while learning and debugging.",
+        "options": [
+          "<code>\"string\"</code>",
+          "<code>\"integer\"</code>",
+          "<code>\"number\"</code>",
+          "<code>\"float\"</code>"
+        ]
+      },
+      {
+        "id": "data-types-q2",
+        "answer": 3,
+        "prompt": "What is <code>\"5\" + 3</code> in PHP?",
+        "explain": "Type juggling converts the numeric string to a number.",
+        "options": [
+          "<code>\"53\"</code>",
+          "<code>\"5\" + 3</code>",
+          "An error",
+          "<code>8</code>"
+        ]
+      },
+      {
+        "id": "data-types-q3",
+        "answer": 0,
+        "prompt": "How many data types does PHP have?",
+        "explain": "Including object and callable, covered in later lessons.",
+        "options": [
+          "8",
+          "4",
+          "3",
+          "12"
+        ]
+      },
+      {
+        "id": "data-types-q4",
+        "answer": 2,
+        "prompt": "What is type juggling?",
+        "explain": "Convenient, but it can produce surprising results.",
+        "options": [
+          "Manually converting types",
+          "A type of loop",
+          "PHP converting types automatically when an operation needs it",
+          "An error type"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Branching Basics | Learn Computer Academy"
 meta_description: "Working on a new feature without touching the working project — creating, switching, and listing branches."
 sort_order: 6
-updated_at: "2026-09-03T05:20:00.844787+00:00"
+updated_at: "2026-11-21T10:18:32.021886+00:00"
 ---
 
 ```json
@@ -123,6 +123,61 @@ updated_at: "2026-09-03T05:20:00.844787+00:00"
     "type": "callout",
     "title": "Branch liberally",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-branching-basics",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "branching-basics-q1",
+        "answer": 1,
+        "prompt": "What is a branch for?",
+        "explain": "Merge it back when ready.",
+        "options": [
+          "Deleting history",
+          "Working on a feature or fix without touching the working version",
+          "Uploading files",
+          "Making backups on USB"
+        ]
+      },
+      {
+        "id": "branching-basics-q2",
+        "answer": 0,
+        "prompt": "What does <code>git branch feature-login</code> do?",
+        "explain": "Use <code>git switch feature-login</code> to move to it.",
+        "options": [
+          "Creates the branch but does not switch to it",
+          "Creates and switches",
+          "Deletes the branch",
+          "Merges the branch"
+        ]
+      },
+      {
+        "id": "branching-basics-q3",
+        "answer": 3,
+        "prompt": "Which command creates a branch and switches to it in one step?",
+        "explain": "The older form is <code>git checkout -b</code>.",
+        "options": [
+          "<code>git branch -d</code>",
+          "<code>git merge</code>",
+          "<code>git log</code>",
+          "<code>git switch -c new-branch</code>"
+        ]
+      },
+      {
+        "id": "branching-basics-q4",
+        "answer": 2,
+        "prompt": "What is the conventional name of the stable default branch today?",
+        "explain": "Older projects may use master.",
+        "options": [
+          "dev",
+          "stable",
+          "main",
+          "trunk"
+        ]
+      }
+    ]
   }
 ]
 ```

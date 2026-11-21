@@ -5,7 +5,7 @@ path: "javascript/es6-and-modern-features"
 status: "published"
 meta_title: "JavaScript ES6 and Modern Features | Learn Computer Academy"
 sort_order: 22
-updated_at: "2026-07-29T05:40:23.569448+00:00"
+updated_at: "2026-11-21T05:55:19.429263+00:00"
 ---
 
 ```json
@@ -311,6 +311,61 @@ updated_at: "2026-07-29T05:40:23.569448+00:00"
     "id": "U80UyaWC6PQP",
     "html": "<ol>\n                                    <li>Rewrite a function using arrow function syntax.</li>\n                                    <li>Use template literals to insert variables into a sentence.</li>\n                                    <li>Use destructuring to extract values from an object.</li>\n                                    <li>Create a <code>sum(...args)</code> function using the rest operator.</li>\n                                    <li>Create and import a module in two separate files.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-es6-and-modern-features",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "es6-and-modern-features-q1",
+        "answer": 2,
+        "prompt": "What happens with <code>const age = 30; age = 31</code>?",
+        "explain": "A const binding cannot be reassigned.",
+        "options": [
+          "age becomes 31",
+          "age stays 30 silently",
+          "TypeError: assignment to constant variable",
+          "age becomes undefined"
+        ]
+      },
+      {
+        "id": "es6-and-modern-features-q2",
+        "answer": 0,
+        "prompt": "Which arrow function equals <code>function greet(name) { return \"Hello \" + name }</code>?",
+        "explain": "One expression after => is returned automatically.",
+        "options": [
+          "<code>const greet = name =&gt; \"Hello \" + name</code>",
+          "<code>const greet =&gt; name \"Hello \" + name</code>",
+          "<code>greet = (name) { \"Hello \" + name }</code>",
+          "<code>const greet = name -&gt; \"Hello \" + name</code>"
+        ]
+      },
+      {
+        "id": "es6-and-modern-features-q3",
+        "answer": 3,
+        "prompt": "What does <code>const { name } = user</code> do?",
+        "explain": "Destructuring pulls values out of objects and arrays.",
+        "options": [
+          "Creates an empty object",
+          "Deletes user.name",
+          "Copies the whole object",
+          "Creates a variable name from user.name (destructuring)"
+        ]
+      },
+      {
+        "id": "es6-and-modern-features-q4",
+        "answer": 1,
+        "prompt": "Can an object declared with const have its properties changed?",
+        "explain": "<code>const user = {}; user.name = \"Sam\"</code> is allowed.",
+        "options": [
+          "No, never",
+          "Yes — const fixes the reference, not the contents",
+          "Only numbers",
+          "Only in strict mode"
+        ]
+      }
+    ]
   }
 ]
 ```

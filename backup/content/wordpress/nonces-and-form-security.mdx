@@ -6,7 +6,7 @@ status: "published"
 meta_title: "WordPress Nonces and Form Security | Learn Computer Academy"
 meta_description: "Verifying a form submission or action actually came from your site's own page, not a forged request from somewhere else."
 sort_order: 31
-updated_at: "2026-09-03T04:11:00.896522+00:00"
+updated_at: "2026-11-21T05:59:30.895157+00:00"
 ---
 
 ```json
@@ -93,6 +93,61 @@ updated_at: "2026-09-03T04:11:00.896522+00:00"
     "type": "callout",
     "title": "What a nonce is not",
     "variant": "note"
+  },
+  {
+    "id": "quiz-nonces-and-form-security",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "nonces-and-form-security-q1",
+        "answer": 2,
+        "prompt": "What does a nonce protect against?",
+        "explain": "It proves the request came from a page your site rendered.",
+        "options": [
+          "Slow pages",
+          "Spam comments",
+          "Forged requests from another site (CSRF)",
+          "SQL syntax errors"
+        ]
+      },
+      {
+        "id": "nonces-and-form-security-q2",
+        "answer": 0,
+        "prompt": "Which function adds a nonce to a form?",
+        "explain": "It outputs a hidden input with a token tied to the user's session.",
+        "options": [
+          "<code>wp_nonce_field()</code>",
+          "<code>wp_create_form()</code>",
+          "<code>add_nonce()</code>",
+          "<code>wp_verify_nonce()</code>"
+        ]
+      },
+      {
+        "id": "nonces-and-form-security-q3",
+        "answer": 3,
+        "prompt": "What must happen when the form is submitted?",
+        "explain": "An unverified nonce protects nothing.",
+        "options": [
+          "Nothing — the field protects itself",
+          "The nonce is emailed to the admin",
+          "The page reloads twice",
+          "The nonce is checked with wp_verify_nonce() before saving anything"
+        ]
+      },
+      {
+        "id": "nonces-and-form-security-q4",
+        "answer": 0,
+        "prompt": "Why can a forged request look legitimate without a nonce?",
+        "explain": "The nonce is the one thing the other site cannot know.",
+        "options": [
+          "The browser sends the logged-in user's session cookie automatically",
+          "Forms have no URL",
+          "WordPress trusts every request",
+          "The attacker knows the password"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL DDL — Data Definition Language | Learn Computer Academy"
 meta_description: "CREATE TABLE, DROP TABLE, TRUNCATE TABLE, and ALTER TABLE — the SQL commands that define and reshape the structure of your database."
 sort_order: 4
-updated_at: "2026-07-29T06:31:05.636187+00:00"
+updated_at: "2026-11-21T05:51:01.101169+00:00"
 ---
 
 ```json
@@ -197,6 +197,61 @@ updated_at: "2026-07-29T06:31:05.636187+00:00"
     "id": "DJ_AucvhMziI",
     "html": "<p>DDL shapes the structure. The next lesson covers DML — the commands you'll actually type the most, for reading and changing the data inside that structure.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-ddl",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "ddl-q1",
+        "answer": 1,
+        "prompt": "What does <code>DROP TABLE Employee;</code> do?",
+        "explain": "There is no undo.",
+        "options": [
+          "Removes all rows but keeps the table",
+          "Removes the table permanently — structure and data",
+          "Hides the table",
+          "Renames the table"
+        ]
+      },
+      {
+        "id": "ddl-q2",
+        "answer": 2,
+        "prompt": "What does <code>TRUNCATE TABLE Employee;</code> do?",
+        "explain": "TRUNCATE always clears the whole table — it takes no WHERE clause.",
+        "options": [
+          "Deletes the whole table",
+          "Deletes only rows matching a WHERE clause",
+          "Deletes every row but keeps the table structure",
+          "Shortens long text values"
+        ]
+      },
+      {
+        "id": "ddl-q3",
+        "answer": 0,
+        "prompt": "Which command adds a new column to an existing table?",
+        "explain": "For example <code>ALTER TABLE Employee ADD email VARCHAR(255);</code>.",
+        "options": [
+          "<code>ALTER TABLE</code>",
+          "<code>UPDATE TABLE</code>",
+          "<code>INSERT COLUMN</code>",
+          "<code>CREATE COLUMN</code>"
+        ]
+      },
+      {
+        "id": "ddl-q4",
+        "answer": 3,
+        "prompt": "Why should every table have a PRIMARY KEY?",
+        "explain": "Without one, rows are impossible to reference reliably.",
+        "options": [
+          "It makes the table load faster in the browser",
+          "It is required for SELECT to work",
+          "It encrypts the data",
+          "So each row can be uniquely identified"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP cURL Requests | Learn Computer Academy"
 meta_description: "Calling another server's API from PHP with cURL — GET and POST requests, sending JSON, and reading the response."
 sort_order: 40
-updated_at: "2026-09-03T04:05:25.617254+00:00"
+updated_at: "2026-11-21T06:08:41.605441+00:00"
 ---
 
 ```json
@@ -106,6 +106,61 @@ updated_at: "2026-09-03T04:05:25.617254+00:00"
     "type": "callout",
     "title": "Guzzle, for real projects",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-curl-requests",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "curl-requests-q1",
+        "answer": 1,
+        "prompt": "What does CURLOPT_RETURNTRANSFER set to true do?",
+        "explain": "Without it, the response goes straight to output.",
+        "options": [
+          "Retries failed requests",
+          "curl_exec() returns the response instead of printing it",
+          "Sends a POST",
+          "Follows redirects"
+        ]
+      },
+      {
+        "id": "curl-requests-q2",
+        "answer": 3,
+        "prompt": "Which function actually sends the request?",
+        "explain": "init creates the handle; setopt configures it; close frees it.",
+        "options": [
+          "<code>curl_init()</code>",
+          "<code>curl_setopt()</code>",
+          "<code>curl_close()</code>",
+          "<code>curl_exec()</code>"
+        ]
+      },
+      {
+        "id": "curl-requests-q3",
+        "answer": 0,
+        "prompt": "How do you detect a network failure like a timeout?",
+        "explain": "Check it separately from the HTTP status code.",
+        "options": [
+          "<code>curl_errno($ch)</code>",
+          "<code>curl_status($ch)</code>",
+          "<code>http_response_code()</code>",
+          "<code>isset($response)</code>"
+        ]
+      },
+      {
+        "id": "curl-requests-q4",
+        "answer": 1,
+        "prompt": "What is cURL for in PHP?",
+        "explain": "Payment providers, weather APIs and so on.",
+        "options": [
+          "Reading files",
+          "Making outgoing HTTP requests to other services",
+          "Sending email",
+          "Querying MySQL"
+        ]
+      }
+    ]
   }
 ]
 ```

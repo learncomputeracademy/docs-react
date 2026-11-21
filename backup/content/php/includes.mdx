@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Includes and Requires | Learn Computer Academy"
 meta_description: "Splitting PHP code across multiple files with include, require, and their _once variants, and why that matters for real projects."
 sort_order: 21
-updated_at: "2026-07-30T09:08:41.065783+00:00"
+updated_at: "2026-11-21T06:08:36.497135+00:00"
 ---
 
 ```json
@@ -100,6 +100,59 @@ updated_at: "2026-07-30T09:08:41.065783+00:00"
     "type": "callout",
     "title": "A practical default",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-includes",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "includes-q1",
+        "answer": 2,
+        "prompt": "What is the difference between include and require when the file is missing?",
+        "explain": "Use require for files the page can't work without.",
+        "options": [
+          "None",
+          "include stops the script; require warns",
+          "include warns and continues; require stops with a fatal error",
+          "Both silently skip"
+        ]
+      },
+      {
+        "id": "includes-q2",
+        "answer": 3,
+        "prompt": "What does require_once add?",
+        "explain": "Avoids \"cannot redeclare function\" errors.",
+        "options": [
+          "Faster loading",
+          "Caching across requests",
+          "It loads two copies",
+          "It skips the file if it was already included"
+        ]
+      },
+      {
+        "id": "includes-q3",
+        "answer": 0,
+        "prompt": "Why split a site into header.php, footer.php and so on?",
+        "explain": "Change the header once, every page updates.",
+        "options": [
+          "Shared parts are written once and reused on every page",
+          "PHP requires it",
+          "It is more secure",
+          "It speeds up the database"
+        ]
+      },
+      {
+        "id": "includes-q4",
+        "answer": 0,
+        "prompt": "An included file can use variables defined before the include line.",
+        "explain": "It behaves as if its code were typed in at that point.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

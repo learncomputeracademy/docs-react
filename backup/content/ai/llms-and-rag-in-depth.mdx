@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Large Language Models & RAG in Depth | Learn Computer Academy"
 meta_description: "Fine-tuning versus prompting explained, and a genuinely deep look at Retrieval-Augmented Generation — the technique behind AI that knows your own data."
 sort_order: 18
-updated_at: "2026-09-03T06:44:38.156033+00:00"
+updated_at: "2026-11-21T10:15:48.377588+00:00"
 ---
 
 ```json
@@ -146,6 +146,59 @@ updated_at: "2026-09-03T06:44:38.156033+00:00"
     "id": "rWTLWemQCuO0",
     "html": "<p>You now understand both how to adapt a model's behaviour and how to ground it in real data. The next lesson goes further still — from a model that answers to one that can actually act.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-llms-and-rag-in-depth",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "llms-and-rag-in-depth-q1",
+        "answer": 1,
+        "prompt": "What does fine-tuning do?",
+        "explain": "Prompting and RAG leave the model unchanged.",
+        "options": [
+          "Changes the prompt only",
+          "Trains an existing model further on a narrower dataset, changing its parameters",
+          "Deletes the model",
+          "Speeds up the internet"
+        ]
+      },
+      {
+        "id": "llms-and-rag-in-depth-q2",
+        "answer": 0,
+        "prompt": "Why do most apps try prompting and RAG before fine-tuning?",
+        "explain": "Fine-tuning is more specialised.",
+        "options": [
+          "They are cheaper and faster to iterate on",
+          "Fine-tuning is illegal",
+          "RAG needs no data",
+          "Fine-tuning is free"
+        ]
+      },
+      {
+        "id": "llms-and-rag-in-depth-q3",
+        "answer": 3,
+        "prompt": "In RAG, what happens before the model answers?",
+        "explain": "Often found using embeddings and a vector search.",
+        "options": [
+          "Nothing",
+          "The model is retrained",
+          "The user is asked to wait a day",
+          "Relevant passages are retrieved from your documents and added to the prompt"
+        ]
+      },
+      {
+        "id": "llms-and-rag-in-depth-q4",
+        "answer": 0,
+        "prompt": "RAG helps a model answer from up-to-date or private documents it was never trained on.",
+        "explain": "That is its main advantage.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

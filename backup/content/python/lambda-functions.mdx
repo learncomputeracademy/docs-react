@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Lambda Functions | Learn Computer Academy"
 meta_description: "Small, anonymous one-expression functions in Python, and where they're genuinely useful."
 sort_order: 17
-updated_at: "2026-08-04T11:39:31.318798+00:00"
+updated_at: "2026-11-21T06:12:46.693296+00:00"
 ---
 
 ```json
@@ -94,6 +94,61 @@ updated_at: "2026-08-04T11:39:31.318798+00:00"
     "id": "FNpLpzuiChqi",
     "html": "<p>Both <code>map()</code> and <code>filter()</code> return a lazy iterator, not a list directly — which is why <code>list(...)</code> wraps them above to actually see the results.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-lambda-functions",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "lambda-functions-q1",
+        "answer": 2,
+        "prompt": "What is <code>(lambda n: n * 2)(5)</code>?",
+        "explain": "A lambda is a small unnamed function.",
+        "options": [
+          "5",
+          "25",
+          "10",
+          "7"
+        ]
+      },
+      {
+        "id": "lambda-functions-q2",
+        "answer": 3,
+        "prompt": "What can a lambda's body contain?",
+        "explain": "For anything more, use def.",
+        "options": [
+          "Several statements",
+          "A loop",
+          "Multiple lines",
+          "Exactly one expression"
+        ]
+      },
+      {
+        "id": "lambda-functions-q3",
+        "answer": 0,
+        "prompt": "Where are lambdas most commonly used?",
+        "explain": "A named function reads better with def.",
+        "options": [
+          "As throwaway functions passed in, e.g. sorted(..., key=lambda s: s[\"age\"])",
+          "As class constructors",
+          "Assigned to many variables",
+          "For long programs"
+        ]
+      },
+      {
+        "id": "lambda-functions-q4",
+        "answer": 1,
+        "prompt": "What does <code>key=lambda s: s[\"age\"]</code> tell sorted()?",
+        "explain": "The list is sorted youngest first.",
+        "options": [
+          "Remove the age",
+          "Compare items by their \"age\" value",
+          "Sort in reverse",
+          "Only keep adults"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Match Expression and Null-Safe Operator | Learn Computer Academy"
 meta_description: "PHP 8's match expression — a stricter, more concise alternative to switch — and the null-safe operator for chaining property or method access safely."
 sort_order: 30
-updated_at: "2026-09-03T04:05:22.51253+00:00"
+updated_at: "2026-11-21T06:08:38.892441+00:00"
 ---
 
 ```json
@@ -105,6 +105,61 @@ updated_at: "2026-09-03T04:05:22.51253+00:00"
     "type": "callout",
     "title": "What ?-> does not do",
     "variant": "note"
+  },
+  {
+    "id": "quiz-match-expression-and-null-safe-operator",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "match-expression-and-null-safe-operator-q1",
+        "answer": 1,
+        "prompt": "How does match compare values?",
+        "explain": "It also never falls through and returns a value directly.",
+        "options": [
+          "With ==, after type juggling",
+          "With strict ===, no type juggling",
+          "By string length",
+          "Randomly"
+        ]
+      },
+      {
+        "id": "match-expression-and-null-safe-operator-q2",
+        "answer": 3,
+        "prompt": "What does match need that switch doesn't?",
+        "explain": "Each arm returns its value.",
+        "options": [
+          "A default branch is required",
+          "Parentheses",
+          "A return statement",
+          "Nothing — and match needs no break in each branch"
+        ]
+      },
+      {
+        "id": "match-expression-and-null-safe-operator-q3",
+        "answer": 0,
+        "prompt": "What does <code>$user?-&gt;address?-&gt;city</code> do if $user is null?",
+        "explain": "The chain short-circuits at the first null.",
+        "options": [
+          "Returns null instead of throwing an error",
+          "Throws an error",
+          "Returns \"\"",
+          "Creates an empty user"
+        ]
+      },
+      {
+        "id": "match-expression-and-null-safe-operator-q4",
+        "answer": 2,
+        "prompt": "Which PHP version added match and ?->?",
+        "explain": "Both clean up very common patterns.",
+        "options": [
+          "PHP 5",
+          "PHP 7",
+          "PHP 8",
+          "PHP 4"
+        ]
+      }
+    ]
   }
 ]
 ```

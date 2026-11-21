@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Joins | Learn Computer Academy"
 meta_description: "INNER, LEFT, RIGHT, and FULL JOIN explained — how to combine rows from two or more tables based on a related column, most often a foreign key."
 sort_order: 11
-updated_at: "2026-07-29T06:31:07.77033+00:00"
+updated_at: "2026-11-21T05:51:03.296766+00:00"
 ---
 
 ```json
@@ -206,6 +206,61 @@ updated_at: "2026-07-29T06:31:07.77033+00:00"
     "id": "21AGLwmhmpGl",
     "html": "<p>Joins let you pull related data together from separate tables. The next lesson moves from combining tables to summarizing values within them, with SQL's built-in functions.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-joins",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "joins-q1",
+        "answer": 1,
+        "prompt": "Which join returns only rows that match in both tables?",
+        "explain": "INNER JOIN is the most commonly used join.",
+        "options": [
+          "<code>LEFT JOIN</code>",
+          "<code>INNER JOIN</code>",
+          "<code>RIGHT JOIN</code>",
+          "<code>FULL JOIN</code>"
+        ]
+      },
+      {
+        "id": "joins-q2",
+        "answer": 2,
+        "prompt": "In a LEFT JOIN, what happens to an employee with no matching department?",
+        "explain": "A LEFT JOIN keeps every row from the left table.",
+        "options": [
+          "The row is dropped",
+          "The query fails",
+          "The row appears, with NULL for the department columns",
+          "A default department is created"
+        ]
+      },
+      {
+        "id": "joins-q3",
+        "answer": 0,
+        "prompt": "What do tables usually join on?",
+        "explain": "<code>ON e.department_id = d.id</code>",
+        "options": [
+          "A related column, most often a foreign key",
+          "The first column of each table",
+          "Row numbers",
+          "Table names"
+        ]
+      },
+      {
+        "id": "joins-q4",
+        "answer": 3,
+        "prompt": "A join on the wrong column can silently…",
+        "explain": "Always check the ON condition matches the actual relationship.",
+        "options": [
+          "delete rows",
+          "change column types",
+          "lock the database",
+          "multiply rows in the result"
+        ]
+      }
+    ]
   }
 ]
 ```

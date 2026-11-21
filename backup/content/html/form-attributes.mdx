@@ -5,7 +5,7 @@ path: "html/form-attributes"
 status: "published"
 meta_title: "HTML Form Attributes | Learn Computer Academy"
 sort_order: 17
-updated_at: "2026-07-29T05:40:20.403025+00:00"
+updated_at: "2026-11-20T15:25:08.720511+00:00"
 ---
 
 ```json
@@ -527,6 +527,58 @@ updated_at: "2026-07-29T05:40:20.403025+00:00"
     "code": "<input type=\"number\" name=\"points\" step=\"3\">",
     "type": "code",
     "language": "html"
+  },
+  {
+    "id": "quiz-form-attributes",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "form-attributes-q1",
+        "answer": 1,
+        "prompt": "What is the difference between readonly and disabled inputs?",
+        "explain": "Both block editing, but only a readonly field is still submitted.",
+        "options": [
+          "There is none",
+          "A disabled field's value is not sent with the form",
+          "A readonly field can be edited",
+          "Disabled fields are invisible"
+        ]
+      },
+      {
+        "id": "form-attributes-q2",
+        "answer": 0,
+        "prompt": "What does <code>maxlength=\"10\"</code> do?",
+        "explain": "Width is set with <code>size</code>; <code>maxlength</code> limits how much can be typed.",
+        "options": [
+          "Allows at most 10 characters",
+          "Makes the box 10 characters wide",
+          "Requires at least 10 characters",
+          "Allows 10 submissions"
+        ]
+      },
+      {
+        "id": "form-attributes-q3",
+        "answer": 3,
+        "prompt": "Which attribute sets the starting text inside an input?",
+        "explain": "<code>&lt;input type=\"text\" value=\"John\"&gt;</code> starts with \"John\" filled in.",
+        "options": [
+          "<code>start</code>",
+          "<code>default</code>",
+          "<code>text</code>",
+          "<code>value</code>"
+        ]
+      },
+      {
+        "id": "form-attributes-q4",
+        "answer": 1,
+        "prompt": "maxlength alone is enough to keep bad data out of your server.",
+        "explain": "Browser limits can be bypassed. The server must check the data again.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

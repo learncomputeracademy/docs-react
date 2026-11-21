@@ -5,7 +5,7 @@ path: "javascript/dom"
 status: "published"
 meta_title: "JavaScript DOM | Learn Computer Academy"
 sort_order: 12
-updated_at: "2026-07-29T05:40:22.829258+00:00"
+updated_at: "2026-11-21T05:55:10.282859+00:00"
 ---
 
 ```json
@@ -304,6 +304,61 @@ updated_at: "2026-07-29T05:40:22.829258+00:00"
     "id": "EDbMSKF_Ecid",
     "html": "<ol>\n                                    <li>Change the text of a heading using <code>innerHTML</code>.</li>\n                                    <li>Create a new <code>&lt;li&gt;</code> item and add it to an unordered list.</li>\n                                    <li>Toggle a class on button click.</li>\n                                    <li>Remove an element after a few seconds using <code>setTimeout()</code>.</li>\n                                    <li>Change the <code>src</code> attribute of an image dynamically.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-dom",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dom-q1",
+        "answer": 1,
+        "prompt": "What is the DOM?",
+        "explain": "Document Object Model — JavaScript reads and changes the page through it.",
+        "options": [
+          "A JavaScript library",
+          "A tree of objects that represents the HTML page",
+          "A CSS framework",
+          "A database"
+        ]
+      },
+      {
+        "id": "dom-q2",
+        "answer": 2,
+        "prompt": "What does <code>document.querySelector(\"p\")</code> return?",
+        "explain": "<code>querySelectorAll</code> returns all matches.",
+        "options": [
+          "All paragraphs",
+          "The number of paragraphs",
+          "The first paragraph on the page",
+          "The last paragraph"
+        ]
+      },
+      {
+        "id": "dom-q3",
+        "answer": 3,
+        "prompt": "Setting text that came from a user — which is safer?",
+        "explain": "textContent never treats the text as HTML, so it cannot inject markup or scripts.",
+        "options": [
+          "<code>innerHTML</code>",
+          "<code>outerHTML</code>",
+          "<code>document.write</code>",
+          "<code>textContent</code>"
+        ]
+      },
+      {
+        "id": "dom-q4",
+        "answer": 0,
+        "prompt": "Which line finds the element with id=\"demo\"?",
+        "explain": "<code>querySelector(\"#demo\")</code> would also work — note the #.",
+        "options": [
+          "<code>document.getElementById(\"demo\")</code>",
+          "<code>document.getElementsByClassName(\"demo\")</code>",
+          "<code>document.querySelector(\"demo\")</code>",
+          "<code>document.id(\"demo\")</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

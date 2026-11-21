@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Static Properties and Methods | Learn Computer Academy"
 meta_description: "Properties and methods that belong to the class itself rather than any one object, accessed with :: instead of ->."
 sort_order: 33
-updated_at: "2026-09-03T04:05:23.573432+00:00"
+updated_at: "2026-11-21T06:08:39.768164+00:00"
 ---
 
 ```json
@@ -101,6 +101,61 @@ updated_at: "2026-09-03T04:05:23.573432+00:00"
     "type": "callout",
     "title": "The main limitation",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-oop-static-members",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-static-members-q1",
+        "answer": 1,
+        "prompt": "Who owns a static property?",
+        "explain": "One shared copy, not one per object.",
+        "options": [
+          "Each object separately",
+          "The class itself, shared by every object",
+          "The parent class only",
+          "The script"
+        ]
+      },
+      {
+        "id": "oop-static-members-q2",
+        "answer": 3,
+        "prompt": "How do you read a static property from outside the class?",
+        "explain": ":: and the $ before the name.",
+        "options": [
+          "<code>$user-&gt;totalUsers</code>",
+          "<code>User-&gt;totalUsers</code>",
+          "<code>User.totalUsers</code>",
+          "<code>User::$totalUsers</code>"
+        ]
+      },
+      {
+        "id": "oop-static-members-q3",
+        "answer": 0,
+        "prompt": "After three <code>new User()</code> calls, where the constructor does <code>self::$totalUsers++</code>, what is User::$totalUsers?",
+        "explain": "Every object increments the same shared counter.",
+        "options": [
+          "3",
+          "1",
+          "0",
+          "An error"
+        ]
+      },
+      {
+        "id": "oop-static-members-q4",
+        "answer": 2,
+        "prompt": "Why use <code>self::</code> rather than the class name inside the class?",
+        "explain": "Both work; self:: is more robust.",
+        "options": [
+          "It is faster",
+          "It is required",
+          "It stays correct if the class is renamed",
+          "It makes the property private"
+        ]
+      }
+    ]
   }
 ]
 ```

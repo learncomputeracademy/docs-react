@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Numbers and Math | Learn Computer Academy"
 meta_description: "Working with integers and floats in Python, the math module, and formatting numbers for display."
 sort_order: 9
-updated_at: "2026-08-04T11:39:29.085823+00:00"
+updated_at: "2026-11-21T06:12:44.268791+00:00"
 ---
 
 ```json
@@ -138,6 +138,61 @@ updated_at: "2026-08-04T11:39:29.085823+00:00"
     "type": "callout",
     "title": "Not for security-sensitive values",
     "variant": "note"
+  },
+  {
+    "id": "quiz-numbers",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "numbers-q1",
+        "answer": 2,
+        "prompt": "What is <code>round(4.5)</code>?",
+        "explain": "Python rounds half to even (\"banker's rounding\"); round(5.5) is 6.",
+        "options": [
+          "5",
+          "4.5",
+          "4",
+          "4.0"
+        ]
+      },
+      {
+        "id": "numbers-q2",
+        "answer": 0,
+        "prompt": "How big can a Python integer get?",
+        "explain": "Python integers have no fixed size limit.",
+        "options": [
+          "As big as memory allows",
+          "2³¹",
+          "2⁶⁴",
+          "1 billion"
+        ]
+      },
+      {
+        "id": "numbers-q3",
+        "answer": 3,
+        "prompt": "Where do floor() and ceil() live?",
+        "explain": "<code>import math</code> then <code>math.floor(4.9)</code>.",
+        "options": [
+          "They are built in",
+          "In the os module",
+          "In the random module",
+          "In the math module"
+        ]
+      },
+      {
+        "id": "numbers-q4",
+        "answer": 1,
+        "prompt": "What is <code>math.ceil(4.1)</code>?",
+        "explain": "ceil rounds up; floor rounds down.",
+        "options": [
+          "4",
+          "5",
+          "4.1",
+          "4.0"
+        ]
+      }
+    ]
   }
 ]
 ```

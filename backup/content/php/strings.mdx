@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Strings in PHP | Learn Computer Academy"
 meta_description: "Single vs. double quotes, heredoc syntax, and the PHP string functions you'll reach for constantly."
 sort_order: 9
-updated_at: "2026-07-30T09:08:36.80749+00:00"
+updated_at: "2026-11-21T06:08:33.080853+00:00"
 ---
 
 ```json
@@ -123,6 +123,61 @@ updated_at: "2026-07-30T09:08:36.80749+00:00"
     "type": "callout",
     "title": "Strings are zero-indexed too",
     "variant": "note"
+  },
+  {
+    "id": "quiz-strings",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "strings-q1",
+        "answer": 1,
+        "prompt": "With <code>$name = \"Priya\";</code>, what does <code>echo \"Hello, $name\";</code> print?",
+        "explain": "Double quotes interpolate variables; single quotes don't.",
+        "options": [
+          "Hello, $name",
+          "Hello, Priya",
+          "Hello,",
+          "An error"
+        ]
+      },
+      {
+        "id": "strings-q2",
+        "answer": 3,
+        "prompt": "What does <code>\\n</code> become inside double quotes?",
+        "explain": "In single quotes it stays as \\n.",
+        "options": [
+          "A literal backslash and n",
+          "A tab",
+          "Nothing",
+          "A new line"
+        ]
+      },
+      {
+        "id": "strings-q3",
+        "answer": 0,
+        "prompt": "What is heredoc syntax good for?",
+        "explain": "It starts with <code>&lt;&lt;&lt;EOT</code>.",
+        "options": [
+          "Long multi-line text with variables, without piling up quotes and dots",
+          "Comments",
+          "Numbers",
+          "Arrays"
+        ]
+      },
+      {
+        "id": "strings-q4",
+        "answer": 2,
+        "prompt": "Which function returns the length of a string?",
+        "explain": "count() is for arrays.",
+        "options": [
+          "<code>length()</code>",
+          "<code>count()</code>",
+          "<code>strlen()</code>",
+          "<code>size()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

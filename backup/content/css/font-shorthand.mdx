@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Font Shorthand | Learn Computer Academy"
 meta_description: "Set style, weight, size, line-height, and family in a single font property, and the exact order that syntax requires."
 sort_order: 47
-updated_at: "2026-09-03T03:54:10.010019+00:00"
+updated_at: "2026-11-21T06:18:21.038065+00:00"
 ---
 
 ```json
@@ -88,6 +88,59 @@ updated_at: "2026-09-03T03:54:10.010019+00:00"
     "type": "callout",
     "title": "The two required parts",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-font-shorthand",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "font-shorthand-q1",
+        "answer": 3,
+        "prompt": "Which two parts of the font shorthand can never be left out?",
+        "explain": "Leaving either out makes the whole shorthand invalid.",
+        "options": [
+          "font-style and font-weight",
+          "line-height and font-style",
+          "font-weight and line-height",
+          "font-size and font-family"
+        ]
+      },
+      {
+        "id": "font-shorthand-q2",
+        "answer": 1,
+        "prompt": "In <code>font: italic bold 18px/1.5 Arial, sans-serif;</code>, what is 1.5?",
+        "explain": "It follows the size after a slash.",
+        "options": [
+          "The font size",
+          "The line-height",
+          "The weight",
+          "The letter spacing"
+        ]
+      },
+      {
+        "id": "font-shorthand-q3",
+        "answer": 2,
+        "prompt": "What happens if the font shorthand is invalid?",
+        "explain": "No error message — it just doesn't apply.",
+        "options": [
+          "The browser guesses",
+          "The page breaks",
+          "The whole declaration is ignored, silently falling back to defaults",
+          "Only the size is ignored"
+        ]
+      },
+      {
+        "id": "font-shorthand-q4",
+        "answer": 0,
+        "prompt": "The font shorthand has a strict required order.",
+        "explain": "style, weight, size/line-height, family.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

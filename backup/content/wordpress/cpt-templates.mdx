@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Template Files for Custom Post Types | Learn Computer Academy"
 meta_description: "Extending the template hierarchy to a custom post type — single-{post-type}.php, archive-{post-type}.php, and taxonomy-{taxonomy}.php."
 sort_order: 17
-updated_at: "2026-07-30T14:23:29.600388+00:00"
+updated_at: "2026-11-21T05:59:26.800563+00:00"
 ---
 
 ```json
@@ -87,6 +87,61 @@ updated_at: "2026-07-30T14:23:29.600388+00:00"
     "id": "9SV9ehUhCQuM",
     "html": "<p>With content types, taxonomies, and their templates all working, this closes out the CPT UI part of the section. From here, the focus shifts to giving those content types real structured data beyond a title and a body — Secure Custom Fields.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-cpt-templates",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "cpt-templates-q1",
+        "answer": 1,
+        "prompt": "Which file shows a single post of the \"project\" post type?",
+        "explain": "The hierarchy extends single.php with the post type slug.",
+        "options": [
+          "<code>project.php</code>",
+          "<code>single-project.php</code>",
+          "<code>page-project.php</code>",
+          "<code>project-single.php</code>"
+        ]
+      },
+      {
+        "id": "cpt-templates-q2",
+        "answer": 0,
+        "prompt": "Which file shows the list of all projects?",
+        "explain": "It often uses <code>post_type_archive_title()</code> for the heading.",
+        "options": [
+          "<code>archive-project.php</code>",
+          "<code>projects.php</code>",
+          "<code>index-project.php</code>",
+          "<code>list-project.php</code>"
+        ]
+      },
+      {
+        "id": "cpt-templates-q3",
+        "answer": 3,
+        "prompt": "How does WordPress know single-project.php is for projects?",
+        "explain": "No extra registration step.",
+        "options": [
+          "It is registered in functions.php",
+          "CPT UI links it",
+          "A Template Name comment",
+          "Purely from the file name"
+        ]
+      },
+      {
+        "id": "cpt-templates-q4",
+        "answer": 2,
+        "prompt": "What does <code>post_type_archive_title()</code> output?",
+        "explain": "It is the archive equivalent of the_title().",
+        "options": [
+          "The first post's title",
+          "The site name",
+          "The post type's plural label, e.g. \"Projects\"",
+          "The URL"
+        ]
+      }
+    ]
   }
 ]
 ```

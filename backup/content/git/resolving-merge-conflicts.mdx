@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Resolving Git Merge Conflicts | Learn Computer Academy"
 meta_description: "What a merge conflict actually is, reading Git's conflict markers, and the exact steps to resolve one and finish the merge."
 sort_order: 8
-updated_at: "2026-09-03T05:20:01.455998+00:00"
+updated_at: "2026-11-21T10:18:32.609753+00:00"
 ---
 
 ```json
@@ -143,6 +143,59 @@ updated_at: "2026-09-03T05:20:01.455998+00:00"
     "type": "callout",
     "title": "A faster way to resolve these in practice",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-resolving-merge-conflicts",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "resolving-merge-conflicts-q1",
+        "answer": 0,
+        "prompt": "When does a merge conflict happen?",
+        "explain": "Git refuses to guess, correctly.",
+        "options": [
+          "When both branches changed the same lines differently",
+          "When the internet is slow",
+          "When a file is new",
+          "Every merge"
+        ]
+      },
+      {
+        "id": "resolving-merge-conflicts-q2",
+        "answer": 1,
+        "prompt": "In a conflict, what does the part between <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</code> and <code>=======</code> show?",
+        "explain": "Below ======= is the incoming branch.",
+        "options": [
+          "The other branch's version",
+          "Your current branch's version",
+          "A comment",
+          "The final result"
+        ]
+      },
+      {
+        "id": "resolving-merge-conflicts-q3",
+        "answer": 2,
+        "prompt": "How do you finish resolving a conflict?",
+        "explain": "Then Git completes the merge.",
+        "options": [
+          "Delete the repository",
+          "Restart Git",
+          "Edit the file to the right version, remove the markers, then add and commit",
+          "Push immediately"
+        ]
+      },
+      {
+        "id": "resolving-merge-conflicts-q4",
+        "answer": 1,
+        "prompt": "A merge conflict means something is badly broken.",
+        "explain": "It is normal; you decide which change wins.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

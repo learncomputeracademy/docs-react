@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python File Handling | Learn Computer Academy"
 meta_description: "Reading from and writing to files in Python with open() and the with statement."
 sort_order: 21
-updated_at: "2026-08-04T11:39:32.535552+00:00"
+updated_at: "2026-11-21T06:12:48.092664+00:00"
 ---
 
 ```json
@@ -134,6 +134,59 @@ updated_at: "2026-08-04T11:39:32.535552+00:00"
     "type": "callout",
     "title": "Never trust a user-supplied file path",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-file-handling",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "file-handling-q1",
+        "answer": 3,
+        "prompt": "Why open files with the with statement?",
+        "explain": "No need to remember .close().",
+        "options": [
+          "It reads faster",
+          "It is required syntax",
+          "It encrypts the file",
+          "The file is closed automatically, even if an error happens"
+        ]
+      },
+      {
+        "id": "file-handling-q2",
+        "answer": 2,
+        "prompt": "What does opening with mode <code>\"w\"</code> do to an existing file?",
+        "explain": "Use <code>\"a\"</code> to append.",
+        "options": [
+          "Appends to it",
+          "Opens it read-only",
+          "Overwrites it",
+          "Throws an error"
+        ]
+      },
+      {
+        "id": "file-handling-q3",
+        "answer": 0,
+        "prompt": "Which single function opens files for both reading and writing?",
+        "explain": "The mode argument decides which.",
+        "options": [
+          "<code>open()</code>",
+          "<code>file()</code>",
+          "<code>read()</code>",
+          "<code>load()</code>"
+        ]
+      },
+      {
+        "id": "file-handling-q4",
+        "answer": 1,
+        "prompt": "The with statement is only for files.",
+        "explain": "It is a general context-manager pattern: database connections, sockets, locks.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

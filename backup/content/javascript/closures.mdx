@@ -5,7 +5,7 @@ path: "javascript/closures"
 status: "published"
 meta_title: "JavaScript Closures | Learn Computer Academy"
 sort_order: 15
-updated_at: "2026-07-29T05:40:23.054228+00:00"
+updated_at: "2026-11-21T05:55:12.151492+00:00"
 ---
 
 ```json
@@ -152,6 +152,59 @@ updated_at: "2026-07-29T05:40:23.054228+00:00"
     "id": "3ElHUJ610V6-",
     "html": "<ol>\n                                    <li>Create a <code>counter()</code> function that returns a function that increments and logs the count.</li>\n                                    <li>Build a <code>greeting(name)</code> function that returns another function saying \"Hello, name\".</li>\n                                    <li>Use closure to protect a secret password (get/set it only through methods).</li>\n                                    <li>Write a function that returns a multiplier function using closure.</li>\n                                    <li>Explain in comments why a closure retains access to outer variables.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-closures",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "closures-q1",
+        "answer": 0,
+        "prompt": "What is a closure?",
+        "explain": "It keeps working even after the outer function has returned.",
+        "options": [
+          "A function that remembers variables from the scope where it was created",
+          "A way to close the browser",
+          "A loop that ends early",
+          "A private class"
+        ]
+      },
+      {
+        "id": "closures-q2",
+        "answer": 2,
+        "prompt": "What does this print?<pre><code>function counter() {\n  let n = 0\n  return () =&gt; ++n\n}\nconst next = counter()\nnext()\nconsole.log(next())</code></pre>",
+        "explain": "The inner function keeps the same n between calls.",
+        "options": [
+          "1",
+          "0",
+          "2",
+          "undefined"
+        ]
+      },
+      {
+        "id": "closures-q3",
+        "answer": 3,
+        "prompt": "Which is a real use of closures?",
+        "explain": "Only the returned functions can read or change the hidden variable.",
+        "options": [
+          "Styling elements",
+          "Speeding up loops",
+          "Declaring constants",
+          "Keeping data private"
+        ]
+      },
+      {
+        "id": "closures-q4",
+        "answer": 0,
+        "prompt": "React hooks like useState rely on closures.",
+        "explain": "The lesson lists React hooks among common uses of closures.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

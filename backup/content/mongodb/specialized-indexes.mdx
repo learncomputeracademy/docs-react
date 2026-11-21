@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Specialized Indexes | Learn Computer Academy"
 meta_description: "Three index types beyond single-field and compound — full-text search, location-based queries, and documents that automatically expire."
 sort_order: 25
-updated_at: "2026-09-03T04:59:12.998761+00:00"
+updated_at: "2026-11-21T10:24:37.590981+00:00"
 ---
 
 ```json
@@ -107,6 +107,59 @@ updated_at: "2026-09-03T04:59:12.998761+00:00"
     "header": [
       "Index type",
       "Use for"
+    ]
+  },
+  {
+    "id": "quiz-specialized-indexes",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "specialized-indexes-q1",
+        "answer": 0,
+        "prompt": "What does a text index enable?",
+        "explain": "<code>find({ $text: { $search: 'mongodb indexing' } })</code>.",
+        "options": [
+          "Searching for words within text fields",
+          "Faster inserts",
+          "Exact matches only",
+          "Location search"
+        ]
+      },
+      {
+        "id": "specialized-indexes-q2",
+        "answer": 2,
+        "prompt": "Which index type answers \"shops near me\"?",
+        "explain": "Queries by distance on a map.",
+        "options": [
+          "Text",
+          "Unique",
+          "Geospatial (2dsphere)",
+          "TTL"
+        ]
+      },
+      {
+        "id": "specialized-indexes-q3",
+        "answer": 3,
+        "prompt": "What does a TTL index do?",
+        "explain": "Great for sessions and temporary codes.",
+        "options": [
+          "Speeds up text search",
+          "Encrypts data",
+          "Counts documents",
+          "Deletes documents automatically after a set time"
+        ]
+      },
+      {
+        "id": "specialized-indexes-q4",
+        "answer": 0,
+        "prompt": "TTL stands for \"time to live\".",
+        "explain": "Set with expireAfterSeconds.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
     ]
   }
 ]

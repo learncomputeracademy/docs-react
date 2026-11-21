@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Custom Hooks in React | Learn Computer Academy"
 meta_description: "Extracting reusable stateful logic into your own custom hooks, built from useState and useEffect."
 sort_order: 18
-updated_at: "2026-07-31T11:24:41.562331+00:00"
+updated_at: "2026-11-21T10:21:56.293043+00:00"
 ---
 
 ```json
@@ -86,6 +86,59 @@ updated_at: "2026-07-31T11:24:41.562331+00:00"
     "type": "callout",
     "title": "Extract on the second use, not the first",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-custom-hooks",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "custom-hooks-q1",
+        "answer": 0,
+        "prompt": "What is a custom hook?",
+        "explain": "Like extracting any repeated logic into a function.",
+        "options": [
+          "A function starting with \"use\" that reuses hook logic",
+          "A CSS class",
+          "A built-in browser API",
+          "A component that renders JSX"
+        ]
+      },
+      {
+        "id": "custom-hooks-q2",
+        "answer": 3,
+        "prompt": "Why must custom hook names start with \"use\"?",
+        "explain": "Hooks must be called at the top level only.",
+        "options": [
+          "For style",
+          "It makes them faster",
+          "Browsers require it",
+          "So React and the linter can check the Rules of Hooks"
+        ]
+      },
+      {
+        "id": "custom-hooks-q3",
+        "answer": 2,
+        "prompt": "Where can hooks NOT be called?",
+        "explain": "Hook order must be the same every render.",
+        "options": [
+          "At the top level of a component",
+          "Inside another custom hook",
+          "Inside a condition or loop",
+          "At the top of a function component"
+        ]
+      },
+      {
+        "id": "custom-hooks-q4",
+        "answer": 1,
+        "prompt": "Two components using the same custom hook share the same state.",
+        "explain": "Each call gets its own independent state.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

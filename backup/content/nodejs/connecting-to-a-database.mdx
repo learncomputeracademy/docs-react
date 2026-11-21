@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Connecting Node.js to a Database | Learn Computer Academy"
 meta_description: "Replace an in-memory array with a real database in a Node.js API, using a driver package and async/await."
 sort_order: 24
-updated_at: "2026-08-05T05:48:00.132792+00:00"
+updated_at: "2026-11-21T06:03:29.581503+00:00"
 ---
 
 ```json
@@ -144,6 +144,61 @@ updated_at: "2026-08-05T05:48:00.132792+00:00"
     "type": "callout",
     "title": "Where the SQL syntax itself is taught",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-connecting-to-a-database",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "connecting-to-a-database-q1",
+        "answer": 1,
+        "prompt": "Why move from an in-memory array to a database?",
+        "explain": "A database survives restarts and is safe to share across requests.",
+        "options": [
+          "Arrays are slow",
+          "Data in an array vanishes when the server restarts",
+          "Express needs a database",
+          "Arrays can't hold objects"
+        ]
+      },
+      {
+        "id": "connecting-to-a-database-q2",
+        "answer": 2,
+        "prompt": "How does Node.js connect to PostgreSQL?",
+        "explain": "Node has no built-in database support.",
+        "options": [
+          "It has built-in support",
+          "Through the browser",
+          "Through a driver package like pg",
+          "With fs"
+        ]
+      },
+      {
+        "id": "connecting-to-a-database-q3",
+        "answer": 3,
+        "prompt": "Why use placeholders ($1) instead of building SQL with string concatenation?",
+        "explain": "<code>pool.query('SELECT * FROM products WHERE id = $1', [id])</code>",
+        "options": [
+          "It is shorter",
+          "Placeholders run faster",
+          "It is required by Express",
+          "It prevents SQL injection from user input"
+        ]
+      },
+      {
+        "id": "connecting-to-a-database-q4",
+        "answer": 0,
+        "prompt": "Where should the database password come from?",
+        "explain": "Secrets never belong in source code.",
+        "options": [
+          "process.env",
+          "A string in the source code",
+          "The URL",
+          "package.json"
+        ]
+      }
+    ]
   }
 ]
 ```

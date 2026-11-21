@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Introduction to Express.js | Learn Computer Academy"
 meta_description: "Rebuild the http-module server with Express, and see exactly what a web framework saves you from writing by hand."
 sort_order: 19
-updated_at: "2026-08-05T05:47:58.512362+00:00"
+updated_at: "2026-11-21T06:03:28.166746+00:00"
 ---
 
 ```json
@@ -95,6 +95,61 @@ updated_at: "2026-08-05T05:47:58.512362+00:00"
     "id": "mJhCV1N9WASj",
     "html": "<p>The next few lessons build this out properly: multiple routes, middleware, and reading data the browser sends along with a request.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-express-intro",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "express-intro-q1",
+        "answer": 2,
+        "prompt": "What is Express?",
+        "explain": "It is still built on Node's http module underneath.",
+        "options": [
+          "A built-in Node module",
+          "A database",
+          "An npm package that handles routing and responses on top of http",
+          "A browser"
+        ]
+      },
+      {
+        "id": "express-intro-q2",
+        "answer": 3,
+        "prompt": "What does <code>app.get('/about', handler)</code> do?",
+        "explain": "No manual req.url checking.",
+        "options": [
+          "Fetches /about from another site",
+          "Deletes the /about route",
+          "Reads a file called about",
+          "Runs handler for GET requests to /about"
+        ]
+      },
+      {
+        "id": "express-intro-q3",
+        "answer": 0,
+        "prompt": "What does res.send() take care of that raw http doesn't?",
+        "explain": "No writeHead() and end() needed.",
+        "options": [
+          "Setting a suitable Content-Type and ending the response",
+          "Connecting to a database",
+          "Logging in the user",
+          "Compressing images"
+        ]
+      },
+      {
+        "id": "express-intro-q4",
+        "answer": 1,
+        "prompt": "How do you install Express?",
+        "explain": "It is added to dependencies in package.json.",
+        "options": [
+          "<code>node install express</code>",
+          "<code>npm install express</code>",
+          "<code>require install express</code>",
+          "It is built in"
+        ]
+      }
+    ]
   }
 ]
 ```

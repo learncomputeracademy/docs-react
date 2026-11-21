@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP OOP: Constructors, Inheritance, Visibility | Learn Computer Academy"
 meta_description: "Setting up objects automatically with constructors, sharing behavior between classes with inheritance, and controlling access with public, private, and protected."
 sort_order: 24
-updated_at: "2026-07-30T09:08:42.240481+00:00"
+updated_at: "2026-11-21T06:08:37.297321+00:00"
 ---
 
 ```json
@@ -101,6 +101,61 @@ updated_at: "2026-07-30T09:08:42.240481+00:00"
     "id": "28nyVfSg2oKX",
     "html": "<p><code>parent::</code> calls a method from the class being extended — commonly used, as above, to reuse a parent's constructor instead of duplicating its logic.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-oop-inheritance",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-inheritance-q1",
+        "answer": 2,
+        "prompt": "What is the constructor method called?",
+        "explain": "It runs automatically when the object is created.",
+        "options": [
+          "<code>constructor()</code>",
+          "<code>__init()</code>",
+          "<code>__construct()</code>",
+          "<code>init()</code>"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q2",
+        "answer": 3,
+        "prompt": "Who can access a private property?",
+        "explain": "protected also allows child classes.",
+        "options": [
+          "Any code",
+          "Child classes",
+          "Only code in the same file",
+          "Only methods of the same class"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q3",
+        "answer": 0,
+        "prompt": "Why make $balance private and expose deposit() and getBalance()?",
+        "explain": "This is encapsulation.",
+        "options": [
+          "So the balance can only change through rules the class controls",
+          "It is faster",
+          "PHP requires it",
+          "To hide it from the database"
+        ]
+      },
+      {
+        "id": "oop-inheritance-q4",
+        "answer": 1,
+        "prompt": "Which keyword makes a class inherit from another?",
+        "explain": "implements is for interfaces.",
+        "options": [
+          "<code>implements</code>",
+          "<code>extends</code>",
+          "<code>inherits</code>",
+          "<code>uses</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

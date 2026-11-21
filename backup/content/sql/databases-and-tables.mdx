@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Databases & Tables | Learn Computer Academy"
 meta_description: "How to create a database, switch between databases, and see what already exists — the structural basics every SQL session starts with."
 sort_order: 2
-updated_at: "2026-07-29T06:31:05.032201+00:00"
+updated_at: "2026-11-21T05:51:00.332548+00:00"
 ---
 
 ```json
@@ -155,6 +155,61 @@ updated_at: "2026-07-29T06:31:05.032201+00:00"
     "id": "fY84-AnSGDBj",
     "html": "<p>With a database and the idea of typed columns in place, the next lesson goes deep on choosing the right type and size for every column you'll ever define.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-databases-and-tables",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "databases-and-tables-q1",
+        "answer": 0,
+        "prompt": "What does <code>CREATE DATABASE CompanyDB;</code> do?",
+        "explain": "It does not select it for use — you still need <code>USE CompanyDB;</code>.",
+        "options": [
+          "Creates a new, empty database",
+          "Creates a table called CompanyDB",
+          "Switches to CompanyDB",
+          "Deletes CompanyDB"
+        ]
+      },
+      {
+        "id": "databases-and-tables-q2",
+        "answer": 2,
+        "prompt": "Which command switches the active database for your session?",
+        "explain": "<code>USE CompanyDB;</code> — all following statements run against it.",
+        "options": [
+          "<code>OPEN</code>",
+          "<code>SELECT DATABASE</code>",
+          "<code>USE</code>",
+          "<code>SWITCH</code>"
+        ]
+      },
+      {
+        "id": "databases-and-tables-q3",
+        "answer": 1,
+        "prompt": "Which command lists the tables in the current database (in MySQL)?",
+        "explain": "The exact syntax varies between database engines.",
+        "options": [
+          "<code>LIST TABLES;</code>",
+          "<code>SHOW TABLES;</code>",
+          "<code>SELECT TABLES;</code>",
+          "<code>DESCRIBE;</code>"
+        ]
+      },
+      {
+        "id": "databases-and-tables-q4",
+        "answer": 3,
+        "prompt": "A common mistake: running a query against the wrong database because…",
+        "explain": "Check which database is active before running anything that changes data.",
+        "options": [
+          "the table had no primary key",
+          "the query had no semicolon",
+          "SELECT was written in lowercase",
+          "USE was never called first"
+        ]
+      }
+    ]
   }
 ]
 ```

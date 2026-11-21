@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js process and Environment Variables | Learn Computer Academy"
 meta_description: "Read command-line arguments and environment variables with the global process object, and keep secrets like API keys out of your source code."
 sort_order: 17
-updated_at: "2026-08-05T05:47:57.89871+00:00"
+updated_at: "2026-11-21T06:03:27.620261+00:00"
 ---
 
 ```json
@@ -131,6 +131,61 @@ updated_at: "2026-08-05T05:47:57.89871+00:00"
     "type": "code",
     "language": "javascript",
     "runnable": false
+  },
+  {
+    "id": "quiz-process-and-env",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "process-and-env-q1",
+        "answer": 1,
+        "prompt": "For <code>node app.js hello world</code>, what is <code>process.argv.slice(2)</code>?",
+        "explain": "The first two entries are the node path and the script path.",
+        "options": [
+          "<code>['node', 'app.js']</code>",
+          "<code>['hello', 'world']</code>",
+          "<code>['app.js', 'hello', 'world']</code>",
+          "<code>'hello world'</code>"
+        ]
+      },
+      {
+        "id": "process-and-env-q2",
+        "answer": 2,
+        "prompt": "Why keep a database password in an environment variable?",
+        "explain": "Source code ends up in git and on other machines.",
+        "options": [
+          "It is faster",
+          "Node requires it",
+          "So the secret isn't written into the source code",
+          "It encrypts the password"
+        ]
+      },
+      {
+        "id": "process-and-env-q3",
+        "answer": 3,
+        "prompt": "What does <code>const port = process.env.PORT || 3000</code> do?",
+        "explain": "Run it with <code>PORT=4000 node app.js</code> to change it.",
+        "options": [
+          "Always uses 3000",
+          "Crashes if PORT is missing",
+          "Sets PORT to 3000 for the whole computer",
+          "Uses PORT if it is set, otherwise falls back to 3000"
+        ]
+      },
+      {
+        "id": "process-and-env-q4",
+        "answer": 0,
+        "prompt": "Do you need to require() the process object?",
+        "explain": "It represents the running Node program itself.",
+        "options": [
+          "No — it is a global, always available",
+          "Yes, require(\"process\")",
+          "Only in ES modules",
+          "Only on Windows"
+        ]
+      }
+    ]
   }
 ]
 ```

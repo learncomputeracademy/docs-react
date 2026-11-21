@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Styling in React | Learn Computer Academy"
 meta_description: "The main approaches to styling a React component — plain CSS files, CSS Modules for scoped styles, and inline style objects."
 sort_order: 23
-updated_at: "2026-07-31T11:24:43.035553+00:00"
+updated_at: "2026-11-21T10:21:57.722067+00:00"
 ---
 
 ```json
@@ -124,6 +124,59 @@ updated_at: "2026-07-31T11:24:43.035553+00:00"
     "type": "code",
     "language": "jsx",
     "runnable": false
+  },
+  {
+    "id": "quiz-styling",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "styling-q1",
+        "answer": 0,
+        "prompt": "How do you import a plain CSS file in a React component?",
+        "explain": "The build tool handles it.",
+        "options": [
+          "<code>import './Button.css';</code>",
+          "<code>&lt;link css&gt;</code>",
+          "<code>require.css()</code>",
+          "You cannot"
+        ]
+      },
+      {
+        "id": "styling-q2",
+        "answer": 1,
+        "prompt": "What do CSS Modules prevent?",
+        "explain": "Class names are scoped to the file.",
+        "options": [
+          "Using colours",
+          "Class name clashes between components",
+          "Responsive layouts",
+          "Fonts"
+        ]
+      },
+      {
+        "id": "styling-q3",
+        "answer": 2,
+        "prompt": "How is an inline style written in JSX?",
+        "explain": "An object with camelCase property names.",
+        "options": [
+          "<code>style=\"color: red\"</code>",
+          "<code>css={red}</code>",
+          "<code>style={{ color: 'red' }}</code>",
+          "<code>color=\"red\"</code>"
+        ]
+      },
+      {
+        "id": "styling-q4",
+        "answer": 1,
+        "prompt": "React forces you to use one specific styling approach.",
+        "explain": "Plain CSS, modules, Tailwind and CSS-in-JS all coexist.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

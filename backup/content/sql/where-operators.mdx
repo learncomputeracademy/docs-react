@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Filtering — WHERE & Operators | Learn Computer Academy"
 meta_description: "Comparison operators, AND/OR/NOT, BETWEEN, LIKE, IN, ANY/ALL, and EXISTS — the full vocabulary for narrowing SQL results down to the rows that matter."
 sort_order: 8
-updated_at: "2026-07-29T06:31:06.875988+00:00"
+updated_at: "2026-11-21T05:51:02.394723+00:00"
 ---
 
 ```json
@@ -317,6 +317,61 @@ updated_at: "2026-07-29T06:31:06.875988+00:00"
     "id": "jTghdwYBIpFY",
     "html": "<p>With filtering covered, the next lesson is a short one: sorting results with ORDER BY.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-where-operators",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "where-operators-q1",
+        "answer": 2,
+        "prompt": "How do you find rows where email has no value?",
+        "explain": "NULL is never equal to anything, not even another NULL — use IS NULL.",
+        "options": [
+          "<code>WHERE email = NULL</code>",
+          "<code>WHERE email = ''</code>",
+          "<code>WHERE email IS NULL</code>",
+          "<code>WHERE email == NULL</code>"
+        ]
+      },
+      {
+        "id": "where-operators-q2",
+        "answer": 0,
+        "prompt": "Does <code>WHERE salary BETWEEN 50000 AND 70000</code> include 70000?",
+        "explain": "BETWEEN is inclusive on both ends.",
+        "options": [
+          "Yes — BETWEEN includes both ends",
+          "No — only the lower end",
+          "No — neither end",
+          "Only if salary is DECIMAL"
+        ]
+      },
+      {
+        "id": "where-operators-q3",
+        "answer": 1,
+        "prompt": "Which pattern matches names starting with \"A\"?",
+        "explain": "<code>%</code> matches any number of characters; <code>_</code> matches exactly one.",
+        "options": [
+          "<code>LIKE '%A'</code>",
+          "<code>LIKE 'A%'</code>",
+          "<code>LIKE '_A'</code>",
+          "<code>LIKE 'A'</code>"
+        ]
+      },
+      {
+        "id": "where-operators-q4",
+        "answer": 3,
+        "prompt": "Why use parentheses in <code>WHERE dept = 'IT' AND (salary &gt; 50000 OR senior = 1)</code>?",
+        "explain": "Missing parentheses when mixing AND and OR silently changes the result.",
+        "options": [
+          "They are required in every WHERE clause",
+          "They make the query faster",
+          "They turn OR into AND",
+          "Without them, AND binds first and the logic changes"
+        ]
+      }
+    ]
   }
 ]
 ```

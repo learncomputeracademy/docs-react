@@ -5,7 +5,7 @@ path: "css/specificity"
 status: "published"
 meta_title: "CSS Speficity | Learn Computer Academy"
 sort_order: 27
-updated_at: "2026-07-29T05:30:53.792214+00:00"
+updated_at: "2026-11-21T06:18:15.649299+00:00"
 ---
 
 ```json
@@ -117,6 +117,59 @@ updated_at: "2026-07-29T05:30:53.792214+00:00"
     "id": "7nKZHpya75zT",
     "html": "<p><b>The universal selector and inherited values have a specificity of 0</b> - *, body * and similar have a zero specificity. Inherited values also have a specificity of 0.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-specificity",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "specificity-q1",
+        "answer": 2,
+        "prompt": "Which selector wins: #header or .header?",
+        "explain": "Specificity is a score; ids score higher.",
+        "options": [
+          ".header",
+          "Whichever comes last",
+          "#header — ids are more specific than classes",
+          "Neither applies"
+        ]
+      },
+      {
+        "id": "specificity-q2",
+        "answer": 3,
+        "prompt": "What is the specificity order, highest first?",
+        "explain": "The universal selector * has the lowest.",
+        "options": [
+          "Elements, classes, ids, inline",
+          "Classes, ids, inline, elements",
+          "Ids, inline, classes, elements",
+          "Inline styles, ids, classes/attributes/pseudo-classes, elements"
+        ]
+      },
+      {
+        "id": "specificity-q3",
+        "answer": 0,
+        "prompt": "Two rules with equal specificity target the same element. Which wins?",
+        "explain": "That is the \"cascade\" in Cascading Style Sheets.",
+        "options": [
+          "The one that comes later",
+          "The first one",
+          "The shorter one",
+          "Neither"
+        ]
+      },
+      {
+        "id": "specificity-q4",
+        "answer": 0,
+        "prompt": "Specificity is a common reason CSS rules don't apply the way you expect.",
+        "explain": "Check which rule is more specific before reaching for !important.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

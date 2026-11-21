@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Custom Taxonomies with CPT UI | Learn Computer Academy"
 meta_description: "Building a custom taxonomy to organize a custom post type, and the hierarchical/non-hierarchical choice that shapes how it behaves."
 sort_order: 16
-updated_at: "2026-07-30T14:23:29.275727+00:00"
+updated_at: "2026-11-21T05:59:26.359431+00:00"
 ---
 
 ```json
@@ -91,6 +91,59 @@ updated_at: "2026-07-30T14:23:29.275727+00:00"
     "id": "mqhH7gCrYzDk",
     "html": "<p>With both a post type and a taxonomy registered, the next lesson builds the template files that actually display them — following the exact same template hierarchy pattern from earlier, extended with a custom post type's own naming.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-cpt-ui-taxonomies",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "cpt-ui-taxonomies-q1",
+        "answer": 1,
+        "prompt": "What are categories and tags, technically?",
+        "explain": "A taxonomy is WordPress's general system for grouping content.",
+        "options": [
+          "Plugins",
+          "Built-in taxonomies attached to posts",
+          "Post types",
+          "Custom fields"
+        ]
+      },
+      {
+        "id": "cpt-ui-taxonomies-q2",
+        "answer": 2,
+        "prompt": "A hierarchical taxonomy behaves like…",
+        "explain": "Non-hierarchical taxonomies behave like tags.",
+        "options": [
+          "tags (flat)",
+          "a menu",
+          "categories (can have parents and children)",
+          "a custom field"
+        ]
+      },
+      {
+        "id": "cpt-ui-taxonomies-q3",
+        "answer": 3,
+        "prompt": "Which setting actually connects a taxonomy to a post type?",
+        "explain": "Tick the post types it should organise.",
+        "options": [
+          "The slug",
+          "The plural label",
+          "Hierarchical",
+          "\"Attached to Post Types\""
+        ]
+      },
+      {
+        "id": "cpt-ui-taxonomies-q4",
+        "answer": 0,
+        "prompt": "One taxonomy can attach to more than one post type.",
+        "explain": "And one post type can have several taxonomies.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

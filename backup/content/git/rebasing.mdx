@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Rebase vs Merge | Learn Computer Academy"
 meta_description: "A second way to bring a branch up to date — rewriting its history onto a new base instead of merging — and the one rule about never rebasing shared history."
 sort_order: 18
-updated_at: "2026-09-03T05:20:04.517886+00:00"
+updated_at: "2026-11-21T10:18:35.397074+00:00"
 ---
 
 ```json
@@ -115,6 +115,59 @@ updated_at: "2026-09-03T05:20:04.517886+00:00"
     "header": [
       "Situation",
       "Reasonable choice"
+    ]
+  },
+  {
+    "id": "quiz-rebasing",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "rebasing-q1",
+        "answer": 3,
+        "prompt": "What does rebase do?",
+        "explain": "It rewrites history as if the branch started later.",
+        "options": [
+          "Deletes a branch",
+          "Creates a merge commit",
+          "Downloads a repo",
+          "Replays a branch's commits on top of another branch's latest commit"
+        ]
+      },
+      {
+        "id": "rebasing-q2",
+        "answer": 0,
+        "prompt": "What history does rebasing produce compared with merging?",
+        "explain": "Merging preserves the branch shape.",
+        "options": [
+          "A straight, linear history",
+          "A history with more merge commits",
+          "No history",
+          "Random history"
+        ]
+      },
+      {
+        "id": "rebasing-q3",
+        "answer": 1,
+        "prompt": "What is the golden rule of rebasing?",
+        "explain": "Rewriting shared history breaks collaborators.",
+        "options": [
+          "Rebase main every hour",
+          "Never rebase commits that others already have (shared/pushed branches)",
+          "Always force-push main",
+          "Rebase only on Fridays"
+        ]
+      },
+      {
+        "id": "rebasing-q4",
+        "answer": 0,
+        "prompt": "<code>git switch feature-login</code> then <code>git rebase main</code> brings feature-login up to date with main.",
+        "explain": "Its commits now sit on top of main.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
     ]
   }
 ]

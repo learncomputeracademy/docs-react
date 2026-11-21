@@ -5,7 +5,7 @@ path: "programming/arrays"
 status: "published"
 meta_title: "Arrays | Learn Computer Academy"
 sort_order: 10
-updated_at: "2026-08-18T14:27:47.088655+00:00"
+updated_at: "2026-11-21T10:12:46.325135+00:00"
 ---
 
 ```json
@@ -117,6 +117,61 @@ updated_at: "2026-08-18T14:27:47.088655+00:00"
       {
         "code": "fruits = [\"apple\", \"banana\"]\nfruits.append(\"mango\")\n\nprint(len(fruits))  # 3\nprint(fruits)        # ['apple', 'banana', 'mango']",
         "language": "python"
+      }
+    ]
+  },
+  {
+    "id": "quiz-arrays",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "arrays-q1",
+        "answer": 1,
+        "prompt": "What is <code>fruits[0]</code> for <code>[\"apple\", \"banana\", \"mango\"]</code>?",
+        "explain": "Indexes start at 0, not 1.",
+        "options": [
+          "<code>\"banana\"</code>",
+          "<code>\"apple\"</code>",
+          "<code>\"mango\"</code>",
+          "<code>undefined</code>"
+        ]
+      },
+      {
+        "id": "arrays-q2",
+        "answer": 0,
+        "prompt": "What does <code>push()</code> do?",
+        "explain": "Then <code>length</code> grows by one.",
+        "options": [
+          "Adds an item to the end",
+          "Removes the first item",
+          "Sorts the array",
+          "Empties the array"
+        ]
+      },
+      {
+        "id": "arrays-q3",
+        "answer": 3,
+        "prompt": "An array with 3 items: what is the index of the last item?",
+        "explain": "Last index = length − 1.",
+        "options": [
+          "3",
+          "1",
+          "0",
+          "2"
+        ]
+      },
+      {
+        "id": "arrays-q4",
+        "answer": 2,
+        "prompt": "Why use an array instead of fruit1, fruit2, fruit3?",
+        "explain": "Lists grow without new variable names.",
+        "options": [
+          "Arrays are always faster",
+          "Variables cannot hold text",
+          "One name holds an ordered list you can loop over",
+          "It is required"
+        ]
       }
     ]
   }

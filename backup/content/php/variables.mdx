@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Variables in PHP | Learn Computer Academy"
 meta_description: "How PHP variables work — the $ sigil, loose typing, and the naming rules every variable has to follow."
 sort_order: 4
-updated_at: "2026-07-30T09:08:35.126146+00:00"
+updated_at: "2026-11-21T06:08:31.526515+00:00"
 ---
 
 ```json
@@ -103,6 +103,61 @@ updated_at: "2026-07-30T09:08:35.126146+00:00"
     "type": "callout",
     "title": "No separate declaration step",
     "variant": "note"
+  },
+  {
+    "id": "quiz-variables",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "variables-q1",
+        "answer": 1,
+        "prompt": "What must every PHP variable name start with?",
+        "explain": "The $ sigil separates variables from functions, constants and keywords.",
+        "options": [
+          "<code>@</code>",
+          "<code>$</code>",
+          "<code>#</code>",
+          "<code>&amp;</code>"
+        ]
+      },
+      {
+        "id": "variables-q2",
+        "answer": 3,
+        "prompt": "With <code>$name = \"Amit\";</code>, what does <code>echo 'Hi $name';</code> print?",
+        "explain": "Variables are only interpolated inside double quotes.",
+        "options": [
+          "Hi Amit",
+          "An error",
+          "Hi",
+          "Hi $name"
+        ]
+      },
+      {
+        "id": "variables-q3",
+        "answer": 0,
+        "prompt": "Do you declare a variable's type in PHP?",
+        "explain": "The same variable can later hold a different type.",
+        "options": [
+          "No — PHP works out the type from the value (loosely typed)",
+          "Yes, always",
+          "Only for numbers",
+          "Only for strings"
+        ]
+      },
+      {
+        "id": "variables-q4",
+        "answer": 2,
+        "prompt": "Which variable name is valid?",
+        "explain": "Names start with a letter or underscore, and contain only letters, numbers and underscores.",
+        "options": [
+          "<code>$2name</code>",
+          "<code>$my-name</code>",
+          "<code>$_name</code>",
+          "<code>$my name</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

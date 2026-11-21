@@ -5,7 +5,7 @@ path: "html/id"
 status: "published"
 meta_title: "HTML ID | Learn Computer Academy"
 sort_order: 8
-updated_at: "2026-07-29T05:40:19.731679+00:00"
+updated_at: "2026-11-20T15:25:05.95125+00:00"
 ---
 
 ```json
@@ -60,6 +60,59 @@ updated_at: "2026-07-29T05:40:19.731679+00:00"
     "id": "IZe8EGbnpGoh",
     "html": "<p><b>Tip:</b> You can learn much more about CSS in our <a href=\"css_intro.php\" target=\"_blank\">CSS Tutorial</a>.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-id",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "id-q1",
+        "answer": 2,
+        "prompt": "Which CSS selector styles the element with id=\"header\"?",
+        "explain": "An id selector is <code>#</code> followed by the id. <code>header</code> alone would select <code>&lt;header&gt;</code> elements.",
+        "options": [
+          "<code>.header</code>",
+          "<code>header</code>",
+          "<code>#header</code>",
+          "<code>@header</code>"
+        ]
+      },
+      {
+        "id": "id-q2",
+        "answer": 0,
+        "prompt": "How many elements on one page may use the same id?",
+        "explain": "An id must be unique within the whole document.",
+        "options": [
+          "Only one",
+          "Any number",
+          "Two",
+          "One per section"
+        ]
+      },
+      {
+        "id": "id-q3",
+        "answer": 2,
+        "prompt": "Which id value is valid?",
+        "explain": "An id needs at least one character and must not contain spaces.",
+        "options": [
+          "<code>id=\"main menu\"</code>",
+          "<code>id=\"\"</code>",
+          "<code>id=\"main-menu\"</code>"
+        ]
+      },
+      {
+        "id": "id-q4",
+        "answer": 1,
+        "prompt": "What is the main difference between a class and an id?",
+        "explain": "Both work with CSS and JavaScript. The difference is uniqueness.",
+        "options": [
+          "A class is for CSS, an id is only for JavaScript",
+          "A class can be shared by many elements; an id belongs to one element",
+          "There is no difference",
+          "An id can only be used on headings"
+        ]
+      }
+    ]
   }
 ]
 ```

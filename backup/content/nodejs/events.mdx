@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Events and EventEmitter | Learn Computer Academy"
 meta_description: "Use the built-in EventEmitter class to build code that reacts to named events — the pattern much of Node itself is built on."
 sort_order: 11
-updated_at: "2026-08-05T05:47:55.943528+00:00"
+updated_at: "2026-11-21T06:03:25.794059+00:00"
 ---
 
 ```json
@@ -90,6 +90,59 @@ updated_at: "2026-08-05T05:47:55.943528+00:00"
     "html": "<p>An event name is just a string you choose — there's no fixed list. <code>'order-placed'</code> works because both the emitter and the listener agree to use that exact spelling; a typo in either place means the listener silently never runs.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-events",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "events-q1",
+        "answer": 1,
+        "prompt": "Which method registers a listener on an EventEmitter?",
+        "explain": "emit() fires the event.",
+        "options": [
+          "<code>emit()</code>",
+          "<code>on()</code>",
+          "<code>listen()</code>",
+          "<code>trigger()</code>"
+        ]
+      },
+      {
+        "id": "events-q2",
+        "answer": 2,
+        "prompt": "What does this log?<pre><code>emitter.on('greet', (name) =&gt; console.log(`Hello, ${name}!`))\nemitter.emit('greet', 'Priya')</code></pre>",
+        "explain": "Extra arguments to emit() are passed to every listener.",
+        "options": [
+          "Hello, name!",
+          "Hello, undefined!",
+          "Hello, Priya!",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "events-q3",
+        "answer": 3,
+        "prompt": "If one event has three listeners, what happens when it is emitted?",
+        "explain": "Order follows registration.",
+        "options": [
+          "Only the first runs",
+          "Only the last runs",
+          "One is chosen at random",
+          "All three run, in the order they were registered"
+        ]
+      },
+      {
+        "id": "events-q4",
+        "answer": 0,
+        "prompt": "Many of Node's built-in APIs, like streams, are built on EventEmitter.",
+        "explain": "A readable stream emits \"data\" and \"end\".",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

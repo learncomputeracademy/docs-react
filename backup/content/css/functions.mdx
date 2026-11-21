@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Functions | Learn Computer Academy"
 meta_description: "Do math directly inside a CSS value with calc(), and pick the smallest, largest, or a clamped-between value with min(), max(), and clamp()."
 sort_order: 43
-updated_at: "2026-09-03T03:54:08.880415+00:00"
+updated_at: "2026-11-21T06:18:19.876274+00:00"
 ---
 
 ```json
@@ -126,6 +126,61 @@ updated_at: "2026-09-03T03:54:08.880415+00:00"
     "type": "callout",
     "title": "Practice it interactively",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-functions",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-q1",
+        "answer": 0,
+        "prompt": "What is <code>calc(100% - 250px)</code> useful for?",
+        "explain": "For example a main area next to a 250px sidebar.",
+        "options": [
+          "Mixing different units in one value",
+          "Rounding numbers",
+          "Animations",
+          "Colours"
+        ]
+      },
+      {
+        "id": "functions-q2",
+        "answer": 3,
+        "prompt": "Why is calc(100% -250px) invalid?",
+        "explain": "calc(100% - 250px) is correct.",
+        "options": [
+          "% isn't allowed",
+          "px isn't allowed",
+          "Subtraction isn't allowed",
+          "A space is required on both sides of the operator"
+        ]
+      },
+      {
+        "id": "functions-q3",
+        "answer": 2,
+        "prompt": "What does <code>width: min(90%, 600px);</code> do?",
+        "explain": "max() picks the larger.",
+        "options": [
+          "Always 600px",
+          "Always 90%",
+          "Uses whichever is smaller, so the width never exceeds 600px",
+          "Uses the larger value"
+        ]
+      },
+      {
+        "id": "functions-q4",
+        "answer": 0,
+        "prompt": "What does <code>clamp(1rem, 4vw, 2rem)</code> do?",
+        "explain": "Great for fluid font sizes.",
+        "options": [
+          "Uses 4vw, but never below 1rem or above 2rem",
+          "Always 1rem",
+          "Averages the three",
+          "Picks one at random"
+        ]
+      }
+    ]
   }
 ]
 ```

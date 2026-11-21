@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Escaping & Sanitizing Output | Learn Computer Academy"
 meta_description: "Why every value a template echoes needs to pass through an escaping function first, and which one to use for which context."
 sort_order: 24
-updated_at: "2026-07-30T14:23:31.808784+00:00"
+updated_at: "2026-11-21T05:59:28.835732+00:00"
 ---
 
 ```json
@@ -96,6 +96,61 @@ updated_at: "2026-07-30T14:23:31.808784+00:00"
     "id": "x7HOeUWX4AdX",
     "html": "<p>With output secured, the next lesson collects a handful of smaller, genuinely useful <code>functions.php</code> utilities that come up in almost every real theme build.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-escaping-sanitizing",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "escaping-sanitizing-q1",
+        "answer": 1,
+        "prompt": "What happens if user input is echoed into a page without escaping?",
+        "explain": "XSS is the most common security issue in hand-written themes.",
+        "options": [
+          "It shows in bold",
+          "Any HTML or JavaScript in it can run — an XSS hole",
+          "Nothing",
+          "WordPress escapes it automatically"
+        ]
+      },
+      {
+        "id": "escaping-sanitizing-q2",
+        "answer": 3,
+        "prompt": "Which function escapes a value going into an href?",
+        "explain": "Pick the function for where the value is going.",
+        "options": [
+          "<code>esc_html()</code>",
+          "<code>esc_attr()</code>",
+          "<code>sanitize_text_field()</code>",
+          "<code>esc_url()</code>"
+        ]
+      },
+      {
+        "id": "escaping-sanitizing-q3",
+        "answer": 0,
+        "prompt": "Which function escapes a value inside an HTML attribute like title?",
+        "explain": "esc_html() is for text between tags.",
+        "options": [
+          "<code>esc_attr()</code>",
+          "<code>esc_url()</code>",
+          "<code>esc_js()</code>",
+          "<code>strip_tags()</code>"
+        ]
+      },
+      {
+        "id": "escaping-sanitizing-q4",
+        "answer": 2,
+        "prompt": "When does escaping happen?",
+        "explain": "Sanitizing cleans input on the way in; escaping protects output on the way out.",
+        "options": [
+          "When saving to the database",
+          "Once, when the theme is installed",
+          "On output, right where the value is printed",
+          "Never — WordPress handles it"
+        ]
+      }
+    ]
   }
 ]
 ```

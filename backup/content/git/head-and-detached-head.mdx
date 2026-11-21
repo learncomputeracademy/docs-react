@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git HEAD and Detached HEAD | Learn Computer Academy"
 meta_description: "What HEAD actually points to — the concept behind the conflict markers, resets, and checkouts from earlier lessons — and what \"detached HEAD\" means."
 sort_order: 21
-updated_at: "2026-09-03T05:30:34.393939+00:00"
+updated_at: "2026-11-21T10:18:35.950354+00:00"
 ---
 
 ```json
@@ -119,6 +119,59 @@ updated_at: "2026-09-03T05:30:34.393939+00:00"
     "type": "code",
     "language": "bash",
     "runnable": false
+  },
+  {
+    "id": "quiz-head-and-detached-head",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "head-and-detached-head-q1",
+        "answer": 1,
+        "prompt": "What does HEAD point to?",
+        "explain": "Normally via the current branch.",
+        "options": [
+          "The first commit ever",
+          "The commit currently checked out",
+          "GitHub",
+          "The remote"
+        ]
+      },
+      {
+        "id": "head-and-detached-head-q2",
+        "answer": 2,
+        "prompt": "What does <code>HEAD~1</code> refer to?",
+        "explain": "HEAD~2 is two back.",
+        "options": [
+          "The next commit",
+          "The first commit",
+          "The commit one before the current one",
+          "A tag"
+        ]
+      },
+      {
+        "id": "head-and-detached-head-q3",
+        "answer": 0,
+        "prompt": "What is a \"detached HEAD\"?",
+        "explain": "Happens when you check out a specific commit.",
+        "options": [
+          "HEAD points directly at a commit instead of a branch",
+          "A deleted repository",
+          "A merge conflict",
+          "A broken computer"
+        ]
+      },
+      {
+        "id": "head-and-detached-head-q4",
+        "answer": 0,
+        "prompt": "New commits made in detached HEAD are easy to lose unless you create a branch.",
+        "explain": "<code>git switch -c new-branch</code> keeps them.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

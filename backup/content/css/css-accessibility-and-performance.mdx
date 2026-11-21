@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Accessibility & Performance | Learn Computer Academy"
 meta_description: "CSS-specific habits that respect motion sensitivity and keyboard users, plus a few common performance mistakes worth avoiding."
 sort_order: 49
-updated_at: "2026-09-03T03:54:10.571857+00:00"
+updated_at: "2026-11-21T06:18:21.573342+00:00"
 ---
 
 ```json
@@ -105,6 +105,59 @@ updated_at: "2026-09-03T03:54:10.571857+00:00"
     "type": "callout",
     "title": "The one habit worth remembering",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-css-accessibility-and-performance",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "css-accessibility-and-performance-q1",
+        "answer": 1,
+        "prompt": "Why wrap animations in @media (prefers-reduced-motion: reduce)?",
+        "explain": "Some people have vestibular disorders.",
+        "options": [
+          "To speed them up",
+          "To respect users who set their system to reduce motion",
+          "It is required for animations",
+          "To hide them on phones"
+        ]
+      },
+      {
+        "id": "css-accessibility-and-performance-q2",
+        "answer": 3,
+        "prompt": "What is wrong with <code>:focus { outline: none; }</code> on its own?",
+        "explain": "Replace it with a visible style, e.g. :focus-visible.",
+        "options": [
+          "Nothing",
+          "It is invalid CSS",
+          "It slows the page",
+          "Keyboard users lose the visible sign of where they are"
+        ]
+      },
+      {
+        "id": "css-accessibility-and-performance-q3",
+        "answer": 0,
+        "prompt": "Which properties are cheapest for the browser to animate?",
+        "explain": "They avoid recalculating layout every frame.",
+        "options": [
+          "<code>transform</code> and <code>opacity</code>",
+          "<code>width</code> and <code>height</code>",
+          "<code>margin</code> and <code>top</code>",
+          "<code>font-size</code>"
+        ]
+      },
+      {
+        "id": "css-accessibility-and-performance-q4",
+        "answer": 1,
+        "prompt": "Most accessibility work is CSS's job, not HTML's.",
+        "explain": "Most of it is HTML's job; a handful of things belong to CSS.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

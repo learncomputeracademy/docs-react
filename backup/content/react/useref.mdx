@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The useRef Hook in React | Learn Computer Academy"
 meta_description: "Accessing a real DOM node directly, and storing a value that persists between renders without causing a re-render, with useRef."
 sort_order: 19
-updated_at: "2026-07-31T11:24:41.870328+00:00"
+updated_at: "2026-11-21T10:21:56.553943+00:00"
 ---
 
 ```json
@@ -93,6 +93,61 @@ updated_at: "2026-07-31T11:24:41.870328+00:00"
     "type": "callout",
     "title": "Don't read/write refs during render",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-useref",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "useref-q1",
+        "answer": 1,
+        "prompt": "What does useRef give you when attached to a JSX element?",
+        "explain": "For example, to focus an input.",
+        "options": [
+          "A copy of the element",
+          "The real DOM node in ref.current",
+          "A new state value",
+          "The element's CSS"
+        ]
+      },
+      {
+        "id": "useref-q2",
+        "answer": 3,
+        "prompt": "Does changing ref.current cause a re-render?",
+        "explain": "That is the difference from state.",
+        "options": [
+          "Yes, always",
+          "Only once",
+          "Only in effects",
+          "No"
+        ]
+      },
+      {
+        "id": "useref-q3",
+        "answer": 0,
+        "prompt": "Which is a good use of a ref for a value (not a DOM node)?",
+        "explain": "Values that should not trigger re-renders.",
+        "options": [
+          "Holding a timer ID between renders",
+          "Showing text on screen",
+          "Storing a list to render",
+          "Replacing all state"
+        ]
+      },
+      {
+        "id": "useref-q4",
+        "answer": 2,
+        "prompt": "What is the initial value of inputRef after useRef(null), before render?",
+        "explain": "React fills current after the element mounts.",
+        "options": [
+          "The input element",
+          "undefined always",
+          "<code>{ current: null }</code>",
+          "An empty string"
+        ]
+      }
+    ]
   }
 ]
 ```

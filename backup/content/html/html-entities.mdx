@@ -6,7 +6,7 @@ status: "published"
 meta_title: "HTML Entities | Learn Computer Academy"
 meta_description: "Why some characters need a special code in HTML, and the entities used most often."
 sort_order: 37
-updated_at: "2026-09-03T03:43:14.216119+00:00"
+updated_at: "2026-11-20T15:25:14.117427+00:00"
 ---
 
 ```json
@@ -99,6 +99,60 @@ updated_at: "2026-09-03T03:43:14.216119+00:00"
     "type": "callout",
     "title": "Where this comes up most",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-html-entities",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "html-entities-q1",
+        "answer": 0,
+        "prompt": "How do you show a &lt; sign as text?",
+        "explain": "<code>&amp;lt;</code> = less than, <code>&amp;gt;</code> = greater than, <code>&amp;amp;</code> = ampersand.",
+        "options": [
+          "<code>&amp;lt;</code>",
+          "<code>&amp;gt;</code>",
+          "<code>&amp;amp;</code>",
+          "<code>&amp;less;</code>"
+        ]
+      },
+      {
+        "id": "html-entities-q2",
+        "answer": 1,
+        "prompt": "Why are character entities needed?",
+        "explain": "Entities also show characters that are not on the keyboard, like ©.",
+        "options": [
+          "To make text bold",
+          "Reserved characters like &lt; would be read as the start of a tag",
+          "To translate the page",
+          "To make the page load faster"
+        ]
+      },
+      {
+        "id": "html-entities-q3",
+        "answer": 2,
+        "prompt": "What does the browser show for <code>&lt;p&gt;5 &amp;lt; 10&lt;/p&gt;</code>?",
+        "explain": "The entity is turned into the character it stands for.",
+        "options": [
+          "<code>5 &amp;lt; 10</code>",
+          "<code>5 10</code>",
+          "<code>5 &lt; 10</code>",
+          "Nothing — it breaks the page"
+        ]
+      },
+      {
+        "id": "html-entities-q4",
+        "answer": 3,
+        "prompt": "Which entity is a space the browser will not collapse?",
+        "explain": "<code>&amp;nbsp;</code> = non-breaking space.",
+        "options": [
+          "<code>&amp;space;</code>",
+          "<code>&amp;sp;</code>",
+          "<code>&amp;blank;</code>",
+          "<code>&amp;nbsp;</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -5,7 +5,7 @@ path: "javascript/performance-optimization"
 status: "published"
 meta_title: "JavaScript Performance Optimization | Learn Computer Academy"
 sort_order: 26
-updated_at: "2026-07-29T05:40:23.862849+00:00"
+updated_at: "2026-11-21T05:55:25.449323+00:00"
 ---
 
 ```json
@@ -287,6 +287,59 @@ updated_at: "2026-07-29T05:40:23.862849+00:00"
     "id": "VvdEW09JxrGP",
     "html": "<ol>\n                                    <li>Convert a loop DOM operation to use <code>DocumentFragment</code>.</li>\n                                    <li>Implement debounce on a <code>scroll</code> or <code>resize</code> event.</li>\n                                    <li>Use <code>Set</code> instead of an array to remove duplicates.</li>\n                                    <li>Create a lazy-loading <code>import()</code> function.</li>\n                                    <li>Profile a sample script in Chrome DevTools Performance tab.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-performance-optimization",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "performance-optimization-q1",
+        "answer": 1,
+        "prompt": "Why add 1,000 elements to a DocumentFragment before adding it to the page?",
+        "explain": "The page updates once instead of 1,000 times.",
+        "options": [
+          "Fragments are required for divs",
+          "It reduces layout recalculations and repaints to one",
+          "It hides the elements",
+          "It compresses the HTML"
+        ]
+      },
+      {
+        "id": "performance-optimization-q2",
+        "answer": 2,
+        "prompt": "What does debouncing do for a search box?",
+        "explain": "Throttling, by contrast, runs at most once per time window.",
+        "options": [
+          "Runs the search on every key press",
+          "Disables typing",
+          "Runs the search only after typing pauses for a moment",
+          "Caches every result forever"
+        ]
+      },
+      {
+        "id": "performance-optimization-q3",
+        "answer": 3,
+        "prompt": "Which is generally the most expensive kind of operation in front-end JavaScript?",
+        "explain": "Batch DOM changes together.",
+        "options": [
+          "Adding two numbers",
+          "Declaring a variable",
+          "Reading a constant",
+          "Repeated DOM manipulation"
+        ]
+      },
+      {
+        "id": "performance-optimization-q4",
+        "answer": 0,
+        "prompt": "Faster JavaScript can also help SEO and mobile battery life.",
+        "explain": "Speed affects rankings, and less work means less battery and data use.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Media Queries | Learn Computer Academy"
 meta_description: "Apply different CSS depending on screen size, orientation, or color scheme with @media — the core tool behind a responsive layout."
 sort_order: 41
-updated_at: "2026-09-03T03:54:08.317219+00:00"
+updated_at: "2026-11-21T06:18:19.317535+00:00"
 ---
 
 ```json
@@ -141,6 +141,59 @@ updated_at: "2026-09-03T03:54:08.317219+00:00"
     "type": "callout",
     "title": "The tag every responsive page needs",
     "variant": "note"
+  },
+  {
+    "id": "quiz-media-queries",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "media-queries-q1",
+        "answer": 0,
+        "prompt": "What does <code>@media (max-width: 768px) { ... }</code> do?",
+        "explain": "min-width applies at that width and above.",
+        "options": [
+          "Applies the CSS only on screens 768px wide or less",
+          "Applies it only above 768px",
+          "Limits page width to 768px",
+          "Hides the page on phones"
+        ]
+      },
+      {
+        "id": "media-queries-q2",
+        "answer": 3,
+        "prompt": "What does mobile-first CSS mean?",
+        "explain": "Phones never download styles meant to be overridden.",
+        "options": [
+          "Only styling phones",
+          "Using max-width everywhere",
+          "Writing desktop styles first",
+          "Base styles for small screens, then min-width queries for larger ones"
+        ]
+      },
+      {
+        "id": "media-queries-q3",
+        "answer": 1,
+        "prompt": "Which tag must also be in the HTML for media queries to work on phones?",
+        "explain": "Without it, phones render a zoomed-out desktop width.",
+        "options": [
+          "<code>&lt;meta charset=\"UTF-8\"&gt;</code>",
+          "<code>&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"&gt;</code>",
+          "<code>&lt;link rel=\"mobile\"&gt;</code>",
+          "<code>&lt;meta name=\"phone\"&gt;</code>"
+        ]
+      },
+      {
+        "id": "media-queries-q4",
+        "answer": 1,
+        "prompt": "Media queries can only check the screen width.",
+        "explain": "They can also check things like orientation, print and prefers-reduced-motion.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

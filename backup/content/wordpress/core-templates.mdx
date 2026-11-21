@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Building index.php, page.php, single.php, and 404.php | Learn Computer Academy"
 meta_description: "Putting the Loop and template hierarchy together to build the four template files nearly every request ends up passing through."
 sort_order: 8
-updated_at: "2026-07-30T14:23:26.634126+00:00"
+updated_at: "2026-11-21T05:59:23.497894+00:00"
 ---
 
 ```json
@@ -94,6 +94,59 @@ updated_at: "2026-07-30T14:23:26.634126+00:00"
     "id": "u5XivAnH7542",
     "html": "<p>With the core templates in place, the next lesson looks at a different kind of page template — one you assign by hand to a specific page, rather than one WordPress picks automatically.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-core-templates",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "core-templates-q1",
+        "answer": 2,
+        "prompt": "Why does index.php show excerpts rather than full content?",
+        "explain": "It renders the blog listing, archives, search results and more.",
+        "options": [
+          "Full content is not allowed",
+          "Excerpts load from a different database",
+          "It is the fallback for lists of posts; full content belongs on the single post",
+          "Excerpts are required by Google"
+        ]
+      },
+      {
+        "id": "core-templates-q2",
+        "answer": 3,
+        "prompt": "Which template shows a single blog post?",
+        "explain": "page.php shows a single page.",
+        "options": [
+          "<code>page.php</code>",
+          "<code>archive.php</code>",
+          "<code>index.php</code>",
+          "<code>single.php</code>"
+        ]
+      },
+      {
+        "id": "core-templates-q3",
+        "answer": 0,
+        "prompt": "When is <code>404.php</code> used?",
+        "explain": "Without it, WordPress falls back to index.php.",
+        "options": [
+          "When the requested URL matches nothing",
+          "On the homepage",
+          "When a post has no image",
+          "When the server is down"
+        ]
+      },
+      {
+        "id": "core-templates-q4",
+        "answer": 0,
+        "prompt": "These four templates are found by name through the template hierarchy.",
+        "explain": "Nothing registers them — the file name is enough.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

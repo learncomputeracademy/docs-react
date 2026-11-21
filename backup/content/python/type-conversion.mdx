@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Type Conversion | Learn Computer Academy"
 meta_description: "Converting values between types in Python with int(), str(), float(), and bool() — required, since Python won't do it automatically."
 sort_order: 6
-updated_at: "2026-08-04T11:39:28.173495+00:00"
+updated_at: "2026-11-21T06:12:43.293797+00:00"
 ---
 
 ```json
@@ -126,6 +126,61 @@ updated_at: "2026-08-04T11:39:28.173495+00:00"
     "id": "NVNRdfuwzEgi",
     "html": "<p>Converting to a set and back is a fast, common trick for removing duplicates from a list.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-type-conversion",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "type-conversion-q1",
+        "answer": 3,
+        "prompt": "What type is the value returned by input()?",
+        "explain": "Convert it with int() before doing maths.",
+        "options": [
+          "int",
+          "Whatever the user typed",
+          "float",
+          "Always a string"
+        ]
+      },
+      {
+        "id": "type-conversion-q2",
+        "answer": 2,
+        "prompt": "What does <code>int(\"21 years\")</code> do?",
+        "explain": "int() demands the whole string be a valid number.",
+        "options": [
+          "Returns 21",
+          "Returns 0",
+          "Raises a ValueError",
+          "Returns \"21\""
+        ]
+      },
+      {
+        "id": "type-conversion-q3",
+        "answer": 0,
+        "prompt": "What is <code>str(42)</code>?",
+        "explain": "A string.",
+        "options": [
+          "<code>\"42\"</code>",
+          "<code>42</code>",
+          "<code>42.0</code>",
+          "<code>['4', '2']</code>"
+        ]
+      },
+      {
+        "id": "type-conversion-q4",
+        "answer": 1,
+        "prompt": "How should you convert user input that might not be a number?",
+        "explain": "Then show a friendly message instead of crashing.",
+        "options": [
+          "Use int() and hope",
+          "Wrap the conversion in try/except ValueError",
+          "Use str()",
+          "You can't"
+        ]
+      }
+    ]
   }
 ]
 ```

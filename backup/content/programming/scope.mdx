@@ -5,7 +5,7 @@ path: "programming/scope"
 status: "published"
 meta_title: "Scope | Learn Computer Academy"
 sort_order: 14
-updated_at: "2026-08-18T14:27:47.803207+00:00"
+updated_at: "2026-11-21T10:12:47.675066+00:00"
 ---
 
 ```json
@@ -82,6 +82,61 @@ updated_at: "2026-08-18T14:27:47.803207+00:00"
     "id": "91cvEycPJp5I",
     "html": "<p>Keeping variables local (rather than making everything global) prevents different parts of a program from stepping on each other's variables by accident — a common source of hard-to-find bugs in larger programs.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scope",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scope-q1",
+        "answer": 1,
+        "prompt": "A variable declared inside a function can be used…",
+        "explain": "Outside it you get a ReferenceError.",
+        "options": [
+          "Anywhere in the file",
+          "Only inside that function",
+          "Only in other files",
+          "Nowhere"
+        ]
+      },
+      {
+        "id": "scope-q2",
+        "answer": 0,
+        "prompt": "A variable declared outside every function has…",
+        "explain": "Functions can read it.",
+        "options": [
+          "Global scope",
+          "Local scope",
+          "No scope",
+          "Loop scope"
+        ]
+      },
+      {
+        "id": "scope-q3",
+        "answer": 2,
+        "prompt": "Why keep variables local where possible?",
+        "explain": "Scope is protection, not a limitation.",
+        "options": [
+          "Local variables are faster to type",
+          "Global variables are illegal",
+          "Different parts of a program cannot accidentally interfere",
+          "It uses more memory"
+        ]
+      },
+      {
+        "id": "scope-q4",
+        "answer": 3,
+        "prompt": "What error do you get when using a variable outside its scope?",
+        "explain": "\"message is not defined\".",
+        "options": [
+          "TypeError",
+          "SyntaxError",
+          "NaN",
+          "ReferenceError"
+        ]
+      }
+    ]
   }
 ]
 ```

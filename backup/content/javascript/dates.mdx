@@ -5,7 +5,7 @@ path: "javascript/dates"
 status: "published"
 meta_title: "JavaScript Dates | Learn Computer Academy"
 sort_order: 11
-updated_at: "2026-07-29T05:40:22.754046+00:00"
+updated_at: "2026-11-21T05:55:10.009121+00:00"
 ---
 
 ```json
@@ -318,6 +318,61 @@ updated_at: "2026-07-29T05:40:22.754046+00:00"
     "id": "L07RwDafIJ4u",
     "html": "<ol>\n                                    <li>Create a new date for your birthday.</li>\n                                    <li>Print the current year, month, and date using <code>get...()</code> methods.</li>\n                                    <li>Calculate how many days are left until New Year.</li>   \n                                    <li>Compare two dates to check which comes first.</li>\n                                    <li>Format today’s date as <code>\"DD-MM-YYYY\"</code> using string interpolation.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-dates",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dates-q1",
+        "answer": 1,
+        "prompt": "What month is <code>new Date(2025, 3, 30)</code>?",
+        "explain": "Months are 0-based: 0 is January, so 3 is April.",
+        "options": [
+          "March",
+          "April",
+          "May",
+          "June"
+        ]
+      },
+      {
+        "id": "dates-q2",
+        "answer": 1,
+        "prompt": "What does <code>getDay()</code> return?",
+        "explain": "For the day of the month, use <code>getDate()</code>.",
+        "options": [
+          "The day of the month",
+          "The day of the week (0 = Sunday)",
+          "The number of days in the month",
+          "The year"
+        ]
+      },
+      {
+        "id": "dates-q3",
+        "answer": 3,
+        "prompt": "How does JavaScript store a date internally?",
+        "explain": "This is the Unix epoch.",
+        "options": [
+          "As a string",
+          "As separate day, month and year fields",
+          "In seconds since the year 2000",
+          "In milliseconds since 1 January 1970"
+        ]
+      },
+      {
+        "id": "dates-q4",
+        "answer": 0,
+        "prompt": "What does <code>new Date()</code> with no arguments give you?",
+        "explain": "It captures the moment it was created.",
+        "options": [
+          "The current date and time",
+          "1 January 1970",
+          "An invalid date",
+          "Today at midnight"
+        ]
+      }
+    ]
   }
 ]
 ```

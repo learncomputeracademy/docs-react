@@ -5,7 +5,7 @@ path: "programming/if-statements"
 status: "published"
 meta_title: "If Statements | Learn Computer Academy"
 sort_order: 8
-updated_at: "2026-08-18T14:27:46.73831+00:00"
+updated_at: "2026-11-21T10:12:45.65041+00:00"
 ---
 
 ```json
@@ -94,6 +94,59 @@ updated_at: "2026-08-18T14:27:46.73831+00:00"
     "html": "<p>Only the first matching condition runs — once one branch is chosen, JavaScript skips the rest, even if a later condition would also have been true.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-if-statements",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "if-statements-q1",
+        "answer": 3,
+        "prompt": "What does an if statement do?",
+        "explain": "\"else\" handles the false case.",
+        "options": [
+          "Repeats code",
+          "Stores a value",
+          "Defines a function",
+          "Runs code only when a condition is true"
+        ]
+      },
+      {
+        "id": "if-statements-q2",
+        "answer": 2,
+        "prompt": "What does this print?<pre><code>let score = 72;\nif (score &gt;= 90) console.log(\"Grade: A\");\nelse if (score &gt;= 75) console.log(\"Grade: B\");\nelse if (score &gt;= 60) console.log(\"Grade: C\");\nelse console.log(\"Grade: F\");</code></pre>",
+        "explain": "72 fails >= 90 and >= 75, passes >= 60.",
+        "options": [
+          "Grade: A",
+          "Grade: B",
+          "Grade: C",
+          "Grade: F"
+        ]
+      },
+      {
+        "id": "if-statements-q3",
+        "answer": 0,
+        "prompt": "In an if / else if chain, how many branches run?",
+        "explain": "The rest are skipped.",
+        "options": [
+          "Only the first one whose condition is true",
+          "All true ones",
+          "The last one",
+          "None"
+        ]
+      },
+      {
+        "id": "if-statements-q4",
+        "answer": 1,
+        "prompt": "An if statement must always have an else.",
+        "explain": "else is optional.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

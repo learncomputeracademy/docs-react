@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The Linux Command Line — A Practical Deep Dive | Learn Computer Academy"
 meta_description: "A long, practical tour of the Linux command line — files, permissions, text processing, processes, users, packages, services, networking, and basic shell scripting."
 sort_order: 3
-updated_at: "2026-09-03T04:22:55.753628+00:00"
+updated_at: "2026-11-21T10:08:05.801865+00:00"
 ---
 
 ```json
@@ -725,6 +725,61 @@ updated_at: "2026-09-03T04:22:55.753628+00:00"
     "type": "callout",
     "title": "What this deliberately leaves out",
     "variant": "note"
+  },
+  {
+    "id": "quiz-linux-command-line",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "linux-command-line-q1",
+        "answer": 2,
+        "prompt": "Why use <code>ls -la</code> instead of plain <code>ls</code>?",
+        "explain": "Security settings often live in hidden files like <code>.ssh</code>.",
+        "options": [
+          "It is faster",
+          "It deletes old files",
+          "It also shows hidden files (names starting with a dot) with details",
+          "It shows only folders"
+        ]
+      },
+      {
+        "id": "linux-command-line-q2",
+        "answer": 1,
+        "prompt": "Where does the Linux folder tree start?",
+        "explain": "There are no drive letters; other disks are mounted into the one tree.",
+        "options": [
+          "C:\\",
+          "/ (the root)",
+          "~/Desktop",
+          "/home only"
+        ]
+      },
+      {
+        "id": "linux-command-line-q3",
+        "answer": 3,
+        "prompt": "What does <code>cd ~</code> do?",
+        "explain": "<code>pwd</code> prints the folder you are in.",
+        "options": [
+          "Goes to the root folder",
+          "Lists files",
+          "Logs out",
+          "Goes straight to your home folder"
+        ]
+      },
+      {
+        "id": "linux-command-line-q4",
+        "answer": 0,
+        "prompt": "Which command runs another command with administrator (root) rights?",
+        "explain": "Use it carefully; root can change anything.",
+        "options": [
+          "<code>sudo</code>",
+          "<code>su-run</code>",
+          "<code>admin</code>",
+          "<code>root</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

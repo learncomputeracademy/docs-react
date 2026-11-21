@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Operators | Learn Computer Academy"
 meta_description: "PHP's arithmetic, comparison, logical, and string operators — including the crucial difference between == and ===."
 sort_order: 8
-updated_at: "2026-07-30T09:08:36.48921+00:00"
+updated_at: "2026-11-21T06:08:32.79797+00:00"
 ---
 
 ```json
@@ -144,6 +144,61 @@ updated_at: "2026-07-30T09:08:36.48921+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-operators",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "operators-q1",
+        "answer": 1,
+        "prompt": "Which operator joins two strings in PHP?",
+        "explain": "+ is only for arithmetic. .= appends.",
+        "options": [
+          "<code>+</code>",
+          "<code>.</code>",
+          "<code>&amp;</code>",
+          "<code>++</code>"
+        ]
+      },
+      {
+        "id": "operators-q2",
+        "answer": 3,
+        "prompt": "What is the difference between <code>==</code> and <code>===</code>?",
+        "explain": "Use === unless you specifically want conversion.",
+        "options": [
+          "None",
+          "=== assigns a value",
+          "== is faster",
+          "== compares values after type juggling; === compares value and type, no conversion"
+        ]
+      },
+      {
+        "id": "operators-q3",
+        "answer": 0,
+        "prompt": "What is <code>var_dump(0 == \"0\")</code>?",
+        "explain": "\"0\" converts to 0.",
+        "options": [
+          "<code>bool(true)</code>",
+          "<code>bool(false)</code>",
+          "An error",
+          "<code>NULL</code>"
+        ]
+      },
+      {
+        "id": "operators-q4",
+        "answer": 2,
+        "prompt": "What is <code>var_dump(0 === \"0\")</code>?",
+        "explain": "An int and a string are different types.",
+        "options": [
+          "<code>bool(true)</code>",
+          "<code>NULL</code>",
+          "<code>bool(false)</code>",
+          "An error"
+        ]
+      }
+    ]
   }
 ]
 ```

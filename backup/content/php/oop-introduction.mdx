@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Introduction to OOP in PHP | Learn Computer Academy"
 meta_description: "The basics of object-oriented programming in PHP — classes, objects, properties, and methods."
 sort_order: 23
-updated_at: "2026-07-30T09:08:41.855182+00:00"
+updated_at: "2026-11-21T06:08:37.030903+00:00"
 ---
 
 ```json
@@ -81,6 +81,61 @@ updated_at: "2026-07-30T09:08:41.855182+00:00"
     "type": "callout",
     "title": "More is coming immediately",
     "variant": "note"
+  },
+  {
+    "id": "quiz-oop-introduction",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "oop-introduction-q1",
+        "answer": 1,
+        "prompt": "What is a class?",
+        "explain": "Like a house plan versus the actual houses built from it.",
+        "options": [
+          "One actual object",
+          "A blueprint describing what its objects have and do",
+          "A function",
+          "A database table"
+        ]
+      },
+      {
+        "id": "oop-introduction-q2",
+        "answer": 3,
+        "prompt": "How do you create an object from the Student class?",
+        "explain": "new builds one instance.",
+        "options": [
+          "<code>Student()</code>",
+          "<code>create Student</code>",
+          "<code>$s = Student;</code>",
+          "<code>$s = new Student();</code>"
+        ]
+      },
+      {
+        "id": "oop-introduction-q3",
+        "answer": 0,
+        "prompt": "How do you set an object's property in PHP?",
+        "explain": "PHP uses -> for object members.",
+        "options": [
+          "<code>$student1-&gt;name = \"Priya\";</code>",
+          "<code>$student1.name = \"Priya\";</code>",
+          "<code>$student1[\"name\"] = \"Priya\";</code>",
+          "<code>$student1::name = \"Priya\";</code>"
+        ]
+      },
+      {
+        "id": "oop-introduction-q4",
+        "answer": 2,
+        "prompt": "Inside a method, what does <code>$this</code> refer to?",
+        "explain": "<code>$this-&gt;name</code> reads this object's name.",
+        "options": [
+          "The class",
+          "The parent class",
+          "The current object",
+          "The page"
+        ]
+      }
+    ]
   }
 ]
 ```

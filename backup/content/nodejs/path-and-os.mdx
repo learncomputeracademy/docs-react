@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js path and os Modules | Learn Computer Academy"
 meta_description: "Build file paths safely across operating systems with the path module, and read system information with the os module."
 sort_order: 8
-updated_at: "2026-08-05T05:47:54.979357+00:00"
+updated_at: "2026-11-21T06:03:24.620936+00:00"
 ---
 
 ```json
@@ -97,6 +97,61 @@ updated_at: "2026-08-05T05:47:54.979357+00:00"
     "html": "<p>You won't reach for <code>os</code> often in everyday app code — it's mostly useful in command-line tools and scripts that need to behave differently depending on the machine they're running on.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-path-and-os",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "path-and-os-q1",
+        "answer": 0,
+        "prompt": "Why use path.join() instead of joining strings with +?",
+        "explain": "Windows uses backslashes; Mac and Linux use forward slashes.",
+        "options": [
+          "It uses the right separator for Windows, Mac and Linux",
+          "It is shorter",
+          "It checks the file exists",
+          "It creates folders"
+        ]
+      },
+      {
+        "id": "path-and-os-q2",
+        "answer": 3,
+        "prompt": "What is <code>path.extname('/projects/site/photo.png')</code>?",
+        "explain": "basename gives the file name; dirname gives the folder.",
+        "options": [
+          "<code>'photo.png'</code>",
+          "<code>'photo'</code>",
+          "<code>'/projects/site'</code>",
+          "<code>'.png'</code>"
+        ]
+      },
+      {
+        "id": "path-and-os-q3",
+        "answer": 1,
+        "prompt": "What is <code>path.basename('/projects/site/photo.png')</code>?",
+        "explain": "The last part of the path.",
+        "options": [
+          "<code>'.png'</code>",
+          "<code>'photo.png'</code>",
+          "<code>'site'</code>",
+          "<code>'/projects'</code>"
+        ]
+      },
+      {
+        "id": "path-and-os-q4",
+        "answer": 2,
+        "prompt": "A relative path like \"data.json\" is resolved against…",
+        "explain": "Use <code>__dirname</code> to build paths relative to the script file instead.",
+        "options": [
+          "the home folder",
+          "the root of the disk",
+          "the folder you ran the node command from",
+          "the folder of node.exe"
+        ]
+      }
+    ]
   }
 ]
 ```

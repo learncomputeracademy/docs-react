@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Routing with Express.js | Learn Computer Academy"
 meta_description: "Handle different HTTP methods and read dynamic values out of a URL with Express route parameters and query strings."
 sort_order: 20
-updated_at: "2026-08-05T05:47:58.835593+00:00"
+updated_at: "2026-11-21T06:03:28.451842+00:00"
 ---
 
 ```json
@@ -141,6 +141,59 @@ updated_at: "2026-08-05T05:47:58.835593+00:00"
     "id": "GwQ8pKwOJbuI",
     "html": "<p>Every path inside <code>routes/products.js</code> is relative to whatever prefix it's mounted at — <code>router.get('/:id')</code> here actually matches <code>/products/:id</code>.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-express-routing",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "express-routing-q1",
+        "answer": 1,
+        "prompt": "For <code>app.get('/products/:id', ...)</code> and a request to /products/42, what is req.params.id?",
+        "explain": "Route parameters are always strings.",
+        "options": [
+          "<code>42</code>",
+          "<code>'42'</code>",
+          "<code>':id'</code>",
+          "<code>undefined</code>"
+        ]
+      },
+      {
+        "id": "express-routing-q2",
+        "answer": 2,
+        "prompt": "For /search?q=laptop&sort=price, where is \"laptop\"?",
+        "explain": "Everything after ? is parsed into req.query.",
+        "options": [
+          "<code>req.params.q</code>",
+          "<code>req.body.q</code>",
+          "<code>req.query.q</code>",
+          "<code>req.url.q</code>"
+        ]
+      },
+      {
+        "id": "express-routing-q3",
+        "answer": 3,
+        "prompt": "Which method handles creating a new product?",
+        "explain": "GET reads, POST creates, PUT replaces, DELETE removes.",
+        "options": [
+          "<code>app.get</code>",
+          "<code>app.put</code>",
+          "<code>app.delete</code>",
+          "<code>app.post</code>"
+        ]
+      },
+      {
+        "id": "express-routing-q4",
+        "answer": 0,
+        "prompt": "A route can capture more than one parameter, like /users/:userId/orders/:orderId.",
+        "explain": "Both appear on req.params.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

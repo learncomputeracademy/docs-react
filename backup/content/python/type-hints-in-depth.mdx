@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Type Hints | Learn Computer Academy"
 meta_description: "Beyond a basic -> int — typing a list, an optional value, several possible types, and checking it all with mypy."
 sort_order: 36
-updated_at: "2026-09-03T04:52:52.037066+00:00"
+updated_at: "2026-11-21T06:12:52.174206+00:00"
 ---
 
 ```json
@@ -141,6 +141,61 @@ updated_at: "2026-09-03T04:52:52.037066+00:00"
     "type": "callout",
     "title": "What Python itself actually does with these",
     "variant": "note"
+  },
+  {
+    "id": "quiz-type-hints-in-depth",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "type-hints-in-depth-q1",
+        "answer": 2,
+        "prompt": "Does Python enforce type hints at runtime?",
+        "explain": "Tools like mypy catch mistakes before the code runs.",
+        "options": [
+          "Yes, always",
+          "Only for ints",
+          "No — separate tools check them",
+          "Only in classes"
+        ]
+      },
+      {
+        "id": "type-hints-in-depth-q2",
+        "answer": 3,
+        "prompt": "How do you hint a list of strings?",
+        "explain": "And <code>dict[str, int]</code> for a dict.",
+        "options": [
+          "<code>list(str)</code>",
+          "<code>[str]</code>",
+          "<code>str[]</code>",
+          "<code>list[str]</code>"
+        ]
+      },
+      {
+        "id": "type-hints-in-depth-q3",
+        "answer": 0,
+        "prompt": "How do you say a function may return a str or None (Python 3.10+)?",
+        "explain": "Older code uses Optional[str] from typing.",
+        "options": [
+          "<code>-&gt; str | None</code>",
+          "<code>-&gt; str or None</code>",
+          "<code>-&gt; str?</code>",
+          "<code>-&gt; maybe str</code>"
+        ]
+      },
+      {
+        "id": "type-hints-in-depth-q4",
+        "answer": 1,
+        "prompt": "What are type hints mainly for?",
+        "explain": "Editors also use them for autocomplete.",
+        "options": [
+          "Making code run faster",
+          "Documenting intent and letting tools catch mistakes",
+          "Encrypting code",
+          "Replacing tests"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Query Optimization Techniques | Learn Computer Academy"
 meta_description: "Practical habits that make a slow query fast — reading an EXPLAIN plan, indexing what actually gets filtered on, and rewriting subqueries as joins."
 sort_order: 22
-updated_at: "2026-09-03T04:30:03.948181+00:00"
+updated_at: "2026-11-21T05:51:06.518021+00:00"
 ---
 
 ```json
@@ -139,6 +139,61 @@ updated_at: "2026-09-03T04:30:03.948181+00:00"
     "header": [
       "Technique",
       "What it saves"
+    ]
+  },
+  {
+    "id": "quiz-query-optimization-techniques",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "query-optimization-techniques-q1",
+        "answer": 1,
+        "prompt": "In an EXPLAIN plan, what does a \"Seq Scan\" usually tell you?",
+        "explain": "An \"Index Scan\" means an index was used.",
+        "options": [
+          "The query is as fast as possible",
+          "The database read every row — a useful index may be missing",
+          "The query failed",
+          "The table is empty"
+        ]
+      },
+      {
+        "id": "query-optimization-techniques-q2",
+        "answer": 3,
+        "prompt": "Which columns are worth indexing?",
+        "explain": "Each index slows down every INSERT, UPDATE and DELETE on the table.",
+        "options": [
+          "Every column, just in case",
+          "Only text columns",
+          "Only the primary key",
+          "Columns that queries actually filter or join on"
+        ]
+      },
+      {
+        "id": "query-optimization-techniques-q3",
+        "answer": 0,
+        "prompt": "Joining on an unindexed column on a large table is usually…",
+        "explain": "Join on indexed columns, typically foreign keys.",
+        "options": [
+          "slow",
+          "impossible",
+          "faster than with an index",
+          "blocked by the database"
+        ]
+      },
+      {
+        "id": "query-optimization-techniques-q4",
+        "answer": 2,
+        "prompt": "Adding an index has a cost too. What is it?",
+        "explain": "Every write must also update the index.",
+        "options": [
+          "Queries return fewer rows",
+          "The table becomes read-only",
+          "Extra storage and slower writes",
+          "Data is duplicated into a view"
+        ]
+      }
     ]
   }
 ]

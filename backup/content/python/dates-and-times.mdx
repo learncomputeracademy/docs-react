@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Dates and Times | Learn Computer Academy"
 meta_description: "Getting and formatting the current date and time in Python with the datetime module."
 sort_order: 26
-updated_at: "2026-08-04T11:39:34.059187+00:00"
+updated_at: "2026-11-21T06:12:49.496203+00:00"
 ---
 
 ```json
@@ -134,6 +134,61 @@ updated_at: "2026-08-04T11:39:34.059187+00:00"
     "type": "callout",
     "title": "No time zone by default",
     "variant": "note"
+  },
+  {
+    "id": "quiz-dates-and-times",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dates-and-times-q1",
+        "answer": 3,
+        "prompt": "How do you get the current date and time?",
+        "explain": "<code>from datetime import datetime</code> first.",
+        "options": [
+          "<code>datetime.today</code>",
+          "<code>time.date()</code>",
+          "<code>date.now</code>",
+          "<code>datetime.now()</code>"
+        ]
+      },
+      {
+        "id": "dates-and-times-q2",
+        "answer": 0,
+        "prompt": "What does <code>now.strftime(\"%Y-%m-%d\")</code> produce?",
+        "explain": "strftime formats a date as text.",
+        "options": [
+          "A date string like \"2026-07-30\"",
+          "A datetime object",
+          "A timestamp number",
+          "The time only"
+        ]
+      },
+      {
+        "id": "dates-and-times-q3",
+        "answer": 1,
+        "prompt": "What do you get from subtracting two datetime objects?",
+        "explain": "Add time with <code>now + timedelta(days=7)</code>.",
+        "options": [
+          "A number of seconds only",
+          "A timedelta, e.g. difference.days",
+          "An error",
+          "A string"
+        ]
+      },
+      {
+        "id": "dates-and-times-q4",
+        "answer": 2,
+        "prompt": "Which module provides datetime?",
+        "explain": "No install needed.",
+        "options": [
+          "A pip package",
+          "os",
+          "The standard library's datetime module",
+          "math"
+        ]
+      }
+    ]
   }
 ]
 ```

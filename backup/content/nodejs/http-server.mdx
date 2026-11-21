@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Creating a Web Server with Node.js | Learn Computer Academy"
 meta_description: "Build a real web server from scratch with the built-in http module, and understand the request/response cycle that every web framework is built on."
 sort_order: 9
-updated_at: "2026-08-05T05:47:55.289464+00:00"
+updated_at: "2026-11-21T06:03:24.949714+00:00"
 ---
 
 ```json
@@ -129,6 +129,61 @@ updated_at: "2026-08-05T05:47:55.289464+00:00"
     "id": "TF-EyCJbD-jt",
     "html": "<p>The first argument to <code>writeHead()</code> is the <b>status code</b> — a number that tells the browser how the request went. <code>200</code> means success; <code>404</code> means \"not found\"; <code>500</code> means the server hit an error. Getting these right matters — a page that failed but returns <code>200</code> looks successful to search engines and monitoring tools even when it isn't.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-http-server",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "http-server-q1",
+        "answer": 1,
+        "prompt": "What keeps a Node server program running instead of exiting?",
+        "explain": "It waits for requests until you stop it with Ctrl+C.",
+        "options": [
+          "<code>res.end()</code>",
+          "<code>server.listen()</code>",
+          "<code>http.createServer()</code>",
+          "<code>console.log()</code>"
+        ]
+      },
+      {
+        "id": "http-server-q2",
+        "answer": 3,
+        "prompt": "What happens if a request handler never calls res.end()?",
+        "explain": "res.end() is required.",
+        "options": [
+          "The server crashes",
+          "Node calls it automatically",
+          "A 404 is sent",
+          "The browser keeps waiting; the response never finishes"
+        ]
+      },
+      {
+        "id": "http-server-q3",
+        "answer": 2,
+        "prompt": "How often does the function passed to createServer() run?",
+        "explain": "It receives req (the request) and res (the response).",
+        "options": [
+          "Once, at startup",
+          "Every second",
+          "Once for every incoming request",
+          "Only for the first request"
+        ]
+      },
+      {
+        "id": "http-server-q4",
+        "answer": 0,
+        "prompt": "How do you see a Node server running on port 3000 in your browser?",
+        "explain": "localhost means your own computer.",
+        "options": [
+          "Open http://localhost:3000",
+          "Open the .js file",
+          "Run npm start in the browser",
+          "Open file:///3000"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Beyond the Basics — Views, Indexes, Procedures, Triggers | Learn Computer Academy"
 meta_description: "VIEW, INDEX, STORED PROCEDURE, TRIGGER, and EXPLAIN — five tools that sit past the beginner track, worth knowing exist once the fundamentals feel natural."
 sort_order: 16
-updated_at: "2026-07-29T06:31:09.26722+00:00"
+updated_at: "2026-11-21T05:51:04.755974+00:00"
 ---
 
 ```json
@@ -343,6 +343,59 @@ updated_at: "2026-07-29T06:31:09.26722+00:00"
     "id": "Klx7yNeqkwj7",
     "html": "<p>This closes out the SQL section — from a single <code>SELECT</code> statement all the way to indexes, procedures, and triggers. Everything here builds directly on the four families covered early on: DDL, DML, DCL, and TCL are the foundation every one of these later lessons assumed.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-beyond-the-basics",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "beyond-the-basics-q1",
+        "answer": 1,
+        "prompt": "What is a VIEW?",
+        "explain": "Nothing is duplicated — the query re-runs every time.",
+        "options": [
+          "A copy of a table stored on disk",
+          "A saved query you can SELECT from like a table",
+          "A backup",
+          "A user permission"
+        ]
+      },
+      {
+        "id": "beyond-the-basics-q2",
+        "answer": 2,
+        "prompt": "What does an INDEX do?",
+        "explain": "The trade-off: extra storage and slightly slower writes.",
+        "options": [
+          "Sorts the table permanently",
+          "Encrypts a column",
+          "Lets the engine jump to matching rows instead of scanning the whole table",
+          "Counts rows"
+        ]
+      },
+      {
+        "id": "beyond-the-basics-q3",
+        "answer": 3,
+        "prompt": "Which command shows how the database plans to run a query?",
+        "explain": "<code>EXPLAIN SELECT * FROM Employee WHERE department = 'IT';</code>",
+        "options": [
+          "<code>DESCRIBE</code>",
+          "<code>SHOW PLAN</code>",
+          "<code>ANALYZE TABLE</code>",
+          "<code>EXPLAIN</code>"
+        ]
+      },
+      {
+        "id": "beyond-the-basics-q4",
+        "answer": 1,
+        "prompt": "A view stores a snapshot of the data and does not change when the table changes.",
+        "explain": "Most views re-run their query every time, so they always reflect the current data.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

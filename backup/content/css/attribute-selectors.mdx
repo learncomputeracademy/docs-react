@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Attribute Selectors | Learn Computer Academy"
 meta_description: "Select an element by the presence, exact value, or partial match of an HTML attribute — beyond just class and id."
 sort_order: 44
-updated_at: "2026-09-03T03:54:09.160872+00:00"
+updated_at: "2026-11-21T06:18:20.191341+00:00"
 ---
 
 ```json
@@ -145,6 +145,61 @@ updated_at: "2026-09-03T03:54:09.160872+00:00"
     "type": "callout",
     "title": "A practical combination",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-attribute-selectors",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "attribute-selectors-q1",
+        "answer": 0,
+        "prompt": "What does <code>input[required]</code> select?",
+        "explain": "Presence alone is enough.",
+        "options": [
+          "Inputs with a required attribute, whatever its value",
+          "All inputs",
+          "Inputs with a value",
+          "Required forms"
+        ]
+      },
+      {
+        "id": "attribute-selectors-q2",
+        "answer": 3,
+        "prompt": "What does <code>a[href^=\"https://\"]</code> select?",
+        "explain": "^= means \"starts with\".",
+        "options": [
+          "Links ending in https://",
+          "Links containing https:// anywhere",
+          "Links with no href",
+          "Links whose href starts with https://"
+        ]
+      },
+      {
+        "id": "attribute-selectors-q3",
+        "answer": 2,
+        "prompt": "Which selector matches every link to a PDF?",
+        "explain": "$= means \"ends with\" — handy for a download icon.",
+        "options": [
+          "<code>a[href^=\".pdf\"]</code>",
+          "<code>a[href*=\"pdf\"]</code>",
+          "<code>a[href$=\".pdf\"]</code>",
+          "<code>a.pdf</code>"
+        ]
+      },
+      {
+        "id": "attribute-selectors-q4",
+        "answer": 1,
+        "prompt": "What does [attr*=value] mean?",
+        "explain": "The * means \"anywhere in the value\".",
+        "options": [
+          "Starts with",
+          "Contains anywhere",
+          "Ends with",
+          "Exact match"
+        ]
+      }
+    ]
   }
 ]
 ```

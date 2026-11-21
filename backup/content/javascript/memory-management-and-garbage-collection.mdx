@@ -6,7 +6,7 @@ status: "published"
 meta_title: "JavaScript Memory Management | Learn Computer Academy"
 meta_description: "How JavaScript allocates and frees memory automatically, and the common patterns that accidentally prevent memory from ever being freed."
 sort_order: 35
-updated_at: "2026-09-03T04:17:12.901161+00:00"
+updated_at: "2026-11-21T05:55:28.952438+00:00"
 ---
 
 ```json
@@ -122,6 +122,59 @@ updated_at: "2026-09-03T04:17:12.901161+00:00"
     "type": "callout",
     "title": "Checking for a leak in practice",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-memory-management-and-garbage-collection",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "memory-management-and-garbage-collection-q1",
+        "answer": 1,
+        "prompt": "When does an object become eligible for garbage collection?",
+        "explain": "Reachable from a root (globals, the call stack) = kept.",
+        "options": [
+          "When it is older than a minute",
+          "When nothing can reach it any more",
+          "When the page scrolls",
+          "Only when you call delete"
+        ]
+      },
+      {
+        "id": "memory-management-and-garbage-collection-q2",
+        "answer": 2,
+        "prompt": "After <code>let user = { name: 'Sam' }; user = null</code>, what happens to the object?",
+        "explain": "The collector frees it at some later point.",
+        "options": [
+          "It is deleted immediately",
+          "It stays forever",
+          "It becomes eligible for collection",
+          "It moves to localStorage"
+        ]
+      },
+      {
+        "id": "memory-management-and-garbage-collection-q3",
+        "answer": 3,
+        "prompt": "Why can a forgotten setInterval leak memory?",
+        "explain": "Call <code>clearInterval(id)</code> when it is no longer needed.",
+        "options": [
+          "Timers use the GPU",
+          "It deletes other variables",
+          "setInterval is deprecated",
+          "It keeps everything its callback references reachable until cleared"
+        ]
+      },
+      {
+        "id": "memory-management-and-garbage-collection-q4",
+        "answer": 1,
+        "prompt": "In JavaScript you must free memory manually.",
+        "explain": "A garbage collector does it automatically.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

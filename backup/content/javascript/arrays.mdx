@@ -5,7 +5,7 @@ path: "javascript/arrays"
 status: "published"
 meta_title: "JavaScript Arrays | Learn Computer Academy"
 sort_order: 7
-updated_at: "2026-07-29T05:40:22.463839+00:00"
+updated_at: "2026-11-21T05:55:08.865726+00:00"
 ---
 
 ```json
@@ -404,6 +404,61 @@ updated_at: "2026-07-29T05:40:22.463839+00:00"
     "id": "MooPChn_UFzZ",
     "html": "<ol>\n                                    <li>Create an array of your favorite movies and print each using a loop.</li>\n                                    <li>Add and remove items using <code>push()</code> and <code>pop()</code>.</li>\n                                    <li>Create an array of numbers and use <code>map()</code> to double each number.</li>\n                                    <li>Filter an array to find all even numbers.</li>\n                                    <li>Use <code>splice()</code> to replace an item in the array.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-arrays",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "arrays-q1",
+        "answer": 1,
+        "prompt": "What is <code>fruits[0]</code> in <code>const fruits = [\"apple\", \"banana\", \"cherry\"]</code>?",
+        "explain": "Array indexes start at 0.",
+        "options": [
+          "\"banana\"",
+          "\"apple\"",
+          "\"cherry\"",
+          "undefined"
+        ]
+      },
+      {
+        "id": "arrays-q2",
+        "answer": 3,
+        "prompt": "Which method adds an item to the end of an array?",
+        "explain": "push adds to the end; pop removes from the end; unshift/shift work at the start.",
+        "options": [
+          "<code>pop()</code>",
+          "<code>shift()</code>",
+          "<code>unshift()</code>",
+          "<code>push()</code>"
+        ]
+      },
+      {
+        "id": "arrays-q3",
+        "answer": 0,
+        "prompt": "What is <code>[1, 2, 3].map(n =&gt; n * 2)</code>?",
+        "explain": "map returns a new array with each item transformed.",
+        "options": [
+          "<code>[2, 4, 6]</code>",
+          "<code>[1, 2, 3]</code>",
+          "<code>12</code>",
+          "<code>[1, 4, 9]</code>"
+        ]
+      },
+      {
+        "id": "arrays-q4",
+        "answer": 2,
+        "prompt": "What is <code>[1, 2, 3, 4].filter(n =&gt; n &gt; 2)</code>?",
+        "explain": "filter keeps only the items for which the function returns true.",
+        "options": [
+          "<code>[1, 2]</code>",
+          "<code>[true, true]</code>",
+          "<code>[3, 4]</code>",
+          "<code>2</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

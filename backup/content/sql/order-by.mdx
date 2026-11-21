@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Sorting — ORDER BY | Learn Computer Academy"
 meta_description: "ASC and DESC — how ORDER BY controls the sequence SQL results come back in, without changing which rows are returned."
 sort_order: 9
-updated_at: "2026-07-29T06:31:07.184479+00:00"
+updated_at: "2026-11-21T05:51:02.681883+00:00"
 ---
 
 ```json
@@ -92,6 +92,59 @@ updated_at: "2026-07-29T06:31:07.184479+00:00"
     "id": "NGvxXxrlnL6o",
     "html": "<p>Sorting is straightforward once you know the two keywords. The next lesson covers something a bit bigger: collapsing rows into summarized groups with GROUP BY and HAVING.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-order-by",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "order-by-q1",
+        "answer": 1,
+        "prompt": "What is the default sort direction of ORDER BY?",
+        "explain": "Ascending (lowest first) — ASC can be left out.",
+        "options": [
+          "<code>DESC</code>",
+          "<code>ASC</code>",
+          "<code>RANDOM</code>",
+          "No order"
+        ]
+      },
+      {
+        "id": "order-by-q2",
+        "answer": 3,
+        "prompt": "Which query lists the highest salary first?",
+        "explain": "DESC = highest to lowest, used for rankings and leaderboards.",
+        "options": [
+          "<code>SELECT * FROM Employee ORDER BY salary;</code>",
+          "<code>SELECT * FROM Employee ORDER BY salary ASC;</code>",
+          "<code>SELECT * FROM Employee SORT salary;</code>",
+          "<code>SELECT * FROM Employee ORDER BY salary DESC;</code>"
+        ]
+      },
+      {
+        "id": "order-by-q3",
+        "answer": 1,
+        "prompt": "Without ORDER BY, results always come back in the order they were inserted.",
+        "explain": "Without ORDER BY, the order is not guaranteed.",
+        "options": [
+          "True",
+          "False"
+        ]
+      },
+      {
+        "id": "order-by-q4",
+        "answer": 0,
+        "prompt": "In <code>ORDER BY department, salary DESC</code>, what does DESC apply to?",
+        "explain": "DESC applies only to the column it directly follows; department stays ascending.",
+        "options": [
+          "Only salary",
+          "Both columns",
+          "Only department",
+          "Neither"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Workflows | Learn Computer Academy"
 meta_description: "How a real team actually uses everything from earlier lessons together — a feature branch workflow, and writing commits that stay useful months later."
 sort_order: 17
-updated_at: "2026-09-03T05:20:04.223755+00:00"
+updated_at: "2026-11-21T10:18:35.12162+00:00"
 ---
 
 ```json
@@ -127,6 +127,59 @@ updated_at: "2026-09-03T05:20:04.223755+00:00"
     "type": "callout",
     "title": "A gut check for commit size",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-git-workflows",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "git-workflows-q1",
+        "answer": 1,
+        "prompt": "In the feature branch workflow, where does new work happen?",
+        "explain": "main stays deployable.",
+        "options": [
+          "Directly on main",
+          "On a separate branch per feature, merged via a pull request",
+          "On a USB drive",
+          "In the stash only"
+        ]
+      },
+      {
+        "id": "git-workflows-q2",
+        "answer": 0,
+        "prompt": "Which is a Conventional Commits message?",
+        "explain": "feat, fix, docs, refactor, test…",
+        "options": [
+          "<code>fix: correct off-by-one error in pagination</code>",
+          "<code>stuff</code>",
+          "<code>updated things</code>",
+          "<code>asdf</code>"
+        ]
+      },
+      {
+        "id": "git-workflows-q3",
+        "answer": 2,
+        "prompt": "Why prefer small, focused commits?",
+        "explain": "One logical change per commit.",
+        "options": [
+          "They use less disk",
+          "GitHub charges per line",
+          "History is easier to read, review and undo",
+          "They run faster"
+        ]
+      },
+      {
+        "id": "git-workflows-q4",
+        "answer": 0,
+        "prompt": "Some tools can generate changelogs automatically from Conventional Commits.",
+        "explain": "The format is machine-readable.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

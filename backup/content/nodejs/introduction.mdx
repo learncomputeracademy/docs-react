@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Introduction to Node.js | Learn Computer Academy"
 meta_description: "What Node.js actually is, why JavaScript can run outside a browser at all, and what kinds of programs people build with it."
 sort_order: 1
-updated_at: "2026-08-05T05:47:52.5457+00:00"
+updated_at: "2026-11-21T06:03:22.083108+00:00"
 ---
 
 ```json
@@ -108,6 +108,59 @@ updated_at: "2026-08-05T05:47:52.5457+00:00"
     "id": "qCsJwGvu1Lv2",
     "html": "<p>You've already used JavaScript to make a webpage interactive on the visitor's side. Node.js is what lets that same language sit on the <i>other</i> side — the server — deciding what to send a visitor before their browser ever sees it. The rest of this course builds that up piece by piece: running scripts, organizing code into modules, reading files, and eventually building a real server that responds to requests.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-introduction",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "introduction-q1",
+        "answer": 1,
+        "prompt": "What is Node.js?",
+        "explain": "The language is the same; only what it can access changes.",
+        "options": [
+          "A new programming language",
+          "A way to run JavaScript outside the browser, as a standalone program",
+          "A browser",
+          "A database"
+        ]
+      },
+      {
+        "id": "introduction-q2",
+        "answer": 2,
+        "prompt": "Which JavaScript engine is Node.js built on?",
+        "explain": "V8 is also the engine inside Chrome.",
+        "options": [
+          "SpiderMonkey",
+          "Chakra",
+          "V8",
+          "JavaScriptCore"
+        ]
+      },
+      {
+        "id": "introduction-q3",
+        "answer": 3,
+        "prompt": "What can Node.js do that browser JavaScript is not allowed to?",
+        "explain": "Browsers deliberately block those for safety.",
+        "options": [
+          "Use variables",
+          "Use functions",
+          "Change the DOM",
+          "Read and write files and listen for network connections"
+        ]
+      },
+      {
+        "id": "introduction-q4",
+        "answer": 1,
+        "prompt": "Node.js has a DOM and a window object, like the browser.",
+        "explain": "There is no page in Node, so no DOM.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

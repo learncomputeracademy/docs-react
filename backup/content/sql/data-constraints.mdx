@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Data Constraints | Learn Computer Academy"
 meta_description: "The rules a table enforces on its own data beyond PRIMARY KEY — a foreign key linking tables, uniqueness, required values, and custom conditions."
 sort_order: 17
-updated_at: "2026-09-03T04:30:02.147558+00:00"
+updated_at: "2026-11-21T05:51:05.082654+00:00"
 ---
 
 ```json
@@ -134,6 +134,61 @@ updated_at: "2026-09-03T04:30:02.147558+00:00"
     "header": [
       "Constraint",
       "Enforces"
+    ]
+  },
+  {
+    "id": "quiz-data-constraints",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "data-constraints-q1",
+        "answer": 0,
+        "prompt": "What does a FOREIGN KEY guarantee?",
+        "explain": "It stops an order from referencing a customer that doesn't exist.",
+        "options": [
+          "The column value already exists as a key in another table",
+          "The column is never empty",
+          "No two rows share a value",
+          "The value is a number"
+        ]
+      },
+      {
+        "id": "data-constraints-q2",
+        "answer": 3,
+        "prompt": "How is UNIQUE different from PRIMARY KEY?",
+        "explain": "An email column is a typical UNIQUE column.",
+        "options": [
+          "UNIQUE allows duplicates",
+          "There is no difference",
+          "UNIQUE only works on numbers",
+          "A table can have several UNIQUE columns but only one PRIMARY KEY"
+        ]
+      },
+      {
+        "id": "data-constraints-q3",
+        "answer": 2,
+        "prompt": "Which constraint rejects a row where the column is empty (NULL)?",
+        "explain": "<code>name VARCHAR(100) NOT NULL</code>",
+        "options": [
+          "<code>CHECK</code>",
+          "<code>UNIQUE</code>",
+          "<code>NOT NULL</code>",
+          "<code>DEFAULT</code>"
+        ]
+      },
+      {
+        "id": "data-constraints-q4",
+        "answer": 1,
+        "prompt": "What does <code>CHECK (price &gt; 0)</code> do?",
+        "explain": "The database enforces the rule instead of trusting the application.",
+        "options": [
+          "Sorts by price",
+          "Rejects any row where price is not greater than 0",
+          "Counts prices above 0",
+          "Sets price to 0"
+        ]
+      }
     ]
   }
 ]

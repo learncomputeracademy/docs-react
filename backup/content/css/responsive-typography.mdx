@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Responsive Typography | Learn Computer Academy"
 meta_description: "Making text size actually scale with the screen — viewport units, rem-based scaling, and fluid typography with clamp()."
 sort_order: 48
-updated_at: "2026-09-03T03:54:10.295297+00:00"
+updated_at: "2026-11-21T06:18:21.305137+00:00"
 ---
 
 ```json
@@ -91,6 +91,61 @@ updated_at: "2026-09-03T03:54:10.295297+00:00"
     "type": "callout",
     "title": "The fast path to a good value",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-responsive-typography",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "responsive-typography-q1",
+        "answer": 3,
+        "prompt": "What is the downside of setting font sizes with a media query per breakpoint?",
+        "explain": "It works, but not smoothly.",
+        "options": [
+          "It doesn't work",
+          "It is slow",
+          "Media queries can't change fonts",
+          "Text jumps in steps and needs a new rule for every breakpoint"
+        ]
+      },
+      {
+        "id": "responsive-typography-q2",
+        "answer": 0,
+        "prompt": "What is the risk of font-size: 5vw on its own?",
+        "explain": "clamp() adds the limits.",
+        "options": [
+          "No minimum or maximum — tiny on phones, huge on wide screens",
+          "It is invalid",
+          "It only works in Chrome",
+          "None"
+        ]
+      },
+      {
+        "id": "responsive-typography-q3",
+        "answer": 2,
+        "prompt": "Which is the best approach for smoothly scaling headings?",
+        "explain": "Fluid between a minimum and a maximum.",
+        "options": [
+          "<code>font-size: 24px;</code>",
+          "<code>font-size: 5vw;</code>",
+          "<code>font-size: clamp(1.5rem, 4vw, 3rem);</code>",
+          "<code>font-size: auto;</code>"
+        ]
+      },
+      {
+        "id": "responsive-typography-q4",
+        "answer": 1,
+        "prompt": "Why prefer rem over px inside clamp() for the limits?",
+        "explain": "Good for accessibility.",
+        "options": [
+          "rem is shorter",
+          "rem respects the user's browser font-size setting",
+          "px is deprecated",
+          "rem is required by clamp()"
+        ]
+      }
+    ]
   }
 ]
 ```

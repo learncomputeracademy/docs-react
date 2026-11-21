@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deleting Documents | Learn Computer Academy"
 meta_description: "Removing documents from a collection with deleteOne() and deleteMany(), and the difference between deleting documents and dropping a whole collection."
 sort_order: 9
-updated_at: "2026-08-18T10:11:23.980966+00:00"
+updated_at: "2026-11-21T10:24:32.699794+00:00"
 ---
 
 ```json
@@ -107,6 +107,59 @@ updated_at: "2026-08-18T10:11:23.980966+00:00"
     "type": "callout",
     "title": "Deletes are permanent — check with find() first",
     "variant": "danger"
+  },
+  {
+    "id": "quiz-deleting-documents",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deleting-documents-q1",
+        "answer": 0,
+        "prompt": "If several documents match, how many does deleteOne() remove?",
+        "explain": "Use deleteMany() for all of them.",
+        "options": [
+          "Only the first match",
+          "All of them",
+          "None",
+          "Two"
+        ]
+      },
+      {
+        "id": "deleting-documents-q2",
+        "answer": 3,
+        "prompt": "What does <code>db.users.deleteMany({})</code> do?",
+        "explain": "An empty filter matches everything.",
+        "options": [
+          "Nothing",
+          "Deletes the database",
+          "Deletes one user",
+          "Deletes every document in the collection"
+        ]
+      },
+      {
+        "id": "deleting-documents-q3",
+        "answer": 2,
+        "prompt": "What is a safe habit before running deleteMany()?",
+        "explain": "Deleted documents do not come back without a backup.",
+        "options": [
+          "Run it twice",
+          "Restart the server",
+          "Run find() with the same filter first to see what will go",
+          "Turn off indexes"
+        ]
+      },
+      {
+        "id": "deleting-documents-q4",
+        "answer": 1,
+        "prompt": "Deleting all documents also removes the collection itself.",
+        "explain": "<code>drop()</code> removes the collection.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

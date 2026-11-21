@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Exception Handling | Learn Computer Academy"
 meta_description: "Handling errors gracefully in Python with try, except, else, and finally."
 sort_order: 20
-updated_at: "2026-08-04T11:39:32.263853+00:00"
+updated_at: "2026-11-21T06:12:47.794812+00:00"
 ---
 
 ```json
@@ -117,6 +117,61 @@ updated_at: "2026-08-04T11:39:32.263853+00:00"
     "type": "callout",
     "title": "Tracebacks are for developers, not users",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-exception-handling",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "exception-handling-q1",
+        "answer": 2,
+        "prompt": "Which keyword catches an exception in Python?",
+        "explain": "try / except, not try / catch.",
+        "options": [
+          "<code>catch</code>",
+          "<code>rescue</code>",
+          "<code>except</code>",
+          "<code>handle</code>"
+        ]
+      },
+      {
+        "id": "exception-handling-q2",
+        "answer": 3,
+        "prompt": "How do you raise your own exception?",
+        "explain": "raise triggers it; except catches it.",
+        "options": [
+          "<code>throw ValueError(\"...\")</code>",
+          "<code>error(\"...\")</code>",
+          "<code>except ValueError(\"...\")</code>",
+          "<code>raise ValueError(\"...\")</code>"
+        ]
+      },
+      {
+        "id": "exception-handling-q3",
+        "answer": 0,
+        "prompt": "Why put except ZeroDivisionError before except Exception?",
+        "explain": "Order matters.",
+        "options": [
+          "The specific one must come first, or the general one catches it first",
+          "Alphabetical order",
+          "It is faster",
+          "It doesn't matter"
+        ]
+      },
+      {
+        "id": "exception-handling-q4",
+        "answer": 1,
+        "prompt": "When does a try block's else run?",
+        "explain": "finally runs either way.",
+        "options": [
+          "Always",
+          "Only when no exception was raised",
+          "Only after an exception",
+          "Never"
+        ]
+      }
+    ]
   }
 ]
 ```

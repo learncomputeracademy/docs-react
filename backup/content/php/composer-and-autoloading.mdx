@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Composer and Autoloading | Learn Computer Academy"
 meta_description: "PHP's package manager — installing a library, managing dependencies, and letting classes load automatically without a manual require for each one."
 sort_order: 38
-updated_at: "2026-09-03T04:05:25.046535+00:00"
+updated_at: "2026-11-21T06:08:41.087778+00:00"
 ---
 
 ```json
@@ -135,6 +135,61 @@ updated_at: "2026-09-03T04:05:25.046535+00:00"
     "type": "callout",
     "title": "Where packages come from",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-composer-and-autoloading",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "composer-and-autoloading-q1",
+        "answer": 2,
+        "prompt": "What is Composer?",
+        "explain": "Like npm for Node.",
+        "options": [
+          "A PHP editor",
+          "A web server",
+          "PHP's standard package manager",
+          "A database"
+        ]
+      },
+      {
+        "id": "composer-and-autoloading-q2",
+        "answer": 3,
+        "prompt": "What does composer require guzzlehttp/guzzle do?",
+        "explain": "The same dependencies can then be reinstalled anywhere.",
+        "options": [
+          "Deletes guzzle",
+          "Prints guzzle's docs",
+          "Runs guzzle",
+          "Downloads it into vendor/ and records it in composer.json"
+        ]
+      },
+      {
+        "id": "composer-and-autoloading-q3",
+        "answer": 0,
+        "prompt": "What one line loads every installed package's classes?",
+        "explain": "Put it at the top of the entry file.",
+        "options": [
+          "<code>require 'vendor/autoload.php';</code>",
+          "<code>include 'composer.json';</code>",
+          "<code>use Composer;</code>",
+          "<code>require 'vendor/';</code>"
+        ]
+      },
+      {
+        "id": "composer-and-autoloading-q4",
+        "answer": 1,
+        "prompt": "What does PSR-4 autoloading map?",
+        "explain": "\"App\\\\\": \"app/\" — App\\Models\\User lives in app/Models/User.php.",
+        "options": [
+          "URLs to pages",
+          "Namespace prefixes to folders, so classes load without manual require",
+          "Tables to classes",
+          "Users to roles"
+        ]
+      }
+    ]
   }
 ]
 ```

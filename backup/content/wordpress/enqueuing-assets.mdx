@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Enqueuing Styles & Scripts the Right Way | Learn Computer Academy"
 meta_description: "Why WordPress themes never hardcode a <link> or <script> tag, and how wp_enqueue_style/script actually works."
 sort_order: 10
-updated_at: "2026-07-30T14:23:27.288769+00:00"
+updated_at: "2026-11-21T05:59:24.608891+00:00"
 ---
 
 ```json
@@ -88,6 +88,59 @@ updated_at: "2026-07-30T14:23:27.288769+00:00"
     "id": "hAeKujDP3mAR",
     "html": "<p>With assets loading properly, the next lesson covers the other thing every theme needs from <code>functions.php</code> — registering and outputting navigation menus.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-enqueuing-assets",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "enqueuing-assets-q1",
+        "answer": 1,
+        "prompt": "Why enqueue CSS and JS instead of writing link/script tags directly?",
+        "explain": "With a dozen plugins, hardcoded tags can load the same library twice.",
+        "options": [
+          "Tags are not allowed in PHP",
+          "One shared system tracks dependencies and avoids loading things twice",
+          "It minifies files",
+          "It hides the files"
+        ]
+      },
+      {
+        "id": "enqueuing-assets-q2",
+        "answer": 2,
+        "prompt": "Which function loads a stylesheet the WordPress way?",
+        "explain": "Scripts use <code>wp_enqueue_script()</code>.",
+        "options": [
+          "<code>wp_add_style()</code>",
+          "<code>load_css()</code>",
+          "<code>wp_enqueue_style()</code>",
+          "<code>add_stylesheet()</code>"
+        ]
+      },
+      {
+        "id": "enqueuing-assets-q3",
+        "answer": 3,
+        "prompt": "What is the first argument of wp_enqueue_style()?",
+        "explain": "Then URL, dependencies, version.",
+        "options": [
+          "The file URL",
+          "The version",
+          "The dependencies",
+          "A unique handle"
+        ]
+      },
+      {
+        "id": "enqueuing-assets-q4",
+        "answer": 0,
+        "prompt": "Using filemtime() as the version number makes browsers fetch a fresh file whenever it changes.",
+        "explain": "The modification time changes, so the URL changes and the cache is bypassed.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

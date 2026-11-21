@@ -5,7 +5,7 @@ path: "html/responsive"
 status: "published"
 meta_title: "HTML Responsive | Learn Computer Academy"
 sort_order: 20
-updated_at: "2026-07-29T05:40:20.627211+00:00"
+updated_at: "2026-11-20T15:25:09.579224+00:00"
 ---
 
 ```json
@@ -174,6 +174,60 @@ updated_at: "2026-07-29T05:40:20.627211+00:00"
     "id": "e7NyK1QGJfuA",
     "html": "<p><b>Viewport is the browser window size. 1vw = 1% of viewport width. If the viewport is 50cm wide, 1vw is 0.5cm.</b></p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-responsive",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "responsive-q1",
+        "answer": 0,
+        "prompt": "Which tag should every responsive page include in its head?",
+        "explain": "The viewport tag tells the browser to use the device width instead of a zoomed-out desktop width.",
+        "options": [
+          "<code>&lt;meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"&gt;</code>",
+          "<code>&lt;meta name=\"mobile\" content=\"yes\"&gt;</code>",
+          "<code>&lt;link rel=\"responsive\"&gt;</code>",
+          "<code>&lt;meta charset=\"mobile\"&gt;</code>"
+        ]
+      },
+      {
+        "id": "responsive-q2",
+        "answer": 2,
+        "prompt": "An image has <code>max-width:100%</code>. What happens on a very wide screen?",
+        "explain": "<code>max-width</code> lets it shrink to fit but not grow; <code>width:100%</code> would also stretch it.",
+        "options": [
+          "It stretches larger than its real size",
+          "It disappears",
+          "It never grows beyond its original size",
+          "It becomes 100 pixels wide"
+        ]
+      },
+      {
+        "id": "responsive-q3",
+        "answer": 3,
+        "prompt": "Which element can show a different image depending on screen width?",
+        "explain": "<code>&lt;picture&gt;</code> holds several <code>&lt;source&gt;</code> options and picks one per screen size.",
+        "options": [
+          "<code>&lt;img-set&gt;</code>",
+          "<code>&lt;figure&gt;</code>",
+          "<code>&lt;media&gt;</code>",
+          "<code>&lt;picture&gt;</code>"
+        ]
+      },
+      {
+        "id": "responsive-q4",
+        "answer": 0,
+        "prompt": "What is the goal of responsive web design?",
+        "explain": "One page that resizes and rearranges itself to fit any screen.",
+        "options": [
+          "A page that looks good on phones, tablets and desktops",
+          "A separate site for every device",
+          "Pages that only work on phones",
+          "Faster typing"
+        ]
+      }
+    ]
   }
 ]
 ```

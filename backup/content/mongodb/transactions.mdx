@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Multi-Document Transactions | Learn Computer Academy"
 meta_description: "Making several writes across documents (or collections) succeed or fail together, and how read/write concerns tune the consistency guarantee."
 sort_order: 24
-updated_at: "2026-09-03T04:59:12.691569+00:00"
+updated_at: "2026-11-21T10:24:37.307899+00:00"
 ---
 
 ```json
@@ -101,6 +101,61 @@ updated_at: "2026-09-03T04:59:12.691569+00:00"
     "type": "callout",
     "title": "Not a default choice",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-transactions",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "transactions-q1",
+        "answer": 1,
+        "prompt": "What does a transaction guarantee?",
+        "explain": "All-or-nothing across several documents.",
+        "options": [
+          "Faster writes",
+          "All operations apply together, or none do",
+          "Automatic backups",
+          "Smaller documents"
+        ]
+      },
+      {
+        "id": "transactions-q2",
+        "answer": 0,
+        "prompt": "Why does a money transfer need a transaction?",
+        "explain": "Subtract and add must happen together.",
+        "options": [
+          "A crash between the two writes would leave money missing or duplicated",
+          "Banks require PHP",
+          "It is faster",
+          "It is not needed"
+        ]
+      },
+      {
+        "id": "transactions-q3",
+        "answer": 3,
+        "prompt": "Is a single updateOne() atomic on its own?",
+        "explain": "Transactions extend that across several operations.",
+        "options": [
+          "No",
+          "Only with transactions",
+          "Only on Atlas",
+          "Yes"
+        ]
+      },
+      {
+        "id": "transactions-q4",
+        "answer": 2,
+        "prompt": "What does aborting a transaction do?",
+        "explain": "Nothing partial is left behind.",
+        "options": [
+          "Saves half the changes",
+          "Deletes the database",
+          "Discards every change made in it",
+          "Commits it"
+        ]
+      }
+    ]
   }
 ]
 ```

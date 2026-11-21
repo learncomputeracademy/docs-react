@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Repeater & Group Fields | Learn Computer Academy"
 meta_description: "Building repeatable rows of structured content with SCF's Repeater field, and bundling related fields together with a Group field."
 sort_order: 21
-updated_at: "2026-07-30T14:23:30.863554+00:00"
+updated_at: "2026-11-21T05:59:27.977304+00:00"
 ---
 
 ```json
@@ -91,6 +91,59 @@ updated_at: "2026-07-30T14:23:30.863554+00:00"
     "id": "pxgTOpgE1HnT",
     "html": "<p>With structured, repeatable content covered, the next lesson looks at data that doesn't belong to any single post at all — site-wide settings, using an SCF options page.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scf-repeater-group",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scf-repeater-group-q1",
+        "answer": 1,
+        "prompt": "What does a Repeater field store?",
+        "explain": "Editors can add, remove and reorder rows.",
+        "options": [
+          "One value",
+          "A list of rows, each with the same sub-fields",
+          "An image only",
+          "A user"
+        ]
+      },
+      {
+        "id": "scf-repeater-group-q2",
+        "answer": 3,
+        "prompt": "Which functions loop over a repeater?",
+        "explain": "It deliberately mirrors the Loop.",
+        "options": [
+          "<code>have_posts()</code> and <code>the_post()</code>",
+          "<code>get_rows()</code> and <code>next_row()</code>",
+          "<code>foreach_row()</code>",
+          "<code>have_rows()</code> and <code>the_row()</code>"
+        ]
+      },
+      {
+        "id": "scf-repeater-group-q3",
+        "answer": 0,
+        "prompt": "How do you read a sub-field in the current row?",
+        "explain": "the_sub_field() prints it instead of returning it.",
+        "options": [
+          "<code>get_sub_field( 'feature_title' )</code>",
+          "<code>get_field( 'feature_title' )</code>",
+          "<code>the_row( 'feature_title' )</code>",
+          "<code>get_option( 'feature_title' )</code>"
+        ]
+      },
+      {
+        "id": "scf-repeater-group-q4",
+        "answer": 1,
+        "prompt": "The template code changes when an editor adds more rows.",
+        "explain": "The same loop handles zero, three or ten rows.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

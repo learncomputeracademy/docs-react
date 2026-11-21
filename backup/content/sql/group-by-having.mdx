@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL Grouping — GROUP BY & HAVING | Learn Computer Academy"
 meta_description: "How GROUP BY collapses rows into summarized groups, and how HAVING filters those groups after they're formed — the difference from WHERE."
 sort_order: 10
-updated_at: "2026-07-29T06:31:07.480871+00:00"
+updated_at: "2026-11-21T05:51:02.99775+00:00"
 ---
 
 ```json
@@ -111,6 +111,59 @@ updated_at: "2026-07-29T06:31:07.480871+00:00"
     "id": "rrX7yus6PXqJ",
     "html": "<p>Grouping and filtering set up the last piece of core querying: combining data from more than one table at once, with joins.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-group-by-having",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "group-by-having-q1",
+        "answer": 1,
+        "prompt": "What does <code>SELECT department, COUNT(*) FROM Employee GROUP BY department;</code> return?",
+        "explain": "GROUP BY returns exactly one summarized row per group.",
+        "options": [
+          "One row per employee",
+          "One row per department, with its employee count",
+          "The total number of employees",
+          "An error"
+        ]
+      },
+      {
+        "id": "group-by-having-q2",
+        "answer": 2,
+        "prompt": "Which clause filters groups after GROUP BY has formed them?",
+        "explain": "WHERE runs before grouping; HAVING runs after.",
+        "options": [
+          "<code>WHERE</code>",
+          "<code>ORDER BY</code>",
+          "<code>HAVING</code>",
+          "<code>LIMIT</code>"
+        ]
+      },
+      {
+        "id": "group-by-having-q3",
+        "answer": 3,
+        "prompt": "Why does <code>WHERE COUNT(*) &gt; 5</code> fail?",
+        "explain": "That ordering is the whole reason HAVING exists.",
+        "options": [
+          "COUNT needs a column name",
+          "5 must be in quotes",
+          "WHERE cannot use numbers",
+          "The aggregate doesn't exist yet when WHERE runs — use HAVING"
+        ]
+      },
+      {
+        "id": "group-by-having-q4",
+        "answer": 0,
+        "prompt": "Selecting a column that is neither grouped nor inside an aggregate is usually rejected.",
+        "explain": "The database would not know which of the group's values to show.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

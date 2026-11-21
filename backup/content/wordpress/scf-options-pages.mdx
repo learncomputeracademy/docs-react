@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SCF Options Pages | Learn Computer Academy"
 meta_description: "Building a dedicated admin settings screen for site-wide data with acf_add_options_page(), for settings too big for the Customizer."
 sort_order: 22
-updated_at: "2026-07-30T14:23:31.175793+00:00"
+updated_at: "2026-11-21T05:59:28.251289+00:00"
 ---
 
 ```json
@@ -89,6 +89,61 @@ updated_at: "2026-07-30T14:23:31.175793+00:00"
     "id": "saQswViaLINs",
     "html": "<p>That closes out the custom fields part of this section — post-level fields, repeaters, and now site-wide settings, all read the same consistent way. From here, the section moves into finishing touches every real theme needs before it's ready to hand off.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scf-options-pages",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scf-options-pages-q1",
+        "answer": 2,
+        "prompt": "What kind of data belongs on an options page?",
+        "explain": "It is the fuller version of the Customizer idea.",
+        "options": [
+          "Data that belongs to one post",
+          "Comments",
+          "Site-wide data with no post to belong to, like a company phone number",
+          "Images only"
+        ]
+      },
+      {
+        "id": "scf-options-pages-q2",
+        "answer": 3,
+        "prompt": "Why does SCF still use <code>acf_add_options_page()</code>?",
+        "explain": "It works the same way under Secure Custom Fields.",
+        "options": [
+          "It is a typo",
+          "ACF must also be installed",
+          "It only works with ACF Pro",
+          "The name is kept for compatibility from before the ACF/SCF split"
+        ]
+      },
+      {
+        "id": "scf-options-pages-q3",
+        "answer": 0,
+        "prompt": "Why wrap the call in <code>function_exists( 'acf_add_options_page' )</code>?",
+        "explain": "Calling an undefined function is a fatal error.",
+        "options": [
+          "So the site doesn't crash if the plugin is deactivated",
+          "It makes the page faster",
+          "It is required syntax",
+          "It hides the page"
+        ]
+      },
+      {
+        "id": "scf-options-pages-q4",
+        "answer": 1,
+        "prompt": "How does a template read a field from an options page?",
+        "explain": "The second argument says where the field lives.",
+        "options": [
+          "<code>get_field( 'phone' )</code>",
+          "<code>get_field( 'phone', 'option' )</code>",
+          "<code>get_option( 'phone' )</code>",
+          "<code>get_theme_mod( 'phone' )</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

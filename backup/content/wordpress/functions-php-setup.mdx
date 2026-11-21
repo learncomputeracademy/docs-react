@@ -6,7 +6,7 @@ status: "published"
 meta_title: "functions.php — Theme Setup Essentials | Learn Computer Academy"
 meta_description: "What functions.php is for, the theme-support features every custom theme turns on, and how to hook your own setup code into WordPress safely."
 sort_order: 4
-updated_at: "2026-07-30T14:23:25.282692+00:00"
+updated_at: "2026-11-21T05:59:22.035611+00:00"
 ---
 
 ```json
@@ -96,6 +96,61 @@ updated_at: "2026-07-30T14:23:25.282692+00:00"
     "id": "6-0D473rlZRQ",
     "html": "<p>The next lesson puts some of this to use directly — building <code>header.php</code> and <code>footer.php</code>, the two files every other template shares.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-functions-php-setup",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "functions-php-setup-q1",
+        "answer": 1,
+        "prompt": "When does <code>functions.php</code> run?",
+        "explain": "It behaves like a plugin scoped to the active theme.",
+        "options": [
+          "Only when the theme is activated",
+          "Automatically on every request, while the theme is active",
+          "Only in the admin area",
+          "Once a day"
+        ]
+      },
+      {
+        "id": "functions-php-setup-q2",
+        "answer": 2,
+        "prompt": "Which hook should theme setup code like <code>add_theme_support()</code> attach to?",
+        "explain": "Calling it too early fails silently.",
+        "options": [
+          "<code>init</code>",
+          "<code>wp_footer</code>",
+          "<code>after_setup_theme</code>",
+          "<code>the_content</code>"
+        ]
+      },
+      {
+        "id": "functions-php-setup-q3",
+        "answer": 0,
+        "prompt": "What does <code>add_theme_support( 'title-tag' )</code> do?",
+        "explain": "The theme then does not hardcode a &lt;title&gt; tag.",
+        "options": [
+          "Lets WordPress manage the page title tag",
+          "Adds a title to every post",
+          "Makes titles bold",
+          "Creates a menu"
+        ]
+      },
+      {
+        "id": "functions-php-setup-q4",
+        "answer": 3,
+        "prompt": "Why prefix every function name, like mytheme_setup?",
+        "explain": "Two functions with the same name cause a fatal error.",
+        "options": [
+          "WordPress requires underscores",
+          "It makes code faster",
+          "It hides the function",
+          "To avoid clashing with a plugin function of the same name"
+        ]
+      }
+    ]
   }
 ]
 ```

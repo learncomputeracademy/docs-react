@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Modules — CommonJS | Learn Computer Academy"
 meta_description: "Split Node.js code across multiple files with require() and module.exports, and understand what a module actually is."
 sort_order: 3
-updated_at: "2026-08-05T05:47:53.395248+00:00"
+updated_at: "2026-11-21T06:03:23.004997+00:00"
 ---
 
 ```json
@@ -129,6 +129,59 @@ updated_at: "2026-08-05T05:47:53.395248+00:00"
     "type": "callout",
     "title": "Modules are cached",
     "variant": "note"
+  },
+  {
+    "id": "quiz-modules-commonjs",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "modules-commonjs-q1",
+        "answer": 1,
+        "prompt": "In Node.js, are variables in one file visible in another by default?",
+        "explain": "Everything is private to the file unless exported.",
+        "options": [
+          "Yes, all files share one scope",
+          "No — each file is its own module and must export what it shares",
+          "Only constants",
+          "Only in the same folder"
+        ]
+      },
+      {
+        "id": "modules-commonjs-q2",
+        "answer": 2,
+        "prompt": "How does a CommonJS file share functions?",
+        "explain": "Another file reads it with <code>require('./math')</code>.",
+        "options": [
+          "<code>export { add }</code>",
+          "<code>share(add)</code>",
+          "<code>module.exports = { add }</code>",
+          "<code>global.add = add</code>"
+        ]
+      },
+      {
+        "id": "modules-commonjs-q3",
+        "answer": 3,
+        "prompt": "What does the <code>./</code> in <code>require('./math')</code> mean?",
+        "explain": "Without ./ Node looks for a built-in module or an installed package.",
+        "options": [
+          "A package from npm",
+          "A built-in module",
+          "The root of the computer",
+          "A file in this same folder"
+        ]
+      },
+      {
+        "id": "modules-commonjs-q4",
+        "answer": 0,
+        "prompt": "CommonJS is Node's original module system.",
+        "explain": "It is still very common in existing code.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

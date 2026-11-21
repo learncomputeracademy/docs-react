@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Regular Expressions | Learn Computer Academy"
 meta_description: "Pattern matching in text with the re module — searching, matching, and replacing text that follows a shape rather than an exact string."
 sort_order: 30
-updated_at: "2026-09-03T04:52:50.174051+00:00"
+updated_at: "2026-11-21T06:12:50.554051+00:00"
 ---
 
 ```json
@@ -166,6 +166,61 @@ updated_at: "2026-09-03T04:52:50.174051+00:00"
     "type": "callout",
     "title": "When not to reach for regex",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-regular-expressions",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "regular-expressions-q1",
+        "answer": 3,
+        "prompt": "Which module handles regular expressions?",
+        "explain": "Built in, no install needed.",
+        "options": [
+          "<code>regex</code>",
+          "<code>pattern</code>",
+          "<code>match</code>",
+          "<code>re</code>"
+        ]
+      },
+      {
+        "id": "regular-expressions-q2",
+        "answer": 1,
+        "prompt": "What does <code>\\d{3}-\\d{4}</code> match?",
+        "explain": "\\d is a digit; {3} means exactly three.",
+        "options": [
+          "Three letters, a hyphen, four letters",
+          "Three digits, a hyphen, four digits — like 555-1234",
+          "Any phone number in any format",
+          "Exactly \"d3-d4\""
+        ]
+      },
+      {
+        "id": "regular-expressions-q3",
+        "answer": 0,
+        "prompt": "Which function returns every match in a string?",
+        "explain": "re.search() returns only the first match.",
+        "options": [
+          "<code>re.findall()</code>",
+          "<code>re.search()</code>",
+          "<code>re.match()</code>",
+          "<code>re.first()</code>"
+        ]
+      },
+      {
+        "id": "regular-expressions-q4",
+        "answer": 2,
+        "prompt": "Which function replaces matches with new text?",
+        "explain": "For example masking phone numbers.",
+        "options": [
+          "<code>re.replace()</code>",
+          "<code>re.swap()</code>",
+          "<code>re.sub()</code>",
+          "<code>re.change()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Dates and Times | Learn Computer Academy"
 meta_description: "Getting and formatting the current date and time in PHP, plus the DateTime class for anything more involved."
 sort_order: 26
-updated_at: "2026-07-30T09:08:42.848746+00:00"
+updated_at: "2026-11-21T06:08:37.867409+00:00"
 ---
 
 ```json
@@ -94,6 +94,61 @@ updated_at: "2026-07-30T09:08:42.848746+00:00"
     "type": "callout",
     "title": "Time zones are the server's, by default",
     "variant": "note"
+  },
+  {
+    "id": "quiz-dates-and-times",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dates-and-times-q1",
+        "answer": 0,
+        "prompt": "What does <code>date(\"Y-m-d\")</code> output?",
+        "explain": "Each character is a format code: Y year, m month, d day.",
+        "options": [
+          "A date like \"2026-07-30\"",
+          "A time",
+          "The weekday name",
+          "A timestamp number"
+        ]
+      },
+      {
+        "id": "dates-and-times-q2",
+        "answer": 3,
+        "prompt": "When is the DateTime class the better tool?",
+        "explain": "<code>$today-&gt;diff($deadline)</code> gives the gap between two dates.",
+        "options": [
+          "Never",
+          "For printing the year only",
+          "Only for times",
+          "For comparing dates, adding time, or time zones"
+        ]
+      },
+      {
+        "id": "dates-and-times-q3",
+        "answer": 0,
+        "prompt": "In date() formats, what does H stand for?",
+        "explain": "H:i:s gives 14:30:00.",
+        "options": [
+          "Hour, 24-hour clock",
+          "Hour, 12-hour clock",
+          "Holiday",
+          "Half-day"
+        ]
+      },
+      {
+        "id": "dates-and-times-q4",
+        "answer": 2,
+        "prompt": "Where is the full list of date() format characters?",
+        "explain": "There are dozens of them.",
+        "options": [
+          "In php.ini",
+          "In the browser",
+          "In the date() reference on php.net",
+          "There is no list"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The useReducer Hook | Learn Computer Academy"
 meta_description: "An alternative to useState for state that updates through well-defined actions — how it works, and when it's worth reaching for over useState."
 sort_order: 25
-updated_at: "2026-09-03T04:34:23.761524+00:00"
+updated_at: "2026-11-21T10:21:58.282133+00:00"
 ---
 
 ```json
@@ -103,6 +103,59 @@ updated_at: "2026-09-03T04:34:23.761524+00:00"
     "type": "code",
     "language": "jsx",
     "runnable": false
+  },
+  {
+    "id": "quiz-usereducer",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "usereducer-q1",
+        "answer": 0,
+        "prompt": "What is a reducer?",
+        "explain": "Same idea as array .reduce().",
+        "options": [
+          "A function that takes the current state and an action and returns the new state",
+          "A CSS minifier",
+          "A data fetcher",
+          "A component"
+        ]
+      },
+      {
+        "id": "usereducer-q2",
+        "answer": 1,
+        "prompt": "When is useReducer a better fit than useState?",
+        "explain": "For example add, remove and toggle on a todo list.",
+        "options": [
+          "For one simple boolean",
+          "State that changes through several distinct actions",
+          "Never",
+          "Only for styling"
+        ]
+      },
+      {
+        "id": "usereducer-q3",
+        "answer": 3,
+        "prompt": "How do you trigger a state change with useReducer?",
+        "explain": "The reducer decides how state changes.",
+        "options": [
+          "Edit state directly",
+          "Call setState",
+          "Reload the page",
+          "Call <code>dispatch({ type: 'increment' })</code>"
+        ]
+      },
+      {
+        "id": "usereducer-q4",
+        "answer": 0,
+        "prompt": "A reducer should return a new state object rather than mutate the old one.",
+        "explain": "The same no-mutation rule as useState.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

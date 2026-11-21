@@ -5,7 +5,7 @@ path: "html/filepaths"
 status: "published"
 meta_title: "HTML Filepaths | Learn Computer Academy"
 sort_order: 19
-updated_at: "2026-07-29T05:40:20.552715+00:00"
+updated_at: "2026-11-20T15:25:09.308314+00:00"
 ---
 
 ```json
@@ -137,6 +137,60 @@ updated_at: "2026-07-29T05:40:20.552715+00:00"
     "id": "hb-N04wCxM61",
     "html": "<p>It is best practice to use relative file paths (if possible).</p>\n<p>When using relative file paths, your web pages will not be bound to your current base URL. All links will work on your own computer (localhost) as well as on your current public domain and your future public domains.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-filepaths",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "filepaths-q1",
+        "answer": 0,
+        "prompt": "Where is the file in <code>src=\"images/pic.jpg\"</code>?",
+        "explain": "No leading slash and no ../ means \"start from the current folder\".",
+        "options": [
+          "In the images folder inside the current folder",
+          "In the images folder at the root of the site",
+          "In the folder one level up",
+          "On another website"
+        ]
+      },
+      {
+        "id": "filepaths-q2",
+        "answer": 2,
+        "prompt": "What does <code>../</code> mean in <code>src=\"../images/pic.jpg\"</code>?",
+        "explain": "../ steps up one level from the current folder.",
+        "options": [
+          "The root of the site",
+          "The current folder",
+          "Go up one folder level",
+          "Any folder"
+        ]
+      },
+      {
+        "id": "filepaths-q3",
+        "answer": 3,
+        "prompt": "Where does <code>src=\"/images/pic.jpg\"</code> look for the file?",
+        "explain": "A leading slash starts from the root of the current website.",
+        "options": [
+          "In the current folder",
+          "One level up",
+          "On the user's computer",
+          "In the images folder at the root of the site"
+        ]
+      },
+      {
+        "id": "filepaths-q4",
+        "answer": 1,
+        "prompt": "Why are relative file paths usually the better choice?",
+        "explain": "Relative paths are not tied to one base URL, so moving the site does not break links.",
+        "options": [
+          "They load faster",
+          "The site still works on localhost and on any future domain",
+          "Search engines require them",
+          "They hide the files"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python and Databases | Learn Computer Academy"
 meta_description: "Connecting Python to a database with sqlite3 and MySQL connectors, running queries safely, and why prepared statements matter here too."
 sort_order: 27
-updated_at: "2026-08-04T11:39:34.3356+00:00"
+updated_at: "2026-11-21T06:12:49.752749+00:00"
 ---
 
 ```json
@@ -160,6 +160,61 @@ updated_at: "2026-08-04T11:39:34.3356+00:00"
     "type": "code",
     "language": "python",
     "runnable": false
+  },
+  {
+    "id": "quiz-databases",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "databases-q1",
+        "answer": 3,
+        "prompt": "What is special about sqlite3?",
+        "explain": "The easiest way to start.",
+        "options": [
+          "It needs a separate server",
+          "It only works on Linux",
+          "It is a paid product",
+          "It is built into Python and stores the database in a single file"
+        ]
+      },
+      {
+        "id": "databases-q2",
+        "answer": 0,
+        "prompt": "Why use placeholders like ? in cursor.execute()?",
+        "explain": "Never build SQL with f-strings and user input.",
+        "options": [
+          "To prevent SQL injection from user input",
+          "They are faster to type",
+          "They are required for SELECT",
+          "To sort results"
+        ]
+      },
+      {
+        "id": "databases-q3",
+        "answer": 2,
+        "prompt": "After INSERT or UPDATE with sqlite3, what must you call to save the change?",
+        "explain": "Without commit, the change is lost.",
+        "options": [
+          "<code>conn.save()</code>",
+          "<code>cursor.close()</code>",
+          "<code>conn.commit()</code>",
+          "<code>conn.write()</code>"
+        ]
+      },
+      {
+        "id": "databases-q4",
+        "answer": 1,
+        "prompt": "How do you connect to MySQL from Python?",
+        "explain": "Such as mysql-connector-python.",
+        "options": [
+          "With sqlite3",
+          "With a third-party package installed with pip",
+          "It is not possible",
+          "With the os module"
+        ]
+      }
+    ]
   }
 ]
 ```

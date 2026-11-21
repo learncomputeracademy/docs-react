@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The WordPress Customizer | Learn Computer Academy"
 meta_description: "Adding a live-preview setting to the Customizer and reading its saved value back inside a template."
 sort_order: 12
-updated_at: "2026-07-30T14:23:27.965968+00:00"
+updated_at: "2026-11-21T05:59:25.222834+00:00"
 ---
 
 ```json
@@ -65,6 +65,59 @@ updated_at: "2026-07-30T14:23:27.965968+00:00"
     "id": "VAlygJBTwRC6",
     "html": "<p>With the site-wide chrome — header, footer, menus, small settings — all covered, the next lesson closes out this first part of the section: turning off the block editor for good, so every content screen behaves the way the rest of this section has assumed all along.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-customizer",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "customizer-q1",
+        "answer": 2,
+        "prompt": "What kind of data suits the Customizer?",
+        "explain": "It also shows a live preview while you edit.",
+        "options": [
+          "Long blog posts",
+          "Product catalogues",
+          "Small, site-wide single values, like a phone number",
+          "User passwords"
+        ]
+      },
+      {
+        "id": "customizer-q2",
+        "answer": 3,
+        "prompt": "In what order are Customizer pieces added?",
+        "explain": "A section groups settings; a setting stores the value; a control gives it an input field.",
+        "options": [
+          "Control, setting, section",
+          "Setting, section, control",
+          "Any order",
+          "Section, setting, control"
+        ]
+      },
+      {
+        "id": "customizer-q3",
+        "answer": 0,
+        "prompt": "How does a template read a Customizer value?",
+        "explain": "Check it is not empty before printing it.",
+        "options": [
+          "<code>get_theme_mod( 'mytheme_phone' )</code>",
+          "<code>get_option( 'customizer' )</code>",
+          "<code>the_field( 'mytheme_phone' )</code>",
+          "<code>get_customizer( 'phone' )</code>"
+        ]
+      },
+      {
+        "id": "customizer-q4",
+        "answer": 0,
+        "prompt": "An image upload in the Customizer uses WP_Customize_Image_Control.",
+        "explain": "It replaces the plain text control.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

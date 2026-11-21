@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js File System (fs) Module | Learn Computer Academy"
 meta_description: "Read, write, and check files with the built-in fs module, and understand the difference between its sync, callback, and promise versions."
 sort_order: 7
-updated_at: "2026-08-05T05:47:54.669073+00:00"
+updated_at: "2026-11-21T06:03:24.306062+00:00"
 ---
 
 ```json
@@ -142,6 +142,59 @@ updated_at: "2026-08-05T05:47:54.669073+00:00"
     "type": "code",
     "language": "javascript",
     "runnable": false
+  },
+  {
+    "id": "quiz-file-system",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "file-system-q1",
+        "answer": 1,
+        "prompt": "What does the <code>'utf8'</code> argument in <code>fs.readFileSync('notes.txt', 'utf8')</code> do?",
+        "explain": "Leave it off and you get a Buffer.",
+        "options": [
+          "Compresses the file",
+          "Returns text instead of raw bytes (a Buffer)",
+          "Creates the file",
+          "Makes reading faster"
+        ]
+      },
+      {
+        "id": "file-system-q2",
+        "answer": 2,
+        "prompt": "What does writeFileSync do if the file already exists?",
+        "explain": "To add to the end, use <code>fs.appendFileSync()</code>.",
+        "options": [
+          "Adds to the end",
+          "Throws an error",
+          "Overwrites it completely",
+          "Creates a copy"
+        ]
+      },
+      {
+        "id": "file-system-q3",
+        "answer": 3,
+        "prompt": "Why avoid the Sync methods in a running server?",
+        "explain": "Fine for a quick script, not for a server handling many requests.",
+        "options": [
+          "They are deprecated",
+          "They return the wrong data",
+          "They need extra packages",
+          "They block the program, stalling every other request"
+        ]
+      },
+      {
+        "id": "file-system-q4",
+        "answer": 1,
+        "prompt": "Browser JavaScript can read files from the user's disk with fs.",
+        "explain": "fs only exists in Node.js.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

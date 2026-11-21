@@ -6,7 +6,7 @@ status: "published"
 meta_title: "HTML Case Sensitivity & Whitespace | Learn Computer Academy"
 meta_description: "Why HTML tags work in any case but lowercase is standard, and why the browser collapses extra spaces and line breaks."
 sort_order: 38
-updated_at: "2026-09-03T03:43:14.717758+00:00"
+updated_at: "2026-11-20T15:25:14.373766+00:00"
 ---
 
 ```json
@@ -89,6 +89,60 @@ updated_at: "2026-09-03T03:43:14.717758+00:00"
     "header": [
       "Need",
       "Use"
+    ]
+  },
+  {
+    "id": "quiz-case-insensitivity-and-whitespace",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "case-insensitivity-and-whitespace-q1",
+        "answer": 0,
+        "prompt": "Do <code>&lt;P&gt;</code> and <code>&lt;p&gt;</code> mean the same thing to a browser?",
+        "explain": "They work the same, but lowercase is the recommended style.",
+        "options": [
+          "Yes — HTML tag names are not case sensitive",
+          "No — &lt;P&gt; is invalid",
+          "Only in HTML5",
+          "Only for headings"
+        ]
+      },
+      {
+        "id": "case-insensitivity-and-whitespace-q2",
+        "answer": 2,
+        "prompt": "How does this display?<pre><code>&lt;p&gt;Hello      world&lt;/p&gt;</code></pre>",
+        "explain": "Browsers collapse any run of spaces, tabs and line breaks into a single space.",
+        "options": [
+          "With all the spaces",
+          "As \"Helloworld\"",
+          "As \"Hello world\" with one space",
+          "On two lines"
+        ]
+      },
+      {
+        "id": "case-insensitivity-and-whitespace-q3",
+        "answer": 3,
+        "prompt": "Which case is recommended for HTML tags?",
+        "explain": "The W3C recommends lowercase, and stricter formats like XHTML require it.",
+        "options": [
+          "UPPERCASE",
+          "Mixed",
+          "Any — it is only a matter of taste, with no recommendation",
+          "lowercase"
+        ]
+      },
+      {
+        "id": "case-insensitivity-and-whitespace-q4",
+        "answer": 1,
+        "prompt": "Which tag keeps spaces and line breaks exactly as written?",
+        "explain": "<code>&lt;pre&gt;</code> = preformatted text, usually in a monospace font.",
+        "options": [
+          "<code>&lt;p&gt;</code>",
+          "<code>&lt;pre&gt;</code>",
+          "<code>&lt;span&gt;</code>",
+          "<code>&lt;keep&gt;</code>"
+        ]
+      }
     ]
   }
 ]

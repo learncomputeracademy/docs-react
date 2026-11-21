@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Streams | Learn Computer Academy"
 meta_description: "Process data piece by piece as it arrives with Node.js streams, instead of waiting for an entire file to load into memory first."
 sort_order: 15
-updated_at: "2026-08-05T05:47:57.208201+00:00"
+updated_at: "2026-11-21T06:03:27.018197+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-08-05T05:47:57.208201+00:00"
     "html": "<p>Streams are one of the areas where Node's design shows through most clearly: memory is a shared, limited resource, and a server handling many requests at once can't afford to load a large file into memory for each one.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-streams",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "streams-q1",
+        "answer": 2,
+        "prompt": "Why use a stream to read a 4 GB file?",
+        "explain": "Memory use stays small however large the file is.",
+        "options": [
+          "Streams compress the file",
+          "readFile cannot read files",
+          "It processes small chunks instead of loading all 4 GB into memory",
+          "Streams are required for text"
+        ]
+      },
+      {
+        "id": "streams-q2",
+        "answer": 3,
+        "prompt": "Which events does a readable stream emit?",
+        "explain": "A readable stream is an EventEmitter.",
+        "options": [
+          "<code>open</code> and <code>close</code>",
+          "<code>start</code> and <code>stop</code>",
+          "<code>read</code> and <code>write</code>",
+          "<code>data</code> for each chunk and <code>end</code> at the end"
+        ]
+      },
+      {
+        "id": "streams-q3",
+        "answer": 0,
+        "prompt": "What does <code>readStream.pipe(writeStream)</code> do?",
+        "explain": "Ideal for copying files or streaming a file to an HTTP response.",
+        "options": [
+          "Sends each chunk read straight into the writable stream",
+          "Deletes the source",
+          "Reads the whole file first",
+          "Converts it to JSON"
+        ]
+      },
+      {
+        "id": "streams-q4",
+        "answer": 1,
+        "prompt": "What must you call when you have finished writing to a writable stream?",
+        "explain": "end() signals no more data is coming.",
+        "options": [
+          "<code>close()</code>",
+          "<code>end()</code>",
+          "<code>finish()</code>",
+          "<code>stop()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

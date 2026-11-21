@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Node.js Garbage Collection and Memory Leaks | Learn Computer Academy"
 meta_description: "How Node frees memory automatically, and the Node-specific patterns — a growing cache, a forgotten listener, a global array — that quietly prevent it from doing so."
 sort_order: 33
-updated_at: "2026-09-03T04:41:43.754434+00:00"
+updated_at: "2026-11-21T06:03:32.183083+00:00"
 ---
 
 ```json
@@ -122,6 +122,59 @@ updated_at: "2026-09-03T04:41:43.754434+00:00"
     "header": [
       "Common source",
       "Fix"
+    ]
+  },
+  {
+    "id": "quiz-garbage-collection-and-memory-leaks",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "garbage-collection-and-memory-leaks-q1",
+        "answer": 1,
+        "prompt": "Why do memory leaks matter more on a server than in a browser tab?",
+        "explain": "A tab gets closed and fully reclaimed within minutes.",
+        "options": [
+          "Servers have less memory",
+          "A server runs for days or weeks, so a slow leak eventually crashes it",
+          "Browsers have no garbage collector",
+          "They don't"
+        ]
+      },
+      {
+        "id": "garbage-collection-and-memory-leaks-q2",
+        "answer": 2,
+        "prompt": "Why is a plain Map used as a cache a leak?",
+        "explain": "A real cache needs an eviction strategy.",
+        "options": [
+          "Maps are slow",
+          "Maps are deprecated",
+          "It never removes anything, so it grows forever",
+          "Maps can't hold objects"
+        ]
+      },
+      {
+        "id": "garbage-collection-and-memory-leaks-q3",
+        "answer": 3,
+        "prompt": "What does <code>new LRUCache({ max: 500 })</code> guarantee?",
+        "explain": "Memory use stays bounded.",
+        "options": [
+          "Entries never expire",
+          "It stores 500 bytes",
+          "It is faster than a Map",
+          "At most 500 entries; the least recently used are dropped"
+        ]
+      },
+      {
+        "id": "garbage-collection-and-memory-leaks-q4",
+        "answer": 0,
+        "prompt": "Node uses the same automatic garbage collection as Chrome's V8.",
+        "explain": "Memory is freed once nothing references it.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
     ]
   }
 ]

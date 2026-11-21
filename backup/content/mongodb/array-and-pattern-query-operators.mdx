@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Array and Pattern Query Operators | Learn Computer Academy"
 meta_description: "Querying inside an array field with $all, $elemMatch, and $size, and matching text patterns with $regex — extending the earlier Query Operators lesson."
 sort_order: 22
-updated_at: "2026-09-03T04:59:12.020881+00:00"
+updated_at: "2026-11-21T10:24:36.692682+00:00"
 ---
 
 ```json
@@ -125,6 +125,61 @@ updated_at: "2026-09-03T04:59:12.020881+00:00"
     "header": [
       "Operator",
       "Matches"
+    ]
+  },
+  {
+    "id": "quiz-array-and-pattern-query-operators",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "array-and-pattern-query-operators-q1",
+        "answer": 1,
+        "prompt": "What does <code>{ tags: { $all: ['electronics', 'sale'] } }</code> match?",
+        "explain": "$in would match either one.",
+        "options": [
+          "Documents with either tag",
+          "Documents whose tags contain both values, in any order",
+          "Documents with no tags",
+          "Exactly that array only"
+        ]
+      },
+      {
+        "id": "array-and-pattern-query-operators-q2",
+        "answer": 0,
+        "prompt": "Which operator matches an array element that meets several conditions at once?",
+        "explain": "All conditions apply to the same element.",
+        "options": [
+          "<code>$elemMatch</code>",
+          "<code>$size</code>",
+          "<code>$exists</code>",
+          "<code>$set</code>"
+        ]
+      },
+      {
+        "id": "array-and-pattern-query-operators-q3",
+        "answer": 3,
+        "prompt": "What does <code>{ tags: { $size: 3 } }</code> match?",
+        "explain": "Exact length only.",
+        "options": [
+          "Tags of 3 characters",
+          "The third tag",
+          "More than 3 tags",
+          "Arrays with exactly 3 elements"
+        ]
+      },
+      {
+        "id": "array-and-pattern-query-operators-q4",
+        "answer": 2,
+        "prompt": "Which operator matches text by pattern?",
+        "explain": "Like \"names starting with A\".",
+        "options": [
+          "<code>$in</code>",
+          "<code>$all</code>",
+          "<code>$regex</code>",
+          "<code>$gt</code>"
+        ]
+      }
     ]
   }
 ]

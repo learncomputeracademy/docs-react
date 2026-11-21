@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Remotes — Clone, Push, Pull, Fetch | Learn Computer Academy"
 meta_description: "Connecting a local repository to GitHub — downloading an existing project, sending local commits up, and getting others' commits back down."
 sort_order: 12
-updated_at: "2026-09-03T05:20:02.690409+00:00"
+updated_at: "2026-11-21T10:18:33.759489+00:00"
 ---
 
 ```json
@@ -135,6 +135,61 @@ updated_at: "2026-09-03T05:20:02.690409+00:00"
     "header": [
       "Command",
       "Direction"
+    ]
+  },
+  {
+    "id": "quiz-remotes-clone-push-pull",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "remotes-clone-push-pull-q1",
+        "answer": 3,
+        "prompt": "What does <code>git clone &lt;url&gt;</code> do?",
+        "explain": "Ready to work on immediately.",
+        "options": [
+          "Deletes the remote",
+          "Creates an empty folder",
+          "Uploads your files",
+          "Downloads a complete copy with full history"
+        ]
+      },
+      {
+        "id": "remotes-clone-push-pull-q2",
+        "answer": 0,
+        "prompt": "What is \"origin\"?",
+        "explain": "Added with <code>git remote add origin &lt;url&gt;</code>.",
+        "options": [
+          "The conventional name for the main remote repository",
+          "The first commit",
+          "A branch",
+          "Your username"
+        ]
+      },
+      {
+        "id": "remotes-clone-push-pull-q3",
+        "answer": 1,
+        "prompt": "What is the difference between git fetch and git pull?",
+        "explain": "fetch lets you look before merging.",
+        "options": [
+          "They are identical",
+          "fetch downloads new commits without merging; pull downloads and merges",
+          "pull uploads",
+          "fetch deletes"
+        ]
+      },
+      {
+        "id": "remotes-clone-push-pull-q4",
+        "answer": 2,
+        "prompt": "What does the <code>-u</code> in <code>git push -u origin main</code> do?",
+        "explain": "Set it once per branch.",
+        "options": [
+          "Undoes the push",
+          "Uploads only new files",
+          "Sets origin/main as the default upstream, so later you can just git push",
+          "Deletes main"
+        ]
+      }
     ]
   }
 ]

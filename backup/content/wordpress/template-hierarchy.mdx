@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The Template Hierarchy | Learn Computer Academy"
 meta_description: "How WordPress decides which template file to load for a given URL — the search order every custom theme has to design around."
 sort_order: 7
-updated_at: "2026-07-30T14:23:26.29933+00:00"
+updated_at: "2026-11-21T05:59:23.072622+00:00"
 ---
 
 ```json
@@ -97,6 +97,61 @@ updated_at: "2026-07-30T14:23:26.29933+00:00"
     "id": "bc-Ncb3w8wHv",
     "html": "<p>With the decision-making logic clear, the next lesson builds the actual files this hierarchy points to most often — <code>index.php</code>, <code>page.php</code>, <code>single.php</code>, and <code>404.php</code>.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-template-hierarchy",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "template-hierarchy-q1",
+        "answer": 2,
+        "prompt": "If no more specific template exists, which file does WordPress always fall back to?",
+        "explain": "That is why index.php is the one truly required template.",
+        "options": [
+          "<code>page.php</code>",
+          "<code>single.php</code>",
+          "<code>index.php</code>",
+          "<code>home.php</code>"
+        ]
+      },
+      {
+        "id": "template-hierarchy-q2",
+        "answer": 3,
+        "prompt": "How does WordPress choose a template?",
+        "explain": "This fixed search order is the template hierarchy.",
+        "options": [
+          "Randomly",
+          "From a setting in the admin",
+          "It uses the newest file",
+          "It checks a fixed list of file names, most specific first, and uses the first that exists"
+        ]
+      },
+      {
+        "id": "template-hierarchy-q3",
+        "answer": 0,
+        "prompt": "To give only the \"news\" category its own layout, which file would you add?",
+        "explain": "More specific file names win over generic ones.",
+        "options": [
+          "<code>category-news.php</code>",
+          "<code>news.php</code>",
+          "<code>page-category.php</code>",
+          "<code>archive.php</code>"
+        ]
+      },
+      {
+        "id": "template-hierarchy-q4",
+        "answer": 1,
+        "prompt": "Is the template hierarchy configured in the admin?",
+        "explain": "You control it just by which files you add.",
+        "options": [
+          "Yes, under Appearance",
+          "No — it is a fixed, predictable order based on file names",
+          "Only with a plugin",
+          "In wp-config.php"
+        ]
+      }
+    ]
   }
 ]
 ```

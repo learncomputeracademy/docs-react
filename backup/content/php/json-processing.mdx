@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP JSON Processing | Learn Computer Academy"
 meta_description: "Converting a PHP array or object to JSON and back — the standard format for an API request or response."
 sort_order: 39
-updated_at: "2026-09-03T04:05:25.33565+00:00"
+updated_at: "2026-11-21T06:08:41.358029+00:00"
 ---
 
 ```json
@@ -102,6 +102,61 @@ updated_at: "2026-09-03T04:05:25.33565+00:00"
     "type": "callout",
     "title": "What json_encode() can't do",
     "variant": "note"
+  },
+  {
+    "id": "quiz-json-processing",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "json-processing-q1",
+        "answer": 1,
+        "prompt": "What does <code>json_encode(['name' =&gt; 'Sam', 'age' =&gt; 28])</code> return?",
+        "explain": "A JSON string.",
+        "options": [
+          "<code>['name' =&gt; 'Sam']</code>",
+          "<code>{\"name\":\"Sam\",\"age\":28}</code>",
+          "<code>name=Sam&amp;age=28</code>",
+          "<code>Array</code>"
+        ]
+      },
+      {
+        "id": "json-processing-q2",
+        "answer": 3,
+        "prompt": "What does json_decode($json) return by default?",
+        "explain": "Read it with $object->name.",
+        "options": [
+          "An associative array",
+          "A string",
+          "null",
+          "An stdClass object"
+        ]
+      },
+      {
+        "id": "json-processing-q3",
+        "answer": 0,
+        "prompt": "How do you get an associative array from json_decode?",
+        "explain": "<code>json_decode($json, true)</code> — usually the more convenient choice.",
+        "options": [
+          "Pass <code>true</code> as the second argument",
+          "Use json_array()",
+          "Cast with (array) only",
+          "It is impossible"
+        ]
+      },
+      {
+        "id": "json-processing-q4",
+        "answer": 2,
+        "prompt": "Which flag makes json_encode output readable with line breaks and indentation?",
+        "explain": "Handy for debugging and config files.",
+        "options": [
+          "<code>JSON_READABLE</code>",
+          "<code>JSON_FORMAT</code>",
+          "<code>JSON_PRETTY_PRINT</code>",
+          "<code>JSON_INDENT</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

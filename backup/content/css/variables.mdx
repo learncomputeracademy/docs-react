@@ -6,7 +6,7 @@ status: "published"
 meta_title: "CSS Variables | Learn Computer Academy"
 meta_description: "Store a reusable value once with a CSS custom property, and update it everywhere it's used by changing it in a single place."
 sort_order: 42
-updated_at: "2026-09-03T03:54:08.60067+00:00"
+updated_at: "2026-11-21T06:18:19.608815+00:00"
 ---
 
 ```json
@@ -112,6 +112,61 @@ updated_at: "2026-09-03T03:54:08.60067+00:00"
     "type": "callout",
     "title": "A practical pattern",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-variables",
+    "lang": "css",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "variables-q1",
+        "answer": 2,
+        "prompt": "How does a CSS variable name start?",
+        "explain": "<code>--brand-color: #3366ff;</code>",
+        "options": [
+          "<code>$</code>",
+          "<code>@</code>",
+          "<code>--</code>",
+          "<code>var-</code>"
+        ]
+      },
+      {
+        "id": "variables-q2",
+        "answer": 3,
+        "prompt": "How do you use a variable?",
+        "explain": "var() reads it.",
+        "options": [
+          "<code>color: --brand-color;</code>",
+          "<code>color: $brand-color;</code>",
+          "<code>color: @brand-color;</code>",
+          "<code>color: var(--brand-color);</code>"
+        ]
+      },
+      {
+        "id": "variables-q3",
+        "answer": 0,
+        "prompt": "Why define variables on :root?",
+        "explain": ":root is the html element.",
+        "options": [
+          "So they are available everywhere on the page",
+          "It is faster",
+          "It is required",
+          "To hide them"
+        ]
+      },
+      {
+        "id": "variables-q4",
+        "answer": 1,
+        "prompt": "What does the second argument in <code>var(--gap, 16px)</code> do?",
+        "explain": "A safety net for missing variables.",
+        "options": [
+          "Sets a minimum",
+          "Is a fallback if --gap isn't defined",
+          "Multiplies the value",
+          "Nothing"
+        ]
+      }
+    ]
   }
 ]
 ```

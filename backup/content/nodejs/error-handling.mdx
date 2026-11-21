@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Error Handling in Node.js | Learn Computer Academy"
 meta_description: "Handle errors in synchronous code, callbacks, and promises correctly in Node.js, and prevent one unhandled error from crashing the whole server."
 sort_order: 18
-updated_at: "2026-08-05T05:47:58.202606+00:00"
+updated_at: "2026-11-21T06:03:27.884431+00:00"
 ---
 
 ```json
@@ -98,6 +98,61 @@ updated_at: "2026-08-05T05:47:58.202606+00:00"
     "type": "callout",
     "title": "A gotcha worth watching for",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-error-handling",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "error-handling-q1",
+        "answer": 1,
+        "prompt": "Does try/catch around fs.readFile(...) catch an error passed to its callback?",
+        "explain": "The callback runs later, after the try block has finished.",
+        "options": [
+          "Yes",
+          "No — callback errors arrive as the err argument, so check it",
+          "Only on Windows",
+          "Only if utf8 is passed"
+        ]
+      },
+      {
+        "id": "error-handling-q2",
+        "answer": 2,
+        "prompt": "What can an unhandled error in a Node server do?",
+        "explain": "That is the Node-specific risk of getting error handling wrong.",
+        "options": [
+          "Only affect the one request",
+          "Nothing",
+          "Bring down the whole server, for every user",
+          "Slow down the browser"
+        ]
+      },
+      {
+        "id": "error-handling-q3",
+        "answer": 3,
+        "prompt": "What does <code>JSON.parse('not valid json')</code> do?",
+        "explain": "A synchronous error: ordinary try/catch works.",
+        "options": [
+          "Returns null",
+          "Returns an empty object",
+          "Returns the string",
+          "Throws a SyntaxError, catchable with try/catch"
+        ]
+      },
+      {
+        "id": "error-handling-q4",
+        "answer": 0,
+        "prompt": "How do you catch errors from an awaited promise?",
+        "explain": "Or add .catch() when using .then() chains.",
+        "options": [
+          "Wrap the await in try/catch",
+          "Check err",
+          "Use process.exit",
+          "They can't fail"
+        ]
+      }
+    ]
   }
 ]
 ```

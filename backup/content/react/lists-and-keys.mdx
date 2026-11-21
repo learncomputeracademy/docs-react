@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Rendering Lists and Keys in React | Learn Computer Academy"
 meta_description: "Rendering a list of components from an array with .map(), and why React requires a unique key on each item."
 sort_order: 6
-updated_at: "2026-07-31T11:24:36.819446+00:00"
+updated_at: "2026-11-21T10:21:52.809534+00:00"
 ---
 
 ```json
@@ -91,6 +91,59 @@ updated_at: "2026-07-31T11:24:36.819446+00:00"
     "id": "L92zXfwGe_x7",
     "html": "<p><code>key</code> is metadata for React itself, not something your component can read — <code>props.key</code> is always <code>undefined</code>. If a component needs the same value for its own logic, pass it again under a different name.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-lists-and-keys",
+    "lang": "jsx",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "lists-and-keys-q1",
+        "answer": 1,
+        "prompt": "How does React render a list?",
+        "explain": "No template loop syntax is needed.",
+        "options": [
+          "With a special for tag",
+          "With JavaScript's .map() returning JSX",
+          "With CSS",
+          "It cannot"
+        ]
+      },
+      {
+        "id": "lists-and-keys-q2",
+        "answer": 2,
+        "prompt": "Why does each list item need a key?",
+        "explain": "Without keys, updates can attach to the wrong item.",
+        "options": [
+          "For styling",
+          "For SEO",
+          "So React can track which item is which between renders",
+          "Keys are optional decoration"
+        ]
+      },
+      {
+        "id": "lists-and-keys-q3",
+        "answer": 0,
+        "prompt": "What makes the best key?",
+        "explain": "Index keys break when items are added, removed or reordered.",
+        "options": [
+          "A stable, unique ID from the data",
+          "Math.random()",
+          "The array index for reorderable lists",
+          "The same value for every item"
+        ]
+      },
+      {
+        "id": "lists-and-keys-q4",
+        "answer": 0,
+        "prompt": "Keys must be unique among siblings in the same list.",
+        "explain": "They do not need to be globally unique.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "PHP Indexed Arrays | Learn Computer Academy"
 meta_description: "Creating and working with PHP's indexed arrays — ordered lists of values accessed by numeric position."
 sort_order: 11
-updated_at: "2026-07-30T09:08:37.50411+00:00"
+updated_at: "2026-11-21T06:08:33.641048+00:00"
 ---
 
 ```json
@@ -93,6 +93,61 @@ updated_at: "2026-07-30T09:08:37.50411+00:00"
     "type": "code",
     "language": "php",
     "runnable": false
+  },
+  {
+    "id": "quiz-indexed-arrays",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "indexed-arrays-q1",
+        "answer": 3,
+        "prompt": "With <code>$fruits = [\"apple\", \"banana\", \"mango\"];</code>, what is <code>$fruits[2]</code>?",
+        "explain": "Indexes start at 0.",
+        "options": [
+          "<code>\"banana\"</code>",
+          "<code>\"apple\"</code>",
+          "An error",
+          "<code>\"mango\"</code>"
+        ]
+      },
+      {
+        "id": "indexed-arrays-q2",
+        "answer": 0,
+        "prompt": "What does <code>$fruits[] = \"kiwi\";</code> do?",
+        "explain": "Empty brackets mean \"next index\".",
+        "options": [
+          "Appends kiwi to the end",
+          "Replaces the array",
+          "Inserts at index 0",
+          "Causes an error"
+        ]
+      },
+      {
+        "id": "indexed-arrays-q3",
+        "answer": 1,
+        "prompt": "After unset($fruits[1]), are the indexes renumbered?",
+        "explain": "This catches people out when looping with for.",
+        "options": [
+          "Yes, automatically",
+          "No — a gap is left; use array_values() to re-index",
+          "Only for strings",
+          "The whole array is deleted"
+        ]
+      },
+      {
+        "id": "indexed-arrays-q4",
+        "answer": 2,
+        "prompt": "Which function counts the elements of an array?",
+        "explain": "<code>count($fruits)</code>",
+        "options": [
+          "<code>strlen()</code>",
+          "<code>length()</code>",
+          "<code>count()</code>",
+          "<code>size()</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

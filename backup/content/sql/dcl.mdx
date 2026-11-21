@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL DCL — Data Control Language | Learn Computer Academy"
 meta_description: "GRANT and REVOKE — the two SQL commands that manage who is allowed to see or change your data."
 sort_order: 6
-updated_at: "2026-07-29T06:31:06.281236+00:00"
+updated_at: "2026-11-21T05:51:01.788427+00:00"
 ---
 
 ```json
@@ -92,6 +92,59 @@ updated_at: "2026-07-29T06:31:06.281236+00:00"
     "id": "PyflGByWD6jn",
     "html": "<p>DCL is about permissions — the next lesson covers TCL, the family that manages when a group of changes becomes permanent.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-dcl",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dcl-q1",
+        "answer": 0,
+        "prompt": "What is DCL about?",
+        "explain": "It has just two commands: GRANT and REVOKE.",
+        "options": [
+          "Permissions — who may see or change data",
+          "Creating tables",
+          "Sorting results",
+          "Saving transactions"
+        ]
+      },
+      {
+        "id": "dcl-q2",
+        "answer": 2,
+        "prompt": "After <code>GRANT SELECT ON Employee TO User1;</code>, what can User1 do?",
+        "explain": "SELECT permission is read-only.",
+        "options": [
+          "Change any data",
+          "Delete the table",
+          "Read the Employee table only",
+          "Create new users"
+        ]
+      },
+      {
+        "id": "dcl-q3",
+        "answer": 3,
+        "prompt": "Which command takes a permission away?",
+        "explain": "<code>REVOKE SELECT ON Employee FROM User1;</code>",
+        "options": [
+          "<code>DENY</code>",
+          "<code>REMOVE</code>",
+          "<code>DROP</code>",
+          "<code>REVOKE</code>"
+        ]
+      },
+      {
+        "id": "dcl-q4",
+        "answer": 1,
+        "prompt": "Granting ALL permissions when a user only needs to read data is good practice.",
+        "explain": "Give only the permissions a task actually needs.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

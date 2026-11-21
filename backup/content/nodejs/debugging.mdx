@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Debugging Node.js Applications | Learn Computer Academy"
 meta_description: "Go beyond console.log to find bugs in a Node.js program, using the built-in inspector, Node's own error output, and a few common failure patterns."
 sort_order: 25
-updated_at: "2026-08-05T05:48:00.46349+00:00"
+updated_at: "2026-11-21T06:03:29.85354+00:00"
 ---
 
 ```json
@@ -121,6 +121,59 @@ updated_at: "2026-08-05T05:48:00.46349+00:00"
     "html": "<p>When a bug isn't obvious, narrow it before reaching for the debugger: comment out code until the error disappears, then add it back piece by piece. It's slower than intuition but it always finds the actual line, and it works on bugs no amount of staring at the code solves.</p>",
     "type": "callout",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-debugging",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "debugging-q1",
+        "answer": 1,
+        "prompt": "In <code>at getProductName (/app/products.js:12:20)</code>, what does 12:20 mean?",
+        "explain": "That is where to look first.",
+        "options": [
+          "12 errors, 20 warnings",
+          "Line 12, character 20",
+          "12:20 in the afternoon",
+          "Node version 12.20"
+        ]
+      },
+      {
+        "id": "debugging-q2",
+        "answer": 2,
+        "prompt": "How do you read a stack trace?",
+        "explain": "It is a map of exactly where things went wrong.",
+        "options": [
+          "Bottom to top",
+          "Only the last line",
+          "Top to bottom: error message, then the exact location, then the calls that led there",
+          "Ignore it"
+        ]
+      },
+      {
+        "id": "debugging-q3",
+        "answer": 3,
+        "prompt": "How do you start Node's built-in debugger?",
+        "explain": "Then open chrome://inspect in Chrome.",
+        "options": [
+          "<code>node debug app.js</code>",
+          "<code>npm debug</code>",
+          "<code>node --trace app.js</code>",
+          "<code>node --inspect app.js</code>"
+        ]
+      },
+      {
+        "id": "debugging-q4",
+        "answer": 0,
+        "prompt": "console.log is a legitimate debugging tool, not just a beginner's crutch.",
+        "explain": "The inspector helps when scattered logs stop being enough.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

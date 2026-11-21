@@ -5,7 +5,7 @@ path: "javascript/this-keyword"
 status: "published"
 meta_title: "JavaScript this Keyword | Learn Computer Academy"
 sort_order: 16
-updated_at: "2026-07-29T05:40:23.12834+00:00"
+updated_at: "2026-11-21T05:55:17.386277+00:00"
 ---
 
 ```json
@@ -210,6 +210,61 @@ updated_at: "2026-07-29T05:40:23.12834+00:00"
     "id": "uUTNb923pRw6",
     "html": "<ol>\n                                    <li>Create an object with a method and use <code>this</code> to access properties.</li>\n                                    <li>Try detaching a method and calling it separately — observe <code>this</code>.</li>\n                                    <li>Use <code>bind()</code> to fix <code>this</code> in a detached function.</li>\n                                    <li>Use arrow functions inside <code>setTimeout</code> to preserve outer <code>this</code>.</li>\n                                    <li>Create a constructor that sets properties using <code>this</code>.</li>\n                                </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-this-keyword",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "this-keyword-q1",
+        "answer": 1,
+        "prompt": "What decides the value of <code>this</code>?",
+        "explain": "The same function can get a different this depending on the call.",
+        "options": [
+          "Where the function is written",
+          "How the function is called",
+          "The file name",
+          "It is always window"
+        ]
+      },
+      {
+        "id": "this-keyword-q2",
+        "answer": 2,
+        "prompt": "What does <code>person.greet()</code> log, where greet logs <code>this.name</code> and person.name is \"Alice\"?",
+        "explain": "Called as a method, this is the object before the dot.",
+        "options": [
+          "undefined",
+          "window",
+          "\"Alice\"",
+          "An error"
+        ]
+      },
+      {
+        "id": "this-keyword-q3",
+        "answer": 3,
+        "prompt": "<code>const f = person.greet; f()</code> — why does this.name come out undefined?",
+        "explain": "Fix with <code>person.greet.bind(person)</code>.",
+        "options": [
+          "greet was deleted",
+          "name is private",
+          "f is a copy of person",
+          "The function is called on its own, so it loses its object"
+        ]
+      },
+      {
+        "id": "this-keyword-q4",
+        "answer": 0,
+        "prompt": "Which method returns a new function with <code>this</code> fixed?",
+        "explain": "call and apply run the function immediately with the given this.",
+        "options": [
+          "<code>bind</code>",
+          "<code>call</code>",
+          "<code>apply</code>",
+          "<code>fix</code>"
+        ]
+      }
+    ]
   }
 ]
 ```

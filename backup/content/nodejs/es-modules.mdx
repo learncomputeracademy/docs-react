@@ -6,7 +6,7 @@ status: "published"
 meta_title: "ES Modules in Node.js | Learn Computer Academy"
 meta_description: "Use import and export instead of require() in Node.js — the modern module syntax and how to turn it on."
 sort_order: 4
-updated_at: "2026-08-05T05:47:53.718297+00:00"
+updated_at: "2026-11-21T06:03:23.311937+00:00"
 ---
 
 ```json
@@ -131,6 +131,59 @@ updated_at: "2026-08-05T05:47:53.718297+00:00"
     "type": "callout",
     "title": "Which this course uses",
     "variant": "tip"
+  },
+  {
+    "id": "quiz-es-modules",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "es-modules-q1",
+        "answer": 1,
+        "prompt": "How do you switch a project to ES Modules?",
+        "explain": "By default Node treats .js files as CommonJS.",
+        "options": [
+          "Rename every file to .es",
+          "Add \"type\": \"module\" to package.json",
+          "Install the esm package",
+          "Nothing — it is the default"
+        ]
+      },
+      {
+        "id": "es-modules-q2",
+        "answer": 2,
+        "prompt": "What is the most common mistake when switching to ES Modules?",
+        "explain": "<code>import { add } from './math.js'</code> — the extension is required.",
+        "options": [
+          "Using const",
+          "Using async functions",
+          "Leaving off the .js extension in import paths",
+          "Using arrow functions"
+        ]
+      },
+      {
+        "id": "es-modules-q3",
+        "answer": 3,
+        "prompt": "Which line is ES Module syntax?",
+        "explain": "require/module.exports is CommonJS.",
+        "options": [
+          "<code>const fs = require('fs')</code>",
+          "<code>module.exports = add</code>",
+          "<code>exports.add = add</code>",
+          "<code>import fs from 'fs'</code>"
+        ]
+      },
+      {
+        "id": "es-modules-q4",
+        "answer": 0,
+        "prompt": "CommonJS and ES Modules do the same job with different syntax.",
+        "explain": "Both split code into files that export and import pieces.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

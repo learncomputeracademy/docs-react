@@ -5,7 +5,7 @@ path: "programming/strings"
 status: "published"
 meta_title: "Strings | Learn Computer Academy"
 sort_order: 11
-updated_at: "2026-08-18T14:27:47.265021+00:00"
+updated_at: "2026-11-21T10:12:46.657968+00:00"
 ---
 
 ```json
@@ -124,6 +124,61 @@ updated_at: "2026-08-18T14:27:47.265021+00:00"
       {
         "code": "name = \"Ada\"\nage = 28\n\nprint(f\"{name} is {age} years old.\")\n# \"Ada is 28 years old.\"",
         "language": "python"
+      }
+    ]
+  },
+  {
+    "id": "quiz-strings",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "strings-q1",
+        "answer": 1,
+        "prompt": "What is <code>\"Ada\" + \" \" + \"Lovelace\"</code>?",
+        "explain": "The middle string adds the space.",
+        "options": [
+          "<code>\"AdaLovelace\"</code>",
+          "<code>\"Ada Lovelace\"</code>",
+          "An error",
+          "<code>NaN</code>"
+        ]
+      },
+      {
+        "id": "strings-q2",
+        "answer": 2,
+        "prompt": "Which quotes create a template literal?",
+        "explain": "Then <code>${name}</code> embeds a variable.",
+        "options": [
+          "Double quotes",
+          "Single quotes",
+          "Backticks",
+          "Brackets"
+        ]
+      },
+      {
+        "id": "strings-q3",
+        "answer": 0,
+        "prompt": "Can strings use single quotes as well as double quotes?",
+        "explain": "Both work in JavaScript.",
+        "options": [
+          "Yes",
+          "No",
+          "Only for numbers",
+          "Only in HTML"
+        ]
+      },
+      {
+        "id": "strings-q4",
+        "answer": 3,
+        "prompt": "What does this print?<pre><code>let name = \"Ada\";\nlet age = 28;\nconsole.log(`${name} is ${age} years old.`);</code></pre>",
+        "explain": "The placeholders are filled with the variables.",
+        "options": [
+          "${name} is ${age} years old.",
+          "undefined",
+          "An error",
+          "Ada is 28 years old."
+        ]
       }
     ]
   }

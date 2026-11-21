@@ -5,7 +5,7 @@ path: "javascript/module-import-export"
 status: "published"
 meta_title: "JavaScript Modules and Import/Export in Depth | Learn Computer Academy"
 sort_order: 23
-updated_at: "2026-07-29T05:40:23.641163+00:00"
+updated_at: "2026-11-21T05:55:23.887683+00:00"
 ---
 
 ```json
@@ -250,6 +250,61 @@ updated_at: "2026-07-29T05:40:23.641163+00:00"
     "id": "niP7IEn2zL7W",
     "html": "<ol>\n                                    <li>Create a <code>math.js</code> file and export <code>add</code>, <code>subtract</code>, <code>multiply</code>, <code>divide</code>.</li>\n                                    <li>Create a <code>main.js</code> file that imports and uses all those functions.</li>\n                                    <li>Use default export for a <code>greet()</code> function in a separate module.</li>\n                                    <li>Use <code>import *</code> as syntax to bring all exports into one object.</li>\n                                    <li>Try mixing named and default exports in a utilities file.</li>\n                              </ol>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-module-import-export",
+    "lang": "javascript",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "module-import-export-q1",
+        "answer": 2,
+        "prompt": "How do you enable ES modules in a browser script?",
+        "explain": "Without type=\"module\", import/export cause a syntax error.",
+        "options": [
+          "<code>&lt;script module&gt;</code>",
+          "<code>&lt;script lang=\"es6\"&gt;</code>",
+          "<code>&lt;script type=\"module\" src=\"main.js\"&gt;</code>",
+          "<code>&lt;module src=\"main.js\"&gt;</code>"
+        ]
+      },
+      {
+        "id": "module-import-export-q2",
+        "answer": 3,
+        "prompt": "How do you import a named export <code>add</code> from mathUtils.js?",
+        "explain": "Named exports use curly braces; a default export does not.",
+        "options": [
+          "<code>import add from './mathUtils.js'</code>",
+          "<code>require add from './mathUtils.js'</code>",
+          "<code>import * add from './mathUtils.js'</code>",
+          "<code>import { add } from './mathUtils.js'</code>"
+        ]
+      },
+      {
+        "id": "module-import-export-q3",
+        "answer": 0,
+        "prompt": "How many default exports can one module have?",
+        "explain": "Named exports, on the other hand, can be as many as you like.",
+        "options": [
+          "One",
+          "Any number",
+          "Two",
+          "None"
+        ]
+      },
+      {
+        "id": "module-import-export-q4",
+        "answer": 1,
+        "prompt": "What is one benefit of modules?",
+        "explain": "Plus reuse and easier maintenance.",
+        "options": [
+          "They run faster than normal scripts",
+          "Each file has its own scope, so no global name clashes",
+          "They don't need a browser",
+          "They can't be imported"
+        ]
+      }
+    ]
   }
 ]
 ```

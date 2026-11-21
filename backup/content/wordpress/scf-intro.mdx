@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Introduction to Custom Fields & Secure Custom Fields | Learn Computer Academy"
 meta_description: "Why a title and a content area eventually aren't enough, and what Secure Custom Fields adds to solve it."
 sort_order: 18
-updated_at: "2026-07-30T14:23:29.915026+00:00"
+updated_at: "2026-11-21T05:59:27.092007+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-07-30T14:23:29.915026+00:00"
     "id": "WlDtGb72nVwk",
     "html": "<p>The next lesson builds an actual field group and attaches it to the <code>project</code> post type from earlier, so every project gets its own client name, completion date, and gallery fields right in its editor screen.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-scf-intro",
+    "lang": "php",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "scf-intro-q1",
+        "answer": 0,
+        "prompt": "What is a custom field?",
+        "explain": "For example a project's client name or completion date.",
+        "options": [
+          "An extra, named piece of data attached to a post",
+          "A new post type",
+          "A theme setting",
+          "A user role"
+        ]
+      },
+      {
+        "id": "scf-intro-q2",
+        "answer": 1,
+        "prompt": "What does Secure Custom Fields add over WordPress's basic custom fields?",
+        "explain": "Basic custom fields are a plain key/value box with no types or validation.",
+        "options": [
+          "Faster loading",
+          "Typed fields organised into field groups in the editor",
+          "A new database",
+          "Automatic SEO"
+        ]
+      },
+      {
+        "id": "scf-intro-q3",
+        "answer": 3,
+        "prompt": "Why not put a project's client name and date into the main content?",
+        "explain": "Separate fields can be placed, styled and checked individually.",
+        "options": [
+          "It is not allowed",
+          "The content area has a word limit",
+          "It breaks the editor",
+          "Templates can't use them as separate, structured data"
+        ]
+      },
+      {
+        "id": "scf-intro-q4",
+        "answer": 0,
+        "prompt": "A title plus one content area is enough for a typical blog post.",
+        "explain": "Custom fields matter once content needs structure beyond that.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

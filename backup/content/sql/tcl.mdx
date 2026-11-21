@@ -6,7 +6,7 @@ status: "published"
 meta_title: "SQL TCL — Transaction Control Language | Learn Computer Academy"
 meta_description: "COMMIT, ROLLBACK, and SAVEPOINT — the SQL commands that manage groups of changes as a single unit, so they either all happen or none do."
 sort_order: 7
-updated_at: "2026-07-29T06:31:06.581367+00:00"
+updated_at: "2026-11-21T05:51:02.10632+00:00"
 ---
 
 ```json
@@ -116,6 +116,61 @@ updated_at: "2026-07-29T06:31:06.581367+00:00"
     "id": "d_prWHofsr6t",
     "html": "<p>With all four SQL families covered — DDL, DML, DCL, and TCL — the next set of lessons moves into querying: filtering, sorting, and grouping the data you now know how to define, change, control, and commit.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-tcl",
+    "lang": "sql",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "tcl-q1",
+        "answer": 0,
+        "prompt": "What does <code>COMMIT;</code> do?",
+        "explain": "Once committed, changes cannot be rolled back.",
+        "options": [
+          "Makes every change in the current transaction permanent",
+          "Cancels the changes",
+          "Starts a new database",
+          "Creates a backup file"
+        ]
+      },
+      {
+        "id": "tcl-q2",
+        "answer": 2,
+        "prompt": "Can <code>ROLLBACK</code> undo changes that were already committed?",
+        "explain": "ROLLBACK returns to the state at the last COMMIT.",
+        "options": [
+          "Yes, always",
+          "Only within 24 hours",
+          "No — only uncommitted changes",
+          "Only for DELETE statements"
+        ]
+      },
+      {
+        "id": "tcl-q3",
+        "answer": 1,
+        "prompt": "What is a SAVEPOINT for?",
+        "explain": "<code>ROLLBACK TO BeforeUpdate;</code> undoes only the changes after that point.",
+        "options": [
+          "Saving the database to disk",
+          "A point inside a transaction you can roll back to",
+          "Sharing a transaction between sessions",
+          "Creating a backup user"
+        ]
+      },
+      {
+        "id": "tcl-q4",
+        "answer": 3,
+        "prompt": "A transaction is a group of changes that…",
+        "explain": "That all-or-nothing behaviour is what TCL controls.",
+        "options": [
+          "run in parallel on different servers",
+          "are always automatically committed",
+          "only contain SELECT statements",
+          "either all happen, or none do"
+        ]
+      }
+    ]
   }
 ]
 ```

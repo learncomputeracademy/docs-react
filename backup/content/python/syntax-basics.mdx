@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Syntax Basics | Learn Computer Academy"
 meta_description: "Python's indentation-based syntax, comments, and print() — the ground rules before writing anything more complex."
 sort_order: 3
-updated_at: "2026-08-04T11:39:27.128543+00:00"
+updated_at: "2026-11-21T06:12:42.339734+00:00"
 ---
 
 ```json
@@ -127,6 +127,61 @@ updated_at: "2026-08-04T11:39:27.128543+00:00"
     "id": "ebIN6jx6FVS7",
     "html": "<p>With the ground rules out of the way, the next lesson looks at how Python stores data — starting with variables.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-syntax-basics",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "syntax-basics-q1",
+        "answer": 0,
+        "prompt": "What causes an IndentationError?",
+        "explain": "The language enforces it.",
+        "options": [
+          "Mixing tabs and spaces, or inconsistent indentation",
+          "A missing semicolon",
+          "A long line",
+          "Using comments"
+        ]
+      },
+      {
+        "id": "syntax-basics-q2",
+        "answer": 3,
+        "prompt": "What is the standard indentation per level?",
+        "explain": "Editors can insert 4 spaces when you press Tab.",
+        "options": [
+          "1 tab or 1 space",
+          "2 spaces",
+          "8 spaces",
+          "4 spaces"
+        ]
+      },
+      {
+        "id": "syntax-basics-q3",
+        "answer": 1,
+        "prompt": "How do you write a single-line comment?",
+        "explain": "Everything after # on that line is ignored.",
+        "options": [
+          "<code>// comment</code>",
+          "<code># comment</code>",
+          "<code>-- comment</code>",
+          "<code>&lt;!-- comment --&gt;</code>"
+        ]
+      },
+      {
+        "id": "syntax-basics-q4",
+        "answer": 2,
+        "prompt": "In the code below, which lines belong to the if?<pre><code>if 5 &gt; 2:\n    print(\"A\")\n    print(\"B\")\nprint(\"C\")</code></pre>",
+        "explain": "C lines up with if, so it is outside the block.",
+        "options": [
+          "Only A",
+          "A, B and C",
+          "A and B",
+          "None"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Python Dictionaries | Learn Computer Academy"
 meta_description: "Python's dict type — key-value pairs, one of the most commonly used data structures in the language."
 sort_order: 12
-updated_at: "2026-08-04T11:39:29.981931+00:00"
+updated_at: "2026-11-21T06:12:45.226556+00:00"
 ---
 
 ```json
@@ -135,6 +135,61 @@ updated_at: "2026-08-04T11:39:29.981931+00:00"
     "type": "code",
     "language": "python",
     "runnable": false
+  },
+  {
+    "id": "quiz-dictionaries",
+    "lang": "python",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dictionaries-q1",
+        "answer": 3,
+        "prompt": "What happens when you read a missing key with student[\"email\"]?",
+        "explain": "Use .get() to return None or a fallback instead.",
+        "options": [
+          "Returns None",
+          "Returns \"\"",
+          "The key is created",
+          "A KeyError stops the script"
+        ]
+      },
+      {
+        "id": "dictionaries-q2",
+        "answer": 0,
+        "prompt": "What does <code>student.get(\"email\", \"none\")</code> return if there is no email?",
+        "explain": "The second argument is the fallback.",
+        "options": [
+          "<code>\"none\"</code>",
+          "<code>None</code>",
+          "A KeyError",
+          "<code>\"\"</code>"
+        ]
+      },
+      {
+        "id": "dictionaries-q3",
+        "answer": 2,
+        "prompt": "How do you loop over both keys and values?",
+        "explain": "items() yields (key, value) pairs.",
+        "options": [
+          "<code>for key in student.values():</code>",
+          "<code>for key, value in student:</code>",
+          "<code>for key, value in student.items():</code>",
+          "<code>for student in key, value:</code>"
+        ]
+      },
+      {
+        "id": "dictionaries-q4",
+        "answer": 1,
+        "prompt": "How do you remove a key?",
+        "explain": "Setting it to None keeps the key.",
+        "options": [
+          "<code>remove student[\"email\"]</code>",
+          "<code>del student[\"email\"]</code>",
+          "<code>student.delete(\"email\")</code>",
+          "<code>student[\"email\"] = None</code>"
+        ]
+      }
+    ]
   }
 ]
 ```
