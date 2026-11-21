@@ -9,6 +9,32 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-21 (evening) — quizzes for the remaining 17 subjects; privacy + My account
+
+**Done (local, committed, NOT pushed — hold active)**
+- Quizzes written to the DB for all 17 remaining categories: basics, office, programming, ai,
+  cybersecurity, git, design, ui-ux, photoshop, figma, react, mongodb, freelancing, hosting,
+  marketing, seo, career. 439 lessons, 4 questions each, EN + BN. Verified by query: all 730
+  published lessons have exactly one quiz in both languages, no duplicates.
+  (basics/computer-fundamentals has one too but 308-redirects to basics/what-is-a-computer.)
+- Lesson text was dumped per category (anon key, published only) to write questions from the
+  actual content; image-only pages (design exercises, photoshop/shortcut-keys) got questions on
+  the general topic.
+- `write-quizzes.mjs`: opt-in `export const shuffle = true` rotates each 4-option question's
+  options by a slug-derived amount (deterministic, EN/BN together) so the correct answer is spread
+  across A-D. Used by all 17 new files. True/False questions are left in True/False order.
+- /privacy + /bn/privacy and /account + /bn/account (download / clear browser data). See commit 442c486.
+- Green done tick for a finished subject (0615f11).
+
+**After the next approved push**
+- Run `node scripts/write-quizzes.mjs <cat> --live` for each of the 17 categories above (the data
+  cache survives deploys), then spot-check a few pages with curl for "Check your understanding".
+
+**Not done**
+- Page-speed check of today's WebGL effects and the motion-based tick (planned before the next push).
+
+---
+
 ## 2026-11-21 (later) — homepage refresh, React Bits effects, branched sidebar — PUSHED
 
 **Done (pushed `dbd7e3d..b46cc77`, live after ~7.5 min, verified by curl)**
