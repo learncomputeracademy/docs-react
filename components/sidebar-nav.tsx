@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import Link from '@/components/hover-link'
 import { usePathname } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
@@ -102,10 +102,10 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
           </SidebarMenuButton>
         )}
         {isOpen && (
-          <SidebarMenuSub>
+          <BranchList activePath={activePath}>
             {cat.docs.map((doc) => (
-              <SidebarMenuSubItem key={doc.path}>
-                <SidebarMenuSubButton asChild isActive={activePath === doc.path}>
+              <SidebarMenuSubItem key={doc.path} className={cn(BRANCH, activePath === doc.path && 'after:border-primary after:delay-200')}>
+                <SidebarMenuSubButton asChild isActive={activePath === doc.path} className="data-[active=true]:bg-transparent data-[active=true]:text-primary">
                   <Link href={`${prefix}/${doc.path}`}>
                     <span className="min-w-0 flex-1">{doc.title}</span>
                     {completed.has(doc.path) && <DoneCheck key={doc.path} path={doc.path} />}
@@ -113,9 +113,42 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
                 </SidebarMenuSubButton>
               </SidebarMenuSubItem>
             ))}
-          </SidebarMenuSub>
+          </BranchList>
         )}
       </SidebarMenuItem>
     )
   }
+}
+
+// Branched lesson list, after React Bits' BranchedMenu (reactbits.dev/micro/
+// branched-menu, owner request 2026-11-21). Not the component itself: it
+// renders buttons with a fixed row height, and these are links whose titles
+// wrap. Same look: the list's left border is the trunk, each lesson gets a
+// curved branch, and an orange line runs down the trunk to the current
+// lesson, gliding when you move to another one.
+const BRANCH =
+  'after:pointer-events-none after:absolute after:-left-[11px] after:top-[calc(50%-8px)] after:h-2 after:w-4 after:rounded-bl-[8px] after:border-b after:border-l after:border-border after:transition-colors after:duration-200'
+
+function BranchList({ activePath, children }: { activePath: string; children: React.ReactNode }) {
+  const ref = useRef<HTMLUListElement>(null)
+  useLayoutEffect(() => {
+    const ul = ref.current
+    if (!ul) return
+    const place = () => {
+      const li = ul.querySelector<HTMLElement>('[data-active=true]')?.closest('li')
+      ul.style.setProperty('--reach', li ? `${li.offsetTop + li.offsetHeight / 2 - 8}px` : '0px')
+    }
+    place()
+    const ro = new ResizeObserver(place)
+    ro.observe(ul)
+    return () => ro.disconnect()
+  }, [activePath])
+  return (
+    <SidebarMenuSub
+      ref={ref}
+      className="relative before:pointer-events-none before:absolute before:-left-px before:top-0 before:h-(--reach,0px) before:w-px before:bg-primary before:transition-[height] before:duration-500 before:ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:before:transition-none"
+    >
+      {children}
+    </SidebarMenuSub>
+  )
 }

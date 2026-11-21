@@ -1,27 +1,21 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import { cn } from '@/lib/utils'
+import StatusMark from '@/components/magic/status-mark'
 import { justCompleted } from '@/lib/progress'
 
-// Check that draws its own stroke — only for the lesson finished just now.
+// Lesson-done tick: React Bits StatusMark. For the lesson finished just now it
+// plays pending (dashed ring) to done (ring closes, check draws); every other
+// completed lesson renders already done, no motion.
 export function DoneCheck({ path }: { path: string }) {
-  const animate = justCompleted === path
-  return (
-    <svg viewBox="0 0 16 16" className="shrink-0 text-emerald-500" aria-label="Completed" role="img">
-      <circle cx="8" cy="8" r="7" className={cn('fill-emerald-500/15', animate && 'animate-check-pop')} />
-      <path
-        d="M4.8 8.3l2.1 2.1 4.3-4.6"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.8"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        pathLength={1}
-        className={cn(animate && 'animate-check-draw')}
-        style={{ strokeDasharray: 1 }}
-      />
-    </svg>
-  )
+  const [status, setStatus] = useState<'pending' | 'done'>(() => (justCompleted === path ? 'pending' : 'done'))
+  useEffect(() => {
+    if (status === 'done') return
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setStatus('done')))
+    return () => cancelAnimationFrame(id)
+  }, [status])
+  return <StatusMark status={status} size={16} color="#10b981" doneColor="#10b981" fillOpacity={0.15} className="shrink-0" />
 }
 
 // Ring that fills as the category progresses; transitions on every change,
