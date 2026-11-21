@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react'
 import { Sun, Moon, Languages } from 'lucide-react'
 import { t, localizedPath, localeFromPathname } from '@/lib/i18n'
 import { animateThemeChange } from '@/lib/theme-transition'
+import { setTheme, THEME_EVENT, type ThemeEventDetail } from '@/lib/theme'
 import { SiteNav } from './site-nav'
 import { MobileMenuDrawer } from './mobile-menu-drawer'
 import type { NavNode } from '@/lib/content'
@@ -26,6 +27,10 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
   useEffect(() => {
     // eslint-disable-next-line react-hooks/set-state-in-effect -- theme class is only known in the browser
     setDark(document.documentElement.classList.contains('dark'))
+    // Theme applied from the learner's account (lib/account.ts) on sign-in.
+    const onTheme = (e: Event) => setDark((e as CustomEvent<ThemeEventDetail>).detail.mode === 'dark')
+    window.addEventListener(THEME_EVENT, onTheme)
+    return () => window.removeEventListener(THEME_EVENT, onTheme)
   }, [])
 
   // Origin comes from e.currentTarget, not a ref, since this same handler
@@ -37,8 +42,7 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
     const { left, top, width, height } = e.currentTarget.getBoundingClientRect()
     animateThemeChange(left + width / 2, top + height / 2, () => {
       setDark(next)
-      document.documentElement.classList.toggle('dark', next)
-      localStorage.setItem('theme', next ? 'dark' : 'light')
+      setTheme(next ? 'dark' : 'light')
     })
   }
 

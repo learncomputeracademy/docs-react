@@ -5,6 +5,7 @@ import { learnerClient } from '@/lib/supabase/learner'
 import { setAccountState, type AccountUser } from '@/lib/account-state'
 import { clearLearningData, exportLearningData, importLearningData, onLearningChange, type LearningData } from '@/lib/progress'
 import { EMPTY_LEARNING, mergeLearningData } from '@/lib/progress-merge'
+import { setTheme, storedTheme, THEME_EVENT, type ThemeEventDetail, type ThemeMode } from '@/lib/theme'
 
 // Learner accounts (phase 1, 2026-11-21): Google / GitHub sign-in, progress
 // kept in step between this browser and the learner_progress row. Loaded on
@@ -19,6 +20,29 @@ let syncedUserId: string | null = null
 let pushTimer: ReturnType<typeof setTimeout> | null = null
 let stopWatching: (() => void) | null = null
 let applyingRemote = false
+let stopThemeWatch: (() => void) | null = null
+
+// Theme sync: the choice lives in the account's user metadata (no table
+// needed). On sign-in the account's choice wins if it has one; otherwise
+// this browser's saved choice is stored in the account. Later toggles on
+// any signed-in device are saved too.
+async function syncTheme(accountTheme: unknown) {
+  const sb = learnerClient()
+  const local = storedTheme()
+  if (accountTheme === 'dark' || accountTheme === 'light') {
+    const shown: ThemeMode = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    if (accountTheme !== shown || accountTheme !== local) setTheme(accountTheme, true)
+  } else if (local) {
+    await sb.auth.updateUser({ data: { theme: local } })
+  }
+  stopThemeWatch?.()
+  const onTheme = (e: Event) => {
+    const d = (e as CustomEvent<ThemeEventDetail>).detail
+    if (!d.fromAccount) void sb.auth.updateUser({ data: { theme: d.mode } })
+  }
+  window.addEventListener(THEME_EVENT, onTheme)
+  stopThemeWatch = () => window.removeEventListener(THEME_EVENT, onTheme)
+}
 
 function toUser(session: Session): AccountUser {
   const u = session.user
@@ -53,9 +77,10 @@ function schedulePush(userId: string) {
 }
 
 // First sync for a session on this device: merge both sides, save both.
-async function syncIn(userId: string) {
+async function syncIn(userId: string, accountTheme?: unknown) {
   if (syncedUserId === userId) return
   syncedUserId = userId
+  void syncTheme(accountTheme).catch((e) => console.warn('[account] theme sync failed', e))
   setAccountState({ syncing: true })
   const { data, error } = await learnerClient().from('learner_progress').select('completed, quiz, streak, last_lesson, badges_seen').eq('user_id', userId).maybeSingle()
   if (error) {
@@ -79,6 +104,8 @@ async function syncIn(userId: string) {
 function stopSync() {
   stopWatching?.()
   stopWatching = null
+  stopThemeWatch?.()
+  stopThemeWatch = null
   if (pushTimer) clearTimeout(pushTimer)
   pushTimer = null
   syncedUserId = null
@@ -98,7 +125,7 @@ export function startAccount() {
         window.history.replaceState(null, '', window.location.pathname + window.location.hash)
       }
       // Defer: Supabase recommends not awaiting other calls inside this callback.
-      setTimeout(() => void syncIn(session.user.id), 0)
+      setTimeout(() => void syncIn(session.user.id, session.user.user_metadata?.theme), 0)
     } else {
       stopSync()
       setAccountState({ status: 'signed-out', user: null, syncing: false })
