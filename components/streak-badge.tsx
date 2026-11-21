@@ -34,7 +34,7 @@ export function StreakBadge({ locale }: { locale: Locale }) {
         aria-label={title}
         role="img"
         className={cn(
-          'flex items-center gap-1 rounded-full bg-orange-500/10 px-2.5 py-1 text-sm font-semibold tabular-nums text-orange-500',
+          'flex items-center gap-1 rounded-full bg-orange-500/10 px-2 py-1 text-xs font-semibold tabular-nums text-orange-500 sm:px-2.5 sm:text-sm',
           bumped && 'animate-streak-pop',
         )}
       >
@@ -57,7 +57,7 @@ export function StreakBadge({ locale }: { locale: Locale }) {
   )
 }
 
-// Quiz XP total, shown once any is earned. Hidden on phones (header space).
+// Quiz XP total, shown once any is earned. Compact on phones.
 export function XpBadge({ locale }: { locale: Locale }) {
   const xp = useXp()
   if (!xp) return null
@@ -68,7 +68,7 @@ export function XpBadge({ locale }: { locale: Locale }) {
       title={title}
       aria-label={title}
       role="img"
-      className="hidden items-center rounded-full bg-primary/10 px-2.5 py-1 text-sm font-semibold tabular-nums text-primary sm:flex"
+      className="flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-semibold tabular-nums text-primary sm:px-2.5 sm:text-sm"
     >
       {xp} XP
     </span>

@@ -71,7 +71,7 @@ export function Quiz({ id, questions }: { id: string; questions: QuizQuestion[] 
   }
 
   return (
-    <section aria-label={s.quizTitle} className="not-prose my-10 rounded-xl border bg-card p-5 shadow-sm sm:p-6">
+    <section aria-label={s.quizTitle} className="not-prose my-10 rounded-xl border bg-card p-4 shadow-sm sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <h2 className="text-lg font-semibold">{s.quizTitle}</h2>
         {result && <span className="text-sm text-muted-foreground tabular-nums">{s.quizBest(result.best, result.total)}</span>}
@@ -83,7 +83,7 @@ export function Quiz({ id, questions }: { id: string; questions: QuizQuestion[] 
           const answered = chosen !== null
           return (
             <li key={q.id}>
-              <div className="flex gap-2 font-medium [&_code]:rounded-sm [&_code]:bg-muted [&_code]:px-1 [&_code]:py-0.5 [&_code]:text-[0.9em]">
+              <div className="flex gap-2 font-medium [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:px-1 [&_:not(pre)>code]:py-0.5 [&_:not(pre)>code]:text-[0.9em]">
                 <span className="text-muted-foreground tabular-nums">{qi + 1}.</span>
                 <div className="min-w-0 [&_pre]:mt-2 [&_pre]:overflow-x-auto [&_pre]:rounded-md [&_pre]:bg-muted [&_pre]:p-3 [&_pre]:text-sm" dangerouslySetInnerHTML={{ __html: q.prompt }} />
               </div>
@@ -99,7 +99,7 @@ export function Quiz({ id, questions }: { id: string; questions: QuizQuestion[] 
                       aria-pressed={isChosen}
                       onClick={() => pick(qi, oi)}
                       className={cn(
-                        'flex items-center gap-3 rounded-lg border px-4 py-2.5 text-left text-sm transition-colors [&_code]:rounded-sm [&_code]:bg-muted [&_code]:px-1',
+                        'flex min-h-11 items-center gap-3 rounded-lg border px-3 py-2.5 text-left text-sm sm:px-4 transition-colors [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:px-1',
                         !answered && 'hover:border-primary/50 hover:bg-accent/50',
                         answered && isAnswer && 'border-emerald-500/60 bg-emerald-500/10',
                         answered && isChosen && !isAnswer && 'animate-quiz-shake border-destructive/60 bg-destructive/10',
@@ -123,7 +123,7 @@ export function Quiz({ id, questions }: { id: string; questions: QuizQuestion[] 
               </div>
               {answered && q.explain && (
                 <div
-                  className="animate-fade-in mt-2 rounded-md bg-muted/60 px-4 py-2.5 text-sm text-muted-foreground [&_code]:rounded-sm [&_code]:bg-muted [&_code]:px-1"
+                  className="animate-fade-in mt-2 rounded-md bg-muted/60 px-4 py-2.5 text-sm text-muted-foreground [&_:not(pre)>code]:rounded-sm [&_:not(pre)>code]:bg-muted [&_:not(pre)>code]:px-1"
                   dangerouslySetInnerHTML={{ __html: q.explain }}
                 />
               )}

@@ -116,7 +116,7 @@ export function LessonPagination({
             <span className="flex items-center gap-1.5 font-medium text-emerald-600 dark:text-emerald-500">
               <Check className="size-4" /> {s.lessonCompleted}
             </span>
-            <button type="button" onClick={toggleDone} className="text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
+            <button type="button" onClick={toggleDone} className="-my-2 min-h-11 rounded-md px-2 text-muted-foreground underline-offset-4 hover:text-foreground hover:underline">
               {s.markNotDone}
             </button>
           </>
@@ -124,7 +124,7 @@ export function LessonPagination({
           <button
             type="button"
             onClick={toggleDone}
-            className="flex items-center gap-1.5 rounded-md border px-3 py-1.5 font-medium transition-colors hover:border-primary/40 hover:bg-accent/50"
+            className="flex min-h-11 items-center gap-1.5 rounded-md border px-4 font-medium transition-colors hover:border-primary/40 hover:bg-accent/50"
           >
             <Check className="size-4" /> {s.markComplete}
           </button>
