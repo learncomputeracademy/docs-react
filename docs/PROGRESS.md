@@ -9,6 +9,39 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
+
+**Done (pushed `6002d73..c157e86`)**
+- Migration 013 run by the owner: removed the trigger that made every new auth user an active
+  editor (would have given lesson-editing rights to every learner), added owner-only
+  `learner_progress`. Verified: learners have no profiles row; anon reads 0 rows.
+- Sign-in modal (header "Sign in", My account). Google via Google Identity Services
+  (`NEXT_PUBLIC_GOOGLE_CLIENT_ID`, set in .env.local and Coolify), ID token to Supabase with a
+  hashed nonce; no redirect fallback for Google. GitHub via redirect back to the current page.
+- Progress sync (browser stays the working copy; merge on first sign-in, checked by
+  `scripts/check-progress-merge.mjs`), theme synced via user metadata, sign out, clear account
+  data, delete account (`/api/account/delete`, refuses staff). Privacy page has an accounts section.
+- Tested by the owner on localhost: GitHub learner (68 lessons merged), new Google learner
+  (theme=light synced). Owner deleted the old `editor` staff login in Supabase on purpose.
+
+**Owner-side Google setup (outside the repo)**
+- Client: JS origins docs.learncomputer.in, localhost:3000, localhost. Supabase callback to be
+  removed from redirect URIs and authorised domains (code no longer needs it).
+- Branding verification: first attempt failed "home page website is not registered to you"
+  (project then owned only by a Gmail without Search Console ownership). Fix: main Gmail as
+  project Owner + verified Search Console owner of a property covering docs.learncomputer.in,
+  wait 24 h, reply to the Trust & Safety email. App must be **published** (out of Testing) or
+  only test users can use Google sign-in.
+
+**Learned**
+- The pre-push build needs the dev server stopped on this PC (OOM with ~2-3.5 GB free).
+- The daily backup Action commits to main; fetch + rebase before pushing.
+
+**Next**
+- Teacher view (deferred by owner). Page-speed check of the WebGL effects and the modal.
+
+---
+
 ## 2026-11-21 (evening) — quizzes for the remaining 17 subjects; privacy + My account
 
 **Done (local, committed, NOT pushed — hold active)**
