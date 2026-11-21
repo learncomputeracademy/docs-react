@@ -31,6 +31,7 @@ const T = {
     privacyLink: 'Privacy policy',
     close: 'Close',
     failed: 'Sign-in did not complete. Please try again.',
+    googleUnavailable: 'Google sign-in could not load. Check your connection, or use GitHub.',
   },
   bn: {
     title: 'সব ডিভাইসে অগ্রগতি সেভ রাখুন',
@@ -43,6 +44,7 @@ const T = {
     privacyLink: 'গোপনীয়তা নীতি',
     close: 'বন্ধ করুন',
     failed: 'সাইন-ইন সম্পূর্ণ হয়নি। আবার চেষ্টা করুন।',
+    googleUnavailable: 'Google সাইন-ইন লোড হয়নি। সংযোগ দেখুন, বা GitHub ব্যবহার করুন।',
   },
 } as const
 
@@ -88,6 +90,7 @@ export default function SignInDialog({ logoLightUrl, logoDarkUrl }: { logoLightU
   const [busy, setBusy] = useState<'google' | 'github' | null>(null)
   const [error, setError] = useState<string | null>(null)
   const [gisReady, setGisReady] = useState(false)
+  const [gisFailed, setGisFailed] = useState(false)
 
   // Open/close the native dialog from the store.
   useEffect(() => {
@@ -143,9 +146,11 @@ export default function SignInDialog({ logoLightUrl, logoDarkUrl }: { logoLightU
           locale: localeFromPathname(pathname) === 'bn' ? 'bn' : 'en',
         })
         setGisReady(true)
+        setGisFailed(false)
       } catch (e) {
-        console.warn('[sign-in] Google button unavailable, using redirect', e)
+        console.warn('[sign-in] Google button unavailable', e)
         setGisReady(false)
+        setGisFailed(true)
       }
     })()
     return () => {
@@ -202,7 +207,16 @@ export default function SignInDialog({ logoLightUrl, logoDarkUrl }: { logoLightU
             {GOOGLE_CLIENT_ID && (
               <div ref={googleSlot} className={`flex min-h-11 w-full justify-center ${gisReady ? '' : 'hidden'}`} />
             )}
-            {(!GOOGLE_CLIENT_ID || !gisReady) && (
+            {/* No redirect fallback for Google once the GIS client ID is set:
+                the Supabase callback is removed from the Google client so
+                every authorised domain is ours (branding verification). */}
+            {GOOGLE_CLIENT_ID && !gisReady && (
+              <div className={`${btn} border bg-card text-muted-foreground`} aria-busy={!gisFailed}>
+                <IconGoogle className="size-4" aria-hidden />
+                {gisFailed ? s.googleUnavailable : s.opening}
+              </div>
+            )}
+            {!GOOGLE_CLIENT_ID && (
               <button type="button" disabled={busy !== null} onClick={() => redirect('google')} className={`${btn} border bg-card hover:bg-muted`}>
                 <IconGoogle className="size-4" aria-hidden />
                 {busy === 'google' ? s.opening : s.google}
