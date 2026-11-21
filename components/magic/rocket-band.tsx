@@ -1,29 +1,33 @@
 import { ArrowRight } from 'lucide-react'
 
-// Homepage "from the team behind" band (2026-11-21, owner reference: a purple
+// Homepage "from the team behind" band (2026-11-21, owner references: a
 // space card with a rocket on the left). All art is inline SVG and all motion
 // is CSS (rocket-* keyframes in globals.css) — no JS, no images, nothing to
-// load. The card is deliberately dark purple in both themes, like a poster.
-// Motion: the rocket hovers, its flame flickers, exhaust clouds drift, stars
-// twinkle; on hover the rocket lifts a little further. prefers-reduced-motion
+// load. Dark card with the site's orange accent (owner's 2nd reference), the
+// same in both themes, like a poster.
+// Motion: the rocket hovers, its flame flickers, exhaust clouds drift, embers
+// glow; on hover the rocket lifts a little further. prefers-reduced-motion
 // turns all of it off.
 export function RocketBand({ title, body, cta }: { title: string; body: string; cta: string }) {
   return (
-    <div className="group relative isolate overflow-hidden rounded-2xl border border-violet-400/25 bg-[radial-gradient(120%_140%_at_15%_50%,#3b1a78_0%,#1e1240_45%,#0f0a24_100%)] shadow-[0_0_60px_-20px_rgba(139,92,246,0.55)]">
-      {/* Stars */}
+    <div className="group relative isolate overflow-hidden rounded-2xl border border-orange-500/30 bg-[radial-gradient(110%_160%_at_12%_60%,#4a1d06_0%,#1d0d05_45%,#0c0806_100%)] shadow-[0_0_60px_-24px_rgba(249,115,22,0.6)]">
+      {/* Embers */}
       <svg aria-hidden className="pointer-events-none absolute inset-0 -z-10 h-full w-full" preserveAspectRatio="none">
         {STARS.map(([x, y, r, d], i) => (
-          <circle key={i} cx={`${x}%`} cy={`${y}%`} r={r} fill="#fff" className="rocket-twinkle" style={{ animationDelay: `${d}s` }} />
+          <circle key={i} cx={`${x}%`} cy={`${y}%`} r={r * 1.1} fill={i % 3 ? '#fdba74' : '#fb923c'} className="rocket-twinkle" style={{ animationDelay: `${d}s` }} />
         ))}
       </svg>
       {/* Soft glow behind the rocket */}
-      <div aria-hidden className="pointer-events-none absolute -left-16 top-1/2 -z-10 size-72 -translate-y-1/2 rounded-full bg-fuchsia-500/25 blur-3xl" />
+      <div aria-hidden className="pointer-events-none absolute -left-16 top-1/2 -z-10 size-72 -translate-y-1/2 rounded-full bg-orange-500/30 blur-3xl" />
 
+      {/* Diagonal light streak on the right */}
+      <div aria-hidden className="pointer-events-none absolute -right-10 -top-10 -z-10 h-[220%] w-24 rotate-[35deg] bg-gradient-to-b from-transparent via-orange-500/50 to-transparent blur-md" />
+      <div aria-hidden className="pointer-events-none absolute -right-2 -top-10 -z-10 h-[220%] w-3 rotate-[35deg] bg-gradient-to-b from-transparent via-orange-300/60 to-transparent blur-[2px]" />
       <div className="flex flex-col items-center gap-6 px-6 py-8 text-center sm:flex-row sm:gap-8 sm:py-6 sm:pl-4 sm:pr-8 sm:text-left">
         <Rocket />
         <div className="min-w-0 flex-1">
           <h2 className="text-lg font-semibold text-white sm:text-xl">{title}</h2>
-          <p className="mt-2 text-sm leading-relaxed text-violet-100/75">{body}</p>
+          <p className="mt-2 text-sm leading-relaxed text-orange-50/70">{body}</p>
         </div>
         <a
           href="https://learncomputer.in"
@@ -42,12 +46,13 @@ export function RocketBand({ title, body, cta }: { title: string; body: string; 
 function Rocket() {
   return (
     <div aria-hidden className="relative -my-2 h-32 w-48 shrink-0 sm:h-36 sm:w-56">
-      {/* Exhaust clouds */}
+      {/* Exhaust clouds, over a soft haze so they read as smoke, not balls */}
       <div className="absolute inset-0">
+        <span className="absolute -left-6 bottom-0 h-20 w-36 rounded-full bg-orange-600/45 blur-xl" />
         {CLOUDS.map(([l, b, s, c, d], i) => (
           <span
             key={i}
-            className="rocket-cloud absolute rounded-full blur-[1.5px]"
+            className="rocket-cloud absolute rounded-full opacity-90 blur-[4px]"
             style={{ left: `${l}%`, bottom: `${b}%`, width: s, height: s, background: c, animationDelay: `${d}s` }}
           />
         ))}
@@ -58,12 +63,12 @@ function Rocket() {
           <defs>
             <linearGradient id="rb-body" x1="0" x2="1">
               <stop offset="0" stopColor="#ffffff" />
-              <stop offset="0.6" stopColor="#e6e3f5" />
-              <stop offset="1" stopColor="#b9b2d9" />
+              <stop offset="0.6" stopColor="#efebe7" />
+              <stop offset="1" stopColor="#c9c3bd" />
             </linearGradient>
             <linearGradient id="rb-fin" x1="0" x2="1">
-              <stop offset="0" stopColor="#e0457b" />
-              <stop offset="1" stopColor="#8b2fc9" />
+              <stop offset="0" stopColor="#ff8a2b" />
+              <stop offset="1" stopColor="#c2410c" />
             </linearGradient>
             <radialGradient id="rb-flame" cx="0.5" cy="0.2" r="0.8">
               <stop offset="0" stopColor="#fff7c2" />
@@ -91,12 +96,12 @@ function Rocket() {
           {/* Nose */}
           <path d="M60 10 C67 16 71 24 73 32 L47 32 C49 24 53 16 60 10 Z" fill="url(#rb-fin)" />
           {/* Window */}
-          <circle cx="60" cy="52" r="11" fill="#d7d2ee" />
+          <circle cx="60" cy="52" r="11" fill="#e5ddd6" />
           <circle cx="60" cy="52" r="8" fill="url(#rb-window)" />
           <circle cx="57" cy="49" r="2.4" fill="#fff" opacity="0.8" />
           {/* Centre fin + exhaust ring */}
           <path d="M58 72 L62 72 L62 94 L58 94 Z" fill="url(#rb-fin)" />
-          <rect x="45" y="89" width="30" height="5" rx="2" fill="#7a6fa8" />
+          <rect x="45" y="89" width="30" height="5" rx="2" fill="#8a7d72" />
           </g>
         </svg>
       </div>
@@ -113,11 +118,11 @@ const STARS: [number, number, number, number][] = [
 
 // [left%, bottom%, size px, colour, delay s] — exhaust trailing down-left
 const CLOUDS: [number, number, number, string, number][] = [
-  [26, 26, 40, 'radial-gradient(circle at 35% 30%, #fbcfe8, #c026d3 75%)', 0.4],
-  [14, 12, 56, 'radial-gradient(circle at 35% 30%, #e9d5ff, #8b5cf6 75%)', 0],
-  [-6, 2, 64, 'radial-gradient(circle at 35% 30%, #c4b5fd, #6d28d9 75%)', 1.2],
-  [30, 4, 44, 'radial-gradient(circle at 35% 30%, #f5d0fe, #a855f7 75%)', 0.8],
-  [4, 30, 38, 'radial-gradient(circle at 35% 30%, #ddd6fe, #7c3aed 75%)', 1.8],
-  [-10, 30, 46, 'radial-gradient(circle at 35% 30%, #a78bfa, #5b21b6 75%)', 2.4],
-  [40, 18, 26, 'radial-gradient(circle at 35% 30%, #fff1f9, #e879f9 75%)', 1.5],
+  [26, 26, 40, 'radial-gradient(circle at 35% 30%, #ffedd5, #f97316 75%)', 0.4],
+  [14, 12, 56, 'radial-gradient(circle at 35% 30%, #fed7aa, #ea580c 75%)', 0],
+  [-6, 2, 64, 'radial-gradient(circle at 35% 30%, #fdba74, #9a3412 78%)', 1.2],
+  [30, 4, 44, 'radial-gradient(circle at 35% 30%, #fde68a, #f97316 75%)', 0.8],
+  [4, 30, 38, 'radial-gradient(circle at 35% 30%, #fed7aa, #c2410c 78%)', 1.8],
+  [-10, 30, 46, 'radial-gradient(circle at 35% 30%, #fb923c, #7c2d12 80%)', 2.4],
+  [40, 18, 26, 'radial-gradient(circle at 35% 30%, #fff7ed, #fb923c 75%)', 1.5],
 ]
