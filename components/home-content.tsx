@@ -1,5 +1,5 @@
 import Link from '@/components/hover-link'
-import { ArrowRight, GraduationCap, Languages, MapPin } from 'lucide-react'
+import { ArrowRight, GraduationCap, Languages } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import { Button } from '@/components/ui/button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -12,6 +12,7 @@ import { ProximityGrid } from '@/components/magic/proximity-grid'
 import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
 import { HeroWaves } from '@/components/magic/hero-waves'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
+import { RocketBand } from '@/components/magic/rocket-band'
 import { ContinueButton, ProgressLine, CategoryProgress } from '@/components/continue-learning'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
@@ -166,20 +167,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
 
       {/* About band */}
       <section className="mx-auto max-w-6xl px-6 py-16">
-        <div className="flex flex-col items-start gap-6 rounded-xl border bg-card p-8 shadow-sm sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <h2 className="text-lg font-semibold">{aboutBandTitle}</h2>
-            <p className="mt-2 flex items-start gap-1.5 text-sm text-muted-foreground">
-              <MapPin className="mt-0.5 size-4 shrink-0" />
-              {aboutBandBody}
-            </p>
-          </div>
-          <Button asChild variant="outline" size="lg" className="shrink-0">
-            <a href="https://learncomputer.in" target="_blank" rel="noopener noreferrer">
-              {s.aboutBandCta} <ArrowRight className="size-4" />
-            </a>
-          </Button>
-        </div>
+        <RocketBand title={aboutBandTitle} body={aboutBandBody} cta={s.aboutBandCta} />
       </section>
     </main>
   )

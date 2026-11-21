@@ -177,6 +177,31 @@
 .animate-quiz-shake {
   animation: quiz-shake 0.4s ease-out;
 }
+/* Homepage rocket band (components/magic/rocket-band.tsx) */
+@keyframes rocket-hover {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50%      { transform: translateY(-6px) rotate(-1.5deg); }
+}
+@keyframes rocket-flame {
+  0%, 100% { transform: scaleY(1); opacity: 1; }
+  50%      { transform: scaleY(0.78); opacity: 0.85; }
+}
+@keyframes rocket-cloud {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-4px, 3px) scale(1.08); }
+}
+@keyframes rocket-twinkle {
+  0%, 100% { opacity: 0.25; }
+  50%      { opacity: 0.9; }
+}
+.rocket-hover   { animation: rocket-hover 3.2s ease-in-out infinite; }
+.rocket-flame   { animation: rocket-flame 0.18s ease-in-out infinite; }
+.rocket-cloud   { animation: rocket-cloud 4.5s ease-in-out infinite; }
+.rocket-twinkle { animation: rocket-twinkle 3s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .rocket-hover, .rocket-flame, .rocket-cloud, .rocket-twinkle { animation: none; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-quiz-shake,
   .animate-streak-pop,
