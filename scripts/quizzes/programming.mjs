@@ -3,6 +3,7 @@
 import { c, pre, q, TF } from './_helpers.mjs'
 
 export const lang = 'javascript'
+export const shuffle = true
 
 export const QUIZZES = {
   intro: [

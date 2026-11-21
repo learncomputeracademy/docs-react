@@ -2,6 +2,7 @@
 import { c, q, TF } from './_helpers.mjs'
 
 export const lang = 'bash'
+export const shuffle = true
 
 export const QUIZZES = {
   'what-is-a-computer': [
@@ -382,5 +383,24 @@ export const QUIZZES = {
       [['A virus warning', 'ভাইরাস সতর্কতা'], ['A password file', 'password ফাইল'], ['A description of the project and how to use it', 'প্রজেক্টের বিবরণ আর কীভাবে ব্যবহার করতে হয়'], ['A list of commits', 'commit-এর তালিকা']], 2,
       'It is shown on the repository page.',
       'এটা repository-র পাতায় দেখা যায়।'),
+  ],
+
+  'computer-fundamentals': [
+    q('Which is NOT a key characteristic of a computer?', 'নিচের কোনটি কম্পিউটারের মূল বৈশিষ্ট্য নয়?',
+      [['Feeling emotions', 'আবেগ অনুভব করা'], ['Speed', 'গতি'], ['Accuracy', 'নির্ভুলতা'], ['Storage', 'সংরক্ষণ']], 0,
+      'Speed, accuracy, automation, versatility and storage.',
+      'গতি, নির্ভুলতা, স্বয়ংক্রিয়তা, বহুমুখিতা আর সংরক্ষণ।'),
+    q('Which computers are built for high-speed scientific calculations?', 'কোন কম্পিউটার উচ্চগতির বৈজ্ঞানিক হিসাবের জন্য তৈরি?',
+      [['Supercomputers', 'Supercomputer'], ['Microcomputers', 'Microcomputer'], ['Minicomputers', 'Minicomputer'], ['Calculators', 'Calculator']], 0,
+      'Mainframes handle high-volume business data.',
+      'Mainframe বিপুল ব্যবসায়িক ডেটা সামলায়।'),
+    q('An ATM is an example of which kind of computer?', 'ATM কোন ধরনের কম্পিউটারের উদাহরণ?',
+      [['Special-purpose (embedded)', 'বিশেষ-উদ্দেশ্যের (embedded)'], ['General-purpose', 'সাধারণ-উদ্দেশ্যের'], ['Analog', 'Analog'], ['Supercomputer', 'Supercomputer']], 0,
+      'It does one job.',
+      'এটা একটা কাজ করে।'),
+    q('Third-generation computers were built with integrated circuits (ICs).', 'তৃতীয় প্রজন্মের কম্পিউটার integrated circuit (IC) দিয়ে তৈরি।',
+      TF, 0,
+      'Fourth generation brought microprocessors.',
+      'চতুর্থ প্রজন্ম microprocessor আনে।'),
   ],
 }

@@ -2,6 +2,7 @@
 import { c, q, TF } from './_helpers.mjs'
 
 export const lang = 'html'
+export const shuffle = true
 
 export const QUIZZES = {
   introduction: [

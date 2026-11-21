@@ -2,6 +2,7 @@
 import { q, TF } from './_helpers.mjs'
 
 export const lang = 'text'
+export const shuffle = true
 
 export const QUIZZES = {
   'figma-introduction': [

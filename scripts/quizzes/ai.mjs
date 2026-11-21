@@ -2,6 +2,7 @@
 import { c, q, TF } from './_helpers.mjs'
 
 export const lang = 'python'
+export const shuffle = true
 
 export const QUIZZES = {
   'what-is-artificial-intelligence': [

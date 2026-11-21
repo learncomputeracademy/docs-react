@@ -2,6 +2,7 @@
 import { c, pre, q, TF } from './_helpers.mjs'
 
 export const lang = 'bash'
+export const shuffle = true
 
 export const QUIZZES = {
   'introduction-to-version-control': [
