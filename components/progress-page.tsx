@@ -1,4 +1,5 @@
 import { getSidebarTree } from '@/lib/content'
+import Link from '@/components/hover-link'
 import { ProgressOverview } from '@/components/badges'
 import type { Locale } from '@/lib/types'
 
@@ -13,6 +14,11 @@ export async function ProgressPage({ locale }: { locale: Locale }) {
       <div className="mt-8">
         <ProgressOverview subjects={subjects} locale={locale} />
       </div>
+      <p className="mt-10 text-sm text-muted-foreground">
+        <Link href={`${locale === 'bn' ? '/bn' : ''}/account`} className="underline-offset-4 hover:text-foreground hover:underline">
+          {locale === 'bn' ? 'আপনার তথ্য ডাউনলোড বা মুছে ফেলুন' : 'Download or clear your data'}
+        </Link>
+      </p>
     </main>
   )
 }

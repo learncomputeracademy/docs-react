@@ -17,8 +17,8 @@ const SOCIAL = [
 ]
 
 const LINKS = {
-  en: [['Docs', '/#subjects'], ['Resources', '/resources'], ['Tools', '/tools'], ['Typing Test', '/typing-test'], ['Contact', '/contact']],
-  bn: [['ডকস', '/bn#subjects'], ['রিসোর্স', '/resources'], ['টুলস', '/bn/tools'], ['টাইপিং টেস্ট', '/bn/typing-test'], ['যোগাযোগ', '/contact']],
+  en: [['Docs', '/#subjects'], ['Resources', '/resources'], ['Tools', '/tools'], ['Typing Test', '/typing-test'], ['Contact', '/contact'], ['Privacy', '/privacy'], ['My account', '/account']],
+  bn: [['ডকস', '/bn#subjects'], ['রিসোর্স', '/resources'], ['টুলস', '/bn/tools'], ['টাইপিং টেস্ট', '/bn/typing-test'], ['যোগাযোগ', '/contact'], ['গোপনীয়তা', '/bn/privacy'], ['আমার অ্যাকাউন্ট', '/bn/account']],
 } as const
 
 export function SiteFooter() {

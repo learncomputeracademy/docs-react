@@ -195,3 +195,21 @@ export function useQuizResults(): Record<string, QuizResult> {
   const raw = useSyncExternalStore(subscribe, readQuizRaw, () => null)
   return parseQuiz(raw)
 }
+
+// Everything the learning features keep in this browser. Used by /account to
+// download or clear it. The badge "seen" list lives in components/badges.tsx
+// but is learning data too, so it is listed here.
+export const LEARNING_KEYS = [KEY, LAST_KEY, STREAK_KEY, QUIZ_KEY, 'lca-badges-seen-v1'] as const
+
+// Wipes learning data from this browser and refreshes every open view.
+export function clearLearningData() {
+  for (const k of LEARNING_KEYS) {
+    try {
+      localStorage.removeItem(k)
+    } catch {}
+  }
+  cache = null
+  justCompleted = null
+  streakJustBumped = false
+  listeners.forEach((l) => l())
+}
