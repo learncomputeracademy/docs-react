@@ -1,4 +1,5 @@
 import { ArrowRight } from 'lucide-react'
+import SpecularButton from './specular-button'
 
 // Homepage "from the team behind" band (2026-11-21, owner references: a
 // space card with a rocket on the left). All art is inline SVG and all motion
@@ -29,15 +30,25 @@ export function RocketBand({ title, body, cta }: { title: string; body: string; 
           <h2 className="text-lg font-semibold text-white sm:text-xl">{title}</h2>
           <p className="mt-2 text-sm leading-relaxed text-orange-50/70">{body}</p>
         </div>
-        <a
+        <SpecularButton
           href="https://learncomputer.in"
           target="_blank"
           rel="noopener noreferrer"
-          className="rocket-cta inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_0_24px_-6px_var(--primary)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_34px_-4px_var(--primary)] sm:w-auto"
+          size="sm"
+          radius={999}
+          tint="#f97316"
+          tintOpacity={1}
+          textColor="#1c0a00"
+          lineColor="#fff7ed"
+          baseColor="#c2410c"
+          intensity={1.5}
+          idleIntensity={0.6}
+          thickness={1.6}
+          className="rocket-cta min-h-11 w-full shrink-0 font-semibold shadow-[0_0_24px_-6px_#f97316] sm:w-auto"
         >
           {cta}
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </a>
+        </SpecularButton>
       </div>
     </div>
   )

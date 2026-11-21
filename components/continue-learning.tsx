@@ -2,7 +2,7 @@
 
 import Link from '@/components/hover-link'
 import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import SpecularButton from '@/components/magic/specular-button'
 import { useCompleted, useContinueTarget } from '@/lib/progress'
 import { ProgressRing } from '@/components/progress-marks'
 import { t } from '@/lib/i18n'
@@ -15,12 +15,23 @@ export function ContinueButton({ startHref, prefix, locale }: { startHref: strin
   const target = useContinueTarget()
   const s = t(locale)
   return (
-    <Button asChild size="lg">
-      <Link href={target ? `${prefix}/${target.path}` : startHref}>
-        {target ? s.continueLearning : s.startLearning}
-        <ArrowRight className="size-4" />
-      </Link>
-    </Button>
+    <SpecularButton
+      href={target ? `${prefix}/${target.path}` : startHref}
+      size="sm"
+      radius={12}
+      tint="var(--primary)"
+      tintOpacity={1}
+      textColor="var(--primary-foreground)"
+      lineColor="#fff7ed"
+      baseColor="#c2410c"
+      intensity={1.5}
+      idleIntensity={0.6}
+      thickness={1.6}
+      className="min-h-11 font-semibold"
+    >
+      {target ? s.continueLearning : s.startLearning}
+      <ArrowRight className="size-4" />
+    </SpecularButton>
   )
 }
 

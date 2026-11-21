@@ -235,7 +235,7 @@ export function AnimatedCode() {
       <div
         ref={scrollRef}
         data-typing={typing}
-        className="animated-code h-56 overflow-auto text-sm leading-relaxed [&_code]:text-[13px] [&_code_.line]:px-0 [&>pre]:!m-0 [&>pre]:h-full [&>pre]:p-5"
+        className="animated-code h-64 overflow-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden text-sm leading-relaxed [&_code]:text-[13px] [&_code_.line]:px-0 [&>pre]:!m-0 [&>pre]:h-full [&>pre]:p-5"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     </div>

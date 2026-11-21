@@ -1,7 +1,7 @@
 import Link from '@/components/hover-link'
-import { ArrowRight, GraduationCap, Languages } from 'lucide-react'
+import { BookOpen, Compass, Database, Globe, GraduationCap, Infinity as InfinityIcon, Languages, Layers, Palette, Rocket, Zap } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
-import { Button } from '@/components/ui/button'
+import SpecularButton from '@/components/magic/specular-button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
 import { t } from '@/lib/i18n'
 import type { Locale } from '@/lib/types'
@@ -14,6 +14,8 @@ import { HeroWaves } from '@/components/magic/hero-waves'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
 import { RocketBand } from '@/components/magic/rocket-band'
 import { ContinueButton, ProgressLine, CategoryProgress } from '@/components/continue-learning'
+import { SubjectFilter } from '@/components/subject-filter'
+import { StatsElectric } from '@/components/magic/stats-electric'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -30,6 +32,15 @@ const FEATURES = {
     { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
   ],
 } as const
+
+// One icon per subject group heading (2026-11-21 homepage refresh).
+const GROUP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
+  start: Compass,
+  design: Palette,
+  web: Globe,
+  backend: Database,
+  launch: Rocket,
+}
 
 // SUBJECT_GROUPS now lives in lib/subject-groups.ts, shared with
 // sidebar-nav.tsx (2026-09-02) so the homepage subject index and the doc
@@ -84,6 +95,10 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         <HeroWaves className="absolute inset-0" />
         <div className="relative mx-auto grid w-full max-w-6xl items-center gap-12 px-6 py-16 lg:grid-cols-2 lg:py-24">
           <HeroReveal>
+            <span className="mb-5 inline-flex items-center gap-1.5 rounded-full border border-primary/40 bg-primary/10 px-3 py-1 text-sm font-medium text-primary">
+              <Zap className="size-3.5" aria-hidden />
+              {s.heroPill}
+            </span>
             <h1 className="text-4xl font-semibold tracking-tight text-balance sm:text-6xl">
               {heroTitle1}<span className="text-primary">{heroTitle2}</span>
             </h1>
@@ -92,9 +107,9 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               <div className="mt-8">
                 <div className="flex flex-wrap items-center gap-3">
                   <ContinueButton startHref={`${prefix}/${firstLesson.path}`} prefix={prefix} locale={locale} />
-                  <Button asChild size="lg" variant="outline">
-                    <Link href="#subjects">{s.browseSubjects}</Link>
-                  </Button>
+                  <SpecularButton href="#subjects" size="sm" radius={12} tint="var(--card)" tintOpacity={0.9} textColor="var(--foreground)" intensity={1.5} idleIntensity={0.6} thickness={1.6} className="min-h-11 font-semibold">
+                    {s.browseSubjects}
+                  </SpecularButton>
                 </div>
                 <ProgressLine paths={categories.flatMap((c) => c.docs.map((d) => d.path))} subjectTitles={Object.fromEntries(categories.map((c) => [c.slug, c.title]))} prefix={prefix} locale={locale} fallback={s.freeLessonsSubjects(totalLessons, categories.length)} />
               </div>
@@ -107,6 +122,33 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           <div>
             <AnimatedCode />
           </div>
+        </div>
+      </section>
+
+      {/* Stats strip (2026-11-21, from the owner's homepage mockup). Live
+          numbers from the sidebar tree, so they never go stale. A boxed
+          "lessons" stat card was tried and dropped on 2026-08-24; this is a
+          slim four-number row the owner asked for specifically. */}
+      <section className="border-b">
+        <div className="mx-auto max-w-6xl px-6 py-10">
+          <StatsElectric>
+          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-4">
+            {[
+              { icon: BookOpen, value: totalLessons, label: s.statLessons },
+              { icon: Layers, value: categories.length, label: s.statSubjects },
+              { icon: Languages, value: 2, label: s.statLanguages },
+              { icon: InfinityIcon, value: '100%', label: s.statFree },
+            ].map((stat) => (
+              <div key={stat.label} className="flex items-center gap-3 bg-card px-4 py-4 sm:justify-center sm:px-5 sm:py-5">
+                <stat.icon className="size-7 shrink-0 text-primary sm:size-8" aria-hidden />
+                <div className="flex flex-col">
+                  <dd className="text-2xl font-semibold tabular-nums text-primary sm:text-3xl">{stat.value}</dd>
+                  <dt className="order-last text-sm text-muted-foreground">{stat.label}</dt>
+                </div>
+              </div>
+            ))}
+          </dl>
+          </StatsElectric>
         </div>
       </section>
 
@@ -147,20 +189,29 @@ export async function HomeContent({ locale }: { locale: Locale }) {
           read as a modern card grid — was the "old school" complaint
           (2026-08-17). Group headers stay plain text labels, not another
           boxed header bar. */}
-      <section id="subjects" className="mx-auto max-w-6xl px-6 py-16">
-        <h2 className="text-2xl font-bold tracking-tight">{s.pickASubject}</h2>
-        <p className="mt-1 text-muted-foreground">{s.pickASubjectSub}</p>
+      <section id="subjects" className="mx-auto max-w-6xl scroll-mt-20 px-6 py-16">
+        <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <span className="inline-flex rounded-full border border-primary/40 px-3 py-1 text-xs font-semibold tracking-wider text-primary uppercase">
+              {s.subjectsEyebrow}
+            </span>
+            <h2 className="mt-4 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              {s.subjectsTitleA} <span className="text-primary">{s.subjectsTitleB}</span>
+            </h2>
+          </div>
+          <SubjectFilter placeholder={s.searchSubjects(categories.filter((c) => c.docs.length > 0).length)} emptyText={s.noSubjectMatch} />
+        </div>
 
         <div className="mt-10 space-y-10">
           {SUBJECT_GROUPS.map((group) => {
             const items = group.slugs.map(slug => byslug.get(slug)).filter((c): c is NonNullable<typeof c> => !!c && c.docs.length > 0)
             if (items.length === 0) return null
             return (
-              <SubjectGroup key={group.key} label={group.label[locale]} items={items} prefix={prefix} s={s} />
+              <SubjectGroup key={group.key} groupKey={group.key} label={group.label[locale]} items={items} prefix={prefix} s={s} />
             )
           })}
           {ungrouped.length > 0 && (
-            <SubjectGroup label={locale === 'bn' ? 'আরও' : 'More'} items={ungrouped} prefix={prefix} s={s} />
+            <SubjectGroup groupKey="more" label={locale === 'bn' ? 'আরও' : 'More'} items={ungrouped} prefix={prefix} s={s} />
           )}
         </div>
       </section>
@@ -175,41 +226,45 @@ export async function HomeContent({ locale }: { locale: Locale }) {
 
 type PanelItem = { id: string; slug: string; title: string; docs: { path: string }[] }
 
-function SubjectGroup({ label, items, prefix, s }: {
+function SubjectGroup({ groupKey, label, items, prefix, s }: {
+  groupKey: string
   label: string
   items: PanelItem[]
   prefix: string
   s: ReturnType<typeof t>
 }) {
+  const GroupIcon = GROUP_ICONS[groupKey] ?? Layers
   return (
-    <div>
-      <h3 className="text-xs font-medium tracking-wide text-muted-foreground uppercase">{label}</h3>
-      <ProximityGrid className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+    <div data-subject-group>
+      <h3 className="flex items-center gap-2 text-lg font-semibold">
+        <GroupIcon className="size-5 text-primary" aria-hidden />
+        {label}
+      </h3>
+      {/* Wide cards (2026-11-21 refresh): icon left, name + count right —
+          denser than the old stacked cards, and fits 2-up on a phone.
+          Icons stay monochrome orange (one accent colour, 2026-08 decision). */}
+      <ProximityGrid className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 xl:grid-cols-5">
         {items.map((cat) => {
           const Icon = CATEGORY_ICONS[cat.slug]
           return (
-            <MagicCard key={cat.id} className="rounded-xl" glow>
-              <Link
-                href={`${prefix}/${cat.slug}`}
-                className="group flex flex-col gap-3 rounded-xl bg-card p-5 shadow-sm transition-all hover:-translate-y-0.5"
-              >
-                {/* text-primary, not text-foreground: Lucide's monochrome
-                    icons (conceptual categories) were reading as a colder,
-                    separate system from the brand-color tech logos in the
-                    same badge (finish review 2026-08-06) — tinting them
-                    brand-orange instead of neutral warms the whole grid
-                    toward one palette. Brand logos ignore this; they carry
-                    their own fill colors. */}
-                <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-                  {Icon && <Icon className="size-5" />}
-                </span>
-                <span className="min-w-0 truncate text-sm font-medium group-hover:text-primary">{cat.title}</span>
-                <span className="flex items-center justify-between text-xs text-muted-foreground">
-                  <CategoryProgress paths={cat.docs.map((d) => d.path)} label={cat.docs.length === 1 ? s.lesson : s.lessons} />
-                  <ArrowRight className="size-3.5 shrink-0 opacity-0 transition-opacity group-hover:opacity-100" />
-                </span>
-              </Link>
-            </MagicCard>
+            <div key={cat.id} data-subject={`${cat.title} ${cat.slug}`.toLowerCase()}>
+              <MagicCard className="h-full rounded-xl" glow>
+                <Link
+                  href={`${prefix}/${cat.slug}`}
+                  className="group flex h-full items-center gap-3 rounded-xl bg-card p-3 shadow-sm transition-all hover:-translate-y-0.5 sm:p-4"
+                >
+                  <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-accent text-primary sm:size-11">
+                    {Icon && <Icon className="size-5 sm:size-6" />}
+                  </span>
+                  <span className="min-w-0">
+                    <span className="line-clamp-2 text-sm font-medium leading-snug group-hover:text-primary">{cat.title}</span>
+                    <span className="mt-0.5 block text-xs text-muted-foreground">
+                      <CategoryProgress paths={cat.docs.map((d) => d.path)} label={cat.docs.length === 1 ? s.lesson : s.lessons} />
+                    </span>
+                  </span>
+                </Link>
+              </MagicCard>
+            </div>
           )
         })}
       </ProximityGrid>
