@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
+import Link from '@/components/hover-link'
 import { Flame } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { streakJustBumped, useStreak, useXp } from '@/lib/progress'
@@ -28,11 +29,11 @@ export function StreakBadge({ locale }: { locale: Locale }) {
   const title = s.streakTitle(count, best)
   return (
     <>
-      <span
+      <Link
         key={count}
+        href={locale === 'bn' ? '/bn/progress' : '/progress'}
         title={title}
         aria-label={title}
-        role="img"
         className={cn(
           'flex items-center gap-1 rounded-full bg-orange-500/10 px-2 py-1 text-xs font-semibold tabular-nums text-orange-500 sm:px-2.5 sm:text-sm',
           bumped && 'animate-streak-pop',
@@ -40,7 +41,7 @@ export function StreakBadge({ locale }: { locale: Locale }) {
       >
         <Flame className={cn('size-4', count >= 7 && 'fill-orange-500/30')} aria-hidden />
         {count}
-      </span>
+      </Link>
       {/* Portal: the sticky header's backdrop-blur makes it the containing
           block for fixed children, which would pin this toast to the header. */}
       {toast &&
@@ -63,14 +64,13 @@ export function XpBadge({ locale }: { locale: Locale }) {
   if (!xp) return null
   const title = t(locale).xpTitle(xp)
   return (
-    <span
-      key={xp}
+    <Link
+      href={locale === 'bn' ? '/bn/progress' : '/progress'}
       title={title}
       aria-label={title}
-      role="img"
-      className="flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-semibold tabular-nums text-primary sm:px-2.5 sm:text-sm"
+      className="flex items-center rounded-full bg-primary/10 px-2 py-1 text-xs font-semibold tabular-nums text-primary transition-colors hover:bg-primary/20 sm:px-2.5 sm:text-sm"
     >
       {xp} XP
-    </span>
+    </Link>
   )
 }

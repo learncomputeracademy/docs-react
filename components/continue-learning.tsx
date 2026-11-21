@@ -50,10 +50,19 @@ export function ProgressLine({ paths, prefix, locale, fallback, subjectTitles }:
             <Link href={`${prefix}/${target.path}`} className="font-medium text-foreground underline-offset-4 hover:underline">
               {(target.newSubject && subjectTitles[target.path.split('/')[0]]) || target.title}
             </Link>
-            {done > 0 && <> · {s.doneShort(done, total)}</>}
+            {done > 0 && (
+              <>
+                {' · '}
+                <Link href={`${prefix}/progress`} className="underline-offset-4 hover:text-foreground hover:underline">
+                  {s.doneShort(done, total)}
+                </Link>
+              </>
+            )}
           </>
         ) : (
-          s.lessonsDone(done, total)
+          <Link href={`${prefix}/progress`} className="underline-offset-4 hover:text-foreground hover:underline">
+            {s.lessonsDone(done, total)}
+          </Link>
         )}
       </span>
     </p>

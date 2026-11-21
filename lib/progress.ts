@@ -190,3 +190,8 @@ export function useXp(): number {
   const raw = useSyncExternalStore(subscribe, readQuizRaw, () => null)
   return Object.values(parseQuiz(raw)).reduce((sum, r) => sum + r.xp, 0)
 }
+
+export function useQuizResults(): Record<string, QuizResult> {
+  const raw = useSyncExternalStore(subscribe, readQuizRaw, () => null)
+  return parseQuiz(raw)
+}
