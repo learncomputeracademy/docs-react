@@ -2,6 +2,7 @@
 
 import { ArrowDown, ArrowUp, Plus, Trash2 } from 'lucide-react'
 import type { QuizQuestion } from '@/lib/types'
+import { editableToHtml as toHtml, htmlToEditable as toText } from '@/lib/quiz-text'
 
 // mode 'full': English editor — add/remove/reorder questions and options,
 // pick the correct answer. mode 'translate': Bengali — text only; the
@@ -41,8 +42,8 @@ export function QuizBlockEditor({
     <div className="space-y-3 rounded-md border p-3">
       {full && (
         <p className="text-xs text-muted-foreground">
-          One correct answer per question (2 options = true/false). Text fields accept simple HTML: <code>&lt;code&gt;</code>,{' '}
-          <code>&lt;pre&gt;&lt;code&gt;</code>, <code>&lt;em&gt;</code>, <code>&lt;strong&gt;</code>. Pass mark is 70%.
+          One correct answer per question (2 options = true/false). Put code in backticks: {'`<p>`'} for inline code,
+          {'```'} on both sides for a code sample. <code>&lt;em&gt;</code> and <code>&lt;strong&gt;</code> also work. Pass mark is 70%.
         </p>
       )}
       {questions.map((q, qi) => (
@@ -68,8 +69,8 @@ export function QuizBlockEditor({
             )}
           </div>
           <textarea
-            value={q.prompt}
-            onChange={(e) => update(qi, { prompt: e.target.value })}
+            value={toText(q.prompt)}
+            onChange={(e) => update(qi, { prompt: toHtml(e.target.value) })}
             placeholder="Question"
             rows={2}
             className="w-full rounded-md border bg-background px-2 py-1.5 font-mono text-sm"
@@ -91,8 +92,8 @@ export function QuizBlockEditor({
                 )}
                 <span className="w-4 text-xs font-semibold text-muted-foreground">{String.fromCharCode(65 + oi)}</span>
                 <input
-                  value={opt}
-                  onChange={(e) => update(qi, { options: q.options.map((o, i) => (i === oi ? e.target.value : o)) })}
+                  value={toText(opt)}
+                  onChange={(e) => update(qi, { options: q.options.map((o, i) => (i === oi ? toHtml(e.target.value) : o)) })}
                   placeholder={`Option ${String.fromCharCode(65 + oi)}`}
                   className="flex-1 rounded-md border bg-background px-2 py-1 font-mono text-sm"
                 />
@@ -114,8 +115,8 @@ export function QuizBlockEditor({
             )}
           </div>
           <input
-            value={q.explain ?? ''}
-            onChange={(e) => update(qi, { explain: e.target.value || undefined })}
+            value={toText(q.explain ?? '')}
+            onChange={(e) => update(qi, { explain: toHtml(e.target.value) || undefined })}
             placeholder="Explanation shown after answering (optional)"
             className="w-full rounded-md border bg-background px-2 py-1.5 font-mono text-sm"
           />

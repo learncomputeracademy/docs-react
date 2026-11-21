@@ -25,3 +25,15 @@ assert.throws(() => sanitizeBlock(q({ answer: 2 })), /correct answer/)
 assert.throws(() => sanitizeBlock(q({ options: ['only'] })), /at least 2/)
 
 console.log('quiz: all checks passed')
+
+// Editor text format round-trip (lib/quiz-text.ts).
+const { htmlToEditable: toText, editableToHtml: toHtml } = await import('../lib/quiz-text.ts')
+for (const html of [
+  'Which is a correct comment? <code>&lt;!-- x --&gt;</code>',
+  'What shows?<pre><code>&lt;p&gt;Hi&lt;/p&gt;\n&lt;!-- &lt;p&gt;Bye&lt;/p&gt; --&gt;</code></pre>',
+  'Plain <em>text</em> &amp; more',
+  '<code>a &amp;&amp; b</code>',
+]) assert.equal(toHtml(toText(html)), html, `round-trip: ${html}`)
+assert.equal(toText('<code>&lt;p&gt;</code>'), '`<p>`')
+assert.equal(toHtml('Use `<br>` here'), 'Use <code>&lt;br&gt;</code> here')
+console.log('quiz editor text: all checks passed')
