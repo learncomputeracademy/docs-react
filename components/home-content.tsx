@@ -1,5 +1,5 @@
 import Link from '@/components/hover-link'
-import { BookOpen, Compass, Database, Globe, GraduationCap, Infinity as InfinityIcon, Languages, Layers, Palette, Rocket, Zap } from 'lucide-react'
+import { Compass, Database, Globe, GraduationCap, Languages, Layers, Palette, Rocket, Zap } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import SpecularButton from '@/components/magic/specular-button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -125,33 +125,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Stats strip (2026-11-21, from the owner's homepage mockup). Live
-          numbers from the sidebar tree, so they never go stale. A boxed
-          "lessons" stat card was tried and dropped on 2026-08-24; this is a
-          slim four-number row the owner asked for specifically. */}
-      <section className="border-b">
-        <div className="mx-auto max-w-6xl px-6 py-10">
-          <StatsElectric>
-          <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-border sm:grid-cols-4">
-            {[
-              { icon: BookOpen, value: totalLessons, label: s.statLessons },
-              { icon: Layers, value: categories.length, label: s.statSubjects },
-              { icon: Languages, value: 2, label: s.statLanguages },
-              { icon: InfinityIcon, value: '100%', label: s.statFree },
-            ].map((stat) => (
-              <div key={stat.label} className="flex items-center gap-3 bg-card px-4 py-4 sm:justify-center sm:px-5 sm:py-5">
-                <stat.icon className="size-7 shrink-0 text-primary sm:size-8" aria-hidden />
-                <div className="flex flex-col">
-                  <dd className="text-2xl font-semibold tabular-nums text-primary sm:text-3xl">{stat.value}</dd>
-                  <dt className="order-last text-sm text-muted-foreground">{stat.label}</dt>
-                </div>
-              </div>
-            ))}
-          </dl>
-          </StatsElectric>
-        </div>
-      </section>
-
       {/* Features — round 2: the MagicCard/glow version (2026-08-24 first
           pass) still read flat to the user, who pointed at 21st.dev's
           "Animated 3D Card" as the target instead — a cursor-driven
@@ -166,7 +139,10 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         <div className="mx-auto max-w-6xl px-6 py-16">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {features.map((f) => (
-              <TiltCard key={f.title} className="rounded-xl border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg">
+              // Electric border (React Bits) moved here from the dropped stats
+              // strip, owner request 2026-11-21.
+              <StatsElectric key={f.title}>
+              <TiltCard className="h-full rounded-xl bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg">
                 <TiltLayer depth={40}>
                   <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
                     <f.icon className="size-5" />
@@ -177,6 +153,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
                   <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
                 </TiltLayer>
               </TiltCard>
+              </StatsElectric>
             ))}
           </div>
         </div>

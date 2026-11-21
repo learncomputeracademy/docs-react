@@ -15,7 +15,7 @@ const isDark = () => document.documentElement.classList.contains('dark')
 export function StatsElectric({ children }: { children: React.ReactNode }) {
   const dark = useSyncExternalStore(subscribe, isDark, () => true)
   return (
-    <ElectricBorder color="#f97316" borderRadius={16} theme={dark ? 'dark' : 'light'} speed={0.8} chaos={0.5} glow={0.7} className="rounded-2xl">
+    <ElectricBorder color="#f97316" borderRadius={12} theme={dark ? 'dark' : 'light'} speed={0.8} chaos={0.5} glow={0.7} className="rounded-xl">
       {children}
     </ElectricBorder>
   )
