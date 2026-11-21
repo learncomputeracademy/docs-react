@@ -28,16 +28,21 @@
 > - **No Vercel quotas any more** (ISR reads/writes, CDN requests, function invocations, Fluid
 >   CPU, origin transfer). The VM is free and its limits are far above this site's traffic: the
 >   origin sees roughly 15% of what Vercel counted, because Cloudflare answers the rest.
-> - **ISR and on-demand revalidation work the same** (`revalidateTag` via `/api/revalidate`;
->   the cache lives in the container and is rebuilt on each deploy).
+> - **ISR and on-demand revalidation work the same** (`revalidateTag` via `/api/revalidate`).
+>   ⚠️ **The data cache survives a deploy** (confirmed 2026-11-21): pages built from DB rows that
+>   a script changed with the service-role key stay stale after a push, because service-role
+>   writes skip the revalidate trigger (migration 011). After any push that depends on
+>   script-written content, POST `/api/revalidate` on the live site with `{tag: "doc:<path>",
+>   path: "/<path>"}` (and `/bn/<path>`) for each affected lesson, then curl to confirm.
 > - **Caching:** the server sends `s-maxage=60` for pages (not Next's 1 year) and Cloudflare
 >   follows it, so a publish in the admin panel is visible within about a minute. `/admin*`
 >   and `/api/*` are never cached by Cloudflare. If a page looks stale, wait a minute.
 > - **Environment variables** live in Coolify (Environment Variables tab), not in Vercel.
 >   `.env.local` stays the local source; when a variable changes, update it in Coolify and redeploy.
 > - **Images** still come from Cloudinary (custom loader), so no image optimizer is needed on the server.
-> - `@vercel/analytics` and `@vercel/speed-insights` no longer report anything (harmless; remove
->   them on a future approved push). Visitor stats: GoAccess at `https://status.webgraphicshub.com/visitors/`.
+> - `@vercel/analytics` and `@vercel/speed-insights` were removed (`df37317`). Visitor stats:
+>   GoAccess at `https://status.webgraphicshub.com/visitors/`; GA4 stream G-XTBB1C05FC (D-140),
+>   which also receives the `quiz_complete` event (D-143).
 > - **Still external and still free-tier limited:** Supabase (database, keep-alive Action),
 >   Cloudinary, Cloudflare R2. Those limits did not change with the move.
 > - **Single server:** if the VM is down, the site is down (no fallback). The Oracle VM has
