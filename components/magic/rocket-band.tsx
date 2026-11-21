@@ -29,7 +29,7 @@ export function RocketBand({ title, body, cta }: { title: string; body: string; 
           href="https://learncomputer.in"
           target="_blank"
           rel="noopener noreferrer"
-          className="rocket-cta inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-gradient-to-r from-violet-500 to-fuchsia-500 px-6 text-sm font-semibold text-white shadow-[0_0_24px_-4px_rgba(168,85,247,0.8)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_36px_-2px_rgba(192,132,252,0.95)] sm:w-auto"
+          className="rocket-cta inline-flex min-h-11 w-full shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-6 text-sm font-semibold text-primary-foreground shadow-[0_0_24px_-6px_var(--primary)] transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_34px_-4px_var(--primary)] sm:w-auto"
         >
           {cta}
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -54,7 +54,7 @@ function Rocket() {
       </div>
       {/* The rocket, tilted up and to the right */}
       <div className="rocket-hover absolute left-[34%] top-[-4%] w-[60%] transition-transform duration-700 ease-out group-hover:-translate-y-2 group-hover:translate-x-2">
-        <svg viewBox="0 0 120 120" className="w-full rotate-45 overflow-visible drop-shadow-[0_6px_12px_rgba(0,0,0,0.35)]">
+        <svg viewBox="0 0 120 120" className="w-full overflow-visible">
           <defs>
             <linearGradient id="rb-body" x1="0" x2="1">
               <stop offset="0" stopColor="#ffffff" />
@@ -76,8 +76,10 @@ function Rocket() {
               <stop offset="1" stopColor="#2b6fd6" />
             </radialGradient>
           </defs>
+          {/* Rotated in SVG space (not a CSS rotate + filter on the animated layer, which rasterised it soft). */}
+          <g transform="rotate(45 60 60)">
           {/* Flame */}
-          <g className="rocket-flame" style={{ transformOrigin: '60px 92px' }}>
+          <g className="rocket-flame" style={{ transformBox: 'fill-box', transformOrigin: '50% 0%' }}>
             <path d="M46 92 Q60 150 74 92 Z" fill="url(#rb-flame)" />
             <path d="M52 92 Q60 126 68 92 Z" fill="#fff4b0" opacity="0.9" />
           </g>
@@ -95,6 +97,7 @@ function Rocket() {
           {/* Centre fin + exhaust ring */}
           <path d="M58 72 L62 72 L62 94 L58 94 Z" fill="url(#rb-fin)" />
           <rect x="45" y="89" width="30" height="5" rx="2" fill="#7a6fa8" />
+          </g>
         </svg>
       </div>
     </div>
