@@ -6,6 +6,7 @@ import { Check, RotateCcw, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { PASS_RATIO, recordQuiz, setCompleted, useQuizResult } from '@/lib/progress'
 import { t } from '@/lib/i18n'
+import { trackEvent } from '@/lib/analytics'
 import type { QuizQuestion } from '@/lib/types'
 
 // End-of-lesson quiz. Questions are in the server HTML (props of a client
@@ -41,8 +42,19 @@ export function Quiz({ id, questions }: { id: string; questions: QuizQuestion[] 
     setPicks(next)
     if (next.every((p) => p !== null)) {
       const finalScore = next.filter((p, i) => p === questions[i].answer).length
-      setEarned(recordQuiz(key, finalScore, total))
+      const xp = recordQuiz(key, finalScore, total)
+      setEarned(xp)
       if (finalScore >= need) setCompleted(docPath, true)
+      trackEvent('quiz_complete', {
+        lesson: docPath,
+        locale,
+        score: finalScore,
+        total,
+        percent: Math.round((finalScore / total) * 100),
+        result: finalScore >= need ? 'pass' : 'fail',
+        attempt: attempt + 1,
+        xp,
+      })
       if (finalScore === total) {
         import('canvas-confetti').then(({ default: confetti }) =>
           confetti({ disableForReducedMotion: true, particleCount: 60, spread: 60, origin: { y: 0.8 }, colors: ['#f97316', '#10b981', '#ffffff'] }),
