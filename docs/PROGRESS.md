@@ -9,6 +9,41 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-21 (later) — homepage refresh, React Bits effects, branched sidebar — PUSHED
+
+**Done (pushed `dbd7e3d..b46cc77`, live after ~7.5 min, verified by curl)**
+- Live quiz refresh for the 7 new subjects ran after the earlier push: 498/498 lesson pages
+  (EN + BN) show the quiz. The "after the next approved push" item in the entry below is done.
+- Rocket band ("from the team behind"): owner's orange reference, inline SVG + CSS, rocket
+  rotated inside the SVG (a CSS rotate + drop-shadow filter made it blurry).
+- Homepage from the owner's mockup: "Free · Open learning" pill, subjects eyebrow + two-tone
+  heading, client search filter over server-rendered cards (`subject-filter.tsx`), wide
+  icon-left subject cards, group icons. Hero code window h-64 with hidden scrollbar.
+  A stats strip was built then removed at the owner's request; its electric border moved to
+  the two feature cards.
+- Vendored React Bits components (MIT + Commons Clause, from the repo's `public/r/*-TS-TW.json`
+  via `gh api`): `magic/electric-border.tsx` (WebGL2, wrapped theme-aware by
+  `magic/stats-electric.tsx`), `magic/specular-button.tsx` (LOCAL change: `href` renders a
+  link) on the hero + rocket-band buttons, `magic/status-mark.tsx` (uses `motion`, already a
+  dependency) as the lesson-done tick. My own SVG-filter electric border was rejected by the
+  owner ("doesn't look good") — use the real components when the owner names one.
+- Sidebar lesson lists: BranchedMenu look built on the existing links (the component assumes
+  buttons + fixed row height): curved branch per lesson, orange line gliding to the current one.
+- Footer: tagline, links, socials from learncomputer.in's footer (YouTube, Facebook, Instagram,
+  X). WhatsApp removed at the owner's request.
+
+**Learned**
+- Pre-push build without touching the owner's dev server: `git worktree add` a sibling folder,
+  copy `.env.local`, junction `node_modules`, build, secret-grep `.next/static`. Remove the
+  junction with `rmdir` BEFORE deleting the folder; `git worktree remove --force` left the
+  junction behind (node_modules was unharmed).
+
+**Not done / ideas left from the mockup**
+- Progress bar under "Next up"; floating tech logos around the hero code window.
+- GA4 custom metrics `score` / `percent`: still for the owner to add.
+
+---
+
 ## 2026-11-21 — 7 more quiz subjects, badges, GA4 quiz event, phone fixes, lint 0 (D-143)
 
 **Done (local, committed, NOT pushed — hold active)**
