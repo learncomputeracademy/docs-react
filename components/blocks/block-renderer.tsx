@@ -25,11 +25,11 @@ const LANG_LABELS: Record<string, string> = {
 
 // Quiz text is HTML with <pre><code> samples and inline <code>. Highlight
 // both with Shiki here on the server, so the client quiz just receives
-// coloured HTML. Language defaults to HTML (the pilot category);
-// <pre><code class="language-css"> picks another.
+// coloured HTML. Language: the quiz block's `lang` (default HTML);
+// <pre><code class="language-css"> overrides it for one sample.
 const unescapeHtml = (s: string) => s.replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&')
 
-async function highlightHtml(html: string): Promise<string> {
+async function highlightHtml(html: string, lang: string): Promise<string> {
   const parts: Promise<string>[] = []
   const re = /<pre><code(?: class="language-(\w+)")?>([\s\S]*?)<\/code><\/pre>|<code(?: class="language-(\w+)")?>([\s\S]*?)<\/code>/g
   const chunks = html.split(re)
@@ -39,11 +39,11 @@ async function highlightHtml(html: string): Promise<string> {
     if (i + 1 >= chunks.length) break
     const [blockLang, blockCode, inlineLang, inlineCode] = chunks.slice(i + 1, i + 5)
     if (blockCode !== undefined) {
-      parts.push(highlight(unescapeHtml(blockCode), blockLang ?? 'html'))
+      parts.push(highlight(unescapeHtml(blockCode), blockLang ?? lang))
     } else {
       // Inline: keep Shiki's token spans, drop its <pre> wrapper.
       parts.push(
-        highlight(unescapeHtml(inlineCode ?? ''), inlineLang ?? 'html').then((h) => {
+        highlight(unescapeHtml(inlineCode ?? ''), inlineLang ?? lang).then((h) => {
           const inner = h.match(/<code>([\s\S]*)<\/code>/)?.[1] ?? ''
           return `<code class="shiki-inline">${inner.replace(/<span class="line">([\s\S]*)<\/span>/, '$1')}</code>`
         }),
@@ -53,13 +53,13 @@ async function highlightHtml(html: string): Promise<string> {
   return (await Promise.all(parts)).join('')
 }
 
-async function highlightQuiz(questions: QuizQuestion[]): Promise<QuizQuestion[]> {
+async function highlightQuiz(questions: QuizQuestion[], lang: string): Promise<QuizQuestion[]> {
   return Promise.all(
     questions.map(async (q) => ({
       ...q,
-      prompt: await highlightHtml(q.prompt),
-      options: await Promise.all(q.options.map(highlightHtml)),
-      explain: q.explain ? await highlightHtml(q.explain) : undefined,
+      prompt: await highlightHtml(q.prompt, lang),
+      options: await Promise.all(q.options.map((o) => highlightHtml(o, lang))),
+      explain: q.explain ? await highlightHtml(q.explain, lang) : undefined,
     })),
   )
 }
@@ -113,7 +113,7 @@ export async function BlockRenderer({ blocks }: { blocks: Block[] }) {
               </video>
             )
           case 'quiz':
-            return b.questions?.length ? <Quiz key={b.id} id={b.id} questions={await highlightQuiz(b.questions)} /> : null
+            return b.questions?.length ? <Quiz key={b.id} id={b.id} questions={await highlightQuiz(b.questions, b.lang ?? 'html')} /> : null
           case 'tryit':
             return <TryItLazy key={b.id} mode={b.mode} files={b.files} />
           case 'callout': {

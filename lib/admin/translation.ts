@@ -102,7 +102,7 @@ export async function saveTranslation(docId: string, englishBlocks: Block[], inp
     // Quiz: Bengali text on English structure — see mergeQuizTranslation.
     if (b.type === 'quiz') {
       const en = englishBlocks.find((eb) => eb.id === b.id)
-      return en && en.type === 'quiz' ? { ...b, questions: mergeQuizTranslation(en.questions, b.questions ?? []) } : b
+      return en && en.type === 'quiz' ? { ...b, lang: en.lang, questions: mergeQuizTranslation(en.questions, b.questions ?? []) } : b
     }
     if (b.type !== 'heading') return b
     const englishMatch = englishBlocks.find((eb) => eb.id === b.id)

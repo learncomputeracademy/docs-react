@@ -26,7 +26,8 @@ export type Block =
   | { id: string; type: 'video'; provider: 'youtube' | 'cloudinary'; videoId: string; title: string }
   // Single-answer multiple choice (2 options = true/false). prompt, options
   // and explain are HTML (inline <code> etc.); answer is an index into options.
-  | { id: string; type: 'quiz'; questions: QuizQuestion[] }
+  // lang: language for code highlighting in this quiz (default 'html').
+  | { id: string; type: 'quiz'; questions: QuizQuestion[]; lang?: Lang }
 
 export type QuizQuestion = { id: string; prompt: string; options: string[]; answer: number; explain?: string }
 
