@@ -26,7 +26,26 @@ if (!category || category.startsWith('--')) {
 const WRITE = process.argv.includes('--write')
 const LIVE = process.argv.includes('--live')
 const reviewPath = process.argv.find((a) => a.startsWith('--review='))?.slice(9)
-const { QUIZZES, lang } = await import(`./quizzes/${category}.mjs`)
+const mod = await import(`./quizzes/${category}.mjs`)
+const { lang } = mod
+// Opt-in (export const shuffle = true): rotate each 4-option question's options
+// by a fixed, slug-derived amount so the correct answer is spread across A-D.
+// Deterministic, so re-runs give the same order; EN and BN move together.
+const QUIZZES = mod.shuffle ? rotateAll(mod.QUIZZES) : mod.QUIZZES
+function rotateAll(all) {
+  const out = {}
+  for (const [slug, qs] of Object.entries(all)) {
+    out[slug] = qs.map((x, i) => {
+      if (x.options.length !== 4) return x
+      let h = 0
+      for (const ch of `${slug}#${i}`) h = (h * 31 + ch.charCodeAt(0)) >>> 0
+      const k = h % 4
+      const options = x.options.map((_, j) => x.options[(j - k + 4) % 4])
+      return { ...x, options, answer: (x.answer + k) % 4 }
+    })
+  }
+  return out
+}
 const LIVE_URL = 'https://docs.learncomputer.in'
 const slugs = Object.keys(QUIZZES)
 
