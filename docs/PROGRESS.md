@@ -35,8 +35,15 @@ for picking up work weeks later.
   query). One lesson hit `fetch failed` on the first run; re-run fixed it (script is idempotent).
   Live site unchanged until push (service-role writes skip the revalidate trigger).
 
+- **Pushed 2026-11-20** (owner-approved, 21 commits, `777645c..3e40b23`). Build + client-bundle
+  secret grep clean. After deploy the new code was live but HTML lessons had no quizzes: Next's
+  data cache survived the Coolify rebuild. Fixed 2026-11-21 by POSTing `/api/revalidate`
+  (`doc:html/<slug>` + path, en and bn) on the live site; curl confirmed 86/86 pages show the
+  quiz. Mistake in that step: the path list was built in a way that also ran the quiz script's
+  dry run, so ~30 junk paths (e.g. `/html/quizzes,`) were revalidated too, and the live route
+  sent them to IndexNow. They 404; no other effect. No-push hold is active again.
+
 **Next**
-- Push when the owner approves; after deploy the HTML lesson pages need a revalidate to show quizzes.
 - Owner to try the admin quiz editor on a draft doc.
 - Phase 3: HTML pilot quizzes (needs owner OK before writing to the DB, since it reaches the
   live site — and the live site can't render quizzes until the code is pushed).
