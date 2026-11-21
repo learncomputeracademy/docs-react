@@ -6797,6 +6797,48 @@ database yet: tested on a temporary local page, because DB writes reach the live
 
 ---
 
+## D-143 · Quizzes for 7 more subjects, badges, quiz analytics, phone fixes, lint clean-up (2026-11-21)
+
+**Asked by the owner:** quizzes for CSS, JS, PHP, Python, WordPress, SQL, Node.js; GA4 event
+with lesson/score/pass-fail; fix every phone issue (most visitors are on phones); remove the old
+Vercel analytics; clear lint errors; add badges.
+
+**Quizzes.** `scripts/quizzes/<category>.mjs` (data) + `scripts/write-quizzes.mjs <category>`
+(validate / `--write` / `--live`). 8 subjects now: html 43, css 49, javascript 34, php 41,
+python 38, wordpress 31, sql 22, nodejs 34 = **292 lessons, 1,168 questions, EN + BN**. Verified
+by query: one quiz per lesson and translation, always the last block, no duplicates. Each quiz
+block has a `lang` for Shiki (sql, javascript, php, python, css, html). Questions were written
+from each lesson's actual DB content; outdated lesson claims were avoided rather than quizzed.
+Not done: the other 17 categories (owner: "later").
+
+**Admin editor:** code in quiz fields is shown/typed with backticks (`lib/quiz-text.ts`), stored
+as the same HTML; round-trip incl. JS template literals checked in `scripts/check-quiz.mjs`.
+Tested in the admin (view only) on html/comments, EN and the Bengali screen.
+
+**Analytics.** `quiz_complete` → GA4 G-XTBB1C05FC via a gtag command on dataLayer
+(`lib/analytics.ts`), params lesson, locale, score, total, percent, result, attempt, xp. Verified
+the hit leaves as `/5oas/…/g/c?tid=G-XTBB1C05FC&en=…`. To report on the params, they must be
+registered as custom dimensions in GA4 (owner action).
+
+**Badges.** `lib/badges.ts` (pure, `scripts/check-badges.mjs`): lessons 1/10/50/100/250, quiz
+passed 1/10, perfect 5, streak 3/7/30 (best), XP 100/500/1000, plus one per subject. Derived
+from browser data; only "already shown" ids are stored (`lca-badges-seen-v1`). "Badge unlocked"
+toast on lesson pages, silent on first run and during hydration (a bug caught in testing would
+otherwise re-announce every badge on each load). `/progress` and `/bn/progress` (noindex).
+
+**Phone.** Audited at 390px: no horizontal overflow on home/lesson pages. Fixed: quiz `<pre>`
+code got per-line chips; XP hidden on phones; tap targets under 44px (quiz options, mark
+complete/not done, copy-code).
+
+**Lint.** 67 problems → 0. Real fixes where there was one (render-time state adjustment for
+route/prop resets, refs out of render, memoised options, unused code); vendored React Bits files
+excluded; deliberate post-hydration browser reads keep a one-line reasoned eslint exception.
+
+**Vercel analytics:** already removed in `df37317`; CLAUDE.md corrected.
+**CLAUDE.md:** "cache rebuilt on each deploy" corrected — the data cache survives deploys.
+
+---
+
 ## Open
 
 | # | Question | Blocks |

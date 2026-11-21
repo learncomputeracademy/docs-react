@@ -9,6 +9,25 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-21 — 7 more quiz subjects, badges, GA4 quiz event, phone fixes, lint 0 (D-143)
+
+**Done (local, committed, NOT pushed — hold active)**
+- Quizzes written to the DB for css, javascript, php, python, wordpress, sql, nodejs (plus the
+  html pilot): 292 lessons / 1,168 questions, EN + BN, verified by query.
+- `write-quizzes.mjs <category> [--write|--live]` replaces the html-only script.
+- Badges + /progress page; GA4 `quiz_complete`; admin quiz editor uses backticks for code.
+- Phone: quiz code chips, XP on phones, 44px tap targets. Lint 67 → 0.
+- Live-site fix earlier today: HTML quiz pages revalidated (see 2026-11-20 entry).
+
+**After the next approved push**
+- The live site's quiz pages for the 7 new subjects need `node scripts/write-quizzes.mjs <cat> --live`
+  for each category (data cache survives deploys). The `lang` highlighting and badges also only
+  go live with the push.
+- Owner: register lesson/score/result/percent/attempt as custom dimensions in GA4 to see them.
+
+**Not done**
+- Quizzes for the other 17 categories (owner: later).
+
 ## 2026-11-20 (later) — un-mark, image shimmer, Next subject, quizzes phase 1 (D-142)
 
 **Done (local, committed, NOT pushed)**
