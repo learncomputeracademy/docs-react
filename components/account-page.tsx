@@ -1,15 +1,20 @@
 'use client'
 
-import { useRef, useState } from 'react'
-import { Download, Trash2, ShieldCheck } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
+import { Download, Trash2, ShieldCheck, LogOut, Cloud, UserX } from 'lucide-react'
+import IconGoogle from '~icons/simple-icons/google'
+import IconGithub from '~icons/simple-icons/github'
+import { useAccount } from '@/lib/account-state'
 import Link from '@/components/hover-link'
 import { Button } from '@/components/ui/button'
 import { LEARNING_KEYS, clearLearningData, useCompleted, useXp, useStreak } from '@/lib/progress'
+
+const loadAccount = () => import('@/lib/account')
 import type { Locale } from '@/lib/types'
 
-// /account and /bn/account (2026-11-21). No sign-in yet, so "your data" is what
-// this browser holds. When accounts arrive this page gains the profile, sign
-// out, and "delete my account"; "clear my data" then also clears the server copy.
+// /account and /bn/account (2026-11-21). Signed out: "your data" is what this
+// browser holds. Signed in (Google/GitHub, lib/account.ts): profile, sign out,
+// "delete my account", and "clear my data" also clears the account copy.
 
 // Tool data: notes, typing-test history, saved tool settings. Cleared only when
 // the visitor ticks the box — notes are their own writing, not progress.
@@ -31,7 +36,7 @@ const TOOL_KEYS = [
 const T = {
   en: {
     title: 'My account',
-    intro: 'There is no sign-in yet. Everything below is stored only in this browser, on this device. Nothing here is sent to us.',
+    intro: 'You are not signed in. Your progress is stored only in this browser, on this device, and nothing is sent to us.',
     summary: (lessons: number, xp: number, streak: number) => `${lessons} lessons done · ${xp} XP · ${streak}-day streak`,
     downloadTitle: 'Download my data',
     downloadBody: 'Save a copy of your progress, quiz scores, streak, badges and tool data as a file. Keep it as a backup.',
@@ -50,10 +55,31 @@ const T = {
     privacyBody: 'What this site collects, why, and your rights.',
     privacyLink: 'Read the privacy policy',
     progressLink: 'See my progress',
+    introSignedIn: 'Your progress is saved to your account and kept in step on every device you sign in on.',
+    signInTitle: 'Save your progress across devices',
+    signInBody: 'Sign in to keep your lessons, quiz scores, streak and badges on your phone, laptop and any other device. What you have done in this browser is added to your account, not lost. Free, and optional.',
+    withGoogle: 'Continue with Google',
+    withGithub: 'Continue with GitHub',
+    signInNote: 'We only receive your name, email address and profile picture. See the privacy policy.',
+    signingIn: 'Opening sign-in…',
+    signedInAs: 'Signed in as',
+    syncing: 'Syncing…',
+    synced: 'Progress saved to your account',
+    signOut: 'Sign out',
+    clearBodySignedIn: 'Remove your progress, quiz scores, XP, streak and badges from this browser and from your account. You stay signed in and start fresh. This cannot be undone.',
+    deleteTitle: 'Delete my account',
+    deleteBody: 'Permanently delete your account and everything saved in it. Progress in this browser is cleared too. This cannot be undone.',
+    deleteBtn: 'Delete my account',
+    deleteConfirmTitle: 'Delete your account?',
+    deleteConfirmBody: 'Your account and all saved progress will be permanently deleted. Type DELETE to confirm.',
+    deleteWord: 'DELETE',
+    deleteConfirm: 'Delete permanently',
+    deleted: 'Your account has been deleted.',
+    failed: 'Something went wrong. Please try again.',
   },
   bn: {
     title: 'আমার অ্যাকাউন্ট',
-    intro: 'এখনও সাইন-ইন ব্যবস্থা নেই। নিচের সব তথ্য শুধু এই ডিভাইসের এই ব্রাউজারে রাখা আছে। এর কিছুই আমাদের কাছে পাঠানো হয় না।',
+    intro: 'আপনি সাইন ইন করেননি। আপনার অগ্রগতি শুধু এই ডিভাইসের এই ব্রাউজারে রাখা আছে, আমাদের কাছে কিছু পাঠানো হয় না।',
     summary: (lessons: number, xp: number, streak: number) => `${lessons}টি পাঠ শেষ · ${xp} XP · ${streak} দিনের স্ট্রিক`,
     downloadTitle: 'আমার তথ্য ডাউনলোড করুন',
     downloadBody: 'আপনার অগ্রগতি, কুইজের স্কোর, স্ট্রিক, ব্যাজ আর টুলের তথ্যের একটি কপি ফাইল হিসেবে সেভ করুন। ব্যাকআপ হিসেবে রেখে দিন।',
@@ -72,6 +98,27 @@ const T = {
     privacyBody: 'এই সাইট কী তথ্য সংগ্রহ করে, কেন করে, আর আপনার অধিকার কী।',
     privacyLink: 'গোপনীয়তা নীতি পড়ুন',
     progressLink: 'আমার অগ্রগতি দেখুন',
+    introSignedIn: 'আপনার অগ্রগতি অ্যাকাউন্টে সেভ থাকে আর যে ডিভাইসেই সাইন ইন করুন সেখানে মিলে থাকে।',
+    signInTitle: 'সব ডিভাইসে অগ্রগতি সেভ রাখুন',
+    signInBody: 'সাইন ইন করলে আপনার পাঠ, কুইজের স্কোর, স্ট্রিক আর ব্যাজ ফোন, ল্যাপটপ আর অন্য যেকোনো ডিভাইসে থাকবে। এই ব্রাউজারে যা করেছেন তা অ্যাকাউন্টে যোগ হবে, হারাবে না। বিনামূল্যে, আর ঐচ্ছিক।',
+    withGoogle: 'Google দিয়ে চালিয়ে যান',
+    withGithub: 'GitHub দিয়ে চালিয়ে যান',
+    signInNote: 'আমরা শুধু আপনার নাম, ইমেল ঠিকানা আর প্রোফাইল ছবি পাই। গোপনীয়তা নীতি দেখুন।',
+    signingIn: 'সাইন-ইন খুলছে…',
+    signedInAs: 'সাইন ইন করা আছে',
+    syncing: 'মিলিয়ে নেওয়া হচ্ছে…',
+    synced: 'অগ্রগতি আপনার অ্যাকাউন্টে সেভ আছে',
+    signOut: 'সাইন আউট',
+    clearBodySignedIn: 'এই ব্রাউজার আর আপনার অ্যাকাউন্ট থেকে অগ্রগতি, কুইজের স্কোর, XP, স্ট্রিক আর ব্যাজ মুছে যাবে। আপনি সাইন ইন থাকবেন আর নতুন করে শুরু করবেন। এটি ফেরানো যায় না।',
+    deleteTitle: 'আমার অ্যাকাউন্ট মুছে ফেলুন',
+    deleteBody: 'আপনার অ্যাকাউন্ট আর তাতে সেভ করা সবকিছু চিরতরে মুছে যাবে। এই ব্রাউজারের অগ্রগতিও মুছে যাবে। এটি ফেরানো যায় না।',
+    deleteBtn: 'আমার অ্যাকাউন্ট মুছুন',
+    deleteConfirmTitle: 'আপনার অ্যাকাউন্ট মুছে ফেলবেন?',
+    deleteConfirmBody: 'আপনার অ্যাকাউন্ট আর সব সেভ করা অগ্রগতি চিরতরে মুছে যাবে। নিশ্চিত করতে DELETE লিখুন।',
+    deleteWord: 'DELETE',
+    deleteConfirm: 'চিরতরে মুছুন',
+    deleted: 'আপনার অ্যাকাউন্ট মুছে ফেলা হয়েছে।',
+    failed: 'কিছু একটা ভুল হয়েছে। আবার চেষ্টা করুন।',
   },
 } as const
 
@@ -100,6 +147,35 @@ export function AccountPage({ locale }: { locale: Locale }) {
   const [withTools, setWithTools] = useState(false)
   const [cleared, setCleared] = useState(false)
   const dialog = useRef<HTMLDialogElement>(null)
+  const deleteDialog = useRef<HTMLDialogElement>(null)
+  const { status, user, syncing } = useAccount()
+  const signedIn = status === 'signed-in' && !!user
+  const [busy, setBusy] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const [deleted, setDeleted] = useState(false)
+  const [typed, setTyped] = useState('')
+
+  // Back from Google/GitHub: drop ?code=… from the address bar once signed in.
+  useEffect(() => {
+    if (signedIn && window.location.search.includes('code=')) {
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+  }, [signedIn])
+
+  async function run(key: string, fn: () => Promise<void>) {
+    setBusy(key)
+    setError(null)
+    try {
+      await fn()
+    } catch (e) {
+      console.warn('[account]', e)
+      setError(s.failed)
+    } finally {
+      setBusy(null)
+    }
+  }
+  const signInWith = (provider: 'google' | 'github') =>
+    run(provider, async () => (await loadAccount()).signIn(provider, `${prefix}/account`))
 
   function download() {
     const data = {
@@ -116,8 +192,17 @@ export function AccountPage({ locale }: { locale: Locale }) {
     URL.revokeObjectURL(url)
   }
 
-  function clearNow() {
-    clearLearningData()
+  async function clearNow() {
+    if (signedIn) {
+      try {
+        await (await loadAccount()).clearAccountData()
+      } catch (e) {
+        console.warn('[account]', e)
+        setError(s.failed)
+      }
+    } else {
+      clearLearningData()
+    }
     if (withTools) {
       for (const k of TOOL_KEYS) {
         try {
@@ -132,13 +217,54 @@ export function AccountPage({ locale }: { locale: Locale }) {
   return (
     <main className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
       <h1 className="text-3xl font-bold tracking-tight">{s.title}</h1>
-      <p className="mt-3 text-muted-foreground">{s.intro}</p>
+      <p className="mt-3 text-muted-foreground">{signedIn ? s.introSignedIn : s.intro}</p>
       <p className="mt-2 text-sm font-medium tabular-nums">
         {s.summary(completed.size, xp, count)} ·{' '}
         <Link href={`${prefix}/progress`} className="text-primary underline-offset-4 hover:underline">{s.progressLink}</Link>
       </p>
 
       <div className="mt-8 space-y-4">
+        {deleted && <p role="status" className="rounded-xl border border-emerald-500/40 bg-emerald-500/10 p-4 text-sm font-medium">{s.deleted}</p>}
+        {error && <p role="alert" className="rounded-xl border border-destructive/40 bg-destructive/10 p-4 text-sm font-medium text-destructive">{error}</p>}
+
+        {signedIn ? (
+          <section className="flex flex-wrap items-center gap-4 rounded-xl border bg-card p-5">
+            {user.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element -- remote avatar from Google/GitHub
+              <img src={user.avatar} alt="" width={48} height={48} referrerPolicy="no-referrer" className="size-12 rounded-full object-cover" />
+            ) : (
+              <span className="flex size-12 items-center justify-center rounded-full bg-primary text-lg font-semibold text-primary-foreground">{(user.name ?? user.email ?? '?').slice(0, 1).toUpperCase()}</span>
+            )}
+            <div className="min-w-0 flex-1">
+              <p className="text-xs text-muted-foreground">{s.signedInAs}</p>
+              <p className="truncate font-semibold">{user.name ?? user.email}</p>
+              {user.name && user.email && <p className="truncate text-sm text-muted-foreground">{user.email}</p>}
+              <p className="mt-1 flex items-center gap-1.5 text-xs text-muted-foreground"><Cloud className="size-3.5" aria-hidden />{syncing ? s.syncing : s.synced}</p>
+            </div>
+            <Button variant="outline" className="min-h-11" disabled={busy !== null} onClick={() => run('out', async () => (await loadAccount()).signOut())}>
+              <LogOut className="size-4" aria-hidden />{s.signOut}
+            </Button>
+          </section>
+        ) : status === 'signed-out' ? (
+          <section className="rounded-xl border border-primary/40 bg-card p-5">
+            <h2 className="font-semibold">{s.signInTitle}</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground">{s.signInBody}</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <Button variant="outline" className="min-h-11" disabled={busy !== null} onClick={() => signInWith('google')}>
+                <IconGoogle className="size-4" aria-hidden />{busy === 'google' ? s.signingIn : s.withGoogle}
+              </Button>
+              <Button variant="outline" className="min-h-11" disabled={busy !== null} onClick={() => signInWith('github')}>
+                <IconGithub className="size-4" aria-hidden />{busy === 'github' ? s.signingIn : s.withGithub}
+              </Button>
+            </div>
+            <p className="mt-3 text-xs text-muted-foreground">
+              <Link href={`${prefix}/privacy`} className="underline-offset-4 hover:text-foreground hover:underline">{s.signInNote}</Link>
+            </p>
+          </section>
+        ) : (
+          <div className="h-36 animate-pulse rounded-xl border bg-card" aria-hidden />
+        )}
+
         <section className="rounded-xl border bg-card p-5">
           <h2 className="flex items-center gap-2 font-semibold"><Download className="size-4 text-primary" aria-hidden />{s.downloadTitle}</h2>
           <p className="mt-1.5 text-sm text-muted-foreground">{s.downloadBody}</p>
@@ -147,7 +273,7 @@ export function AccountPage({ locale }: { locale: Locale }) {
 
         <section className="rounded-xl border border-destructive/40 bg-card p-5">
           <h2 className="flex items-center gap-2 font-semibold"><Trash2 className="size-4 text-destructive" aria-hidden />{s.clearTitle}</h2>
-          <p className="mt-1.5 text-sm text-muted-foreground">{s.clearBody}</p>
+          <p className="mt-1.5 text-sm text-muted-foreground">{signedIn ? s.clearBodySignedIn : s.clearBody}</p>
           <label className="mt-4 flex min-h-11 cursor-pointer items-start gap-3 text-sm">
             <input type="checkbox" checked={withTools} onChange={(e) => setWithTools(e.target.checked)} className="mt-0.5 size-4 accent-destructive" />
             {s.clearTools}
@@ -155,6 +281,14 @@ export function AccountPage({ locale }: { locale: Locale }) {
           <Button className="mt-3 min-h-11 bg-destructive text-white hover:bg-destructive/90" onClick={() => { setCleared(false); dialog.current?.showModal() }}>{s.clearBtn}</Button>
           {cleared && <p role="status" className="mt-3 text-sm font-medium text-emerald-600 dark:text-emerald-400">{s.cleared}</p>}
         </section>
+
+        {signedIn && (
+          <section className="rounded-xl border border-destructive/40 bg-card p-5">
+            <h2 className="flex items-center gap-2 font-semibold"><UserX className="size-4 text-destructive" aria-hidden />{s.deleteTitle}</h2>
+            <p className="mt-1.5 text-sm text-muted-foreground">{s.deleteBody}</p>
+            <Button className="mt-4 min-h-11 bg-destructive text-white hover:bg-destructive/90" onClick={() => { setTyped(''); deleteDialog.current?.showModal() }}>{s.deleteBtn}</Button>
+          </section>
+        )}
 
         <section className="rounded-xl border bg-card p-5">
           <h2 className="flex items-center gap-2 font-semibold"><ShieldCheck className="size-4 text-primary" aria-hidden />{s.privacyTitle}</h2>
@@ -174,6 +308,38 @@ export function AccountPage({ locale }: { locale: Locale }) {
         <div className="mt-6 flex flex-wrap justify-end gap-2">
           <Button variant="outline" className="min-h-11" autoFocus onClick={() => dialog.current?.close()}>{s.cancel}</Button>
           <Button className="min-h-11 bg-destructive text-white hover:bg-destructive/90" onClick={clearNow}>{s.confirm}</Button>
+        </div>
+      </dialog>
+
+      <dialog
+        ref={deleteDialog}
+        aria-labelledby="delete-title"
+        className="m-auto w-[min(28rem,calc(100%-2rem))] rounded-xl border bg-background p-6 text-foreground shadow-xl backdrop:bg-black/50"
+      >
+        <h2 id="delete-title" className="text-lg font-semibold">{s.deleteConfirmTitle}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{s.deleteConfirmBody}</p>
+        <input
+          value={typed}
+          onChange={(e) => setTyped(e.target.value)}
+          aria-label={s.deleteWord}
+          autoComplete="off"
+          className="mt-4 h-11 w-full rounded-lg border bg-card px-3 text-sm outline-none focus:border-destructive/60 focus:ring-2 focus:ring-destructive/20"
+        />
+        <div className="mt-6 flex flex-wrap justify-end gap-2">
+          <Button variant="outline" className="min-h-11" autoFocus onClick={() => deleteDialog.current?.close()}>{s.cancel}</Button>
+          <Button
+            className="min-h-11 bg-destructive text-white hover:bg-destructive/90"
+            disabled={typed.trim() !== s.deleteWord || busy !== null}
+            onClick={() =>
+              run('delete', async () => {
+                await (await loadAccount()).deleteAccount()
+                deleteDialog.current?.close()
+                setDeleted(true)
+              })
+            }
+          >
+            {s.deleteConfirm}
+          </Button>
         </div>
       </dialog>
     </main>

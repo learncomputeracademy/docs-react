@@ -213,3 +213,58 @@ export function clearLearningData() {
   streakJustBumped = false
   listeners.forEach((l) => l())
 }
+
+// ── Account sync (lib/account.ts) ───────────────────────────
+// The browser copy stays the working copy; a signed-in learner's row in
+// learner_progress mirrors it. These read/write every learning key at once.
+export type LearningData = {
+  completed: string[]
+  quiz: Record<string, QuizResult>
+  streak: Streak | null
+  last: LastLesson | null
+  badgesSeen: string[]
+}
+
+function readJson<T>(key: string, fallback: T): T {
+  try {
+    const raw = localStorage.getItem(key)
+    return raw ? (JSON.parse(raw) as T) : fallback
+  } catch {
+    return fallback
+  }
+}
+
+export function exportLearningData(): LearningData {
+  return {
+    completed: [...read()],
+    quiz: parseQuiz(readQuizRaw()),
+    streak: parseStreak(readStreakRaw()),
+    last: readJson<LastLesson | null>(LAST_KEY, null),
+    badgesSeen: readJson<string[]>('lca-badges-seen-v1', []),
+  }
+}
+
+export function importLearningData(d: LearningData) {
+  const put = (k: string, v: unknown) => {
+    try {
+      if (v === null) localStorage.removeItem(k)
+      else localStorage.setItem(k, JSON.stringify(v))
+    } catch {}
+  }
+  put(KEY, d.completed)
+  put(QUIZ_KEY, d.quiz)
+  put(STREAK_KEY, d.streak)
+  put(LAST_KEY, d.last)
+  put('lca-badges-seen-v1', d.badgesSeen)
+  cache = null
+  listeners.forEach((l) => l())
+}
+
+// Notified on lesson completion, quiz results and clears (the changes worth
+// syncing). Returns an unsubscribe function.
+export function onLearningChange(l: () => void) {
+  listeners.add(l)
+  return () => {
+    listeners.delete(l)
+  }
+}

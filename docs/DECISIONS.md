@@ -6839,6 +6839,34 @@ excluded; deliberate post-hydration browser reads keep a one-line reasoned eslin
 
 ---
 
+## D-144 · Learner accounts, phase 1: Google + GitHub sign-in, progress sync (2026-11-21)
+
+**Decision.** Optional learner accounts on Supabase Auth (free plan, 50,000 MAU), Google and
+GitHub only. Email codes, phone/SMS, anonymous sign-ins and the teacher view are deferred
+(owner: teacher view later). Supersedes D-141's "no accounts yet".
+
+**How.**
+- Separate learner client (`lib/supabase/learner.ts`): supabase-js with the session in
+  localStorage (`lca-auth`), PKCE, redirect to `/account`. Public pages never send or set auth
+  cookies, so ISR and Cloudflare caching are untouched. The admin panel keeps its cookie client.
+- Code is loaded on demand (`components/account-sync.tsx`): only browsers with a saved session or
+  returning from sign-in download supabase-js. Signed-out visitors pay nothing.
+- Data: one `learner_progress` row per user (RLS owner-only), mirroring the browser stores.
+  The browser stays the working copy; changes are pushed after 2.5 s. First sign-in on a device
+  merges both sides (`lib/progress-merge.ts`, checked by `scripts/check-progress-merge.mjs`).
+- Delete account: `POST /api/account/delete` verifies the bearer token server-side, refuses staff
+  (any `profiles` row), deletes the auth user; the row goes by cascade.
+
+**Security fix found on the way (migration 013).** The `on_auth_user_created` trigger (004) gave
+every new auth user an active `editor` profile. Harmless while the admin panel was the only way
+to create users; with public sign-in every learner would have been able to edit and publish
+lessons. Trigger removed, `profiles.status` default now `blocked`, `createUser` upserts the staff
+profile itself, the admin Users list shows staff only. **013 must run before any provider is
+enabled.**
+
+**Cost.** Two new client modules (lazy), one API route, one table. Owner setup: Google Cloud
+OAuth client, GitHub OAuth app, Supabase provider settings and redirect URLs.
+
 ## Open
 
 | # | Question | Blocks |

@@ -14,6 +14,7 @@ import type { NavNode } from '@/lib/content'
 // Not loaded until the header itself hydrates and this runs — keeps cmdk +
 // Radix Dialog off the critical-path JS for a page someone's just reading.
 import { StreakBadge, XpBadge } from '@/components/streak-badge'
+import { AccountButton } from '@/components/account-button'
 const CommandMenu = dynamic(() => import('./command-menu').then(m => m.CommandMenu), { ssr: false })
 
 export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: NavNode[]; logoLightUrl: string; logoDarkUrl: string }) {
@@ -90,6 +91,7 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
             {dark ? <Sun className="size-4" /> : <Moon className="size-4" />}
           </button>
         </div>
+        <AccountButton locale={locale} />
         <MobileMenuDrawer navItems={navItems} locale={locale} dark={dark} onToggleTheme={toggle} switchHref={switchHref} />
       </div>
     </header>

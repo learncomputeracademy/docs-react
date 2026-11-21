@@ -41,15 +41,17 @@ export async function listUsers(): Promise<UserRow[]> {
   if (profileError) throw new Error(profileError.message)
 
   const profileById = new Map((profiles ?? []).map((p) => [p.id, p]))
-  return authUsers.users.map((u) => {
-    const p = profileById.get(u.id)
+  // Staff only: learners who signed in with Google/GitHub have no profiles
+  // row (migration 013) and are not admin-panel users.
+  return authUsers.users.filter((u) => profileById.has(u.id)).map((u) => {
+    const p = profileById.get(u.id)!
     return {
       id: u.id,
       email: u.email ?? '(no email)',
-      name: p?.name ?? null,
-      role: (p?.role as 'admin' | 'editor') ?? 'editor',
-      status: (p?.status as 'active' | 'blocked') ?? 'active',
-      created_at: p?.created_at ?? u.created_at,
+      name: p.name ?? null,
+      role: p.role as 'admin' | 'editor',
+      status: p.status as 'active' | 'blocked',
+      created_at: p.created_at ?? u.created_at,
       last_sign_in_at: u.last_sign_in_at ?? null,
     }
   })
@@ -79,13 +81,14 @@ export async function createUser(input: CreateUserInput): Promise<{ email: strin
   })
   if (error) throw new Error(error.message)
 
-  // handle_new_user() trigger already inserted a default profile row
-  // (role='editor', status='active') — update it to the role actually
-  // requested, since the trigger has no way to know that.
-  if (input.role !== 'editor') {
-    const { error: roleError } = await admin.from('profiles').update({ role: input.role }).eq('id', data.user.id)
-    if (roleError) throw new Error(roleError.message)
-  }
+  // Staff profile created explicitly (migration 013 removed the trigger that
+  // gave EVERY new auth user an active editor profile — unsafe once public
+  // Google/GitHub sign-in exists). Upsert, so it also works if the old
+  // trigger is still installed.
+  const { error: profileError } = await admin
+    .from('profiles')
+    .upsert({ id: data.user.id, name: input.name, role: input.role, status: 'active' })
+  if (profileError) throw new Error(profileError.message)
 
   await logActivity('invited', 'user', data.user.id, input.email)
   return { email: input.email, tempPassword }
