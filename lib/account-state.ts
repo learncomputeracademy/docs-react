@@ -41,3 +41,30 @@ export function hasStoredSession(): boolean {
     return false
   }
 }
+
+// Sign-in modal (components/sign-in-dialog.tsx). Anything can open it.
+let signInOpen = false
+const openListeners = new Set<() => void>()
+
+export function openSignIn() {
+  signInOpen = true
+  openListeners.forEach((l) => l())
+}
+
+export function closeSignIn() {
+  signInOpen = false
+  openListeners.forEach((l) => l())
+}
+
+export function useSignInOpen(): boolean {
+  return useSyncExternalStore(
+    (l) => {
+      openListeners.add(l)
+      return () => {
+        openListeners.delete(l)
+      }
+    },
+    () => signInOpen,
+    () => false,
+  )
+}

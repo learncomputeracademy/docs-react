@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation'
 import { SiteHeader } from './site-header'
 import { SiteFooter } from './site-footer'
 import { AccountSync } from './account-sync'
+import { SignInHost } from './sign-in-host'
 import type { NavNode } from '@/lib/content'
 
 // The admin panel is a separate application surface with its own sidebar
@@ -34,6 +35,7 @@ export function SiteChrome({
       {children}
       <SiteFooter />
       <AccountSync />
+      <SignInHost logoLightUrl={logoLightUrl} logoDarkUrl={logoDarkUrl} />
     </>
   )
 }

@@ -2,11 +2,11 @@
 
 import { UserRound } from 'lucide-react'
 import Link from '@/components/hover-link'
-import { useAccount } from '@/lib/account-state'
+import { openSignIn, useAccount } from '@/lib/account-state'
 import type { Locale } from '@/lib/types'
 
-// Header entry to /account: the learner's avatar when signed in, a small
-// "Sign in" link otherwise. Renders nothing until the state is known, so
+// Header entry: the learner's avatar (links to /account) when signed in, a
+// small "Sign in" button that opens the sign-in modal otherwise. Renders nothing until the state is known, so
 // there is no signed-out flash for signed-in visitors.
 export function AccountButton({ locale }: { locale: Locale }) {
   const { status, user } = useAccount()
@@ -31,9 +31,9 @@ export function AccountButton({ locale }: { locale: Locale }) {
 
   const label = locale === 'bn' ? 'সাইন ইন' : 'Sign in'
   return (
-    <Link href={href} aria-label={label} className="flex min-h-9 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
+    <button type="button" onClick={openSignIn} aria-label={label} className="flex min-h-9 shrink-0 items-center gap-1.5 rounded-full px-2.5 text-[15px] font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">
       <UserRound className="size-4" />
       <span className="hidden md:inline">{label}</span>
-    </Link>
+    </button>
   )
 }

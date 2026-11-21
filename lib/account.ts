@@ -93,6 +93,10 @@ export function startAccount() {
   sb.auth.onAuthStateChange((event, session) => {
     if (session) {
       setAccountState({ status: 'signed-in', user: toUser(session) })
+      // Back from a GitHub/Google redirect: tidy ?code=… out of the address bar.
+      if (event === 'SIGNED_IN' && new URLSearchParams(window.location.search).has('code')) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.hash)
+      }
       // Defer: Supabase recommends not awaiting other calls inside this callback.
       setTimeout(() => void syncIn(session.user.id), 0)
     } else {
@@ -106,6 +110,16 @@ export async function signIn(provider: Provider, returnPath: string) {
   startAccount()
   const redirectTo = `${window.location.origin}${returnPath}`
   const { error } = await learnerClient().auth.signInWithOAuth({ provider, options: { redirectTo } })
+  if (error) throw error
+}
+
+// Google Identity Services button (components/sign-in-dialog.tsx): Google
+// hands us an ID token in a popup, no redirect, and its screen names our
+// site rather than the Supabase callback domain. The raw nonce is checked by
+// Supabase against the hashed one Google embedded in the token.
+export async function signInWithGoogleToken(credential: string, rawNonce: string) {
+  startAccount()
+  const { error } = await learnerClient().auth.signInWithIdToken({ provider: 'google', token: credential, nonce: rawNonce })
   if (error) throw error
 }
 

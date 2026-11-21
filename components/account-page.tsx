@@ -2,9 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Download, Trash2, ShieldCheck, LogOut, Cloud, UserX } from 'lucide-react'
-import IconGoogle from '~icons/simple-icons/google'
-import IconGithub from '~icons/simple-icons/github'
-import { useAccount } from '@/lib/account-state'
+import { openSignIn, useAccount } from '@/lib/account-state'
 import Link from '@/components/hover-link'
 import { Button } from '@/components/ui/button'
 import { LEARNING_KEYS, clearLearningData, useCompleted, useXp, useStreak } from '@/lib/progress'
@@ -58,10 +56,8 @@ const T = {
     introSignedIn: 'Your progress is saved to your account and kept in step on every device you sign in on.',
     signInTitle: 'Save your progress across devices',
     signInBody: 'Sign in to keep your lessons, quiz scores, streak and badges on your phone, laptop and any other device. What you have done in this browser is added to your account, not lost. Free, and optional.',
-    withGoogle: 'Continue with Google',
-    withGithub: 'Continue with GitHub',
+    signInBtn: 'Sign in with Google or GitHub',
     signInNote: 'We only receive your name, email address and profile picture. See the privacy policy.',
-    signingIn: 'Opening sign-in…',
     signedInAs: 'Signed in as',
     syncing: 'Syncing…',
     synced: 'Progress saved to your account',
@@ -101,10 +97,8 @@ const T = {
     introSignedIn: 'আপনার অগ্রগতি অ্যাকাউন্টে সেভ থাকে আর যে ডিভাইসেই সাইন ইন করুন সেখানে মিলে থাকে।',
     signInTitle: 'সব ডিভাইসে অগ্রগতি সেভ রাখুন',
     signInBody: 'সাইন ইন করলে আপনার পাঠ, কুইজের স্কোর, স্ট্রিক আর ব্যাজ ফোন, ল্যাপটপ আর অন্য যেকোনো ডিভাইসে থাকবে। এই ব্রাউজারে যা করেছেন তা অ্যাকাউন্টে যোগ হবে, হারাবে না। বিনামূল্যে, আর ঐচ্ছিক।',
-    withGoogle: 'Google দিয়ে চালিয়ে যান',
-    withGithub: 'GitHub দিয়ে চালিয়ে যান',
+    signInBtn: 'Google বা GitHub দিয়ে সাইন ইন',
     signInNote: 'আমরা শুধু আপনার নাম, ইমেল ঠিকানা আর প্রোফাইল ছবি পাই। গোপনীয়তা নীতি দেখুন।',
-    signingIn: 'সাইন-ইন খুলছে…',
     signedInAs: 'সাইন ইন করা আছে',
     syncing: 'মিলিয়ে নেওয়া হচ্ছে…',
     synced: 'অগ্রগতি আপনার অ্যাকাউন্টে সেভ আছে',
@@ -174,8 +168,6 @@ export function AccountPage({ locale }: { locale: Locale }) {
       setBusy(null)
     }
   }
-  const signInWith = (provider: 'google' | 'github') =>
-    run(provider, async () => (await loadAccount()).signIn(provider, `${prefix}/account`))
 
   function download() {
     const data = {
@@ -249,14 +241,7 @@ export function AccountPage({ locale }: { locale: Locale }) {
           <section className="rounded-xl border border-primary/40 bg-card p-5">
             <h2 className="font-semibold">{s.signInTitle}</h2>
             <p className="mt-1.5 text-sm text-muted-foreground">{s.signInBody}</p>
-            <div className="mt-4 flex flex-wrap gap-2">
-              <Button variant="outline" className="min-h-11" disabled={busy !== null} onClick={() => signInWith('google')}>
-                <IconGoogle className="size-4" aria-hidden />{busy === 'google' ? s.signingIn : s.withGoogle}
-              </Button>
-              <Button variant="outline" className="min-h-11" disabled={busy !== null} onClick={() => signInWith('github')}>
-                <IconGithub className="size-4" aria-hidden />{busy === 'github' ? s.signingIn : s.withGithub}
-              </Button>
-            </div>
+            <Button className="mt-4 min-h-11" onClick={openSignIn}>{s.signInBtn}</Button>
             <p className="mt-3 text-xs text-muted-foreground">
               <Link href={`${prefix}/privacy`} className="underline-offset-4 hover:text-foreground hover:underline">{s.signInNote}</Link>
             </p>
