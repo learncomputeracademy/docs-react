@@ -6,7 +6,6 @@ import IconYoutube from '~icons/simple-icons/youtube'
 import IconFacebook from '~icons/simple-icons/facebook'
 import IconInstagram from '~icons/simple-icons/instagram'
 import IconX from '~icons/simple-icons/x'
-import IconWhatsapp from '~icons/simple-icons/whatsapp'
 import { t, localeFromPathname } from '@/lib/i18n'
 
 // Social links copied from learncomputer.in's own footer (2026-11-21).
@@ -15,7 +14,6 @@ const SOCIAL = [
   { label: 'Facebook', href: 'https://www.facebook.com/learncomputeracademy', icon: IconFacebook },
   { label: 'Instagram', href: 'https://www.instagram.com/learncomputeracademy/', icon: IconInstagram },
   { label: 'X', href: 'https://x.com/welearncomputer', icon: IconX },
-  { label: 'WhatsApp', href: 'https://wa.me/918918560266?text=Hi%2C%20I%20want%20to%20know%20more%20about%20your%20courses.', icon: IconWhatsapp },
 ]
 
 const LINKS = {
