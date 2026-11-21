@@ -15,7 +15,14 @@ export function htmlToEditable(html: string): string {
 }
 
 export function editableToHtml(text: string): string {
+  // Split out ``` samples first, so backticks inside them (JS template
+  // literals) are never read as inline-code markers.
   return text
-    .replace(/```\n?([\s\S]*?)\n?```/g, (_, c) => `<pre><code>${esc(c)}</code></pre>`)
-    .replace(/`([^`\n]+)`/g, (_, c) => `<code>${esc(c)}</code>`)
+    .split(/(```\n?[\s\S]*?\n?```)/)
+    .map((part) => {
+      const block = part.match(/^```\n?([\s\S]*?)\n?```$/)
+      if (block) return `<pre><code>${esc(block[1])}</code></pre>`
+      return part.replace(/`([^`\n]+)`/g, (_, c) => `<code>${esc(c)}</code>`)
+    })
+    .join('')
 }

@@ -33,7 +33,8 @@ for (const html of [
   'What shows?<pre><code>&lt;p&gt;Hi&lt;/p&gt;\n&lt;!-- &lt;p&gt;Bye&lt;/p&gt; --&gt;</code></pre>',
   'Plain <em>text</em> &amp; more',
   '<code>a &amp;&amp; b</code>',
-]) assert.equal(toHtml(toText(html)), html, `round-trip: ${html}`)
+  'What logs?<pre><code>console.log(`Hello, ${name}!`)</code></pre> and <code>x</code>',
+])assert.equal(toHtml(toText(html)), html, `round-trip: ${html}`)
 assert.equal(toText('<code>&lt;p&gt;</code>'), '`<p>`')
 assert.equal(toHtml('Use `<br>` here'), 'Use <code>&lt;br&gt;</code> here')
 console.log('quiz editor text: all checks passed')
