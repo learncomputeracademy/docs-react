@@ -29,7 +29,6 @@ function code(language, codeText) { return { id: nanoid(12), type: 'code', langu
 function callout(variant, html, title) { return { id: nanoid(12), type: 'callout', variant, title, html } }
 function table(header, rows, caption) { return { id: nanoid(12), type: 'table', header, rows, caption } }
 function toc(blocks) { return blocks.filter(b => b.type === 'heading').map(b => ({ id: b.anchor, text: b.text, level: b.level })) }
-function ul(items) { return `<ul>${items.map(i => `<li>${i}</li>`).join('')}</ul>` }
 
 const lesson = {
   slug: 'design-systems-and-component-thinking',

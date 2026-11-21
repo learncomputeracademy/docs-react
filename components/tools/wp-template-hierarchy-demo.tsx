@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
-import { ArrowRight, FileCheck2, Check } from 'lucide-react'
+import { ArrowRight, FileCheck2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Section } from '@/components/tools/tool-controls'
 import { wths } from '@/lib/wp-template-hierarchy-i18n'

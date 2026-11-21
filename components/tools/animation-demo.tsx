@@ -166,7 +166,10 @@ export function AnimationDemo({ locale }: { locale: Locale }) {
   function togglePlay() {
     const next = !playing
     setPlaying(next)
-    for (const anim of animRefs.current.values()) next ? anim.play() : anim.pause()
+    for (const anim of animRefs.current.values()) {
+      if (next) anim.play()
+      else anim.pause()
+    }
   }
   function handleScrub(ms: number) {
     setPlaying(false)
@@ -175,6 +178,7 @@ export function AnimationDemo({ locale }: { locale: Locale }) {
       const layer = layers.find((l) => l.id === id)
       if (!layer) continue
       anim.pause()
+      // eslint-disable-next-line react-hooks/immutability -- Web Animations API object, set in an event handler, not render state
       anim.currentTime = Math.max(0, ms - layer.delayMs)
     }
   }

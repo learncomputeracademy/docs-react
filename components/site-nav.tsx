@@ -144,6 +144,7 @@ function MegaDropdown({ node, locale }: { node: NavNode; locale: Locale }) {
   // on the hydration render itself (both null); the effect then flips it
   // client-side, safely, after hydration has already succeeded.
   const [portalEl, setPortalEl] = useState<HTMLElement | null>(null)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- portal target only exists after hydration (see comment above)
   useEffect(() => setPortalEl(document.body), [])
 
   // ref alone can no longer tell "inside the dropdown" apart from "outside"

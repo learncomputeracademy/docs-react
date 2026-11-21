@@ -42,6 +42,7 @@ export function NotepadDemo({ locale }: { locale: Locale }) {
   const [previewHtml, setPreviewHtml] = useState('')
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
     setNotes(loadNotes())
     setActiveId(loadActiveId())
     setHydrated(true)

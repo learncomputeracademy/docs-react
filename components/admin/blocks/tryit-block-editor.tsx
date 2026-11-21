@@ -26,15 +26,12 @@ export function TryItBlockEditor({
   onChange: (patch: { mode?: Mode; files?: Files }) => void
 }) {
   const tabs = mode === 'web' ? WEB_TABS : REACT_TABS
-  const [active, setActive] = useState<keyof Files>(tabs[0])
+  const [chosen, setActive] = useState<keyof Files>(tabs[0])
+  // Switching mode can leave the chosen tab missing (e.g. jsx in web mode): fall back to the first.
+  const active = tabs.includes(chosen) ? chosen : tabs[0]
   const [srcDoc, setSrcDoc] = useState('')
   const [error, setError] = useState<string | null>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
-
-  useEffect(() => {
-    if (!tabs.includes(active)) setActive(tabs[0])
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mode])
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {

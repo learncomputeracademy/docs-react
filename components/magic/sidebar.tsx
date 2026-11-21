@@ -398,7 +398,7 @@ function SidebarMenuBadge({ className, ...props }: React.ComponentProps<'div'>) 
 }
 
 function SidebarMenuSkeleton({ className, showIcon = false, ...props }: React.ComponentProps<'div'> & { showIcon?: boolean }) {
-  const width = React.useMemo(() => `${Math.floor(Math.random() * 40) + 50}%`, [])
+  const [width] = React.useState(() => `${Math.floor(Math.random() * 40) + 50}%`)
   return (
     <div className={cn('flex h-8 items-center gap-2 rounded-md px-2', className)} {...props}>
       {showIcon && <Skeleton className="size-4 rounded-md" />}

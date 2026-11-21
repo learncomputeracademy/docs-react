@@ -49,6 +49,7 @@ function LogoUploader({
         {/* Same f_auto,q_auto,c_limit,w_480 transform the live header
             requests (app/layout.tsx) — this preview is what visitors
             actually get, not a separate admin-only rendering. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- already a sized Cloudinary URL, see comment above */}
         <img src={cldUrl(publicId, 'f_auto,q_auto,c_limit,w_480')} alt={`${label} preview`} className="h-8 w-auto" />
       </div>
       <form onSubmit={onSubmit} className="mt-3 flex items-center gap-2">

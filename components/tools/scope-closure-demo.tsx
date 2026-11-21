@@ -62,11 +62,13 @@ export function ScopeClosureDemo({ locale }: { locale: Locale }) {
   }, [])
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- follows the live trace while it is recording
     if (running) setStepIndex(events.length - 1)
   }, [events, running])
 
   useEffect(() => {
     if (!playing) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stops playback once the last step is reached
     if (stepIndex >= events.length - 1) { setPlaying(false); return }
     const id = setTimeout(() => setStepIndex((i) => Math.min(events.length - 1, i + 1)), 700 / speed)
     return () => clearTimeout(id)
@@ -75,7 +77,6 @@ export function ScopeClosureDemo({ locale }: { locale: Locale }) {
   const state = useMemo(() => deriveState(events, stepIndex, preset.scopes), [events, stepIndex, preset.scopes])
   const currentEvent = stepIndex >= 0 && stepIndex < events.length ? events[stepIndex] : null
 
-  const kindLabel: Record<string, string> = { var: s.kindVar, let: s.kindLet, const: s.kindConst, param: s.kindParam, function: s.kindFunction }
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">

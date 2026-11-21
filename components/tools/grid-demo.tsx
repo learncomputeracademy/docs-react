@@ -91,6 +91,7 @@ export function GridDemo({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     const loaded = loadFromUrl() ?? loadFromStorage()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
     if (loaded?.items?.length) setState((prev) => ({ ...prev, ...loaded, activeItemId: loaded.items[0]?.id ?? null }))
   }, [])
 

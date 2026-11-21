@@ -94,6 +94,7 @@ export function ContrastDemo({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     const loaded = loadFromUrl() ?? loadFromStorage()
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
     if (loaded) setState((prev) => ({ ...prev, ...loaded }))
   }, [])
 

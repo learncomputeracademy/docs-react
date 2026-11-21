@@ -46,7 +46,7 @@ function CreateUserForm({ onCreated }: { onCreated: () => void }) {
       <div className="rounded-lg border bg-muted/30 p-4">
         <p className="text-sm font-medium">Account created for {result.email}</p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Hand this temporary password to them yourself — it's shown once and can't be retrieved again. They should change it after signing in.
+          Hand this temporary password to them yourself — it&apos;s shown once and can&apos;t be retrieved again. They should change it after signing in.
         </p>
         <div className="mt-2 flex items-center gap-2">
           <code className="rounded bg-background px-2 py-1 text-sm">{result.tempPassword}</code>

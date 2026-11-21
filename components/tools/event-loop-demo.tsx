@@ -97,11 +97,13 @@ export function EventLoopDemo({ locale }: { locale: Locale }) {
 
   // Track the latest event live while the trace is still recording.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- follows the live trace while it is recording
     if (running) setStepIndex(events.length - 1)
   }, [events, running])
 
   useEffect(() => {
     if (!playing) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stops playback once the last step is reached
     if (stepIndex >= events.length - 1) { setPlaying(false); return }
     const id = setTimeout(() => setStepIndex((i) => Math.min(events.length - 1, i + 1)), 900 / speed)
     return () => clearTimeout(id)

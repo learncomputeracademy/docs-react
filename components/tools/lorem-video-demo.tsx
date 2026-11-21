@@ -72,10 +72,10 @@ export function LoremVideoDemo({ locale }: { locale: Locale }) {
     if (next && next !== activeSource) setActiveSource(next)
   }
 
-  const opts: VideoOptions = {
+  const opts: VideoOptions = useMemo(() => ({
     width, height, usePreset, preset, duration, content, videoCodec, container,
     fps, bg: bg.replace(/^#/, ''), text: text.replace(/^#/, ''), overlayText,
-  }
+  }), [width, height, usePreset, preset, duration, content, videoCodec, container, fps, bg, text, overlayText])
   const videoUrl = useMemo(() => urlForSource(activeSource, opts), [activeSource, opts])
   const dims = activeSource === 'static' ? { w: STATIC_VIDEOS[0].width, h: STATIC_VIDEOS[0].height } : { w: width, h: height }
   const posterUrl = useMemo(() => buildPosterUrl(dims.w, dims.h), [dims.w, dims.h])

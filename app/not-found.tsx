@@ -24,7 +24,7 @@ export default function NotFound() {
 
         <h1 className="mt-8 text-2xl font-bold tracking-tight sm:text-3xl">Lost in the syllabus?</h1>
         <p className="mt-3 text-muted-foreground">
-          The page you're looking for doesn't exist — it may have moved, or the URL might be off.
+          The page you&apos;re looking for doesn&apos;t exist — it may have moved, or the URL might be off.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

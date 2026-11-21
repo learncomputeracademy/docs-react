@@ -80,8 +80,8 @@ export function SpecificityDemo({ locale }: { locale: Locale }) {
   const resultsA = useMemo(() => computeSpecificity(inputA), [inputA])
   const resultsB = useMemo(() => computeSpecificity(inputB), [inputB])
 
-  const specA = resultsA[0]?.spec ?? { a: 0, b: 0, c: 0 }
-  const specB = resultsB[0]?.spec ?? { a: 0, b: 0, c: 0 }
+  const specA = useMemo(() => resultsA[0]?.spec ?? { a: 0, b: 0, c: 0 }, [resultsA])
+  const specB = useMemo(() => resultsB[0]?.spec ?? { a: 0, b: 0, c: 0 }, [resultsB])
   const cmp = compareSpecificity(specA, specB)
 
   const decidedByTier = useMemo(() => {

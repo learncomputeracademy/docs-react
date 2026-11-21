@@ -32,7 +32,7 @@ function useMeasuredWidth(text: string, deps: unknown[]) {
     if (ref.current) setWidth(ref.current.getBoundingClientRect().width)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text, ...deps])
-  return { ref, width }
+  return [ref, width] as const
 }
 
 export function SerpPreviewDemo({ locale }: { locale: Locale }) {
@@ -48,8 +48,8 @@ export function SerpPreviewDemo({ locale }: { locale: Locale }) {
   const limit = LIMITS[device]
   const titleFont = device === 'desktop' ? '20px arial,sans-serif' : '18px arial,sans-serif'
   const descFont = device === 'desktop' ? '14px arial,sans-serif' : '14px arial,sans-serif'
-  const titleMeasure = useMeasuredWidth(title, [device])
-  const descMeasure = useMeasuredWidth(description, [device])
+  const [titleRef, titleWidth] = useMeasuredWidth(title, [device])
+  const [descRef, descWidth] = useMeasuredWidth(description, [device])
 
   const breadcrumb = [domain.replace(/^https?:\/\//, '').replace(/\/$/, ''), ...path.split('/').filter(Boolean)].join(' › ')
 
@@ -143,8 +143,8 @@ export function SerpPreviewDemo({ locale }: { locale: Locale }) {
           <Section
             title={s.titleSection}
             action={
-              <span className={cn('font-mono text-[10px] normal-case', titleMeasure.width && titleMeasure.width > limit.title ? 'text-destructive' : 'text-muted-foreground')}>
-                {titleMeasure.width ? Math.round(titleMeasure.width) : '—'}/{limit.title}{s.pxUsed}
+              <span className={cn('font-mono text-[10px] normal-case', titleWidth && titleWidth > limit.title ? 'text-destructive' : 'text-muted-foreground')}>
+                {titleWidth ? Math.round(titleWidth) : '—'}/{limit.title}{s.pxUsed}
               </span>
             }
           >
@@ -161,19 +161,19 @@ export function SerpPreviewDemo({ locale }: { locale: Locale }) {
                 otherwise) and inflating the page's horizontal scroll range
                 — a real bug caught in the live browser pass. */}
             <div className="relative h-0 overflow-hidden">
-              <span aria-hidden ref={titleMeasure.ref} className="pointer-events-none absolute left-0 whitespace-nowrap" style={{ font: titleFont }}>{title}</span>
+              <span aria-hidden ref={titleRef} className="pointer-events-none absolute left-0 whitespace-nowrap" style={{ font: titleFont }}>{title}</span>
             </div>
             <p className="text-xs text-muted-foreground">
               {title.length} {s.charCount} ·{' '}
-              {titleMeasure.width && titleMeasure.width > limit.title ? s.overGuideline : s.withinGuideline} ({s.guideline})
+              {titleWidth && titleWidth > limit.title ? s.overGuideline : s.withinGuideline} ({s.guideline})
             </p>
           </Section>
 
           <Section
             title={s.descSection}
             action={
-              <span className={cn('font-mono text-[10px] normal-case', descMeasure.width && descMeasure.width > limit.desc * limit.descLines ? 'text-destructive' : 'text-muted-foreground')}>
-                {descMeasure.width ? Math.round(descMeasure.width) : '—'}/{limit.desc * limit.descLines}{s.pxUsed}
+              <span className={cn('font-mono text-[10px] normal-case', descWidth && descWidth > limit.desc * limit.descLines ? 'text-destructive' : 'text-muted-foreground')}>
+                {descWidth ? Math.round(descWidth) : '—'}/{limit.desc * limit.descLines}{s.pxUsed}
               </span>
             }
           >
@@ -185,11 +185,11 @@ export function SerpPreviewDemo({ locale }: { locale: Locale }) {
               className="w-full resize-none rounded-md border bg-background p-2 text-sm"
             />
             <div className="relative h-0 overflow-hidden">
-              <span aria-hidden ref={descMeasure.ref} className="pointer-events-none absolute left-0 whitespace-nowrap" style={{ font: descFont }}>{description}</span>
+              <span aria-hidden ref={descRef} className="pointer-events-none absolute left-0 whitespace-nowrap" style={{ font: descFont }}>{description}</span>
             </div>
             <p className="text-xs text-muted-foreground">
               {description.length} {s.charCount} ·{' '}
-              {descMeasure.width && descMeasure.width > limit.desc * limit.descLines ? s.overGuideline : s.withinGuideline} ({s.guideline})
+              {descWidth && descWidth > limit.desc * limit.descLines ? s.overGuideline : s.withinGuideline} ({s.guideline})
             </p>
           </Section>
 

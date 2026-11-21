@@ -34,13 +34,13 @@ export function LoremDemo({ locale }: { locale: Locale }) {
   // gotcha, just via an effect instead of a lazy initializer.
   const [blocks, setBlocks] = useState<string[]>([])
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- random text is generated after mount so SSR and first client render match
     setBlocks(generateLorem({
       mode, unit, count, htmlWrap,
       charTarget: useCharTarget ? charTarget : null,
       startClassic,
     }))
     // seed exists purely to force regeneration on "Regenerate" clicks
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, unit, count, htmlWrap, useCharTarget, charTarget, startClassic, seed])
   const outputText = joinBlocks(blocks, unit)
   const stats = loremStats(outputText)

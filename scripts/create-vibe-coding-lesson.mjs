@@ -30,7 +30,6 @@ function h(level, text, anchor) {
   return { id: nanoid(12), type: 'heading', level, text, anchor: a }
 }
 function p(html) { return { id: nanoid(12), type: 'richtext', html } }
-function code(language, codeText) { return { id: nanoid(12), type: 'code', language, code: codeText.trim() } }
 function callout(variant, html, title) { return { id: nanoid(12), type: 'callout', variant, title, html } }
 function table(header, rows, caption) { return { id: nanoid(12), type: 'table', header, rows, caption } }
 function toc(blocks) { return blocks.filter(b => b.type === 'heading').map(b => ({ id: b.anchor, text: b.text, level: b.level })) }

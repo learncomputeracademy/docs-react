@@ -1,7 +1,7 @@
 'use client'
 
 import Link from '@/components/hover-link'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Menu, X, Sun, Moon, Languages } from 'lucide-react'
@@ -40,9 +40,11 @@ export function MobileMenuDrawer({
 
   // Same reasoning as MobileSidebarDrawer: links don't know about the
   // drawer, so close it ourselves whenever the route changes.
-  useEffect(() => {
+  const [prevPath, setPrevPath] = useState(pathname)
+  if (pathname !== prevPath) {
+    setPrevPath(pathname)
     setOpen(false)
-  }, [pathname])
+  }
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>

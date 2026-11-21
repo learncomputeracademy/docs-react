@@ -75,6 +75,7 @@ export function UnitsDemo({ locale }: { locale: Locale }) {
     document.body.appendChild(probe)
     const w = probe.getBoundingClientRect().width
     document.body.removeChild(probe)
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- measures a DOM probe, only possible in the browser
     if (w > 0) setChRatio(w / 16)
   }, [])
 

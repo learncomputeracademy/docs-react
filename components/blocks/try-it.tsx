@@ -49,7 +49,7 @@ export function TryIt({ mode, files }: { mode: 'web' | 'react'; files: Files }) 
     }
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect -- initial run only, after mount; the preview iframe is client-only
   useEffect(() => { run() }, []) // initial render, before any edits
 
   function reset() {

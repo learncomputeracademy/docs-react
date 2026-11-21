@@ -106,6 +106,7 @@ function ColorField({
   eyedropperLabel: string
 }) {
   const [supportsEyedropper, setSupportsEyedropper] = useState(false)
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- EyeDropper support is only known in the browser
   useEffect(() => setSupportsEyedropper(typeof window !== 'undefined' && 'EyeDropper' in window), [])
 
   async function pick() {
@@ -219,6 +220,7 @@ export function GradientDemo({ locale }: { locale: Locale }) {
   useEffect(() => {
     const loaded = loadFromUrl() ?? loadFromStorage()
     if (loaded?.spec?.stops?.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
       setState((prev) => ({ ...prev, ...loaded, activeStopId: loaded.spec.stops[0]?.id ?? null }))
     }
   }, [])

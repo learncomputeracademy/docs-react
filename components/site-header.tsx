@@ -23,6 +23,7 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
   const strings = t(locale)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- theme class is only known in the browser
     setDark(document.documentElement.classList.contains('dark'))
   }, [])
 
@@ -56,7 +57,9 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
             is already set before paint by app/layout.tsx's inline script,
             so a state-driven swap would flash the wrong logo on first
             render; a CSS-only swap can't. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized Cloudinary URLs, see comment above */}
         <img src={logoLightUrl} alt={strings.siteName} width={8588} height={1498} className="block h-8 w-auto dark:hidden" />
+        {/* eslint-disable-next-line @next/next/no-img-element -- same as above */}
         <img src={logoDarkUrl} alt={strings.siteName} width={8723} height={1850} className="hidden h-8 w-auto dark:block" />
       </Link>
       {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm; the same

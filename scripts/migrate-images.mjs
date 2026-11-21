@@ -15,7 +15,6 @@
 // the rewrite logic without re-uploading 191 already-live files.
 
 import fs from 'node:fs/promises'
-import fssync from 'node:fs'
 import path from 'node:path'
 import os from 'node:os'
 import { execFile } from 'node:child_process'
@@ -54,7 +53,6 @@ function normalize(p) {
 
 async function convertRaster(inputPath) {
   const img = sharp(inputPath)
-  const meta = await img.metadata()
   const buffer = await img
     .resize({ width: 1600, withoutEnlargement: true })
     .webp({ quality: 80 })
@@ -280,7 +278,7 @@ async function main() {
     if (changed) {
       // strip undefined _src cleanly (JSON.stringify drops it, but be explicit)
       const cleaned = newBlocks.map(b => {
-        if (b.type === 'image' && '_src' in b) { const { _src, ...rest } = b; return rest }
+        if (b.type === 'image' && '_src' in b) { const rest = { ...b }; delete rest._src; return rest }
         return b
       })
       const { error: updateErr } = await supabase.from('docs').update({ blocks: cleaned }).eq('id', doc.id)

@@ -84,6 +84,7 @@ export function RecursionDemo({ locale }: { locale: Locale }) {
 
   useEffect(() => {
     if (!playing) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stops playback once the last step is reached
     if (stepIndex >= events.length - 1) { setPlaying(false); return }
     const id = setTimeout(() => setStepIndex((i) => Math.min(events.length - 1, i + 1)), 500 / speed)
     return () => clearTimeout(id)

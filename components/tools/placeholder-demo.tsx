@@ -107,8 +107,14 @@ export function PlaceholderDemo({ locale }: { locale: Locale }) {
     setBrowserOpen(false)
   }
 
-  const photoOpts = { width, height, source, seed, id: photoId, grayscale, blur, format: photoFormat, cacheBust }
-  const solidOpts = { width, height, bg, text, transparent, customText, font, format: solidFormat, retina }
+  const photoOpts = useMemo(
+    () => ({ width, height, source, seed, id: photoId, grayscale, blur, format: photoFormat, cacheBust }),
+    [width, height, source, seed, photoId, grayscale, blur, photoFormat, cacheBust],
+  )
+  const solidOpts = useMemo(
+    () => ({ width, height, bg, text, transparent, customText, font, format: solidFormat, retina }),
+    [width, height, bg, text, transparent, customText, font, solidFormat, retina],
+  )
 
   const previewUrl = mode === 'photo' ? buildPhotoUrl(photoOpts) : buildSolidUrl(solidOpts)
   const snippet = buildSnippet(snippetFormat, previewUrl, width, height, altText || 'Placeholder')
@@ -124,7 +130,6 @@ export function PlaceholderDemo({ locale }: { locale: Locale }) {
       ? (w: number, h: number) => buildPhotoUrl(photoOpts, w, h)
       : (w: number, h: number) => buildSolidUrl(solidOpts, w, h)
     return buildResponsiveSet(buildUrl, breakpoints, ratio)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [responsiveOn, breakpoints, mode, width, height, photoOpts, solidOpts])
   const responsiveMarkup = useMemo(
     () => buildResponsiveMarkup(responsiveEntries, altText || 'Placeholder'),

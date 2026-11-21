@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Vendored React Bits ports, kept byte-close to upstream (see file headers).
+    "components/magic/dot-grid.tsx",
+    "components/magic/gradient-waves.tsx",
   ]),
 ]);
 

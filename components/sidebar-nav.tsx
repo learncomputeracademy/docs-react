@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Link from '@/components/hover-link'
 import { usePathname } from 'next/navigation'
 import { ChevronRight } from 'lucide-react'
@@ -35,9 +35,11 @@ export function SidebarNav({ categories, locale = 'en' }: { categories: SidebarC
   // lesson AND category-index navigation, so which section is open reacts
   // to the route changing underneath it rather than being a one-time default.
   const [openItems, setOpenItems] = useState<string[]>(() => (activeCategory ? [activeCategory] : [categories[0]?.slug].filter((s): s is string => !!s)))
-  useEffect(() => {
+  const [prevActive, setPrevActive] = useState(activeCategory)
+  if (activeCategory !== prevActive) {
+    setPrevActive(activeCategory)
     if (activeCategory) setOpenItems((prev) => (prev.includes(activeCategory) ? prev : [...prev, activeCategory]))
-  }, [activeCategory])
+  }
 
   function toggle(slug: string) {
     setOpenItems((prev) => (prev.includes(slug) ? prev.filter((s) => s !== slug) : [...prev, slug]))

@@ -155,11 +155,11 @@ export async function HomeContent({ locale }: { locale: Locale }) {
             const items = group.slugs.map(slug => byslug.get(slug)).filter((c): c is NonNullable<typeof c> => !!c && c.docs.length > 0)
             if (items.length === 0) return null
             return (
-              <SubjectGroup key={group.key} label={group.label[locale]} items={items} prefix={prefix} locale={locale} s={s} />
+              <SubjectGroup key={group.key} label={group.label[locale]} items={items} prefix={prefix} s={s} />
             )
           })}
           {ungrouped.length > 0 && (
-            <SubjectGroup label={locale === 'bn' ? 'আরও' : 'More'} items={ungrouped} prefix={prefix} locale={locale} s={s} />
+            <SubjectGroup label={locale === 'bn' ? 'আরও' : 'More'} items={ungrouped} prefix={prefix} s={s} />
           )}
         </div>
       </section>
@@ -187,11 +187,10 @@ export async function HomeContent({ locale }: { locale: Locale }) {
 
 type PanelItem = { id: string; slug: string; title: string; docs: { path: string }[] }
 
-function SubjectGroup({ label, items, prefix, locale, s }: {
+function SubjectGroup({ label, items, prefix, s }: {
   label: string
   items: PanelItem[]
   prefix: string
-  locale: Locale
   s: ReturnType<typeof t>
 }) {
   return (

@@ -16,6 +16,7 @@ export function LessonsApp({ locale }: { locale: Locale }) {
   const [progress, setProgress] = useState<Record<string, LessonProgress>>({})
   const [activeId, setActiveId] = useState<string | null>(null)
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
   useEffect(() => { setProgress(loadLessonProgress()) }, [])
 
   const active = activeId ? LESSONS.find((l) => l.id === activeId) : null

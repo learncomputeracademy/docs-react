@@ -9,7 +9,6 @@ import { FilterStack } from '@/components/tools/filter-stack'
 import { fs } from '@/lib/filters-i18n'
 import { makeFilterOp, buildFilterCss, FILTER_PRESETS, type FilterOp } from '@/lib/filters'
 import type { Locale } from '@/lib/types'
-import { cn } from '@/lib/utils'
 
 // A self-contained sample "photo" — no external request, no Cloudinary asset
 // needed for a tool this small (docs/TOOLS.md: public/ stays under 5MB,

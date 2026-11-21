@@ -87,9 +87,12 @@ export function HeroWaves({ className }: { className?: string }) {
   const [preset, setPreset] = useState(ORDER[0])
   const [values, setValues] = useState<Look>(() => lookFor(ORDER[0], false))
   const valuesRef = useRef(values)
-  valuesRef.current = values
   const presetRef = useRef(preset)
-  presetRef.current = preset
+  // Latest values for the timers/observers below (refs can't be written during render).
+  useEffect(() => {
+    valuesRef.current = values
+    presetRef.current = preset
+  })
   const [small, setSmall] = useState(false)
   const [Dots, setDots] = useState<ComponentType<Record<string, unknown>> | null>(null)
 
@@ -110,6 +113,7 @@ export function HeroWaves({ className }: { className?: string }) {
   // Deferred start: first interaction, or 4s after load.
   useEffect(() => {
     if (lowEnd()) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- viewport width is only known in the browser
     setSmall(innerWidth < 768)
     let done = false
     let timer = 0

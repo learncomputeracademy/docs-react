@@ -93,6 +93,7 @@ export function FlexboxDemo({ locale }: { locale: Locale }) {
   useEffect(() => {
     const loaded = loadFromUrl() ?? loadFromStorage()
     if (loaded?.items?.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- restores saved state (URL/localStorage) after hydration so SSR and first client render match
       setState((prev) => ({ ...prev, ...loaded, activeItemId: loaded.items[0]?.id ?? null }))
     }
   }, [])
