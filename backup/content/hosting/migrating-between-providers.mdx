@@ -6,7 +6,7 @@ status: "published"
 meta_title: "How to Migrate a Website Between Hosts | Learn Computer Academy"
 meta_description: "Moving a live site to a new host or registrar without downtime or lost email — the order of operations that actually matters."
 sort_order: 38
-updated_at: "2026-08-05T13:35:42.670882+00:00"
+updated_at: "2026-11-21T10:48:06.374378+00:00"
 ---
 
 ```json
@@ -90,6 +90,59 @@ updated_at: "2026-08-05T13:35:42.670882+00:00"
     "id": "sQgyJsmxH4q_",
     "html": "<p>If email is hosted separately from the website (the common case, per the earlier email lesson), it is entirely unaffected by a hosting migration — only the A/CNAME records controlling the website change, not the MX records controlling mail. Email only needs attention here if the migration specifically involves switching email providers too, in which case it follows this same safe-order principle on its own MX records.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-migrating-between-providers",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "migrating-between-providers-q1",
+        "answer": 1,
+        "prompt": "What two migrations are often confused?",
+        "explain": "They are independent.",
+        "options": [
+          "Moving laptops",
+          "Moving the domain registration and moving the hosting",
+          "Moving fonts and colours",
+          "Moving offices"
+        ]
+      },
+      {
+        "id": "migrating-between-providers-q2",
+        "answer": 2,
+        "prompt": "What is the safe order for moving hosting?",
+        "explain": "Avoids downtime.",
+        "options": [
+          "Switch DNS before copying files",
+          "Order does not matter",
+          "Set up and test the new host first, then switch DNS, then cancel the old one",
+          "Cancel the old host first"
+        ]
+      },
+      {
+        "id": "migrating-between-providers-q3",
+        "answer": 3,
+        "prompt": "Why lower the DNS TTL before a move?",
+        "explain": "Caches expire sooner.",
+        "options": [
+          "To cancel the domain",
+          "To speed up the CPU",
+          "No reason",
+          "So the switch takes effect faster"
+        ]
+      },
+      {
+        "id": "migrating-between-providers-q4",
+        "answer": 0,
+        "prompt": "Email settings need attention during a migration.",
+        "explain": "Otherwise mail can go missing.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

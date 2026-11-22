@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Git Merging Branches | Learn Computer Academy"
 meta_description: "Bringing a branch's changes into another branch — fast-forward merges vs. a real merge commit, and reading what happened afterward."
 sort_order: 7
-updated_at: "2026-11-21T10:18:32.353253+00:00"
+updated_at: "2026-11-21T10:52:51.900139+00:00"
 ---
 
 ```json
@@ -118,38 +118,38 @@ updated_at: "2026-11-21T10:18:32.353253+00:00"
     "questions": [
       {
         "id": "merging-branches-q1",
-        "answer": 1,
+        "answer": 2,
         "prompt": "To merge feature-login into main, which branch must you be on?",
         "explain": "Then run <code>git merge feature-login</code>.",
         "options": [
+          "A new branch",
           "feature-login",
           "main (the branch receiving the changes)",
-          "Any branch",
-          "A new branch"
+          "Any branch"
         ]
       },
       {
         "id": "merging-branches-q2",
-        "answer": 0,
+        "answer": 2,
         "prompt": "What is a fast-forward merge?",
         "explain": "Possible when main has not moved since the branch started.",
         "options": [
-          "main simply moves ahead to the branch's latest commit, no merge commit needed",
-          "A very fast computer",
           "A failed merge",
-          "Deleting a branch"
+          "Deleting a branch",
+          "main simply moves ahead to the branch's latest commit, no merge commit needed",
+          "A very fast computer"
         ]
       },
       {
         "id": "merging-branches-q3",
-        "answer": 2,
+        "answer": 1,
         "prompt": "What does <code>git merge --no-ff</code> do?",
         "explain": "Some teams want a clear record of feature branches.",
         "options": [
-          "Cancels the merge",
           "Deletes the branch",
           "Forces a real merge commit even when fast-forward is possible",
-          "Skips conflicts"
+          "Skips conflicts",
+          "Cancels the merge"
         ]
       },
       {

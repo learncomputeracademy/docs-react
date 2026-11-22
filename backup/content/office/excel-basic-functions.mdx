@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Excel Basic Functions — IF, COUNT, MAX, MIN | Learn Computer Academy"
 meta_description: "Beyond SUM and AVERAGE — IF, COUNT, COUNTIF, MAX, and MIN cover most beginner Excel needs."
 sort_order: 22
-updated_at: "2026-08-17T08:36:26.221928+00:00"
+updated_at: "2026-11-21T10:51:42.907372+00:00"
 ---
 
 ```json
@@ -58,6 +58,59 @@ updated_at: "2026-08-17T08:36:26.221928+00:00"
     "id": "LiQ6hWP-Vk2p",
     "html": "<p><code>=VLOOKUP(lookup_value, table_range, column_number, FALSE)</code> searches down the first column of a range for a match, then returns a value from a chosen column in that same row — the function behind \"look up this ID and give me the matching name.\" It's the single most-used function beyond the basics, worth returning to once the four above feel comfortable.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-excel-basic-functions",
+    "lang": "text",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "excel-basic-functions-q1",
+        "answer": 3,
+        "prompt": "What does <code>=IF(B2&gt;=40,\"Pass\",\"Fail\")</code> do?",
+        "explain": "A condition, a value if true, a value if false.",
+        "options": [
+          "Counts passes",
+          "Adds 40",
+          "Deletes B2",
+          "Shows Pass if B2 is 40 or more, otherwise Fail"
+        ]
+      },
+      {
+        "id": "excel-basic-functions-q2",
+        "answer": 0,
+        "prompt": "Which function finds the largest value?",
+        "explain": "MIN finds the smallest.",
+        "options": [
+          "<code>MAX</code>",
+          "<code>MIN</code>",
+          "<code>COUNT</code>",
+          "<code>SUM</code>"
+        ]
+      },
+      {
+        "id": "excel-basic-functions-q3",
+        "answer": 1,
+        "prompt": "What does COUNT do?",
+        "explain": "COUNTA counts non-empty cells of any kind.",
+        "options": [
+          "Sorts data",
+          "Counts cells containing numbers in a range",
+          "Adds numbers",
+          "Finds averages"
+        ]
+      },
+      {
+        "id": "excel-basic-functions-q4",
+        "answer": 0,
+        "prompt": "VLOOKUP searches down the first column of a range for a matching value.",
+        "explain": "Then returns a value from a column you choose.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Updating Documents | Learn Computer Academy"
 meta_description: "Changing existing documents with updateOne() and updateMany(), and the $set, $inc, $push, and $unset update operators."
 sort_order: 8
-updated_at: "2026-11-21T10:24:32.331389+00:00"
+updated_at: "2026-11-21T10:53:09.613205+00:00"
 ---
 
 ```json
@@ -114,26 +114,26 @@ updated_at: "2026-11-21T10:24:32.331389+00:00"
     "questions": [
       {
         "id": "updating-documents-q1",
-        "answer": 1,
+        "answer": 3,
         "prompt": "What does <code>$set</code> do?",
         "explain": "Other fields stay unchanged.",
         "options": [
-          "Deletes a field",
-          "Sets a field to a new value",
           "Creates a collection",
-          "Counts documents"
+          "Counts documents",
+          "Deletes a field",
+          "Sets a field to a new value"
         ]
       },
       {
         "id": "updating-documents-q2",
-        "answer": 2,
+        "answer": 1,
         "prompt": "What does <code>{ $inc: { stock: -1 } }</code> do?",
         "explain": "No need to read the current value first.",
         "options": [
-          "Sets stock to -1",
           "Deletes stock",
           "Decreases stock by 1",
-          "Doubles stock"
+          "Doubles stock",
+          "Sets stock to -1"
         ]
       },
       {
@@ -150,14 +150,14 @@ updated_at: "2026-11-21T10:24:32.331389+00:00"
       },
       {
         "id": "updating-documents-q4",
-        "answer": 3,
+        "answer": 0,
         "prompt": "Which operator adds a value to an array field?",
         "explain": "<code>$pull</code> removes from an array.",
         "options": [
+          "<code>$push</code>",
           "<code>$inc</code>",
           "<code>$set</code>",
-          "<code>$gt</code>",
-          "<code>$push</code>"
+          "<code>$gt</code>"
         ]
       }
     ]

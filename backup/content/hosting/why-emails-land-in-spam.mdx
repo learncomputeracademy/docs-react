@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Why Emails Land in Spam | Learn Computer Academy"
 meta_description: "Deliverability is a trust problem, not a technical one — the DNS records and habits that get email from your domain into the inbox instead of spam."
 sort_order: 34
-updated_at: "2026-08-05T13:35:41.331732+00:00"
+updated_at: "2026-11-21T10:48:05.234405+00:00"
 ---
 
 ```json
@@ -108,6 +108,59 @@ updated_at: "2026-08-05T13:35:41.331732+00:00"
     "id": "MLyNIQ6hY_g5",
     "html": "<p>A contact-form notification or a password-reset email (transactional mail, sent one at a time in response to a user action) behaves very differently from a newsletter sent to a large list at once (bulk mail) — mail providers watch for the volume and pattern differences, and bulk sending is held to a noticeably stricter reputation standard. A dedicated transactional-email service is a common, worthwhile choice specifically for the contact-form and account-notification mail a website sends, separate from whatever handles a newsletter, if one exists at all.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-why-emails-land-in-spam",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "why-emails-land-in-spam-q1",
+        "answer": 1,
+        "prompt": "Why does mail from a brand-new domain often land in spam?",
+        "explain": "Deliverability is a trust problem.",
+        "options": [
+          "The domain is .com",
+          "Mail providers do not trust it yet",
+          "The font is wrong",
+          "It has images"
+        ]
+      },
+      {
+        "id": "why-emails-land-in-spam-q2",
+        "answer": 2,
+        "prompt": "What does SPF do?",
+        "explain": "Published as a TXT record.",
+        "options": [
+          "Blocks all spam",
+          "Designs emails",
+          "Lists which servers may send mail for your domain",
+          "Encrypts mail"
+        ]
+      },
+      {
+        "id": "why-emails-land-in-spam-q3",
+        "answer": 3,
+        "prompt": "What does DKIM add?",
+        "explain": "DMARC tells receivers what to do when checks fail.",
+        "options": [
+          "A logo",
+          "A read receipt",
+          "A spam filter",
+          "A cryptographic signature proving the mail was not altered"
+        ]
+      },
+      {
+        "id": "why-emails-land-in-spam-q4",
+        "answer": 0,
+        "prompt": "SPF, DKIM and DMARC together improve deliverability.",
+        "explain": "Major providers increasingly require them.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

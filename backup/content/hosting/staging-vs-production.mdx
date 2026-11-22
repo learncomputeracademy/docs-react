@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Staging vs. Production Explained | Learn Computer Academy"
 meta_description: "Why real teams never edit the live site directly, and how a staging copy — or a Git-based preview deployment — prevents that."
 sort_order: 35
-updated_at: "2026-08-05T13:35:41.674096+00:00"
+updated_at: "2026-11-21T10:48:05.4926+00:00"
 ---
 
 ```json
@@ -101,6 +101,59 @@ updated_at: "2026-08-05T13:35:41.674096+00:00"
     "id": "2dvb1GvwFpxB",
     "html": "<p>A full staging setup is not always justified for a small personal project with no other collaborators and low stakes if something breaks briefly. But even then, testing changes locally before deploying — running the site on your own computer first, the most basic form of an environment separate from production — is a version of the same discipline, worth adopting well before a project grows to the point where a proper staging environment becomes necessary.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-staging-vs-production",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "staging-vs-production-q1",
+        "answer": 0,
+        "prompt": "What is production?",
+        "explain": "Mistakes there affect real users.",
+        "options": [
+          "The live copy real visitors use",
+          "A test copy",
+          "Your laptop",
+          "A backup"
+        ]
+      },
+      {
+        "id": "staging-vs-production-q2",
+        "answer": 1,
+        "prompt": "What is staging?",
+        "explain": "As close to production as practical.",
+        "options": [
+          "A CDN",
+          "A copy of the site for testing changes before they go live",
+          "The live site",
+          "A domain type"
+        ]
+      },
+      {
+        "id": "staging-vs-production-q3",
+        "answer": 2,
+        "prompt": "Why stop editing the live site directly once it matters?",
+        "explain": "Test first, then release.",
+        "options": [
+          "It is slower",
+          "No reason",
+          "A mistake breaks it for real users immediately",
+          "It is illegal"
+        ]
+      },
+      {
+        "id": "staging-vs-production-q4",
+        "answer": 0,
+        "prompt": "Staging sites should usually be hidden from search engines.",
+        "explain": "Use noindex or a password.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

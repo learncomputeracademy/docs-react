@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Finding Documents | Learn Computer Academy"
 meta_description: "Querying a collection with find() and findOne(), and matching documents by field value."
 sort_order: 6
-updated_at: "2026-11-21T10:24:31.727925+00:00"
+updated_at: "2026-11-21T10:53:09.070952+00:00"
 ---
 
 ```json
@@ -108,38 +108,38 @@ updated_at: "2026-11-21T10:24:31.727925+00:00"
     "questions": [
       {
         "id": "finding-documents-q1",
-        "answer": 1,
+        "answer": 2,
         "prompt": "What does <code>db.users.find()</code> with no arguments return?",
         "explain": "Pass a query object to filter.",
         "options": [
+          "An error",
           "Nothing",
           "Every document in the collection",
-          "Only the first document",
-          "An error"
+          "Only the first document"
         ]
       },
       {
         "id": "finding-documents-q2",
-        "answer": 3,
+        "answer": 1,
         "prompt": "What does <code>db.users.find({ age: 27 })</code> return?",
         "explain": "An exact match.",
         "options": [
-          "Users older than 27",
-          "The 27th user",
           "Nothing",
-          "Every user whose age is exactly 27"
+          "Every user whose age is exactly 27",
+          "Users older than 27",
+          "The 27th user"
         ]
       },
       {
         "id": "finding-documents-q3",
-        "answer": 0,
+        "answer": 3,
         "prompt": "When should you use findOne()?",
         "explain": "It returns the first match, or null.",
         "options": [
-          "When you expect or only need a single result",
           "To delete",
           "To count",
-          "Never"
+          "Never",
+          "When you expect or only need a single result"
         ]
       },
       {

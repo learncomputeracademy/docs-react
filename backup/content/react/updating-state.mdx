@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Updating Object and Array State in React | Learn Computer Academy"
 meta_description: "Why React state must be treated as immutable, and the spread-operator patterns for updating objects and arrays without mutating them."
 sort_order: 10
-updated_at: "2026-11-21T10:21:53.998869+00:00"
+updated_at: "2026-11-21T10:53:01.524809+00:00"
 ---
 
 ```json
@@ -113,14 +113,14 @@ updated_at: "2026-11-21T10:21:53.998869+00:00"
     "questions": [
       {
         "id": "updating-state-q1",
-        "answer": 1,
+        "answer": 0,
         "prompt": "Why does <code>user.age = user.age + 1</code> on a state object fail to re-render?",
         "explain": "Never mutate state directly.",
         "options": [
-          "Ages cannot change",
           "The object reference stays the same, so React sees no change",
           "It throws an error",
-          "It re-renders twice"
+          "It re-renders twice",
+          "Ages cannot change"
         ]
       },
       {
@@ -137,26 +137,26 @@ updated_at: "2026-11-21T10:21:53.998869+00:00"
       },
       {
         "id": "updating-state-q3",
-        "answer": 2,
+        "answer": 3,
         "prompt": "How do you add an item to an array in state?",
         "explain": "Create a new array instead of changing the old one.",
         "options": [
+          "<code>items.add(x)</code>",
           "<code>items.push(x)</code>",
           "<code>items[items.length] = x</code>",
-          "<code>setItems([...items, x])</code>",
-          "<code>items.add(x)</code>"
+          "<code>setItems([...items, x])</code>"
         ]
       },
       {
         "id": "updating-state-q4",
-        "answer": 3,
+        "answer": 1,
         "prompt": "Which method removes an item without mutating the array?",
         "explain": "filter returns a new array.",
         "options": [
-          "<code>splice()</code>",
-          "<code>pop()</code>",
           "<code>shift()</code>",
-          "<code>filter()</code>"
+          "<code>filter()</code>",
+          "<code>splice()</code>",
+          "<code>pop()</code>"
         ]
       }
     ]

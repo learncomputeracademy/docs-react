@@ -6,7 +6,7 @@ status: "published"
 meta_title: "What DNS Is and How It Works | Learn Computer Academy"
 meta_description: "DNS is the system that translates a domain name into the numeric address a computer actually needs. How the lookup works, and why changes take time to spread."
 sort_order: 8
-updated_at: "2026-08-05T13:35:32.383073+00:00"
+updated_at: "2026-11-21T10:47:57.904017+00:00"
 ---
 
 ```json
@@ -78,6 +78,59 @@ updated_at: "2026-08-05T13:35:32.383073+00:00"
     "id": "pUrETjVCnfJq",
     "html": "<p>DNS itself is just the lookup mechanism. What it actually stores and returns are <b>records</b> — different types for different purposes, covered in full in the next lesson.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-what-dns-is",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "what-dns-is-q1",
+        "answer": 0,
+        "prompt": "What does DNS do?",
+        "explain": "The internet's phone book.",
+        "options": [
+          "Translates domain names into IP addresses",
+          "Hosts websites",
+          "Encrypts passwords",
+          "Designs pages"
+        ]
+      },
+      {
+        "id": "what-dns-is-q2",
+        "answer": 1,
+        "prompt": "Why do DNS changes not always appear instantly?",
+        "explain": "Often called propagation.",
+        "options": [
+          "It is manual",
+          "Answers are cached for a time (TTL) along the way",
+          "DNS is broken",
+          "Browsers ignore DNS"
+        ]
+      },
+      {
+        "id": "what-dns-is-q3",
+        "answer": 2,
+        "prompt": "How often does DNS get looked up?",
+        "explain": "Caching keeps it fast.",
+        "options": [
+          "Only when you buy a domain",
+          "Never",
+          "Automatically for requests, though results are cached",
+          "Once a year"
+        ]
+      },
+      {
+        "id": "what-dns-is-q4",
+        "answer": 0,
+        "prompt": "Nameservers hold the authoritative DNS records for a domain.",
+        "explain": "The final source of truth for that domain.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

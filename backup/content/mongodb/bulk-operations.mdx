@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Bulk Operations — bulkWrite() | Learn Computer Academy"
 meta_description: "Running many inserts, updates, and deletes in a single database round trip with bulkWrite(), instead of one operation at a time."
 sort_order: 23
-updated_at: "2026-11-21T10:24:37.005738+00:00"
+updated_at: "2026-11-21T10:53:13.486574+00:00"
 ---
 
 ```json
@@ -129,26 +129,26 @@ updated_at: "2026-11-21T10:24:37.005738+00:00"
       },
       {
         "id": "bulk-operations-q2",
-        "answer": 2,
+        "answer": 3,
         "prompt": "Why is bulkWrite() faster for thousands of changes?",
         "explain": "Network latency adds up.",
         "options": [
+          "It uses a faster disk",
           "It skips validation",
           "It deletes old data",
-          "It sends them together instead of one network request each",
-          "It uses a faster disk"
+          "It sends them together instead of one network request each"
         ]
       },
       {
         "id": "bulk-operations-q3",
-        "answer": 3,
+        "answer": 1,
         "prompt": "Which is NOT an operation bulkWrite supports?",
         "explain": "Indexes are created separately.",
         "options": [
-          "<code>insertOne</code>",
-          "<code>updateOne</code>",
           "<code>deleteMany</code>",
-          "<code>createIndex</code>"
+          "<code>createIndex</code>",
+          "<code>insertOne</code>",
+          "<code>updateOne</code>"
         ]
       },
       {

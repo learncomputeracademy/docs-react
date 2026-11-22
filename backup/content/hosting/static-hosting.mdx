@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Static Hosting Explained | Learn Computer Academy"
 meta_description: "When a site is just files with no server-side processing, hosting becomes dramatically simpler and often free. What static hosting is and where it stops being enough."
 sort_order: 14
-updated_at: "2026-08-05T13:35:34.395127+00:00"
+updated_at: "2026-11-21T10:47:59.587477+00:00"
 ---
 
 ```json
@@ -78,6 +78,59 @@ updated_at: "2026-08-05T13:35:34.395127+00:00"
     "id": "8fwSWyFEyzY0",
     "html": "<p>The moment a project needs to save data submitted by a user, query a database, or run any logic that must happen on a server rather than in the visitor's browser, it is no longer purely static. That doesn't mean starting over — many real projects combine a static frontend with a small separate backend API (exactly the Node.js pattern taught in this site's Node.js course), which is a different and increasingly common architecture, covered briefly in the edge and serverless lesson later in this part.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-static-hosting",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "static-hosting-q1",
+        "answer": 0,
+        "prompt": "What is a static site?",
+        "explain": "No PHP, no database queries.",
+        "options": [
+          "Plain HTML, CSS and JS files sent exactly as stored, with no server-side processing",
+          "A site that never changes design",
+          "A PHP site",
+          "A site with a database"
+        ]
+      },
+      {
+        "id": "static-hosting-q2",
+        "answer": 1,
+        "prompt": "Why is static hosting often free?",
+        "explain": "GitHub Pages, Netlify, Cloudflare Pages.",
+        "options": [
+          "It is never free",
+          "Serving files is very cheap; no server-side work",
+          "It is illegal to charge",
+          "Files are tiny always"
+        ]
+      },
+      {
+        "id": "static-hosting-q3",
+        "answer": 2,
+        "prompt": "Which project is a perfect fit for static hosting?",
+        "explain": "A built React app counts too.",
+        "options": [
+          "A WordPress blog",
+          "A Node API with a database",
+          "A portfolio built with HTML, CSS and JavaScript",
+          "A PHP shop with MySQL"
+        ]
+      },
+      {
+        "id": "static-hosting-q4",
+        "answer": 1,
+        "prompt": "Static sites cannot use JavaScript in the browser.",
+        "explain": "Static means no server-side processing; browser JS works fine.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

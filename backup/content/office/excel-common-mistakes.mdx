@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Common Beginner Mistakes in Excel | Learn Computer Academy"
 meta_description: "#DIV/0!, #REF!, #NAME? and the one-column-sort mistake — recognizing the errors instead of panicking."
 sort_order: 27
-updated_at: "2026-08-17T08:36:27.882447+00:00"
+updated_at: "2026-11-21T10:51:44.731703+00:00"
 ---
 
 ```json
@@ -60,6 +60,59 @@ updated_at: "2026-08-17T08:36:27.882447+00:00"
     "id": "0IAaNrbdL_GE",
     "html": "<p>A <b>circular reference</b> happens when a formula refers back to its own cell, directly or through a chain — <code>A1</code> containing <code>=A1+1</code> is the simplest example. Excel can't calculate a result that depends on itself, and shows a warning rather than a wrong number.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-excel-common-mistakes",
+    "lang": "text",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "excel-common-mistakes-q1",
+        "answer": 2,
+        "prompt": "What does <code>#####</code> in a cell usually mean?",
+        "explain": "Widen the column.",
+        "options": [
+          "A virus",
+          "A broken file",
+          "The column is too narrow to show the number",
+          "The data is lost"
+        ]
+      },
+      {
+        "id": "excel-common-mistakes-q2",
+        "answer": 3,
+        "prompt": "What is a circular reference?",
+        "explain": "Excel cannot finish the calculation.",
+        "options": [
+          "A round chart",
+          "A sorted list",
+          "A shared file",
+          "A formula that refers back to its own cell"
+        ]
+      },
+      {
+        "id": "excel-common-mistakes-q3",
+        "answer": 0,
+        "prompt": "What does <code>#DIV/0!</code> mean?",
+        "explain": "Check the divisor cell.",
+        "options": [
+          "A formula is dividing by zero or an empty cell",
+          "The file is corrupt",
+          "A spelling error",
+          "Too much data"
+        ]
+      },
+      {
+        "id": "excel-common-mistakes-q4",
+        "answer": 1,
+        "prompt": "An error value like #REF! means the whole file is broken.",
+        "explain": "Each error has one specific, fixable cause.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

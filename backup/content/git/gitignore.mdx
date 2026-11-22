@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The .gitignore File | Learn Computer Academy"
 meta_description: "Telling Git which files to never track — dependencies, secrets, and build output that don't belong in a repository's history."
 sort_order: 5
-updated_at: "2026-11-21T10:18:31.741563+00:00"
+updated_at: "2026-11-21T10:52:51.21026+00:00"
 ---
 
 ```json
@@ -137,38 +137,38 @@ updated_at: "2026-11-21T10:18:31.741563+00:00"
     "questions": [
       {
         "id": "gitignore-q1",
-        "answer": 0,
+        "answer": 1,
         "prompt": "What does a .gitignore file do?",
         "explain": "Dependencies, build output and secrets.",
         "options": [
+          "Speeds up push",
           "Tells Git which files or folders not to track",
           "Deletes files",
-          "Hides the repository",
-          "Speeds up push"
+          "Hides the repository"
         ]
       },
       {
         "id": "gitignore-q2",
-        "answer": 2,
+        "answer": 0,
         "prompt": "Which file should almost always be in .gitignore?",
         "explain": "It usually holds secrets like API keys.",
         "options": [
-          "<code>README.md</code>",
-          "<code>index.html</code>",
           "<code>.env</code>",
-          "<code>style.css</code>"
+          "<code>style.css</code>",
+          "<code>README.md</code>",
+          "<code>index.html</code>"
         ]
       },
       {
         "id": "gitignore-q3",
-        "answer": 3,
+        "answer": 2,
         "prompt": "You add .env to .gitignore, but it was already committed. What now?",
         "explain": "Already-tracked files keep being tracked.",
         "options": [
-          "Nothing; it is ignored automatically",
           "Delete the repository",
           "Rename it",
-          "Run <code>git rm --cached .env</code> and commit"
+          "Run <code>git rm --cached .env</code> and commit",
+          "Nothing; it is ignored automatically"
         ]
       },
       {

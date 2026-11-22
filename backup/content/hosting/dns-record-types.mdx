@@ -6,7 +6,7 @@ status: "published"
 meta_title: "DNS Record Types — A, CNAME, MX, TXT | Learn Computer Academy"
 meta_description: "The handful of DNS record types that do almost everything — A, CNAME, MX, and TXT — with what each one is for and a realistic example set."
 sort_order: 9
-updated_at: "2026-08-05T13:35:32.691387+00:00"
+updated_at: "2026-11-21T10:47:58.174142+00:00"
 ---
 
 ```json
@@ -121,6 +121,59 @@ updated_at: "2026-08-05T13:35:32.691387+00:00"
     "html": "<p>A wrong DNS record does not usually announce itself with an obvious error — it just quietly makes something not work: a website that won't load, email that never arrives. When something DNS-related seems broken, checking the actual records against what they should be is almost always the fastest diagnosis, faster than guessing at the cause.</p>",
     "type": "callout",
     "variant": "warning"
+  },
+  {
+    "id": "quiz-dns-record-types",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "dns-record-types-q1",
+        "answer": 2,
+        "prompt": "What does an A record do?",
+        "explain": "AAAA does the same for IPv6.",
+        "options": [
+          "Handles email",
+          "Stores text",
+          "Points a name directly at an IPv4 address",
+          "Points a name at another name"
+        ]
+      },
+      {
+        "id": "dns-record-types-q2",
+        "answer": 3,
+        "prompt": "What does a CNAME record do?",
+        "explain": "Common for www and hosted platforms.",
+        "options": [
+          "Points at an IP",
+          "Routes email",
+          "Verifies ownership",
+          "Points one name at another name"
+        ]
+      },
+      {
+        "id": "dns-record-types-q3",
+        "answer": 0,
+        "prompt": "Which record tells the world where to deliver your email?",
+        "explain": "Mail exchanger.",
+        "options": [
+          "MX",
+          "A",
+          "CNAME",
+          "AAAA"
+        ]
+      },
+      {
+        "id": "dns-record-types-q4",
+        "answer": 0,
+        "prompt": "TXT records are often used for verification and email security (SPF, DKIM, DMARC).",
+        "explain": "Plain text values read by other services.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Error Boundaries in React | Learn Computer Academy"
 meta_description: "Catching rendering errors in a part of the component tree with an error boundary, instead of a crash taking down the whole page."
 sort_order: 22
-updated_at: "2026-11-21T10:21:57.433232+00:00"
+updated_at: "2026-11-21T10:53:04.644734+00:00"
 ---
 
 ```json
@@ -102,26 +102,26 @@ updated_at: "2026-11-21T10:21:57.433232+00:00"
     "questions": [
       {
         "id": "error-boundaries-q1",
-        "answer": 2,
+        "answer": 0,
         "prompt": "What happens by default when a component throws during render?",
         "explain": "try/catch does not catch render errors in children.",
         "options": [
-          "Only that component disappears",
-          "React retries forever",
           "The whole React app crashes to a blank page",
-          "Nothing"
+          "Nothing",
+          "Only that component disappears",
+          "React retries forever"
         ]
       },
       {
         "id": "error-boundaries-q2",
-        "answer": 0,
+        "answer": 3,
         "prompt": "What does an error boundary do?",
         "explain": "Damage stays contained to one part of the tree.",
         "options": [
-          "Catches render errors in its children and shows a fallback UI",
           "Fixes bugs automatically",
           "Validates forms",
-          "Blocks network errors"
+          "Blocks network errors",
+          "Catches render errors in its children and shows a fallback UI"
         ]
       },
       {

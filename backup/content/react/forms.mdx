@@ -6,7 +6,7 @@ status: "published"
 meta_title: "React Forms | Learn Computer Academy"
 meta_description: "Building controlled form inputs in React, where state is the single source of truth for what an input displays."
 sort_order: 11
-updated_at: "2026-11-21T10:21:54.285261+00:00"
+updated_at: "2026-11-21T10:53:01.817389+00:00"
 ---
 
 ```json
@@ -113,38 +113,38 @@ updated_at: "2026-11-21T10:21:54.285261+00:00"
       },
       {
         "id": "forms-q2",
-        "answer": 2,
+        "answer": 3,
         "prompt": "In a controlled text input, what happens on each keystroke?",
         "explain": "A round trip through state every time.",
         "options": [
+          "The value is lost",
           "Nothing until submit",
           "The page reloads",
-          "onChange updates state, which re-renders the input",
-          "The value is lost"
+          "onChange updates state, which re-renders the input"
         ]
       },
       {
         "id": "forms-q3",
-        "answer": 1,
+        "answer": 3,
         "prompt": "Which value do you read in <code>onChange={(e) =&gt; setName(…)}</code>?",
         "explain": "e.target is the input element.",
         "options": [
-          "<code>e.value</code>",
-          "<code>e.target.value</code>",
           "<code>e.text</code>",
-          "<code>e.input</code>"
+          "<code>e.input</code>",
+          "<code>e.value</code>",
+          "<code>e.target.value</code>"
         ]
       },
       {
         "id": "forms-q4",
-        "answer": 3,
+        "answer": 2,
         "prompt": "For a checkbox, which property holds its on/off state?",
         "explain": "Read <code>e.target.checked</code>.",
         "options": [
-          "<code>value</code>",
           "<code>selected</code>",
           "<code>on</code>",
-          "<code>checked</code>"
+          "<code>checked</code>",
+          "<code>value</code>"
         ]
       }
     ]

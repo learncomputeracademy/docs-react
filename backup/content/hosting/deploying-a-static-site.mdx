@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deploying a Static HTML/CSS/JS Site | Learn Computer Academy"
 meta_description: "A concrete, start-to-finish walkthrough for putting a plain HTML/CSS/JS project online, using everything covered earlier in this category."
 sort_order: 24
-updated_at: "2026-08-05T13:35:37.747194+00:00"
+updated_at: "2026-11-21T10:48:02.43811+00:00"
 ---
 
 ```json
@@ -86,6 +86,59 @@ updated_at: "2026-08-05T13:35:37.747194+00:00"
     "id": "dl5kCTbL8MdH",
     "html": "<p>Visit the live URL in an incognito/private browser window, to rule out your own browser cache showing you something stale. Check that CSS and images load — a common secondary mistake is linking to assets with a path that worked locally but breaks once deployed, because the folder structure or the base URL is different in production.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-deploying-a-static-site",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deploying-a-static-site-q1",
+        "answer": 1,
+        "prompt": "What does a static site need to go live?",
+        "explain": "Almost the shortest list in this course.",
+        "options": [
+          "A VPS",
+          "Static hosting, a domain (optional) and HTTPS",
+          "A database",
+          "PHP"
+        ]
+      },
+      {
+        "id": "deploying-a-static-site-q2",
+        "answer": 2,
+        "prompt": "Which file must exist at the root?",
+        "explain": "It is the home page.",
+        "options": [
+          "<code>README.md</code>",
+          "<code>.env</code>",
+          "<code>index.html</code>",
+          "<code>style.css</code>"
+        ]
+      },
+      {
+        "id": "deploying-a-static-site-q3",
+        "answer": 3,
+        "prompt": "Why check links and file paths after deploying?",
+        "explain": "Image.PNG and image.png differ on most servers.",
+        "options": [
+          "Links always break",
+          "It is required by law",
+          "No reason",
+          "Paths that worked locally can break, e.g. case-sensitive file names"
+        ]
+      },
+      {
+        "id": "deploying-a-static-site-q4",
+        "answer": 0,
+        "prompt": "A static site can be deployed for free on platforms like GitHub Pages or Netlify.",
+        "explain": "With HTTPS included.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

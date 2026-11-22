@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Schema Design — Embedding vs Referencing | Learn Computer Academy"
 meta_description: "The single biggest decision in MongoDB schema design: nest related data as a sub-document, or store it in a separate collection and reference it."
 sort_order: 12
-updated_at: "2026-11-21T10:24:33.721546+00:00"
+updated_at: "2026-11-21T10:53:10.618319+00:00"
 ---
 
 ```json
@@ -122,26 +122,26 @@ updated_at: "2026-11-21T10:24:33.721546+00:00"
     "questions": [
       {
         "id": "schema-design-embedding-vs-referencing-q1",
-        "answer": 0,
+        "answer": 2,
         "prompt": "What is embedding?",
         "explain": "Like an address object inside a user.",
         "options": [
-          "Putting related data inside the parent document",
-          "Deleting related data",
           "Encrypting data",
-          "Copying the database"
+          "Copying the database",
+          "Putting related data inside the parent document",
+          "Deleting related data"
         ]
       },
       {
         "id": "schema-design-embedding-vs-referencing-q2",
-        "answer": 3,
+        "answer": 2,
         "prompt": "What is referencing?",
         "explain": "Similar to a foreign key in SQL.",
         "options": [
-          "Writing a comment",
           "Indexing",
           "Embedding twice",
-          "Storing related data in another collection and linking by ID"
+          "Storing related data in another collection and linking by ID",
+          "Writing a comment"
         ]
       },
       {

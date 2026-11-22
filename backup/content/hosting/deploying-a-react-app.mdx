@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deploying a React App | Learn Computer Academy"
 meta_description: "React builds down to static files, which is why it deploys through the Git-based cloud workflow — a start-to-finish walkthrough, including the routing wrinkle that catches beginners."
 sort_order: 27
-updated_at: "2026-08-05T13:35:38.789368+00:00"
+updated_at: "2026-11-21T10:48:03.290142+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-08-05T13:35:38.789368+00:00"
     "id": "ZtLRXh0k_xrh",
     "html": "<p>Beyond checking the homepage, specifically test navigating to an inner route and then refreshing the browser on it — that single action is the most reliable way to catch the routing wrinkle before a real visitor does.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-deploying-a-react-app",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deploying-a-react-app-q1",
+        "answer": 2,
+        "prompt": "What does <code>npm run build</code> produce for a React app?",
+        "explain": "Usually in a dist or build folder.",
+        "options": [
+          "A PHP server",
+          "An email",
+          "Static HTML, CSS and JavaScript files",
+          "A database"
+        ]
+      },
+      {
+        "id": "deploying-a-react-app-q2",
+        "answer": 3,
+        "prompt": "Why does a React app with client-side routing need a rewrite rule?",
+        "explain": "The router then shows the right page.",
+        "options": [
+          "To speed up CSS",
+          "To hide the code",
+          "It does not",
+          "So deep links like /about load index.html instead of a 404"
+        ]
+      },
+      {
+        "id": "deploying-a-react-app-q3",
+        "answer": 0,
+        "prompt": "Which deployment suits a React app best?",
+        "explain": "The platform runs the build for you.",
+        "options": [
+          "Git-based static/cloud hosting",
+          "FTP of the src folder",
+          "A database server",
+          "Email hosting"
+        ]
+      },
+      {
+        "id": "deploying-a-react-app-q4",
+        "answer": 1,
+        "prompt": "You should upload your src folder and node_modules directly to the server.",
+        "explain": "Deploy the built output (or let the platform build).",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Comparison & Logical Query Operators | Learn Computer Academy"
 meta_description: "Filtering documents with $gt, $lt, $in, $and, $or, and the other query operators that go beyond exact-match."
 sort_order: 7
-updated_at: "2026-11-21T10:24:32.029969+00:00"
+updated_at: "2026-11-21T10:53:09.334658+00:00"
 ---
 
 ```json
@@ -129,14 +129,14 @@ updated_at: "2026-11-21T10:24:32.029969+00:00"
     "questions": [
       {
         "id": "query-operators-q1",
-        "answer": 2,
+        "answer": 1,
         "prompt": "What does <code>{ age: { $gt: 25 } }</code> match?",
         "explain": "$gte would include 25.",
         "options": [
-          "Age exactly 25",
           "Age less than 25",
           "Age greater than 25",
-          "Any age"
+          "Any age",
+          "Age exactly 25"
         ]
       },
       {
@@ -153,26 +153,26 @@ updated_at: "2026-11-21T10:24:32.029969+00:00"
       },
       {
         "id": "query-operators-q3",
-        "answer": 3,
+        "answer": 0,
         "prompt": "Listing two fields in the same query object acts as…",
         "explain": "Both conditions must match.",
         "options": [
+          "An implicit $and",
           "$or",
           "$not",
-          "An error",
-          "An implicit $and"
+          "An error"
         ]
       },
       {
         "id": "query-operators-q4",
-        "answer": 1,
+        "answer": 3,
         "prompt": "Query operators always start with which character?",
         "explain": "Like $gt, $in, $or.",
         "options": [
-          "#",
-          "$",
           "@",
-          "%"
+          "%",
+          "#",
+          "$"
         ]
       }
     ]

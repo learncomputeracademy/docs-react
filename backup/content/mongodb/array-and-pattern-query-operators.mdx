@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Array and Pattern Query Operators | Learn Computer Academy"
 meta_description: "Querying inside an array field with $all, $elemMatch, and $size, and matching text patterns with $regex — extending the earlier Query Operators lesson."
 sort_order: 22
-updated_at: "2026-11-21T10:24:36.692682+00:00"
+updated_at: "2026-11-21T10:53:13.243754+00:00"
 ---
 
 ```json
@@ -146,38 +146,38 @@ updated_at: "2026-11-21T10:24:36.692682+00:00"
       },
       {
         "id": "array-and-pattern-query-operators-q2",
-        "answer": 0,
+        "answer": 1,
         "prompt": "Which operator matches an array element that meets several conditions at once?",
         "explain": "All conditions apply to the same element.",
         "options": [
+          "<code>$set</code>",
           "<code>$elemMatch</code>",
           "<code>$size</code>",
-          "<code>$exists</code>",
-          "<code>$set</code>"
+          "<code>$exists</code>"
         ]
       },
       {
         "id": "array-and-pattern-query-operators-q3",
-        "answer": 3,
+        "answer": 1,
         "prompt": "What does <code>{ tags: { $size: 3 } }</code> match?",
         "explain": "Exact length only.",
         "options": [
-          "Tags of 3 characters",
-          "The third tag",
           "More than 3 tags",
-          "Arrays with exactly 3 elements"
+          "Arrays with exactly 3 elements",
+          "Tags of 3 characters",
+          "The third tag"
         ]
       },
       {
         "id": "array-and-pattern-query-operators-q4",
-        "answer": 2,
+        "answer": 1,
         "prompt": "Which operator matches text by pattern?",
         "explain": "Like \"names starting with A\".",
         "options": [
-          "<code>$in</code>",
           "<code>$all</code>",
           "<code>$regex</code>",
-          "<code>$gt</code>"
+          "<code>$gt</code>",
+          "<code>$in</code>"
         ]
       }
     ]

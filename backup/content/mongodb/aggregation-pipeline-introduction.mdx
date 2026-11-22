@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Aggregation Pipeline — Introduction | Learn Computer Academy"
 meta_description: "What the MongoDB aggregation pipeline is, and how $match, $group, and $project chain together to transform data."
 sort_order: 15
-updated_at: "2026-11-21T10:24:34.611827+00:00"
+updated_at: "2026-11-21T10:53:11.430702+00:00"
 ---
 
 ```json
@@ -112,14 +112,14 @@ updated_at: "2026-11-21T10:24:34.611827+00:00"
     "questions": [
       {
         "id": "aggregation-pipeline-introduction-q1",
-        "answer": 1,
+        "answer": 0,
         "prompt": "How is aggregate() different from find()?",
         "explain": "Each stage feeds the next.",
         "options": [
-          "It deletes documents",
           "It transforms documents through stages: filter, group, reshape, compute",
           "It only counts",
-          "It is slower and useless"
+          "It is slower and useless",
+          "It deletes documents"
         ]
       },
       {
@@ -136,26 +136,26 @@ updated_at: "2026-11-21T10:24:34.611827+00:00"
       },
       {
         "id": "aggregation-pipeline-introduction-q3",
-        "answer": 0,
+        "answer": 1,
         "prompt": "What does <code>{ $group: { _id: \"$customerId\", total: { $sum: \"$amount\" } } }</code> produce?",
         "explain": "$sum adds up the amounts.",
         "options": [
+          "A sorted list",
           "One document per customer with their total amount",
           "One document per order",
-          "A deleted collection",
-          "A sorted list"
+          "A deleted collection"
         ]
       },
       {
         "id": "aggregation-pipeline-introduction-q4",
-        "answer": 2,
+        "answer": 0,
         "prompt": "What does $project do in a pipeline?",
         "explain": "Like a projection, but more powerful.",
         "options": [
-          "Deletes the pipeline",
-          "Starts a project",
           "Reshapes documents: choose, rename or compute fields",
-          "Sorts"
+          "Sorts",
+          "Deletes the pipeline",
+          "Starts a project"
         ]
       }
     ]

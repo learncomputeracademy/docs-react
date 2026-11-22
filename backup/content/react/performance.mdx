@@ -6,7 +6,7 @@ status: "published"
 meta_title: "React Performance Basics | Learn Computer Academy"
 meta_description: "How React re-renders actually work, and using React.memo to skip re-rendering a component when its props haven't changed."
 sort_order: 24
-updated_at: "2026-11-21T10:21:58.017545+00:00"
+updated_at: "2026-11-21T10:53:05.152962+00:00"
 ---
 
 ```json
@@ -92,38 +92,38 @@ updated_at: "2026-11-21T10:21:58.017545+00:00"
     "questions": [
       {
         "id": "performance-q1",
-        "answer": 3,
+        "answer": 0,
         "prompt": "When a component's state changes, what re-renders?",
         "explain": "Usually cheap, and correct by default.",
         "options": [
+          "That component and all its children",
           "Only that component",
           "The whole page from the server",
-          "Nothing",
-          "That component and all its children"
+          "Nothing"
         ]
       },
       {
         "id": "performance-q2",
-        "answer": 0,
+        "answer": 2,
         "prompt": "What does React.memo do?",
         "explain": "Use it where re-renders are actually costly.",
         "options": [
-          "Skips re-rendering a component when its props have not changed",
-          "Stores data in memory forever",
           "Writes notes",
-          "Deletes components"
+          "Deletes components",
+          "Skips re-rendering a component when its props have not changed",
+          "Stores data in memory forever"
         ]
       },
       {
         "id": "performance-q3",
-        "answer": 2,
+        "answer": 1,
         "prompt": "What should you do before optimising?",
         "explain": "Find the real slow part first.",
         "options": [
-          "Wrap everything in memo",
           "Rewrite in another language",
           "Measure with the React DevTools Profiler",
-          "Remove all state"
+          "Remove all state",
+          "Wrap everything in memo"
         ]
       },
       {

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Indexes | Learn Computer Academy"
 meta_description: "Why indexes make queries fast, creating single-field and compound indexes, and checking a query's performance with explain()."
 sort_order: 14
-updated_at: "2026-11-21T10:24:34.286076+00:00"
+updated_at: "2026-11-21T10:53:11.153807+00:00"
 ---
 
 ```json
@@ -120,38 +120,38 @@ updated_at: "2026-11-21T10:24:34.286076+00:00"
     "questions": [
       {
         "id": "indexes-q1",
-        "answer": 2,
+        "answer": 3,
         "prompt": "What happens without an index?",
         "explain": "Slow on large collections.",
         "options": [
+          "Nothing changes",
           "Queries fail",
           "Data is lost",
-          "MongoDB scans every document (a collection scan)",
-          "Nothing changes"
+          "MongoDB scans every document (a collection scan)"
         ]
       },
       {
         "id": "indexes-q2",
-        "answer": 3,
+        "answer": 1,
         "prompt": "What does <code>db.users.createIndex({ email: 1 })</code> create?",
         "explain": "Lookups by email become fast.",
         "options": [
-          "A new collection",
-          "A backup",
           "A user",
-          "A single-field index on email"
+          "A single-field index on email",
+          "A new collection",
+          "A backup"
         ]
       },
       {
         "id": "indexes-q3",
-        "answer": 0,
+        "answer": 3,
         "prompt": "What is the cost of indexes?",
         "explain": "Index the fields you actually query.",
         "options": [
-          "Writes get a little slower and they use storage",
           "Reads get slower",
           "They delete data",
-          "There is no cost"
+          "There is no cost",
+          "Writes get a little slower and they use storage"
         ]
       },
       {

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Conditional Rendering in React | Learn Computer Academy"
 meta_description: "Showing or hiding parts of a component with &&, the ternary operator, and early returns."
 sort_order: 7
-updated_at: "2026-11-21T10:21:53.079765+00:00"
+updated_at: "2026-11-21T10:53:00.720034+00:00"
 ---
 
 ```json
@@ -106,26 +106,26 @@ updated_at: "2026-11-21T10:21:53.079765+00:00"
     "questions": [
       {
         "id": "conditional-rendering-q1",
-        "answer": 3,
+        "answer": 1,
         "prompt": "What does <code>{hasUnread &amp;&amp; &lt;span&gt;New!&lt;/span&gt;}</code> render when hasUnread is false?",
         "explain": "The right side is never evaluated.",
         "options": [
-          "The span",
-          "An error",
           "The word false",
-          "Nothing"
+          "Nothing",
+          "The span",
+          "An error"
         ]
       },
       {
         "id": "conditional-rendering-q2",
-        "answer": 0,
+        "answer": 3,
         "prompt": "Why is <code>{count &amp;&amp; &lt;p&gt;…&lt;/p&gt;}</code> a common bug?",
         "explain": "Use <code>count &gt; 0 &amp;&amp;</code> instead.",
         "options": [
-          "When count is 0, React renders a 0 on the page",
           "It crashes",
           "It is too slow",
-          "It is not a bug"
+          "It is not a bug",
+          "When count is 0, React renders a 0 on the page"
         ]
       },
       {

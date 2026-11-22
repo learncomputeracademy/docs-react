@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deploying a PHP Site with a Database | Learn Computer Academy"
 meta_description: "A start-to-finish walkthrough for deploying a PHP project that needs a live MySQL database, including the connection-details step every student trips on."
 sort_order: 25
-updated_at: "2026-08-05T13:35:38.066971+00:00"
+updated_at: "2026-11-21T10:48:02.734553+00:00"
 ---
 
 ```json
@@ -119,6 +119,59 @@ updated_at: "2026-08-05T13:35:38.066971+00:00"
     "id": "v3-H5YWCLnOf",
     "html": "<p>Per this category's pipeline standard: check that a page reading from the database actually shows real data, that a form writing to the database actually saves something (check it in phpMyAdmin afterward), and check your host's error log for anything unexpected — most control panels expose this directly.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-deploying-php-with-a-database",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deploying-php-with-a-database-q1",
+        "answer": 0,
+        "prompt": "What extra piece does a PHP + database site need?",
+        "explain": "Not just uploaded files.",
+        "options": [
+          "A live database on the server",
+          "A CDN",
+          "A React build",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "deploying-php-with-a-database-q2",
+        "answer": 1,
+        "prompt": "How do you move your local database to the server?",
+        "explain": "phpMyAdmin can do both.",
+        "options": [
+          "It moves automatically",
+          "Export it (e.g. a .sql dump) and import it on the server",
+          "Copy the folder by FTP",
+          "Email it"
+        ]
+      },
+      {
+        "id": "deploying-php-with-a-database-q3",
+        "answer": 2,
+        "prompt": "What usually needs changing in the PHP code after moving?",
+        "explain": "Production credentials differ from local.",
+        "options": [
+          "The file extensions",
+          "Nothing",
+          "The database host, name, username and password",
+          "Every function name"
+        ]
+      },
+      {
+        "id": "deploying-php-with-a-database-q4",
+        "answer": 0,
+        "prompt": "Shared hosting is built around the PHP + MySQL combination.",
+        "explain": "A natural fit.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

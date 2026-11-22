@@ -6,7 +6,7 @@ status: "published"
 meta_title: "The Parts of a Domain Name | Learn Computer Academy"
 meta_description: "Breaking down blog.example.co.in into its actual named parts — subdomain, second-level domain, and top-level domain — and what each one means."
 sort_order: 5
-updated_at: "2026-08-05T13:35:31.392448+00:00"
+updated_at: "2026-11-21T10:47:57.013969+00:00"
 ---
 
 ```json
@@ -127,6 +127,59 @@ updated_at: "2026-08-05T13:35:31.392448+00:00"
     "html": "<p>A domain can technically be registered with more than one dot before the TLD in some cases — <code>example.co.in</code> is a real pattern, not a typo, covered in the next lesson on TLD types. The parts described here still apply; the base registered name is just slightly longer.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-the-parts-of-a-domain",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "the-parts-of-a-domain-q1",
+        "answer": 2,
+        "prompt": "In <code>blog.example.co.in</code>, which part is the subdomain?",
+        "explain": "Read right to left: TLD, then second-level, then subdomain.",
+        "options": [
+          "<code>co.in</code>",
+          "<code>in</code>",
+          "<code>blog</code>",
+          "<code>example</code>"
+        ]
+      },
+      {
+        "id": "the-parts-of-a-domain-q2",
+        "answer": 3,
+        "prompt": "What do you actually register?",
+        "explain": "Subdomains are free to create after that.",
+        "options": [
+          "Only the TLD",
+          "Only the subdomain",
+          "The IP address",
+          "The second-level domain plus the TLD, like example.com"
+        ]
+      },
+      {
+        "id": "the-parts-of-a-domain-q3",
+        "answer": 0,
+        "prompt": "What is the TLD in example.com?",
+        "explain": "Top-level domain.",
+        "options": [
+          "<code>.com</code>",
+          "<code>example</code>",
+          "<code>www</code>",
+          "<code>http</code>"
+        ]
+      },
+      {
+        "id": "the-parts-of-a-domain-q4",
+        "answer": 0,
+        "prompt": "www is a subdomain.",
+        "explain": "A conventional one, but still a subdomain.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

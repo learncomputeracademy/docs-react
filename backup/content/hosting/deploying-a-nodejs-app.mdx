@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deploying a Node.js App | Learn Computer Academy"
 meta_description: "Why Node.js cannot use traditional shared hosting, and a start-to-finish walkthrough for the two paths that actually work — managed platforms and a VPS."
 sort_order: 28
-updated_at: "2026-08-05T13:35:39.255302+00:00"
+updated_at: "2026-11-21T10:48:03.581217+00:00"
 ---
 
 ```json
@@ -90,6 +90,59 @@ updated_at: "2026-08-05T13:35:39.255302+00:00"
     "id": "4EaIDmStskL5",
     "html": "<p>Beyond loading the site, specifically check that the process actually stays running after some time has passed — a common Node deployment failure is an app that starts successfully but crashes shortly after on real traffic, which a quick initial check right after deploying won't catch.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-deploying-a-nodejs-app",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deploying-a-nodejs-app-q1",
+        "answer": 2,
+        "prompt": "Why does Node.js need different hosting from PHP?",
+        "explain": "Shared hosting usually cannot keep it running.",
+        "options": [
+          "It is only for browsers",
+          "It needs no server",
+          "It runs as one continuous, always-on process",
+          "It cannot use databases"
+        ]
+      },
+      {
+        "id": "deploying-a-nodejs-app-q2",
+        "answer": 3,
+        "prompt": "What keeps a Node app running and restarts it after a crash on a VPS?",
+        "explain": "Also handles restarts on reboot.",
+        "options": [
+          "The browser",
+          "FTP",
+          "DNS",
+          "A process manager like PM2 (or systemd)"
+        ]
+      },
+      {
+        "id": "deploying-a-nodejs-app-q3",
+        "answer": 0,
+        "prompt": "Which port detail matters for hosted Node apps?",
+        "explain": "Hard-coding the port often breaks deploys.",
+        "options": [
+          "Listen on the port the platform provides, often via <code>process.env.PORT</code>",
+          "Always port 80 hard-coded",
+          "No port is needed",
+          "Use port 0"
+        ]
+      },
+      {
+        "id": "deploying-a-nodejs-app-q4",
+        "answer": 0,
+        "prompt": "A reverse proxy like Nginx often sits in front of a Node app on a VPS.",
+        "explain": "It handles HTTPS and forwards requests.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

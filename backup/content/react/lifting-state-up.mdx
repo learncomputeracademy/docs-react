@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Lifting State Up in React | Learn Computer Academy"
 meta_description: "Sharing state between sibling components by moving it to their closest common parent — React's standard pattern for coordinated components."
 sort_order: 14
-updated_at: "2026-11-21T10:21:55.155582+00:00"
+updated_at: "2026-11-21T10:53:02.615982+00:00"
 ---
 
 ```json
@@ -94,26 +94,26 @@ updated_at: "2026-11-21T10:21:55.155582+00:00"
     "questions": [
       {
         "id": "lifting-state-up-q1",
-        "answer": 3,
+        "answer": 1,
         "prompt": "Two sibling components need the same state. What is the standard fix?",
         "explain": "Called lifting state up.",
         "options": [
-          "Copy the state into both",
-          "Use a global variable",
           "Use localStorage",
-          "Move it to their closest common parent and pass it down as props"
+          "Move it to their closest common parent and pass it down as props",
+          "Copy the state into both",
+          "Use a global variable"
         ]
       },
       {
         "id": "lifting-state-up-q2",
-        "answer": 0,
+        "answer": 3,
         "prompt": "How does a child change state that lives in the parent?",
         "explain": "Data flows down, events flow up.",
         "options": [
-          "The parent passes down a setter or handler function as a prop",
           "The child edits the parent directly",
           "It cannot",
-          "With CSS"
+          "With CSS",
+          "The parent passes down a setter or handler function as a prop"
         ]
       },
       {

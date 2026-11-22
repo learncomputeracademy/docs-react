@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Putting a CDN in Front of Your Hosting | Learn Computer Academy"
 meta_description: "A free CDN in front of cheap hosting often outperforms expensive hosting alone. The practical mechanics of adding one, and what to check afterward."
 sort_order: 30
-updated_at: "2026-08-05T13:35:39.881299+00:00"
+updated_at: "2026-11-21T10:48:04.152183+00:00"
 ---
 
 ```json
@@ -78,6 +78,59 @@ updated_at: "2026-08-05T13:35:39.881299+00:00"
     "id": "3LdGtmF7TJYJ",
     "html": "<p>A CDN speeds up delivering content, but it cannot speed up a slow database query or inefficient server-side logic — those still run entirely on your original server, on every single request that reaches it, exactly as before. A CDN complements good backend performance; it does not replace the need for it.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-cdn-in-front-of-your-hosting",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "cdn-in-front-of-your-hosting-q1",
+        "answer": 3,
+        "prompt": "Does adding a CDN replace your hosting?",
+        "explain": "Your server becomes the origin it checks with.",
+        "options": [
+          "Yes, completely",
+          "Only for email",
+          "Only on Sundays",
+          "No, it sits in front of your existing hosting"
+        ]
+      },
+      {
+        "id": "cdn-in-front-of-your-hosting-q2",
+        "answer": 0,
+        "prompt": "What is the \"origin\" server?",
+        "explain": "The source of truth.",
+        "options": [
+          "Your original hosting, which the CDN fetches fresh content from",
+          "The CDN itself",
+          "The visitor's computer",
+          "The registrar"
+        ]
+      },
+      {
+        "id": "cdn-in-front-of-your-hosting-q3",
+        "answer": 1,
+        "prompt": "Why might visitors see an old version after an update?",
+        "explain": "Purge or wait for the cache time.",
+        "options": [
+          "The browser is broken",
+          "The CDN is still serving a cached copy until it expires or is purged",
+          "The site is hacked",
+          "DNS is deleted"
+        ]
+      },
+      {
+        "id": "cdn-in-front-of-your-hosting-q4",
+        "answer": 0,
+        "prompt": "A common setup is to point your domain's DNS through the CDN provider.",
+        "explain": "Cloudflare works this way.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

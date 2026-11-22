@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Excel Cell References — Relative and Absolute | Learn Computer Academy"
 meta_description: "What happens to a formula when you copy it, and how the $ sign locks a reference in place."
 sort_order: 19
-updated_at: "2026-08-17T08:36:24.969225+00:00"
+updated_at: "2026-11-21T10:51:42.111889+00:00"
 ---
 
 ```json
@@ -58,6 +58,59 @@ updated_at: "2026-08-17T08:36:24.969225+00:00"
     "id": "_EDQSQq8hKSW",
     "html": "<p>It's also possible to lock only the column or only the row: <code>$A1</code> locks column A but lets the row shift when copied down; <code>A$1</code> locks row 1 but lets the column shift when copied across. Genuinely useful when building a table where one axis should stay fixed and the other shouldn't.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-excel-cell-references",
+    "lang": "text",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "excel-cell-references-q1",
+        "answer": 2,
+        "prompt": "<code>=A1+B1</code> copied one row down becomes…",
+        "explain": "Relative references shift.",
+        "options": [
+          "<code>=B1+C1</code>",
+          "An error",
+          "<code>=A2+B2</code>",
+          "<code>=A1+B1</code>"
+        ]
+      },
+      {
+        "id": "excel-cell-references-q2",
+        "answer": 3,
+        "prompt": "What do the dollar signs in <code>$A$1</code> do?",
+        "explain": "An absolute reference.",
+        "options": [
+          "Format as currency",
+          "Hide the cell",
+          "Nothing",
+          "Lock the reference so it does not change when copied"
+        ]
+      },
+      {
+        "id": "excel-cell-references-q3",
+        "answer": 0,
+        "prompt": "When do you need an absolute reference?",
+        "explain": "F4 toggles the dollar signs.",
+        "options": [
+          "When every row must use the same fixed cell, like a tax rate",
+          "Never",
+          "For text only",
+          "For charts only"
+        ]
+      },
+      {
+        "id": "excel-cell-references-q4",
+        "answer": 0,
+        "prompt": "In <code>$A1</code>, only the column is locked.",
+        "explain": "A mixed reference.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Specialized Indexes | Learn Computer Academy"
 meta_description: "Three index types beyond single-field and compound — full-text search, location-based queries, and documents that automatically expire."
 sort_order: 25
-updated_at: "2026-11-21T10:24:37.590981+00:00"
+updated_at: "2026-11-21T10:53:13.985874+00:00"
 ---
 
 ```json
@@ -116,38 +116,38 @@ updated_at: "2026-11-21T10:24:37.590981+00:00"
     "questions": [
       {
         "id": "specialized-indexes-q1",
-        "answer": 0,
+        "answer": 1,
         "prompt": "What does a text index enable?",
         "explain": "<code>find({ $text: { $search: 'mongodb indexing' } })</code>.",
         "options": [
+          "Location search",
           "Searching for words within text fields",
           "Faster inserts",
-          "Exact matches only",
-          "Location search"
+          "Exact matches only"
         ]
       },
       {
         "id": "specialized-indexes-q2",
-        "answer": 2,
+        "answer": 0,
         "prompt": "Which index type answers \"shops near me\"?",
         "explain": "Queries by distance on a map.",
         "options": [
-          "Text",
-          "Unique",
           "Geospatial (2dsphere)",
-          "TTL"
+          "TTL",
+          "Text",
+          "Unique"
         ]
       },
       {
         "id": "specialized-indexes-q3",
-        "answer": 3,
+        "answer": 2,
         "prompt": "What does a TTL index do?",
         "explain": "Great for sessions and temporary codes.",
         "options": [
-          "Speeds up text search",
           "Encrypts data",
           "Counts documents",
-          "Deletes documents automatically after a set time"
+          "Deletes documents automatically after a set time",
+          "Speeds up text search"
         ]
       },
       {

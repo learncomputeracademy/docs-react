@@ -6,7 +6,7 @@ status: "published"
 meta_title: "useMemo and useCallback in React | Learn Computer Academy"
 meta_description: "Memoizing an expensive calculation with useMemo, and a stable function reference with useCallback — and when bothering with either is actually worth it."
 sort_order: 20
-updated_at: "2026-11-21T10:21:56.83469+00:00"
+updated_at: "2026-11-21T10:53:04.139352+00:00"
 ---
 
 ```json
@@ -99,38 +99,38 @@ updated_at: "2026-11-21T10:21:56.83469+00:00"
     "questions": [
       {
         "id": "usememo-usecallback-q1",
-        "answer": 0,
+        "answer": 1,
         "prompt": "What does useMemo do?",
         "explain": "Skips expensive work on re-render.",
         "options": [
+          "Creates state",
           "Caches a calculated value until its inputs change",
           "Stores data permanently",
-          "Fetches data",
-          "Creates state"
+          "Fetches data"
         ]
       },
       {
         "id": "usememo-usecallback-q2",
-        "answer": 3,
+        "answer": 1,
         "prompt": "What does useCallback cache?",
         "explain": "Useful when passing callbacks to memoised children.",
         "options": [
-          "A number",
-          "A DOM node",
           "A list",
-          "A function, keeping the same reference between renders"
+          "A function, keeping the same reference between renders",
+          "A number",
+          "A DOM node"
         ]
       },
       {
         "id": "usememo-usecallback-q3",
-        "answer": 1,
+        "answer": 0,
         "prompt": "Should you wrap every value in useMemo?",
         "explain": "Measure before optimising.",
         "options": [
-          "Yes, always",
           "No, only genuinely expensive work; it has its own cost",
           "Only strings",
-          "Only in class components"
+          "Only in class components",
+          "Yes, always"
         ]
       },
       {

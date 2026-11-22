@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Deploying WordPress | Learn Computer Academy"
 meta_description: "The one-click path most students actually use, what it does underneath, and the manual path and migration considerations worth knowing about."
 sort_order: 26
-updated_at: "2026-08-05T13:35:38.485993+00:00"
+updated_at: "2026-11-21T10:48:03.002105+00:00"
 ---
 
 ```json
@@ -78,6 +78,59 @@ updated_at: "2026-08-05T13:35:38.485993+00:00"
     "id": "tR4_wHDM10JA",
     "html": "<p>This site's WordPress course has its own dedicated launch-checklist lesson covering WordPress-specific pre-launch steps — search engine visibility settings, permalink structure, and similar — worth reviewing directly alongside this one rather than duplicating it here.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-deploying-wordpress",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "deploying-wordpress-q1",
+        "answer": 0,
+        "prompt": "What are the two usual paths to deploy WordPress?",
+        "explain": "The manual path shows what the installer does.",
+        "options": [
+          "A one-click installer, or a manual setup",
+          "FTP only",
+          "Static hosting only",
+          "No installation needed"
+        ]
+      },
+      {
+        "id": "deploying-wordpress-q2",
+        "answer": 1,
+        "prompt": "What does a manual WordPress setup need?",
+        "explain": "Then run the install screen.",
+        "options": [
+          "Node.js",
+          "The WordPress files, a database and a configured wp-config.php",
+          "Only a domain",
+          "A React app"
+        ]
+      },
+      {
+        "id": "deploying-wordpress-q3",
+        "answer": 2,
+        "prompt": "What should you do right after installing WordPress?",
+        "explain": "WordPress sites are common attack targets.",
+        "options": [
+          "Use \"admin\" as the username",
+          "Nothing",
+          "Set a strong admin password, update everything and set up backups",
+          "Install 50 plugins"
+        ]
+      },
+      {
+        "id": "deploying-wordpress-q4",
+        "answer": 0,
+        "prompt": "wp-config.php holds the database connection details.",
+        "explain": "Keep it private.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

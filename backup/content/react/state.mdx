@@ -6,7 +6,7 @@ status: "published"
 meta_title: "React State: useState | Learn Computer Academy"
 meta_description: "The useState hook — how a component remembers a value between renders, and why updating it triggers React to re-render."
 sort_order: 9
-updated_at: "2026-11-21T10:21:53.653566+00:00"
+updated_at: "2026-11-21T10:53:01.251273+00:00"
 ---
 
 ```json
@@ -99,26 +99,26 @@ updated_at: "2026-11-21T10:21:53.653566+00:00"
     "questions": [
       {
         "id": "state-q1",
-        "answer": 0,
+        "answer": 2,
         "prompt": "Why does a plain variable not work for a counter in a component?",
         "explain": "React has no way to know it changed.",
         "options": [
-          "It resets every render and changing it does not trigger a re-render",
-          "Variables cannot hold numbers",
           "React bans variables",
-          "It works fine"
+          "It works fine",
+          "It resets every render and changing it does not trigger a re-render",
+          "Variables cannot hold numbers"
         ]
       },
       {
         "id": "state-q2",
-        "answer": 2,
+        "answer": 1,
         "prompt": "What does <code>const [count, setCount] = useState(0)</code> give you?",
         "explain": "Calling setCount triggers a re-render.",
         "options": [
-          "Two counters",
           "A constant that never changes",
           "The current value and a function to update it",
-          "An array of zeros"
+          "An array of zeros",
+          "Two counters"
         ]
       },
       {

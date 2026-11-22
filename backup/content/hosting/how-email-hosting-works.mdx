@@ -6,7 +6,7 @@ status: "published"
 meta_title: "How Email Hosting Actually Works | Learn Computer Academy"
 meta_description: "Email at your own domain is a separate service from website hosting, sent through completely different protocols. How it actually gets set up."
 sort_order: 33
-updated_at: "2026-08-05T13:35:40.952618+00:00"
+updated_at: "2026-11-21T10:48:04.95813+00:00"
 ---
 
 ```json
@@ -122,6 +122,59 @@ updated_at: "2026-08-05T13:35:40.952618+00:00"
     "html": "<p>This is precisely why you can run your website on one host and your email through a completely different provider, with no conflict — they connect to the same domain through entirely different DNS record types, A/CNAME for the website and MX for mail, which is the practical proof of the three-separate-things idea from earlier in this category.</p>",
     "type": "callout",
     "variant": "note"
+  },
+  {
+    "id": "quiz-how-email-hosting-works",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "how-email-hosting-works-q1",
+        "answer": 2,
+        "prompt": "Which protocol sends email between servers?",
+        "explain": "IMAP or POP3 are used to read mail.",
+        "options": [
+          "FTP",
+          "SSH",
+          "SMTP",
+          "HTTP"
+        ]
+      },
+      {
+        "id": "how-email-hosting-works-q2",
+        "answer": 3,
+        "prompt": "Why is email separate from website hosting?",
+        "explain": "Not HTTP at all.",
+        "options": [
+          "It is the same thing",
+          "Browsers handle email",
+          "DNS sends email",
+          "It is an entirely separate system with its own protocols"
+        ]
+      },
+      {
+        "id": "how-email-hosting-works-q3",
+        "answer": 0,
+        "prompt": "Which DNS record directs incoming mail to the right mail server?",
+        "explain": "Set it to your email provider's servers.",
+        "options": [
+          "MX",
+          "A",
+          "CNAME",
+          "AAAA"
+        ]
+      },
+      {
+        "id": "how-email-hosting-works-q4",
+        "answer": 0,
+        "prompt": "You can host email with a different provider than your website.",
+        "explain": "Many sites use a separate email service.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

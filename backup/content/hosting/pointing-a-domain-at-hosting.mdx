@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Pointing a Domain at Hosting | Learn Computer Academy"
 meta_description: "The two practical ways to connect a registered domain to hosting — changing nameservers or adding individual DNS records — and how long to expect it to take."
 sort_order: 19
-updated_at: "2026-08-05T13:35:36.078632+00:00"
+updated_at: "2026-11-21T10:48:00.970776+00:00"
 ---
 
 ```json
@@ -112,6 +112,59 @@ updated_at: "2026-08-05T13:35:36.078632+00:00"
     "id": "mRHjBwqxKekZ",
     "html": "<p>Once you've made the change, a DNS lookup tool (many free ones exist online, and command-line tools like <code>nslookup</code> or <code>dig</code> work too) lets you check what a given DNS server currently reports for your domain, without waiting to see if your own browser has picked up the change yet.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-pointing-a-domain-at-hosting",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "pointing-a-domain-at-hosting-q1",
+        "answer": 3,
+        "prompt": "What are the two ways to connect a domain to hosting?",
+        "explain": "Both build on DNS.",
+        "options": [
+          "Email the host, or call the registrar",
+          "FTP and SSH",
+          "There is only one way",
+          "Change the nameservers, or add DNS records at your current DNS provider"
+        ]
+      },
+      {
+        "id": "pointing-a-domain-at-hosting-q2",
+        "answer": 0,
+        "prompt": "What happens when you switch nameservers to your host's?",
+        "explain": "Existing email records must be recreated there.",
+        "options": [
+          "The host manages all your DNS records",
+          "Your domain is transferred",
+          "Email stops forever",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "pointing-a-domain-at-hosting-q3",
+        "answer": 1,
+        "prompt": "Why might a DNS change take time to show?",
+        "explain": "Usually minutes to a few hours.",
+        "options": [
+          "Browsers block it",
+          "Cached answers expire gradually (TTL)",
+          "DNS is manual",
+          "The domain is broken"
+        ]
+      },
+      {
+        "id": "pointing-a-domain-at-hosting-q4",
+        "answer": 0,
+        "prompt": "Changing nameservers can break email if MX records are not copied over.",
+        "explain": "Check email settings before switching.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "FTP and SFTP Explained | Learn Computer Academy"
 meta_description: "The classic way to move files onto a server: FTP and its secure successor SFTP. What they are, how to use one, and why plain FTP should be avoided."
 sort_order: 20
-updated_at: "2026-08-05T13:35:36.432529+00:00"
+updated_at: "2026-11-21T10:48:01.24833+00:00"
 ---
 
 ```json
@@ -85,6 +85,59 @@ updated_at: "2026-08-05T13:35:36.432529+00:00"
     "id": "FYworN1pBIRF",
     "html": "<p>FTP/SFTP is the standard way to deploy to shared hosting and many control-panel-based hosts specifically, since that is what those platforms are built to expect. It is not how cloud and managed platforms typically work — those generally use Git-based deployment instead, covered in its own lesson later in this part.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-ftp-and-sftp",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "ftp-and-sftp-q1",
+        "answer": 1,
+        "prompt": "What does FTP do?",
+        "explain": "The mechanism behind \"uploading your website\".",
+        "options": [
+          "Encrypts websites",
+          "Transfers files from your computer to a server",
+          "Translates domains",
+          "Sends email"
+        ]
+      },
+      {
+        "id": "ftp-and-sftp-q2",
+        "answer": 2,
+        "prompt": "Why prefer SFTP over plain FTP?",
+        "explain": "Plain FTP sends credentials as readable text.",
+        "options": [
+          "SFTP is free",
+          "No difference",
+          "SFTP encrypts the connection, including your password",
+          "FTP is faster always"
+        ]
+      },
+      {
+        "id": "ftp-and-sftp-q3",
+        "answer": 3,
+        "prompt": "What do you need to connect with an FTP/SFTP client?",
+        "explain": "Your host provides these.",
+        "options": [
+          "Only the domain",
+          "A credit card",
+          "Nothing",
+          "Host, username, password (or key) and port"
+        ]
+      },
+      {
+        "id": "ftp-and-sftp-q4",
+        "answer": 0,
+        "prompt": "FileZilla is an example of an FTP/SFTP client.",
+        "explain": "A free desktop app.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```

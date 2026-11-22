@@ -6,7 +6,7 @@ status: "published"
 meta_title: "MongoDB Multi-Document Transactions | Learn Computer Academy"
 meta_description: "Making several writes across documents (or collections) succeed or fail together, and how read/write concerns tune the consistency guarantee."
 sort_order: 24
-updated_at: "2026-11-21T10:24:37.307899+00:00"
+updated_at: "2026-11-21T10:53:13.735334+00:00"
 ---
 
 ```json
@@ -109,26 +109,26 @@ updated_at: "2026-11-21T10:24:37.307899+00:00"
     "questions": [
       {
         "id": "transactions-q1",
-        "answer": 1,
+        "answer": 3,
         "prompt": "What does a transaction guarantee?",
         "explain": "All-or-nothing across several documents.",
         "options": [
-          "Faster writes",
-          "All operations apply together, or none do",
           "Automatic backups",
-          "Smaller documents"
+          "Smaller documents",
+          "Faster writes",
+          "All operations apply together, or none do"
         ]
       },
       {
         "id": "transactions-q2",
-        "answer": 0,
+        "answer": 3,
         "prompt": "Why does a money transfer need a transaction?",
         "explain": "Subtract and add must happen together.",
         "options": [
-          "A crash between the two writes would leave money missing or duplicated",
           "Banks require PHP",
           "It is faster",
-          "It is not needed"
+          "It is not needed",
+          "A crash between the two writes would leave money missing or duplicated"
         ]
       },
       {
@@ -145,14 +145,14 @@ updated_at: "2026-11-21T10:24:37.307899+00:00"
       },
       {
         "id": "transactions-q4",
-        "answer": 2,
+        "answer": 3,
         "prompt": "What does aborting a transaction do?",
         "explain": "Nothing partial is left behind.",
         "options": [
+          "Commits it",
           "Saves half the changes",
           "Deletes the database",
-          "Discards every change made in it",
-          "Commits it"
+          "Discards every change made in it"
         ]
       }
     ]

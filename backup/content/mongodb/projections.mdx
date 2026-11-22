@@ -6,7 +6,7 @@ status: "published"
 meta_title: "Projections | Learn Computer Academy"
 meta_description: "Choosing which fields a query returns, using a projection as the second argument to find()."
 sort_order: 11
-updated_at: "2026-11-21T10:24:33.373322+00:00"
+updated_at: "2026-11-21T10:53:10.36906+00:00"
 ---
 
 ```json
@@ -108,38 +108,38 @@ updated_at: "2026-11-21T10:24:33.373322+00:00"
     "questions": [
       {
         "id": "projections-q1",
-        "answer": 2,
+        "answer": 3,
         "prompt": "What is a projection?",
         "explain": "It is the second argument to find().",
         "options": [
+          "An index",
           "A filter on documents",
           "A backup",
-          "Choosing which fields come back in a query",
-          "An index"
+          "Choosing which fields come back in a query"
         ]
       },
       {
         "id": "projections-q2",
-        "answer": 0,
+        "answer": 2,
         "prompt": "What does <code>find({}, { name: 1, email: 1 })</code> return?",
         "explain": "_id is included unless excluded.",
         "options": [
-          "Only _id, name and email",
-          "Everything",
           "Nothing",
-          "Only name"
+          "Only name",
+          "Only _id, name and email",
+          "Everything"
         ]
       },
       {
         "id": "projections-q3",
-        "answer": 3,
+        "answer": 2,
         "prompt": "How do you hide the _id field?",
         "explain": "Setting a field to 0 excludes it.",
         "options": [
-          "_id: 1",
           "You cannot",
           "_id: \"hide\"",
-          "_id: 0"
+          "_id: 0",
+          "_id: 1"
         ]
       },
       {

@@ -6,7 +6,7 @@ status: "published"
 meta_title: "HTTPS and SSL Certificates Explained | Learn Computer Academy"
 meta_description: "What actually happens when a site uses HTTPS, why it is now essentially mandatory, and how to actually get a certificate — usually for free."
 sort_order: 32
-updated_at: "2026-08-05T13:35:40.546478+00:00"
+updated_at: "2026-11-21T10:48:04.692599+00:00"
 ---
 
 ```json
@@ -98,6 +98,59 @@ updated_at: "2026-08-05T13:35:40.546478+00:00"
     "id": "F-c3aNYULKmw",
     "html": "<p>Certificates expire, typically after a period of months, specifically so a compromised or outdated one cannot remain trusted indefinitely. Modern free certificate services renew automatically with no action from you; if using an older manual process, an expired certificate is a real, visible failure — visitors see a security warning rather than a working site, so tracking renewal dates matters if this isn't automated for you.</p>",
     "type": "richtext"
+  },
+  {
+    "id": "quiz-https-and-ssl-certificates",
+    "lang": "bash",
+    "type": "quiz",
+    "questions": [
+      {
+        "id": "https-and-ssl-certificates-q1",
+        "answer": 2,
+        "prompt": "What does plain HTTP expose?",
+        "explain": "Anyone in between can read it.",
+        "options": [
+          "Only images",
+          "Only the domain",
+          "Everything sent, including form data, as readable text",
+          "Nothing"
+        ]
+      },
+      {
+        "id": "https-and-ssl-certificates-q2",
+        "answer": 3,
+        "prompt": "What does an SSL/TLS certificate do?",
+        "explain": "The basis of HTTPS.",
+        "options": [
+          "Speeds up CSS",
+          "Registers the domain",
+          "Sends email",
+          "Proves the server's identity and enables encryption"
+        ]
+      },
+      {
+        "id": "https-and-ssl-certificates-q3",
+        "answer": 0,
+        "prompt": "Where can you get a free certificate?",
+        "explain": "Free certificates removed the cost barrier.",
+        "options": [
+          "Let's Encrypt (often automatic through your host)",
+          "Only from banks",
+          "Nowhere",
+          "From your ISP only"
+        ]
+      },
+      {
+        "id": "https-and-ssl-certificates-q4",
+        "answer": 0,
+        "prompt": "Certificates expire and must be renewed.",
+        "explain": "Usually automatically.",
+        "options": [
+          "True",
+          "False"
+        ]
+      }
+    ]
   }
 ]
 ```
