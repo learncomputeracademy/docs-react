@@ -62,10 +62,13 @@ export function SegmentedControl<T extends string>({
   value,
   options,
   onChange,
+  accent = false,
 }: {
   value: T
   options: { value: T; label: string }[]
   onChange: (v: T) => void
+  // Selected option filled with --primary (the typing test's accent colour).
+  accent?: boolean
 }) {
   return (
     <div className="flex flex-wrap gap-1 rounded-md bg-muted p-0.5">
@@ -76,7 +79,9 @@ export function SegmentedControl<T extends string>({
           onClick={() => onChange(o.value)}
           className={cn(
             'flex-1 whitespace-nowrap rounded px-2 py-1 text-xs transition-colors',
-            value === o.value ? 'bg-background font-medium shadow-sm' : 'text-muted-foreground hover:text-foreground'
+            value === o.value
+              ? accent ? 'bg-primary font-medium text-primary-foreground shadow-sm' : 'bg-background font-medium shadow-sm'
+              : 'text-muted-foreground hover:text-foreground'
           )}
         >
           {o.label}

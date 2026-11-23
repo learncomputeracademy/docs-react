@@ -365,7 +365,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
 
       {showConfig && (
         <div className="mx-auto mt-6 flex w-full max-w-5xl flex-wrap items-center justify-center gap-x-8 gap-y-3">
-          <SegmentedControl
+          <SegmentedControl accent
             value={config.mode}
             onChange={(m: Mode) => updateConfig({ mode: m })}
             options={[
@@ -379,7 +379,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
 
           {config.mode === 'time' && (
             <div className="flex items-center gap-2">
-              <SegmentedControl
+              <SegmentedControl accent
                 value={config.unlimited ? 'unlimited' : String(config.duration)}
                 onChange={(v) => v === 'unlimited' ? updateConfig({ unlimited: true }) : updateConfig({ duration: Number(v), unlimited: false })}
                 options={[...[15, 30, 60, 120].map((n) => ({ value: String(n), label: `${n}s` })), { value: 'unlimited', label: '∞' }]}
@@ -400,10 +400,10 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
             <span className="max-w-xs text-xs text-muted-foreground">{s.weakKeysHint}</span>
           )}
           {(config.mode === 'words' || config.mode === 'weakkeys') && (
-            <SegmentedControl value={String(config.wordCount)} onChange={(v) => updateConfig({ wordCount: Number(v) })} options={[10, 25, 50, 100].map((n) => ({ value: String(n), label: String(n) }))} />
+            <SegmentedControl accent value={String(config.wordCount)} onChange={(v) => updateConfig({ wordCount: Number(v) })} options={[10, 25, 50, 100].map((n) => ({ value: String(n), label: String(n) }))} />
           )}
           {config.mode === 'quote' && (
-            <SegmentedControl value={config.quoteLength} onChange={(v) => updateConfig({ quoteLength: v })} options={[{ value: 'short', label: 'Short' }, { value: 'medium', label: 'Medium' }, { value: 'long', label: 'Long' }]} />
+            <SegmentedControl accent value={config.quoteLength} onChange={(v) => updateConfig({ quoteLength: v })} options={[{ value: 'short', label: 'Short' }, { value: 'medium', label: 'Medium' }, { value: 'long', label: 'Long' }]} />
           )}
 
           {(config.mode === 'time' || config.mode === 'words') && (
@@ -417,7 +417,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
             <span className="text-xs text-muted-foreground" title={config.difficulty === 'normal' ? s.difficultyNormalHint : config.difficulty === 'expert' ? s.difficultyExpertHint : s.difficultyMasterHint}>
               {s.difficulty}
             </span>
-            <SegmentedControl
+            <SegmentedControl accent
               value={config.difficulty}
               onChange={(d: Difficulty) => updateConfig({ difficulty: d })}
               options={[{ value: 'normal', label: s.difficultyNormal }, { value: 'expert', label: s.difficultyExpert }, { value: 'master', label: s.difficultyMaster }]}
@@ -454,7 +454,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
         <div className="mx-auto mt-8 max-w-4xl">
           {!isZen && status !== 'finished' && (
             <div className="mb-3 flex items-center justify-center gap-4 font-mono text-sm text-muted-foreground">
-              <span>{config.mode === 'time' ? elapsedDisplay : `${wordIndex}/${words.length}`} {config.mode === 'time' ? s.timeLive : s.wordsLive}</span>
+              <span className="text-lg font-semibold text-primary">{config.mode === 'time' ? elapsedDisplay : `${wordIndex}/${words.length}`} {config.mode === 'time' ? s.timeLive : s.wordsLive}</span>
               {isUnlimitedTime && status === 'running' && <span className="text-xs">{s.unlimitedHint}</span>}
             </div>
           )}
@@ -518,7 +518,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                     const caret = (
                       <span
                         className={cn(
-                          'inline-block w-0.5 h-[1.2em] align-middle bg-primary rounded-full',
+                          'inline-block w-[3px] h-[1.2em] align-middle bg-primary rounded-full',
                           smoothCaret ? 'transition-all duration-100' : 'animate-pulse'
                         )}
                       />
@@ -529,7 +529,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                         ref={wi === wordIndex ? activeWordRef : undefined}
                         className={cn(
                           'relative rounded px-0.5 transition-colors duration-300',
-                          wi === wordIndex && status === 'running' && 'bg-primary/10'
+                          wi === wordIndex && 'bg-primary/15'
                         )}
                       >
                         {cells.map((cell, ci) => (
@@ -564,7 +564,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
 
           {status !== 'finished' && (
             <div className="mt-4 flex justify-center">
-              <Button variant="outline" size="sm" onClick={() => resetTest()}>
+              <Button variant="outline" size="sm" className="border-primary/40 text-primary hover:bg-primary/10 hover:text-primary" onClick={() => resetTest()}>
                 <RotateCcw className="size-3.5" /> {s.restart}
               </Button>
             </div>
