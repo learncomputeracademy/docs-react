@@ -1,5 +1,5 @@
 import Link from '@/components/hover-link'
-import { BookOpen, Code, Database, Globe, Plus, Sparkle } from 'lucide-react'
+import { BookOpen, Code, Database, GraduationCap, Globe, Plus, Sparkle } from 'lucide-react'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
 import type { Locale } from '@/lib/types'
 
@@ -57,12 +57,15 @@ export function LearningPath({ locale, titles }: { locale: Locale; titles: Map<s
 
         <ol className="relative mt-12 grid gap-6 lg:grid-cols-5 lg:gap-4">
           {/* Connector line behind the books (desktop only) */}
-          <span aria-hidden className="absolute top-14 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-border via-primary/40 to-border lg:block" />
-          {steps.map(({ key, label, Icon, subjects }) => (
+          <span aria-hidden className="absolute top-14 right-[10%] left-[10%] hidden h-px bg-gradient-to-r from-border via-primary/40 to-border lg:block">
+            {/* Spark travelling book to book; see .path-spark in globals.css */}
+            <span className="path-spark absolute -top-px left-0 block h-[3px] w-[12%] rounded-full bg-gradient-to-r from-transparent via-primary to-transparent shadow-[0_0_12px_var(--primary)]" />
+          </span>
+          {steps.map(({ key, label, Icon, subjects }, i) => (
             <li key={key} className="relative">
               <a href={`#group-${key}`} className="group flex items-center gap-4 lg:flex-col lg:text-center">
-                <span className="relative shrink-0">
-                  <span className="relative flex h-20 w-16 items-center justify-center rounded-r-md rounded-l-sm border border-l-[6px] border-l-primary bg-card text-primary shadow-[3px_3px_0_0_var(--border)] transition duration-300 group-hover:-translate-y-1.5 group-hover:bg-primary group-hover:text-primary-foreground lg:h-28 lg:w-[5.5rem]">
+                <span style={{ animationDelay: `${i}s` }} className="path-lift relative shrink-0">
+                  <span style={{ animationDelay: `${i}s` }} className="path-book relative flex h-20 w-16 items-center justify-center rounded-r-md rounded-l-sm border border-l-[6px] border-l-primary bg-card text-primary shadow-[3px_3px_0_0_var(--border)] transition duration-300 group-hover:-translate-y-1.5 group-hover:bg-primary group-hover:text-primary-foreground lg:h-28 lg:w-[5.5rem]">
                     <Icon className="size-6 lg:size-7" aria-hidden />
                   </span>
                   <span aria-hidden className="mx-auto mt-1.5 block h-1.5 w-16 rounded-full bg-foreground/10 blur-[2px] lg:w-24" />
@@ -78,9 +81,8 @@ export function LearningPath({ locale, titles }: { locale: Locale; titles: Map<s
 
         <div className="mt-14 grid gap-4 md:grid-cols-2">
           <div className="rounded-xl border bg-card p-6 sm:p-8">
-            <span aria-hidden className="relative flex h-16 w-24 items-center justify-center">
-              <span className="absolute inset-x-0 top-1/2 h-8 -translate-y-1/2 -rotate-12 rounded-[50%] border border-primary/30" />
-              <BookOpen className="relative size-10 text-primary" strokeWidth={1.5} />
+            <span aria-hidden className="flex size-16 items-center justify-center rounded-2xl border border-primary/20 bg-primary/10 text-primary">
+              <GraduationCap className="size-8" strokeWidth={1.75} />
             </span>
             <h3 className="mt-5 text-xl font-semibold">{s.beginnerTitle}</h3>
             <p className="mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">{s.beginnerBody}</p>
