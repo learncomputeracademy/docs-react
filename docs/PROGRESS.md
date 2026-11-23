@@ -40,6 +40,13 @@ for picking up work weeks later.
   window tokenized by Shiki on the server (no client Shiki chunk); `hero-in` is transform-only so
   LCP is not delayed by an opacity fade. Not fixed: the Google tag Cloudflare injects
   (`/5oas/`, about 344 KB JS) — a Cloudflare/GTM setting, needs the owner's OK.
+- Pushed `bc69bb9`; live Lighthouse after: home mobile 87-88 (LCP 1.4 s, TBT ~0.46 s), desktop 96,
+  lesson mobile 84. Remaining TBT: chunk `8732-…` (~720 ms, not yet identified) + the Google tag.
+- **Homepage "Learn, one step at a time" path** (local, not pushed): five subject-group steps as
+  CSS book icons linked to their group below, plus restyled "Beginner friendly" and "Available in
+  Bengali too" cards (the Bengali card links to `/bn`; on `/bn` it offers English). Idea taken
+  from the owner's docs-v2 mock. ElectricBorder, StatsElectric and TiltCard removed (owner no
+  longer liked the electric boxes); they had no other users.
 
 ## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
 

@@ -1,5 +1,5 @@
 import Link from '@/components/hover-link'
-import { Compass, Database, Globe, GraduationCap, Languages, Layers, Palette, Rocket, Zap } from 'lucide-react'
+import { Compass, Database, Globe, Layers, Palette, Rocket, Zap } from 'lucide-react'
 import { getSidebarTree, getSiteSettings } from '@/lib/content'
 import SpecularButton from '@/components/magic/specular-button'
 import { CATEGORY_ICONS } from '@/lib/category-icons'
@@ -9,31 +9,14 @@ import { HeroReveal } from '@/components/magic/hero-reveal'
 import { AnimatedCode } from '@/components/magic/animated-code'
 import { MagicCard } from '@/components/magic/magic-card'
 import { ProximityGrid } from '@/components/magic/proximity-grid'
-import { TiltCard, TiltLayer } from '@/components/magic/tilt-card'
 import { HeroWaves } from '@/components/magic/hero-waves'
 import { SUBJECT_GROUPS } from '@/lib/subject-groups'
 import { RocketBand } from '@/components/magic/rocket-band'
 import { ContinueButton, ProgressLine, CategoryProgress } from '@/components/continue-learning'
 import { SubjectFilter } from '@/components/subject-filter'
-import { StatsElectric } from '@/components/magic/stats-electric'
+import { LearningPath } from '@/components/learning-path'
 import { SNIPPETS } from '@/components/magic/animated-code-snippets'
 import { tokenize } from '@/lib/shiki'
-
-// "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
-// editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
-// aspirational. A replacement stat card (NumberTicker on totalLessons) was
-// tried and then dropped too (user: remove it, just keep these two) — no
-// third item, two cards is the shipped shape.
-const FEATURES = {
-  en: [
-    { icon: GraduationCap, title: 'Beginner friendly', body: 'Structured like a real syllabus, from computer basics through to React, one topic at a time.' },
-    { icon: Languages, title: 'Available in Bengali too', body: 'The whole site, and a growing number of lessons, read natively in বাংলা — switch anytime from the header.' },
-  ],
-  bn: [
-    { icon: GraduationCap, title: 'শিক্ষার্থীবান্ধব', body: 'কম্পিউটার বেসিক্স থেকে শুরু করে React পর্যন্ত, একটি বাস্তব সিলেবাসের মতো ধাপে ধাপে সাজানো।' },
-    { icon: Languages, title: 'বাংলাতেও পাওয়া যায়', body: 'সাইটের প্রতিটি অংশ এবং ক্রমবর্ধমান সংখ্যক পাঠ সরাসরি বাংলায় পড়া যায় — হেডার থেকে যেকোনো সময় ভাষা পাল্টান।' },
-  ],
-} as const
 
 // One icon per subject group heading (2026-11-21 homepage refresh).
 const GROUP_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -82,7 +65,6 @@ export async function HomeContent({ locale }: { locale: Locale }) {
   const aboutBandTitle = override.aboutBandTitle || s.aboutBandTitle
   const aboutBandBody = override.aboutBandBody || s.aboutBandBody
   const prefix = locale === 'bn' ? '/bn' : ''
-  const features = FEATURES[locale]
 
   const byslug = new Map(categories.map(c => [c.slug, c]))
   // Any category not accounted for by SUBJECT_GROUPS still ships — appended
@@ -131,39 +113,9 @@ export async function HomeContent({ locale }: { locale: Locale }) {
         </div>
       </section>
 
-      {/* Features — round 2: the MagicCard/glow version (2026-08-24 first
-          pass) still read flat to the user, who pointed at 21st.dev's
-          "Animated 3D Card" as the target instead — a cursor-driven
-          perspective tilt with the icon/heading popping forward in Z on
-          hover (TiltCard/TiltLayer, new). Colors stay this site's own
-          neutral bg-card + single orange accent (confirmed with the user)
-          rather than the reference's per-card rainbow gradients, which
-          would break DESIGN.md's one-accent-color rule sitewide. Two cards,
-          not three — the stat card (NumberTicker on totalLessons) was tried
-          and then dropped (user: just keep these two). */}
-      <section className="border-b">
-        <div className="mx-auto max-w-6xl px-6 py-16">
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {features.map((f) => (
-              // Electric border (React Bits) moved here from the dropped stats
-              // strip, owner request 2026-11-21.
-              <StatsElectric key={f.title}>
-              <TiltCard className="h-full rounded-xl bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-lg">
-                <TiltLayer depth={40}>
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-                    <f.icon className="size-5" />
-                  </span>
-                </TiltLayer>
-                <TiltLayer depth={24} className="mt-3">
-                  <h3 className="font-semibold">{f.title}</h3>
-                  <p className="mt-1 text-sm text-muted-foreground">{f.body}</p>
-                </TiltLayer>
-              </TiltCard>
-              </StatsElectric>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* Learning path + feature cards (2026-11-23), replacing the
+          TiltCard + ElectricBorder pair. See learning-path.tsx. */}
+      <LearningPath locale={locale} titles={new Map(categories.filter((c) => c.docs.length > 0).map((c) => [c.slug, c.title]))} />
 
       {/* Subjects — grouped card grid, matching the card language every
           category page already uses (MagicCard glow + hover-lift), not the
@@ -218,7 +170,7 @@ function SubjectGroup({ groupKey, label, items, prefix, s }: {
 }) {
   const GroupIcon = GROUP_ICONS[groupKey] ?? Layers
   return (
-    <div data-subject-group>
+    <div data-subject-group id={`group-${groupKey}`} className="scroll-mt-20">
       <h3 className="flex items-center gap-2 text-lg font-semibold">
         <GroupIcon className="size-5 text-primary" aria-hidden />
         {label}

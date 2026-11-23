@@ -2,7 +2,7 @@
 
 import { useEffect, useState, type RefObject } from 'react'
 
-// Page-speed fix (2026-11-23): the WebGL effects (ElectricBorder, SpecularButton)
+// Page-speed fix (2026-11-23): the WebGL effects (SpecularButton; ElectricBorder until it was removed)
 // compiled their shaders all at once during hydration, blocking the main
 // thread on the homepage (Lighthouse mobile: TBT 3.3 s, ~2.6 s of it these
 // effects). Now each one starts only after the visitor's first interaction
