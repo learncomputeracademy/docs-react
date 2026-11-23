@@ -32,6 +32,14 @@ for picking up work weeks later.
   `learncomputer.in` added as a Search Console Domain property and verified; the Search Console
   owner Gmail is Owner of the "LCA Docs" Cloud project. Branding (logo) under Google review.
   Nothing else pending on Google's side.
+- **Page speed (`e7c36e7`):** homepage Lighthouse mobile 44 -> 97-98 on a local `next start`
+  build (TBT 3.3 s -> 0.15 s, LCP 7-8.7 s -> 1.4 s); lessons unchanged at 95-97. Live before:
+  home 36 mobile / 59 desktop, lesson 83 mobile. Fixes: WebGL effects (ElectricBorder,
+  SpecularButton) start only after the first interaction, one per idle period, near the
+  viewport (`lib/webgl-ready.ts`; starting after `load` was tried and made TBT worse); hero code
+  window tokenized by Shiki on the server (no client Shiki chunk); `hero-in` is transform-only so
+  LCP is not delayed by an opacity fade. Not fixed: the Google tag Cloudflare injects
+  (`/5oas/`, about 344 KB JS) — a Cloudflare/GTM setting, needs the owner's OK.
 
 ## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
 
