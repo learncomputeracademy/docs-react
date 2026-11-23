@@ -7,6 +7,8 @@ import { cn } from '@/lib/utils'
 import { computeBadges, type Badge, type BadgeKind, type Subject } from '@/lib/badges'
 import { useCompleted, useQuizResults, useStreak, useXp } from '@/lib/progress'
 import type { Locale } from '@/lib/types'
+import { TypingProgress } from '@/components/typing-progress'
+import { useAccount } from '@/lib/account-state'
 
 const ICON: Record<BadgeKind, typeof BookOpen> = { lessons: BookOpen, quiz: Target, streak: Flame, xp: Sparkles, subject: GraduationCap }
 const TONE: Record<BadgeKind, string> = {
@@ -102,6 +104,7 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
   const quizzes = useQuizResults()
   const passed = Object.values(quizzes).filter((q) => q.total > 0 && q.best / q.total >= 0.7).length
   const bn = locale === 'bn'
+  const signedIn = useAccount().status === 'signed-in'
 
   const stats = [
     { label: bn ? 'শেষ করা পাঠ' : 'Lessons finished', value: completed.size },
@@ -138,6 +141,8 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
         </ul>
       </section>
 
+      <TypingProgress locale={locale} />
+
       <section>
         <h2 className="text-lg font-semibold">{bn ? 'বিষয়' : 'Subjects'}</h2>
         <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
@@ -148,9 +153,13 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
       </section>
 
       <p className="text-xs text-muted-foreground">
-        {bn
-          ? 'আপনার অগ্রগতি শুধু এই ব্রাউজারে সংরক্ষিত থাকে। ব্রাউজারের ডেটা মুছলে এটাও মুছে যাবে।'
-          : 'Your progress is saved in this browser only. Clearing your browser data clears it too.'}
+        {signedIn
+          ? bn
+            ? 'আপনার অগ্রগতি আপনার অ্যাকাউন্টে সেভ আছে আর যে ডিভাইসেই সাইন ইন করুন সেখানে মিলে থাকে।'
+            : 'Your progress is saved to your account and kept in step on every device you sign in on.'
+          : bn
+            ? 'আপনার অগ্রগতি শুধু এই ব্রাউজারে সংরক্ষিত থাকে। সব ডিভাইসে রাখতে সাইন ইন করুন।'
+            : 'Your progress is saved in this browser only. Sign in to keep it on every device.'}
       </p>
     </div>
   )
