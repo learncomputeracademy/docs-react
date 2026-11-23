@@ -27,6 +27,11 @@ for picking up work weeks later.
 - Pushed `35ba602` after rebase onto the daily backup; build + secret grep clean; live rebuild
   took about 13 min, typing section confirmed in the live JS bundle, key pages 200.
 - No-push hold re-applies.
+- **Google sign-in setup finished (owner, 2026-11-23):** app In production; client has no redirect
+  URIs (GIS popup only); Authorized domains = `learncomputer.in` only (Supabase domain removed);
+  `learncomputer.in` added as a Search Console Domain property and verified; the Search Console
+  owner Gmail is Owner of the "LCA Docs" Cloud project. Branding (logo) under Google review.
+  Nothing else pending on Google's side.
 
 ## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
 
