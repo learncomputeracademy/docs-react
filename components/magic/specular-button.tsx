@@ -11,6 +11,7 @@
 
 import Link from '@/components/hover-link';
 import { useEffect, useRef, type ButtonHTMLAttributes, type CSSProperties, type ReactNode } from 'react';
+import { useWebglReady } from '@/lib/webgl-ready'; // LOCAL: deferred start
 
 const SIZES: Record<SpecularButtonSize, string> = {
   sm: 'px-5 py-2.5 text-[0.875rem]',
@@ -259,6 +260,7 @@ const SpecularButton = ({
   ...rest
 }: SpecularButtonProps) => {
   const buttonRef = useRef<HTMLButtonElement & HTMLAnchorElement>(null);
+  const ready = useWebglReady(buttonRef); // LOCAL
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wakeRef = useRef<(() => void) | null>(null);
   const settings: Settings = {
@@ -283,6 +285,7 @@ const SpecularButton = ({
   useEffect(() => {
     const button = buttonRef.current;
     const canvas = canvasRef.current;
+    if (!ready) return undefined; // LOCAL: deferred start
     const gl = canvas?.getContext('webgl2', {
       alpha: true,
       premultipliedAlpha: true,
@@ -489,7 +492,7 @@ const SpecularButton = ({
       gl.deleteProgram(program);
       if (!canvas.isConnected) gl.getExtension('WEBGL_lose_context')?.loseContext();
     };
-  }, []);
+  }, [ready]); // LOCAL: ready
 
   useEffect(() => {
     wakeRef.current?.();

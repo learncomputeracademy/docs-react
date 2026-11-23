@@ -9,6 +9,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
+import { useWebglReady } from '@/lib/webgl-ready'; // LOCAL: deferred start
 
 export interface ElectricBorderProps {
   children?: ReactNode;
@@ -493,6 +494,7 @@ const ElectricBorder = ({
   style
 }: ElectricBorderProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const ready = useWebglReady(containerRef); // LOCAL
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const wakeRef = useRef<(() => void) | null>(null);
   const [generation, setGeneration] = useState(0);
@@ -528,7 +530,7 @@ const ElectricBorder = ({
   useEffect(() => {
     const container = containerRef.current;
     const canvas = canvasRef.current;
-    if (!container || !canvas) return;
+    if (!ready || !container || !canvas) return; // LOCAL: !ready
 
     const gl = canvas.getContext('webgl2', {
       alpha: true,
@@ -840,7 +842,7 @@ const ElectricBorder = ({
         gl.deleteProgram(program.program);
       }
     };
-  }, [generation]);
+  }, [generation, ready]); // LOCAL: ready
 
   return (
     <div ref={containerRef} className={`relative isolate ${className}`.trim()} style={{ borderRadius, ...style }}>

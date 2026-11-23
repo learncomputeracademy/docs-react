@@ -19,119 +19,22 @@ import { BorderBeam } from '@/components/magic/border-beam'
 // highlighting in dark mode — so this always highlights as light and lets
 // that existing site-wide CSS rule do the theme switch, same as every
 // lesson code block already does.
-const SNIPPETS = [
-  {
-    lang: 'css',
-    filename: 'style.css',
-    code: `.center {
-  margin: auto;
-  width: 60%;
-  border: 3px solid orange;
-  padding: 10px;
-}`,
-  },
-  {
-    lang: 'html',
-    filename: 'index.html',
-    code: `<!DOCTYPE html>
-<html lang="en">
-  <body>
-    <h1>Hello, world!</h1>
-    <p>Learn to build for the web.</p>
-  </body>
-</html>`,
-  },
-  {
-    lang: 'javascript',
-    filename: 'script.js',
-    code: `function greet(name) {
-  return \`Hello, \${name}!\`
-}
-
-document
-  .querySelector('#btn')
-  .addEventListener('click', () => {
-    console.log(greet('world'))
-  })`,
-  },
-  {
-    lang: 'jsx',
-    filename: 'App.jsx',
-    code: `function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <button onClick={() => setCount(count + 1)}>
-      Clicked {count} times
-    </button>
-  )
-}`,
-  },
-  {
-    lang: 'php',
-    filename: 'index.php',
-    code: `<?php
-  $name = "world";
-  echo "Hello, " . $name . "!";
-?>`,
-  },
-  {
-    lang: 'python',
-    filename: 'app.py',
-    code: `def greet(name):
-    return f"Hello, {name}!"
-
-for student in ["Amit", "Priya"]:
-    print(greet(student))`,
-  },
-  {
-    lang: 'sql',
-    filename: 'query.sql',
-    code: `SELECT title, category
-FROM lessons
-WHERE published = TRUE
-ORDER BY created_at DESC
-LIMIT 5;`,
-  },
-] as const
+import { SNIPPETS } from '@/components/magic/animated-code-snippets'
+import type { CodeTokens } from '@/lib/shiki'
 
 const TYPE_DURATION = 2800
 const HOLD_DURATION = 1400
 
 const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-type Highlighted = { index: number; pre: string; lines: { content: string; style: string }[][] }
-
-// Fine-grained shiki (core + JS regex engine + only these 7 grammars and 2
-// themes), created once and shared. Was `import('shiki')` + codeToHtml on
-// every typed character (~every 30ms, forever): the full bundle plus a
-// re-tokenize per keystroke kept the main thread busy and swapped in a new
-// <pre> each tick, so Lighthouse kept moving LCP (10.3s mobile, 2026-11-19).
-// Now each snippet is tokenized once and typing just slices those tokens.
-let highlighter: Promise<import('shiki/core').HighlighterCore> | null = null
-function getHighlighter() {
-  highlighter ??= Promise.all([import('shiki/core'), import('shiki/engine/javascript')]).then(
-    ([{ createHighlighterCore }, { createJavaScriptRegexEngine }]) =>
-      createHighlighterCore({
-        themes: [import('shiki/themes/ayu-light.mjs'), import('shiki/themes/dracula.mjs')],
-        langs: [
-          import('shiki/langs/css.mjs'),
-          import('shiki/langs/html.mjs'),
-          import('shiki/langs/javascript.mjs'),
-          import('shiki/langs/jsx.mjs'),
-          import('shiki/langs/php.mjs'),
-          import('shiki/langs/python.mjs'),
-          import('shiki/langs/sql.mjs'),
-        ],
-        engine: createJavaScriptRegexEngine(),
-      })
-  )
-  return highlighter
-}
+// Highlighting happens on the server (HomeContent passes `tokens`, one entry
+// per snippet, from lib/shiki.ts tokenize). It used to load shiki core, a
+// JS regex engine and 7 grammars in the browser: a 116 KB chunk and a ~530 ms
+// main-thread task on Lighthouse mobile (2026-11-23).
 
 // Same markup codeToHtml produced (shiki/shiki-themes classes, --shiki-dark
 // vars) so the site-wide `.dark .shiki` rule in globals.css still applies.
-function renderTokens(t: Highlighted, count: number) {
+function renderTokens(t: CodeTokens, count: number) {
   let left = count
   const lines: string[] = []
   for (let li = 0; li < t.lines.length; li++) {
@@ -151,14 +54,13 @@ function renderTokens(t: Highlighted, count: number) {
   return `${t.pre}<code>${lines.join('\n')}</code></pre>`
 }
 
-export function AnimatedCode() {
+export function AnimatedCode({ tokens: all }: { tokens: CodeTokens[] }) {
   const [index, setIndex] = useState(0)
   // Starts fully typed: the server HTML paints the whole first snippet at
   // once, so the panel settles as an LCP candidate immediately instead of
   // growing character by character. Typing starts with the second snippet.
   const [count, setCount] = useState<number>(SNIPPETS[0].code.length)
   const [typing, setTyping] = useState(false)
-  const [tokens, setTokens] = useState<Highlighted | null>(null)
   const mounted = useRef(false)
   const scrollRef = useRef<HTMLDivElement>(null)
   const snippet = SNIPPETS[index]
@@ -190,34 +92,10 @@ export function AnimatedCode() {
     return () => clearTimeout(id)
   }, [typing])
 
-  // Tokenize once per snippet. Until shiki resolves, plain typed text shows.
-  useEffect(() => {
-    let cancelled = false
-    getHighlighter().then((h) => {
-      if (cancelled) return
-      const r = h.codeToTokens(snippet.code, {
-        lang: snippet.lang,
-        themes: { light: 'ayu-light', dark: 'dracula' },
-      })
-      const styleOf = (s?: Record<string, string>) =>
-        Object.entries(s ?? {}).map(([k, v]) => `${k}:${v}`).join(';')
-      setTokens({
-        index,
-        pre: `<pre class="shiki shiki-themes ayu-light dracula" style="background-color:${r.bg};color:${r.fg};${r.rootStyle || ''}">`,
-        lines: r.tokens.map((line) =>
-          line.map((t) => ({ content: t.content, style: styleOf(t.htmlStyle) || `color:${t.color}` }))
-        ),
-      })
-    })
-    return () => {
-      cancelled = true
-    }
-  }, [index, snippet.code, snippet.lang])
-
-  const html =
-    tokens && tokens.index === index
-      ? renderTokens(tokens, count)
-      : `<pre class="!m-0 h-full p-5"><code>${escapeHtml(snippet.code.slice(0, count))}</code></pre>`
+  const tokens = all[index]
+  const html = tokens
+    ? renderTokens(tokens, count)
+    : `<pre class="!m-0 h-full p-5"><code>${escapeHtml(snippet.code.slice(0, count))}</code></pre>`
 
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: scrollRef.current.scrollHeight })

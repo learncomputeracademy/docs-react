@@ -16,6 +16,8 @@ import { RocketBand } from '@/components/magic/rocket-band'
 import { ContinueButton, ProgressLine, CategoryProgress } from '@/components/continue-learning'
 import { SubjectFilter } from '@/components/subject-filter'
 import { StatsElectric } from '@/components/magic/stats-electric'
+import { SNIPPETS } from '@/components/magic/animated-code-snippets'
+import { tokenize } from '@/lib/shiki'
 
 // "Runnable examples" dropped (design feedback 2026-08-24) — the Try It
 // editor isn't built yet (CLAUDE.md §6 stage 6), so the claim was
@@ -63,7 +65,11 @@ type HomeOverrides = Partial<{
 }>
 
 export async function HomeContent({ locale }: { locale: Locale }) {
-  const [categories, settings] = await Promise.all([getSidebarTree(locale), getSiteSettings('home')])
+  const [categories, settings, codeTokens] = await Promise.all([
+    getSidebarTree(locale),
+    getSiteSettings('home'),
+    Promise.all(SNIPPETS.map((s) => tokenize(s.code, s.lang))),
+  ])
   const firstLesson = categories.find(c => c.slug === 'basics')?.docs[0] ?? categories[0]?.docs[0]
   const totalLessons = categories.reduce((sum, c) => sum + c.docs.length, 0)
   const s = t(locale)
@@ -120,7 +126,7 @@ export async function HomeContent({ locale }: { locale: Locale }) {
               element that demonstrates the product (design critique
               2026-08-06, Casey persona). Visible at every width now. */}
           <div>
-            <AnimatedCode />
+            <AnimatedCode tokens={codeTokens} />
           </div>
         </div>
       </section>
