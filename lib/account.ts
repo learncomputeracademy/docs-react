@@ -67,7 +67,7 @@ function fromRow(r: Row | null): LearningData {
     streak: r.streak ?? null,
     last: r.last_lesson ?? null,
     badgesSeen: r.badges_seen ?? [],
-    typing: t ? { history: t.history ?? [], weakKeys: t.weakKeys ?? {}, lessons: t.lessons ?? {}, settings: t.settings ?? null } : EMPTY_TYPING,
+    typing: t ? { history: t.history ?? [], weakKeys: t.weakKeys ?? {}, lessons: t.lessons ?? {}, settings: t.settings ?? null, daily: t.daily ?? {} } : EMPTY_TYPING,
   }
 }
 

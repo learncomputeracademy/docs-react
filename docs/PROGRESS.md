@@ -47,6 +47,18 @@ for picking up work weeks later.
   Bengali too" cards (the Bengali card links to `/bn`; on `/bn` it offers English). Idea taken
   from the owner's docs-v2 mock. ElectricBorder, StatsElectric and TiltCard removed (owner no
   longer liked the electric boxes); they had no other users.
+- Learning path: CSS spark runs along the line and lights each book in turn (5 s loop, off for
+  reduced motion); Beginner friendly card icon is now a graduation-cap tile.
+- **/progress redesign + monkeytype-style typing stats** (local, not pushed): overview card with
+  syllabus ring and icon stat tiles; badges sorted earned-first. Typing section: tests started /
+  completed / time typing / est. words, personal bests (15/30/60/120 s, 10/25/50/100 words),
+  12-month activity heatmap, speed-over-time chart (each test, average of 10, PB step) with hover,
+  speed distribution, highest/average/last-10 stats, results table with "show more" and CSV.
+  Data: history entries now also keep raw WPM, seconds and char counts; history cap 100 -> 300;
+  new `typing-test-daily-v1` per-day totals (tests, seconds, starts) synced to the account inside
+  the existing `typing` jsonb (no migration; ~55 KB worst case vs the 100 KB cap). Days before
+  today are rebuilt from saved results. Checked with seeded data on 127.0.0.1 (separate origin;
+  `allowedDevOrigins` was added temporarily and reverted).
 
 ## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
 

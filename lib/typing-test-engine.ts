@@ -129,10 +129,51 @@ export type HistoryEntry = {
   wpm: number
   accuracy: number
   consistency: number
+  // Added 2026-11-23 for /progress (older entries lack them):
+  raw?: number
+  secs?: number
+  chars?: [correct: number, incorrect: number, extra: number, missed: number]
 }
 
 const HISTORY_KEY = 'typing-test-history-v1'
-const MAX_HISTORY = 100
+// 300 (was 100): about 40 KB, inside the account row's 100 KB typing cap
+// (migration 014) together with the daily totals below.
+export const MAX_HISTORY = 300
+
+// --- Per-day totals (2026-11-23), for the /progress activity heatmap and
+// all-time totals: kept for every day, unlike the capped history above.
+// Key: local date YYYY-MM-DD. started = tests begun (restarts included).
+export type DailyTyping = Record<string, { tests: number; secs: number; started: number }>
+const DAILY_KEY = 'typing-test-daily-v1'
+
+export function localDay(ms = Date.now()): string {
+  const d = new Date(ms)
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+export function loadDaily(): DailyTyping {
+  if (typeof window === 'undefined') return {}
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(DAILY_KEY) ?? '{}')
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : {}
+  } catch {
+    return {}
+  }
+}
+
+export function recordDaily(change: { tests?: number; secs?: number; started?: number }) {
+  const all = loadDaily()
+  const day = localDay()
+  const d = all[day] ?? { tests: 0, secs: 0, started: 0 }
+  all[day] = { tests: d.tests + (change.tests ?? 0), secs: d.secs + (change.secs ?? 0), started: d.started + (change.started ?? 0) }
+  try {
+    window.localStorage.setItem(DAILY_KEY, JSON.stringify(all))
+  } catch {
+    // same as history: nice to have
+  }
+  // A test start alone isn't worth an account sync; the finished test syncs.
+  if (change.tests) notifyLearningChange()
+}
 
 export function loadHistory(): HistoryEntry[] {
   if (typeof window === 'undefined') return []

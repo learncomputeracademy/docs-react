@@ -12,7 +12,7 @@ import { pickWords, pickQuote, pickWeakKeyWords } from '@/lib/typing-test-conten
 import { downloadResultImage } from '@/lib/typing-test-share-image'
 import {
   DEFAULT_CONFIG, decorateWords, calculateWpm, calculateRawWpm, calculateAccuracy, calculateConsistency,
-  loadHistory, saveHistoryEntry, personalBest, wordCells,
+  loadHistory, saveHistoryEntry, personalBest, wordCells, recordDaily,
   loadKeyErrorStats, recordKeyErrors, topWeakKeys, hasEnoughDataForWeakKeyMode,
   loadSettings, saveSettings, DEFAULT_SETTINGS, ACCENT_THEMES, ACCENT_FOREGROUND,
   type TestConfig, type Mode, type Difficulty, type CharStatus, type HistoryEntry, type AccentTheme,
@@ -190,8 +190,12 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
     setStatus('finished')
     const label = labelFor(config)
     const prevBest = personalBest(history, config.mode, label)
-    const entry: HistoryEntry = { date: Date.now(), mode: config.mode, label, wpm: r.wpm, accuracy: r.accuracy, consistency: r.consistency }
+    const entry: HistoryEntry = {
+      date: Date.now(), mode: config.mode, label, wpm: r.wpm, accuracy: r.accuracy, consistency: r.consistency,
+      raw: r.rawWpm, secs: r.timeSeconds, chars: [r.correctChars, r.incorrectChars, r.extraChars, r.missedChars],
+    }
     setHistory(saveHistoryEntry(entry))
+    recordDaily({ tests: 1, secs: r.timeSeconds })
     setBestWasNew(!didFail && prevBest !== null && r.wpm > prevBest)
     if (!isZen && Object.keys(r.errorsByChar).length > 0) setWeakKeyStats(recordKeyErrors(r.errorsByChar))
   }
@@ -298,6 +302,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
     if (status === 'idle') {
       setStatus('running')
       setStartTime(Date.now())
+      recordDaily({ started: 1 })
     }
 
     if (soundOn) beep()
@@ -331,7 +336,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
   }
 
   function handleZenChange(e: React.ChangeEvent<HTMLInputElement>) {
-    if (status === 'idle') { setStatus('running'); setStartTime(Date.now()) }
+    if (status === 'idle') { setStatus('running'); setStartTime(Date.now()); recordDaily({ started: 1 }) }
     setCurrentInput(e.target.value)
   }
 

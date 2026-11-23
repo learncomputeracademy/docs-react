@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useSyncExternalStore } from 'react'
 import { createPortal } from 'react-dom'
-import { BookOpen, Flame, GraduationCap, Lock, Sparkles, Target } from 'lucide-react'
+import { BookOpen, Flame, GraduationCap, Lock, Sparkles, Target, Trophy } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { computeBadges, type Badge, type BadgeKind, type Subject } from '@/lib/badges'
 import { useCompleted, useQuizResults, useStreak, useXp } from '@/lib/progress'
@@ -106,34 +106,66 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
   const bn = locale === 'bn'
   const signedIn = useAccount().status === 'signed-in'
 
+  const totalLessons = subjects.reduce((n, x) => n + x.paths.length, 0)
+  const pct = totalLessons ? Math.round((completed.size / totalLessons) * 100) : 0
   const stats = [
-    { label: bn ? 'শেষ করা পাঠ' : 'Lessons finished', value: completed.size },
-    { label: bn ? 'পাস করা কুইজ' : 'Quizzes passed', value: passed },
-    { label: 'XP', value: xp },
-    { label: bn ? 'ধারা (সেরা)' : 'Streak (best)', value: `${count} (${best})` },
+    { icon: BookOpen, tone: TONE.lessons, label: bn ? 'শেষ করা পাঠ' : 'Lessons finished', value: completed.size },
+    { icon: Target, tone: TONE.quiz, label: bn ? 'পাস করা কুইজ' : 'Quizzes passed', value: passed },
+    { icon: Sparkles, tone: TONE.xp, label: 'XP', value: xp },
+    { icon: Flame, tone: TONE.streak, label: bn ? 'দিনের ধারা' : 'Day streak', value: count, note: bn ? `সেরা ${best}` : `best ${best}` },
   ]
   const earned = badges.filter((b) => b.earned)
-  const fixed = badges.filter((b) => b.kind !== 'subject')
-  const subjectBadges = badges.filter((b) => b.kind === 'subject')
+  // Earned first, then the ones closest to being earned.
+  const fixed = badges
+    .filter((b) => b.kind !== 'subject')
+    .sort((a, b) => Number(b.earned) - Number(a.earned) || b.have / b.need - a.have / a.need)
+  // Subjects: started ones first, most complete first.
+  const subjectBadges = badges
+    .filter((b) => b.kind === 'subject')
+    .sort((a, b) => b.have / b.need - a.have / a.need)
 
   return (
-    <div className="space-y-10">
-      <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-        {stats.map((s) => (
-          <div key={s.label} className="rounded-xl border bg-card p-4">
-            <dt className="text-xs text-muted-foreground">{s.label}</dt>
-            <dd className="mt-1 text-2xl font-semibold tabular-nums">{s.value}</dd>
+    <div className="space-y-12">
+      {/* Overview: ring for the whole syllabus + four stat tiles */}
+      <div className="relative overflow-hidden rounded-3xl border bg-card p-6 sm:p-8">
+        <div aria-hidden className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full bg-primary/15 blur-3xl" />
+        <div className="relative grid items-center gap-8 md:grid-cols-[auto_1fr]">
+          <div className="flex items-center gap-5">
+            <Ring pct={pct} />
+            <div>
+              <p className="text-sm text-muted-foreground">{bn ? 'পুরো সিলেবাস' : 'Whole syllabus'}</p>
+              <p className="mt-1 text-lg font-semibold tabular-nums">
+                {completed.size}/{totalLessons} {bn ? 'পাঠ' : 'lessons'}
+              </p>
+              <p className="mt-1 text-sm text-muted-foreground tabular-nums">
+                {earned.length}/{badges.length} {bn ? 'ব্যাজ' : 'badges'}
+              </p>
+            </div>
           </div>
-        ))}
-      </dl>
+          <dl className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+            {stats.map((x) => (
+              <div key={x.label} className="rounded-2xl border bg-background/60 p-4 backdrop-blur">
+                <span className={cn('flex size-9 items-center justify-center rounded-xl', x.tone)}>
+                  <x.icon className="size-4.5" aria-hidden />
+                </span>
+                <dd className="mt-3 text-3xl font-bold tabular-nums">{x.value}</dd>
+                <dt className="mt-0.5 text-xs text-muted-foreground">
+                  {x.label}
+                  {x.note && <span className="tabular-nums"> · {x.note}</span>}
+                </dt>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </div>
 
       <section>
-        <h2 className="text-lg font-semibold">
+        <SectionTitle icon={Trophy}>
           {bn ? 'ব্যাজ' : 'Badges'}{' '}
           <span className="text-sm font-normal text-muted-foreground tabular-nums">
             {earned.length}/{badges.length}
           </span>
-        </h2>
+        </SectionTitle>
         <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {fixed.map((b) => (
             <BadgeRow key={b.id} badge={b} />
@@ -144,7 +176,7 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
       <TypingProgress locale={locale} />
 
       <section>
-        <h2 className="text-lg font-semibold">{bn ? 'বিষয়' : 'Subjects'}</h2>
+        <SectionTitle icon={GraduationCap}>{bn ? 'বিষয়' : 'Subjects'}</SectionTitle>
         <ul className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {subjectBadges.map((b) => (
             <BadgeRow key={b.id} badge={b} />
@@ -165,10 +197,35 @@ export function ProgressOverview({ subjects, locale }: { subjects: Subject[]; lo
   )
 }
 
+function SectionTitle({ icon: Icon, children }: { icon: typeof BookOpen; children: React.ReactNode }) {
+  return (
+    <h2 className="flex items-center gap-2 text-lg font-semibold">
+      <span className="flex size-8 items-center justify-center rounded-lg bg-primary/15 text-primary">
+        <Icon className="size-4.5" aria-hidden />
+      </span>
+      {children}
+    </h2>
+  )
+}
+
+function Ring({ pct }: { pct: number }) {
+  const r = 42
+  const c = 2 * Math.PI * r
+  return (
+    <div className="relative size-28 shrink-0">
+      <svg viewBox="0 0 100 100" className="size-full -rotate-90" aria-hidden>
+        <circle cx="50" cy="50" r={r} fill="none" strokeWidth="9" className="stroke-muted" />
+        <circle cx="50" cy="50" r={r} fill="none" strokeWidth="9" strokeLinecap="round" className="stroke-primary transition-[stroke-dashoffset] duration-700" strokeDasharray={c} strokeDashoffset={c * (1 - pct / 100)} />
+      </svg>
+      <span className="absolute inset-0 flex items-center justify-center text-2xl font-bold tabular-nums">{pct}%</span>
+    </div>
+  )
+}
+
 function BadgeRow({ badge }: { badge: Badge }) {
   const pct = Math.round((badge.have / badge.need) * 100)
   return (
-    <li className={cn('flex items-center gap-3 rounded-xl border bg-card p-3', !badge.earned && 'opacity-80')}>
+    <li className={cn('flex items-center gap-3 rounded-2xl border p-3 transition', badge.earned ? 'bg-gradient-to-br from-primary/10 to-card shadow-sm' : 'border-dashed bg-card/50')}>
       <BadgeIcon badge={badge} />
       <div className="min-w-0 flex-1">
         <p className={cn('truncate font-medium', !badge.earned && 'text-muted-foreground')}>{badge.name}</p>

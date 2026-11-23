@@ -220,7 +220,8 @@ export function clearLearningData() {
 // The typing test's own browser data (lib/typing-test-engine.ts keys), kept
 // as plain JSON here so this module doesn't depend on the typing engine.
 export type TypingData = {
-  history: { date: number; mode: string; label: string; wpm: number; accuracy: number; consistency: number }[]
+  history: { date: number; mode: string; label: string; wpm: number; accuracy: number; consistency: number; raw?: number; secs?: number; chars?: [number, number, number, number] }[]
+  daily: Record<string, { tests: number; secs: number; started: number }>
   weakKeys: Record<string, number>
   lessons: Record<string, { completed: boolean; bestWpm: number; bestAccuracy: number }>
   settings: Record<string, unknown> | null
@@ -240,6 +241,7 @@ const TYPING_KEYS = {
   weakKeys: 'typing-test-weak-keys-v1',
   lessons: 'typing-test-lesson-progress-v1',
   settings: 'typing-test-settings-v1',
+  daily: 'typing-test-daily-v1',
 } as const
 
 function readJson<T>(key: string, fallback: T): T {
@@ -263,6 +265,7 @@ export function exportLearningData(): LearningData {
       weakKeys: readJson<TypingData['weakKeys']>(TYPING_KEYS.weakKeys, {}),
       lessons: readJson<TypingData['lessons']>(TYPING_KEYS.lessons, {}),
       settings: readJson<TypingData['settings']>(TYPING_KEYS.settings, null),
+      daily: readJson<TypingData['daily']>(TYPING_KEYS.daily, {}),
     },
   }
 }
@@ -283,6 +286,7 @@ export function importLearningData(d: LearningData) {
   put(TYPING_KEYS.weakKeys, d.typing.weakKeys)
   put(TYPING_KEYS.lessons, d.typing.lessons)
   if (d.typing.settings) put(TYPING_KEYS.settings, d.typing.settings)
+  put(TYPING_KEYS.daily, d.typing.daily)
   cache = null
   listeners.forEach((l) => l())
 }
