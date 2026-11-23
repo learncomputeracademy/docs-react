@@ -4,7 +4,7 @@ import type { Session } from '@supabase/supabase-js'
 import { learnerClient } from '@/lib/supabase/learner'
 import { setAccountState, type AccountUser } from '@/lib/account-state'
 import { clearLearningData, exportLearningData, importLearningData, onLearningChange, type LearningData } from '@/lib/progress'
-import { EMPTY_LEARNING, mergeLearningData } from '@/lib/progress-merge'
+import { EMPTY_LEARNING, EMPTY_TYPING, mergeLearningData } from '@/lib/progress-merge'
 import { setTheme, storedTheme, THEME_EVENT, type ThemeEventDetail, type ThemeMode } from '@/lib/theme'
 
 // Learner accounts (phase 1, 2026-11-21): Google / GitHub sign-in, progress
@@ -56,18 +56,37 @@ function toUser(session: Session): AccountUser {
   }
 }
 
-type Row = { completed: string[]; quiz: LearningData['quiz']; streak: LearningData['streak']; last_lesson: LearningData['last']; badges_seen: string[] }
+type Row = { completed: string[]; quiz: LearningData['quiz']; streak: LearningData['streak']; last_lesson: LearningData['last']; badges_seen: string[]; typing?: LearningData['typing'] | null }
 
 function fromRow(r: Row | null): LearningData {
   if (!r) return EMPTY_LEARNING
-  return { completed: r.completed ?? [], quiz: r.quiz ?? {}, streak: r.streak ?? null, last: r.last_lesson ?? null, badgesSeen: r.badges_seen ?? [] }
+  const t = r.typing
+  return {
+    completed: r.completed ?? [],
+    quiz: r.quiz ?? {},
+    streak: r.streak ?? null,
+    last: r.last_lesson ?? null,
+    badgesSeen: r.badges_seen ?? [],
+    typing: t ? { history: t.history ?? [], weakKeys: t.weakKeys ?? {}, lessons: t.lessons ?? {}, settings: t.settings ?? null } : EMPTY_TYPING,
+  }
 }
+
+// The typing column comes from migration 014. Until it is run, everything
+// else keeps syncing without it (Postgres 42703 = undefined column).
+let typingColumn = true
+const BASE_COLUMNS = 'completed, quiz, streak, last_lesson, badges_seen'
+const isMissingColumn = (e: { code?: string; message?: string } | null) => !!e && (e.code === '42703' || e.code === 'PGRST204' || /typing/.test(e.message ?? ''))
 
 async function push(userId: string) {
   const d = exportLearningData()
-  const { error } = await learnerClient()
-    .from('learner_progress')
-    .upsert({ user_id: userId, completed: d.completed, quiz: d.quiz, streak: d.streak, last_lesson: d.last, badges_seen: d.badgesSeen, updated_at: new Date().toISOString() })
+  const row: Record<string, unknown> = { user_id: userId, completed: d.completed, quiz: d.quiz, streak: d.streak, last_lesson: d.last, badges_seen: d.badgesSeen, updated_at: new Date().toISOString() }
+  if (typingColumn) row.typing = d.typing
+  let { error } = await learnerClient().from('learner_progress').upsert(row)
+  if (error && typingColumn && isMissingColumn(error)) {
+    typingColumn = false
+    delete row.typing
+    ;({ error } = await learnerClient().from('learner_progress').upsert(row))
+  }
   if (error) console.warn('[account] save failed', error.message)
 }
 
@@ -82,14 +101,19 @@ async function syncIn(userId: string, accountTheme?: unknown) {
   syncedUserId = userId
   void syncTheme(accountTheme).catch((e) => console.warn('[account] theme sync failed', e))
   setAccountState({ syncing: true })
-  const { data, error } = await learnerClient().from('learner_progress').select('completed, quiz, streak, last_lesson, badges_seen').eq('user_id', userId).maybeSingle()
+  const load = (cols: string) => learnerClient().from('learner_progress').select(cols).eq('user_id', userId).maybeSingle()
+  let { data, error } = await load(typingColumn ? `${BASE_COLUMNS}, typing` : BASE_COLUMNS)
+  if (error && typingColumn && isMissingColumn(error)) {
+    typingColumn = false
+    ;({ data, error } = await load(BASE_COLUMNS))
+  }
   if (error) {
     console.warn('[account] load failed', error.message)
     syncedUserId = null
     setAccountState({ syncing: false })
     return
   }
-  const merged = mergeLearningData(exportLearningData(), fromRow(data as Row | null))
+  const merged = mergeLearningData(exportLearningData(), fromRow(data as unknown as Row | null))
   applyingRemote = true
   importLearningData(merged)
   applyingRemote = false

@@ -25,7 +25,7 @@ function sections(locale: Locale, prefix: string): Section[] {
       ] },
       { h: 'ঐচ্ছিক অ্যাকাউন্ট (Google বা GitHub দিয়ে সাইন ইন)', p: [
         <>সাইন ইন করা ঐচ্ছিক। করলে Google বা GitHub আমাদের আপনার নাম, ইমেল ঠিকানা আর প্রোফাইল ছবি দেয়। আমরা আপনার password কখনো দেখি না।</>,
-        <>সাইন ইন করলে আপনার শেখার তথ্য (শেষ করা পাঠ, কুইজের ফল, স্ট্রিক, শেষ পড়া পাঠ আর দেখা ব্যাজ) আর আপনার লাইট/ডার্ক থিমের পছন্দ আমাদের ডেটাবেসে (Supabase) আপনার অ্যাকাউন্টে সেভ হয়, যাতে সব ডিভাইসে মিলে থাকে। এগুলো শুধু আপনিই দেখতে পারেন; নোট আর টুলের সেটিংস ব্রাউজারেই থাকে।</>,
+        <>সাইন ইন করলে আপনার শেখার তথ্য (শেষ করা পাঠ, কুইজের ফল, স্ট্রিক, শেষ পড়া পাঠ, দেখা ব্যাজ আর টাইপিং টেস্টের ফল) আর আপনার লাইট/ডার্ক থিমের পছন্দ আমাদের ডেটাবেসে (Supabase) আপনার অ্যাকাউন্টে সেভ হয়, যাতে সব ডিভাইসে মিলে থাকে। এগুলো শুধু আপনিই দেখতে পারেন; নোট আর অন্য টুলের সেটিংস ব্রাউজারেই থাকে।</>,
         <>এই তথ্য শুধু আপনার অগ্রগতি সেভ রাখতে ব্যবহার হয়। আমরা এটা বিক্রি করি না, বিজ্ঞাপনে ব্যবহার করি না, আর Google Analytics-এর সাথে যুক্ত করি না।</>,
         <>{account('আমার অ্যাকাউন্ট')} পাতা থেকে আপনি যেকোনো সময় অ্যাকাউন্টের তথ্য মুছে ফেলতে বা পুরো অ্যাকাউন্টটাই মুছে ফেলতে পারেন। মুছলে তা আমাদের ডেটাবেস থেকে সঙ্গে সঙ্গে সরে যায়।</>,
       ] },
@@ -62,7 +62,7 @@ function sections(locale: Locale, prefix: string): Section[] {
     ] },
     { h: 'Optional accounts (sign in with Google or GitHub)', p: [
       <>Signing in is optional. If you do, Google or GitHub gives us your name, email address and profile picture. We never see your password.</>,
-      <>When you are signed in, your learning data (lessons completed, quiz results, streak, last lesson read and badges seen) and your light/dark theme choice are saved to your account in our database (Supabase) so it stays in step across your devices. Only you can read it; notes and tool settings stay in your browser.</>,
+      <>When you are signed in, your learning data (lessons completed, quiz results, streak, last lesson read, badges seen and typing test results) and your light/dark theme choice are saved to your account in our database (Supabase) so it stays in step across your devices. Only you can read it; notes and other tools' settings stay in your browser.</>,
       <>We use this data only to keep your progress. We do not sell it, use it for advertising, or link it to Google Analytics.</>,
       <>You can clear your account data, or delete your whole account, at any time from {account('My account')}. Deleting removes it from our database straight away.</>,
     ] },

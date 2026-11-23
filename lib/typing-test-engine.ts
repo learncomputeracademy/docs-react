@@ -5,6 +5,8 @@
 // "average word length" unit typing tests have used for decades, which is
 // why WPM is comparable across tools that all use the same convention.
 
+import { notifyLearningChange } from '@/lib/progress'
+
 export type Mode = 'time' | 'words' | 'quote' | 'zen' | 'custom' | 'weakkeys'
 export type Difficulty = 'normal' | 'expert' | 'master'
 export type CharStatus = 'pending' | 'correct' | 'incorrect' | 'extra'
@@ -151,6 +153,7 @@ export function saveHistoryEntry(entry: HistoryEntry): HistoryEntry[] {
   } catch {
     // localStorage can throw (private mode, quota) — history just won't persist
   }
+  notifyLearningChange() // signed-in learners: saved to the account (lib/account.ts)
   return history
 }
 
@@ -188,6 +191,7 @@ export function recordKeyErrors(errorsByChar: Record<string, number>): Record<st
   } catch {
     // ignore — same as history, this is a nice-to-have, not critical data
   }
+  notifyLearningChange()
   return stats
 }
 
@@ -234,6 +238,7 @@ export function saveLessonResult(lessonId: string, wpm: number, accuracy: number
   } catch {
     // ignore
   }
+  notifyLearningChange()
   return progress
 }
 
@@ -294,4 +299,5 @@ export function saveSettings(settings: TypingTestSettings) {
   } catch {
     // ignore — same as history/progress, a nice-to-have, not critical data
   }
+  notifyLearningChange()
 }

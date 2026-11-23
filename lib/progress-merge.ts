@@ -24,6 +24,33 @@ function mergeStreak(a: LearningData['streak'], b: LearningData['streak']): Lear
   return { ...newer, best: Math.max(a.best, b.best, newer.count) }
 }
 
+type Typing = LearningData['typing']
+
+// Typing test: results from both devices joined (deduplicated, newest 100),
+// best lesson scores kept, weak-key counts take the higher of the two (not a
+// sum: merging runs on every visit, a sum would keep doubling), this
+// device's settings win.
+function mergeTyping(local: Typing, remote: Typing): Typing {
+  const seen = new Set<string>()
+  const history = [...local.history, ...remote.history]
+    .filter((h) => {
+      const k = `${h.date}|${h.mode}|${h.label}|${h.wpm}`
+      if (seen.has(k)) return false
+      seen.add(k)
+      return true
+    })
+    .sort((a, b) => b.date - a.date)
+    .slice(0, 100)
+  const weakKeys: Typing['weakKeys'] = { ...remote.weakKeys }
+  for (const [k, v] of Object.entries(local.weakKeys)) weakKeys[k] = Math.max(weakKeys[k] ?? 0, v)
+  const lessons: Typing['lessons'] = { ...remote.lessons }
+  for (const [k, l] of Object.entries(local.lessons)) {
+    const r = lessons[k]
+    lessons[k] = r ? { completed: l.completed || r.completed, bestWpm: Math.max(l.bestWpm, r.bestWpm), bestAccuracy: Math.max(l.bestAccuracy, r.bestAccuracy) } : l
+  }
+  return { history, weakKeys, lessons, settings: local.settings ?? remote.settings }
+}
+
 export function mergeLearningData(local: LearningData, remote: LearningData): LearningData {
   return {
     completed: [...new Set([...remote.completed, ...local.completed])].sort(),
@@ -33,7 +60,9 @@ export function mergeLearningData(local: LearningData, remote: LearningData): Le
     // just doing, so it wins; fall back to the account's.
     last: local.last ?? remote.last,
     badgesSeen: [...new Set([...remote.badgesSeen, ...local.badgesSeen])].sort(),
+    typing: mergeTyping(local.typing, remote.typing),
   }
 }
 
-export const EMPTY_LEARNING: LearningData = { completed: [], quiz: {}, streak: null, last: null, badgesSeen: [] }
+export const EMPTY_TYPING: LearningData['typing'] = { history: [], weakKeys: {}, lessons: {}, settings: null }
+export const EMPTY_LEARNING: LearningData = { completed: [], quiz: {}, streak: null, last: null, badgesSeen: [], typing: EMPTY_TYPING }

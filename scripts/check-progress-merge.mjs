@@ -37,4 +37,25 @@ assert.deepEqual(merge({ ...E, badgesSeen: ['b'] }, { ...E, badgesSeen: ['a', 'b
 const once = merge({ ...E, completed: ['x'], quiz: { 'k': { best: 1, total: 4, xp: 10 } } }, { ...E, completed: ['y'] })
 assert.deepEqual(merge(once, once), once)
 
+// Typing test: results joined without duplicates, newest first, max 100.
+const h = (date, wpm) => ({ date, mode: 'time', label: '30s', wpm, accuracy: 95, consistency: 80 })
+const ty = (o) => ({ ...E, typing: { history: [], weakKeys: {}, lessons: {}, settings: null, ...o } })
+const m5 = merge(ty({ history: [h(3, 40), h(1, 30)] }), ty({ history: [h(2, 35), h(1, 30)] }))
+assert.deepEqual(m5.typing.history.map((x) => x.date), [3, 2, 1])
+const many = Array.from({ length: 80 }, (_, i) => h(i, 50))
+const many2 = Array.from({ length: 80 }, (_, i) => h(100 + i, 50))
+assert.equal(merge(ty({ history: many }), ty({ history: many2 })).typing.history.length, 100)
+// Weak keys take the higher count, so repeated merges never inflate them.
+const wk = merge(ty({ weakKeys: { e: 5, a: 1 } }), ty({ weakKeys: { e: 3, z: 2 } })).typing.weakKeys
+assert.deepEqual(wk, { e: 5, a: 1, z: 2 })
+assert.deepEqual(merge(ty({ weakKeys: wk }), ty({ weakKeys: wk })).typing.weakKeys, wk)
+// Typing lessons keep the best scores; this device's settings win.
+const tl = merge(
+  ty({ lessons: { l1: { completed: true, bestWpm: 30, bestAccuracy: 99 } }, settings: { sound: false } }),
+  ty({ lessons: { l1: { completed: true, bestWpm: 45, bestAccuracy: 90 }, l2: { completed: true, bestWpm: 20, bestAccuracy: 80 } }, settings: { sound: true } }),
+).typing
+assert.deepEqual(tl.lessons.l1, { completed: true, bestWpm: 45, bestAccuracy: 99 })
+assert.ok(tl.lessons.l2)
+assert.deepEqual(tl.settings, { sound: false })
+
 console.log('progress-merge: all checks passed')

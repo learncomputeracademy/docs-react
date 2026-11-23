@@ -217,13 +217,30 @@ export function clearLearningData() {
 // ── Account sync (lib/account.ts) ───────────────────────────
 // The browser copy stays the working copy; a signed-in learner's row in
 // learner_progress mirrors it. These read/write every learning key at once.
+// The typing test's own browser data (lib/typing-test-engine.ts keys), kept
+// as plain JSON here so this module doesn't depend on the typing engine.
+export type TypingData = {
+  history: { date: number; mode: string; label: string; wpm: number; accuracy: number; consistency: number }[]
+  weakKeys: Record<string, number>
+  lessons: Record<string, { completed: boolean; bestWpm: number; bestAccuracy: number }>
+  settings: Record<string, unknown> | null
+}
+
 export type LearningData = {
   completed: string[]
   quiz: Record<string, QuizResult>
   streak: Streak | null
   last: LastLesson | null
   badgesSeen: string[]
+  typing: TypingData
 }
+
+const TYPING_KEYS = {
+  history: 'typing-test-history-v1',
+  weakKeys: 'typing-test-weak-keys-v1',
+  lessons: 'typing-test-lesson-progress-v1',
+  settings: 'typing-test-settings-v1',
+} as const
 
 function readJson<T>(key: string, fallback: T): T {
   try {
@@ -241,6 +258,12 @@ export function exportLearningData(): LearningData {
     streak: parseStreak(readStreakRaw()),
     last: readJson<LastLesson | null>(LAST_KEY, null),
     badgesSeen: readJson<string[]>('lca-badges-seen-v1', []),
+    typing: {
+      history: readJson<TypingData['history']>(TYPING_KEYS.history, []),
+      weakKeys: readJson<TypingData['weakKeys']>(TYPING_KEYS.weakKeys, {}),
+      lessons: readJson<TypingData['lessons']>(TYPING_KEYS.lessons, {}),
+      settings: readJson<TypingData['settings']>(TYPING_KEYS.settings, null),
+    },
   }
 }
 
@@ -256,7 +279,16 @@ export function importLearningData(d: LearningData) {
   put(STREAK_KEY, d.streak)
   put(LAST_KEY, d.last)
   put('lca-badges-seen-v1', d.badgesSeen)
+  put(TYPING_KEYS.history, d.typing.history)
+  put(TYPING_KEYS.weakKeys, d.typing.weakKeys)
+  put(TYPING_KEYS.lessons, d.typing.lessons)
+  if (d.typing.settings) put(TYPING_KEYS.settings, d.typing.settings)
   cache = null
+  listeners.forEach((l) => l())
+}
+
+// For other stores worth syncing (the typing test) to say "I changed".
+export function notifyLearningChange() {
   listeners.forEach((l) => l())
 }
 
