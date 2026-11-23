@@ -62,7 +62,7 @@ function sections(locale: Locale, prefix: string): Section[] {
     ] },
     { h: 'Optional accounts (sign in with Google or GitHub)', p: [
       <>Signing in is optional. If you do, Google or GitHub gives us your name, email address and profile picture. We never see your password.</>,
-      <>When you are signed in, your learning data (lessons completed, quiz results, streak, last lesson read, badges seen and typing test results) and your light/dark theme choice are saved to your account in our database (Supabase) so it stays in step across your devices. Only you can read it; notes and other tools' settings stay in your browser.</>,
+      <>When you are signed in, your learning data (lessons completed, quiz results, streak, last lesson read, badges seen and typing test results) and your light/dark theme choice are saved to your account in our database (Supabase) so it stays in step across your devices. Only you can read it; notes and other tools&rsquo; settings stay in your browser.</>,
       <>We use this data only to keep your progress. We do not sell it, use it for advertising, or link it to Google Analytics.</>,
       <>You can clear your account data, or delete your whole account, at any time from {account('My account')}. Deleting removes it from our database straight away.</>,
     ] },
