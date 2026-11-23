@@ -9,6 +9,25 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-23 — typing test in accounts, typing section on /progress, GA4 quiz metrics — PUSHED
+
+- **Typing test sync** (`d8c7e2b`): typing history (newest 100), weak keys, lesson results and
+  settings sync with the learner account. Migration `014-learner-typing.sql` (jsonb `typing`
+  column, 100 KB cap) run by the owner; verified, 1 account already holds typing data. The site
+  keeps syncing everything else if the column is ever missing.
+- **/progress typing section** (`components/typing-progress.tsx`): tests taken, best WPM,
+  last-10 averages, typing lessons done, most-missed keys, latest 5 results. Footer note now
+  says "saved to your account" when signed in.
+- **GA4 custom metrics** added in the property: "Quiz score" (`score`) and "Quiz percent"
+  (`percent`), both event scope, from `quiz_complete`. Data appears 24-48 h after new quizzes.
+  Not added: custom dimensions for `lesson` / `result` / `locale` (offered).
+- **Localhost 500 ("_virtual_~icons ... ENOENT" for the footer icons):** stale dev cache, not a
+  code bug. Fix: delete `.next/dev` and `.next/cache`, restart. Probably left by the pre-push
+  build worktree sharing `node_modules`; the pre-push routine now clears both afterwards.
+- Pushed `35ba602` after rebase onto the daily backup; build + secret grep clean; live rebuild
+  took about 13 min, typing section confirmed in the live JS bundle, key pages 200.
+- No-push hold re-applies.
+
 ## 2026-11-21 (night) — learner accounts live: Google + GitHub sign-in (D-144) — PUSHED
 
 **Done (pushed `6002d73..c157e86`)**
