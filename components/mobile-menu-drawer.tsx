@@ -4,12 +4,12 @@ import Link from '@/components/hover-link'
 import { useState } from 'react'
 import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
-import { ArrowRight, BarChart3, ChevronDown, Flame, Keyboard, Languages, Menu, Moon, Search, Sun, X } from 'lucide-react'
+import { ArrowRight, BarChart3, ChevronDown, Keyboard, Languages, Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { t } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { labelFor, itemLinkProps } from '@/components/site-nav'
 import { DOCS_NAV_ID, groupNavChildren } from '@/lib/nav-megamenu'
-import { useContinueTarget, useStreak, useXp } from '@/lib/progress'
+import { useContinueTarget } from '@/lib/progress'
 import type { NavNode } from '@/lib/content'
 import type { Locale } from '@/lib/types'
 
@@ -18,8 +18,8 @@ import type { Locale } from '@/lib/types'
 // Now a full-height sheet from the bottom:
 //   1. language + theme (kept at the top, owner request),
 //   2. quick actions: search, continue learning, my progress, typing test,
-//   3. Docs as group tabs + a 2-column grid of subject tiles (the group of
-//      the page you're on opens first, and that subject is highlighted),
+//   3. Docs: all five groups with every subject (2-column icon rows,
+//      the subject you're on highlighted),
 //   4. every other menu item; ones with children (Tools) fold open on tap.
 const QUICK_URLS = new Set(['/typing-test', '/progress'])
 
@@ -53,13 +53,8 @@ export function MobileMenuDrawer({
   const docs = navItems.find((n) => n.id === DOCS_NAV_ID)
   const docGroups = docs ? groupNavChildren(docs) : null
   const isCurrent = (url: string) => plainPath === url || plainPath.startsWith(`${url}/`)
-  const currentGroup = docGroups?.findIndex((g) => g.items.some((i) => isCurrent(i.url))) ?? -1
-  const [tab, setTab] = useState<number | null>(null)
-  const activeTab = tab ?? Math.max(0, currentGroup)
 
   const target = useContinueTarget()
-  const { count } = useStreak()
-  const xp = useXp()
 
   // The search palette (CommandMenu) opens on Ctrl/Cmd+K; close the sheet
   // first so the two dialogs don't stack.
@@ -127,18 +122,6 @@ export function MobileMenuDrawer({
               <Link href={`${prefix}/progress`} className={quick}>
                 <BarChart3 className="size-4 text-primary" />
                 <span className="min-w-0 flex-1 truncate">{bn ? 'আমার অগ্রগতি' : 'My progress'}</span>
-                {(count >= 2 || xp > 0) && (
-                  <span className="flex items-center gap-0.5 text-xs font-semibold text-orange-500 tabular-nums">
-                    {count >= 2 ? (
-                      <>
-                        <Flame className="size-3.5" />
-                        {count}
-                      </>
-                    ) : (
-                      <span className="text-primary">{xp} XP</span>
-                    )}
-                  </span>
-                )}
               </Link>
               <Link href={`${prefix}/typing-test`} className={quick}>
                 <Keyboard className="size-4 text-primary" />
@@ -146,52 +129,43 @@ export function MobileMenuDrawer({
               </Link>
             </div>
 
-            {/* Docs: group tabs + subject tiles */}
+            {/* Docs: every group and subject at once (2026-11-24: tabs hid
+                four of the five groups), as compact 2-column icon rows. */}
             {docs && docGroups && (
               <section className="mt-6">
                 <Link href={docs.url} {...itemLinkProps(docs.url)} className="flex items-center justify-between">
                   <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">{labelFor(docs, locale)}</h2>
                   <span className="text-xs font-medium text-primary">{bn ? 'সব দেখুন' : 'See all'}</span>
                 </Link>
-                <div className="-mx-4 mt-2 flex gap-1.5 overflow-x-auto px-4 pb-1 [scrollbar-width:none]" role="tablist">
-                  {docGroups.map((g, i) => (
-                    <button
-                      key={g.title}
-                      type="button"
-                      role="tab"
-                      aria-selected={i === activeTab}
-                      onClick={() => setTab(i)}
-                      className={cn(
-                        'flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors',
-                        i === activeTab ? 'border-primary bg-primary text-primary-foreground' : 'bg-card text-muted-foreground',
-                      )}
-                    >
-                      <g.icon className="size-3.5" />
-                      {g.title}
-                    </button>
+                <div className="mt-3 space-y-4">
+                  {docGroups.map((g) => (
+                    <div key={g.title}>
+                      <p className="mb-1.5 flex items-center gap-1.5 text-sm font-semibold">
+                        <g.icon className="size-4 text-primary" />
+                        {g.title}
+                      </p>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {g.items.map((item) => {
+                          const cur = isCurrent(item.url)
+                          return (
+                            <Link
+                              key={item.id}
+                              href={item.url}
+                              {...itemLinkProps(item.url)}
+                              aria-current={cur ? 'page' : undefined}
+                              className={cn(
+                                'flex min-h-11 items-center gap-2 rounded-lg border px-2.5 py-2 text-sm leading-tight transition-colors active:bg-muted',
+                                cur ? 'border-primary/60 bg-primary/10 font-medium text-primary' : 'bg-card',
+                              )}
+                            >
+                              <item.icon className="size-4 shrink-0 text-primary" />
+                              <span className="min-w-0">{labelFor(item, locale)}</span>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </div>
                   ))}
-                </div>
-                <div className="mt-3 grid grid-cols-2 gap-2" role="tabpanel">
-                  {docGroups[activeTab]?.items.map((item) => {
-                    const cur = isCurrent(item.url)
-                    return (
-                      <Link
-                        key={item.id}
-                        href={item.url}
-                        {...itemLinkProps(item.url)}
-                        aria-current={cur ? 'page' : undefined}
-                        className={cn(
-                          'flex min-h-16 flex-col justify-between gap-2 rounded-xl border p-3 transition-colors active:bg-muted',
-                          cur ? 'border-primary/60 bg-primary/10' : 'bg-card',
-                        )}
-                      >
-                        <span className={cn('flex size-8 items-center justify-center rounded-lg', cur ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary')}>
-                          <item.icon className="size-4" />
-                        </span>
-                        <span className="text-sm leading-tight font-medium">{labelFor(item, locale)}</span>
-                      </Link>
-                    )
-                  })}
                 </div>
               </section>
             )}
