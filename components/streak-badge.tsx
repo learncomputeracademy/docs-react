@@ -58,6 +58,36 @@ export function StreakBadge({ locale }: { locale: Locale }) {
   )
 }
 
+// Phones (below sm): streak and XP in one pill, so the header fits on one
+// row (2026-11-24; the separate XP pill used to wrap to "40 / XP"). The
+// separate badges stay mounted (hidden) so the streak toast still fires.
+export function ProgressChip({ locale, className }: { locale: Locale; className?: string }) {
+  const xp = useXp()
+  const { count, best } = useStreak()
+  const s = t(locale)
+  const showStreak = count >= 2
+  if (!xp && !showStreak) return null
+  const title = [showStreak && s.streakTitle(count, best), xp > 0 && s.xpTitle(xp)].filter(Boolean).join(' · ')
+  return (
+    <Link
+      href={locale === 'bn' ? '/bn/progress' : '/progress'}
+      title={title}
+      aria-label={title}
+      className={cn('flex items-center gap-1.5 whitespace-nowrap rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold tabular-nums', className)}
+    >
+      {showStreak && (
+        <span className="flex items-center gap-0.5 text-orange-500">
+          <Flame className={cn('size-3.5', count >= 7 && 'fill-orange-500/30')} aria-hidden />
+          {count}
+        </span>
+      )}
+      {/* Very narrow phones (under 380 px): streak only when there is one. */}
+      {showStreak && xp > 0 && <span className="hidden text-muted-foreground min-[380px]:inline" aria-hidden>·</span>}
+      {xp > 0 && <span className={cn('text-primary', showStreak && 'hidden min-[380px]:inline')}>{xp} XP</span>}
+    </Link>
+  )
+}
+
 // Quiz XP total, shown once any is earned. Compact on phones.
 export function XpBadge({ locale }: { locale: Locale }) {
   const xp = useXp()

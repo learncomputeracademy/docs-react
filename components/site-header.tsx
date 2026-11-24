@@ -14,7 +14,7 @@ import type { NavNode } from '@/lib/content'
 
 // Not loaded until the header itself hydrates and this runs — keeps cmdk +
 // Radix Dialog off the critical-path JS for a page someone's just reading.
-import { StreakBadge, XpBadge } from '@/components/streak-badge'
+import { ProgressChip, StreakBadge, XpBadge } from '@/components/streak-badge'
 import { AccountButton } from '@/components/account-button'
 const CommandMenu = dynamic(() => import('./command-menu').then(m => m.CommandMenu), { ssr: false })
 
@@ -50,8 +50,8 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
   const switchHref = localizedPath(pathname, otherLocale)
 
   return (
-    <header className="sticky top-0 z-10 flex items-center justify-between border-b bg-background/80 backdrop-blur px-6 py-3">
-      <Link href={locale === 'bn' ? '/bn' : '/'} className="flex items-center">
+    <header className="sticky top-0 z-10 flex items-center justify-between gap-2 border-b bg-background/80 backdrop-blur px-4 py-3 sm:px-6">
+      <Link href={locale === 'bn' ? '/bn' : '/'} className="flex shrink-0 items-center">
         {/* Plain <img>, not next/image: the global custom loader is wired for
             Cloudinary delivery URLs specifically, and these already come
             from Cloudinary pre-sized via cldUrl (app/layout.tsx) — a second
@@ -63,16 +63,19 @@ export function SiteHeader({ navItems, logoLightUrl, logoDarkUrl }: { navItems: 
             so a state-driven swap would flash the wrong logo on first
             render; a CSS-only swap can't. */}
         {/* eslint-disable-next-line @next/next/no-img-element -- pre-sized Cloudinary URLs, see comment above */}
-        <img src={logoLightUrl} alt={strings.siteName} width={8588} height={1498} className="block h-8 w-auto dark:hidden" />
+        <img src={logoLightUrl} alt={strings.siteName} width={8588} height={1498} className="block h-6 w-auto min-[400px]:h-7 sm:h-8 dark:hidden" />
         {/* eslint-disable-next-line @next/next/no-img-element -- same as above */}
-        <img src={logoDarkUrl} alt={strings.siteName} width={8723} height={1850} className="hidden h-8 w-auto dark:block" />
+        <img src={logoDarkUrl} alt={strings.siteName} width={8723} height={1850} className="hidden h-6 w-auto min-[400px]:h-7 sm:h-8 dark:block" />
       </Link>
       {/* Admin-editable (D-40/D-43, /admin/menu) — hidden below sm; the same
           items render again inside MobileMenuDrawer for narrow viewports. */}
       <SiteNav navItems={navItems} locale={locale} />
-      <div className="flex items-center gap-2">
-        <XpBadge locale={locale} />
-        <StreakBadge locale={locale} />
+      <div className="flex items-center gap-1.5 sm:gap-2">
+        <ProgressChip locale={locale} className="sm:hidden" />
+        <div className="hidden items-center gap-2 sm:flex">
+          <XpBadge locale={locale} />
+          <StreakBadge locale={locale} />
+        </div>
         <CommandMenu />
         {/* Language + theme: desktop-only here — on mobile they move into
             MobileMenuDrawer (set-once preferences, not worth header space

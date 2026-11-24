@@ -163,8 +163,10 @@ export function LessonPagination({
           top edge doubles as a reading-progress indicator for this lesson. */}
       <nav
         aria-label={browseLessonsLabel}
-        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch border-t border-border/60 bg-background/75 pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_-15px_rgba(0,0,0,0.3)] backdrop-blur-xl backdrop-saturate-150 md:hidden"
+        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch gap-2 border-t bg-background px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-[0_-8px_30px_-15px_rgba(0,0,0,0.35)] md:hidden"
       >
+        {/* Solid bar, Next as the filled main action (2026-11-24: the
+            translucent grey version was hard to see). */}
         <div className="absolute inset-x-0 -top-px h-0.5 bg-border/40" aria-hidden>
           <div className="h-full bg-primary transition-[width] duration-150 ease-out" style={{ width: `${progress * 100}%` }} />
         </div>
@@ -172,41 +174,39 @@ export function LessonPagination({
           type="button"
           onClick={toggleSidebar}
           aria-label={position ? `${browseLessonsLabel} — ${position.index}/${position.total}` : browseLessonsLabel}
-          className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground transition-colors active:bg-accent/60"
+          className="flex min-h-11 w-16 shrink-0 flex-col items-center justify-center gap-0.5 rounded-xl text-foreground transition-colors active:bg-accent"
         >
-          <PanelLeft className="size-4" />
-          <span className="text-[10px] font-semibold leading-none tabular-nums">
+          <PanelLeft className="size-5" />
+          <span className="text-xs font-semibold leading-none tabular-nums">
             {position ? `${position.index}/${position.total}` : browseLessonsLabel}
           </span>
         </button>
-        <div className="w-px shrink-0 bg-border/60" aria-hidden />
         {prev ? (
           <Link
             href={`${prefix}/${prev.path}`}
-            className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground transition-colors active:bg-accent/60"
+            className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl border text-sm font-medium text-foreground transition-colors active:bg-accent"
           >
-            <ArrowLeft className="size-4" />
-            <span className="max-w-full truncate px-2 text-[10px] font-medium leading-none">{previousLabel}</span>
+            <ArrowLeft className="size-4 shrink-0" />
+            <span className="truncate">{previousLabel}</span>
           </Link>
         ) : (
-          <div className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground/30">
-            <ArrowLeft className="size-4" />
-            <span className="text-[10px] font-medium leading-none">{previousLabel}</span>
+          <div className="flex min-h-11 flex-1 items-center justify-center gap-1.5 rounded-xl border border-dashed text-sm font-medium text-muted-foreground/50">
+            <ArrowLeft className="size-4 shrink-0" />
+            <span className="truncate">{previousLabel}</span>
           </div>
         )}
-        <div className="w-px shrink-0 bg-border/60" aria-hidden />
         {next ? (
           <Link
             href={`${prefix}/${next.path}`}
-            className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground transition-colors active:bg-accent/60"
+            className="flex min-h-11 flex-[1.4] items-center justify-center gap-1.5 rounded-xl bg-primary text-sm font-semibold text-primary-foreground shadow-sm transition-transform active:scale-[0.98]"
           >
-            <ArrowRight className="size-4" />
-            <span className="max-w-full truncate px-2 text-[10px] font-medium leading-none">{nextLabel}</span>
+            <span className="truncate">{nextLabel}</span>
+            <ArrowRight className="size-4 shrink-0" />
           </Link>
         ) : (
-          <div className="flex flex-1 flex-col items-center justify-center gap-0.5 py-2.5 text-muted-foreground/30">
-            <ArrowRight className="size-4" />
-            <span className="text-[10px] font-medium leading-none">{nextLabel}</span>
+          <div className="flex min-h-11 flex-[1.4] items-center justify-center gap-1.5 rounded-xl bg-muted text-sm font-medium text-muted-foreground/60">
+            <span className="truncate">{nextLabel}</span>
+            <ArrowRight className="size-4 shrink-0" />
           </div>
         )}
       </nav>
