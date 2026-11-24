@@ -1,7 +1,7 @@
 'use client'
 
 import Link from '@/components/hover-link'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
 import { ArrowRight, BarChart3, ChevronDown, Keyboard, Languages, Menu, Moon, Search, Sun, X } from 'lucide-react'
@@ -56,6 +56,40 @@ export function MobileMenuDrawer({
 
   const target = useContinueTarget()
 
+  // Pull down to close (2026-11-24). Starts on the top area only, so the
+  // list below still scrolls normally. Taps on the buttons there still work:
+  // nothing moves until the finger has travelled a few pixels.
+  const sheetRef = useRef<HTMLDivElement>(null)
+  const drag = useRef<{ y: number; t: number; dy: number } | null>(null)
+  const dragged = useRef(false) // swallow the click that ends a drag
+  const setY = (y: number, animate: boolean) => {
+    const el = sheetRef.current
+    if (!el) return
+    el.style.transition = animate ? 'transform 0.2s ease-out' : 'none'
+    el.style.transform = y ? `translateY(${y}px)` : ''
+  }
+  const onDragStart = (e: React.PointerEvent) => {
+    drag.current = { y: e.clientY, t: Date.now(), dy: 0 }
+    dragged.current = false
+  }
+  const onDragMove = (e: React.PointerEvent) => {
+    const d = drag.current
+    if (!d) return
+    d.dy = Math.max(0, e.clientY - d.y)
+    if (d.dy > 6) setY(d.dy, false)
+  }
+  const onDragEnd = () => {
+    const d = drag.current
+    drag.current = null
+    if (!d || d.dy <= 6) return
+    dragged.current = true
+    const fast = d.dy / Math.max(1, Date.now() - d.t) > 0.5
+    if (d.dy > 120 || (fast && d.dy > 40)) {
+      setY(sheetRef.current?.offsetHeight ?? 800, true)
+      setTimeout(() => setOpen(false), 180)
+    } else setY(0, true)
+  }
+
   // The search palette (CommandMenu) opens on Ctrl/Cmd+K; close the sheet
   // first so the two dialogs don't stack.
   const openSearch = () => {
@@ -77,9 +111,22 @@ export function MobileMenuDrawer({
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="animate-fade-in fixed inset-0 z-50 bg-black/50 backdrop-blur-sm" />
-        <Dialog.Content className="animate-sheet-in-up fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col rounded-t-3xl border-t bg-background shadow-2xl">
-          {/* Grab handle + title + close */}
-          <div className="shrink-0 px-4 pt-2 pb-3">
+        <Dialog.Content ref={sheetRef} className="animate-sheet-in-up fixed inset-x-0 bottom-0 z-50 flex max-h-[92dvh] flex-col rounded-t-3xl border-t bg-background shadow-2xl">
+          {/* Grab handle + title + close; drag this area down to close. */}
+          <div
+            className="shrink-0 touch-none px-4 pt-2 pb-3"
+            onPointerDown={onDragStart}
+            onPointerMove={onDragMove}
+            onPointerUp={onDragEnd}
+            onPointerCancel={onDragEnd}
+            onClickCapture={(e) => {
+              if (dragged.current) {
+                e.preventDefault()
+                e.stopPropagation()
+                dragged.current = false
+              }
+            }}
+          >
             <div className="mx-auto mb-2 h-1 w-10 rounded-full bg-muted-foreground/30" aria-hidden />
             <div className="flex items-center justify-between">
               <Dialog.Title className="text-base font-semibold">{s.menu}</Dialog.Title>
