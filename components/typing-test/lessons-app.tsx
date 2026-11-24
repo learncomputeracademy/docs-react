@@ -169,11 +169,11 @@ function LessonRunner({
               const typed = wi === wordIndex ? currentInput : (typedWords[wi] ?? '')
               const cells = wi <= wordIndex ? wordCells(w, typed) : w.split('').map((c) => ({ char: c, status: 'pending' as const }))
               const caretPos = wi === wordIndex ? currentInput.length : -1
-              const caret = <span className="inline-block h-[1.2em] w-0.5 animate-pulse rounded-full bg-primary align-middle" />
+              const caret = <span className="pointer-events-none absolute top-1/2 -left-[1.5px] h-[1.2em] w-[3px] -translate-y-1/2 rounded-full bg-primary animate-pulse" />
               return (
                 <span key={wi} className={cn('relative', wi === wordIndex && 'rounded bg-primary/5 px-0.5')}>
                   {cells.map((cell, ci) => (
-                    <span key={ci} className="inline-flex items-center">
+                    <span key={ci} className="relative">
                       {ci === caretPos && caret}
                       <span className={cn(
                         cell.status === 'correct' && 'text-foreground',
@@ -183,7 +183,7 @@ function LessonRunner({
                       )}>{cell.char}</span>
                     </span>
                   ))}
-                  {caretPos >= cells.length && caret}
+                  {caretPos >= cells.length && <span className="relative">{caret}</span>}
                 </span>
               )
             })}

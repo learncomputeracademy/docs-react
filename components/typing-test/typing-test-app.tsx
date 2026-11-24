@@ -518,7 +518,9 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                     const caret = (
                       <span
                         className={cn(
-                          'inline-block w-[3px] h-[1.2em] align-middle bg-primary rounded-full',
+                          // Absolutely placed so it never moves the letters (2026-11-24: the
+                          // in-flow version shifted the current word down a few px).
+                          'pointer-events-none absolute top-1/2 -left-[1.5px] h-[1.2em] w-[3px] -translate-y-1/2 rounded-full bg-primary',
                           smoothCaret ? 'transition-all duration-100' : 'animate-pulse'
                         )}
                       />
@@ -533,7 +535,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                         )}
                       >
                         {cells.map((cell, ci) => (
-                          <span key={ci} className="inline-flex items-center">
+                          <span key={ci} className="relative">
                             {ci === caretPos && caret}
                             <span
                               style={
@@ -552,7 +554,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                             </span>
                           </span>
                         ))}
-                        {caretPos >= cells.length && caret}
+                        {caretPos >= cells.length && <span className="relative">{caret}</span>}
                       </span>
                     )
                   })}
