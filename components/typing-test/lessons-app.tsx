@@ -176,10 +176,10 @@ function LessonRunner({
                     <span key={ci} className="relative">
                       {ci === caretPos && caret}
                       <span className={cn(
-                        cell.status === 'correct' && 'text-foreground',
+                        cell.status === 'correct' && 'tt-typed',
                         cell.status === 'incorrect' && 'text-destructive underline decoration-destructive',
                         cell.status === 'extra' && 'text-destructive/70',
-                        cell.status === 'pending' && 'text-muted-foreground/50'
+                        cell.status === 'pending' && 'tt-pending'
                       )}>{cell.char}</span>
                     </span>
                   ))}

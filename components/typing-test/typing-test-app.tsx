@@ -544,10 +544,10 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                                 : undefined
                               }
                               className={cn(
-                                cell.status === 'correct' && !typedColor && 'text-foreground',
+                                cell.status === 'correct' && !typedColor && 'tt-typed',
                                 cell.status === 'incorrect' && 'text-destructive underline decoration-destructive',
                                 cell.status === 'extra' && 'text-destructive/70',
-                                cell.status === 'pending' && !pendingColor && 'text-muted-foreground/50'
+                                cell.status === 'pending' && !pendingColor && 'tt-pending'
                               )}
                             >
                               {cell.char}

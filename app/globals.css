@@ -411,3 +411,10 @@ html {
 *::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+/* Typing test letters (2026-11-24, monkeytype-style): words still to type
+   are dim and tinted with the accent, typed letters are bright with a hint
+   of it, so the typed part clearly stands out. Custom colours in the
+   test's settings still override these. */
+.tt-pending { color: color-mix(in oklab, var(--primary) 40%, var(--muted-foreground)); opacity: 0.75; }
+.tt-typed   { color: color-mix(in oklab, var(--primary) 18%, var(--foreground)); }
