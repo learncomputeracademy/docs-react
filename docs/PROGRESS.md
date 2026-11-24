@@ -31,7 +31,8 @@ for picking up work weeks later.
   URIs (GIS popup only); Authorized domains = `learncomputer.in` only (Supabase domain removed);
   `learncomputer.in` added as a Search Console Domain property and verified; the Search Console
   owner Gmail is Owner of the "LCA Docs" Cloud project. Branding (logo) under Google review.
-  Nothing else pending on Google's side.
+  Nothing else pending on Google's side. **Branding verified 2026-11-24** ("Your branding has been
+  verified and is being shown to users"): sign-in screen now shows the LCA logo and app name.
 - **Page speed (`e7c36e7`):** homepage Lighthouse mobile 44 -> 97-98 on a local `next start`
   build (TBT 3.3 s -> 0.15 s, LCP 7-8.7 s -> 1.4 s); lessons unchanged at 95-97. Live before:
   home 36 mobile / 59 desktop, lesson 83 mobile. Fixes: WebGL effects (ElectricBorder,
