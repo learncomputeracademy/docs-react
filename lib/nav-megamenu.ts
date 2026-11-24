@@ -97,10 +97,11 @@ const TOOLS_GROUPS: GroupDef[] = [
 // only; every other top-level nav item has no children).
 // Exported for the phone menu, which shows Docs as tabs + tiles.
 export const DOCS_NAV_ID = 'bc658b53-8adf-43ff-9d57-df7d0c70ce9c'
+export const TOOLS_NAV_ID = 'dde48d15-effc-4299-8555-c93447cbecf4'
 
 const GROUPS_BY_PARENT_ID: Record<string, GroupDef[]> = {
   [DOCS_NAV_ID]: DOCS_GROUPS, // Docs
-  'dde48d15-effc-4299-8555-c93447cbecf4': TOOLS_GROUPS, // Tools
+  [TOOLS_NAV_ID]: TOOLS_GROUPS, // Tools
 }
 
 export interface MegaItem extends NavItem { icon: LucideIcon; hint: string }

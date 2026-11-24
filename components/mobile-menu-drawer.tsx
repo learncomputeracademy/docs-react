@@ -4,11 +4,11 @@ import Link from '@/components/hover-link'
 import { useRef, useState } from 'react'
 import { usePathname } from 'next/navigation'
 import * as Dialog from '@radix-ui/react-dialog'
-import { ArrowRight, BarChart3, ChevronDown, Keyboard, Languages, Menu, Moon, Search, Sun, X } from 'lucide-react'
+import { ArrowRight, BarChart3, ChevronDown, Keyboard, Wrench, Languages, Menu, Moon, Search, Sun, X } from 'lucide-react'
 import { t } from '@/lib/i18n'
 import { cn } from '@/lib/utils'
 import { labelFor, itemLinkProps } from '@/components/site-nav'
-import { DOCS_NAV_ID, groupNavChildren } from '@/lib/nav-megamenu'
+import { DOCS_NAV_ID, TOOLS_NAV_ID, groupNavChildren } from '@/lib/nav-megamenu'
 import { useContinueTarget } from '@/lib/progress'
 import type { NavNode } from '@/lib/content'
 import type { Locale } from '@/lib/types'
@@ -20,7 +20,9 @@ import type { Locale } from '@/lib/types'
 //   2. quick actions: search, continue learning, my progress, typing test,
 //   3. Docs: all five groups with every subject (2-column icon rows,
 //      the subject you're on highlighted),
-//   4. every other menu item; ones with children (Tools) fold open on tap.
+//   4. Tools: every group as a row, tools fold open on tap (also a quick
+//      action at the top, so phone visitors find it),
+//   5. every other menu item.
 const QUICK_URLS = new Set(['/typing-test', '/progress'])
 
 export function MobileMenuDrawer({
@@ -52,6 +54,8 @@ export function MobileMenuDrawer({
 
   const docs = navItems.find((n) => n.id === DOCS_NAV_ID)
   const docGroups = docs ? groupNavChildren(docs) : null
+  const tools = navItems.find((n) => n.id === TOOLS_NAV_ID)
+  const toolGroups = tools ? groupNavChildren(tools) : null
   const isCurrent = (url: string) => plainPath === url || plainPath.startsWith(`${url}/`)
 
   const target = useContinueTarget()
@@ -97,7 +101,7 @@ export function MobileMenuDrawer({
     setTimeout(() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', ctrlKey: true, bubbles: true })), 50)
   }
 
-  const quick = 'flex min-h-12 items-center gap-2.5 rounded-xl border bg-card px-3 text-sm font-medium transition-colors active:bg-muted'
+  const quick = 'flex min-h-16 flex-col items-center justify-center gap-1.5 rounded-xl border bg-card px-1 text-center text-xs font-medium transition-colors active:bg-muted'
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -165,15 +169,21 @@ export function MobileMenuDrawer({
                 <ArrowRight className="size-4 shrink-0" />
               </Link>
             )}
-            <div className="mt-2 grid grid-cols-2 gap-2">
+            <div className="mt-2 grid grid-cols-3 gap-2">
               <Link href={`${prefix}/progress`} className={quick}>
-                <BarChart3 className="size-4 text-primary" />
-                <span className="min-w-0 flex-1 truncate">{bn ? 'আমার অগ্রগতি' : 'My progress'}</span>
+                <BarChart3 className="size-5 text-primary" />
+                <span className="leading-tight">{bn ? 'আমার অগ্রগতি' : 'My progress'}</span>
               </Link>
               <Link href={`${prefix}/typing-test`} className={quick}>
-                <Keyboard className="size-4 text-primary" />
-                <span className="truncate">{bn ? 'টাইপিং টেস্ট' : 'Typing test'}</span>
+                <Keyboard className="size-5 text-primary" />
+                <span className="leading-tight">{bn ? 'টাইপিং টেস্ট' : 'Typing test'}</span>
               </Link>
+              {tools && (
+                <Link href={tools.url} {...itemLinkProps(tools.url)} className={quick}>
+                  <Wrench className="size-5 text-primary" />
+                  <span className="leading-tight">{labelFor(tools, locale)}</span>
+                </Link>
+              )}
             </div>
 
             {/* Docs: every group and subject at once (2026-11-24: tabs hid
@@ -217,11 +227,56 @@ export function MobileMenuDrawer({
               </section>
             )}
 
+            {/* Tools: every group visible, its tools fold open on tap. The
+                group holding the page you're on starts open. */}
+            {tools && toolGroups && (
+              <section className="mt-6">
+                <Link href={tools.url} {...itemLinkProps(tools.url)} className="flex items-center justify-between">
+                  <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">{labelFor(tools, locale)}</h2>
+                  <span className="text-xs font-medium text-primary">{bn ? 'সব দেখুন' : 'See all'}</span>
+                </Link>
+                <div className="mt-3 space-y-1.5">
+                  {toolGroups.map((g) => (
+                    <details key={g.title} open={g.items.some((i) => isCurrent(i.url)) || undefined} className="group rounded-xl border bg-card">
+                      <summary className="flex min-h-12 cursor-pointer list-none items-center gap-2.5 px-3 text-sm font-medium [&::-webkit-details-marker]:hidden">
+                        <span className="flex size-7 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                          <g.icon className="size-4" />
+                        </span>
+                        <span className="flex-1">{g.title}</span>
+                        <span className="text-xs text-muted-foreground tabular-nums">{g.items.length}</span>
+                        <ChevronDown className="size-4 text-muted-foreground transition-transform group-open:rotate-180" />
+                      </summary>
+                      <div className="grid grid-cols-2 gap-1.5 border-t p-2">
+                        {g.items.map((item) => {
+                          const cur = isCurrent(item.url)
+                          return (
+                            <Link
+                              key={item.id}
+                              href={item.url}
+                              {...itemLinkProps(item.url)}
+                              aria-current={cur ? 'page' : undefined}
+                              className={cn(
+                                'flex min-h-11 items-center gap-2 rounded-lg px-2 py-2 text-sm leading-tight active:bg-muted',
+                                cur ? 'bg-primary/10 font-medium text-primary' : 'text-foreground',
+                              )}
+                            >
+                              <item.icon className="size-4 shrink-0 text-primary" />
+                              <span className="min-w-0">{labelFor(item, locale)}</span>
+                            </Link>
+                          )
+                        })}
+                      </div>
+                    </details>
+                  ))}
+                </div>
+              </section>
+            )}
+
             {/* Everything else */}
             <nav className="mt-6 flex flex-col gap-1.5 text-sm">
               {navItems
-                // Docs and the quick-action pages are already shown above.
-                .filter((n) => n.id !== DOCS_NAV_ID && !QUICK_URLS.has(n.url))
+                // Docs, Tools and the quick-action pages are already shown above.
+                .filter((n) => n.id !== DOCS_NAV_ID && n.id !== TOOLS_NAV_ID && !QUICK_URLS.has(n.url))
                 .map((node) => {
                   const groups = groupNavChildren(node)
                   if (node.children.length === 0) {
