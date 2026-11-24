@@ -95,8 +95,11 @@ const TOOLS_GROUPS: GroupDef[] = [
 
 // Keyed by nav_items.id (verified live 2026-08-19 — Docs/Tools parent rows
 // only; every other top-level nav item has no children).
+// Exported for the phone menu, which shows Docs as tabs + tiles.
+export const DOCS_NAV_ID = 'bc658b53-8adf-43ff-9d57-df7d0c70ce9c'
+
 const GROUPS_BY_PARENT_ID: Record<string, GroupDef[]> = {
-  'bc658b53-8adf-43ff-9d57-df7d0c70ce9c': DOCS_GROUPS, // Docs
+  [DOCS_NAV_ID]: DOCS_GROUPS, // Docs
   'dde48d15-effc-4299-8555-c93447cbecf4': TOOLS_GROUPS, // Tools
 }
 
