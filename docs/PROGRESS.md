@@ -9,6 +9,24 @@ for picking up work weeks later.
 
 ---
 
+## 2026-11-27 — dead-code cleanup (local only, not committed or pushed)
+
+- **Impeccable direction contract** removed from `app/layout.tsx`. It was a ~1 KB HTML comment
+  rendered into `<body>` on every page (via `dangerouslySetInnerHTML` in an empty `<div>`), only
+  needed for the 2026-09-05 finish review. The text now lives in `DESIGN.md` → "Direction Contract".
+- **Deleted, zero references anywhere (scripts included):** `components/magic/dot-grid-background.tsx`
+  and its `.backup.tsx` copy (the rejected 5th hero-background attempt), `getCategories()` and
+  `getCategoryDocs()` in `lib/content.ts`, `DEFAULT_LENGTH_CONTEXT` in `lib/units.ts`,
+  `BASE_PREFIX` in `lib/number-system.ts`. `tsc --noEmit` and eslint clean.
+- **Checked and kept:** method was `npx knip@5` + a grep for references. `scripts/*.mjs` are
+  one-off CLI scripts (knip flags them, but they are the content record). `gray-matter`, `nanoid`, `sharp` are
+  used by scripts; `@iconify/json` + `@svgr/*` by `unplugin-icons`. `public/BingSiteAuth.xml`
+  and the IndexNow key `.txt` are verification files. ~58 "unused exports" are values used
+  inside their own file, so the `export` keyword is the only waste (no bundle cost).
+  `vercel.json` only matters on Vercel; kept for the documented rollback.
+
+---
+
 ## 2026-11-23 — typing test in accounts, typing section on /progress, GA4 quiz metrics — PUSHED
 
 - **Typing test sync** (`d8c7e2b`): typing history (newest 100), weak keys, lesson results and
