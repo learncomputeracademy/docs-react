@@ -10,8 +10,6 @@
 export type Base = 2 | 8 | 10 | 16
 export const BASES: Base[] = [2, 8, 10, 16]
 export const BASE_LABEL: Record<Base, string> = { 2: 'Binary', 8: 'Octal', 10: 'Decimal', 16: 'Hexadecimal' }
-export const BASE_PREFIX: Record<Base, string> = { 2: '0b', 8: '0o', 10: '', 16: '0x' }
-
 export type WordSize = 0 | 4 | 8 | 16 // 0 = no fixed padding
 export const WORD_SIZES: WordSize[] = [0, 4, 8, 16]
 

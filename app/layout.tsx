@@ -64,32 +64,6 @@ const headScript = `
 })();
 `;
 
-// Impeccable direction contract (new-work.md §5) — a real HTML comment
-// (not a JSX {/* */} comment, which compiles away and never reaches the
-// DOM), first child of <body> in the root layout, auditable in the built
-// output. State the chosen direction once here; the finish review checks
-// the shipped render against it.
-const DIRECTION_CONTRACT = `<!--
-THESIS: A learning platform's homepage should read as engineered software,
-not a funnel — refuses ambient decorative chrome (dot-grid, blur blob,
-auto-shimmer, unmotivated border-beams) and the soft illustrated-education
-opposite.
-OWN-WORLD: reactbits.dev neutrals (purple-tinted near-black #120f17 /
-white), one brand-orange accent, Geist Sans/Mono, list-based subject index,
-GradientWaves hero cycling color presets (D-139) plus AnimatedCode.
-STORY: A first-time bilingual visitor sees a structured, complete
-curriculum (467 lessons/18 subjects, real numbers) organized like real
-documentation, trusts it because the interface itself behaves competently,
-picks a starting group.
-FIRST VIEWPORT: Two-column hero — headline/CTA/trust microcopy left, live
-AnimatedCode panel right, visible at every width (mobile: stacked); no
-eyebrow badge, no ambient background decoration.
-FORM: Canon — Linear + Raycast tier, user-pinned (2026-08-06 design
-critique + redesign session); no concept roll, brief-pinned direction.
-FINISH: unreviewed and undocumented is unfinished; this build ends with
-the finish review, the verdict, and DESIGN.md.
--->`;
-
 // async — fetches the header nav once here (cached, graceful-empty on
 // failure) rather than in SiteChrome/SiteHeader, since both stay client
 // components (SiteChrome needs usePathname() to hide the header on
@@ -119,10 +93,6 @@ export default async function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: headScript }} />
       </head>
       <body className="min-h-full flex flex-col">
-        {/* Renders DIRECTION_CONTRACT (defined above) as a real HTML
-            comment — a plain JSX comment compiles away and never reaches
-            the DOM, so it wouldn't survive the build or be auditable. */}
-        <div dangerouslySetInnerHTML={{ __html: DIRECTION_CONTRACT }} />
         {/* Site-wide, not per-page — same on every route, so one script
             here beats repeating it in every generateMetadata. */}
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLdScript(organizationJsonLd()) }} />

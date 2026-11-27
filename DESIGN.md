@@ -96,6 +96,17 @@ The system explicitly rejects ambient decorative chrome: no dot-grid or blur-blo
 - Exactly one ambient motion moment sitewide: the hero's live-typing code panel
 - One consistent icon-badge treatment regardless of whether the icon is a real brand logo or a Lucide outline glyph
 
+### Direction Contract
+
+The direction chosen for the 2026-09-05 homepage redesign (`02dfb7b`), which the finish review checked the shipped render against. It used to ship as an HTML comment in `<body>` from `app/layout.tsx`. It moved here on 2026-11-27 because every visitor downloaded it on every page. The lesson and subject counts are from September 2026.
+
+- **Thesis:** A learning platform's homepage should read as engineered software, not a funnel. It refuses ambient decorative chrome (dot-grid, blur blob, auto-shimmer, unmotivated border-beams) and the opposite extreme, soft illustrated-education imagery.
+- **Own world:** reactbits.dev neutrals (purple-tinted near-black `#120f17` / white), one brand-orange accent, Geist Sans/Mono, a list-based subject index, and a GradientWaves hero cycling color presets (D-139) plus AnimatedCode.
+- **Story:** A first-time bilingual visitor sees a structured, complete curriculum (467 lessons/18 subjects, real numbers) organized like real documentation, trusts it because the interface itself behaves competently, and picks a starting group.
+- **First viewport:** Two-column hero with headline, CTA and trust microcopy on the left and a live AnimatedCode panel on the right, visible at every width (stacked on mobile). No eyebrow badge, no ambient background decoration.
+- **Form:** Canon, Linear + Raycast tier, pinned by the user (2026-08-06 design critique + redesign session). No concept roll; the brief pinned the direction.
+- **Finish:** Unreviewed and undocumented is unfinished. The build ended with the finish review, the verdict, and this file.
+
 ## Colors
 
 A committed, not drenched, palette: one brand accent against a pure neutral gray/black/white scale, tuned separately for light and dark mode rather than inverted mechanically.

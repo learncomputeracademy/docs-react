@@ -123,16 +123,6 @@ export const getNavItems = cache(function getNavItems(): Promise<NavNode[]> {
   )()
 })
 
-export async function getCategories(): Promise<Category[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase
-    .from('categories')
-    .select('*, docs(count)')
-    .order('sort_order')
-  if (error) throw error
-  return (data as Category[]) ?? []
-}
-
 export type SidebarDoc = Pick<Doc, 'slug' | 'path' | 'title' | 'sort_order'>
 export type SidebarCategory = Omit<Category, 'docs'> & { docs: SidebarDoc[] }
 
@@ -274,18 +264,6 @@ export async function getAdjacentDocs(path: string, locale: Locale = 'en'): Prom
     next: i < flat.length - 1 ? { path: flat[i + 1].path, title: flat[i + 1].title } : null,
     position,
   }
-}
-
-export async function getCategoryDocs(categorySlug: string): Promise<Doc[]> {
-  const supabase = createPublicClient()
-  const { data, error } = await supabase
-    .from('docs')
-    .select('id, slug, path, title, sort_order, category:categories(slug, title)')
-    .eq('status', 'published')
-    .eq('categories.slug', categorySlug)
-    .order('sort_order')
-  if (error) throw error
-  return (data as unknown as Doc[]) ?? []
 }
 
 export type LocalizedDoc = Doc & { isTranslated: boolean }

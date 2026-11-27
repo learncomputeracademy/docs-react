@@ -50,17 +50,6 @@ export type LengthContext = {
   chPx: number        // real measured width of "0" in the current font → ch
 }
 
-export const DEFAULT_LENGTH_CONTEXT: LengthContext = {
-  rootPx: 16,
-  elementPx: 16,
-  parentWidthPx: 800,
-  viewportW: 1440,
-  viewportH: 900,
-  containerW: 400,
-  containerH: 300,
-  chPx: 8,
-}
-
 export function lengthToPx(value: number, unit: LengthUnit, ctx: LengthContext): number {
   switch (unit) {
     case 'px': return value
