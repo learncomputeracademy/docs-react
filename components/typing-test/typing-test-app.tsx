@@ -451,7 +451,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
       )}
 
       {(config.mode !== 'custom' || customStarted) && (
-        <div className="mx-auto mt-8 max-w-4xl">
+        <div className="mx-auto mt-8 max-w-6xl">
           {!isZen && status !== 'finished' && (
             <div className="mb-3 flex items-center justify-center gap-4 font-mono text-sm text-muted-foreground">
               <span className="text-lg font-semibold text-primary">{config.mode === 'time' ? elapsedDisplay : `${wordIndex}/${words.length}`} {config.mode === 'time' ? s.timeLive : s.wordsLive}</span>
@@ -473,7 +473,7 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                 aria-label="typing input"
               />
               {isZen ? (
-                <p style={{ fontSize, color: typedColor ?? undefined }} className={cn('min-h-32 whitespace-pre-wrap break-words font-mono leading-relaxed', smoothCaret && 'transition-all')}>
+                <p style={{ fontSize, color: typedColor ?? undefined }} className={cn('min-h-32 whitespace-pre-wrap break-words font-mono leading-[1.75]', smoothCaret && 'transition-all')}>
                   {currentInput}
                   <span className="animate-pulse border-l-2 border-primary" />
                 </p>
@@ -496,15 +496,14 @@ export function TypingTestApp({ locale }: { locale: Locale }) {
                 <div
                   ref={textContainerRef}
                   style={{
-                    maxHeight: fontSize * 1.625 * 5.5,
+                    maxHeight: (fontSize * 1.75 + 6) * 5.5, // line-height 1.75 + gap-y-1.5
                     WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
                     maskImage: 'linear-gradient(to bottom, black 0%, black 70%, transparent 100%)',
                   }}
                   className="overflow-hidden"
                 >
-                <p style={{ fontSize }} className="flex flex-wrap gap-x-[0.5ch] gap-y-1.5 font-mono leading-relaxed">
+                <p style={{ fontSize }} className="flex flex-wrap gap-x-[0.6ch] gap-y-1.5 font-mono leading-[1.75]">
                   {words.map((w, wi) => {
-                    if (wi < wordIndex - 3 && config.mode === 'time') return null // trim far-scrolled-past words for perf
                     const typed = wi === wordIndex ? currentInput : (typedWords[wi] ?? '')
                     const cells = wi <= wordIndex ? wordCells(w, typed) : w.split('').map((c) => ({ char: c, status: 'pending' as CharStatus }))
                     // The caret sits at the boundary between typed and

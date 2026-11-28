@@ -302,7 +302,7 @@ export type TypingTestSettings = {
 }
 
 export const DEFAULT_SETTINGS: TypingTestSettings = {
-  soundOn: false, smoothCaret: true, fontSize: 20, focusMode: false, pendingColor: null, typedColor: null, accent: 'orange',
+  soundOn: false, smoothCaret: true, fontSize: 28, focusMode: false, pendingColor: null, typedColor: null, accent: 'orange',
 }
 
 // Accent theme presets — same recipe as the site's own `--primary` token in
@@ -328,7 +328,11 @@ export function loadSettings(): TypingTestSettings {
   try {
     const raw = window.localStorage.getItem(SETTINGS_KEY)
     if (!raw) return DEFAULT_SETTINGS
-    return { ...DEFAULT_SETTINGS, ...JSON.parse(raw) }
+    const saved = JSON.parse(raw)
+    // 20 was the old default and saveSettings stores every field, so a saved 20 almost
+    // always means "never changed it" — move those visitors to the new default.
+    if (saved.fontSize === 20) delete saved.fontSize
+    return { ...DEFAULT_SETTINGS, ...saved }
   } catch {
     return DEFAULT_SETTINGS
   }
